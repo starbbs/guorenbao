@@ -85,6 +85,7 @@ require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident'], 
 				var product = data.data.product; // 产品信息
 				if (order.status === 'PROCESSING') {
 					router.go('/');
+					// 刷新数据
 					vm.productDesc = product.productDesc;
 					vm.money = order.orderMoney;
 					vm.gopPrice = data.data.gopPrice;
@@ -102,6 +103,7 @@ require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident'], 
 						vm.bankSelect = $.extend({}, vm.bankList.$model[vm.bankIndex]);
 						vm.bankid = vm.bankSelect.id;
 					}
+					// 打开页面
 					setTimeout(function() {
 						main.addClass('on');
 					}, 200);
