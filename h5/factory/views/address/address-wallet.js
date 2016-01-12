@@ -39,11 +39,11 @@ define('h5-view-address-wallet', ['router', 'api','h5-view','check','h5-alert','
         },
         walletAddress_save_click:function(){//添加钱包地址
             if(check.empty(vm.walletAddress)){
-                $.alert('请输入果仁市场地址!');
+                $.alert('请输入钱包地址!');
                 return false;
             }
             if(vm.walletAddress.indexOf('GOP')<0){
-                $.alert('果仁市场地址格式错误!');
+                $.alert('钱包地址格式错误!');
                 return false;
             }
             api.walletAdd({
