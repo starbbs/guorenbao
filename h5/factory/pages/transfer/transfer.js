@@ -504,6 +504,9 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 	        		if (item.address) {
 	        			item.address=item.address;
 	        		}; 
+	        		if (!item.address) {
+	        			item.address=item.phone;
+	        		};
 	        		vm.list.push(item);	   				
 	        	}
 	        	
