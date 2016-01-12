@@ -1,0 +1,13 @@
+<div class="dialog-bankcard" ms-controller="dialog-bankcard">
+	<div class="dialog-bankcard-box">
+		<div class="dialog-close" ms-click="close"></div>
+		<div class="dialog-head">选择银行卡</div>
+		<div class="dialog-bankcard-item" ms-repeat-item="list" ms-class="check:$index==index" ms-click="check($index)">
+			<div class="bank" ms-class="{{item.lang}}"></div>
+			<div class="dialog-bankcard-name">{{item.name}}储蓄卡({{item.tail}})</div>
+		</div>
+		<div class="dialog-bankcard-item add">
+			<div class="dialog-bankcard-name" ms-click="add">添加银行卡</div>
+		</div>
+	</div>
+</div>

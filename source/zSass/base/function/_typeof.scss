@@ -1,0 +1,108 @@
+@charset "utf-8";
+
+
+// 张树垚 2014-12-06 15:25:19 创建
+// 判断类型的一堆函数
+
+
+
+// 判断是否是数字
+@function isNumber($arg) {
+	@return type-of($arg) == "number";
+}
+
+
+
+// 判断是否是字符串
+@function isString($arg) {
+	@return type-of($arg) == "string";
+}
+
+
+
+// 判断是否是list
+@function isList($arg) {
+	@return type-of($arg) == "list";
+}
+
+
+
+// 判断是否是map
+@function isMap($arg) {
+	@return type-of($arg) == "map";
+}
+
+
+
+// 判断是否是boolean
+@function isBool($arg) {
+	@return type-of($arg) == "bool";
+}
+@function isBoolean($arg) {
+	@return isBool($arg);
+}
+
+
+
+// 判断是否是null
+@function isNull($arg) {
+	@return type-of($arg) == "null";
+}
+
+
+
+// 判断是否是arglist
+@function isArglist($arg) {
+	@return type-of($arg) == "arglist";
+}
+
+
+
+// 判断是否是函数
+@function isFunction($arg) {
+	@return function-exists($arg);
+}
+
+
+
+// 判断是否是mixin
+@function isMixin($arg) {
+	@return mixin-exists($arg);
+}
+
+
+
+// 判断是否是单位
+	// return:
+		// null -- 没有单位
+		// true -- 是单位
+		// false -- 不是单位
+@function isUnit($arg) {
+	@if $arg == "" {
+		@return null;
+	}
+	$unit-list: "%", "px", "pt", "em", "rem", "deg", "s", "ms", "cm", "mm";
+	@return if(index($unit-list,$arg),true,false);
+}
+
+
+
+// 判断是否是选择器
+@function isSelector($arg) {
+	// 不会判断
+	@return isList($arg);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

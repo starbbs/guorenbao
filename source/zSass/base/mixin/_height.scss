@@ -1,0 +1,37 @@
+@charset "utf-8";
+
+// 张树垚 2014-10-25 15:56:42 创建
+
+// 宽高样式
+
+
+@mixin square($width, $height: $width) { // 宽 = 高
+	width: $width;
+	height: $height;
+}
+
+@mixin height($height, $line-height: $height) { // 高 = 行高
+	height: $height;
+	line-height: $line-height;
+}
+
+@mixin full($arg: null) { // 宽高100%，或者一个是100%
+	$arg: if(isNull(null), "null", unquote($arg));
+	$x: width w x;
+	$y: height h y;
+	@if type-of($arg) == "null" {
+		height: 100%;
+		width: 100%;
+	} @else {
+		@each $set in $x {
+			@if $arg == $set {
+				width: 100%;
+			}
+		}
+		@each $set in $y {
+			@if $arg == $set {
+				height: 100%;
+			}
+		}
+	}
+}

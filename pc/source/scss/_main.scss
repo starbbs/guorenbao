@@ -1,0 +1,33 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-02 10:25:18 创建
+// pc scss main
+// 包括:
+// 1. zSass 基本库
+// 2. config 全局变量设置
+// 3. base 基础文件
+// 4. color 颜色字体文件
+// 5. reset 重置文件
+// 6. 一些scss组件
+
+
+@import '../../../source/zSass/main';
+
+@import 'config-pc';
+@import 'color';
+@import 'base';
+@import 'reset';
+@import 'container';
+
+@import 'button/button';
+@import 'checkbox/checkbox';
+@import 'icon/icon';
+@import 'input/input';
+@import 'radio/radio';
+@import 'tips/tips';
+
+
+
+
+

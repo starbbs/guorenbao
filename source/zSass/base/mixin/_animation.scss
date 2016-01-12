@@ -1,0 +1,190 @@
+@charset "utf-8";
+
+// 张树垚 2014-12-08 17:10:24 创建
+// keyframes和animation一起写了。
+
+
+
+// keyframes
+// --------------------------------------------------------
+	@mixin keyframes($name, $prefix-list: $prefix-global) {
+		// @if $name == "help" {
+		// 	@warn '\a
+		// 		参照compass\a
+		// 		$name(string): 框架名称\a
+		// 		$prefix-list(list): 前缀名称组\a
+		// 	';
+		// }
+		@at-root (without: media) {;
+			@each $str in $prefix-list {
+				@if $str == "webkit" {
+					@-webkit-keyframes #{$name} {
+						@content;
+					}
+				}
+				@if $str == "moz" {
+					@-moz-keyframes #{$name} {
+						@content;
+					}
+				}
+				@if $str == "ms" {
+					@-ms-keyframes #{$name} {
+						@content;
+					}
+				}
+				@if $str == "o" {
+					@-o-keyframes #{$name} {
+						@content;
+					}
+				}
+				@if $str == "w3c" {
+					@keyframes #{$name} {
+						@content;
+					}
+				}
+			}
+		}
+	}
+// --------------------------------------------------------
+
+
+
+// animation -- 单个样式
+// --------------------------------------------------------
+	@mixin animation-name($value) { // 名称(aniname)
+		@include prefix(animation-name, $value);
+	}
+
+	@mixin animation-duration($value) { // 运动时间(anitime)
+		@include prefix(animation-duration, $value);
+	}
+
+	@mixin animation-timing-function($value) { // 运动方式(anitype)
+		@include prefix(animation-timing-function, $value);
+	}
+
+	@mixin animation-iteration-count($value) { // 运动次数(anicount)
+		// infinite
+		@include prefix(animation-iteration-count, $value);
+	}
+
+	@mixin animation-fill-mode($value) { // 运动结束后状态(aniend)
+		// none 不用动画状态（默认）
+		// forwards 到最后定住
+		// backwards 到最后回到一开始
+		// both 开始或结束
+		@include prefix(animation-fill-mode, $value);
+	}
+
+	@mixin animation-delay($value) { // 延迟(anidelay)
+		@include prefix(animation-delay, $value);
+	}
+
+	@mixin animation-direction($value) { // 运动返回(anidirection)
+		// normal: 正常运动（默认）
+		// alternate: 原路返回
+		@include prefix(animation-direction, $value);
+	}
+
+	@mixin animation-play-state($value) { // 运动状态(anipause)
+		// running: 运动（默认）
+		// paused: 暂停
+		@if $value == true {
+			$value: "paused";
+		}
+		@include prefix(animation-play-state, $value);
+	}
+// --------------------------------------------------------
+
+
+
+// animation -- 简写样式
+// --------------------------------------------------------
+	@mixin aniname($value) {
+		@include animation-name($value);
+	}
+
+	@mixin anitime($value) {
+		@include animation-duration($value);
+	}
+
+	@mixin anitype($value) {
+		@include animation-timing-function($value);
+	}
+
+	@mixin anicount($value) {
+		@include animation-iteration-count($value);
+	}
+
+	@mixin aniend($value) {
+		@include animation-fill-mode($value);
+	}
+
+	@mixin anidelay($value) {
+		@include animation-delay($value);
+	}
+
+	@mixin anidirection($value) {
+		@include animation-direction($value);
+	}
+
+	@mixin anipause($value: paused) {
+		@include animation-play-state($value);
+	}
+// --------------------------------------------------------
+
+
+
+// animation -- 复合样式
+// --------------------------------------------------------
+	@mixin cubic-bezier($p0: 0, $p1: 0, $p2: 1, $p3: 1) {
+		@include animation-timing-function(cubic-bezier($p0, $p1, $p2, $p3));
+	}
+	@mixin animation($name, $options...) { // 组合animation
+		// @if $name == "help" {
+		// 	@warn '
+		// 		$name: 动画名称
+		// 		$options: 参数
+		// 		传参形式: 1. @include animation(color);
+		// 				 2. @include animation(color .3s ease);
+		// 				 3. @include animation(color, .3s, ease);
+		// 				 4. @include animation(color, .3s ease);
+		// 				 5. @include animation(color, .3s ease, forwards);
+		// 		输出都是一串空格间隔的字符串
+		// 	';
+		// }
+		$set: null;
+		$default: $name .5s ease;
+		$length: length($options);
+		@if isList($name) { // "test .3s ease"这种
+			$set: $name;
+		} @else {
+			@if $length == 0 { // 没给options
+				$set: $default;
+			} @else if $length == 1 { // 有可能是aniframe传来的，也有可能是$options是个list
+				$options: nth($options, 1);
+				$set: if(length($options) == 0, $default, $name spaceList($options));
+			} @else { // 正常传参，带逗号的
+				$set: $name spaceList($options);
+			}
+		}
+		@include prefix(animation, #{$set});
+	}
+	@mixin aniframe($name, $options...) {
+		@include animation($name, $options);
+		@include keyframes($name) {
+			@content;
+		}
+	}
+	@mixin aniframe2($options...) {
+		$name: str-slice(& + "", 2);
+		@include aniframe($name, $options) {
+			@content;
+		}
+	}
+// --------------------------------------------------------
+
+
+
+
+

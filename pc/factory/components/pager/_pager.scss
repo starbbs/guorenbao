@@ -1,0 +1,35 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-10-19 11:40:06 创建
+// 页标
+
+
+.pager {
+	$height: 20px;
+	float: right;
+	color: $g-dark;
+	font-size: 12px;
+	@include height($height);
+	&-prev { // 上一页
+		@extend .blue-point;
+		margin-right: 1.5em;
+	}
+	&-total { // 总条数
+
+	}
+	&-now { // 当前页数
+		@include input($width: $height, $padding: 0, $height: $height, $reset: true);
+		text-align: center;
+	}
+	&-num { // 总页数
+
+	}
+	&-next { // 下一页
+		@extend .blue-point;
+		margin-left: 1em;
+	}
+}
+
+
+

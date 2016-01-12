@@ -1,0 +1,84 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-11-18 14:52:27 创建
+// 登录框
+
+
+.dialog-login {
+
+	$img: $g-components + '/dialog-login';
+
+	@extend .dialog-style;
+	width: 240px;
+	padding-bottom: 40px;
+	line-height: 30px;
+
+	&-title {
+		margin-top: 20px;
+		font-size: 16px;
+	}
+
+	&-error {
+		margin-top: 20px;
+		&:before {
+			content: '';
+			@include inline-block(middle);
+			@include square(14px);
+			@include relative(-2px);
+			margin-right: 10px;
+			background-image: url($img + '/1.png');
+		}
+	}
+
+	&-line {
+		margin-top: 20px;
+		overflow: hidden;
+	}
+
+	&-left {
+		float: left;
+		width: 35px;
+	}
+
+	&-right {
+		float: right;
+	}
+
+	&-person {
+		@include inline-block(middle);
+		@include square(15px, 17px);
+		@include relative(-2px);
+		background-image: url($img + '/2.png');
+	}
+
+	&-lock {
+		@include inline-block(middle);
+		@include square(14px, 18px);
+		@include relative(-2px);
+		background-image: url($img + '/3.png');
+	}
+
+	&-input {
+		@include input(204px, 10px);
+	}
+
+	&-button {
+		margin-top: 36px;
+		@extend %button-blue-block;
+	}
+
+	&-tip {
+		margin-top: 4px;
+		overflow: hidden;
+		&-left {
+			float: left;
+		}
+		&-right {
+			float: right;
+		}
+	}
+}
+
+
+

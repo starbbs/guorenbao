@@ -1,0 +1,251 @@
+@charset "utf-8";
+
+// 张树垚 2015-06-01 00:42:46 创建
+// attention_seekers
+
+
+
+// 1. bounce 反弹
+@mixin animate_bounce(
+	$time: 1s,				// 时间
+	$delay: 0s,				// 延迟
+	$y: -4px,				// 位移
+	$name: "bounce",		// 名称
+	$origin: center bottom 	// 中心点
+) {
+	@include transform-origin($origin);
+	@include aniframe($name, $time both $delay) {
+		0%, 20%, 53%, 80%, 100% {
+			@include cubic-bezier(0.215, 0.610, 0.355, 1.000);
+			@include t3d(0, 0, 0);
+		}
+		40%, 43% {
+			@include cubic-bezier(0.755, 0.050, 0.855, 0.060);
+			@include t3d(0, $y * 7.5, 0);
+		}
+		70% {
+			@include cubic-bezier(0.755, 0.050, 0.855, 0.060);
+			@include t3d(0, $y * 3.75, 0);
+		}
+		90% {
+			@include t3d(0, $y, 0);
+		}
+	}
+}
+
+
+
+// 2. flash 闪烁
+@mixin animate_flash(
+	$time: 1s,			// 时间
+	$delay: 0s,			// 延迟
+	$name: "flash"		// 名称
+) {
+	@include aniframe($name, $time both $delay) {
+		0%, 50%, 100% {
+			opacity: 1;
+		}
+		25%, 75% {
+			opacity: 0;
+		}
+	}
+}
+
+
+
+// 3. jello 果冻
+@mixin animate_jello(
+	$time: 1s,			// 时间
+	$delay: 0s,			// 延迟
+	$deg: -12.5deg,		// 角度
+	$name: "jello",		// 名称
+	$origin: center 	// 中心
+) {
+	@include transform-origin($origin);
+	@include aniframe($name, $time both $delay) {
+		0%, 11.1%, 100% {
+			@include transform(none);
+		}
+		$pre: -1;
+		@for $i from 2 through 8 {
+			$pre: $pre * -1;
+			#{11.1% * $i} {
+				$num: $pre * $deg / math_pow(2, ($i - 2));
+				@include transform(skewX($num) skewY($num));
+			}
+		}
+	}
+}
+
+
+
+// 4. pulse 脉冲
+@mixin animate_pulse(
+	$time: 1s,			// 时间
+	$delay: 0s,			// 延迟
+	$size: 1.05,		// 尺寸
+	$name: "pulse"		// 名称
+) {
+	@include aniframe($name, $time both $delay) {
+		0%, 100% {
+			@include scale3d(1, 1, 1);
+		}
+		50% {
+			@include scale3d($size, $size, $size);
+		}
+	}
+}
+
+
+
+// 5. rubberBand 橡皮筋
+@mixin animate_rubberBand(
+	$time: 1s,			// 时间
+	$delay: 0s,			// 延迟
+	$size: 0.1,			// 尺寸 (0, 0.4]
+	$name: "rubberBand" // 名称
+) {
+	@include aniframe($name, $time both $delay) {
+		0%, 100% {
+			@include scale3d(1, 1, 1);
+		}
+		30% {
+			@include scale3d(1 + $size * 2.5, 1 - $size * 2.5);
+		}
+		40% {
+			@include scale3d(1 - $size * 2.5, 1 + $size * 2.5);
+		}
+		50% {
+			@include scale3d(1 + $size * 1.5, 1 - $size * 1.5);
+		}
+		65% {
+			@include scale3d(1 - $size * 0.5, 1 + $size * 0.5);
+		}
+		75% {
+			@include scale3d(1 + $size * 0.5, 1 - $size * 0.5);
+		}
+	}
+}
+
+
+
+// 6. shake
+@mixin animate_shake(
+	$time: 1s,			// 时间
+	$delay: 0s,			// 延迟
+	$x: -10px,			// x
+	$y: 0,				// y
+	$z: 0,				// z
+	$name: "shake"		// 名称
+) {
+	@include aniframe($name, $time both $delay) {
+		0%, 100% {
+			@include t3d(0, 0, 0);
+		}
+		10%, 30%, 50%, 70%, 90% {
+			@include t3d($x, $y, $z);
+		}
+		20%, 40%, 60%, 80% {
+			@include t3d(- $x, $y, $z);
+		}
+	}
+}
+
+
+
+// 7. swing
+@mixin animate_swing(
+	$time: 1s,				// 时间
+	$delay: 0s,				// 延迟
+	$deg: 5deg,				// 角度
+	$name: "swing",			// 名称
+	$origin: top center 	// 中心
+) {
+	@include transform-origin($origin);
+	@include aniframe($name, $time both $delay) {
+		0%, 100% {
+			@include rotate3d(0, 0, 1, $deg * 0);
+		}
+		20% {
+			@include rotate3d(0, 0, 1, $deg * 3);
+		}
+		40% {
+			@include rotate3d(0, 0, 1, $deg * -2);
+		}
+		60% {
+			@include rotate3d(0, 0, 1, $deg * 1);
+		}
+		80% {
+			@include rotate3d(0, 0, 1, $deg * -1);
+		}
+	};
+}
+
+
+
+// 8. tada
+@mixin animate_tada(
+	$time: 1s, 			// 时间
+	$delay: 0s,			// 延迟
+	$size: 0.1,			// 尺寸
+	$deg: 3deg,			// 角度
+	$name: "tada"		// 名称
+) {
+	@include aniframe($name, $time both $delay) {
+		0%, 100% {
+			@include transform(scale3d(1, 1, 1) rotate3d(0, 0, 1, $deg  * 0));
+		}
+		10%, 20% {
+			@include transform(scale3d(1 - $size, 1 - $size, 1 - $size) rotate3d(0, 0, 1, $deg * -1));
+		}
+		30%, 50%, 70%, 90% {
+			@include transform(scale3d(1 + $size, 1 + $size, 1 + $size) rotate3d(0, 0, 1, $deg * 1));
+		}
+		40%, 60%, 80% {
+			@include transform(scale3d(1 + $size, 1 + $size, 1 + $size) rotate3d(0, 0, 1, $deg * -1));
+		}
+	}
+}
+
+
+
+// 9. wobble
+@mixin animate_wobble(
+	$time: 1s,
+	$delay: 0s,
+	$x: 5%,
+	$deg: 1deg,
+	$name: "wobble"
+) {
+	@include aniframe($name, $time both $delay) {
+		0% {
+			@include transform(none);
+		}
+		15% {
+			@include transform(translate3d($x * -5, 0, 0) rotate3d(0, 0, 1, $deg * -5));
+		}
+		30% {
+			@include transform(translate3d($x * 4, 0, 0) rotate3d(0, 0, 1, $deg * 3));
+		}
+		45% {
+			@include transform(translate3d($x * -3, 0, 0) rotate3d(0, 0, 1, $deg * -3));
+		}
+		60% {
+			@include transform(translate3d($x * 2, 0, 0) rotate3d(0, 0, 1, $deg * 2));
+		}
+		75% {
+			@include transform(translate3d($x * -1, 0, 0) rotate3d(0, 0, 1, $deg * -1));
+		}
+		100% {
+			@include transform(none);
+		}
+	}
+}
+
+
+
+
+
+
+
+

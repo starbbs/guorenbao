@@ -1,0 +1,67 @@
+@charset "utf-8";
+
+
+// 张树垚 2015-06-05 11:08:51 创建
+// 数学函数
+
+
+
+// sass原生方法
+// abs -- 绝对值
+	// abs(10px) => 10px
+	// abs(-10px) => 10px
+
+// ceil -- 进一
+	// ceil(10.4px) => 11px
+	// ceil(10.6px) => 11px
+
+// floor -- 去尾
+	// floor(10.4px) => 10px
+	// floor(10.6px) => 10px
+
+// max -- 最大值
+	// max(1px, 4px) => 4px
+	// max(5em, 3em, 4em) => 5em
+
+// min -- 最小值
+	// min(1px, 4px) => 1px
+	// min(5em, 3em, 4em) => 3em
+
+// random -- 随机数, 区间[0,1)
+
+// round -- 四舍五入
+	// round(10.4px) => 10px
+	// round(10.6px) => 11px
+
+
+
+// 1. 平方(整幂次)
+@function math_pow(
+	$bath,		// 根
+	$num: 1		// 次数
+) {
+	@if $num == 0 {
+		@return 1;
+	} @else if $num == 1 {
+		@return $bath;
+	} @else {
+		$res: $bath;
+		@for $i from 2 through $num {
+			$res: $res * $bath
+		}
+		@return $res;
+	}
+}
+
+
+
+// 2. 矩阵
+@function cubic-bezier($p0: 0, $p1: 0, $p2: 1, $p3: 1) {
+	@return #{"cubic-bezier(" + $p0 + "," + $p1 + "," + $p2 + "," + $p3 + ")"};
+}
+
+
+
+
+
+

@@ -1,0 +1,80 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-18 13:56:39 创建
+// H5微信端 --- 注册页面
+
+
+@import '../../../source/scss/main';
+
+@import '../../views/view';
+
+@import '../../dialogs/dialog';
+
+
+.regist {
+
+	$img: $g-pages + '/regist/images';
+	$border: 1px solid $g-light;
+
+	@extend %afull;
+
+	&-title {
+		$title: & + '';
+		font-size: $g-font-super;
+		margin-top: 40px;
+		text-align: center;
+		&2 {
+			@extend #{$title};
+			font-size: $g-font-big;
+		}
+		&-tip {
+			text-align: center;
+			margin-top: 10px;
+			font-size: $g-font-normal;
+		}
+	}
+	&-main {
+		margin-top: 40px;
+		&-item {
+			display: flex;
+			margin-left: $g-margin;
+			padding-right: $g-margin;
+			&:first-child {
+				border-bottom: $border;
+			}
+		}
+		&-left {
+			flex: 1;
+			border-bottom: $border;
+		}
+		&-right {
+			width: 110px;
+			margin-right: - $g-margin;
+			text-align: center;
+			line-height: $g-input-height;
+		}
+	}
+	&-button {
+		margin: $g-margin-top-button $g-margin 0;
+	}
+	&-foot {
+		@include ablw(20px);
+		line-height: 1.5em;
+		text-align: center;
+		color: $g-gray;
+	}
+
+	&-password {
+		@extend .view-style;
+		background-color: $g-white;
+	}
+	&-paypass {
+		@extend .view-style;
+		background-color: $g-white;
+		&-box {
+			margin-top: 40px;
+		}
+	}
+}
+

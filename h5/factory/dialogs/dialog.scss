@@ -1,0 +1,80 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-17 18:14:32 创建
+// H5微信 --- 浮层样式
+
+
+.dialog {
+	$img: $g-dialogs;
+	@extend %ffull;
+	z-index: $g-index-dialog;
+	display: none;
+	&.on {
+		display: block;
+	}
+	&-style { // 背景和显示
+		@extend %afull;
+		overflow: hidden;
+		background-color: $g-dialog;
+		opacity: 0;
+		display: none;
+		&.on {
+			display: block;
+		}
+		&.show {
+			transition: .4s;
+			opacity: 1;
+		}
+		&.show-immediately {
+			opacity: 1;
+		}
+		&.hide {
+			transition: .4s;
+			opacity: 0;
+		}
+		&.hide-immediately {
+			opacity: 0;
+		}
+	}
+	&-box { // alert, confirm的小窗口
+		width: 270px;
+		@include atl(35%, 50%);
+		@include t3d(-50%, -50%, 0);
+		background-color: $g-white;
+		text-align: center;
+		border-radius: $g-radius-alert;
+		overflow: hidden;
+		font-size: 16px;
+		line-height: 30px;
+	}
+	&-main { // alert, confirm的内容部分
+		padding: 25px 30px 20px;
+	}
+	&-button { // alert, confirm的按钮部分
+		border-top: 1px solid #999;
+		font-size: $g-font-input;
+		line-height: 44px;
+		display: flex;
+	}
+	&-bottom { // bankcard, paypass的主体
+		@include ablw;
+		overflow-x: hidden;
+		overflow-y: auto;
+		background-color: $g-background;
+		box-sizing: border-box;
+		padding: 0 $g-padding;
+	}
+	&-head { // bankcard, paypass的头部
+		text-align: center;
+		@include height(46px);
+		border-bottom: $g-border;
+		font-size: 16px;
+	}
+	&-close { // bankcard, paypass的关闭
+		display: block;
+		@include sprite($img + '/close.png', 15px);
+		@include atl(17px, 18px);
+		z-index: 2;
+	}
+}

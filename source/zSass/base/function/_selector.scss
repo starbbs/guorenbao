@@ -1,0 +1,62 @@
+@charset "utf-8";
+
+
+// 张树垚 2014-12-08 15:33:15 创建
+// 选择器相关函数
+
+
+
+// sass原装函数
+// 1.selector-append -- 合并，多个参数，交集
+	// selector-append(".foo", ".bar", ".baz") => .foo.bar.baz
+	// selector-append(".a .foo", ".b .bar") => "a .foo.b .bar"
+	// selector-append(".foo", "-suffix") => ".foo-suffix"
+
+
+
+// 2.selector-extend -- 一个复杂的替换，感觉第二个比较有用
+	// selector-extend(".a .b", ".b", ".foo .bar") => .a .b, .a .foo .bar, .foo .a .bar
+
+
+
+// 3.selector-nest -- 合并，带空格的，并集
+	// selector-nest(".foo", ".bar", ".baz") => .foo .bar .baz
+	// selector-nest(".a .foo", ".b .bar") => .a .foo .b .bar
+	// selector-nest(".foo", "&.bar") => .foo.bar
+
+
+
+// 4.selector-parse -- 拆分
+	// selector-parse(".foo .bar, .baz .bang") => ('.foo' '.bar', '.baz' '.bang')
+
+
+
+// 5.selector-replace -- 替换，这个顶用
+	// selector-replace(".foo .bar", ".bar", ".baz") => ".foo .baz"
+	// selector-replace(".foo.bar.baz", ".foo.baz", ".qux") => ".bar.qux"
+
+
+
+// 6. selector-unify -- 联合
+	// selector-unify(".a", ".b") => .a.b
+	// selector-unify(".a .b", ".x .y") => .a .x .b.y, .x .a .b.y
+	// selector-unify(".a.b", ".b.c") => .a.b.c
+	// selector-unify("#a", "#b") => null
+
+
+
+// 7. is-superselector -- 是否属于
+	// is-superselector(".foo", ".foo.bar") => true
+	// is-superselector(".foo.bar", ".foo") => false
+	// is-superselector(".bar", ".foo .bar") => true
+	// is-superselector(".foo .bar", ".bar") => false
+
+
+
+// 8. simple-selectors -- 拆分
+	// simple-selectors(".foo.bar") => ".foo", ".bar"
+	// simple-selectors(".foo.bar.baz") => ".foo", ".bar", ".baz"
+
+
+
+

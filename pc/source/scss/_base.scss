@@ -1,0 +1,188 @@
+@charset "utf-8";
+
+
+// 张树垚 2015-06-19 15:07:00 创建
+// base 基本样式, 页面通用
+
+
+// 试用function
+@function place($se) { // .abc => %abc (要用#{})
+	@return str-replace(str-replace($se + "", " ", ""), ".", "%");
+}
+@function line-center($line-height, $self-height: $line-height) {
+	// 竖直居中高度计算
+	// (行高 - 图片高度) / 2
+	@return ($line-height - $self-height) / 2;
+}
+
+
+// 试用mixin
+@mixin abl($bottom: 0, $left: 0) {
+	position: absolute;
+	bottom: $bottom;
+	left: $left;
+}
+@mixin y_middle_top($parent_height, $img_height) {
+	height: $img_height;
+	top: ($parent_height - $img_height) / 2;
+}
+@mixin y_middle_mtop($parent_height, $img_height) {
+	height: $img_height;
+	margin-top: ($parent_height - $img_height) / 2;
+}
+@mixin fl_m($margin: null) {
+	float: left;
+	margin: $margin;
+}
+@mixin fl_ml($margin-left: null) {
+	float: left;
+	margin-left: $margin-left;
+}
+@mixin fl_mlr($left: null, $right: null) {
+	float: left;
+	margin-left: $left;
+	margin-right: $right;
+}
+@mixin fl_mtl($top: null, $left: null) {
+	float: left;
+	margin-top: $top;
+	margin-left: $left;
+}
+@mixin fr_mr($margin-right: null) {
+	float: right;
+	margin-right: $margin-right;
+}
+@mixin with_border($height, $border-width: 1px, $border-color: #000, $border-radius: null) {
+	height: $height - $border-width * 2;
+	border: $border-width solid $border-color;
+	border-radius: $border-radius;
+}
+
+
+// 通用占位符
+%rh {
+	@include relative("h");
+}
+%box {
+	width: $g_width;
+	margin: auto;
+	position: relative;
+}
+
+
+
+// 容器
+html, body {
+	@include full;
+	overflow: hidden;
+}
+body {
+	font: $g-font;
+	overflow: hidden;
+	position: relative;
+	cursor: default;
+	color: #333;
+	-webkit-font-smoothing: antialiased; // 抗锯齿
+	-moz-osx-font-smoothing: grayscale; // 抗锯齿
+}
+::selection {
+	background-color: $g_gray;
+	color: #fff;
+}
+.wrap {
+	@include relative("wh");
+	margin-top: $g_top_h;
+	overflow: auto;
+}
+
+
+// 标签
+.img {
+	position: relative;
+	display: block;
+	&-w {
+		@extend .img;
+		width: 100%;
+	}
+	&-h {
+		@extend .img;
+		height: 100%;
+	}
+}
+
+
+// 工具样式
+.fl { float: left; }
+.fr { float: right; }
+.clearfix { // 清浮动
+	zoom: 1;
+	&:after {
+		content: "";
+		display: block;
+		height: 0;
+		clear: both;
+		visibility: hidden;
+	}
+}
+// .x-full-center { // 横轴占满并(纵向)居中
+// 	width: 100%;
+// 	top: 50%;
+// 	@include y(-50%);
+// }
+// .y-full-center {
+// 	height: 100%;
+// 	left: 50%;
+// 	@include x(-50%);
+// }
+
+.tab { // 切换的横条
+	$border-radius: 4px;
+	&-border {
+		float: left;
+		width: 64px;
+		box-sizing: border-box;
+		border: 1px solid transparent;
+		background-color: #eeeeee;
+		color: $g-silver;
+		text-align: center;
+		white-space: nowrap;
+		cursor: pointer;
+		&:first-child {
+			border-top-left-radius: $border-radius;
+			border-bottom-left-radius: $border-radius;
+		}
+		&:last-child {
+			border-top-right-radius: $border-radius;
+			border-bottom-right-radius: $border-radius;
+		}
+		&.on {
+			background-color: #fff;
+			color: $g-dark;
+			border-color: $g-silver;
+			padding: 0 22px;
+			cursor: default;
+		}
+	}
+}
+
+
+
+// 特殊mixin
+@mixin bank($img, $list, $width: null) { // 生成各个银行
+	@each $name, $w, $h in $list {
+		&-#{$name}, &.#{$name} {
+			@include inline-block(middle);
+			@include square($w, $h);
+			background-image: url($img + '/' + $name + '.png');
+			@if isNull($width) == false {
+				margin: 0 ($width - $w) / 2;
+			}
+		}
+	}
+}
+
+
+
+
+
+

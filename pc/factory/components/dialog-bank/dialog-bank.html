@@ -1,0 +1,12 @@
+<div class="dialog-bank" ms-controller="dialog-bank">
+	<div class="dialog-title">选择银行</div>
+	<div class="dialog-close"></div>
+	<!-- <div class="dialog-bank-city">
+		<div class="dialog-bank-city-select">北京市</div>
+		<div class="dialog-bank-city-word">开户银行</div>
+	</div> -->
+	<div class="dialog-bank-list">
+		<div class="dialog-bank-item" ms-repeat-item="list" ms-class="on:now==$index" ms-click="click($event,$index,item)"><div ms-class="{{item.className}}"></div></div>
+	</div>
+	<div class="dialog-bank-button" ms-click="next">下一步</div>
+</div>

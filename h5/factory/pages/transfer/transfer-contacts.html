@@ -1,0 +1,22 @@
+<div class="transfer-contacts" ms-controller="transfer-contacts">
+    	<form class="contacts-search" action="javascript:;" ms-on-submit="submit">
+			<div class="contacts-search-icon" ms-visible="!search" >搜索</div>
+			<input type="search" class="contacts-search-input" ms-duplex="search">
+		</form>
+		<div class="contacts-list" ms-click="listClick($event)">
+			<div class="contacts-block" ms-repeat-group="list">
+				<div class="contacts-title">{{group.name}}</div>
+				<div class="contacts-content">
+					<div class="contacts-item" ms-repeat-item="group.list" ms-data-path="$outer.$index+'/'+$index">
+						<div class="contacts-item-left">
+							<div class="contacts-item-img"><img ms-attr-src="item.picture||'./images/index-2.jpg'" alt="" class="img-w"></div>
+						</div>
+						<div class="contacts-item-right">
+							<div class="contacts-item-name">{{item.name}}</div>
+							<div class="contacts-item-phone">{{item.phone}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>

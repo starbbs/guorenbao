@@ -1,0 +1,39 @@
+<div class="purchase-bill" ms-controller="purchase-bill">
+	<div class="bill-box last">
+		<div class="bill-head" ms-class="{{headClass}}">{{headContent}}</div>
+		<div class="bill-get" ms-visible="gopNum">
+			<div class="bill-get-number">+{{gopNum.toFixed(2)}}</div>
+			<div class="bill-get-label">获得果仁(G)</div>
+		</div>
+		<div class="bill-reason" ms-visible="failReason">
+			<div class="fl">失败原因</div>
+			<div class="fr red">{{failReason}}</div>
+		</div>
+		<div class="bill-money">
+			<div class="fl">{{status=='FAILURE'?'订单金额':'支付金额'}} (¥)</div>
+			<div class="fr dark font-num">-{{money.toFixed(2)}}</div>
+		</div>
+		<div class="bill-detail-item">
+			<div class="fl">成交价 (¥)</div>
+			<div class="fr blue font-num">{{price.toFixed(2)}}</div>
+		</div>
+		<div class="bill-detail-item">
+			<div class="fl">收款方</div>
+			<div class="fr dark">北京果仁宝科技有限公司</div>
+		</div>
+		<div class="bill-detail-item">
+			<div class="fl">创建时间</div>
+			<div class="fr dark">{{createTime}}</div>
+		</div>
+		<div class="bill-detail-item" ms-visible="orderId">
+			<div class="fl">订单号</div>
+			<div class="fr">{{orderId}}</div>
+		</div>
+		<div class="bill-detail-item" ms-visible="flowId">
+			<div class="fl">流水号</div>
+			<div class="fr">{{flowId}}</div>
+		</div>
+	</div>
+	<div class="text-button" ms-if="status!='FAILURE'"><span class="button">完成</span></div>
+	<div class="text-button" ms-if="status=='FAILURE'"><span class="button">重新支付</span></div>
+</div>

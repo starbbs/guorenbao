@@ -1,0 +1,40 @@
+@charset "utf-8";
+
+
+// 张树垚 2015-12-03 11:21:22 创建
+// 临时页面 点卡
+
+
+// 引入
+@import '../../../source/scss/main';
+
+@import '../../components/top/top';
+@import '../../components/header/header';
+@import '../../components/footer/footer';
+
+@import '../../components/dialog/dialog';
+
+
+
+.gamecards {
+	@extend .clearfix;
+	min-height: 600px;
+	padding-top: 80px;
+	&-item {
+		float: left;
+		margin-left: 65px;
+		margin-bottom: 40px;
+		border: 1px solid $g-silver;
+		img {
+			display: block;
+		}
+	}
+}
+
+
+
+
+
+
+
+

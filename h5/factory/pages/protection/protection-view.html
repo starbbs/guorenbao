@@ -1,0 +1,33 @@
+<div class="protection-view protection-view-@@step">
+    <div class="text-tip-top">密保问题一旦设置将不可更改，请牢记</div>
+	<div class="block">
+		<div class="block-item">
+			<label class="text" for="protection-selection-@@step">
+				<div class="text-label">问题@@step</div>
+				<div class="text-box">
+					<select id="protection-selection-@@step" name="protection-selection-@@step" class="text-input" autocomplete="off" ms-duplex="question@@step">
+						<option value="">请选择密保问题@@step</option>
+						<option value="我最喜欢的歌是什么？">我最喜欢的歌是什么？</option>
+						<option value="我爷爷的名字是什么？">我爷爷的名字是什么？</option>
+						<option value="我最喜欢的宠物名字是什么？">我最喜欢的宠物名字是什么？</option>
+						<option value="我最喜欢的明星是谁？">我最喜欢的明星是谁？</option>
+						<option value="我奶奶的名字是什么？">我奶奶的名字是什么？</option>
+						<option value="我的高中班主任的名字是什么？">我的高中班主任的名字是什么？</option>
+						<option value="我的初中班主任的名字是什么？">我的初中班主任的名字是什么？</option>
+						<option value="我最好的朋友叫什么名字？">我最好的朋友叫什么名字？</option>
+					</select>
+				</div>
+			</label>
+		</div>
+	</div>
+	<div class="block">
+		<div class="block-item">
+			<label class="text" for="regist-password-mobile">
+				<div class="text-label">答案</div>
+				<div class="text-box"><input id="protection-answer-@@step" name="protection-answer-@@step" class="text-input" autocomplete="off" placeholder="请输入答案" type="text" maxlength="20" data-text="close" ms-duplex="answer@@step"></div>
+				<div class="text-close"></div>
+			</label>
+		</div>
+	</div>
+	<div class="text-button"><span class="button" ms-click="selection_@@step_click">@@if(step==1){下一步}@@if(step==2){确定}</span></div>
+</div>

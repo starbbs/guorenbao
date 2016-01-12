@@ -1,0 +1,21 @@
+@charset 'utf-8';
+
+
+// 张树垚 2016-01-07 16:01:30 创建
+// H5微信端 --- dialog-confirm
+
+
+.dialog-confirm {
+	@extend .dialog-style;
+	&-cancel {
+		float: left;
+		width: 50%;
+		border-right: 1px solid #999;
+		margin-right: -1px;
+	}
+	&-button {
+		float: left;
+		width: 50%;
+		color: $g-blue;
+	}
+}

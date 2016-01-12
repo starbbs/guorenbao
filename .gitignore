@@ -1,0 +1,6 @@
+**/.svn
+**/.sass-cache
+**/node_modules
+**/.zip
+h5/build
+h5/public

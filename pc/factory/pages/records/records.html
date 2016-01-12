@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	@@include('../../../source/include/head.html', {
+		"name": "records"
+	})
+
+<body>
+
+	@@include('../../../source/include/forIE.html')
+
+	<div class="wrap" ms-controller="records">
+
+		@@include('../../components/top/top.html', {
+			"login": false,
+			"logout": true
+		})
+
+		@@include('../../components/header/header.html', {
+			"title": false,
+			"nav": "records"
+		})
+
+		<div class="container2">
+			<div class="container-box">
+
+				<div class="records">
+					<div class="records-head">
+						<div class="records-head-select">
+							<span class="records-head-select-name">交易分类：</span>
+							<span class="records-head-select-item" ms-class="on:(type==''||type==0)">全部</span>
+							<span class="records-head-select-item" ms-class="on:type==1">买入</span>
+							<span class="records-head-select-item" ms-class="on:type==2">转账</span>
+						</div>
+						<div class="records-head-select">
+							<span class="records-head-select-name">交易状态：</span>
+							<span class="records-head-select-item" ms-class="on:status==''">全部</span>
+							<span class="records-head-select-item" ms-class="on:status=='success'">交易成功</span>
+							<span class="records-head-select-item" ms-class="on:status=='failed'">交易失败</span>
+							<span class="records-head-select-item" ms-class="on:(status=='waitForPay'||status=='processing')">进行中</span>
+							<span class="records-head-select-item" ms-class="on:status=='closed'">已关闭</span>
+						</div>
+						<div class="records-head-time">
+							<span class="records-head-time-name">日期：</span>
+							<input type="text" class="records-head-time-input" ms-duplex="beginTime">
+							<span class="records-head-time-separate">-</span>
+							<input type="text" class="records-head-time-input" ms-duplex="endTime">
+						</div>
+					</div>
+					<div class="records-table">
+						<div class="records-page">
+							<a href="#" class="blue-a tdn" ms-if="pageNum>1">上一页</a>
+							<span>共{{count}}条，</span>
+							<input type="text" class="records-page-input" ms-duplex="pageNum">
+							<span>/ {{page}}</span>
+							<a href="#" class="blue-a tdn" ms-if="pageNum<page">下一页</a>
+						</div>
+						<div class="records-table-thead">
+							<div class="records-table-td1">时间</div>
+							<div class="records-table-td2">信息｜交易号</div>
+							<div class="records-table-td3">对方</div>
+							<div class="records-table-td4">金额变化</div>
+							<div class="records-table-td5">换算交易额</div>
+							<div class="records-table-td6">状态</div>
+							<div class="records-table-td7">操作</div>
+						</div>
+						<div class="records-table-tr" ms-repeat-item="list">
+							<div class="records-table-td1">
+								<div class="gray">{{item.time.substring(0,10)}}</div>
+								<div class="silver">{{item.time.substring(11,19)}}</div>
+							</div>
+							<div class="records-table-td2">
+								<div class="">{{item.message}}</div>
+								<div class="silver">交易号：{{item.number}}</div>
+							</div>
+							<div class="records-table-td3">
+								<div class="">{{item.opponent}}</div>
+							</div>
+							<div class="records-table-td4 bold" ms-class="{{color(status,moneyChange)}}">
+								<div class="silver">{{item.moneyChange|sign}} {{item.moneyChange|abs|currency(' ')}} G</div>
+							</div>
+							<div class="records-table-td5">
+								<div class="">{{item.reducedTurnover|abs|currency(' ')}} ￥</div>
+							</div>
+							<div class="records-table-td6">
+								<div class="">{{item.status|status}}</div>
+							</div>
+							<div class="records-table-td7">
+								<div ms-if-loop="true"><a ms-attr-href="{{'#!/detail/'+item.number}}" class="blue-a tdn">详情</a></div>
+								<div ms-if-loop="false" class="records-table-td-list">
+									<div class="records-table-td-list-item">付款</div>
+									<div class="records-table-td-list-item">详情</div>
+									<div class="records-table-td-list-item">关闭</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="records-detail" ms-controller="records-detail">
+						<div class="records-detail-title">
+							交易详情
+							<div class="records-detail-back"><a href="#!/detail/0" class="dark-a tdn"><i class="icon-arrow-left"></i>返回我的记录</a></div>
+						</div>
+						<div class="records-detail-word">
+							<div class="records-detail-word-state success">{{status|status}}</div>
+							<div class="records-detail-word-time">{{time.substring(0,19)}}</div>
+							<div class="records-detail-word-action">{{message}}</div>
+							<div class="records-detail-word-trader">{{merchants}}</div>
+						</div>
+						<div class="records-detail-table">
+							<div class="records-detail-thead">
+								<div class="records-detail-td1">信息 | 交易号</div>
+								<div class="records-detail-td2">金额变化</div>
+								<div class="records-detail-td3">果仁当前市价(￥)</div>
+								<div class="records-detail-td4">换算交易额(￥)</div>
+								<div class="records-detail-td5">服务费(￥)</div>
+							</div>
+							<div class="records-detail-tr">
+								<div class="records-detail-td1 records-detail-double">
+									提现
+									<div class="gray">交易号：{{number}}</div>
+								</div>
+								<div class="records-detail-td2 bold" ms-class="{{color(status,moneyChange)}}">{{moneyChange|sign}} {{moneyChange|abs|currency(' ')}} G</div>
+								<div class="records-detail-td3 bold">{{gopPrice|currency(' ')}}</div>
+								<div class="records-detail-td4">{{reducedTurnover|currency(' ')}}</div>
+								<div class="records-detail-td5 gray">0.00</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				@@include('../../components/footer/footer.html')
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+
+
+
+
+

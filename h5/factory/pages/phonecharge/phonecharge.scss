@@ -1,0 +1,126 @@
+@charset 'utf-8';
+
+
+// 张树垚 2016-01-09 12:54:11 创建
+// H5微信端 --- 手机充值
+
+
+@import '../../../source/scss/main';
+
+// @import '../../views/view';
+
+// @import '../../dialogs/dialog';
+
+
+body {
+	background-color: $g-background;
+}
+
+
+.phonecharge {
+	$img: $g-pages + '/phonecharge/images';
+	@extend %fade-in;
+	padding-bottom: $g-padding-bottom;
+	&-head {}
+	&-text {
+		@extend .block;
+		margin-bottom: 0;
+		margin-top: 5px;
+		padding: 0 $g-padding;
+		@include height(65px);
+		display: flex;
+		align-items: center;
+		position: relative;
+		&-box {
+			flex: 1;
+			height: 100%;
+			position: relative;
+		}
+		&-operator {
+			padding-left: $g-padding + 5px;
+			padding-right: 5px;
+			color: $g-ash;
+		}
+		&-input {
+			@extend %afull;
+			font: 16px/65px $g-font-num;
+			&.non-null {
+				font-size: 28px;
+			}
+		}
+		&-list {
+			@include atlw(100%);
+			border-bottom: $g-border;
+			background-color: $g-white;
+			padding: 0 $g-padding;
+			margin-top: 1px;
+			box-sizing: border-box;
+		}
+		&-item {
+			display: flex;
+			align-items: center;
+			@include height(44px);
+			border-bottom: $g-border;
+			padding-left: 2px;
+			font-size: 16px;
+			color: $g-gray;
+		}
+		&-flex {
+			flex: 1;
+		}
+		&-bottom {
+			@include height(56px);
+			text-align: center;
+			font-size: 14px;
+			color: $g-blue;
+		}
+	}
+	&-box {
+		padding: 0 $g-padding;
+		&-title {
+			font-size: 14px;
+			margin-top: 12px;
+		}
+		&-list {
+			overflow: hidden;
+		}
+		&-item {
+			float: left;
+			overflow: hidden;
+			width: 30%;
+			@include height(44px);
+			margin-top: 10px;
+			margin-right: 3%;
+			border: 1px solid $g-blue;
+			color: $g-blue;
+			font-size: 16px;
+			text-align: center;
+			border-radius: $g-radius;
+			background-color: $g-white;
+			&:nth-child(3n) {
+				margin-right: 0;
+			}
+			$num: '';
+			$money: '';
+			&-num {
+				$num: & + '';
+			}
+			&-money {
+				$money: & + '';
+				font-size: 10px;
+			}
+			&.on {
+				color: $g-white;
+				background-color: $g-blue;
+				border-color: $g-blue-border;
+				line-height: 1;
+				#{$num} {
+					margin-top: 7px;
+				}
+				#{$money} {
+					margin-top: 4px;
+				}
+			}
+		}
+	}
+}

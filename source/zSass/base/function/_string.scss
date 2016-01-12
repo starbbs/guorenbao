@@ -1,0 +1,119 @@
+@charset "utf-8";
+
+
+// 张树垚 2014-12-09 16:18:12 创建
+// string 方法
+
+
+
+// sass原生方法
+
+// quote -- 加引号
+	// quote("foo") => "foo"
+	// quote(foo) => "foo"
+
+// str-index -- 位置
+	// str-index(abcd, a)  => 1
+	// str-index(abcd, ab) => 1
+	// str-index(abcd, X)  => null
+	// str-index(abcd, c)  => 3
+
+// str-insert -- 插入
+	// str-insert("abcd", "X", 1) => "Xabcd"
+	// str-insert("abcd", "X", 4) => "abcXd"
+	// str-insert("abcd", "X", 5) => "abcdX"
+
+// str-length -- 长度
+	// str-length("foo") => 3
+
+// str-slice -- 截取
+	// str-slice("abcd", 2, 3)   => "bc"
+	// str-slice("abcd", 2)      => "bcd"
+	// str-slice("abcd", -3, -2) => "bc"
+	// str-slice("abcd", 2, -2)  => "bc"
+
+// to-lower-case -- 小写
+	// to-lower-case(ABCD) => abcd
+
+// to-upper-case -- 大写
+	// to-upper-case(abcd) => ABCD
+
+// unquote -- 去引号
+	// unquote("foo") => foo
+	// unquote(foo) => foo
+
+
+
+// 因为原生带str前缀,向其看齐,这里的函数都会带str前缀并用-连接
+
+
+
+
+
+//**
+// [str-replace 字符串替换,一次只匹配一个]
+// @param  {[string]}	$str		[主字符串:必须]
+// @param  {[string]}	$find		[目标字符串:必须]
+// @param  {[string]}	$replace	[要替换的字符串:选填,默认""]
+// @return {[string]}				[返回替换后的字符串]
+// [例子]
+// str-replace(".page1_btn_click", "_click") ==> ".page1_btn" (用于选择器要加#{})
+//*/
+@function str-replace($str, $find, $replace: "") {
+	$index: str-index($str, $find);
+	@if isNull($index) {
+		@return $str;
+	}
+	$length: str-length($find);
+	$front: str-slice($str, 0, $index - 1); // 前面一段
+	$back: str-slice($str, $index + $length); // 后面一段
+	@return $front + $replace + $back;
+}
+
+//**
+// [str-replace-g 字符串替换,匹配到的全部替换]
+// @param  {[string]}	$str		[主字符串:必须]
+// @param  {[string]}	$find		[目标字符串:必须]
+// @param  {[string]}	$replace	[要替换的字符串:选填,默认""]
+// @param  {[number]}	$_count		[匹配多少次:选填,默认99]
+// @return {[string]}				[返回替换后的字符串]
+// [例子]
+// str-replace-g("aaabbbccc", "b") ==> "aaaccc"
+//**
+@function str-replace-g($str, $find, $replace: "", $_count: 99) {
+	$now: $str;
+	@for $i from 1 through $_count {
+		$next: str-replace($now, $find, $replace);
+		@if $next == $now { // 没有可匹配上的
+			@return $next;
+		}
+		$now: $next;
+	}
+}
+
+
+
+
+//**
+// [str-capitalize 首字母大写]
+// @param  {[string]}	$str		[主字符串:必须]
+// @return {[string]}				[返回首字母大写的字符串]
+// [例子]
+// str-capitalize("abc") ==> "Abc"
+//*/
+@function str-capitalize($str) {
+	@return to-upper-case(str-slice($str, 1, 1)) + str-slice($str, 2, -1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

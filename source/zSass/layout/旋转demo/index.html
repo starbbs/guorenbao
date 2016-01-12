@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<meta name="format-detection"content="telephone=no, email=no"/>
+	<title>旋转demo</title>
+	<link rel="stylesheet" href="main.css">
+
+	<script>
+
+	var obj = {};
+	for (var i = 0; i < 360; i++) {
+		obj[i] = Math.round(Math.cos(i / 180 * Math.PI) * 10000) / 10000;
+	};
+	console.log(JSON.stringify(obj))
+
+	</script>
+
+</head>
+<body>
+	<div class="screen">
+		
+		<div class="page">
+			
+			<!-- 一个正方形的容器,将.page撑开 -->
+
+			<div class="page_box">
+				
+				<!-- 旋转的主元素,绝对定位,充满整个容器 -->
+
+				<div class="page_item1">
+					<div class="page_img"><img src="img/page_img.jpg" alt="" class="img_w"></div>
+					<div class="page_word">今天是个好日子,<br>天气不错,适合睡觉</div>
+				</div>
+				<div class="page_item2">
+					<div class="page_img"><img src="img/page_img.jpg" alt="" class="img_w"></div>
+					<div class="page_word">今天是个好日子,<br>天气不错,适合睡觉</div>
+				</div>
+				<div class="page_item3">
+					<div class="page_img"><img src="img/page_img.jpg" alt="" class="img_w"></div>
+					<div class="page_word">今天是个好日子,<br>天气不错,适合睡觉</div>
+				</div>
+				<!-- <div class="page_item4">
+					<div class="page_img"><img src="img/page_img.jpg" alt="" class="img_w"></div>
+					<div class="page_word">今天是个好日子,<br>天气不错,适合睡觉</div>
+				</div>
+				<div class="page_item5">
+					<div class="page_img"><img src="img/page_img.jpg" alt="" class="img_w"></div>
+					<div class="page_word">今天是个好日子,<br>天气不错,适合睡觉</div>
+				</div>
+				<div class="page_item6">
+					<div class="page_img"><img src="img/page_img.jpg" alt="" class="img_w"></div>
+					<div class="page_word">今天是个好日子,<br>天气不错,适合睡觉</div>
+				</div> -->
+
+			</div>
+
+		</div>
+
+	</div>
+</body>
+</html>

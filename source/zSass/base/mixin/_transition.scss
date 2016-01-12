@@ -1,0 +1,45 @@
+@charset "utf-8";
+
+// 张树垚 2014-12-09 18:21:59 创建
+// transition
+
+
+
+
+
+
+@mixin transition($time: .3s, $delay: 0) {
+	@include prefix(transition, $time all ease $delay);
+}
+@mixin transition2($arg) {
+	@include prefix(transition, $arg);
+}
+
+
+@mixin transition-delay($delay) {
+	@include prefix(transition-delay, $delay);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

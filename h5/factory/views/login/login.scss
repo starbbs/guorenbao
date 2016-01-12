@@ -1,0 +1,46 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-16 15:17:20 创建
+// H5微信端 --- views-login
+
+
+.login {
+
+	$img: $g-views + '/login/images';
+	$border: 1px solid $g-line;
+
+	@extend .view-style;
+	background-color: $g-white;
+
+	&-picture {
+		margin: 34px auto 0;
+		@include square(85px);
+		border-radius: 50%;
+		border: 1px solid $g-white;
+		box-shadow: 0px 0px 5px $g-gray;
+		overflow: hidden;
+		>img {
+			border-radius: 50%;
+			@extend .img-f;
+		}
+	}
+	&-main {
+		margin-top: 68px;
+		&-item {
+			border-bottom: $border;
+			margin-left: $g-margin;
+			padding-right: $g-margin;
+		}
+	}
+	&-button {
+		margin: $g-margin-top-button $g-margin 0;
+	}
+	&-forget {
+		@include ablw(15px);
+		text-align: center;
+	}
+}
+
+
+

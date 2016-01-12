@@ -1,0 +1,73 @@
+@charset "utf-8";
+
+
+// 张树垚 2015-06-24 11:00:49 创建
+// 按钮
+
+
+
+%button-style {
+	border-radius: $g_border_radius;
+	text-decoration: none;
+	text-align: center;
+	cursor: pointer;
+	&.disabled {
+		background-color: #999999;
+		color: #fff;
+	}
+}
+
+
+@mixin button($color: #000, $background-color: #fff, $padding: 20px, $width: null, $height: 30px, $border-color: null) {
+	@extend %button-style;
+	color: $color;
+	background-color: $background-color;
+	@if isNull($width) {
+		padding: 0 $padding;
+	} @else {
+		@if $width != 'auto' {
+			@if isNull($border-color) {
+				width: $width;
+			} @else {
+				width: $width - 2px;
+			}
+		}
+	}
+	@if isNull($border-color) == false {
+		border: 1px solid $border-color;
+		@include height($height - 2px);
+	} @else {
+		@include height($height);
+	}
+}
+
+
+%button {
+	@include button;
+	&-blue {
+		@include button(#fff, $g-blue);
+		&-block {
+			display: block;
+			@include button(#fff, $g-blue, null);
+		}
+		&-input {
+			@include button(#fff, $g-blue, $width: $g-input-width);
+		}
+	}
+	&-green {
+		@include button(#fff, $g-green);
+	}
+	&-gray {
+		@include button(#333333, #f7f7f7);
+		&-border {
+			@include button(#333, #f7f7f7, 10px, $border-color: #ccc);
+		}
+	}
+	&-red {
+		@include button(#fff, #f34956);
+		font-weight: bold;
+	}
+}
+
+
+

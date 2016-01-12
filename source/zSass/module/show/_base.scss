@@ -1,0 +1,122 @@
+@charset "utf-8";
+
+// 张树垚 2014-12-09 15:02:54 创建
+// 运动
+
+
+// @import "../base";
+// @import "../function";
+
+
+// 说明
+// --------------------------------------------------------
+	// show文件，包含样式设置和一些常用效果
+	// 由于使用OOCSS+sass开发，class名大多唯一，所以在父级或本身添加运动class，默认为show
+	// .class1 {
+	// 	color: #000;
+	// 	transition: .3s all ease;
+	// }
+	// .class1.show { // 自身
+	// 	color: #fff;
+	// }
+	// .show .class1 { // 父级
+	// 	color: #fff;
+	// }
+	// .class2 {
+	// 	color: #f00;
+	// 	transition: .3s all ease;
+	// 	transition-delay: .4s; // 顺序控制
+	// }
+	// .show .class2 {
+	// 	color: #00f;
+	// }
+	// .class2.show {
+	// 	color: #00f;
+	// }
+// --------------------------------------------------------
+
+
+// 关键点
+// 1. class名称（默认show）
+// 2. 顺序控制（使用delay）
+// 3. 是否只运动显示（默认运动显示+运动隐藏，即运动添加在样式中，还是添加在show中）
+// 4. 使用transition还是animation（默认transition）
+
+
+
+
+// 参数
+$show-name: ".show" !default;				// 显示class
+$show-unit: "s" !default;					// 时间默认单位
+$style-unit: "%" !default;					// 样式默认单位
+$hide-name: ".hide" !default;				// 隐藏class
+
+
+
+
+@mixin show-transition($delay: 0, $time: .5, $isSelf: false, $name: $show-name, $after: false) {
+	@if $delay == "help" {
+		// @warn '
+		// 	$delay: (number)，顺序，会乘以$show-delay
+		// 	$time: (time)，运动时间，默认$show-time
+		// 	$name: (string)，样式名称，默认$show-name
+		// 	$after: (boolean)，是否只运动显示，默认false
+		// ';
+	}
+	@if unitless($delay) { // 加单位
+		$delay: unquote($delay + $show-unit);
+	}
+	@if unitless($time) { // 加单位
+		$time: unquote($time + $show-unit);
+	}
+	@if not $after { // 不在之后添加运动
+		@include transition($time, $delay);
+	}
+	$selector: if($isSelf, &#{$name}, #{$name} &);
+	@at-root {
+		#{$selector} {
+			@if $after {
+				@include transition($time, $delay);
+			}
+			@content;
+		}
+	}
+}
+
+
+@mixin show-animation($aniname, $aniopt, $isSelf: false, $name: $show-name) {
+	$selector: if($isSelf, &#{$name}, #{$name} &);
+	@at-root {
+		#{$selector} {
+			// @include animation($aniname, $aniopt);
+			// @include keyframes($aniname) {
+			@include aniframe($aniname, $aniopt) {
+				@content;
+			}
+		}
+	}
+}
+
+@mixin show-animation2($aniopt, $isSelf: false, $name: $show-name) {
+	@include show-animation(str-slice(& + "", 2), $aniopt, $isSelf, $name) {
+		@content;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,276 @@
+@charset "utf-8";
+
+// 张树垚 2014-10-25 16:05:20 创建
+
+// position定位
+// 各种特殊定位
+
+
+// 基本函数，参数：top,left,bottom,right,是否使用宽度百分比
+@mixin setPosition($top: null, $left: null, $bottom: null, $right: null, $useWidth: false) {
+	@if $top == "help" {
+		// @warn "
+		// 	默认：
+		// 		只定义position的值，没有四个方向的定位。
+		// 	传参：
+		// 		1.数值传参：
+		// 			方式1：4个传参
+		// 				参数1		$top		：向上
+		// 				参数2		$left		：向左
+		// 				参数3		$bottom	：向下
+		// 				参数4		$right	：向右
+		// 			方式2：1个传参（json格式）
+		// 				(
+		// 					top:10px,
+		// 					left: 10px,
+		// 					bottom: 10px,
+		// 					right: 10px,
+		// 					...其他样式都可以写
+		// 				)
+		// 		2.单个字符串传参：
+		// 			l		=> left: 0;
+		// 			t		=> top: 0;
+		// 			b		=> bottom: 0;
+		// 			r		=> right: 0;
+		// 		3.单个数字传参：
+		// 			1		=> top: 0;
+		// 			2		=> top: 0; left: 0;
+		// 			3		=> top: 0; left: 0; bottom: 0;
+		// 			4		=> top: 0; left: 0; bottom: 0; right: 0;
+		// ";
+	// 传入json
+	// map,[string],[boolean]
+	// 样式集合,[简写样式],[是否使用宽度百分比]
+	} @else if type-of($top) == "map" {
+		@if $left == true {
+			// 用宽度百分比
+			$useWidth: true;
+		} @else if type-of($left) == "string" {
+			// 简写样式
+			@include setPositionString($left);
+		}
+		@each $key,$value in $top {
+			// 如果第二个参数是true，则以宽的百分比定位top和bottom
+			@if $useWidth == true and ($key == "top" or $key == "bottom") {
+				#{$key}: 0;
+				margin-#{$key}: $value;
+			}@else {
+				#{$key}: $value;
+			}
+		}
+	// 传入简写字符串
+	// string,[string]
+	// 简写样式,[简写样式]
+	} @else if type-of($top) == "string" {
+		@include setPositionString($top);
+		@if type-of($left) != "null" {
+			@include setPositionString($left);
+		}
+	// 传入数值
+	// number,[string|number]*3,[boolean]
+	// 简写样式或样式值,简写样式或样式值*3,是否使用宽度百分比
+	} @else if type-of($top) == "number" {
+		// 默认为null，不赋值；如果不为null，则进行赋值
+		@if type-of($top) != "null" {
+			// 是否使用宽度百分比
+			@if $left == true or $bottom == true or $right == true or $useWidth == true {
+				top: 0;
+				margin-top: $top;
+			} @else {
+				top: $top;
+			}
+		}
+		@if type-of($left) != "null" {
+			@if type-of($left) == "string" {
+				@include setPositionString($left);
+			} @else if $left != true {
+				left: $left;
+			}
+		}
+		@if type-of($bottom) != "null" {
+			// 是否使用宽度百分比
+			@if type-of($bottom) == "string" {
+				@include setPositionString($bottom);
+			} @else if $right == true or $useWidth == true {
+				bottom: 0;
+				margin-bottom: $bottom;
+			} @else if $bottom != true {
+				bottom: $bottom;
+			}
+		}
+		@if type-of($right) != "null" {
+			@if type-of($right) == "string" {
+				@include setPositionString($right);
+			} @else if $right != true {
+				right: $right;
+			}
+		}
+	} @else {
+		@if type-of($top) != "null" {
+			@warn "请传入正确参数";
+			color: "请传入正确参数";
+		}
+	}
+}
+$setPositionString: "tlbrwh";
+@mixin setPositionString($str: $setPositionString) {
+	@if str-index($str,"t") {
+		top: 0;
+	}
+	@if str-index($str,"l") {
+		left: 0;
+	}
+	@if str-index($str,"b") {
+		bottom: 0;
+	}
+	@if str-index($str,"r") {
+		right: 0;
+	}
+	@if str-index($str,"w") {
+		width: 100%;
+	}
+	@if str-index($str,"h") {
+		height: 100%;
+	}
+	@if $str == "full" {
+		@include square(100%);
+	}
+}
+
+
+@mixin relative($top: null, $left: null, $bottom: null, $right: null, $useWidth: false) {
+	position: relative;
+	@include setPosition($top, $left, $bottom, $right);
+}
+@mixin absolute($top: null, $left: null, $bottom: null, $right: null, $useWidth: false) {
+	position: absolute;
+	@include setPosition($top, $left, $bottom, $right);
+}
+@mixin fixed($top: null, $left: null, $bottom: null, $right: null, $useWidth: false) {
+	position: fixed;
+	@include setPosition($top, $left, $bottom, $right);
+}
+
+
+@mixin pos($top: null, $left: null, $bottom: null, $right: null) { // 只设置top,left,right,bottom
+	@include setPosition($top, $left, $bottom, $right);
+}
+
+@mixin pos-x($width: 100%) { // 百分比横向居中
+	width: $width;
+	left: (100% - $width) / 2;
+}
+@mixin aposx($top: 0, $x: 100%) {
+	@include absolute($top);
+	@include pos-x($x);
+}
+
+@mixin pos-y($height:100%) { // 百分比纵向居中
+	height: $height;
+	top: (100% - $height) / 2;
+}
+@mixin aposy($left: 0, $x: 100%) {
+	position: absolute;
+	left: $left;
+	@include pos-y($x);
+}
+
+@mixin pos-c($width:100%, $height:100%) { // 百分比居中(left, width, top, height)
+	@include pos-x($width);
+	@include pos-y($height);
+}
+@mixin pos-c2($width: 100%, $height: 100%) { // 百分比居中(top, left, bottom, right)
+	$x: (100% - $width) / 2;
+	$y: (100% - $height) / 2;
+	@include setPosition($x, $y, $y, $x);
+}
+
+
+
+
+@mixin rw($width: 100%) {
+	position: relative;
+	width: $width;
+}
+
+@mixin al($left: 0) {
+	position: absolute;
+	left: $left;
+}
+
+@mixin atl($top: 0, $left: 0) {
+	@include absolute($top, $left);
+};
+@mixin atlw($top: 0, $left: 0, $width: 100%) {
+	@include absolute($top, $left);
+	width: $width;
+}
+
+@mixin atr($top: 0, $right: 0) {
+	@include absolute($top);
+	right: $right;
+};
+@mixin atlwh($top: 0, $left: 0, $width: 100%, $height: 100%) {
+	@include atlw($top, $left, $width);
+	height: $height;
+}
+@mixin atrw($top: 0, $right: 0, $width: 100%) {
+	@include absolute($top);
+	right: $right;
+	width: $width;
+}
+@mixin atrwh($top: 0, $right: 0, $width: 100%, $height: 100%) {
+	@include absolute($top);
+	right: $right;
+	width: $width;
+	height: $height;
+}
+
+
+@mixin abl($bottom: 0, $left: 0) {
+	position: absolute;
+	bottom: $bottom;
+	left: $left;
+}
+
+@mixin abr($bottom: 0, $right: 0) {
+	position: absolute;
+	bottom: $bottom;
+	right: $right;
+}
+@mixin abrw($bottom: 0, $right: 0, $width: 100%) {
+	position: absolute;
+	bottom: $bottom;
+	right: $right;
+	width: $width;
+}
+@mixin ablw($bottom: 0, $right: 0, $width: 100%) {
+	position: absolute;
+	bottom: $bottom;
+	left: $right;
+	width: $width;
+}
+@mixin ablwh($bottom: 0, $right: 0, $width: 100%, $height: 100%) {
+	position: absolute;
+	bottom: $bottom;
+	left: $right;
+	width: $width;
+	height: $height;
+}
+
+
+
+
+// 以宽度的百分比定位 --- 安卓有问题
+// 即top:0,margin-top:百分比
+@mixin relative-m($top: null, $left: null, $bottom: null, $right: null, $useWidth: true) {
+	@include relative($top, $left, $bottom, $right, $useWidth);
+}
+@mixin absolute-m($top: null, $left: null, $bottom: null, $right: null, $useWidth: true) {
+	@include absolute($top, $left, $bottom, $right, $useWidth);
+}
+@mixin fixed-m($top: null, $left: null, $bottom: null, $right: null, $useWidth: true) {
+	@include fixed($top, $left, $bottom, $right, $useWidth);
+}
+
+

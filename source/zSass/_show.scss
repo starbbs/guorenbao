@@ -1,0 +1,255 @@
+@charset "utf-8";
+
+// 张树垚 2014-12-09 15:02:54 创建
+// 运动
+
+
+// 参数
+$show-time: .5s !default;					// 运动时间
+$show-name: ".show" !default;				// 样式名称
+$show-unit: "s" !default;					// 时间默认单位
+
+// @import "show/base";
+// @import "show/fade";
+// @import "show/from";
+
+
+// 说明
+// --------------------------------------------------------
+	// show文件，包含样式设置和一些常用效果
+	// 由于使用OOCSS+sass开发，class名大多唯一，所以在父级或本身添加运动class，默认为show
+	// .class1 {
+	// 	color: #000;
+	// 	transition: .3s all ease;
+	// }
+	// .class1.show { // 自身
+	// 	color: #fff;
+	// }
+	// .show .class1 { // 父级
+	// 	color: #fff;
+	// }
+	// .class2 {
+	// 	color: #f00;
+	// 	transition: .3s all ease;
+	// 	transition-delay: .4s; // 顺序控制
+	// }
+	// .show .class2 {
+	// 	color: #00f;
+	// }
+	// .class2.show {
+	// 	color: #00f;
+	// }
+// --------------------------------------------------------
+
+
+// 关键点
+// 1. class名称（默认show）
+// 2. 顺序控制（使用delay）
+// 3. 是否只运动显示（默认运动显示+运动隐藏，即运动添加在样式中，还是添加在show中）
+// 4. 使用transition还是animation（默认transition）
+
+
+
+
+
+
+@mixin show-transition($delay: 0, $time: .5, $isSelf: false, $name: $show-name, $after: true) {
+	@if $delay == "help" {
+		// @warn '
+		// 	$delay: (number)，顺序，会乘以$show-delay
+		// 	$time: (time)，运动时间，默认$show-time
+		// 	$name: (string)，样式名称，默认$show-name
+		// 	$after: (boolean)，是否只运动显示，默认false
+		// ';
+	}
+	@if unitless($delay) { // 加单位
+		$delay: unquote($delay + $show-unit);
+	}
+	@if unitless($time) { // 加单位
+		$time: unquote($time + $show-unit);
+	}
+	@if not $after { // 不在之后添加运动
+		@include transition($time, $delay);
+	}
+	$selector: if($isSelf, &#{$name}, #{$name} &);
+	@at-root {
+		#{$selector} {
+			@if $after {
+				@include transition($time, $delay);
+			}
+			@content;
+		}
+	}
+}
+
+
+@mixin show-animation($aniname, $aniopt, $isSelf: false, $name: $show-name) {
+	$selector: if($isSelf, &#{$name}, #{$name} &);
+	@at-root {
+		#{$selector} {
+			// @include animation($aniname, $aniopt);
+			// @include keyframes($aniname) {
+			@include aniframe($aniname, $aniopt) {
+				@content;
+			}
+		}
+	}
+}
+
+@mixin show-animation2($aniopt, $isSelf: false, $name: $show-name) {
+	@include show-animation(str-slice(& + "", 2), $aniopt, $isSelf, $name) {
+		@content;
+	}
+}
+
+
+@mixin from-3d($delay: 0, $time: .5s, $x: 0, $y: 0, $z: 0) {
+	@include t3d($x, $y, $z);
+	@include show-transition($delay, $time) {
+		@include t3d;
+	}
+}
+@mixin from-3d-self($delay: 0, $time: .5s, $x: 0, $y: 0, $z: 0) {
+	@include t3d($x, $y, $z);
+	@include show-transition($delay, $time, true) {
+		@include t3d;
+	}
+}
+@mixin from-3d-hide($delay: 0, $time: .5s, $x: 0, $y: 0, $z: 0) {
+	@include show-transition($delay, $time, false, $hide-name, true) {
+		@include t3d($x, $y, $z);
+	}
+}
+@mixin from-3d-hide-self($delay: 0, $time: .5s, $x: 0, $y: 0, $z: 0) {
+	@include show-transition($delay, $time, true, $hide-name, true) {
+		@include t3d($x, $y, $z);
+	}
+}
+
+
+@mixin from-left($delay: 0, $time: .5, $x: 0) {
+	@if unitless($x) {
+		$x: unquote($x + $style-unit);
+	}
+	@include x($x);
+	@include show-transition($delay, $time, false, $show-name, false) {
+		@include x;
+	}
+}
+
+
+@mixin from-top($delay: 0, $time: .5, $y: 0) {
+	@if unitless($y) {
+		$y: unquote($y + $style-unit);
+	}
+	@include y($y);
+	@include show-transition($delay, $time, false, $show-name, false) {
+		@include y;
+	}
+}
+
+
+
+
+@mixin from-scale($delay: 0, $time: .5s, $scale: 1) {
+	@include scale($scale);
+	@include show-transition($delay, $time) {
+		@include scale;
+	}
+}
+@mixin from-scale-self($delay: 0, $time: .5s, $scale: 1) {
+	@include scale($scale);
+	@include show-transition($delay, $time, true) {
+		@include scale;
+	}
+}
+
+
+
+
+@mixin fade($delay: 0, $time: .5s, $from: 0, $to: 1) {	// 淡入
+	opacity: $from;
+	@include show-transition($delay, $time) {
+		opacity: $to;
+	}
+}
+@mixin fade-self($delay: 0, $time: .5s, $from: 0) {
+	opacity: $from;
+	@include show-transition($delay, $time, true) {
+		opacity: 1;
+	}
+}
+
+
+@mixin fade-scale($delay: 0, $time: .5s, $scale: 1) {
+	opacity: 0;
+	@include scale($scale);
+	@include show-transition($delay, $time) {
+		opacity: 1;
+		@include scale;
+	}
+}
+@mixin fade-scaleX($delay: 0, $time: .5s, $scale: 1) {
+	opacity: 0;
+	@include scaleX($scale);
+	@include show-transition($delay, $time) {
+		opacity: 1;
+		@include scaleX;
+	}
+}
+
+
+@mixin fade-top($delay: 0, $time: .5s, $from: -100%) {
+	opacity: 0;
+	@include y($from);
+	@include show-transition($delay, $time) {
+		opacity: 1;
+		@include y;
+	}
+}
+@mixin fade-top-hide($delay: 0, $time: .5s, $from: -100%) {
+	@include show-transition($delay, $time, false, $hide-name, true) {
+		opacity: 0;
+		@include y($from);
+	}
+}
+@mixin fade-top-self($delay: 0, $time: .5s, $from: -100%) {
+	opacity: 0;
+	@include y($from);
+	@include show-transition($delay, $time, true) {
+		opacity: 1;
+		@include y;
+	}
+}
+@mixin fade-top-hide-self($delay: 0, $time: .5s, $from: -100%) {
+	@include show-transition($delay, $time, true, $hide-name, true) {
+		opacity: 0;
+		@include y($from);
+	}
+}
+
+
+@mixin fade-left($delay: 0, $time: .5s, $from: -100%) {
+	opacity: 0;
+	@include x($from);
+	@include show-transition($delay, $time) {
+		opacity: 1;
+		@include x;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,188 @@
+@charset "utf-8";
+
+
+// 张树垚 2014-12-06 14:36:29 创建
+// 处理单位的一堆函数
+
+
+
+// sass默认函数：unit
+	// unit(100) => ""
+	// unit(100px) => "px"
+	// unit(3em) => "em"
+	// unit(10px * 5em) => "em*px"
+	// unit(10px * 5em / 30cm / 1rem) => "em*px/cm*rem"
+
+
+
+// sass默认函数：unitless
+	// unitless(100) => true
+	// unitless(100px) => false
+
+
+
+// _typeof.scss中有一个方法是isUnit，判断一个字符串是否是单位
+
+
+
+
+
+// 获取单位
+	// 一个参数，返回单位
+	// 多个参数，判断是否单位相同
+@function getUnit($num...) {
+	$len: length($num);
+	$num1: unit(nth($num,1));
+	@if $len == 1 {
+		@return $num1;
+	} @else {
+		$last: $num1;
+		@for $i from 2 through $len {
+			$now: unit(nth($num,$i));
+			@if $last == $now {
+				$last: $now;
+			} @else {
+				@return false;
+			}
+		}
+		@return true;
+	}
+}
+
+
+
+// 判断单位
+	// 参数一：数值
+	// 参数二：单位
+@function checkUnit($num,$unit) {
+	@return if(isNumber($num),unit($num) == $unit,false);
+}
+
+
+
+// 判断是否没有单位
+@function isUnUnit($num) {	// 自造词。
+	@return checkUnit($num,"");
+}
+@function isUnitless($num) {
+	@return unitless($num);
+}
+
+
+
+// 判断是否是百分比
+@function isPercent($num) {
+	@return checkUnit($num,"%");
+}
+
+
+
+// 判断是否是像素px
+@function isPx($num) {
+	@return checkUnit($num,"px");
+}
+@function isPX($num) {
+	@return checkUnit($num,"px");
+}
+
+
+
+// 判断是否是em
+@function isEm($num) {
+	@return checkUnit($num,"em");
+}
+@function isEM($num) {
+	@return checkUnit($num,"em");
+}
+
+
+
+// 判断是否是rem
+@function isRem($num) {
+	@return checkUnit($num,"rem");
+}
+@function isREM($num) {
+	@return checkUnit($num,"rem");
+}
+
+
+
+// 判断是否是deg
+@function isDeg($num) {
+	@return checkUnit($num,"deg");
+}
+@function isDEG($num) {
+	@return checkUnit($num,"deg");
+}
+
+
+
+// 判断是否是秒second
+@function isS($num) {
+	@return checkUnit($num,"s");
+}
+@function isSecond($num) {
+	@return checkUnit($num,"s");
+}
+
+
+
+// 判断是否是毫秒millisecond
+@function isMs($num) {
+	@return checkUnit($num,"ms");
+}
+@function isMS($num) {
+	@return checkUnit($num,"ms");
+}
+@function isMillisecond($num) {
+	@return checkUnit($num,"ms");
+}
+
+
+
+// 判断是否是时间
+@function isTime($num) {
+	@return isS($num) or isMS($num);
+}
+
+
+
+// @function removeUnit($num) {
+// 	@if unitless($num) {
+// 		@return $num;
+// 	}
+// 	@return $num / unquote(1 + unit($num));
+// 	// @return if(unitless($num),$num,$num / unquote(1 + unit($num)));
+// }
+// @function removeUnit($num) {
+// 	@if unitless($num) {
+// 		@return $num;
+// 	}
+// 	$unit: unit($num); // string
+// 	$str: $num + ""; // string
+// 	$index: str-index($str,$unit); // number
+// 	$number: str-slice($str,1,$index - 1); // string
+// 	@return unquote($number); // number
+// }
+@function removeUnit($num) {
+	@return $num / ($num * 0 + 1);
+}
+
+
+
+@function setUnit($num,$unit) {
+	$num: removeUnit($num);
+	@return unquote($num + $unit);
+}
+
+
+
+
+
+
+
+
+
+
+
+

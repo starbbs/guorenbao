@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	@@include('../../../source/include/head.html', {
+		"name": "transfer"
+	})
+
+<body>
+
+	@@include('../../../source/include/forIE.html')
+
+	<div class="wrap" ms-controller="transfer">
+
+		@@include('../../components/top/top.html', {
+			"login": false,
+			"logout": true
+		})
+
+		@@include('../../components/header/header.html', {
+			"title": "转账",
+			"nav": false
+		})
+
+		<div class="container2">
+			<div class="container-box">
+
+				<!-- 转账 -->
+				<div class="transfer">
+
+					<div class="transfer-page">
+
+						<div class="transfer-top">
+							<div class="transfer-top-left">推广期间提供免费果仁转账。<span ms-if="!hasCertified">（未实名认证的用户不能使用该功能，去<a href="./setup.htm#!" class="blue-point">实名认证</a>）</span></div>
+							<div class="transfer-top-right">可用果仁：<span class="blue"><span class="big bold">{{guo}}</span> <span class="icon">G</span></span></div>
+						</div>
+
+						<div class="transfer-tab">
+							<div class="transfer-tab-head">
+								<a href="#!/tab/0" class="transfer-tab-head-click">转到交易所</a>
+								<div class="transfer-tab-head-right"><!-- 我的交易所账户：<span class="blue">188****3750</span><i class="icon-separate"></i> --><a href="#" class="gray-a tdn">前往果仁交易所<i class="icon-arrow-right"></i></a></div>
+							</div>
+							<div class="transfer-tab-body">
+								<div class="transfer-line">
+									<div class="transfer-left">我的交易所：</div>
+									<div class="transfer-right">
+										<input type="text" class="transfer-address" ms-duplex="address" ms-class="{{addressTip}}">
+										<div class="transfer-address-button" ms-click="getAddress">获取地址</div>
+									</div>
+								</div>
+								@@include('./transfer-money.html')
+								<div class="transfer-line">
+									<div class="transfer-left">支付密码：</div>
+									<div class="transfer-right">
+										@@include('../../components/payment/payment.html')
+									</div>
+								</div>
+								<div class="transfer-button">确认转账</div>
+							</div>
+						</div>
+						<div class="transfer-tab">
+							<div class="transfer-tab-head">
+								<a href="#!/tab/1" class="transfer-tab-head-click">转到GOP Wallet</a>
+								<div class="transfer-tab-head-right"><a href="#" class="gray-a tdn">下载 GOP Wallet<i class="icon-download"></i></a></div>
+							</div>
+							<div class="transfer-tab-body">
+								<div class="transfer-line">
+									<div class="transfer-left"><i class="transfer-radio on"></i><span class="transfer-radio-word">上次应用</span></div>
+									<div class="transfer-right">
+										<div><span class="black">地址：　</span><span class="blue">dkjdofedlkfpwk3or9387403kdi9ufle;df;lf</span></div>
+										<div><span class="black">备注名：　</span><span class="gray">流砂妹纸</span></div>
+									</div>
+								</div>
+								<div class="transfer-radio-line">
+									<div class="transfer-left"><i class="transfer-radio"></i><span class="transfer-radio-word">其他地址</span></div>
+									<div class="transfer-right">
+										<input type="text" class="transfer-address" placeholder="请输入**位GOP Wallet 地址">
+										@@include('./transfer-contacts.html')
+									</div>
+								</div>
+								@@include('./transfer-money.html')
+								<div class="transfer-line">
+									<div class="transfer-left">支付密码：</div>
+									<div class="transfer-right">
+										@@include('../../components/payment/payment.html')
+									</div>
+								</div>
+								<div class="transfer-button">确认转账</div>
+							</div>
+						</div>
+						<div class="transfer-tab">
+							<div class="transfer-tab-head">
+								<a href="#!/tab/2" class="transfer-tab-head-click">转给其他联系人</a>
+								<span class="transfer-tab-head-guo">果仁现价： <span class="money">{{gopPrice}}</span> <span class="icon">￥</span></span>
+							</div>
+							<div class="transfer-tab-body">
+								@@include('./transfer-money.html', {
+									"tip": false
+								})
+								<div class="transfer-line-short">
+									<div class="transfer-left">收款人：</div>
+									<div class="transfer-right">
+										<input type="text" class="transfer-input">
+										@@include('./transfer-contacts.html')
+									</div>
+								</div>
+								<div class="transfer-line-short">
+									<div class="transfer-left">转账说明：</div>
+									<div class="transfer-right">
+										<input type="text" class="transfer-input" placeholder="转果仁">
+									</div>
+								</div>
+								<div class="transfer-line">
+									<div class="transfer-left">支付密码：</div>
+									<div class="transfer-right">
+										@@include('../../components/payment/payment.html')
+									</div>
+								</div>
+								<div class="transfer-button">确认转账</div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+				@@include('../../components/footer/footer.html')
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>

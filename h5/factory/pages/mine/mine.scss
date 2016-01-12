@@ -1,0 +1,98 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-23 15:01:09 创建
+// H5微信端 --- 我的
+
+
+@import '../../../source/scss/main';
+
+
+@import '../../views/view';
+@import '../../views/address/address';
+@import '../../views/nickname/nickname';
+@import '../../views/setting/setting';
+
+// @import '../../dialogs/dialog';
+
+
+body {
+	background-color: $g-background;
+}
+
+
+.mine {
+
+	$img: $g-pages + '/mine/images';
+	$border: 1px solid $g-line;
+	$margin-top: 5px;
+
+	@extend %rw;
+    @extend %fade-in;
+	padding-bottom: $g-padding-bottom;
+
+	&-block {
+		margin-top: $margin-top;
+		background-color: $g-white;
+		border-top: $border;
+		border-bottom: $border;
+	}
+
+	&-head {
+		text-align: center;
+		line-height: 1;
+		position: relative;
+		&-picture {
+			border: $border;
+			border-radius: 50%;
+			padding: 2px;
+			overflow: hidden;
+			@include square(75px);
+			margin: 8px auto;
+		}
+		&-name {
+			font-size: 18px;
+			text-align: center;
+		}
+		&-phone {
+			color: #777;
+			text-align: center;
+			line-height: 2.2;
+		}
+		&-card {
+			@include sprite($img + '/card.png', 30px, 18px);
+			@include atl(100px, 20px);
+		}
+	}
+
+	&-item {
+		margin-left: $g-padding;
+		border-bottom: $border;
+		@include height(48px);
+		display: flex;
+		align-items: center;
+		&:last-child {
+			border-bottom: none;
+		}
+		&-name {
+			flex: 1;
+			margin-left: 12px;
+			font-size: 16px;
+		}
+		&-tip {
+			color: $g-silver;
+			margin-right: 12px;
+		}
+		&-arrow {
+			@include sprite($img + '/arrow.png', 9px, 15px);
+			margin-right: $g-padding;
+		}
+	}
+	&-icon {
+		@for $i from 1 through 9 {
+			&-#{$i} {
+				@include sprite($img + '/' + $i + '.png', 24px);
+			}
+		}
+	}
+}

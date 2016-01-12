@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	
+<head>
+	<meta charset="UTF-8">
+	<title>果仁宝</title>
+	<meta name="fragment" content="!" />
+	<link rel="stylesheet" href="css/recharge.css">
+	<script src="js/avalon.js"></script>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/require.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/recharge.js"></script>
+</head>
+
+<body ms-controller="recharge">
+
+	
+
+<!--[if lte IE 8]>
+	<div style="clear: both; height: 59px; padding-bottom: 15px; position: relative; margin:0 auto; z-index: 99999;">
+		<h1>您的浏览器版本过低, 推荐使用IE高版本或Chrome等浏览器, 以获取更快更安全的浏览体验!</h1>
+		<a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+			<img 
+				src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+				alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+				style="margin: 0 auto; display: block;"
+			/>
+		</a>
+	</div>
+<![endif]-->
+
+
+
+
+	<div class="wrap">
+
+		
+<!-- top 顶部 -->
+<div class="top" ms-controller="top">
+	<div class="top-box">
+
+		<!-- 左侧 -->
+		<div class="top-left">
+			<a href="#" class="top-left-a"><i class="top-left-mobile"></i>手机果仁宝</a>
+		</div>
+
+		<!-- 右侧 -->
+		<div class="top-right">
+
+			
+
+			
+				<span class="top-hello">{{time}}好，</span>
+				<div class="top-name">
+					<div class="top-name-hover">{{name}}</div>
+					<div class="top-name-box">
+						<div class="top-name-box-head">
+							<div class="top-name-box-phone">{{phone}}</div>
+							<div class="top-name-box-click">
+								<a class="top-name-box-a" href="./#">账户设置</a>
+								<!-- <a class="top-name-box-a" href="./setup.htm">账户设置</a> -->
+								<i class="top-name-box-separate"></i>
+								<a class="top-name-box-a" href="./#">交易记录</a>
+								<!-- <a class="top-name-box-a" href="./records.htm">交易记录</a> -->
+							</div>
+							<div class="top-name-box-img">
+								<img class="img-w" ms-src="photo" alt="">
+							</div>
+						</div>
+						<!-- <div class="top-name-box-line">
+							<span class="top-name-box-line-left">GOP：</span>
+							<span class="top-name-box-line-bold">{{gop | currency(' ')}}</span>
+							<a href="#" class="top-name-box-line-a">买入</a href="#">
+							<div class="top-name-box-line-right">收益</div>
+						</div> -->
+						<!-- <div class="top-name-box-line">
+							<span class="top-name-box-line-left">CNY：</span>
+							<span class="top-name-box-line-bold">{{cny | currency(' ')}}</span>
+							<a href="./recharge.htm" class="top-name-box-line-a">充值</a href="#">
+						</div> -->
+					</div>
+				</div>
+				<i class="top-separate"></i>
+				<span class="top-logout" ms-click="logout">退出</span>
+			
+
+			<i class="top-separate"></i>
+			<a href="#" class="top-trade">果仁市场</a>
+			<i class="top-separate"></i>
+
+			<!-- 疑问 -->
+			<a href="#" class="top-doubt"><span class="top-doubt-img"></span>疑问</a>
+
+		</div>
+
+	</div>
+</div>
+
+
+		
+
+<!-- header logo和导航 -->
+<div class="header">
+	<div class="header-box">
+
+		<!-- logo -->
+		<div class="header-logo">
+			
+				
+				
+					
+					
+						<a href="./home.htm" class="header-logo-img"></a>
+					
+					
+				
+			
+		</div>
+
+		
+
+	</div>
+</div>
+
+
+		<div class="container2">
+			<div class="container-box">
+
+				<div class="recharge">
+
+					<!-- 选择与验证 -->
+					<div class="recharge-check">
+						<div class="recharge-check-title">当前果仁价：<span class="bold">￥{{gopPrice}}</span>（当前价仅供参考，成交价以提交订单时的价格为准）</div>
+						<div class="recharge-check-block">
+							<div class="recharge-left">充值金额：</div>
+							<div class="recharge-input-box cny"><input type="text" ms-duplex="money" class="recharge-input" maxlength="10"></div>
+							<div class="recharge-check-block-line"></div>
+							<div class="recharge-check-block-right">
+								<span class="gray">可以买果仁数：</span> <span class="money green">{{money|gop}}</span> <span class="green">G</span>
+							</div>
+						</div>
+						<div class="recharge-check-block">
+							<div class="recharge-left">付款方式：</div>
+							<div class="recharge-check-block-tab">银行卡</div>
+							<div class="recharge-check-pay">
+								<div class="recharge-check-pay-quick">
+									<div class="recharge-check-pay-title">快捷支付</div>
+									<div class="recharge-check-pay-float" ms-if="!name">不可用　 <span class="blue-point" ms-click="identifyOpen">去实名验证<i class="icon-arrow-right"></i></span>
+									</div>
+									<div class="recharge-check-pay-float" ms-if="name&&!quickList.length"><span class="recharge-check-pay-add-span" ms-click="bankOpen">添加银行卡</span></div>
+									<div class="recharge-check-pay-content" ms-if="name">
+										<div class="bank" ms-repeat-item="quickList" ms-class="on:quickIndex==$index" ms-click="quickClick($event,$index,item)">
+											<div class="bank-radio"></div>
+											<div class="bank-box">
+												<span ms-class="{{item.className}}"></span>
+												<span class="bank-number">{{item.cardno}}</span>
+											</div>
+										</div>
+										<div class="recharge-check-pay-add"><span class="recharge-check-pay-add-span" ms-click="bankOpen">添加银行卡</span></div>
+									</div>
+								</div>
+								<!-- <div class="recharge-check-pay-bank">
+									<div class="recharge-check-pay-title">银行卡支付<span class="recharge-check-pay-bank-choose" ms-click="bankOpen">选择银行</span></div>
+								</div> -->
+							</div>
+						</div>
+						<div class="recharge-check-block" ms-if="name&&quickList.length">
+							<div class="recharge-check-mobile">
+								<div class="recharge-left">手机号码：</div>
+								<div class="recharge-check-mobile-phone">{{phone}}</div>
+								<div class="recharge-check-mobile-button" ms-click="identSend">点击发送校验码</div>
+							</div>
+							<div class="recharge-check-ident" ms-if="identState!=0">
+								<div class="recharge-left">校验码：</div>
+								<input class="recharge-check-ident-input" type="text" maxlength="4" ms-input="identInput">
+								<div class="recharge-check-ident-click">未收到？</div>
+								<div class="recharge-check-ident-tip" ms-if="identState!=3">校验码已发送，15分钟内输入有效，请勿泄露</div>
+								<div class="recharge-check-ident-tip error" ms-if="identState==3">校验码输入有误，请重新校验</div>
+							</div>
+						</div>
+						<div class="recharge-check-block" ms-if="name&&quickList.length">
+							<div class="recharge-left"></div>
+							<div class="recharge-button" ms-class="disabled:!identNextable" ms-click="identNext">下一步</div>
+						</div>
+					</div>
+
+					<!-- 确认支付 -->
+					<div class="recharge-confirm">
+						<div class="recharge-confirm-title">
+							<div><span class="bold font14">果仁</span> <span class="green">＋ <span class="money">{{money|gop}}</span> G</span></div>
+							<div>收款方：果仁宝基金管理有限公司</div>
+							<div class="recharge-confirm-title-money">￥<span class="big">{{money|currency(' ')}}</span></div>
+						</div>
+						<div class="recharge-confirm-line">
+							<div class="recharge-confirm-left">付款方式：</div>
+							<div class="recharge-confirm-quick">
+								<div class="recharge-confirm-quick-word">快捷支付</div>
+								<div class="bank">
+									<div class="bank-box">
+										<span id="confirm-bank-img" class="bank-img"></span>
+										<span id="confirm-bank-num" class="bank-number"></span>
+									</div>
+								</div>
+								<div class="recharge-confirm-quick-money">- ￥ {{money|currency(' ')}}</div>
+								<div class="recharge-confirm-quick-tip">付款限额　<a href="#" class="blue-a">查看>></a> </div>
+							</div>
+						</div>
+						<div class="recharge-confirm-line">
+							<div class="recharge-confirm-left">支付密码：</div>
+							
+<div class="payment" ms-controller="payment">
+	<div class="payment-box">
+		<input type="password" class="payment-input" maxlength="6" ms-on-blur="blur" ms-on-focus="focus" ms-on-input="input" ms-duplex="paypass" ms-class="{{state}}">
+	</div>
+	<div class="payment-check" ms-if="check">{{check}}</div>
+	<div class="payment-forget"><a href="#">忘记密码</a></div>
+	<!-- <div class="payment-word">支付密码：</div> -->
+	<div class="payment-error" ms-if="error">{{error}}</div>
+	<!-- <div class="payment-button">确认支付</div> -->
+</div>
+
+						</div>
+						<div class="recharge-confirm-line">
+							<div class="recharge-confirm-left"></div>
+							<div class="recharge-button">确认支付</div>
+						</div>
+						<div class="recharge-confirm-line">
+							<div class="recharge-confirm-left"></div>
+							<span class="blue-point">选择其他付款方式</span>
+						</div>
+					</div>
+
+					<!-- 支付结果 -->
+					<div class="recharge-result"></div>
+
+					<!-- 底部说明 -->
+					<!-- <div class="recharge-foot">
+						<div class="recharge-foot-title">支付遇到问题</div>
+						<div class="recharge-foot-question">1、如何修改预留手机号码？</div>
+						<div class="recharge-foot-answer">请确认您是否在银行已经预留手机号码，如提示未预留或手机号码不一致，请携带身份证及银行卡至银行网点柜台，告知银行工作人员修改成您的常用手机号码。</div>
+						<div class="recharge-foot-question">2、可以使用他人储蓄卡开通快捷支付么？</div>
+						<div class="recharge-foot-answer">答：不可以。为了您的支付账号和银行储蓄卡的安全，请使用本人银行卡开通快捷支付。</div>
+					</div> -->
+
+				</div>
+
+				
+
+<!-- footer 底部 -->
+<div class="footer">
+	<div class="footer-box">
+		<a href="#" class="footer-a">关于我们</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">官方微博</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">官方微信</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">招贤纳士</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">联系我们</a>
+		<i class="footer-i">果仁宝版权所有 2014-2015 ICP证:</i>
+		<br>
+		<a href="#" class="footer-a">数字果仁</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">果仁控股</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">神州数字</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">比特帮</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">谷壳宝</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">BTCtrade</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">游戏瓶</a>
+	</div>
+</div>
+
+			</div>
+		</div>
+
+	</div>
+
+	<div class="dialog">
+
+		<!-- 实名认证 -->
+		<div class="dialog-box">
+			<div class="dialog-main">
+				<div class="dialog-identify">
+					<div class="dialog-title">实名认证</div>
+					<div class="dialog-close"></div>
+					<div class="dialog-content">
+						<div class="dialog-line">
+							<div class="dialog-left">真实姓名</div>
+							<div class="dialog-right">
+								<input type="text" class="dialog-input" id="identify-name">
+								<div class="dialog-tip">
+									<div class="dialog-tip-mark">请输入您的真实姓名</div>
+								</div>
+							</div>
+						</div>
+						<div class="dialog-line">
+							<div class="dialog-left">身份证</div>
+							<div class="dialog-right">
+								<input type="text" class="dialog-input" id="identify-idcard">
+								<div class="dialog-tip">
+									<div class="dialog-tip-mark">请输入您的身份证号</div>
+								</div>
+							</div>
+						</div>
+						<div class="dialog-line">
+							<div class="dialog-left"></div>
+							<div class="dialog-right">
+								<div class="dialog-button" ms-click="identifyNext">下一步</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 选择银行 -->
+		<div class="dialog-box">
+			<div class="dialog-main">
+				<div class="dialog-bank" ms-controller="dialog-bank">
+	<div class="dialog-title">选择银行</div>
+	<div class="dialog-close"></div>
+	<!-- <div class="dialog-bank-city">
+		<div class="dialog-bank-city-select">北京市</div>
+		<div class="dialog-bank-city-word">开户银行</div>
+	</div> -->
+	<div class="dialog-bank-list">
+		<div class="dialog-bank-item" ms-repeat-item="list" ms-class="on:now==$index" ms-click="click($event,$index,item)"><div ms-class="{{item.className}}"></div></div>
+	</div>
+	<div class="dialog-bank-button" ms-click="next">下一步</div>
+</div>
+			</div>
+		</div>
+
+		<!-- 添加银行卡 -->
+		<div class="dialog-box">
+			<div class="dialog-main">
+				<div class="dialog-bankadd">
+	<div class="dialog-title">添加银行卡<i ms-class="{{bankClass}}"></i></div>
+	<div class="dialog-close"></div>
+	<div class="dialog-content">
+		<div class="dialog-line">
+			<div class="dialog-left">姓 名：</div>
+			<div class="dialog-right">{{name}}</div>
+		</div>
+		<div class="dialog-line">
+			<div class="dialog-left">身份证：</div>
+			<div class="dialog-right">{{personId}}</div>
+		</div>
+		<div class="dialog-line">
+			<div class="dialog-left">银行卡号：</div>
+			<div class="dialog-right">
+				<input type="text" class="dialog-input" ms-attr-placeholder="cardPlaceholder" ms-duplex="card" data-check="card">
+				<!-- <div class="dialog-tip">
+					<div class="dialog-tip-mark">请输入您的真实姓名</div>
+				</div> -->
+			</div>
+		</div>
+		<div class="dialog-line">
+			<div class="dialog-left">手机号码：</div>
+			<div class="dialog-right">
+				<input type="text" class="dialog-input" placeholder="此卡在银行预留的手机号码" ms-duplex="phone" data-check="phone">
+				<!-- <div class="dialog-tip">
+					<div class="dialog-tip-mark">请输入您的身份证号</div>
+				</div> -->
+			</div>
+		</div>
+		<div class="dialog-block">
+			<div class="dialog-left"></div>
+			<div class="dialog-right">
+				<div class="dialog-button" ms-click="next">下一步</div>
+				<div class="dialog-bankadd-agreement">《<a href="#" class="dark-a">浦发银行快捷支付业务客户服务协议</a>》和《<a href="#" class="dark-a">果仁宝快捷支付服务协议</a>》</div>
+			</div>
+		</div>
+		<div class="dialog-last">
+			<div class="dialog-left"></div>
+			<div class="dialog-right"><span class="blue-point" ms-click="back">选择其他银行</span></div>
+		</div>
+	</div>
+</div>
+
+			</div>
+		</div>
+
+		<!-- 购买失败 -->
+		<div class="dialog-box">
+			<div class="dialog-main">
+				<div class="dialog-fail">
+					<div class="dialog-fail-content">
+						<div class="dialog-fail-icon"></div>
+						<div class="dialog-fail-big">购买失败，</div>
+						<div class="dialog-fail-reason">{{failReason}}。</div>
+						<div class="dialog-fail-tip">为了您的资产安全，果仁宝已为您锁定账户，请联系客服解锁或3小时后再试！</div>
+						<a href="#" class="dialog-fail-return">返回首页</a>
+						<a href="#" class="dialog-fail-a">查看交易记录</a>
+						<a href="#" class="dialog-fail-a">前往果仁交易所>></a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>

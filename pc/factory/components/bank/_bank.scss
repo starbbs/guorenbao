@@ -1,0 +1,58 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-10-23 13:59:49 创建
+// 银行图标
+
+
+.bank {
+
+	$img: $g-components + '/bank';
+
+	float: left;
+	padding-left: 24px;
+	margin-right: 24px;
+	margin-bottom: 20px;
+	position: relative;
+	cursor: pointer;
+
+	&-radio {
+		@extend %radio;
+		@include atl(18px, 0);
+		.on > & {
+			@extend %radio-on;
+		}
+	}
+
+	&-box {
+		@include height(48px);
+		border: 1px solid #dddddd;
+		background-color: #ffffff;
+		.on > & {
+			border-color: $g-blue;
+		}
+	}
+
+	&-img {
+		@include bank($img, (
+			('gongshang', 103px, 23px),
+			('guangfa', 107px, 22px),
+			('jianshe', 109px, 29px),
+			('nongye', 108px, 24px),
+			('pufa', 88px, 27px),
+			('shenfa', 102px, 18px),
+			('xingye', 108px, 29px),
+			('youzheng', 107px, 16px),
+			('zhaoshang', 100px, 36px),
+			('zhongxin', 94px, 29px),
+			('zhongyin', 87px, 30px)
+		), 124px);
+	}
+
+	&-number {
+		@include inline-block(middle);
+		margin-right: 12px;
+	}
+}
+
+

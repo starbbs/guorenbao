@@ -1,0 +1,105 @@
+@charset "utf-8";
+
+// 张树垚 2015-01-21 17:46:31 创建
+// filter
+
+
+
+// css3 滤镜, 可多个同时添加
+@mixin filter($arg: none) {
+	@include prefix(filter, $arg, pre, webkit);
+}
+
+
+
+// 1. grayscale 灰度, 默认100%
+@mixin grayscale($arg: 1) {
+	@include filter(#{grayscale($arg)});
+}
+
+
+
+// 2. sepia 褐色, 默认100%
+@mixin sepia($arg: 1) {
+	@include filter(#{sepia($arg)});
+}
+
+
+
+// 3. saturate 饱和度, 默认100%
+@mixin saturate($arg: 1) {
+	@include filter(#{saturate($arg)});
+}
+
+
+
+// 4. hue-rotate 色相旋转, 默认0deg
+@mixin hue-rotate($arg: 0deg) {
+	@include filter(#{hue-rotate($arg)});
+}
+
+
+
+// 5. invert 反色, 默认100%
+@mixin invert($arg: 1) {
+	@include filter(#{invert($arg)});
+}
+
+
+
+// 6. opacity 透明度, 默认100%
+@mixin opacity($arg: 1) {
+	@include filter(#{opacity($arg)});
+}
+
+
+
+// 7. brightness 亮度, 默认100%
+@mixin brightness($arg: 1) {
+	@include filter(#{brightness($arg)});
+}
+
+
+
+// 8. contrast 对比度, 默认100%
+@mixin contrast($arg: 1) {
+	@include filter(#{contrast($arg)});
+}
+
+
+
+// 9. blur 模糊, 默认0px
+@mixin blur($arg: 0px) {
+	@include filter(#{blur($arg)});
+}
+
+
+
+// 10. drop-shadow 阴影, 同 box-shadow
+@mixin drop-shadow($arg) {
+	@include filter(#{drop-shadow($arg)});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

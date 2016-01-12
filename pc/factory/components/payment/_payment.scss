@@ -1,0 +1,57 @@
+@charset 'utf-8';
+
+// 张树垚 2015-10-29 17:30:16 创建
+// 支付
+
+
+.payment { // 支付密码, 定位
+	$img: $g-components + '/payment';
+	float: left;
+	@include height(30px);
+	position: relative;
+	white-space: nowrap;
+	&-box { // 容器, 与input一样大小
+		float: left;
+		position: relative;
+	}
+	&-input { // 密码输入框
+		float: left;
+		@extend %input;
+	}
+	&-check { // 安全设置检测成功！
+		@include atl(-100%, 0);
+		&:before {
+			content: '';
+			margin-right: 10px;
+			@include inline-block(middle);
+			@include square(14px);
+			@include relative(-2px);
+			background-image: url($img + '/1.png');
+		}
+	}
+	&-forget { // 忘记密码
+		@include atl(0, 100%);
+		margin-left: 24px;
+		@extend .blue-a;
+	}
+	&-word { // 支付密码：
+		@include atr(0, 100%);
+		margin-right: 10px;
+	}
+	&-error { // 支付密码不正确
+		@include atl(100%, 0);
+		&:before {
+			content: '';
+			margin-right: 10px;
+			@include inline-block(middle);
+			@include square(14px);
+			@include relative(-2px);
+			background-image: url($img + '/2.png');
+		}
+	}
+	&-button {
+		@include atl(200%, 0);
+		@extend %button-blue-input;
+	}
+}
+

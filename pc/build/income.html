@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	
+<head>
+	<meta charset="UTF-8">
+	<title>果仁宝</title>
+	<meta name="fragment" content="!" />
+	<link rel="stylesheet" href="css/income.css">
+	<script src="js/avalon.js"></script>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/require.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/income.js"></script>
+</head>
+
+<body>
+
+	
+
+<!--[if lte IE 8]>
+	<div style="clear: both; height: 59px; padding-bottom: 15px; position: relative; margin:0 auto; z-index: 99999;">
+		<h1>您的浏览器版本过低, 推荐使用IE高版本或Chrome等浏览器, 以获取更快更安全的浏览体验!</h1>
+		<a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+			<img 
+				src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+				alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+				style="margin: 0 auto; display: block;"
+			/>
+		</a>
+	</div>
+<![endif]-->
+
+
+
+
+	<div class="wrap" ms-controller="income">
+
+		
+<!-- top 顶部 -->
+<div class="top" ms-controller="top">
+	<div class="top-box">
+
+		<!-- 左侧 -->
+		<div class="top-left">
+			<a href="#" class="top-left-a"><i class="top-left-mobile"></i>手机果仁宝</a>
+		</div>
+
+		<!-- 右侧 -->
+		<div class="top-right">
+
+			
+
+			
+				<span class="top-hello">{{time}}好，</span>
+				<div class="top-name">
+					<div class="top-name-hover">{{name}}</div>
+					<div class="top-name-box">
+						<div class="top-name-box-head">
+							<div class="top-name-box-phone">{{phone}}</div>
+							<div class="top-name-box-click">
+								<a class="top-name-box-a" href="./#">账户设置</a>
+								<!-- <a class="top-name-box-a" href="./setup.htm">账户设置</a> -->
+								<i class="top-name-box-separate"></i>
+								<a class="top-name-box-a" href="./#">交易记录</a>
+								<!-- <a class="top-name-box-a" href="./records.htm">交易记录</a> -->
+							</div>
+							<div class="top-name-box-img">
+								<img class="img-w" ms-src="photo" alt="">
+							</div>
+						</div>
+						<!-- <div class="top-name-box-line">
+							<span class="top-name-box-line-left">GOP：</span>
+							<span class="top-name-box-line-bold">{{gop | currency(' ')}}</span>
+							<a href="#" class="top-name-box-line-a">买入</a href="#">
+							<div class="top-name-box-line-right">收益</div>
+						</div> -->
+						<!-- <div class="top-name-box-line">
+							<span class="top-name-box-line-left">CNY：</span>
+							<span class="top-name-box-line-bold">{{cny | currency(' ')}}</span>
+							<a href="./recharge.htm" class="top-name-box-line-a">充值</a href="#">
+						</div> -->
+					</div>
+				</div>
+				<i class="top-separate"></i>
+				<span class="top-logout" ms-click="logout">退出</span>
+			
+
+			<i class="top-separate"></i>
+			<a href="#" class="top-trade">果仁市场</a>
+			<i class="top-separate"></i>
+
+			<!-- 疑问 -->
+			<a href="#" class="top-doubt"><span class="top-doubt-img"></span>疑问</a>
+
+		</div>
+
+	</div>
+</div>
+
+
+		
+
+<!-- header logo和导航 -->
+<div class="header">
+	<div class="header-box">
+
+		<!-- logo -->
+		<div class="header-logo">
+			
+				
+				
+					
+					
+						<a href="./home.htm" class="header-logo-img"></a>
+					
+					
+				
+			
+		</div>
+
+		
+			<!-- nav -->
+			<div class="header-nav">
+				<a
+					
+					
+						href="./home.htm"
+						class="header-nav-a"
+					
+				>首页</a>
+				<a
+					
+					
+						href="./setup.htm"
+						class="header-nav-a"
+					
+				>安全中心</a>
+				<a
+					
+						href="javascript:;"
+						class="header-nav-a on"
+					
+					
+				>收益详情</a>
+				<a
+					
+					
+						href="./records.htm"
+						class="header-nav-a"
+					
+				>交易记录</a>
+			</div>
+		
+
+	</div>
+</div>
+
+
+		<div class="container2">
+			<div class="container-box">
+
+				<!-- 收益详情 -->
+				<div class="income">
+
+					<div class="income-title">收益详情</div>
+
+					<div class="income-chart">
+						<div class="income-chart-title">
+							<div class="income-chart-yesterday">昨日收益：¥{{yesterday}}</div>
+							<div class="income-chart-balance">结算价格：¥{{price}}</div>
+							<div class="income-chart-rate">30日年化收益率：{{percent}}%</div>
+							<div class="income-chart-history"><span class="bold dark">历史累计收益：</span><span class="big bold blue">{{history}}</span> <span class="blue">¥</span></div>
+						</div>
+						<div class="income-chart-content"></div>
+					</div>
+
+					<div class="income-list">
+						<div class="income-list-head">
+							<div class="income-list-date">日期</div>
+							<div class="income-list-price">果仁0时价(￥)</div>
+							<div class="income-list-earn">日收益(￥)</div>
+							<div class="income-list-history">当前累计收益(￥)</div>
+						</div>
+						<div class="income-list-line" ms-repeat-item="list">
+							<div class="income-list-date">{{item.time.substring(5)}}</div>
+							<div class="income-list-price bold">{{item.price.toFixed(2)}}</div>
+							<div class="income-list-earn bold" ms-class="blue:item.earningNum>0">{{item.earningNum.toFixed(2)}}</div>
+							<div class="income-list-history bold">{{item.totalEarning.toFixed(2)}}</div>
+						</div>
+						<div class="income-list-pager">
+							<div class="pager">
+								<span class="pager-prev" ms-click="prev" ms-if="now>1">上一页</span>
+								<span class="pager-total">共{{count}}条，</span>
+								<input type="text" class="pager-now" ms-attr-value="now">
+								<span class="pager-num">/ {{num}}</span>
+								<span class="pager-next" ms-click="next" ms-if="now<num">下一页</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="income-description">
+						<div class="income-description-title">什么是累计收益？</div>
+						<div class="income-description-content">累计收益是一个概念化统计变量，包含两部分：由于价格变动带来的收益、由于持有果仁而分配的分红，是用户的资金通过转入果仁宝累计获得的收益总和。</div>
+						<div class="income-description-title">昨日收益和累计收益是怎么计算的？</div>
+						<div class="income-description-content">昨日收益=昨日24时果仁数×即时价-昨日0时果仁数×即时价+∑（昨日转出果仁数×即时价）-∑（昨日转入果仁数×即时价）-∑昨日买入金额。<br>累计收益＝∑每日收益。</div>
+					</div>
+
+				</div>
+
+				
+
+<!-- footer 底部 -->
+<div class="footer">
+	<div class="footer-box">
+		<a href="#" class="footer-a">关于我们</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">官方微博</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">官方微信</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">招贤纳士</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">联系我们</a>
+		<i class="footer-i">果仁宝版权所有 2014-2015 ICP证:</i>
+		<br>
+		<a href="#" class="footer-a">数字果仁</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">果仁控股</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">神州数字</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">比特帮</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">谷壳宝</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">BTCtrade</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">游戏瓶</a>
+	</div>
+</div>
+
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

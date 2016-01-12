@@ -1,0 +1,21 @@
+<div class="regist-paypass regist-paypass-@@step">
+	<div class="regist-title2">设置支付密码</div>
+	<div class="regist-title-tip">
+		@@if(step === 1){设置六位数字支付密码}
+		@@if(step === 2){再次输入六位支付密码，并牢记}
+	</div>
+	<div class="regist-paypass-box">
+		<div class="paypass">
+			<input class="paypass-input" name="paypass-input-@@step" autocomplete="off" maxlength="6" type="tel" ms-input="paypassInput(@@step)">
+			<div class="paypass-box">
+				<div class="paypass-item"></div>
+				<div class="paypass-item"></div>
+				<div class="paypass-item"></div>
+				<div class="paypass-item"></div>
+				<div class="paypass-item"></div>
+				<div class="paypass-item"></div>
+			</div>
+			<div class="paypass-button" ms-click="paypass@@stepNext"><span class="button" ms-class="disabled:!ifPaypass@@stepNext">下一步</span></div>
+		</div>
+	</div>
+</div>

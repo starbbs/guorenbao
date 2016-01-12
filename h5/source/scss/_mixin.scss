@@ -1,0 +1,16 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-17 15:14:41 创建
+// H5微信端 -- sass-mixin
+
+
+@mixin sprite($url, $width, $height: $width) { // 精灵图
+	width: $width;
+	height: $height;
+	@if type-of($url) != 'null' {
+		background-image: url($url); /* @meta {"sprite": {"h5": true}} */
+	}
+	background-size: $width $height;
+}
+

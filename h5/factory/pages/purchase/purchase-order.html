@@ -1,0 +1,47 @@
+<!-- 订单 -->
+<div class="purchase-order" ms-controller="purchase-order">
+	<div class="order-head">
+		<div class="purchase-order-head-float">
+			<div class="purchase-order-head-label">预获果仁(G)</div>
+			<div class="purchase-order-head-price green">+{{gopNum}}</div>
+		</div>
+		<div class="purchase-order-head-float">
+			<div class="purchase-order-head-label">当前价格(¥)</div>
+			<div class="purchase-order-head-price">{{price}}</div>
+		</div>
+		<div class="purchase-order-head-clear">
+			<div class="purchase-order-head-bold">等待支付(¥)</div>
+			<div class="purchase-order-head-tip">收款方：北京果仁宝科技有限公司</div>
+			<div class="purchase-order-head-money">-{{orderMoney}}</div>
+		</div>
+	</div>
+	<!-- <div class="order-box">
+		<div class="text-tip-top">请选择银行卡</div>
+		<div class="block">
+			<div class="block-item">
+				<div class="block-label">
+					<div class="order-bankicon"><i class="bank pufa"></i></div>
+					<div class="order-bankname">浦发银行 储蓄卡（5920）</div>
+				</div>
+				<div class="block-arrow"></div>
+			</div>
+			<div class="block-item">
+				<div class="block-label">
+					<div class="order-add"></div>
+					<div class="order-bankname">添加银行卡</div>
+				</div>
+				<div class="block-arrow"></div>
+			</div>
+			<div class="block-item">
+				<label for="order-ident" class="text">
+					<div class="text-label">验证码</div>
+					<div class="text-box"><input id="order-ident" name="order-ident" type="tel" class="text-input" autocomplete="off" placeholder="请填写验证码" maxlength="6" data-text="close"></div>
+					<div class="text-close"></div>
+				</label>
+				<div class="text-ident" data-ident="abc"></div>
+				<div class="text-tip-bottom">为保障您的资金安全，请输入短信验证码</div>
+			</div>
+		</div>
+	</div> -->
+	<div class="order-button"><span class="button" ms-click="click">确认支付</span></div>
+</div>

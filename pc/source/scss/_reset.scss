@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+
+// 张树垚 2015-06-17 14:11:21 创建
+// reset 取消默认样式
+
+
+body, ol, ul, h1, h2, h3, h4, h5, h6, p, th, td, dl, dd, form, fieldset, legend, input, textarea, select, img {
+	margin: 0;
+	padding: 0;
+}
+ul, li {
+	list-style: none;
+}
+a, input, textarea {
+	color: inherit;
+}
+i, strong, em {
+	font-style: normal;
+}
+
+
+
+
+
+

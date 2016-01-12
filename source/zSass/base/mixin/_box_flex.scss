@@ -1,0 +1,90 @@
+@charset "utf-8";
+
+
+// 伸缩布局
+// 张树垚 2014-11-10 11:02:57创建
+
+
+
+// 基本
+	@mixin box {
+		@include prefix(display, box, suf, webkit);
+	}
+
+	@mixin box-flex($value: 1) {
+		@include prefix(box-flex, $value, pre, webkit);
+	}
+
+	@mixin box-orient($value: horizontal) { // 伸缩流方向
+		$x: "w" "x" "horizontal" "width";
+		$y: "h" "y" "vertical" "height";
+		$value: quote($value);
+		@if index($x, $value) != null {
+			@include prefix(box-orient, horizontal, pre, webkit);
+		} @else if index($y, $value) != null {
+			@include prefix(box-orient, vertical, pre, webkit);
+		}
+	}
+
+	@mixin box-direction($value: normal) { // 布局顺序
+		// normal | reverse(反序)
+		@include prefix(box-direction, $value, pre, webkit);
+	}
+
+	@mixin box-pack($value: start) { // 主轴对齐
+		// start | end | center | justify
+		@include prefix(box-pack, $value, pre, webkit);
+	}
+
+	@mixin box-align($value: start) { // 侧轴对齐
+		@include prefix(box-align, $value, pre, webkit);
+	}
+
+	@mixin box-o($val: horizontal) {
+		@include box-orient($val);
+	}
+// 
+
+
+
+// 复合
+	@mixin box-c() {
+		@include box-center;
+	}
+
+	@mixin box-c-y() {
+		@include box-c;
+		@include box-o(y);
+	}
+
+	@mixin box-center() {
+		@include box;
+		@include box-pack(center);
+		@include box-align(center);
+	}
+
+	@mixin box-y($align: null) {
+		@include box;
+		@include box-orient(y);
+		@include box-pack($align);
+	}
+
+	@mixin box-y-c() {
+		@include box-y(center);
+	}
+
+	@mixin box-x($align: null) {
+		@include box;
+		@include box-orient(x);
+		@include box-pack($align);
+	}
+
+	@mixin box-x-c() {
+		@include box-x(center);
+	}
+// 
+
+
+
+
+

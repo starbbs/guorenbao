@@ -1,0 +1,118 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-17 15:03:20 创建
+// H5微信端 输入框样式
+
+
+.text {
+
+	$img: $g-components + '/text/images';
+
+	flex: 1;
+	display: flex;
+	align-items: center;
+	font-size: $g-font-input;
+	position: relative;
+	@include height($g-input-height);
+	width: 100%;
+
+	&-label {
+		width: 75px - $g-margin;
+		color: $g-input;
+		font-size: $g-font-input;
+		white-space: nowrap;
+	}
+	&-box {
+		flex: 1;
+		height: 100%;
+		padding-left: $g-margin;
+		padding-right: 2px;
+	}
+	&-input {
+		display: block;
+		@include square(100%);
+		box-sizing: border-box;
+	}
+	&-close {
+		@include sprite($img + '/1.png', 15px, 15px);
+		opacity: 0;
+		&.on {
+			opacity: 1;
+		}
+	}
+	&-eye {
+		@include sprite($img + '/2.png', 19px, 11px);
+		margin-left: $g-margin;
+		&.on {
+			@include sprite($img + '/3.png', 19px, 11px);
+		}
+	}
+	&-alert {
+		@include sprite($img + '/4.png', 20px, 20px);
+		margin-left: $g-margin;
+	}
+	&-arrow-bottom {
+		@include sprite($img + '/5.png', 14px, 8px);
+	}
+	&-safe {
+		$item: '';
+		@include abl;
+		right: 0;
+		display: flex;
+		&-item {
+			$item: & + '';
+			flex: 1;
+			height: 2px;
+			background-color: $g-light;
+			&:nth-child(2) {
+				margin: 0 3px;
+			}
+			&.on {
+				background-color: $g-safe;
+			}
+		}
+		&.s1 {
+			#{$item + ':nth-child(1)'} { background-color: $g-safe; }
+		}
+		&.s2 {
+			#{$item + ':nth-child(1)'} { background-color: $g-safe; }
+			#{$item + ':nth-child(2)'} { background-color: $g-safe; }
+		}
+		&.s3 {
+			#{$item + ':nth-child(1)'} { background-color: $g-safe; }
+			#{$item + ':nth-child(2)'} { background-color: $g-safe; }
+			#{$item + ':nth-child(3)'} { background-color: $g-safe; }
+		}
+	}
+	&-tip {
+		&-top { // 顶部的提示
+			margin-top: 5px;
+			padding-left: $g-padding;
+			font-size: $g-font-small;
+			color: $g-ash;
+		}
+		&-bottom { // 底下的提示
+			@include atl(100%);
+			right: 0;
+			margin-top: 2px;
+			color: $g-ash;
+			font-size: $g-font-small;
+			line-height: 2em;
+		}
+	}
+	&-button { // 按钮
+		margin: $g-margin-top-button $g-padding 0;
+		& ~ & {
+			margin-top: 15px;
+		}
+	}
+	&-ident { // 验证码
+		@include square(100px, 100%);
+		border-left: $g-border;
+		text-align: center;
+		margin-right: - $g-padding;
+		margin-left: $g-padding;
+	}
+}
+

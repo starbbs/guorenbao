@@ -1,0 +1,38 @@
+@charset 'utf-8';
+
+// 张树垚 2015-11-06 10:51:35 创建
+// 小图标
+
+
+.icon {
+	$img: $g-scss + '/icon';
+	$margin-left: 6px;
+	@include inline-block(middle);
+	margin-left: $margin-left;
+	@include relative(-1px);
+	&-separate {
+		&:before {
+			content: '|';
+		}
+		margin: 0 12px;
+	}
+	&-arrow {
+		@extend .icon;
+		@include square(17px, 5px);
+		&-left { // 左箭头
+			@extend .icon-arrow;
+			background-image: url($img + '/arrow-left.png');
+			margin-right: $margin-left;
+			margin-left: 0;
+		}
+		&-right { // 右箭头
+			@extend .icon-arrow;
+			background-image: url($img + '/arrow-right.png');
+		}
+	}
+	&-download {
+		@extend .icon;
+		@include square(16px);
+		background-image: url($img + '/download.png');
+	}
+}

@@ -1,0 +1,237 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-20 11:22:45 创建
+// H5微信端 --- 个人首页
+
+
+@import '../../../source/scss/main';
+
+@import '../../views/view';
+
+@import '../../components/nav/nav';
+
+// @import '../../dialogs/dialog';
+
+
+body {
+	background-color: $g-background;
+}
+
+
+.wealth {
+
+	$img: $g-pages + '/wealth/images';
+	$border: 1px solid $g-line;
+	$padding: 15px;
+
+	@extend %rw;
+	@extend %fade-in;
+	padding-bottom: $g-padding-bottom;
+
+	&-head {
+		@extend %rw;
+		height: px(370);
+		border-bottom: $border;
+		&-bg {
+			@extend %afull;
+			@include background-size;
+			&.up {
+				background-image: url($g-img + '/wealth-up.jpg');
+			}
+			&.down {
+				background-image: url($g-img + '/wealth-down.jpg');
+			}
+		}
+		&-content {
+			@extend %afull;
+			text-align: center;
+			line-height: 1;
+		}
+		&-line1 {
+			color: rgba(255,255,255,.3);
+			font-size: 10px;
+			margin-top: 28px;
+			span {
+				font-size: 12px;
+				color: $g-white;
+				margin-right: 8px;
+			}
+		}
+		&-line2 {
+			color: $g-white;
+			font-size: 64px;
+			margin: 18px 0;
+			span {
+				font-size: 36px;
+				margin-right: 8px;
+				vertical-align: middle;
+			}
+		}
+		&-line3 {
+			color: rgba(255,255,255,.3);
+			font-size: 10px;
+		}
+		&-line4 {
+			color: $g-white;
+			margin-top: 6px;
+			font-size: 16px;
+			span {
+				margin-right: 6px;
+			}
+		}
+		&-next {
+			@include atrwh(0, 0, 20%, 100%);
+			@extend %flex-center;
+			&:after {
+				content: '';
+				display: block;
+				@include sprite($img + '/next.png', 16px, 34px);
+			}
+		}
+	}
+	&-bar {
+		border-top: $border;
+		border-bottom: $border;
+		height: 62px;
+		display: flex;
+		background-color: $g-white;
+		margin-top: 5px;
+		&-item {
+			flex: 1;
+			padding-left: $padding;
+			&:first-child {
+				border-right: $border;
+			}
+		}
+		&-label {
+			color: $g-silver;
+			font-size: 10px;
+			margin-top: 8px;
+			span {
+				color: $g-input;
+				font-size: 12px;
+				margin-right: 5px;
+			}
+		}
+		&-number {
+			font-size: 18px;
+			line-height: 1.5;
+			font-weight: bold;
+		}
+	}
+	&-chart {
+		margin-top: 38px;
+		border-top: $border;
+		border-bottom: $border;
+		background-color: $g-white;
+		position: relative;
+		height: 162px;
+		width: 100%;
+		&-box {
+			@extend %afull;
+		}
+		&-item {
+			@include atlwh(18px, 5%, 90%, 124px);
+		}
+	}
+	&-now {
+		@include atr(-28px, $padding);
+	}
+	&-tab {
+		@include atl(-31px, 7px);
+		@include height(29px);
+		&-item {
+			@extend %atl;
+			padding: 0 8px;
+			height: 100%;
+			border: $border;
+			border-bottom-color: $g-white;
+			background-color: $g-white;
+			white-space: nowrap;
+			color: $g-blue-chart;
+			display: none;
+			&.on {
+				display: block;
+			}
+		}
+		&-history {
+			border: $border;
+			border-radius: 2px;
+			margin-left: 10px;
+			padding: 2px 0;
+			&-item {
+				padding: 3px 13px;
+				&.on {
+					color: $g-white;
+					border-radius: 2px;
+					background-color: $g-blue;
+					margin: 0 -1px;
+				}
+			}
+		}
+	}
+	&-tits {
+		@include ablw(9px);
+		text-align: center;
+		line-height: 0;
+		&-item {
+			display: inline-block;
+			@include square(6px);
+			// margin: 0 2px;
+			border-radius: 50%;
+			background-color: $g-light;
+			&.on {
+				background-color: $g-blue;
+			}
+		}
+	}
+
+	&-history { // 历史收益
+		@extend .view-style;
+		&-scroll {
+			@extend %rw;
+			overflow: hidden;
+			padding-bottom: $g-padding-bottom;
+		}
+		&-head {
+			text-align: center;
+			font-size: 14px;
+			margin-top: 24px;
+		}
+		&-number {
+			text-align: center;
+			font-size: 34px;
+			// color: $g-red;
+			padding-right: .5em;
+			line-height: 1.5;
+		}
+		&-list {
+			border-top: $g-border;
+			margin-top: 12px;
+		}
+		&-item {
+			border-bottom: $g-border;
+			overflow: hidden;
+			padding: 0 15px;
+			@include height(48px);
+			&:nth-child(odd) {
+				background-color: $g-white;
+			}
+			&:first-child {
+				.history-left {
+					color: $g-dark;
+				}
+			}
+		}
+		&-left {
+			float: left;
+			color: $g-silver;
+			font-size: 14px;
+		}
+		&-right {
+			float: right;
+			font-size: 16px;
+		}
+	}
+}

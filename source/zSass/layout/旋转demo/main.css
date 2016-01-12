@@ -1,0 +1,110 @@
+@charset "UTF-8";
+.screen, .page_box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+html, body {
+  height: 100%;
+  -webkit-tap-highlight-color: transparent; }
+
+body {
+  margin: 0;
+  font-family: Arial,Verdana;
+  background-color: #fff; }
+
+.page {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  -webkit-transform: translateY(-50%); }
+
+.img-w, .img_w, .img-h, .img_h {
+  position: relative;
+  display: block; }
+
+.img-w, .img_w {
+  width: 100%; }
+
+.img-h, .img_h {
+  height: 100%; }
+
+.screen {
+  overflow: hidden; }
+  @media only screen and (min-width: 1000px) {
+    .screen {
+      position: relative;
+      width: 480px;
+      margin: 0 auto;
+      height: 100%; } }
+
+.page {
+  height: 100vw;
+  width: 100vw;
+  box-sizing: border-box;
+  border: 1px dotted #888; }
+  .page:before {
+    content: "约";
+    position: absolute;
+    z-index: 10;
+    width: 25%;
+    left: 37.5%;
+    height: 25%;
+    top: 37.5%;
+    line-height: 25vw;
+    font-size: 10vw;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 50%;
+    background-color: #feabb8;
+    border: 1px dotted #363636; }
+  .page_box {
+    background-color: #92ddfa;
+    -webkit-animation: page_box 10s linear infinite; }
+@-webkit-keyframes page_box {
+  0% {
+    -webkit-transform: rotate(0); }
+  100% {
+    -webkit-transform: rotate(360deg); } }
+  .page_item1, .page_item2, .page_item3 {
+    background-color: rgba(102, 102, 102, 0);
+    position: absolute;
+    -webkit-animation: item 10s linear infinite;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    -webkit-box-orient: vertical; }
+@-webkit-keyframes item {
+  0% {
+    -webkit-transform: rotate(0); }
+  100% {
+    -webkit-transform: rotate(-360deg); } }
+  .page_item1 {
+    top: -5%;
+    left: 30%;
+    width: 40%;
+    height: 40%; }
+  .page_item2 {
+    top: 47.5%;
+    left: -0.31%;
+    width: 40%;
+    height: 40%; }
+  .page_item3 {
+    top: 47.5%;
+    left: 60.31%;
+    width: 40%;
+    height: 40%; }
+  .page_img {
+    width: 60%; }
+  .page_word {
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.5em;
+    margin-top: 4px;
+    color: #444;
+    white-space: nowrap; }
+
+/*# sourceMappingURL=main.css.map */

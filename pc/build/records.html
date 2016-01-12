@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	
+<head>
+	<meta charset="UTF-8">
+	<title>果仁宝</title>
+	<meta name="fragment" content="!" />
+	<link rel="stylesheet" href="css/records.css">
+	<script src="js/avalon.js"></script>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/require.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/records.js"></script>
+</head>
+
+<body>
+
+	
+
+<!--[if lte IE 8]>
+	<div style="clear: both; height: 59px; padding-bottom: 15px; position: relative; margin:0 auto; z-index: 99999;">
+		<h1>您的浏览器版本过低, 推荐使用IE高版本或Chrome等浏览器, 以获取更快更安全的浏览体验!</h1>
+		<a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+			<img 
+				src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+				alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+				style="margin: 0 auto; display: block;"
+			/>
+		</a>
+	</div>
+<![endif]-->
+
+
+
+
+	<div class="wrap" ms-controller="records">
+
+		
+<!-- top 顶部 -->
+<div class="top" ms-controller="top">
+	<div class="top-box">
+
+		<!-- 左侧 -->
+		<div class="top-left">
+			<a href="#" class="top-left-a"><i class="top-left-mobile"></i>手机果仁宝</a>
+		</div>
+
+		<!-- 右侧 -->
+		<div class="top-right">
+
+			
+
+			
+				<span class="top-hello">{{time}}好，</span>
+				<div class="top-name">
+					<div class="top-name-hover">{{name}}</div>
+					<div class="top-name-box">
+						<div class="top-name-box-head">
+							<div class="top-name-box-phone">{{phone}}</div>
+							<div class="top-name-box-click">
+								<a class="top-name-box-a" href="./#">账户设置</a>
+								<!-- <a class="top-name-box-a" href="./setup.htm">账户设置</a> -->
+								<i class="top-name-box-separate"></i>
+								<a class="top-name-box-a" href="./#">交易记录</a>
+								<!-- <a class="top-name-box-a" href="./records.htm">交易记录</a> -->
+							</div>
+							<div class="top-name-box-img">
+								<img class="img-w" ms-src="photo" alt="">
+							</div>
+						</div>
+						<!-- <div class="top-name-box-line">
+							<span class="top-name-box-line-left">GOP：</span>
+							<span class="top-name-box-line-bold">{{gop | currency(' ')}}</span>
+							<a href="#" class="top-name-box-line-a">买入</a href="#">
+							<div class="top-name-box-line-right">收益</div>
+						</div> -->
+						<!-- <div class="top-name-box-line">
+							<span class="top-name-box-line-left">CNY：</span>
+							<span class="top-name-box-line-bold">{{cny | currency(' ')}}</span>
+							<a href="./recharge.htm" class="top-name-box-line-a">充值</a href="#">
+						</div> -->
+					</div>
+				</div>
+				<i class="top-separate"></i>
+				<span class="top-logout" ms-click="logout">退出</span>
+			
+
+			<i class="top-separate"></i>
+			<a href="#" class="top-trade">果仁市场</a>
+			<i class="top-separate"></i>
+
+			<!-- 疑问 -->
+			<a href="#" class="top-doubt"><span class="top-doubt-img"></span>疑问</a>
+
+		</div>
+
+	</div>
+</div>
+
+
+		
+
+<!-- header logo和导航 -->
+<div class="header">
+	<div class="header-box">
+
+		<!-- logo -->
+		<div class="header-logo">
+			
+				
+				
+					
+					
+						<a href="./home.htm" class="header-logo-img"></a>
+					
+					
+				
+			
+		</div>
+
+		
+			<!-- nav -->
+			<div class="header-nav">
+				<a
+					
+					
+						href="./home.htm"
+						class="header-nav-a"
+					
+				>首页</a>
+				<a
+					
+					
+						href="./setup.htm"
+						class="header-nav-a"
+					
+				>安全中心</a>
+				<a
+					
+					
+						href="./income.htm"
+						class="header-nav-a"
+					
+				>收益详情</a>
+				<a
+					
+						href="javascript:;"
+						class="header-nav-a on"
+					
+					
+				>交易记录</a>
+			</div>
+		
+
+	</div>
+</div>
+
+
+		<div class="container2">
+			<div class="container-box">
+
+				<div class="records">
+					<div class="records-head">
+						<div class="records-head-select">
+							<span class="records-head-select-name">交易分类：</span>
+							<span class="records-head-select-item" ms-class="on:(type==''||type==0)">全部</span>
+							<span class="records-head-select-item" ms-class="on:type==1">买入</span>
+							<span class="records-head-select-item" ms-class="on:type==2">转账</span>
+						</div>
+						<div class="records-head-select">
+							<span class="records-head-select-name">交易状态：</span>
+							<span class="records-head-select-item" ms-class="on:status==''">全部</span>
+							<span class="records-head-select-item" ms-class="on:status=='success'">交易成功</span>
+							<span class="records-head-select-item" ms-class="on:status=='failed'">交易失败</span>
+							<span class="records-head-select-item" ms-class="on:(status=='waitForPay'||status=='processing')">进行中</span>
+							<span class="records-head-select-item" ms-class="on:status=='closed'">已关闭</span>
+						</div>
+						<div class="records-head-time">
+							<span class="records-head-time-name">日期：</span>
+							<input type="text" class="records-head-time-input" ms-duplex="beginTime">
+							<span class="records-head-time-separate">-</span>
+							<input type="text" class="records-head-time-input" ms-duplex="endTime">
+						</div>
+					</div>
+					<div class="records-table">
+						<div class="records-page">
+							<a href="#" class="blue-a tdn" ms-if="pageNum>1">上一页</a>
+							<span>共{{count}}条，</span>
+							<input type="text" class="records-page-input" ms-duplex="pageNum">
+							<span>/ {{page}}</span>
+							<a href="#" class="blue-a tdn" ms-if="pageNum<page">下一页</a>
+						</div>
+						<div class="records-table-thead">
+							<div class="records-table-td1">时间</div>
+							<div class="records-table-td2">信息｜交易号</div>
+							<div class="records-table-td3">对方</div>
+							<div class="records-table-td4">金额变化</div>
+							<div class="records-table-td5">换算交易额</div>
+							<div class="records-table-td6">状态</div>
+							<div class="records-table-td7">操作</div>
+						</div>
+						<div class="records-table-tr" ms-repeat-item="list">
+							<div class="records-table-td1">
+								<div class="gray">{{item.time.substring(0,10)}}</div>
+								<div class="silver">{{item.time.substring(11,19)}}</div>
+							</div>
+							<div class="records-table-td2">
+								<div class="">{{item.message}}</div>
+								<div class="silver">交易号：{{item.number}}</div>
+							</div>
+							<div class="records-table-td3">
+								<div class="">{{item.opponent}}</div>
+							</div>
+							<div class="records-table-td4 bold" ms-class="{{color(status,moneyChange)}}">
+								<div class="silver">{{item.moneyChange|sign}} {{item.moneyChange|abs|currency(' ')}} G</div>
+							</div>
+							<div class="records-table-td5">
+								<div class="">{{item.reducedTurnover|abs|currency(' ')}} ￥</div>
+							</div>
+							<div class="records-table-td6">
+								<div class="">{{item.status|status}}</div>
+							</div>
+							<div class="records-table-td7">
+								<div ms-if-loop="true"><a ms-attr-href="{{'#!/detail/'+item.number}}" class="blue-a tdn">详情</a></div>
+								<div ms-if-loop="false" class="records-table-td-list">
+									<div class="records-table-td-list-item">付款</div>
+									<div class="records-table-td-list-item">详情</div>
+									<div class="records-table-td-list-item">关闭</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="records-detail" ms-controller="records-detail">
+						<div class="records-detail-title">
+							交易详情
+							<div class="records-detail-back"><a href="#!/detail/0" class="dark-a tdn"><i class="icon-arrow-left"></i>返回我的记录</a></div>
+						</div>
+						<div class="records-detail-word">
+							<div class="records-detail-word-state success">{{status|status}}</div>
+							<div class="records-detail-word-time">{{time.substring(0,19)}}</div>
+							<div class="records-detail-word-action">{{message}}</div>
+							<div class="records-detail-word-trader">{{merchants}}</div>
+						</div>
+						<div class="records-detail-table">
+							<div class="records-detail-thead">
+								<div class="records-detail-td1">信息 | 交易号</div>
+								<div class="records-detail-td2">金额变化</div>
+								<div class="records-detail-td3">果仁当前市价(￥)</div>
+								<div class="records-detail-td4">换算交易额(￥)</div>
+								<div class="records-detail-td5">服务费(￥)</div>
+							</div>
+							<div class="records-detail-tr">
+								<div class="records-detail-td1 records-detail-double">
+									提现
+									<div class="gray">交易号：{{number}}</div>
+								</div>
+								<div class="records-detail-td2 bold" ms-class="{{color(status,moneyChange)}}">{{moneyChange|sign}} {{moneyChange|abs|currency(' ')}} G</div>
+								<div class="records-detail-td3 bold">{{gopPrice|currency(' ')}}</div>
+								<div class="records-detail-td4">{{reducedTurnover|currency(' ')}}</div>
+								<div class="records-detail-td5 gray">0.00</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				
+
+<!-- footer 底部 -->
+<div class="footer">
+	<div class="footer-box">
+		<a href="#" class="footer-a">关于我们</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">官方微博</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">官方微信</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">招贤纳士</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">联系我们</a>
+		<i class="footer-i">果仁宝版权所有 2014-2015 ICP证:</i>
+		<br>
+		<a href="#" class="footer-a">数字果仁</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">果仁控股</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">神州数字</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">比特帮</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">谷壳宝</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">BTCtrade</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">游戏瓶</a>
+	</div>
+</div>
+
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	@@include('../../../source/include/head.html', {
+		"name": "income"
+	})
+
+<body>
+
+	@@include('../../../source/include/forIE.html')
+
+	<div class="wrap" ms-controller="income">
+
+		@@include('../../components/top/top.html', {
+			"login": false,
+			"logout": true
+		})
+
+		@@include('../../components/header/header.html', {
+			"title": false,
+			"nav": "income"
+		})
+
+		<div class="container2">
+			<div class="container-box">
+
+				<!-- 收益详情 -->
+				<div class="income">
+
+					<div class="income-title">收益详情</div>
+
+					<div class="income-chart">
+						<div class="income-chart-title">
+							<div class="income-chart-yesterday">昨日收益：¥{{yesterday}}</div>
+							<div class="income-chart-balance">结算价格：¥{{price}}</div>
+							<div class="income-chart-rate">30日年化收益率：{{percent}}%</div>
+							<div class="income-chart-history"><span class="bold dark">历史累计收益：</span><span class="big bold blue">{{history}}</span> <span class="blue">¥</span></div>
+						</div>
+						<div class="income-chart-content"></div>
+					</div>
+
+					<div class="income-list">
+						<div class="income-list-head">
+							<div class="income-list-date">日期</div>
+							<div class="income-list-price">果仁0时价(￥)</div>
+							<div class="income-list-earn">日收益(￥)</div>
+							<div class="income-list-history">当前累计收益(￥)</div>
+						</div>
+						<div class="income-list-line" ms-repeat-item="list">
+							<div class="income-list-date">{{item.time.substring(5)}}</div>
+							<div class="income-list-price bold">{{item.price.toFixed(2)}}</div>
+							<div class="income-list-earn bold" ms-class="blue:item.earningNum>0">{{item.earningNum.toFixed(2)}}</div>
+							<div class="income-list-history bold">{{item.totalEarning.toFixed(2)}}</div>
+						</div>
+						<div class="income-list-pager">
+							<div class="pager">
+								<span class="pager-prev" ms-click="prev" ms-if="now>1">上一页</span>
+								<span class="pager-total">共{{count}}条，</span>
+								<input type="text" class="pager-now" ms-attr-value="now">
+								<span class="pager-num">/ {{num}}</span>
+								<span class="pager-next" ms-click="next" ms-if="now<num">下一页</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="income-description">
+						<div class="income-description-title">什么是累计收益？</div>
+						<div class="income-description-content">累计收益是一个概念化统计变量，包含两部分：由于价格变动带来的收益、由于持有果仁而分配的分红，是用户的资金通过转入果仁宝累计获得的收益总和。</div>
+						<div class="income-description-title">昨日收益和累计收益是怎么计算的？</div>
+						<div class="income-description-content">昨日收益=昨日24时果仁数×即时价-昨日0时果仁数×即时价+∑（昨日转出果仁数×即时价）-∑（昨日转入果仁数×即时价）-∑昨日买入金额。<br>累计收益＝∑每日收益。</div>
+					</div>
+
+				</div>
+
+				@@include('../../components/footer/footer.html')
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

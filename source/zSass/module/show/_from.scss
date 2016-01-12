@@ -1,0 +1,75 @@
+@charset "utf-8";
+
+// 张树垚 2014-12-15 19:41:04 创建
+// from动画
+
+
+// @import "base";
+// @import "../base";
+
+
+
+@mixin from-3d($delay: 0, $time: .5s, $x: 0, $y: 0, $z: 0) {
+	@include t3d($x, $y, $z);
+	@include show-transition($delay, $time) {
+		@include t3d;
+	}
+}
+@mixin from-3d-self($delay: 0, $time: .5s, $x: 0, $y: 0, $z: 0) {
+	@include t3d($x, $y, $z);
+	@include show-transition($delay, $time, true) {
+		@include t3d;
+	}
+}
+@mixin from-3d-hide($delay: 0, $time: .5s, $x: 0, $y: 0, $z: 0) {
+	@include show-transition($delay, $time, false, $hide-name, true) {
+		@include t3d($x, $y, $z);
+	}
+}
+@mixin from-3d-hide-self($delay: 0, $time: .5s, $x: 0, $y: 0, $z: 0) {
+	@include show-transition($delay, $time, true, $hide-name, true) {
+		@include t3d($x, $y, $z);
+	}
+}
+
+
+@mixin from-left($delay: 0, $time: .5, $x: 0) {
+	@if unitless($x) {
+		$x: unquote($x + $style-unit);
+	}
+	@include x($x);
+	@include show-transition($delay, $time, false, $show-name, false) {
+		@include x;
+	}
+}
+
+
+@mixin from-top($delay: 0, $time: .5, $y: 0) {
+	@if unitless($y) {
+		$y: unquote($y + $style-unit);
+	}
+	@include y($y);
+	@include show-transition($delay, $time, false, $show-name, false) {
+		@include y;
+	}
+}
+
+
+
+
+@mixin from-scale($delay: 0, $time: .5s, $scale: 1) {
+	@include scale($scale);
+	@include show-transition($delay, $time) {
+		@include scale;
+	}
+}
+@mixin from-scale-self($delay: 0, $time: .5s, $scale: 1) {
+	@include scale($scale);
+	@include show-transition($delay, $time, true) {
+		@include scale;
+	}
+}
+
+
+
+

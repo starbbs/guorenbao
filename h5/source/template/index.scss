@@ -1,0 +1,18 @@
+@charset 'utf-8';
+
+
+// 张树垚 {{date}} 创建
+// H5微信端 --- {{desc}}
+
+
+@import '../../../source/scss/main';
+
+
+.{{name}} {
+	$img: $g-pages + '/{{name}}/images';
+}
+
+
+@import '../../views/view';
+
+@import '../../dialogs/dialog';

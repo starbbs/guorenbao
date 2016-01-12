@@ -1,0 +1,29 @@
+@@include('../../../source/include/top.html', {"name": "paypass"})
+<div class="screen-a" ms-controller="paypass">
+    <div class="paypass-page" >
+		<div class="block">
+			<a href="#!/view/paypass-view-1" class="block-item">
+				<div class="block-label">记得原支付密码</div>
+				<div class="block-arrow"></div>
+			</a>
+			<a href="#!/view/paypass-choose" class="block-item">
+				<div class="block-label">忘记原支付密码</div>
+				<div class="block-arrow"></div>
+			</a>
+		</div>
+	</div>
+	<div class="view">
+		@@include('./paypass-choose.html')
+		<!-- 验证 -->
+		@@include('./paypass-view.html', { "step": 1 })
+		@@include('./paypass-ident.html')
+		@@include('./paypass-protection.html', { "num": 1 })
+		@@include('./paypass-protection.html', { "num": 2 })
+		@@include('./paypass-authentication.html')
+		<!-- 设置 -->
+		@@include('./paypass-view.html', { "step": 2 })
+		@@include('./paypass-view.html', { "step": 3 })
+	</div>
+	<div class="alert"></div>
+</div>
+@@include('../../../source/include/bottom.html', {"name": "paypass"})

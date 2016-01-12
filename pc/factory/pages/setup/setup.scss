@@ -1,0 +1,407 @@
+@charset "UTF-8";
+
+// 张树垚 2015-11-04 16:35:12 创建
+// 设置页
+
+
+// 引入
+@import '../../../source/scss/main';
+
+@import '../../components/top/top';
+@import '../../components/header/header';
+@import '../../components/footer/footer';
+@import '../../components/pager/pager';
+
+
+.setup {
+
+	$img: $g-factory + '/pages/setup/images';
+
+	$margin: 10px; // 左右边距
+	$menu-width: 196px; // 菜单宽度
+	$height: 605px; // 高度
+
+	min-height: 1000px;
+	padding-top: 29px;
+	color: $g-dark;
+
+	&-input {
+		@extend %input;
+	}
+	&-select {
+		@extend %select;
+	}
+
+	&-menu {
+		float: left;
+		@include square($menu-width - 2px, $height - 2px);
+		margin-left: $margin;
+		border: 1px solid #dddddd;
+		background-color: #f8f8f8;
+		font-size: 13px;
+
+		&-item {
+			@extend .dark-a;
+			display: block;
+			@include height(40px);
+			margin-top: 10px;
+			margin-bottom: 20px;
+			border: solid transparent;
+			border-width: 1px 0;
+			position: relative;
+			transition: .3s all ease;
+			text-decoration: none;
+			&:hover, &.on {
+				border-color: #dddddd;
+				background-color: #fff;
+				.setup-icon-arrow {
+					opacity: 1;
+				}
+			}
+			&.on {
+				color: $g-blue;
+			}
+		}
+	}
+
+	&-content {
+		display: none;
+		margin-left: $menu-width + $margin;
+		margin-right: $margin;
+		height: $height - 2px;
+		border-top: 1px solid transparent;
+		border-bottom: 1px solid #dddddd;
+		padding-left: 23px;
+		&-head {
+			@include height(36px);
+			padding-bottom: 2px;
+			border-bottom: 1px solid #dddddd;
+			padding-left: 15px;
+			font-size: 14px;
+			font-weight: bold;
+		}
+	}
+
+	&-icon {
+		$icon: & + '';
+		$icons: (
+			17px 14px,
+			18px 12px,
+			20px 18px,
+			19px 17px,
+			21px 15px
+		);
+		$left: 56px; // 左边字体对齐距离
+		$center: 35px; // 图标中线距左距离
+		@include inline-block(middle);
+		@include relative(-2px);
+		@for $i from 1 through 5 {
+			&-#{$i} {
+				$list: nth($icons, $i);
+				$width: nth($list, 1);
+				@extend #{$icon};
+				@include square($width, nth($list, 2));
+				margin-left: $center - $width / 2;
+				margin-right: $left - $center - $width / 2;
+				// margin-left + margin-right + width = $left
+				background-image: url($img + '/' + ($i * 2 - 1) + '.png');
+				.on > & {
+					background-image: url($img + '/' + ($i * 2) + '.png');
+				}
+			}
+		}
+		&-arrow {
+			font-style: normal;
+			float: right;
+			margin-right: 17px;
+			transition: $g-transition;
+			opacity: 0;
+			&:before {
+				content: '>';
+			}
+		}
+		&-copy {
+			margin-left: 8px;
+			display: inline-block;
+			@include relative(1px);
+			@include square(11px, 13px);
+			background-image: url($img + '/11.png');
+			cursor: pointer;
+		}
+		&-help {
+			margin-left: 10px;
+			display: inline-block;
+			@include relative(3px);
+			@include square(16px);
+			background-image: url($img + '/12.png');
+		}
+	}
+
+	&-base { // 基本信息
+		&-info {
+			height: 203px;
+			padding: 22px 0;
+			border-bottom: 1px dashed #dddddd;
+			&-left {
+				float: left;
+				width: 177px;
+				height: 100%;
+				border-right: 1px dotted #dddddd;
+				&-img {
+					@include square(96px);
+					margin: 15px auto 0;
+					border: 2px solid #fff;
+					border-radius: 50%;
+					box-shadow: 0px 0px 0px 1px #dddddd;
+					overflow: hidden;
+				}
+				&-name {
+					margin-top: 25px;
+					font-size: 14px;
+					text-align: center;
+				}
+			}
+			&-right {
+				margin-left: 178px;
+				padding-top: 10px;
+				&-line {
+					@include height(60px);
+					padding-left: 45px;
+				}
+				&-block {
+					&1 {
+						float: left;
+						color: $g-black;
+						width: 75px;
+					}
+					&2 {
+						float: left;
+						width: 138px;
+					}
+					&3 {
+						float: left;
+						padding-left: 22px;
+					}
+				}
+				&-click {
+					float: left;
+					margin-left: 22px;
+				}
+			}
+		}
+		&-address {
+			display: flex;
+			margin-top: 4px;
+			padding-left: 21px;
+			padding-right: 33px;
+			@include height(70px);
+			&-title {
+				width: 125px;
+				color: $g-black;
+			}
+			&-content {
+				flex: 1;
+			}
+			&-right {}
+		}
+		&-introduction {
+			border: 1px solid #edeeee;
+			background-color: #feffe2;
+			padding: 8px 20px 12px;
+			margin-right: 4px;
+			position: relative;
+			&-h {
+				line-height: 42px;
+				font-weight: bold;
+			}
+			&-p {
+				line-height: 24px;
+				color: $g-gray;
+			}
+		}
+	}
+
+	&-verify {
+		@include square(100%, 564px);
+		overflow: auto;
+		background-color: #fff;
+		&-not {
+			width: 700px;
+			margin: 0 auto;
+		}
+		&-done {
+			width: 275px;
+			padding-left: 105px;
+			padding-bottom: 60px;
+			margin: 40px auto 0;
+			border: #edeeee 1px solid;
+			position: relative;
+			line-height: 36px;
+			&-title {
+				margin-top: 60px;
+				margin-bottom: 10px;
+				color: $g-blue;
+				font-size: 18px;
+				letter-spacing: 2px;
+			}
+			&-line {
+				@extend .clearfix;
+			}
+			&-left {
+				width: 85px;
+				color: $g-black;
+				float: left;
+			}
+			&-right {
+				float: left;
+			}
+		}
+		&-form {
+			padding-top: 56px;
+			padding-bottom: 66px;
+			border-bottom: 1px dotted #dddddd;
+		}
+		&-foot {
+			margin-top: 60px;
+			padding-left: 3em;
+			line-height: 24px;
+			text-align: center;
+			&-word {
+				display: inline-block;
+				text-align: left;
+			}
+		}
+		&-line {
+			@include height(30px);
+			width: 228px;
+			margin: 26px auto 0;
+			position: relative;
+			&-title {
+				@include atr(0, 100%);
+				margin-right: 25px;
+				white-space: nowrap;
+			}
+		}
+		&-button {
+			@extend %button-blue-input;
+			margin: 35px auto 0;
+		}
+	}
+
+	&-password {
+		&-login {
+			display: table;
+			width: 700px;
+			margin: 10px auto 0;
+			border-bottom: 1px dotted #dddddd;
+		}
+		&-payoff {
+			width: 700px;
+			margin: 0 auto;
+		}
+		&-title {
+			margin: 30px auto;
+			font-size: 14px;
+			line-height: 20px;
+			font-weight: bold;
+			&-a {
+				text-decoration: none;
+				margin-left: 15px;
+				padding-left: 30px;
+			}
+		}
+		&-content {
+			overflow: hidden;
+		}
+		&-scroll {
+			padding-top: 10px;
+			padding-bottom: 63px;
+		}
+		&-line {
+			@include height(30px);
+			margin-bottom: 26px;
+			&-left {
+				float: left;
+				width: 116px;
+				padding-right: 24px;
+				text-align: right;
+			}
+			&-right {
+				float: left;
+				position: relative;
+			}
+		}
+		&-button {
+			@extend %button-blue-input;
+			margin: 35px 0 0 140px;
+		}
+	}
+
+	&-security { // 密保问题
+		@include square(100%, 564px);
+		overflow: auto;
+		background-color: #fff;
+
+		&-not {
+			margin-top: 80px;
+		}
+		&-check {
+			&-title {}
+			&-line {}
+			&-button {}
+			&-return {}
+		}
+		&-done {
+			&-title {}
+			&-line {}
+			&-left {}
+			&-right {}
+		}
+
+		&-line {
+			@include height(30px);
+			margin-bottom: 26px;
+			&-left {
+				float: left;
+				width: 225px;
+				padding-right: 25px;
+				text-align: right;
+			}
+			&-right {
+				float: left;
+				position: relative;
+			}
+		}
+		&-button {
+			@extend %button-blue-input;
+			margin-left: 250px;
+			margin-top: 35px;
+		}
+	}
+
+	&-linkman { // 联系人
+		padding-top: 40px;
+		padding-left: 12px;
+		width: 100%;
+		position: relative;
+		float: left;
+		&-item {
+			float: left;
+			@include square(228px, 118px);
+			margin-bottom: 30px;
+			margin-right: 32px;
+			border: 1px solid #e6e7e7;
+			background-color: #ffffff;
+			box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+			transition: $g-transition;
+			&.check {
+				border-color: #e1f2fe;
+				box-shadow: 0px 0px 4px rgba(27, 154, 247, 0.4);
+			}
+		}
+	}
+}
+
+
+
+

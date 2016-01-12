@@ -1,0 +1,24 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-24 22:36:16 创建
+// H5微信端 --- components-bank 银行
+
+
+.bank {
+	$img: $g-components + '/bank/images';
+	$width: px(58); // 宽高
+	$imgs:	('minsheng' 'youzheng'), // 绿
+			('guangda' 'jiaotong' 'pufa' 'shanghai' 'xingye' 'zhongjian'), // 蓝
+			('beinong' 'beiyin' 'gongshang' 'guangfa' 'huaxia' 'pingan' 'zhaoshang' 'zhongguo' 'zhongxin'); // 红
+
+	@for $i from 1 through length($imgs) {
+		@each $name in nth($imgs, $i) {
+			&.#{$name} {
+				display: block;
+				@include sprite($img + '/' + $i + '-' + $name + '.png', $width);
+			}
+		}
+	}
+}
+

@@ -1,0 +1,39 @@
+@charset "utf-8";
+
+// 张树垚 2015-06-19 14:56:18 创建
+// config & global
+
+
+// 全局 $g-xxx
+
+// 路径
+$g-img: '../images';						// 图片路径(静态)
+$g-factory: '../../factory';				// 到factory目录
+$g-source: '../../source';					// 到source目录
+$g-components: $g-factory + '/components';	// 到组件目录
+$g-scss: $g-source + '/scss';				// 到scss目录
+
+// 长度
+$g-width: 1020px;		// 宽度
+$g-top-h: 28px;			// 顶部高度
+$g-banner-h: 460px;		// 主视图高度
+$g-regist-w: 800px;		// 注册窗宽度
+
+// 参数
+$g-font: 12px/1.5 tahoma,arial,'Hiragino Sans GB',\5b8b\4f53,sans-serif;; // 字体
+$g-transition-duration: .25s; // 运动时间
+$g-transition: $g-transition-duration all ease; // 运动
+$g-border-radius: 5px; // 圆角
+
+
+
+
+
+
+
+
+
+
+
+
+

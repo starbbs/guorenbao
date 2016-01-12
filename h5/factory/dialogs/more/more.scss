@@ -1,0 +1,30 @@
+@charset 'utf-8';
+
+
+// 张树垚 2016-01-09 21:54:17 创建
+// H5微信端 --- dialog-more 订单-更多
+
+
+.dialog-more {
+	@extend .dialog-style;
+	&-box {
+		border-top: $g-border;
+		background-color: $g-white;
+		padding: 24px 40px 20px;
+		@include ablw;
+		box-sizing: border-box;
+		font-size: 14px;
+		color: $g-dark;
+	}
+	&-line {
+		@include height(30px);
+	}
+	&-left {
+		float: left;
+	}
+	&-right {
+		float: right;
+		font-family: $g-font-num;
+	}
+}
+

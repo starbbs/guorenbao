@@ -1,0 +1,249 @@
+@charset 'utf-8';
+
+
+// 张树垚 2016-01-08 14:55:55 创建
+// H5微信端 --- 转果仁
+
+
+@import '../../../source/scss/main';
+
+
+@import '../../views/view';
+
+@import '../../views/nickname/nickname';
+
+@import '../../views/authentication/authentication';
+
+// @import '../../dialogs/dialog';
+
+@import '../../components/bill/bill';
+
+@import '../contacts/contacts';
+
+
+body {
+    background-color: $g-background;
+}
+
+
+.transfer {
+	$img: $g-pages + '/transfer/images';
+	background-color: $g-background;
+    @extend %fade-in;
+	&-icon {
+		@for $i from 1 through 5 {
+			&-#{$i} {
+				@include sprite($img + '/' + $i + '.png', 35px);
+				&-big {
+					@include sprite($img + '/' + $i + '.png', 70px);
+				}
+			}
+		}
+	}
+	&-item {
+		$line: '';
+		@include height(55px);
+		display: flex;
+		align-items: center;
+		padding-left: $g-padding;
+		&-line {
+			$line: & + '';
+			flex: 1;
+			display: flex;
+			align-items: center;
+			border-bottom: $g-border;
+			margin-left: $g-padding;
+			padding-right: $g-padding;
+		}
+		&:last-child {
+			#{$line} {
+				border-bottom: none;
+			}
+		}
+		&-img {
+			@include square(40px);
+			border-radius: 50%;
+			overflow: hidden;
+		}
+		&-address {
+			color: $g-ash;
+			font-size: 14px;
+			@extend .font-num;
+		}
+	}
+
+	&-contacts {
+		@extend .view-style;
+	}
+
+	&-new {
+		@extend .view-style;
+	}
+
+	&-target {
+		@extend .view-style;
+		&-head {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			padding-top: 22px;
+			padding-bottom: 28px;
+			line-height: 1;
+			&-img {
+				@include square(70px);
+				border-radius: 50%;
+				overflow: hidden;
+			}
+			&-name {
+				font-size: 16px;
+				margin: 12px 0;
+			}
+			&-address {
+				font-size: 14px;
+				@extend .font-num;
+				color: $g-ash;
+			}
+		}
+		&-box {
+			margin: 0 $g-padding;
+			padding: 0 $g-padding;
+			border: $g-border;
+			border-radius: $g-radius;
+			background-color: $g-white;
+			@extend .font-num;
+			&-title {
+				font-size: 16px;
+				color: $g-input;
+				padding-top: 12px;
+			}
+			&-fee {
+				float: right;
+				font-size: 14px;
+				color: $g-ash;
+			}
+			&-line {
+				border-bottom: $g-border;
+			}
+			&-tip {
+				font-size: 14px;
+				color: #777;
+				@include height(40px);
+			}
+		}
+		&-detail {
+			@extend .block;
+			margin-top: 30px;
+			padding: 0 $g-padding;
+		}
+	}
+
+	&-bill {
+		@extend .view-style;
+		&-target { // 转账目标
+			height: 56px;
+			line-height: 1;
+			&-left {
+				float: left;
+				@include square(50%, 100%);
+				position: relative;
+			}
+			&-right {
+				height: 100%;
+				float: left;
+				margin-left: -18px;
+			}
+			&-img {
+				@include atr(10px, 32px);
+				@include square(35px);
+				border-radius: 50%;
+				overflow: hidden;
+			}
+			&-name {
+				font-size: 14px;
+				color: $g-dark;
+				margin-top: 12px;
+			}
+			&-address {
+				font: 10px $g-font-num;
+				color: $g-ash;
+				margin-top: 6px;
+			}
+		}
+		&-stage {
+			$init: $g-silver;
+			$finish: #2acea2;
+			$line: '';
+			height: 2px;
+			background-color: $init;
+			margin: 35px 6px 0;
+			position: relative;
+			&:before {
+				content: '';
+				display: block;
+				@include atl(-2px);
+				@include square(6px);
+				background-color: $init;
+				border-radius: 50%;
+				z-index: 1;
+			}
+			&:after {
+				content: '';
+				display: block;
+				@include atr(-5px);
+				@include sprite($img + '/6.png', 12px);
+				z-index: 1;
+			}
+			&-line {
+				$line: & + '';
+				@include square(0, 100%);
+				background-color: $finish;
+			}
+			&.half {
+				&:before {
+					background-color: $finish;
+				}
+				#{$line} {
+					width: 50%;
+				}
+			}
+			&.finish {
+				&:before {
+					background-color: $finish;
+				}
+				#{$line} {
+					width: 100%;
+				}
+				&:after {
+					@include sprite($img + '/7.png', 12px);
+				}
+			}
+		}
+		&-desc {
+			color: $g-silver;
+			line-height: 1;
+			margin-top: 20px;
+			overflow: hidden;
+			padding-bottom: 30px;
+			border-bottom: $g-border;
+			&-left {
+				float: left;
+				margin-left: 5px;
+			}
+			&-right {
+				float: right;
+				margin-right: 5px;
+				text-align: right;
+			}
+			&-name {
+				font-size: 14px;
+				&.green {
+					color: #2acea2;
+				}
+			}
+			&-time {
+				font-size: 10px;
+				margin-top: 8px;
+			}
+		}
+	}
+}

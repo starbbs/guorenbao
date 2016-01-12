@@ -1,0 +1,230 @@
+@charset "UTF-8";
+
+// 张树垚 2015-11-04 16:36:35 创建
+// 交易记录页
+
+
+// 引入
+@import '../../../source/scss/main';
+
+@import '../../components/top/top';
+@import '../../components/header/header';
+@import '../../components/footer/footer';
+@import '../../components/pager/pager';
+
+
+.records {
+
+	$img: $g-factory + '/pages/records/images';
+
+	$width: 1000px;
+	$margin: ($g-width - $width) / 2;
+
+	display: table;
+	width: 100%;
+	padding-bottom: 180px;
+	opacity: 0;
+
+	&-head {
+		width: $width - 2px;
+		position: relative;
+		border: 1px solid;
+		border-color: transparent #eeeeee #d7d7d7;
+		padding: 8px 0;
+		margin: 20px auto 0;
+		background-color: #fff;
+
+		&-select {
+			@include height(22px);
+			margin: 10px 0;
+			&-name {
+				float: left;
+				font-weight: bold;
+				margin-left: 25px;
+			}
+			&-item {
+				float: left;
+				padding: 0 7px;
+				margin-right: 16px;
+				@include height(20px);
+				border-radius: 4px;
+				border: 1px transparent solid;
+				background-color: transparent;
+				transition: .25s all ease;
+				cursor: pointer;
+				&:hover {
+					border-color: #d0d0d0;
+					background-color: #eeeeee;
+				}
+				&.on {
+					border-color: #0091e6;
+					background-color: #1b9af7;
+					color: #fff;
+					cursor: default;
+				}
+			}
+		}
+
+		&-time {
+			@include atr(18px, 21px);
+			@include height(20px);
+			&-name {
+				float: left;
+				font-weight: bold;
+				margin-right: 8px;
+			}
+			&-input {
+				float: left;
+				@include input(80px, 0, 20px);
+				text-align: center;
+			}
+			&-separate {
+				float: left;
+				margin: 0 5px;
+			}
+		}
+	}
+
+	&-table {
+		width: $width;
+		margin: 0 auto;
+		line-height: 20px;
+		position: relative;
+
+		&-thead {
+			@extend .clearfix;
+			padding: 30px 0px 9px 24px;
+			border-bottom: 1px solid #d7d7d7;
+			color: $g-silver;
+		}
+
+		&-tr {
+			@extend .clearfix;
+			padding: 14px 0px 14px 24px;
+			border: 1px solid;
+			border-color: transparent #efefef #d7d7d7;
+			&:nth-child(odd) {
+				background-color: #fbfbfb;
+			}
+			&:nth-child(even) {
+				background-color: #fff;
+			}
+		}
+
+		&-td {
+			float: left;
+			position: relative;
+			min-height: 10px;
+			$td: & + '';
+			$tds: 104px 208px 176px 162px 172px 92px 60px;
+			@for $i from 1 through length($tds) {
+				&#{$i} {
+					@extend #{$td};
+					width: nth($tds, $i);
+				}
+			}
+		}
+	}
+
+	&-detail {
+		display: none;
+		@extend %afull;
+		background-color: #f8f8f8;
+
+		&-title {
+			margin-top: 12px;
+			margin-left: 24px;
+			line-height: 56px;
+			font-size: 16px;
+			font-weight: bold;
+		}
+		&-back {
+			float: right;
+			font-size: 12px;
+			font-weight: normal;
+			margin-right: $margin;
+		}
+		&-word {
+			margin: 0 10px;
+			@include height(59px);
+			border-bottom: 1px dashed #9e9e9e;
+			background: #fff;
+			&-state {
+				float: left;
+				margin-left: 48px;
+				font-size: 14px;
+				position: relative;
+				&:before {
+					content: '';
+					@include atl(23px, -25px);
+					@include square(14px);
+				}
+				&.success {
+					&:before {
+						background-image: url($img + '/1.png');
+					}
+				}
+			}
+			&-time {
+				float: left;
+				margin-left: 20px;
+			}
+			&-action {
+				float: left;
+				margin-left: 40px;
+				&:after {
+					content: '|';
+					margin-left: 20px;
+				}
+			}
+			&-trader {
+				float: left;
+				margin-left: 20px;
+			}
+		}
+		&-table {
+			margin: 30px $margin auto;
+			border: 1px solid #efefef;
+		}
+		&-thead {
+			@extend .clearfix;
+			@include height(34px);
+			padding-left: 25px;
+			background-color: #fbfbfb;
+			border-bottom: 1px solid #efefef;
+		}
+		&-tr {
+			@extend .clearfix;
+			@include height(67px);
+			padding-left: 25px;
+			background-color: #fff;
+		}
+		&-td {
+			$tds: 388px 154px 164px 156px auto;
+			@for $i from 1 through length($tds) {
+				&#{$i} {
+					float: left;
+					width: nth($tds, $i);
+				}
+			}
+		}
+		&-double {
+			line-height: 18px;
+			margin-top: 16px;
+		}
+	}
+
+	&-page {
+		@include abr(-45px, 6px);
+		&-input {
+			@include input(20px, 0, 20px);
+			text-align: center;
+		}
+	}
+}
+
+
+
+
+
+

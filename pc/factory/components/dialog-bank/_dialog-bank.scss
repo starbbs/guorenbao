@@ -1,0 +1,95 @@
+@charset 'utf-8';
+
+// 张树垚 2015-11-18 16:08:00 创建
+// 选择银行弹框
+
+.dialog-bank {
+
+	$p-dialog: $g-components + '/dialog';
+	$p-bank: $p-dialog + '/bank';
+
+	@extend .dialog-style;
+
+	&-title { // 标题
+		font-size: 14px;
+		line-height: 40px;
+		font-weight: bold;
+		border-bottom: 1px solid #dddddd;
+	}
+	&-close { // 关闭小叉子
+		@include square(8px);
+		@include atr(14px, 17px);
+		background-image: url($p-dialog + '/close.png');
+		cursor: pointer;
+		&:after {
+			content: '';
+			@include square(30px);
+			@include atl( (8px - 30px) / 2, (8px - 30px) / 2 );
+		}
+	}
+	// &-city { // 选择开户银行所在城市
+	// 	margin-top: 10px;
+	// 	line-height: 20px;
+	// 	&:after {
+	// 		content: '';
+	// 		display: block;
+	// 		clear: both;
+	// 	}
+	// 	&-select {
+	// 		line-height: 18px;
+	// 		border: 1px solid #dddddd;
+	// 		color: #0091e6;
+	// 		padding-left: 8px;
+	// 		padding-right: 20px;
+	// 		position: relative;
+	// 		float: left;
+	// 		cursor: pointer;
+	// 		&:after {
+	// 			content: '';
+	// 			border: 4px solid transparent;
+	// 			border-top: 6px solid #666666;
+	// 			border-bottom-width: 0;
+	// 			@include atr(7px, 6px);
+	// 		}
+	// 	}
+	// 	&-word {
+	// 		float: left;
+	// 		margin-left: 12px;
+	// 		color: #666666;
+	// 	}
+	// }
+	&-list { // 银行列表
+		padding: 0 3px;
+		margin-top: 30px;
+		padding-bottom: 20px;
+		border-bottom: 1px dashed #dddddd;
+		&:after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+	}
+	&-item {
+		float: left;
+		@include square(148px, 48px);
+		line-height: 48px;
+		border: 1px solid #666666;
+		margin-right: 40px;
+		margin-bottom: 20px;
+		cursor: pointer;
+		text-align: center;
+		&:nth-child(4n) {
+			margin-right: 0;
+		}
+		&.on {
+			@include square(146px, 46px);
+			line-height: 46px;
+			border: 2px solid #1b9af7;
+		}
+	}
+	&-button { // 下一步按钮
+		margin-top: 30px;
+		@extend %button-blue;
+		width: $g-input-width;
+	}
+}

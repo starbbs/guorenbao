@@ -1,0 +1,64 @@
+
+<!-- top 顶部 -->
+<div class="top" ms-controller="top">
+	<div class="top-box">
+
+		<!-- 左侧 -->
+		<div class="top-left">
+			<a href="#" class="top-left-a"><i class="top-left-mobile"></i>手机果仁宝</a>
+		</div>
+
+		<!-- 右侧 -->
+		<div class="top-right">
+
+			@@if(typeof login === "undefined" || login === true) {
+				<span class="top-login">登录</span>
+				<a href="./regist.htm" class="top-regist">注册</a>
+			}
+
+			@@if(typeof logout === "undefined" || logout === true) {
+				<span class="top-hello">{{time}}好，</span>
+				<div class="top-name">
+					<div class="top-name-hover">{{name}}</div>
+					<div class="top-name-box">
+						<div class="top-name-box-head">
+							<div class="top-name-box-phone">{{phone}}</div>
+							<div class="top-name-box-click">
+								<a class="top-name-box-a" href="./#">账户设置</a>
+								<!-- <a class="top-name-box-a" href="./setup.htm">账户设置</a> -->
+								<i class="top-name-box-separate"></i>
+								<a class="top-name-box-a" href="./#">交易记录</a>
+								<!-- <a class="top-name-box-a" href="./records.htm">交易记录</a> -->
+							</div>
+							<div class="top-name-box-img">
+								<img class="img-w" ms-src="photo" alt="">
+							</div>
+						</div>
+						<!-- <div class="top-name-box-line">
+							<span class="top-name-box-line-left">GOP：</span>
+							<span class="top-name-box-line-bold">{{gop | currency(' ')}}</span>
+							<a href="#" class="top-name-box-line-a">买入</a href="#">
+							<div class="top-name-box-line-right">收益</div>
+						</div> -->
+						<!-- <div class="top-name-box-line">
+							<span class="top-name-box-line-left">CNY：</span>
+							<span class="top-name-box-line-bold">{{cny | currency(' ')}}</span>
+							<a href="./recharge.htm" class="top-name-box-line-a">充值</a href="#">
+						</div> -->
+					</div>
+				</div>
+				<i class="top-separate"></i>
+				<span class="top-logout" ms-click="logout">退出</span>
+			}
+
+			<i class="top-separate"></i>
+			<a href="#" class="top-trade">果仁市场</a>
+			<i class="top-separate"></i>
+
+			<!-- 疑问 -->
+			<a href="#" class="top-doubt"><span class="top-doubt-img"></span>疑问</a>
+
+		</div>
+
+	</div>
+</div>

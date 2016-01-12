@@ -1,0 +1,125 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-01 15:50:06 创建
+// h5 scss 配置文档
+
+
+// path
+$g-img: '../images';						// 图片路径(静态)
+$g-factory: '../../factory';				// 到factory目录
+$g-views: '../../factory/views';			// 到views目录
+$g-pages: '../../factory/pages';			// 到pages目录
+$g-dialogs: '../../factory/dialogs';		// 到dialogs目录
+$g-source: '../../source';					// 到source目录
+$g-components: $g-factory + '/components';	// 到组件目录
+$g-scss: $g-source + '/scss';				// 到scss目录
+
+
+// color
+$g-blue: #6888d9;			// 蓝色(文字, 按钮)
+$g-blue-border: #5977c5;	// 蓝色(按钮边框)
+$g-blue-chart: #3d70ee;		// 蓝色(图表文字)
+
+$g-safe: #29ddb7;			// 绿色(安全等级)
+$g-red: #ff4238;			// 红色(增加)
+$g-green: #1b9e19;			// 绿色(减少)
+$g-green-bill: #2acea2;		// 绿色(订单里的)
+
+$g-alert: rgba(0,0,0,.8);	// 黑透明(提示框背景)
+$g-dialog: rgba(0,0,0,.6);	// 黑透明(浮层背景)
+$g-input: #181818;			// 深黑(input之前说明文字)
+$g-black: #000;
+$g-dark: #333;				// 深黑(input之内文字, 普通文字)
+$g-gray: #565656;			// 灰色()
+$g-ash: #999;				// 灰色(昵称, 备注)
+$g-silver: #ccc;			// 浅灰(文字, 按钮不可用)
+$g-light: #ddd;				// 亮灰(线条, 背景)
+$g-line: #e5e5e5;			// 暗白(线条, 边框)
+$g-background: #efeff3;		// 暗白(背景)
+$g-white: #fff;				// 白色(按钮文字)
+
+
+// 参数
+$g-border: 1px solid $g-line;
+$g-duration: .3s;
+$g-transition: $g-duration;
+
+
+// width (px & %)
+$g-width: 640px;			// PSD宽度
+$g-height: 1136px;			// PSD高度
+
+@function set($width, $base: $g-width) { // PSD尺寸转百分比
+	@if unit($width) == '' {
+		@if $width < 1 { // 小数
+			@return $width * $base;
+		} @else { // 无单位
+			@return percentage($width / $base * 1px);
+		}
+	} @else if unit($width) == '%' { // 百分比
+		@return $width;
+	} @else if unit($width) == 'px' { // 像素值
+		@return percentage($width / $base);
+	} @else { // 其他单位
+		@return '@function set: Error, unexpected unit!';
+	}
+}
+@function px($width, $base: 320px, $psd: $g-width) { // PSD尺寸转px, 已宽度320px为标准
+	@if unit($width) == '' {
+		@if $width < 1 { // 小数
+			@return $width * $base;
+		} @else { // 无单位
+			@return $width * $base / $psd * 1px;
+		}
+	} @else if unit($width) == '%' { // 百分比
+		@return $width / 100% * $base;
+	} @else if unit($width) == 'px' { // 像素值
+		@return $width * $base / $psd;
+	} @else { // 其他单位
+		@return '@function px: Error, unexpected unit!';
+	}
+}
+
+$g-margin: px(30px);			// 左右空隙
+$g-margin-top: px(44px);		// 上边距(输入框的上边距)
+$g-margin-top-word: px(58px);	// 上边距(输入框有文字说明时的上边距)
+$g-margin-top-button: px(68px);	// 上边距(有输入框时大按钮的上边距)
+
+$g-padding: 15px;				// 左右内边距
+$g-padding-bottom: 100px;		// 每个页面底部默认保留空间
+$g-eye: px(26px);				// x和眼睛距离
+
+$g-radius: 5px;					// 圆角(黑色, 支付密码输入)
+$g-radius-button: px(10px);		// 圆角(大按钮)
+$g-radius-alert: px(18px);		// 圆角(提示框)
+$g-input-left: px(180px);		// 输入框靠左距离
+$g-input-left-bank: px(150px);	// 输入框靠左距离(有银行卡号时)
+$g-input-height: px(88px);		// 输入框的高(不算边框)
+$g-height-button: px(96px);		// 选择按钮和登陆注册输入框的高
+$g-height-alert: px(92px);		// 提示框的高
+$g-button-width: px(580px);		// 大按钮的宽
+$g-button-height: px(86px);		// 大按钮的高
+$g-paypass-width: px(580px);	// 支付密码的宽
+$g-paypass-height: px(94px);	// 支付密码的高
+
+
+// font
+$g-font-num: Helvetica;			// 数字字体
+$g-font-input: px(32px);		// 输入框字体大小
+$g-font-button: px(36px);		// 按钮字体大小(白色)
+$g-font-alert: px(28px);		// 提示框字体大小
+$g-font-small: px(22px);		// 下方提示小字
+$g-font-normal: px(24px);		// 提示字体大小, 蓝色字按钮
+$g-font-big: px(52px);			// 设置密码大字
+$g-font-super: px(60px);		// 注册大字
+
+
+// z-index
+$g-index-view: 100;				// view
+$g-index-alert: 300;			// alert
+$g-index-dialog: 200;			// dialog
+$g-index-nav: 10;				// nav
+
+
+

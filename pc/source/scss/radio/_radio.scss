@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+
+// 张树垚 2015-06-24 18:00:37 创建
+// 单选框
+
+
+
+%radio {
+	$img: $g-scss + '/radio';
+	@include square(14px);
+	background-image: url($img + '/default.png');
+	&-on, &.on {
+		background-image: url($img + '/on.png');
+	}
+}
+

@@ -1,0 +1,49 @@
+@charset "utf-8";
+
+
+// 张树垚 2015-07-20 13:13:21 创建
+// 主容器
+
+
+
+.container {
+
+	$container: & + '';
+	$box: '';
+
+	@extend %rw;
+	background-color: #f5f5f5;
+	overflow: hidden;
+	z-index: 50;
+
+	&-background {
+		@extend %atlw;
+		background-color: #1b1617;
+		&-img {
+			// @extend .img-w;
+			position: relative;
+		}
+	}
+	&-box {
+		$box: & + '';
+		position: relative;
+		width: $g_width;
+		min-height: 700px;
+		margin: 0 auto;
+		z-index: 1;
+	}
+
+	&2 {
+		@extend #{$container};
+		background-color: $g-dark;
+		#{$box} {
+			box-shadow: 0px 0px 20px #000000;
+			background-color: #ffffff;
+		}
+	}
+
+	&3 {
+		@extend #{$container};
+		background-color: transparent;
+	}
+}

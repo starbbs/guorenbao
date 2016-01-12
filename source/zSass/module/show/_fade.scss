@@ -1,0 +1,86 @@
+@charset "utf-8";
+
+// 张树垚 2014-12-15 17:56:13 创建
+// 淡入淡出效果
+
+
+// @import "base";
+
+
+@mixin fade($delay: 0, $time: .5s, $from: 0, $to: 1) {	// 淡入
+	opacity: $from;
+	@include show-transition($delay, $time) {
+		opacity: $to;
+	}
+}
+@mixin fade-self($delay: 0, $time: .5s, $from: 0) {
+	opacity: $from;
+	@include show-transition($delay, $time, true) {
+		opacity: 1;
+	}
+}
+
+
+@mixin fade-scale($delay: 0, $time: .5s, $scale: 1) {
+	opacity: 0;
+	@include scale($scale);
+	@include show-transition($delay, $time) {
+		opacity: 1;
+		@include scale;
+	}
+}
+
+
+@mixin fade-top($delay: 0, $time: .5s, $from: -100%) {
+	opacity: 0;
+	@include y($from);
+	@include show-transition($delay, $time) {
+		opacity: 1;
+		@include y;
+	}
+}
+@mixin fade-top-hide($delay: 0, $time: .5s, $from: -100%) {
+	@include show-transition($delay, $time, false, $hide-name, true) {
+		opacity: 0;
+		@include y($from);
+	}
+}
+@mixin fade-top-self($delay: 0, $time: .5s, $from: -100%) {
+	opacity: 0;
+	@include y($from);
+	@include show-transition($delay, $time, true) {
+		opacity: 1;
+		@include y;
+	}
+}
+@mixin fade-top-hide-self($delay: 0, $time: .5s, $from: -100%) {
+	@include show-transition($delay, $time, true, $hide-name, true) {
+		opacity: 0;
+		@include y($from);
+	}
+}
+
+
+@mixin fade-left($delay: 0, $time: .5s, $from: -100%) {
+	opacity: 0;
+	@include x($from);
+	@include show-transition($delay, $time) {
+		opacity: 1;
+		@include x;
+	}
+}
+
+
+// @mixin fade-3d($delay: 0, $time: .5s, )
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,42 @@
+<div class="authentication" ms-controller="authentication">
+    <!-- 未设置实名 -->
+	<div class="not-authed authentication-box">
+		<div class="text-tip-top">完成实名认证后，可添加银行卡，可为联系人转果仁</div>
+		<div class="block">
+			<div class="block-item">
+				<label class="text" for="authentication-name">
+					<div class="text-label">姓名</div>
+					<div class="text-box"><input id="authentication-name" name="authentication-name" class="text-input" autocomplete="off" placeholder="请输入正确姓名" type="text" maxlength="6" data-text='close' ms-duplex="realName"></div>
+					<div class="text-close"></div>
+					<div class="text-alert" ms-click="alert"></div>
+				</label>
+			</div>
+			<div class="block-item">
+				<label class="text" for="authentication-card">
+					<div class="text-label">身份证</div>
+					<div class="text-box"><input id="authentication-card" name="authentication-card" class="text-input" autocomplete="off" placeholder="请输入本人身份证号" type="text" maxlength="18" data-text='close' ms-duplex="Idcard"></div>
+					<div class="text-close"></div>
+				</label>
+			</div>
+		</div>
+		<div class="text-button"><span class="button" ms-click="next_click">下一步</span></div>
+	</div>
+	<!-- 已设置实名 -->
+	<div class="authed authentication-box">
+		<div class="block">
+			<div class="block-item">
+				<div class="text">
+					<div class="text-label">姓名</div>
+					<div class="text-box">{{realName}}</div>
+				</div>
+			</div>
+			<div class="block-item">
+				<div class="text">
+					<div class="text-label">身份证</div>
+					<div class="text-box">{{Idcard}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="text-button"><a href="#!/" class="button">完成</a></div>
+	</div>
+</div>

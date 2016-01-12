@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+
+// 张树垚 2014-12-16 15:22:00  创建
+// 移动端特别样式
+
+
+
+// 滑动
+@mixin mobile-scroll($val: touch) {
+	@include prefix(overflow-scrolling, $val, pre, webkit w3c);
+}
+
+
+
+// 点击
+@mixin mobile-tap($val: transparent) {
+	@include prefix(tap-highlight-color, $val, pre, webkit);
+}
+
+
+
+
+
+
+

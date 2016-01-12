@@ -1,0 +1,89 @@
+@charset "utf-8";
+
+// 张树垚 2014-12-06 14:18:00 创建
+// 常用extend收集
+
+
+
+
+%test { // 测试
+	background-color: rgba(0,0,0,.6);
+}
+
+
+
+%full {
+	@include pos("tlwh");
+}
+%afull {
+	position: absolute;
+	@include pos("tlwh");
+}
+%ffull {
+	position: fixed;
+	@include pos("tlwh");
+}
+
+
+
+
+%al { @include al; }
+
+%atl { @include atl; }
+%atr { @include absolute("tr"); }
+%atrh { @include absolute("trh"); }
+
+%tlw { @include pos("tlw"); }
+%atlw { @include atlw; }
+%atlwh { @include atlwh; }
+
+
+%blw { @include pos("blw"); }
+%ablw { @include absolute("blw"); }
+
+
+%rw { @include relative("w"); }
+%rwh { @include relative("wh"); }
+
+
+
+%pos-center { // 居中, 要给定width和height
+	@include setPosition("tlrb");
+	margin: auto;
+}
+
+
+%reset-input { @include reset-input; }
+
+
+%box-center { @include box-center; }
+%box-center-y { @include box-y-c; }
+
+
+%scroll {
+	overflow: auto;
+	@include mobile-scroll;
+}
+
+
+%text-overflow {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

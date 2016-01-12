@@ -1,0 +1,76 @@
+@charset "utf-8";
+
+
+// 张树垚 2015-06-19 15:43:24 创建
+// 头部, 包含 logo, nav
+
+
+
+.header {
+
+	$img: $g-components + '/header';
+	$height: 88px;
+
+	@extend %rw;
+	height: $height;
+	border-bottom: 1px solid #d6d6d6;
+	box-shadow: 0px 0px 6px #999999, 0px 0px 100px rgba(0,0,0,.25);
+	background-color: #fff;
+	z-index: 100;
+
+	&-box {
+		@extend %box;
+		@extend .clearfix;
+		@extend %rh;
+	}
+	&-logo {
+		float: left;
+		@extend %rh;
+		&-img {
+			display: block;
+			@include rw(143px);
+			height: 42px;
+			@include relative(22px);
+			background-image: url($g-img + "/logo.png");
+		}
+		&-word {
+			@include absolute(32px, 159px);
+			@include height(28px);
+			white-space: nowrap;
+			padding-left: 1em;
+			font-size: 18px;
+			border-left: 2px solid #141618;
+		}
+		&-index {
+			@include absolute(32px, 159px);
+			@include height(28px);
+			white-space: nowrap;
+			padding-left: 1em;
+			color: $g-silver;
+		}
+	}
+	&-nav {
+		$padding: 1px;
+		$margin: 30px;
+		@include abr(19px, - ($padding + $margin));
+		&-a {
+			display: block;
+			float: left;
+			padding: 0 $padding;
+			margin: 0 $margin;
+			font-size: 14px;
+			line-height: 38px;
+			border-bottom: 2px solid #fff;
+			@extend .silver-a;
+			@include transition(.2s, 0s);
+			&:hover {
+				color: #666666;
+				border-bottom-color: #666666;
+			}
+			&.on {
+				color: #333333;
+				border-bottom-color: #333333;
+			}
+		}
+	}
+}

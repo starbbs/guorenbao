@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	@@include('../../../source/include/head.html', {
+		"name": "bankcard"
+	})
+
+<body>
+
+	@@include('../../../source/include/forIE.html')
+
+	<div class="wrap" ms-controller="bankcard">
+
+		@@include('../../components/top/top.html', {
+			"login": false,
+			"logout": true
+		})
+
+		@@include('../../components/header/header.html', {
+			"title": "银行卡",
+			"nav": "bankcard"
+		})
+
+		<div class="container2">
+			<div class="container-box">
+
+				<!-- 银行卡 -->
+				<div class="bankcard">
+					<div class="bankcard-box">
+						<div class="bankcard-item active">
+							<div class="bankcard-item-title">
+								<i class="bank-icon gongshang"></i>
+								<span class="dark font14 vam">中国工商银行</span>
+								<div class="fr"><span class="bankcard-item-title-card">储蓄卡</span></div>
+							</div>
+							<div class="bankcard-item-number">**** **** **** **** 4137</div>
+							<div class="bankcard-item-line">
+								<span class="bankcard-item-quick"></span>
+								<div class="fr"><span class="blue-point font12">删除</span></div>
+							</div>
+							<div class="bankcard-item-foot">预留电话:185******73</div>
+						</div>
+						<div class="bankcard-item active">
+							<div class="bankcard-item-title">
+								<i class="bank-icon gongshang"></i>
+								<span class="dark font14 vam">中国工商银行</span>
+								<div class="fr"><span class="bankcard-item-title-card">储蓄卡</span></div>
+							</div>
+							<div class="bankcard-item-number">**** **** **** **** 4137</div>
+							<div class="bankcard-item-line">
+								<span class="bankcard-item-quick"></span>
+								<div class="fr"><span class="blue-point font12">删除</span></div>
+							</div>
+							<div class="bankcard-item-foot">预留电话:185******73</div>
+						</div>
+						<div class="bankcard-item">
+							<div class="bankcard-item-title">
+								<i class="bank-icon gongshang"></i>
+								<span class="dark font14 vam">中国工商银行</span>
+								<div class="fr"><span class="bankcard-item-title-card">储蓄卡</span></div>
+							</div>
+							<div class="bankcard-item-number">**** **** **** **** 4137</div>
+							<div class="bankcard-item-line">
+								<span class="silver font14">未激活</span>
+								<div class="fr"><span class="blue-point font12">删除</span></div>
+							</div>
+							<div class="bankcard-item-foot">预留电话:185******73</div>
+						</div>
+						<div class="bankcard-item">
+							<div class="bankcard-item-title">
+								<i class="bank-icon gongshang"></i>
+								<span class="dark font14 vam">中国工商银行</span>
+								<div class="fr"><span class="bankcard-item-title-card">储蓄卡</span></div>
+							</div>
+							<div class="bankcard-item-number">**** **** **** **** 4137</div>
+							<div class="bankcard-item-line">
+								<span class="silver font14">未激活</span>
+								<div class="fr"><span class="blue-point font12">删除</span></div>
+							</div>
+							<div class="bankcard-item-foot">预留电话:185******73</div>
+						</div>
+						<div class="bankcard-item add">
+							<div class="bankcard-item-add"></div>
+							<div class="bankcard-item-add-word">添加银行卡</div>
+						</div>
+					</div>
+					<div class="bankcard-foot">
+						<div class="bankcard-foot-h">1、为什么要开通快捷支付？</div>
+						<div class="bankcard-foot-p">安全有保障</div>
+						<div class="bankcard-foot-p">便捷流畅，不错过每一次机会</div>
+						<div class="bankcard-foot-h">2、开通快捷支付要注意哪些问题？</div>
+						<div class="bankcard-foot-p">需银行卡与实名认证信息相符</div>
+						<div class="bankcard-foot-p">需要银行卡的绑定手机作为校验</div>
+						<div class="bankcard-foot-p">请保护好自己的手机和银行卡，以防资金损失</div>
+					</div>
+				</div>
+
+				@@include('../../components/footer/footer.html')
+			</div>
+		</div>
+
+	</div>
+
+	<div class="dialog">
+		<div class="dialog-box">
+			<div class="dialog-main">
+				@@include('../../components/dialog-bank/dialog-bank.html')
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

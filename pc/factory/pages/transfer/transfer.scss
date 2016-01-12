@@ -1,0 +1,228 @@
+@charset "utf-8";
+
+
+// 张树垚 2015-10-13 13:34:29 创建
+// 果仁宝 转账页面
+
+
+// 引入
+@import '../../../source/scss/main';
+
+@import '../../components/top/top';
+@import '../../components/header/header';
+@import '../../components/footer/footer';
+
+@import '../../components/payment/payment';
+
+
+// transfer
+.transfer {
+
+	$img: $g-factory + '/pages/transfer/images';
+
+	$margin: 21px; // 左右外空白
+	$left-width: 120px; // 左侧宽度
+
+	display: table;
+	width: 100%;
+	min-height: 1000px;
+	background-color: #f8f8f8;
+	opacity: 0;
+
+	&-top {
+		margin: 33px $margin 0;
+		padding: 0 22px;
+		background-color: #fcfde4;
+		@include height(34px);
+		border-bottom: 1px solid #edeeee;
+		overflow: hidden;
+		&-left {
+			float: left;
+		}
+		&-right {
+			float: right;
+		}
+	}
+
+	&-tab {
+		margin: 0 $margin;
+		border-bottom: 1px dotted #bebebe;
+		overflow: hidden;
+		&-head {
+			@include height(28px);
+			padding: 18px 0;
+			&-click {
+				font-size: 14px;
+				font-weight: bold;
+				text-decoration: none;
+				float: left;
+				position: relative;
+				margin-left: 50px;
+				&:before {
+					content: '';
+					@include atlwh(3px, -30px, 20px, 20px);
+					background-image: url($img + '/2.png');
+					.on & {
+						background-image: url($img + '/1.png');
+					}
+				}
+			}
+			&-guo {
+				float: left;
+				margin-left: 30px;
+			}
+			&-right {
+				float: right;
+				margin-right: 20px;
+			}
+		}
+		&-body {
+			min-height: 300px;
+			padding-bottom: 70px;
+		}
+	}
+
+	&-line {
+		line-height: 30px;
+		margin-top: 60px;
+		@extend .clearfix;
+		&:first-child {
+			margin-top: 30px;
+		}
+		&-short {
+			@extend .transfer-line;
+			margin-top: 30px;
+		}
+	}
+
+	&-button {
+		margin-left: $left-width;
+		margin-top: 36px;
+		@extend %button-blue-input;
+	}
+
+	&-left {
+		float: left;
+		width: $left-width - 6px;
+		padding-right: 6px;
+		height: 100%;
+		font-size: 14px;
+		text-align: right;
+	}
+	&-right {
+		margin-left: $left-width;
+	}
+
+	&-address { // 长input
+		float: left;
+		@include input(500px, 10px);
+		&-button {
+			float: left;
+			margin-left: 10px;
+			@extend .blue-point;
+		}
+	}
+
+	&-gop { // 果仁input
+		float: left;
+		@extend %input-gop;
+		&-line {
+			float: left;
+			margin-left: 12px;
+			@include square(400px, 14px);
+			border-bottom: 1px dotted #ccc;
+		}
+		&-money {
+			float: left;
+			margin-left: 12px;
+		}
+		&-tip {
+			clear: both;
+			margin-top: 12px;
+			@extend %tips-mark;
+		}
+	}
+
+	&-input {
+		float: left;
+		@extend %input;
+	}
+
+	&-radio {
+		@extend %radio;
+		@include inline-block(middle);
+		margin-right: 10px;
+		&-word {
+			font-size: 12px;
+			color: #000;
+			@include inline-block(middle);
+			margin-right: 10px;
+		}
+		&-line {
+			@extend .clearfix;
+			margin-top: 16px;
+		}
+	}
+
+	&-contacts { // 联系人
+		float: left;
+		@include height(30px);
+		margin-left: 12px;
+		position: relative;
+		&-point {
+			padding-left: 10px;
+			padding-right: 14px;
+			color: $g-blue;
+			cursor: pointer;
+			position: relative;
+			&:after {
+				content: '';
+				@include atr(13px, 0);
+				border: 4px solid transparent;
+				border-top: 6px solid $g-blue;
+				border-bottom: none;
+			}
+		}
+		&-box {
+			width: 212px;
+			max-height: 252px;
+			@include atl(5px, 5px);
+			border: 1px solid #eee;
+			box-shadow: 0px 0px 0px 4px #f8f8f8, 0px 0px 0px 5px #eee;
+			overflow: auto;
+			display: none;
+		}
+		&-scroll {
+			background-color: #fff;
+		}
+		&-item {
+			@include height(34px);
+			padding: 0 12px;
+			border: solid transparent;
+			border-width: 1px 0;
+			background-color: #fff;
+			transition: $g-transition;
+			@extend %text-overflow;
+			&:hover {
+				background-color: #fdfee5;
+			}
+			&.on {
+				border-color: #eee;
+				background-color: #fdfee5;
+			}
+			&:first-child {
+				border-top: none;
+			}
+			&:last-child {
+				border-bottom: none;
+			}
+		}
+	}
+}
+
+
+
+
+
+
+

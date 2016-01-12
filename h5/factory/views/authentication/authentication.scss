@@ -1,0 +1,27 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-30 10:13:10 创建
+// H5微信端 view-authentication
+
+
+.authentication {
+
+	$img: $g-views + '/authentication/images';
+	$border: 1px solid $g-line;
+
+	@extend .view-style;
+
+	&-box {
+		display: none;
+		&.on {
+			display: block;
+		}
+	}
+}
+
+
+
+
+
+

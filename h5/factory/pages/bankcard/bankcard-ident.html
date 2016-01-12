@@ -1,0 +1,15 @@
+<!-- 验证码 -->
+<div class="bankcard-ident" ms-controller="bankcard-ident">
+    <div class="text-tip-top">请填写手机{{phoneStr}}收到的短信验证码</div>
+    <div class="block">
+		<div class="block-item">
+			<label for="bankcard-ident-number" class="text">
+				<div class="text-label">验证码</div>
+				<div class="text-box"><input id="bankcard-ident-number" name="bankcard-ident-number" type="tel" class="text-input" autocomplete="off" placeholder="请填写验证码" maxlength="6" data-text="close" ms-duplex="identifyingCode"></div>
+				<div class="text-close"></div>
+			</label>
+			<div class="text-ident" data-ident="bankcard-ident|phone"></div>
+		</div>
+	</div>
+	<div class="text-button"><span class="button" ms-click="bankcard_add_click">下一步</span></div>
+</div>

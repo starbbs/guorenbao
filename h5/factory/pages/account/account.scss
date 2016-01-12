@@ -1,0 +1,103 @@
+@charset 'utf-8';
+
+
+// 张树垚 2016-01-10 00:31:49 创建
+// H5微信端 --- 账单
+
+
+@import '../../../source/scss/main';
+
+
+// @import '../../views/view';
+
+// @import '../../dialogs/dialog';
+
+
+body {
+	background-color: $g-background;
+}
+
+
+.account {
+	$img: $g-pages + '/account/images';
+	@extend %rw;
+	@extend %fade-in;
+	overflow: hidden;
+	font-family: $g-font-num;
+	&-month {
+		margin-top: 3px;
+		@include height(26px);
+		font-size: 14px;
+		margin-left: $g-padding;
+		margin-bottom: -5px;
+	}
+	&-day {
+		border-top: $g-border;
+		border-bottom: $g-border;
+		background-color: $g-white;
+		margin-top: 5px;
+	}
+	&-time {
+		float: left;
+		margin-left: $g-padding;
+		@include square(52px, 100%);
+		line-height: 1;
+		color: $g-ash;
+		&-big {
+			font-size: 14px;
+			margin-top: 18px;
+		}
+		&-small {
+			font-size: 10px;
+			margin-top: 8px;
+		}
+	}
+	&-list {
+		margin-left: $g-padding + 52px;
+	}
+	&-item {
+		height: 70px;
+	}
+	&-img {
+		float: left;
+		@include square(36px);
+		margin-top: 17px;
+	}
+	&-main {
+		height: 100%;
+		border-bottom: $g-border;
+		padding-right: $g-padding;
+		margin-left: 36px + 18px;
+	}
+	&-left {
+		float: left;
+		height: 100%;
+		line-height: 24px;
+	}
+	&-right {
+		float: right;
+		height: 100%;
+		text-align: right;
+		color: $g-ash;
+	}
+	&-change {
+		font-size: 16px;
+		margin-top: 11px;
+	}
+	&-action {
+		font-size: 12px;
+		color: #777;
+	}
+	&-result {
+		font-size: 12px;
+		line-height: 70px;
+		&.page {
+			line-height: 24px;
+			margin-top: 11px;
+		}
+	}
+	&-page {
+		line-height: 24px;
+	}
+}
+

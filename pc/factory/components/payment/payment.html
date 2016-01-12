@@ -1,0 +1,11 @@
+
+<div class="payment" ms-controller="payment">
+	<div class="payment-box">
+		<input type="password" class="payment-input" maxlength="6" ms-on-blur="blur" ms-on-focus="focus" ms-on-input="input" ms-duplex="paypass" ms-class="{{state}}">
+	</div>
+	<div class="payment-check" ms-if="check">{{check}}</div>
+	<div class="payment-forget"><a href="#">忘记密码</a></div>
+	<!-- <div class="payment-word">支付密码：</div> -->
+	<div class="payment-error" ms-if="error">{{error}}</div>
+	<!-- <div class="payment-button">确认支付</div> -->
+</div>

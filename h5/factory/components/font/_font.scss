@@ -1,0 +1,22 @@
+@charset 'utf-8';
+
+
+// 张树垚 2016-01-04 17:58:48 创建
+// H5微信端 --- 各种特殊字体
+
+
+.font {
+	&-num {
+		font-family: $g-font-num;
+	}
+	&-money {
+		color: $g-input;
+		text-align: center;
+		font: 49px/1 $g-font-num;
+	}
+	&-label {
+		color: $g-input;
+		font-size: 16px;
+	}
+}
+

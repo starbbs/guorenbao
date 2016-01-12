@@ -1,0 +1,30 @@
+@@include('../../../source/include/top.html', {"name": "phonecharge"})
+<div class="screen-r">
+	<div class="phonecharge" ms-controller="phonecharge">
+		<div class="phonecharge-head"><img src="./images/phonecharge-1.jpg" alt="" class="img-w"></div>
+		<div class="phonecharge-text">
+			<div class="phonecharge-text-box"><input type="tel" id="phonecharge-text-input" name="phonecharge-text-input" class="phonecharge-text-input" ms-class="non-null:phone" placeholder="请输入或选择手机号码" autocomplete="off" maxlength="11" ms-duplex="phone" ms-on-input="input" ms-on-focus="focus" ms-on-blur="blur"></div>
+			<div class="text-close" ms-class="on:phone" ms-click="close"></div>
+			<div class="phonecharge-text-operator" ms-visible="phone">{{carrier}}</div>
+			<div class="phonecharge-text-list" ms-visible="list.length&&focusing">
+				<div class="phonecharge-text-item" ms-repeat-item="list">
+					<div class="phonecharge-text-flex" ms-click="listClick">138 1078 1326</div>
+					<div class="text-close on" ms-click="listDelete(item, $remove)"></div>
+				</div>
+				<div class="phonecharge-text-bottom" ms-click="listClean">清空历史充值号码</div>
+			</div>
+		</div>
+		<div class="phonecharge-box" ms-visible="goods.length">
+			<div class="phonecharge-box-title">充话费(¥)</div>
+			<div class="phonecharge-box-list" ms-click="goodsClick($event)">
+				<div class="phonecharge-box-item" ms-repeat-item="goods">
+					<div class="phonecharge-box-item-num">{{item.price}}</div>
+					<div class="phonecharge-box-item-money">售价:{{item.use}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="text-button" ms-click="buttonClick"><span class="button" ms-class="disabled:button=='支付'">{{button}}</span></div>
+	</div>
+	<div class="alert"></div>
+</div>
+@@include('../../../source/include/bottom.html', {"name": "phonecharge"})

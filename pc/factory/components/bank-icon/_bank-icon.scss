@@ -1,0 +1,24 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-11-18 11:24:27 创建
+// 银行小图标
+
+
+.bank-icon {
+	$img: $g-components + '/bank-icon';
+	@include bank($img, (
+		('gongshang', 22px, 21px),
+		('guangfa', 22px, 21px),
+		('jianshe', 22px, 21px),
+		('nongye', 22px, 21px),
+		('pufa', 24px, 21px),
+		('shenfa', 22px, 21px),
+		('xingye', 25px, 21px),
+		('youzheng', 22px, 21px),
+		('zhaoshang', 22px, 21px),
+		('zhongxin', 22px, 21px),
+		('zhongyin', 22px, 21px)
+	));
+}
+

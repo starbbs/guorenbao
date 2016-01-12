@@ -1,0 +1,26 @@
+<div class="dialog-login" ms-controller="dialog-login">
+	<div class="dialog-close"></div>
+	<div class="dialog-login-title" ms-if="err_code==0">登录果仁宝</div>
+	<div class="dialog-login-error" ms-if="err_code!=0">{{err_msg}}</div>
+	<div class="dialog-login-line">
+		<div class="dialog-login-left">
+			<div class="dialog-login-person"></div>
+		</div>
+		<div class="dialog-login-right">
+			<input type="text" class="dialog-login-input" ms-class="error:(err_code==1||err_code==3)" placeholder="手机号" ms-duplex="phone">
+		</div>
+	</div>
+	<div class="dialog-login-line">
+		<div class="dialog-login-left">
+			<div class="dialog-login-lock"></div>
+		</div>
+		<div class="dialog-login-right">
+			<input type="password" class="dialog-login-input" ms-class="error:(err_code==2||err_code==3)" placeholder="密码" ms-duplex="password">
+		</div>
+	</div>
+	<div class="dialog-login-button" ms-class="disabled:err_code==3" ms-click="buttonClick">登　录</div>
+	<div class="dialog-login-tip">
+		<div class="dialog-login-tip-left"><a href="#" class="dark-a tdn">忘记密码?</a></div>
+		<div class="dialog-login-tip-right"><a href="./regist.htm" class="blue-a tdn">免费注册</a></div>
+	</div>
+</div>

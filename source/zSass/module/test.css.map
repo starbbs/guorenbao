@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAQA,KAAM;ECAL,KAAK,EDCW,KAAK;ECArB,MAAM,EDAU,KAAK;EACrB,MAAM,EAAE,UAAU;EAClB,gBAAgB,EAAE,GAAG;EEcnB,SAAQ,EAAE,iBAAM;;ACed,iBAEC;ECkLJ,EAAG;IFnMF,SAAQ,EEoMW,IAAI;;EAExB,GAAI;IFtMH,SAAQ,EEuMW,gDAAuD;;EAE3E,GAAI;IFzMH,SAAQ,EE0MW,8CAAqD;;EAEzE,GAAI;IF5MH,SAAQ,EE6MW,gDAAuD;;EAE3E,GAAI;IF/MH,SAAQ,EEgNW,8CAAqD;;EAEzE,GAAI;IFlNH,SAAQ,EEmNW,+CAAuD;;EAE3E,IAAK;IFrNJ,SAAQ,EEsNW,IAAI",
+"sources": ["test.scss","../base/mixin/_height.scss","../base/_prefix.scss","../base/mixin/_animation.scss","animate/_attention_seekers.scss"],
+"names": [],
+"file": "test.css"
+}

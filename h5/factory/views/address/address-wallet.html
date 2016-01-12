@@ -1,0 +1,28 @@
+<div class="address-wallet" ms-controller="address-wallet">
+    <div class="text-tip-top">我的钱包地址</div>
+	<div class="block">
+		<div class="block-item address-wallet-item address-item"  ms-repeat-item="walletList"  ms-class-1="del:defaultWallet" ms-class-2="top:!defaultWallet">
+			<div class="block-label">{{item.address}}</div>
+			<div class="address-top" ms-attr-data-id="{{item.id}}" ms-click="walletAddress_top_click">置顶</div>
+			<div class="address-del" ms-attr-data-id="{{item.id}}" ms-click="walletAddress_del_click">删除</div>
+		</div>
+	</div>
+	<div>
+		<div class="block">
+			<div class="block-item" ms-click="walletAddress_add_click">
+				<div class="address-add"></div>
+				<div class="block-label blue">添加我的果仁市场地址</div>
+				<div class="block-arrow"></div>
+			</div>
+			<div class="block-item" ms-visible="walletAddress_add_show">
+	            <div class="text">
+	                <div class="text-box"><input id="address-mine-input" name="address-mine-input" class="text-input" autocomplete="off" placeholder="请输入钱包地址" type="tel" maxlength="70" data-text='close' ms-duplex="walletAddress"></div>
+	                <div class="text-close"></div>
+	            </div>
+	            <div class="address-finish" ms-click="walletAddress_save_click">完成</div>
+			</div>
+		</div>
+		
+	</div>
+	<div class="text-button" ms-visible="hasNext"><span class="button" ms-click="address_wallet_next">下一步</span></div>
+</div>

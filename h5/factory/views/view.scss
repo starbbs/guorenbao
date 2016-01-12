@@ -1,0 +1,50 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-13 12:54:23 创建
+// views 通用 css
+
+
+.view {
+
+	$time: .5s;
+
+	@include fixed(0, 100%);
+	z-index: $g-index-view;
+	@include square(100%);
+	@include t3d(0);
+
+	&.on {
+		left: 0;
+	}
+	&.hide {
+		transition: $time;
+		@include t3d(100%);
+		&-immediately {
+			@include t3d(100%);
+		}
+	}
+	&-style {
+		@extend %afull;
+		overflow-x: hidden;
+		overflow-y: auto;
+		@include t3d(0);
+		background-color: $g-background;
+		&.show {
+			transition: $time;
+			@include t3d(-100%);
+			&-immediately {
+				@include t3d(-100%);
+			}
+		}
+		&.hide {
+			transition: $time;
+			@include t3d(0);
+			&-immediately {
+				@include t3d(0);
+			}
+		}
+	}
+}
+
+

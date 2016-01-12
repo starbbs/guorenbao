@@ -1,0 +1,65 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-18 15:40:06 创建
+// H5微信端 --- component-paypass
+
+
+.paypass {
+	@include square(290px, 46px);
+	margin: 0 auto;
+	position: relative;
+	$p2: '';
+	&-2 { // 第二种效果
+		$p2: & + '';
+	}
+	&-title {
+		text-align: center;
+		font-size: 16px;
+		color: $g-gray;
+		margin-top: 70px;
+		margin-bottom: 20px;
+	}
+	&-input {
+		@extend %afull;
+		z-index: 1;
+		opacity: 0;
+	}
+	&-box {
+		@include square(100%);
+		display: flex;
+		border: 1px solid $g-blue-border;
+		box-sizing: border-box;
+		border-radius: $g-radius;
+		background-color: $g-white;
+		#{$p2} & {
+			border-radius: 0;
+			border-color: #8c8c8c;
+		}
+	}
+	&-item {
+		flex: 1;
+		height: 100%;
+		border-right: 1px solid $g-light;
+		box-sizing: border-box;
+		position: relative;
+		&:last-child {
+			border-right: none;
+		}
+		&.on {
+			&:after {
+				content: '';
+				@include square(25%);
+				@include atl(50%, 50%);
+				@include t3d(-50%, -50%);
+				background-color: $g-black;
+				border-radius: 50%;
+			}
+		}
+	}
+	&-button {
+		margin-top: $g-margin-top-button;
+	}
+}
+
+

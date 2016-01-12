@@ -1,0 +1,22 @@
+<!-- 密保验证 -->
+<div class="paypass-protection paypass-protection-@@num">
+    <div class="block-out">
+		<div class="text">
+			<div class="text-label">问题@@num</div>
+			<div class="text-box">{{question@@num}}</div>
+		</div>
+	</div>
+	<div class="block">
+		<div class="block-item">
+			<label class="text" for="paypass-protection-num-@@num">
+				<div class="text-label">答案</div>
+				<div class="text-box"><input id="paypass-protection-num-@@num" name="paypass-protection-num-@@num" type="tel" class="text-input" autocomplete="off" placeholder="请输入答案" maxlength="20" data-text="close" ms-duplex="answer@@num"></div>
+				<div class="text-close"></div>
+			</label>
+		</div>
+	</div>
+	<div class="text-button">
+		@@if(num==1){<span class="button">下一步</span>}
+		@@if(num==2){<span class="button">确定</span>}
+	</div>
+</div>

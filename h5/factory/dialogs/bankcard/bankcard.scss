@@ -1,0 +1,46 @@
+@charset 'utf-8';
+
+
+// 张树垚 2016-01-07 16:32:55 创建
+// H5微信端 --- dialog-dankcard选择银行卡
+
+
+.dialog-bankcard {
+	$img: $g-dialogs + '/bankcard/images';
+	@extend .dialog-style;
+	&-box {
+		height: 70%;
+		@extend .dialog-bottom;
+	}
+	&-item {
+		@include height(60px);
+		display: flex;
+		align-items: center;
+		border-bottom: $g-border;
+		&.check {
+			&:after {
+				content: '';
+				display: block;
+				@include sprite($img + '/1.png', 13px);
+			}
+		}
+		&.add {
+			color: $g-blue;
+			&:before {
+				content: '';
+				display: block;
+				@include sprite($img + '/2.png', 17px);
+			}
+			&:after {
+				content: '';
+				display: block;
+				@include sprite($img + '/3.png', 8px, 14px);
+			}
+		}
+	}
+	&-name {
+		flex: 1;
+		font-size: 14px;
+		margin-left: 12px;
+	}
+}

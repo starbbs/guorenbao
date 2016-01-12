@@ -1,0 +1,115 @@
+@charset 'utf-8';
+
+
+// 张树垚 2016-01-04 17:34:09 创建
+// H5微信端 --- 买果仁
+
+
+@import '../../../source/scss/main';
+
+@import '../../components/bank/bank';
+@import '../../components/bill/bill';
+@import '../../components/order/order';
+
+@import '../../views/view';
+
+@import '../../dialogs/dialog';
+@import '../../dialogs/bankcard/bankcard';
+@import '../../dialogs/confirm/confirm';
+@import '../../dialogs/paypass/paypass';
+
+
+.purchase {
+
+	$img: $g-pages + '/purchase/images';
+
+	@extend %afull;
+	@extend %fade-in;
+
+	&-main {
+		@extend %afull;
+		font-size: 14px;
+		color: #777;
+		background-color: $g-background;
+		&-number {
+			margin-top: 44px;
+			&-tip {
+				text-align: center;
+				color: $g-ash;
+				margin-top: 8px;
+			}
+		}
+		&-box {
+			margin: 30px $g-padding 0;
+			border: $g-border;
+			border-radius: $g-radius;
+			background-color: $g-white;
+			padding: 0 $g-padding;
+		}
+		&-item {
+			@include height(40px);
+		}
+		&-text {
+			border-bottom: $g-border;
+		}
+		&-foot {
+			color: $g-gray;
+			text-align: center;
+			@include ablw(20px);
+			font-size: 11px;
+			line-height: 16px;
+		}
+	}
+
+	&-order { // 订单
+		@extend .view-style;
+		&-head {
+			&-float {
+				float: left;
+				width: 50%;
+				background-color: #fafafa;
+				&:first-child {
+					border-right: $g-border;
+					margin-right: -1px;
+					position: relative;
+					z-index: 1;
+				}
+			}
+			&-label {
+				margin-top: 12px;
+				margin-left: $g-padding;
+				color: $g-ash;
+			}
+			&-price {
+				font: 22px $g-font-num;
+				margin-left: $g-padding;
+				margin-bottom: 18px;
+			}
+			&-clear {
+				clear: both;
+				border-top: $g-border;
+				overflow: hidden;
+				position: relative;
+				height: 69px;
+				padding: 0 $g-padding;
+			}
+			&-bold {
+				font-size: 14px;
+				margin-top: 8px;
+			}
+			&-tip {
+				font-size: 10px;
+				color: $g-ash;
+			}
+			&-money {
+				@include atr(0, $g-padding);
+				color: $g-red;
+				font: 22px/69px $g-font-num;
+			}
+		}
+	}
+
+	&-bill { // 账单(订单结果)
+		@extend .view-style;
+	}
+}

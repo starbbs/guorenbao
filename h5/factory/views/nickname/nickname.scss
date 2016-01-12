@@ -1,0 +1,22 @@
+@charset 'utf-8';
+
+
+ // 张树垚 2015-12-24 10:10:09 创建
+ // H5微信端 --- 设置昵称
+
+
+.nickname {
+	@extend .view-style;
+	&-text {
+		margin-top: $g-margin-top;
+		padding: 0 $g-padding;
+		border-top: $g-border;
+		border-bottom: $g-border;
+		background-color: $g-white;
+	}
+	&-button {
+		margin: $g-margin-top-button $g-padding;
+	}
+}
+
+

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	@@include('../../../source/include/head.html', {
+		"name": "regist"
+	})
+
+<body>
+
+	@@include('../../../source/include/forIE.html')
+
+	<div class="wrap" ms-controller="regist">
+
+		@@include('../../components/top/top.html', {
+			"login": true,
+			"logout": false
+		})
+
+		<!-- @@include('../../components/header/header.html', {
+			"title": "注册",
+			"nav": false
+		}) -->
+
+		<div class="container">
+
+			<div class="container-background">
+				<img src="images/background-1.jpg" alt="" class="container-background-img">
+			</div>
+
+			<div class="container-box">
+
+				<div class="regist">
+
+					<!-- 状态 -->
+					<!-- <div class="regist-state">
+						<div class="regist-state-item" ms-class="on:step>=1">
+							<div class="regist-state-item-word"><span ms-visible="step==1">①</span> 创建账户</div>
+							<div class="regist-state-item-line"></div>
+						</div>
+						<div class="regist-state-item" ms-class="on:step>=2">
+							<div class="regist-state-item-word"><span ms-visible="step==2">②</span> 设置密码</div>
+							<div class="regist-state-item-line"></div>
+						</div>
+						<div class="regist-state-item" ms-class="on:step>=3">
+							<div class="regist-state-item-word"><span ms-visible="step==3">③</span> 设置身份信息</div>
+							<div class="regist-state-item-line"></div>
+						</div>
+						<div class="regist-state-item" ms-class="on:step>=4">
+							<div class="regist-state-item-word"><span ms-visible="step==4">④</span> 注册成功</div>
+						</div>
+					</div> -->
+
+					<!-- 手机注册 -->
+					<div id="regist-1" class="regist-box-p80" ms-class="on:step==1">
+
+						<div class="regist-line">
+							<div class="regist-line-left">手机号</div>
+							<div class="regist-line-right">
+								<input type="text" name="mobile" class="regist-input-mobile" placeholder="">
+							</div>
+						</div>
+
+						<div class="regist-line-m12">
+							<div class="regist-line-left">密码</div>
+							<div class="regist-line-right">
+								<input type="password" name="ident" class="regist-input-mobile" placeholder="">
+							</div>
+						</div>
+
+						<!-- <div class="regist-line">
+							<div class="regist-line-left">手机号</div>
+							<div class="regist-line-right">
+								<div class="regist-input-box">
+									<input type="text"
+										name="mobile"
+										class="regist-input-mobile"
+										placeholder=""
+										ms-focus="input_mobile_focus"
+										ms-blur="input_mobile_blur"
+									>
+									<div class="regist-tips">
+										<div class="regist-tips-line mark">{{input_mobile_tips}}</div>
+									</div>
+									<div class="regist-done"></div>
+								</div>
+							</div>
+						</div>
+
+						<div class="regist-line-m12">
+							<div class="regist-line-left">验证码</div>
+							<div class="regist-line-right">
+								<input type="text"
+									name="ident"
+									class="regist-ident"
+									placeholder=""
+									disabled="disabled"
+									ms-focus="input_ident_focus"
+									ms-blur="input_ident_blur"
+								>
+								<div class="regist-ident-get" ms-click="get_ident">获取短信验证码</div>
+								<div class="regist-done"></div>
+							</div>
+						</div> -->
+
+						<div class="regist-line-m12">
+							<div class="regist-line-left"></div>
+							<div class="regist-line-right">
+								<div class="regist-agree-box" ms-click="agreeCheck">
+									<input type="hidden" name="regist-agree" value="true">
+									<span class="regist-agree checked" ms-mousedown="preventDefault"></span>
+									<span>同意《果仁宝服务协议》</span>
+								</div>
+							</div>
+						</div>
+
+						<!-- <div class="regist-line-m0">
+							<div class="regist-line-left"></div>
+							<div class="regist-line-right">
+								<a href="#!/step/2" class="regist-button" ms-click="step1_click">下一步</a>
+							</div>
+						</div> -->
+
+						<div class="regist-line-m0">
+							<div class="regist-line-left"></div>
+							<div class="regist-line-right">
+								<span class="regist-button" ms-click="temp1">下一步</span>
+							</div>
+						</div>
+
+					</div>
+
+					<!-- 密码设置 -->
+					<div class="regist-box" ms-class="on:step==2">
+
+						<div class="regist-top">
+							<span class="regist-top-left">您的果仁宝账户名:</span>
+							<span class="regist-top-right">{{mobile}}</span>
+						</div>
+
+						<div class="regist-line-title">
+							<div class="regist-line-left">设置登录密码</div>
+							<div class="regist-line-right">登录时需验证，保护账户信息</div>
+						</div>
+
+						<div class="regist-line">
+							<div class="regist-line-left">登录密码</div>
+							<div class="regist-line-right">
+								<input type="password"
+									id="password" 
+									name="pw"
+									class="regist-input"
+									placeholder=""
+									ms-focus="input_password_focus"
+									ms-input="input_password_input"
+									ms-blur="input_password_blur"
+								>
+								<div class="regist-tips">
+									<div class="regist-tips-head">
+										<div class="regist-safe-word">安全程度:</div>
+										<div class="regist-safe level1">
+											<div class="regist-safe-check1"></div>
+											<div class="regist-safe-check2"></div>
+											<div class="regist-safe-check3"></div>
+											<div class="regist-safe-check4"></div>
+										</div>
+									</div>
+									<div class="regist-tips-line" ms-class="{{input_password_class1}}">6-20位字符</div>
+									<div class="regist-tips-line" ms-class="{{input_password_class2}}">只能包含字母、数字以及标点符号（除空格）</div>
+									<div class="regist-tips-line" ms-class="{{input_password_class3}}">大写字母、小写字母、数字以和标点符号至少两种</div>
+								</div>
+							</div>
+						</div>
+						<div class="regist-line">
+							<div class="regist-line-left">再输入一次</div>
+							<div class="regist-line-right">
+								<input type="password"
+									id="password-re" 
+									name="pw_re"
+									class="regist-input"
+									placeholder=""
+									ms-focus="input_password_re_focus"
+									ms-blur="input_password_re_blur"
+								>
+							</div>
+						</div>
+
+						<div class="regist-hr"></div>
+
+						<div class="regist-line-title">
+							<div class="regist-line-left">设置支付密码</div>
+							<div class="regist-line-right">交易付款或账户信息更改时需输入（不能与果仁宝登录密码相同）</div>
+						</div>
+						<div class="regist-line">
+							<div class="regist-line-left">支付密码</div>
+							<div class="regist-line-right">
+								<input type="password"
+									id="trade" 
+									name="pwtrade"
+									class="regist-input"
+									placeholder=""
+									ms-focus="input_trade_focus"
+									ms-input="input_trade_input"
+									ms-blur="input_trade_blur"
+								>
+								<div class="regist-tips">
+									<div class="regist-tips-line" ms-class="{{input_trade_class1}}">交易密码为6位数字</div>
+									<div class="regist-tips-line" ms-class="{{input_trade_class2}}">不要使用连续或相同的数字</div>
+									<div class="regist-tips-attention">为保障安全，建议不要使用银行密码、生日数字</div>
+								</div>
+							</div>
+						</div>
+						<div class="regist-line">
+							<div class="regist-line-left">再输入一次</div>
+							<div class="regist-line-right">
+								<input type="password"
+									id="trade-re" 
+									name="pwtrade_re"
+									class="regist-input"
+									placeholder=""
+									ms-focus="input_trade_re_focus"
+									ms-blur="input_trade_re_blur"
+								>
+							</div>
+						</div>
+
+						<div class="regist-line-m0">
+							<div class="regist-line-left"></div>
+							<div class="regist-line-right">
+								<a id="step2-click" href="#!/step/3" class="regist-button disabled" ms-click="step2_click">下一步</a>
+							</div>
+						</div>
+					</div>
+
+					<!-- 设置身份信息 -->
+					<div class="regist-box" ms-class="on:step==3">
+
+						<div class="regist-top">
+							<span class="regist-top-left">您的果仁宝账户名:</span>
+							<span class="regist-top-right">{{mobile}}</span>
+						</div>
+						
+						<div class="regist-line-title">
+							<div class="regist-line-left">实名认证</div>
+							<div class="regist-line-right orange">*非实名认证用户不能转账和提现</div>
+						</div>
+
+						<div class="regist-line">
+							<div class="regist-line-left">真实姓名</div>
+							<div class="regist-line-right">
+								<div class="regist-input-box">
+									<input type="text"
+										name="name"
+										class="regist-input"
+										placeholder=""
+										ms-blur=input_name_blur
+									>
+									<div class="regist-tips">
+										<div class="regist-tips-line mark">请输入您的真实姓名</div>
+									</div>
+									<div class="regist-done"></div>
+								</div>
+							</div>
+						</div>
+
+						<div class="regist-line">
+							<div class="regist-line-left">身份证号码</div>
+							<div class="regist-line-right">
+								<div class="regist-input-box">
+									<input type="text"
+										name="person"
+										class="regist-input"
+										placeholder=""
+										ms-blur=input_person_blur
+									>
+									<div class="regist-tips">
+										<div class="regist-tips-line mark">请输入您的身份证号码</div>
+									</div>
+									<div class="regist-done"></div>
+								</div>
+							</div>
+						</div>
+
+						<div class="regist-line-m0">
+							<div class="regist-line-left"></div>
+							<div class="regist-line-right">
+								<a id="step3-click" href="javascript:;" class="regist-button disabled" ms-click="step3_click(1)">下一步</a>
+								<a href="#!/step/4" class="regist-skip" ms-click="step3_click(0)">跳 过</a>
+							</div>
+						</div>
+
+					</div>
+
+					<!-- 注册成功 -->
+					<div class="regist-box" ms-class="on:step==4">
+
+						<div class="regist-success">
+							<div class="regist-success-right"></div>
+							<div class="regist-success-name">{{mobile}}</div>
+							<div class="regist-success-title">注册成功！</div>
+							<div class="regist-success-button">
+								<a href="./home.htm" class="regist-success-goin">进入果仁宝</a>
+								<a href="./setup.htm" class="regist-success-write">完善个人信息</a>
+							</div>
+							<div class="regist-success-tip">5s后自动跳转进入页面</div>
+						</div>
+
+					</div>
+
+
+					<!-- 临时增加 -->
+					<div id="regist-2" class="regist-box">
+
+						<div class="regist-success">
+							<div class="regist-success-right"></div>
+							<!-- <div class="regist-success-name">{{mobile}}</div> -->
+							<div class="regist-success-title">注册成功！</div>
+							<!-- <div class="regist-success-button">
+								<a href="./home.htm" class="regist-success-goin">进入果仁宝</a>
+								<a href="./setup.htm" class="regist-success-write">完善个人信息</a>
+							</div> -->
+							<div class="regist-success-tip" id="jump">5s后自动跳转进入页面</div>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		@@include('../../components/footer/footer.html')
+
+	</div>
+
+	<div class="dialog">
+		<div class="dialog-box">
+			<div class="dialog-main">
+				@@include('../../components/dialog-login/dialog-login.html')
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

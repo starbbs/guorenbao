@@ -1,0 +1,207 @@
+@charset "utf-8";
+
+
+
+@import "../../../main";
+
+
+// 页面设置
+	$global_bgc: #fff;
+	html,body {
+		height: 100%;
+		-webkit-tap-highlight-color: transparent;
+	}
+	body {
+		margin: 0;
+		font-family: Arial,Verdana;
+		background-color: $global_bgc;
+	}
+// 页面设置 End
+
+
+
+// 试用函数
+	$set-origin: 640 !default;
+	@function set($num: 0, $origin: $set-origin) { // 由比值获取百分比,处理PSD文件
+		@return round($num / $origin * 100) * 1%;
+	}
+	@mixin center($top: 50%) { // 竖直方向焦点位置
+		@include absolute($top, "lw");
+		@include y(- $top);
+	}
+	%center { @include center; } // 默认竖直居中
+	@function floor-percent($num: 0) { // 将小数转成百分比并去尾
+		@return floor(percentage($num));
+	}
+// 试用函数 End
+
+
+
+// 公共样式
+	.img {
+		@at-root {
+			%img {
+				position: relative;
+				display: block;
+			}
+			&-w, &_w {
+				@extend %img;
+				width: 100%;
+			}
+			&-h, &_h {
+				@extend %img;
+				height: 100%;
+			}
+		}
+	}
+// 公共样式 End
+
+
+
+.screen {
+	@extend %afull;
+	// opacity: 0;
+	overflow: hidden;
+	@include mediaMinWidth(1000px) {
+		position: relative;
+		width: 480px;
+		margin: 0 auto;
+		height: 100%;
+	}
+}
+
+
+
+
+$height: 30px;
+.page {
+	$width: $height * 5;
+	$pos: "font" "bottom" "end" "top" "left" "right";
+
+	// position: absolute;
+	// @extend %pos-center;
+	// @include height($height);
+	// width: $width;
+	
+	@include aposx(10%, 50%);
+	@include height($height);
+
+	text-align: center;
+	color: #fff;
+	border: 2px dotted #666;
+
+	// @include use-3d;
+	@include perspective(500px); // 父级景深
+
+	&_cube {
+		@extend %afull;
+		@include use-3d; // 子级使用3d
+		// @include perspective;
+		// @include rotateX(0deg);
+		@include aniframe2(10s ease-in-out infinite) {
+			$face: 4; // 四个面
+			$time: 10%; // 每个面运动时间(小于100% / $face)
+			$hold: 100% / $face - $time; // 运动后悬停时间
+			0% { @include rotateX; }
+			@for $i from 1 through $face {
+				$now: ($time + $hold) * $i;
+				#{$now - $hold, $now} { @include rotateX(360deg / $face * $i); }
+			}
+			// 10%, 25% { @include rotateX(90deg); }
+			// 35%, 50% { @include rotateX(180deg); }
+			// 60%, 75% { @include rotateX(270deg); }
+			// 85%, 100% { @include rotateX(360deg); }
+		}
+		&:hover { @include anipause; }
+	}
+
+	@mixin t3d-cube-item($pos, $r) { // 立方体
+		$_pos: (
+			"top": translate3d(0, - $r, 0) rotateX(90deg),
+			"bottom": translate3d(0, $r, 0) rotateX(-90deg),
+			"font": translate3d(0, 0, $r) rotateX(0deg),
+			"end": translate3d(0, 0, - $r) rotateX(180deg)
+		);
+		@include transform(map-get($_pos, $pos));
+	}
+
+	@for $i from 1 through 4 {
+		&#{$i} {
+			@extend %afull;
+			background-color: #333 * $i;
+			@include t3d-cube-item(nth($pos, $i), $height / 2);
+		}
+	}
+}
+
+
+
+
+.box {
+	@include aposx(30%, 50%);
+	@include height($height);
+	@include perspective(500px);
+	text-align: center;
+	color: #fff;
+	border: 2px dotted #555;
+	@mixin t3d_box_item_x ( // 绕x轴旋转的滚筒洗衣机
+		$i: 1, // 1是最前面的
+		$count: 4, // 总个数
+		$height: 100%, // 滚筒洗衣机每个面的高度 控制半径需要用三角函数
+		$r: null, // 半径
+		$start: 0 // 偏移量
+	) {
+		@if $i <= $count {
+			$deg: - 360deg / $count;
+			@include transform( rotateX( $deg * ($i - 1) ) translate3d(0, 0, $height) );
+			@content;
+		}
+	}
+	@mixin t3d_box_item_x_aniframe (
+		$face: 4, // 几个面
+		$time: 10% // 每个面运动时间(小于100% / $face)
+	) {
+		@if $time <= 100% / $face {
+			$hold: 100% / $face - $time; // 运动后悬停时间
+			0% { @include rotateX; }
+			@for $i from 1 through $face {
+				$now: ($time + $hold) * $i;
+				#{$now - $hold, $now} { @include rotateX(360deg / $face * $i); }
+			}
+		}
+	}
+	$num: 5;
+	&_cube {
+		@extend %rw;
+		height: $height;
+		@include use-3d;
+		@include aniframe2(10s ease-in-out infinite) {
+			@include t3d_box_item_x_aniframe($num, 6%);
+		}
+	}
+	@for $i from 1 through 9 {
+		&#{$i} {
+			background-color: #111 * ($i + 2);
+			@include t3d-box-item-x(
+				$i: $i,
+				$count: $num,
+				$height: $height,
+				$r: null,
+				$start: 0
+			) {
+				@extend %afull;
+			}
+			@if $i > $num {
+				display: none;
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+

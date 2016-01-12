@@ -1,0 +1,81 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-02 10:19:27 创建
+// H5微信端 -- sass-main
+
+
+@import '../../../source/zSass/main';
+
+@import 'config-h5';
+@import 'mixin';
+@import 'extend';
+@import 'reset';
+
+@import '../../factory/components/alert/alert';
+@import '../../factory/components/font/font';
+@import '../../factory/components/block/block';
+@import '../../factory/components/button/button';
+@import '../../factory/components/text/text';
+@import '../../factory/components/paypass/paypass';
+
+
+.fl { float: left; }
+.fr { float: right; }
+.clearfix {
+	zoom: 1;
+	&:after {
+		content: '';
+		display: block;
+		height: 0;
+		clear: both;
+		visibility: hidden;
+	}
+}
+
+.img { // 图片
+	position: relative;
+	display: block;
+	border: none;
+	&-w { @extend .img; width: 100%; }
+	&-h { @extend .img; height: 100%; }
+	&-f { @extend .img; width: 100%; height: 100%; }
+}
+
+.a-blue {
+	color: $g-blue;
+	text-decoration: none;
+}
+
+.silver { color: $g-silver; }
+.blue { color: $g-blue; }
+.red { color: $g-red; }
+.green { color: $g-green; }
+.gray { color: $g-gray; }
+.dark { color: $g-dark; }
+.ash { color: $g-ash; }
+.light { color: $g-light; }
+.input { color: $g-input; }
+
+.bold { font-weight: bold; }
+
+.font14 { font-size: 14px; }
+
+// 结构
+.screen {
+	&-a {
+		@extend %afull;
+		overflow: hidden;
+	}
+	&-r {
+		@extend %rw;
+		overflow-x: hidden;
+	}
+}
+
+
+
+
+
+
+

@@ -1,0 +1,75 @@
+
+
+<!-- header logo和导航 -->
+<div class="header">
+	<div class="header-box">
+
+		<!-- logo -->
+		<div class="header-logo">
+			@@if (typeof title !== 'undefined') {
+				@@if (title === 'index') {
+					<span class="header-logo-img"></span>
+					<span class="header-logo-index">全球领先的数字资产服务平台</span>
+				}
+				@@if (title !== 'index') {
+					@@if (title === '注册') {
+						<a href="./index.htm" class="header-logo-img"></a>
+					}
+					@@if (title !== '注册') {
+						<a href="./home.htm" class="header-logo-img"></a>
+					}
+					@@if (title !== false) {
+						<span class="header-logo-word">@@title</span>
+					}
+				}
+			}
+		</div>
+
+		@@if (typeof nav !== 'undefined' && nav !== false) {
+			<!-- nav -->
+			<div class="header-nav">
+				<a
+					@@if (nav === 'home') {
+						href="javascript:;"
+						class="header-nav-a on"
+					}
+					@@if (nav !== 'home') {
+						href="./home.htm"
+						class="header-nav-a"
+					}
+				>首页</a>
+				<a
+					@@if (nav === 'setup') {
+						href="javascript:;"
+						class="header-nav-a on"
+					}
+					@@if (nav !== 'setup') {
+						href="./setup.htm"
+						class="header-nav-a"
+					}
+				>安全中心</a>
+				<a
+					@@if (nav === 'income') {
+						href="javascript:;"
+						class="header-nav-a on"
+					}
+					@@if (nav !== 'income') {
+						href="./income.htm"
+						class="header-nav-a"
+					}
+				>收益详情</a>
+				<a
+					@@if (nav === 'records') {
+						href="javascript:;"
+						class="header-nav-a on"
+					}
+					@@if (nav !== 'records') {
+						href="./records.htm"
+						class="header-nav-a"
+					}
+				>交易记录</a>
+			</div>
+		}
+
+	</div>
+</div>

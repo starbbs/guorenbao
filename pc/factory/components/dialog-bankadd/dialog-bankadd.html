@@ -1,0 +1,43 @@
+<div class="dialog-bankadd">
+	<div class="dialog-title">添加银行卡<i ms-class="{{bankClass}}"></i></div>
+	<div class="dialog-close"></div>
+	<div class="dialog-content">
+		<div class="dialog-line">
+			<div class="dialog-left">姓 名：</div>
+			<div class="dialog-right">{{name}}</div>
+		</div>
+		<div class="dialog-line">
+			<div class="dialog-left">身份证：</div>
+			<div class="dialog-right">{{personId}}</div>
+		</div>
+		<div class="dialog-line">
+			<div class="dialog-left">银行卡号：</div>
+			<div class="dialog-right">
+				<input type="text" class="dialog-input" ms-attr-placeholder="cardPlaceholder" ms-duplex="card" data-check="card">
+				<!-- <div class="dialog-tip">
+					<div class="dialog-tip-mark">请输入您的真实姓名</div>
+				</div> -->
+			</div>
+		</div>
+		<div class="dialog-line">
+			<div class="dialog-left">手机号码：</div>
+			<div class="dialog-right">
+				<input type="text" class="dialog-input" placeholder="此卡在银行预留的手机号码" ms-duplex="phone" data-check="phone">
+				<!-- <div class="dialog-tip">
+					<div class="dialog-tip-mark">请输入您的身份证号</div>
+				</div> -->
+			</div>
+		</div>
+		<div class="dialog-block">
+			<div class="dialog-left"></div>
+			<div class="dialog-right">
+				<div class="dialog-button" ms-click="next">下一步</div>
+				<div class="dialog-bankadd-agreement">《<a href="#" class="dark-a">浦发银行快捷支付业务客户服务协议</a>》和《<a href="#" class="dark-a">果仁宝快捷支付服务协议</a>》</div>
+			</div>
+		</div>
+		<div class="dialog-last">
+			<div class="dialog-left"></div>
+			<div class="dialog-right"><span class="blue-point" ms-click="back">选择其他银行</span></div>
+		</div>
+	</div>
+</div>

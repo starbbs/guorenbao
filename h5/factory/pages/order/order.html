@@ -1,0 +1,66 @@
+@@include('../../../source/include/top.html', {"name": "order"})
+<div class="screen-r">
+	<div class="order" ms-controller="order">
+		<div class="order-head">
+			<div class="order-head-desc">
+				<div class="order-head-desc-line">
+					<div class="order-head-label">{{productDesc}}(¥)</div>
+					<div class="order-head-num">{{money.toFixed(2)}}</div>
+				</div>
+				<div class="order-head-desc-tip">
+					<div class="fl">收款方：北京果仁宝科技有限公司</div>
+					<div class="fr" ms-visible="productRealPrice"><del>{{productRealPrice.toFixed(2)}}</del></div>
+				</div>
+			</div>
+			<div class="order-head-use" ms-class="on:gopIfUse&&gopNum" ms-click="gopClick">
+				<div class="order-head-radio"></div>
+				<div class="order-head-label">使用果仁</div>
+				<div class="order-head-use-guo">G {{gopUse.toFixed(2)}}</div>
+				<div class="order-head-use-money">- {{gopMoney.toFixed(2)}}</div>
+			</div>
+			<div class="order-head-pay">
+				<div class="order-head-label">人民币支付</div>
+				<div class="order-head-num red">- {{rmbUse.toFixed(2)}}</div>
+			</div>
+		</div>
+		<div class="order-box">
+			<div class="text-tip-top">请选择银行卡</div>
+			<div class="block">
+				<div class="block-item" ms-visible="bankid">
+					<div class="block-label">
+						<div class="order-bankicon"><i class="bank" ms-class="{{bankSelect.className}}"></i></div>
+						<div class="order-bankname">{{bankSelect.bankName}} {{bankSelect.type}}（{{bankSelect.tail}}）</div>
+					</div>
+					<div class="block-arrow"></div>
+				</div>
+				<div class="block-item" ms-visible="!bankid" ms-click="bankAdd">
+					<div class="block-label">
+						<div class="order-add"></div>
+						<div class="order-bankname">添加银行卡</div>
+					</div>
+					<div class="block-arrow"></div>
+				</div>
+				<div class="block-item" ms-visible="bankid">
+					<label for="order-ident" class="text">
+						<div class="text-label">验证码</div>
+						<div class="text-box"><input id="order-ident" name="order-ident" type="tel" class="text-input" autocomplete="off" placeholder="请填写验证码" maxlength="6" data-text="close" ms-on-input="identInput"></div>
+						<div class="text-close"></div>
+					</label>
+					<div class="text-ident" data-ident="order|bankid|bankcardid"></div>
+					<div class="text-tip-bottom">为保障您的资金安全，请输入短信验证码</div>
+				</div>
+			</div>
+		</div>
+		<div class="order-button"><span class="button" ms-class="disabled:!ifConfirmPay" ms-click="confirmPay">确认支付</span></div>
+	</div>
+	<div class="view">
+		@@include('./order-bill.html')
+	</div>
+	<div class="alert"></div>
+	<div class="dialog">
+		@@include('../../dialogs/bankcard/bankcard.html')
+		@@include('../../dialogs/paypass/paypass.html')
+		@@include('../../dialogs/more/more.html')
+	</div>
+</div>
+@@include('../../../source/include/bottom.html', {"name": "order"})

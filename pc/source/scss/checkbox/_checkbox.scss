@@ -1,0 +1,38 @@
+@charset "utf-8";
+
+
+// 张树垚 2015-06-24 16:04:39 创建
+// 多选框
+
+
+
+%checkbox {
+
+	$img: $g-scss + '/checkbox';
+	
+	@mixin checkbox($size: 12) {
+		// #{& + '_' + $size} {
+			@include square($size * 1px);
+			background-image: url($img + '/default_' + $size + '.png');
+			cursor: pointer;
+			&.default {}
+			&.checked {
+				background-image: url($img + '/checked_' + $size + '.png');
+			}
+			&.disabled {
+				background-image: url($img + '/disabled_' + $size + '.png');
+			}
+		// }
+	}
+
+	@include checkbox;
+
+	&_12 {
+		@extend %checkbox;
+	}
+	&_14 {
+		@include checkbox(14);
+	}
+}
+
+

@@ -1,0 +1,50 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-24 11:13:14 创建
+// H5微信端 --- viesw-address 地址
+
+
+.address {
+	$img: $g-views + '/address/images';
+	$w: set(96);
+	&-mine {
+		@extend .view-style;
+	}
+	&-wallet {
+		@extend .view-style;
+	}
+	&-item {
+		transition: $g-transition;
+		&.del {
+			@include t3d(- $w);
+		}
+		&.top {
+			@include t3d(- $w * 2);
+		}
+	}
+	&-add {
+		@include sprite($img + '/add.png', 17px);
+		margin-right: 12px;
+	}
+	&-finish {
+		font-size: 16px;
+		color: $g-blue;
+	}
+	&-del {
+		@include atlwh(0, 100%, $w);
+		background-color: $g-red;
+		color: $g-white;
+		font-size: 14px;
+		text-align: center;
+		border-bottom: $g-border;
+		@include t3d;
+	}
+	&-top {
+		@extend .address-del;
+		background-color: #c7c7cc;
+		& ~ .address-del {
+			left: 100% + $w;
+		}
+	}
+}

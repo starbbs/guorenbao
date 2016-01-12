@@ -1,0 +1,355 @@
+@charset "utf-8";
+
+
+// 张树垚 2015-10-28 09:30:23 创建
+// 果仁宝 首页
+
+
+// 引入
+@import '../../../source/scss/main';
+
+@import '../../components/top/top';
+@import '../../components/header/header';
+@import '../../components/footer/footer';
+
+// @import '../../components/bank/bank';
+@import '../../components/dialog/dialog';
+@import '../../components/dialog-login/dialog-login';
+
+
+.index {
+
+	$img: $g-factory + '/pages/index/images';
+	$images: $g-img + '/index-';
+
+	&-background {
+		@extend %afull;
+		background-image: url($images + '2.jpg');
+		background-size: cover;
+	}
+
+	&-banner {
+		height: 460px;
+		position: relative;
+		&-box {
+			@include square($g-width, 100%);
+			margin: 0 auto;
+			position: relative;
+		}
+		&-item {
+			@extend %afull;
+			background-size: 100% 100%;
+			&-1 {
+				background-image: url($images + '1.jpg');
+				// &-mac {
+				// 	@include atl(60px, -40px);
+				// 	@include square(531px, 314px);
+				// 	background-image: url($img + '/2.png');
+				// }
+				// &-title {
+				// 	@include atl(90px, 516px);
+				// 	@include square(484px, 130px);
+				// 	background-image: url($img + '/3.png');
+				// }
+				// &-button {
+				// 	@include atl(256px, 522px);
+				// 	@include square(215px, 54px);
+				// 	background-image: url($img + '/1.png');
+				// }
+				&-temp {
+					margin-top: -10px;
+					margin-left: -50px;
+					@include square(1109px, 550px);
+					background-image: url($img + '/0.png');
+				}
+			}
+		}
+		&-nav {
+			@include atlw(400px);
+			z-index: 1000;
+			text-align: center;
+			&-item {
+				display: inline-block;
+				@include square(12px);
+				margin: 0 8px;
+				border-radius: 50%;
+				background-color: rgba(#fff, .3);
+				transition: $g-transition;
+				cursor: pointer;
+				&.on {
+					background-color: #fff;
+				}
+			}
+		}
+	}
+
+	&-illustration { // 说明
+		height: 550px;
+		position: relative;
+		overflow: hidden;
+		&-background {
+			@extend %atlw;
+		}
+		&-wrap {
+			position: relative;
+			height: 100%;
+			background-color: rgba(0,0,0,.77);
+		}
+		&-box {
+			@include square($g-width, 100%);
+			margin: 0 auto;
+		}
+		&-item {
+			float: left;
+			width: $g-width / 4;
+			text-align: center;
+			white-space: nowrap;
+			font-size: 14px;
+		}
+		&-img {
+			$this: & + '';
+			@include square(148px);
+			margin: 125px auto 0;
+			border-radius: 50%;
+			border: solid 1px;
+			transform: rotate(0);
+			transition: $g-transition;
+			&:hover {
+				transform: rotate(360deg);
+			}
+			&:after {
+				content: '';
+				@include inline-block(middle);
+				height: 100%;
+			}
+			i {
+				@include inline-block(middle);
+			}
+			$imgs: (
+				'/4.png' 61px 60px #bcb107,
+				'/6.png' 65px 56px #94f9d9,
+				'/5.png' 68px 50px #8ddcfa,
+				'/7.png' 42px 70px #f5be8e
+			);
+			@for $i from 1 through 4 {
+				&-#{$i} {
+					$list: nth($imgs, $i);
+					@extend #{$this};
+					border-color: nth($list, 4);
+					i {
+						@include square(nth($list, 2), nth($list, 3));
+						background-image: url($img + nth($list, 1));
+					}
+				}
+			}
+		}
+		&-title {
+			margin-top: 24px;
+			color: #ececec;
+			font-size: 20px;
+		}
+		&-word {
+			$colors: #8e8c72 #668b7f #4a8da7 #928080;
+			@for $i from 1 through 4 {
+				&-#{$i} {
+					margin-top: 18px;
+					color: nth($colors, $i);
+				}
+			}
+		}
+	}
+
+	&-cards { // 卡片翻转
+		height: 667px;
+		text-align: center;
+		background: #f5f5f5 url($images + '3.png') top left repeat-x;
+		&-box {
+			@include square($g-width, 100%);
+			position: relative;
+			margin: 0 auto;
+			overflow: hidden;
+		}
+		&-item {
+			$width: 300px;
+			$padding: 10px;
+			$margin: floor(($g-width - $width * 3 - $padding * 2) / 2 / 2);
+			float: left;
+			margin: 108px $margin 0;
+			@include square($width, 444px);
+			position: relative;
+			perspective: 1000;
+			&:hover {
+				.index-cards-front {
+					transform: rotateY(180deg);
+				}
+				.index-cards-back {
+					transform: rotateY(0);
+				}
+			}
+			&:first-child {
+				margin-left: $padding;
+			}
+			&:last-child {
+				margin-right: $padding;
+			}
+		}
+		&-rotate {
+			@extend %afull;
+			// box-sizing: border-box;
+			border: 1px solid #eee;
+			border-radius: 6px;
+			// overflow: hidden;
+			transform-style: preserve-3d;
+		}
+		&-front {
+			@extend %afull;
+			z-index: 1;
+			border-radius: 6px;
+			overflow: hidden;
+			background-color: #fff;
+			backface-visibility: hidden;
+			transition: .8s all ease;
+			transform-style: preserve-3d;
+			transform: rotateY(0);
+		}
+		&-back {
+			@extend %afull;
+			border-radius: 6px;
+			overflow: hidden;
+			background-color: #fff;
+			backface-visibility: hidden;
+			transition: .8s all ease;
+			transform-style: preserve-3d;
+			transform: rotateY(-180deg);
+		}
+		&-icon {
+			$top: 100px; // 到顶部
+			$place: 130px; // 高度(居中)
+			$icons: (
+				'/8.png' 92px 50px,
+				'/9.png' 65px 71px,
+				'/10.png' 63px 69px
+			);
+			@for $i from 1 through 3 {
+				&-#{$i} {
+					$list: nth($icons, $i);
+					$height: nth($list, 3);
+					$margin: ($place - $height) / 2;
+					background-image: url($img + nth($list, 1));
+					@include square(nth($list, 2), $height);
+					margin: $top + $margin auto $margin;
+				}
+			}
+		}
+		&-title {
+			line-height: 50px;
+			font-size: 22px;
+		}
+		&-word {
+			color: $g-blue;
+			font-size: 14px;
+		}
+		&-img {
+			@extend .img-w;
+			margin-bottom: 12px;
+		}
+		&-word2 {
+			color: $g-gray;
+			text-align: left;
+			padding: 0 30px;
+			line-height: 24px;
+			font-size: 12px;
+		}
+	}
+
+	&-answers {
+		height: 440px;
+		background-color: #f7f7f7;
+		border-top: 1px solid #e3ebef;
+		border-bottom: 1px solid #e3ebef;
+		$padding: 12px;
+		$width: $g-width - $padding * 2;
+		&-box {
+			@include square($width, 100%);
+			padding: 0 $padding;
+			margin: 0 auto;
+			position: relative;
+		}
+		&-title {
+			$height: 44px;
+			@include height($height);
+			@include atl(- $height, $padding);
+			font-size: 20px;
+		}
+		&-nav {
+			$height: 56px;
+			@include height($height);
+			padding-top: 30px;
+			overflow: hidden;
+			&-item {
+				float: left;
+				width: floor($width / 4);
+				text-align: center;
+				font-size: 16px;
+				border-bottom: 2px solid #e1e1e1;
+				height: $height - 2px;
+				cursor: pointer;
+				transition: $g-transition-duration border-color ease;
+				position: relative;
+				&.on {
+					border-bottom: 4px solid $g-blue;
+					height: $height - 4px;
+					cursor: default;
+					&:after {
+						content: '';
+						@include abl(0, 50%);
+						border: 6px solid transparent;
+						margin-left: -6px;
+						border-top: 0;
+						border-bottom-color: $g-blue;
+					}
+				}
+			}
+		}
+		&-icon {
+			$icon: & + '';
+			$icons: (
+				'/11.png' 16px 15px,
+				'/12.png' 16px 20px,
+				'/13.png' 18px 20px,
+				'/14.png' 18px 26px
+			);
+			@include inline-block(middle);
+			@for $i from 1 through 4 {
+				$list: nth($icons, $i);
+				&-#{$i} {
+					@extend #{$icon};
+					@include square(nth($list, 2), nth($list, 3));
+					background-image: url($img + nth($list, 1));
+					margin-right: 8px;
+				}
+			}
+		}
+		&-content {
+			line-height: 24px;
+			height: 352px;
+			position: relative;
+			color: $g-gray;
+		}
+		&-tab {
+			@extend %afull;
+			display: none;
+			&.on {
+				display: block;
+			}
+			&-block {
+				margin-top: 18px;
+			}
+		}
+	}
+
+}
+
+
+
+

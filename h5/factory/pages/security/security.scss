@@ -1,0 +1,28 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-20 11:22:45 创建
+// H5微信端 --- 个人首页
+
+
+@import '../../../source/scss/main';
+
+@import '../../views/view';
+@import '../../views/authentication/authentication';
+@import '../../views/password/password';
+
+// @import '../../dialogs/dialog';
+
+
+body {
+	background-color: $g-background;
+}
+
+
+.security {
+
+	$img: $g-pages + '/security/images';
+	@extend %fade-in;
+	overflow: hidden;
+	padding-bottom: $g-padding-bottom;
+}

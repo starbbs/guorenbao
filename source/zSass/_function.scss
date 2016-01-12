@@ -1,0 +1,28 @@
+@charset "utf-8";
+
+// 张树垚 2014-12-06 14:31:52 创建
+// function文件，引入所有function
+
+
+// sass原装方法
+// call
+	// call(rgb, 10, 100, 255) => #0a64ff
+	// call(scale-color, #0a64ff, $lightness: -10%) => #0058ef
+	// $fn: nth;
+	// call($fn, (a b c), 2) => b
+
+
+@import "function/typeof";
+@import "function/unit";
+@import "function/percent";
+@import "function/selector";
+@import "function/list";
+@import "function/string";
+@import "function/math";
+
+
+
+
+
+
+

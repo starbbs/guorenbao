@@ -1,0 +1,43 @@
+@charset "utf-8";
+
+// 张树垚 2014-10-25 15:53:52 创建
+
+// reset样式
+
+
+
+@mixin reset { // 清除默认内外边距
+	margin: 0;
+	padding: 0;
+}
+
+
+@mixin reset-ul { // 清除ul或ol默认样式
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+
+@mixin reset-img { // 清除img默认样式
+	// vertical-align: top;
+	border: none;
+}
+
+
+@mixin reset-input { // 清楚input默认样式
+	outline: none;
+	border: none;
+	border-radius: 0;
+	appearance: none;
+	-webkit-appearance: none;
+	background-color: transparent;
+}
+
+
+
+
+
+
+
+

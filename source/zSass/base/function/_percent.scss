@@ -1,0 +1,29 @@
+@charset "utf-8";
+
+// 张树垚 2014-12-06 14:53:48 创建
+// 处理百分比操作
+
+
+
+// sass默认函数：percentage
+	// percentage(0.2) => 20%
+	// percentage(100px / 50px) => 200%
+
+
+
+// _unit.scss中有一个方法isPercent，判断数值单位是否是"%"
+
+
+
+// 判断比例
+@function percent($target, $context) {
+	@return $target / $context * 100%;
+}
+
+
+
+
+
+
+
+

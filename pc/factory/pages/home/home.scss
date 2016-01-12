@@ -1,0 +1,434 @@
+@charset "utf-8";
+
+
+// 张树垚 2015-10-20 18:07:07 创建
+// 果仁宝 个人主页
+
+
+// 引入
+@import '../../../source/scss/main';
+
+@import '../../components/top/top';
+@import '../../components/header/header';
+@import '../../components/footer/footer';
+
+
+.home {
+
+	$img: $g-factory + '/pages/home/images';
+
+	color: $g-dark;
+	opacity: 0;
+
+	&-box {
+		width: $g-width;
+		margin: 0 auto;
+	}
+	&-head {
+		margin-top: 6px;
+		line-height: 56px;
+		@extend .clearfix;
+		&-right {
+			float: right;
+			margin-right: 6px;
+			@include relative(2px);
+			&-img {
+				@include atlwh(2px, -30px, 21px, 45px);
+				background-image: url($img + '/1.png');
+			}
+			&-num {
+				color: $g-red;
+			}
+		}
+	}
+	&-body {}
+	&-title {
+		float: left;
+		margin-left: 6px;
+		font-size: 16px;
+		color: #312121;
+		font-weight: bold;
+		// &-time {
+		// 	float: left;
+		// 	@include relative(2px);
+		// 	margin-left: 20px;
+		// 	color: $g-silver;
+		// }
+		&-check {
+			float: right;
+			&-a {
+				@extend .dark-a;
+				text-decoration: none;
+			}
+			&-img {
+				display: inline-block;
+				width: 17px;
+				height: 5px;
+				position: relative;
+				top: -1px;
+				margin-left: 9px;
+				margin-right: 2px;
+				background-image: url($img + '/7.png');
+			}
+		}
+	}
+
+	&-person {
+		$width: 1042px;
+		@include square($width, 196px);
+		margin-left: ($g-width - $width) / 2;
+		position: relative;
+		&-background {
+			@extend %atlwh;
+		}
+		&-left {
+			@include atlwh(2px, 3px, 325px, 184px);
+			line-height: 32px;
+			&-picture {
+				@include absolute(25px, 40px);
+				@include square(88px);
+				border-radius: 50%;
+				border: 3px solid #f5f5f5;
+				box-shadow: 0px 0px 0px 1px #eaeaea;
+				overflow: hidden;
+			}
+			&-title {
+				@include atlw(25px, 150px, 145px);
+				padding-bottom: 4px;
+				border-bottom: 1px dotted #dddddd;
+				&-mobile {
+					@include height(32px);
+					font-size: 16px;
+					font-weight: bold;
+				}
+				&-line {
+					@include height(32px);
+					@extend .clearfix;
+				}
+				&-name {
+					float: left;
+				}
+				&-card {
+					float: left;
+					@include square(28px, 16px);
+					margin-top: 8px;
+					margin-left: 12px;
+					background-image: url($img + '/3.png');
+				}
+				&-bank {
+					color: $g-silver;
+					&-num {
+						color: $g-blue;
+						cursor: pointer;
+					}
+					&-admin {
+						float: right;
+						@extend .blue-a;
+						text-decoration: none;
+					}
+				}
+				&-set {
+					float: right;
+					@include square(15px);
+					margin-top: 8.5px;
+					background-image: url($img + '/2.png');
+					cursor: pointer;
+				}
+			}
+			&-asset {
+				@include atlw(140px, 80px, 215px);
+				color: $g-silver;
+				font-size: 12px;
+				text-align: right;
+				// &-num {
+				// 	color: $g-gold;
+				// 	font-weight: normal;
+				// }
+				// &-detail {
+				// 	float: right;
+				// 	@include square(15px, 10px);
+				// 	margin-top: 11px;
+				// 	cursor: pointer;
+				// 	background-image: url($img + '/4.png');
+				// }
+			}
+		}
+		&-center {
+			@include atlwh(2px, 342px, 414px, 184px);
+			line-height: 26px;
+			&-box {
+				margin-top: 20px;
+				margin-left: 30px;
+				position: relative;
+			}
+			&-line {
+				margin: 20px 30px 0 30px;
+				border-bottom: 1px dotted #dddddd;
+			}
+			&-bottom {
+				margin: 16px 30px 0;
+				line-height: 20px;
+				&-right {
+					float: right;
+				}
+			}
+			&-title {
+				font-weight: bold;
+			}
+			&-num {
+				margin-top: 28px;
+				position: relative;
+				&-name {
+					color: $g-silver;
+				}
+				&-num {
+					font-size: 24px;
+					font-weight: bold;
+				}
+			}
+			&-click {
+				@include atr(0, 30px);
+			}
+			&-button {
+				&-gray {
+					float: left;
+					margin-left: 10px;
+					@include button($color: #333, $background-color: #f7f7f7, $padding: 15px, $width: null, $height: 24px, $border-color: #ccc);
+				}
+				&-blue {
+					float: left;
+					margin-left: 10px;
+					@include button($color: #fff, $background-color: $g-blue, $padding: 15px, $width: null, $height: 24px);
+				}
+			}
+		}
+		&-right {
+			@include atlwh(2px, 770px, 269px, 184px);
+			&-title {
+				margin-top: 20px;
+				margin-left: 30px;
+				font-weight: bold;
+			}
+			&-help {
+				@include square(16px);
+				@include atl(22px, 200px);
+				background-image: url($img + '/5.png');
+				cursor: pointer;
+			}
+			&-num {
+				margin-top: 25px;
+				padding-right: 20px;
+				text-align: center;
+				font-size: 42px;
+				color: #0189ff;
+				mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), black);
+				&-add {
+					font-size: 32px;
+					color: $g-blue;
+				}
+			}
+			&-bottom {
+				text-align: center;
+				margin-top: 16px;
+				padding-right: 10px;
+				&-a {
+					@extend .dark-a;
+					text-decoration: none;
+				}
+				&-icon {
+					display: inline-block;
+					margin-left: 6px;
+					@include square(9px);
+					background-image: url($img + '/6.png');
+				}
+			}
+		}
+	}
+
+	&-chart {
+		$margin: 30px;
+		padding: 4px 0;
+		overflow: hidden;
+		border: 1px solid #efefef;
+		background-color: #fff;
+		&-title {
+			margin: 32px $margin 0;
+			font-weight: bold;
+		}
+		&-left {
+			float: left;
+			padding-bottom: 18px;
+			border-right: 1px dotted #dddddd;
+			&-content {
+				margin: 4px $margin 0;
+				@include square(220px, 160px);
+				position: relative;
+				overflow: hidden;
+				text-align: center;
+				&-background {
+					background-image: url($img + '/8.png');
+					@extend %atlwh;
+				}
+				&-num {
+					position: relative;
+					margin-top: 32px;
+					font-size: 56px;
+					color: #fff;
+				}
+				&-time {
+					position: relative;
+					color: $g-yellow;
+				}
+				&-refresh {
+					display: inline-block;
+					width: 15px;
+					height: 13px;
+					margin-left: 4px;
+					position: relative;
+					top: 1px;
+					cursor: pointer;
+					background-image: url($img + '/9.png');
+				}
+			}
+			&-bottom {
+				margin-top: 24px;
+				text-align: center;
+				@include height(20px);
+				&-a {
+					@extend .blue-a;
+					vertical-align: top;
+					text-decoration: none;
+				}
+				&-separate {
+					display: inline-block;
+					height: 100%;
+					border-right: 1px solid #d0d0d0;
+					margin: 0 10px;
+				}
+			}
+		}
+		&-center {
+			float: left;
+			&-main {
+				width: 500px;
+				position: relative;
+				overflow: hidden;
+				&-chart {
+					height: 205px;
+					margin-left: $margin;
+					margin-top: 12px;
+					// background-color: #ccc;
+				}
+			}
+			&-tabs {
+				@include atr(26px, 0);
+				@include height(26px);
+			}
+		}
+		&-right {
+			float: left;
+			width: 180px;
+			margin-left: $margin;
+			&-title {
+				margin-top: 32px;
+			}
+			&-box {
+				margin-top: 20px;
+				padding: 22px 18px;
+				border: 1px solid #d6d6d6;
+				box-shadow: 0px 0px 5px rgba(0,0,0,.4);
+				&-title {
+					margin-bottom: 24px;
+				}
+				&-line {
+					margin-top: 10px;
+				}
+				&-right {
+					float: right;
+				}
+			}
+		}
+	}
+
+	&-trade {
+		border: 1px solid #efefef;
+		border-bottom: none;
+		margin-bottom: 84px;
+		&-head {
+			height: 34px;
+			line-height: 35px;
+			border-bottom: 1px solid #efefef;
+			color: #666666;
+			background-color: #fbfbfb;
+		}
+		&-tr {
+			height: 47px;
+			line-height: 47px;
+			background-color: #ffffff;
+			border-bottom: 1px solid #efefef;
+		}
+		&-td {
+			$td: & + '';
+			@extend %text-overflow;
+			float: left;
+			padding-left: 26px;
+			&1 {
+				@extend #{$td};
+				color: $g-gray;
+				width: 138px;
+			}
+			&2 {
+				@extend #{$td};
+				width: 294px;
+			}
+			&3 {
+				// $td3: & + '';
+				@extend #{$td};
+				width: 244px;
+				// &-green {
+				// 	@extend #{$td3};
+				// 	color: $g-green;
+				// }
+				// &-gray {
+				// 	@extend #{$td3};
+				// 	color: $g-gray;
+				// }
+				// &-blue {
+				// 	@extend #{$td3};
+				// 	color: $g-blue;
+				// }
+			}
+			&4 {
+				@extend #{$td};
+				width: 132px;
+			}
+			&5 {
+				@extend #{$td};
+				width: 80px;
+				&-a {
+					@extend .blue-a;
+					text-decoration: none;
+				}
+				&-click {
+					padding: 4px 18px 4px 7px;
+					background-color: #01a5ff;
+					background-image: linear-gradient(to bottom, #01a5ff, #0069ff);
+					border-radius: 3px;
+					position: relative;
+					@extend .white-a;
+					text-decoration: none;
+					&:after {
+						content: '';
+						position: absolute;
+						top: 10px;
+						right: 6px;
+						border: 3px solid transparent;
+						border-top: 5px solid #ffffff;
+						border-bottom: 0;
+					}
+				}
+			}
+		}
+	}
+}
+

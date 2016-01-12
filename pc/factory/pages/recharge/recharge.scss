@@ -1,0 +1,347 @@
+@charset "utf-8";
+
+
+// 张树垚 2015-10-22 20:09:15 创建
+// 果仁宝 买入页面
+
+
+// 引入
+@import '../../../source/scss/main';
+
+@import '../../components/top/top';
+@import '../../components/header/header';
+@import '../../components/footer/footer';
+
+@import '../../components/dialog/dialog';
+@import '../../components/dialog-bank/dialog-bank';
+@import '../../components/dialog-bankadd/dialog-bankadd';
+
+@import '../../components/bank/bank';
+@import '../../components/payment/payment';
+
+
+
+.recharge {
+
+	$img: $g-factory + '/pages/recharge/images';
+
+	$left-width: 140px;
+	$background-color: #f8f8f8;
+
+	width: 100%;
+	height: 1000px;
+	position: relative;
+	color: #333333;
+	line-height: 30px;
+	// opacity: 0;
+	
+	&-page {
+		@extend %afull;
+		background-color: $background-color;
+		z-index: 1;
+		display: none;
+	}
+	
+	&-check {
+		@extend .recharge-page;
+		&-title {
+			padding-left: 44px;
+			margin-top: 40px;
+		}
+		&-block {
+			margin-top: 40px;
+			@extend .clearfix;
+			&-line {
+				float: left;
+				width: 450px;
+				height: 14px;
+				margin: 0 5px;
+				border-bottom: 1px dashed #cccccc;
+			}
+			&-right {
+				white-space: nowrap;
+				@include relative(-1px);
+			}
+			&-tab {
+				float: left;
+				position: relative;
+				padding: 0 30px;
+				margin-bottom: -1px;
+				background-color: #fff;
+				border: 1px solid #d0d0d0;
+				border-bottom-color: #fff;
+			}
+		}
+		&-pay {
+			clear: both;
+			border: 1px solid #d0d0d0;
+			background-color: #ffffff;
+			margin: 0 20px;
+			padding: 10px;
+			&-quick {
+				padding: 16px 28px;
+				background-color: #f7f7f7;
+				@extend .clearfix;
+			}
+			&-bank {
+				padding-top: 18px;
+				padding-bottom: 22px;
+				&-choose {
+					margin-left: 36px;
+					color: $g-blue;
+					cursor: pointer;
+					padding-right: 12px;
+					position: relative;
+					font-weight: normal;
+					&:after {
+						content: "";
+						@include atr(7px, 0);
+						border: 4px solid transparent;
+						border-top: 6px solid #44c0fd;
+						border-bottom: 0;
+					}
+				}
+			}
+			&-title {
+				float: left;
+				font-weight: bold;
+			}
+			&-float {
+				float: left;
+				margin-left: 30px;
+				color: $g-silver;
+			}
+			&-content {
+				clear: both;
+				padding: 16px 80px 0;
+				line-height: 50px;
+				@extend .clearfix;
+			}
+			&-add {
+				float: left;
+				margin-left: 14px;
+				&-span {
+					position: relative;
+					padding-left: 18px;
+					@extend .blue-point;
+					&:before {
+						content: '+';
+						font-weight: bold;
+						line-height: 0;
+						font-size: 20px;
+						@include atl(7px, 0);
+					}
+				}
+			}
+		}
+		&-mobile {
+			overflow: hidden;
+			&-phone {
+				float: left;
+				font-size: 14px;
+				font-weight: bold;
+			}
+			&-button {
+				float: left;
+				margin-left: 16px;
+				@extend %button-gray-border;
+			}
+		}
+		&-ident {
+			margin-top: 30px;
+			overflow: hidden;
+			&-input {
+				float: left;
+				font-size: 14px;
+				font-weight: bold;
+				letter-spacing: 1px;
+				@include input(88px, 10px);
+			}
+			&-click {
+				float: left;
+				margin-left: 24px;
+				color: $g-blue;
+				text-decoration: underline;
+				cursor: pointer;
+			}
+			&-tip {
+				clear: both;
+				margin-left: $left-width;
+				margin-top: 2px;
+				color: $g-silver;
+				&:before {
+					content: '';
+					@include inline-block(middle);
+					@include relative(-1px);
+					@include square(12px);
+					margin-left: 2px;
+					margin-right: 5px;
+					background-image: url($img + '/1.png');
+				}
+				&.error {
+					&:before {
+						@include square(14px);
+						background-image: url($img + '/2.png');
+					}
+				}
+			}
+		}
+		&-button {}
+	}
+
+	&-confirm {
+		$margin: 25px;
+		@extend .recharge-page;
+		&-title {
+			margin: 20px $margin 0;
+			border: 1px solid #d0d0d0;
+			background-color: #fff;
+			padding: 6px 24px;
+			&-money {
+				color: $g-red;
+				float: right;
+				line-height: 60px;
+				margin-top: -60px;
+				font-size: 16px;
+				font-weight: bold;
+			}
+		}
+		&-line {
+			margin: 30px $margin;
+			line-height: 70px;
+			@extend .clearfix;
+		}
+		&-quick {
+			@extend .clearfix;
+			position: relative;
+			margin-left: 120px;
+			background-color: #fff;
+			border-bottom: 1px dashed #d0d0d0;
+			&-word {
+				float: left;
+				font-weight: bold;
+				margin-left: 22px;
+			}
+			.bank {
+				margin-bottom: 0;
+				margin-top: 10px;
+			}
+			&-money {
+				float: right;
+				font-size: 16px;
+				font-weight: bold;
+				color: $g-red;
+				margin-right: 22px;
+			}
+			&-tip {
+				@include atr(100%, 0);
+			}
+		}
+		.payment {
+			margin-top: 20px;
+		}
+		&-other {}
+
+		&-left {
+			width: 110px;
+			padding-right: 10px;
+			float: left;
+			text-align: right;
+			min-height: 1px
+		}
+		&-right {}
+	}
+
+	&-result {
+		@extend .recharge-page;
+	}
+
+	&-foot {
+	}
+	&-left {
+		$padding: 10px;
+		float: left;
+		width: $left-width - $padding;
+		padding-right: $padding;
+		text-align: right;
+		font-size: 14px;
+		min-height: 1px;
+	}
+	&-input {
+		float: left;
+		@include input($padding: 10px);
+		&-box {
+			float: left;
+			position: relative;
+			overflow: hidden;
+			z-index: 1;
+			&.cny:after {
+				content: '￥';
+				@include atr(0, 10px);
+				font-size: 14px;
+				color: $g-silver;
+			}
+		}
+	}
+	&-button {
+		float: left;
+		@extend %button-blue-input;
+	}
+}
+
+
+
+.dialog-identify {
+	@extend .dialog-style;
+}
+
+.dialog-fail {
+	$img: $g-components + '/dialog-fail';
+	@extend .dialog-style;
+	line-height: 30px;
+	&-content {
+		@extend .clearfix;
+		position: relative;
+		margin-top: 70px;
+		margin-left: 190px;
+	}
+	&-icon {
+		@include atl(-8px, -64px);
+		@include square(47px, 46px);
+		background-image: url($img + '/1.png');
+	}
+	&-big {
+		float: left;
+		font-size: 24px;
+	}
+	&-reason {
+		float: left;
+		font-size: 14px;
+		line-height: 40px;
+	}
+	&-tip {
+		color: $g-silver;
+		clear: both;
+		margin-bottom: 20px;
+	}
+	&-return {
+		float: left;
+		margin-left: -4px;
+		@extend %button-red;
+	}
+	&-a {
+		float: left;
+		margin-left: 22px;
+		@extend .silver-a;
+	}
+}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,103 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-11-13 10:19:24 创建
+// 颜色和字体
+
+
+// 字体颜色
+$g-black: #141618;		// 深黑
+$g-dark: #333333;		// 黑灰
+$g-gray: #666666;		// 中灰
+$g-silver: #999999;		// 浅灰
+$g-disabled: #d0d0d0;	// 不可访问
+$g-white: #fff;			// 白
+
+$g-blue: #0091e6;		// 文字蓝
+$g-blue-graph: #1b9af7;	// 图形蓝
+$g-blue-hover: #0082ff;	// 蓝hover
+
+$g-green: #009a00;		// 绿
+
+$g-red: #f34956;		// 红
+
+$g-gold: #cc940a;		// 壕金
+
+$g-yellow: #ffaf00;		// 黄
+
+
+// 输入框
+$g-input-border: #d7d7d7;		// 按钮边框色
+$g-input-focus: $g-blue-graph;	// 按钮焦点边框颜色
+$g-input-success: $g-green;		// 按钮正确√颜色
+$g-input-error: $g-red;			// 按钮错误边框颜色
+
+$g-input-width: 228px;	// input默认宽度
+$g-line-height: 30px;	// 默认行高
+$g-border-radius: 5px;	// 圆角
+
+input {
+	font: $g-font;
+	line-height: normal;
+	letter-spacing: .2em;
+}
+
+a {
+	color: inherit;
+}
+
+// a标签和伪a标签
+@mixin a-color($color, $link: $color, $visited: $color, $hover: $color, $active: $color) {
+	color: $color;
+	&:link { color: $link; }
+	&:visited { color: $visited; }
+	&:hover { color: $hover; }
+	&:active { color: $active; }
+}
+$colors-str: 'black' 'dark' 'gray' 'silver' 'white' 'blue' 'green' 'red' 'gold' 'yellow';
+$colors-arg: $g-black $g-dark $g-gray $g-silver $g-white $g-blue $g-green $g-red $g-gold $g-yellow;
+@for $i from 1 through length($colors-str) {
+	#{'.' + nth($colors-str, $i)} {
+		$arg: nth($colors-arg, $i);
+		color: $arg !important;
+		&-a {
+			@include a-color($arg);
+			text-decoration: none;
+		}
+		&-point {
+			color: $arg;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	}
+}
+
+
+// 特别字体
+.tdn { text-decoration: none; } // 无下划线
+.tdu { text-decoration: underline; } // 有下划线
+
+.big { font-size: 1.5em; } // 大号
+.bold { font-weight: bold; } // 加粗
+
+.vam { vertical-align: middle; }
+
+.money { // 钱
+	border-bottom: 1px solid;
+	font-size: 1.3em;
+	font-weight: bold;
+	padding-bottom: 0.3em;
+}
+
+.font { // 大小
+	&12 {
+		font-size: 12px;
+	}
+	&14 {
+		font-size: 14px;
+	}
+}
+
+
+
+

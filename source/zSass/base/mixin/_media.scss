@@ -1,0 +1,29 @@
+@charset "utf-8";
+
+// 张树垚 2015-01-19 12:04:03 创建
+// 媒体查询 mixin
+
+
+
+
+@mixin mediaMaxWidth($width) {
+	@media only screen and (max-width: $width) {
+		@content;
+	}
+}
+
+
+
+@mixin mediaMinWidth($width) {
+	@media only screen and (min-width: $width) {
+		@content;
+	}
+}
+
+
+
+
+
+
+
+

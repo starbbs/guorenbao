@@ -1,0 +1,107 @@
+@charset "utf-8";
+
+// 张树垚 2014-12-15 19:49:16 创建
+// transform
+
+
+
+
+
+@mixin transform($arg) {
+	@include prefix(transform, $arg);
+}
+@mixin transform-origin($arg) {
+	@include prefix(transform-origin, $arg);
+}
+
+
+@mixin transform-style($arg: preserve-3d) {
+	@include prefix(transform-style, $arg);
+}
+@mixin use-3d {
+	@include transform-style;
+}
+@mixin perspective($arg: 1200px) {
+	@include prefix(perspective, $arg);
+}
+
+
+// 缩放
+@mixin scale($x: 1) {
+	@include transform(scale($x));
+}
+@mixin scaleX($x: 1) {
+	@include transform(scaleX($x));
+}
+@mixin scaleY($x: 1) {
+	@include transform(scaleY($x));
+}
+@mixin scale3d($x: 1, $y: 1, $z: 1) {
+	@include transform(scale3d($x, $y, $z));
+}
+
+
+// 旋转
+@mixin rotate($x: 0) {
+	@include transform(rotate($x));
+}
+@mixin rotateX($x: 0) {
+	@include transform(rotateX($x));
+}
+@mixin rotateY($x: 0) {
+	@include transform(rotateY($x));
+}
+@mixin rotate3d($x, $y, $z, $deg) {
+	// x, y, z 为0到1之间的矢量
+	// deg 为旋转角度
+	@include transform(rotate3d($x, $y, $z, $deg));
+}
+
+
+// 拉伸
+@mixin skew($x: 0) {
+	@include transform(skew($x));
+}
+@mixin skewX($x: 0) {
+	@include transform(skewX($x));
+}
+@mixin skewY($x: 0) {
+	@include transform(skewY($x));
+}
+
+
+// 位移
+@mixin translate3d($x: 0, $y: 0, $z: 0) {
+	@include transform(translate3d($x, $y, $z));
+}
+@mixin translateX($x: 0) {
+	@include transform(translateX($x));
+}
+@mixin translateY($y:0) {
+	@include transform(translateY($y));
+}
+
+
+
+// 再简用样式
+@mixin x($x: 0) {
+	@include translateX($x);
+}
+@mixin y($y: 0) {
+	@include translateY($y);
+}
+@mixin t3d($x: 0, $y: 0, $z: 0) {
+	@include translate3d($x, $y, $z);
+}
+
+
+
+// 混用样式
+@mixin scale-rotate($scale: 1, $rotate: 0) {
+	@include transform(scale($scale) rotate($rotate));
+}
+
+
+
+
+

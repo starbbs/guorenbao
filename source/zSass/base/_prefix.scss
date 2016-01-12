@@ -1,0 +1,44 @@
+@charset "utf-8";
+
+// 张树垚 2014-12-08 16:34:28 创建
+// 加前缀
+
+
+
+// 全局控制
+$prefix-global: "webkit" "moz" "ms" "w3c" !default;
+
+
+@mixin prefix($name, $value: null, $position: "pre", $prefix-list: $prefix-global) {
+	// @if $name == "help" { // 显示帮助文档
+	// 	@warn '
+	// 		$name(string，必须): 样式名或"help"
+	// 		$value(any): 样式值
+	// 		$position(string): 前缀位置
+	// 			"pre"，加在样式名上
+	// 			"suf"，加在样式值上
+	// 			"all"，都加上
+	// 		$prefix-list(list): 前缀名称组，为null时使用全局默认的$prefix-global
+	// 	';
+	// }
+	@each $str in $prefix-list { // 加前缀
+		@if $str == "w3c" {
+			#{$name}: $value;
+		} @else {
+			@if $position == "pre" {
+				-#{$str}-#{$name}: $value;
+			} @else if $position == "suf" {
+				#{$name}: -#{$str}-#{$value};
+			} @else if $position == "all" {
+				-#{$str}-#{$name}: -#{$str}-#{$value};
+			}
+		}
+	}
+}
+
+
+
+
+
+
+

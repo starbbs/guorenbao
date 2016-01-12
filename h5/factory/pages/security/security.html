@@ -1,0 +1,34 @@
+@@include('../../../source/include/top.html', {"name": "security"})
+<div class="screen-r">
+    <div class="security" ms-controller="security">
+		<div class="block">
+			<a class="block-item"  ms-click="authentication_click">
+				<div class="block-label">实名认证</div>
+				<div ms-class-1="green:authenticationed" ms-class-2="silver:!authenticationed">{{authenticationed?'已认证':'未认证'}}</div>
+				<div class="block-arrow"></div>
+			</a>
+			<a class="block-item" ms-click="protect_click">
+				<div class="block-label">密保问题</div>
+				<div ms-class-1="green:setProtected" ms-class-2="silver:!setProtected">{{setProtectedStr}}</div>
+				<div class="block-arrow"></div>
+			</a>
+			<a href="#!/view/password-forget" class="block-item">
+				<div class="block-label">修改登录密码</div>
+				<div class="block-arrow"></div>
+			</a>
+			<a href="./paypass.html" class="block-item">
+				<div class="block-label">修改支付密码</div>
+				<div class="block-arrow"></div>
+			</a>
+		</div>
+	</div>
+	<div class="view">
+		@@include('../../views/authentication/authentication.html')
+		@@include('../../views/password/password-forget.html')
+		@@include('../../views/password/password-set.html')
+		@@include('../../views/password/password-success.html')
+	</div>
+	<div class="alert"></div>
+	<!-- <div class="dialog"></div> -->
+</div>
+@@include('../../../source/include/bottom.html', {"name": "security"})

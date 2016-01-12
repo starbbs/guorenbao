@@ -1,0 +1,168 @@
+@charset "utf-8";
+
+
+// 张树垚 2015-07-31 15:40:01 创建
+// 提示
+
+
+
+%tips {
+
+	$img: $g-scss + '/tips/';
+	$tips: & + '';
+
+	$outer-color: #c2c8c6;
+	$inner-color: #f9f9f9;
+	$horn-size: 5px;		// 小角的大小(左侧凸起)
+
+	&-box {
+		@include absolute(0, 100%);
+		line-height: 18px;
+		border: 1px solid $outer-color;
+		background-color: $inner-color;
+		padding: 6px 18px 6px 6px;
+		margin-left: 10px;
+		white-space: nowrap;
+		color: $g_gray;
+		&.on {
+			display: block;
+		}
+		&:before {
+			$top: $horn-size - 1px;
+			$left: $horn-size;
+			content: '';
+			display: block;
+			border: $top solid transparent;
+			border-left: 0px;
+			border-right: $left solid $outer-color;
+			@include absolute((28px - $top * 2) / 2, - $left);
+		}
+		&:after {
+			$top: $horn-size - 2px;
+			$left: $horn-size - 1px;
+			content: '';
+			display: block;
+			border: $top solid transparent;
+			border-left: 0px;
+			border-right: $left solid $inner-color;
+			@include absolute((28px - $top * 2) / 2, - $left);
+		}
+	}
+	&-head {
+		padding-bottom: 6px;
+	}
+	&-line {
+		&:before {
+			content: '';
+			@include inline-block(middle);
+			@include relative(-1px);
+			// 左侧宽度19px: 7 + 4 + 8, 14 + 0 + 5, 12 + 2 + 5
+			@include square(7px);
+			background-image: url($img + '/default.png');
+			margin-left: 4px;
+			margin-right: 8px;
+		}
+		&.mark {
+			&:before {
+				@include square(14px);
+				background-image: url($img + '/mark.png');
+				margin-left: 0;
+				margin-right: 5px;
+			}
+		}
+		&.done {
+			&:before {
+				@include square(12px);
+				background-image: url($img + '/done.png');
+				margin-left: 2px;
+				margin-right: 5px;
+			}
+		}
+		&-done2{
+			&:before {
+				content: '';
+				@include inline-block(middle);
+				@include relative(-1px);
+				@include square(12px);
+				background-image: url($img + '/done.png');
+				margin-left: 2px;
+				margin-right: 5px;
+			}
+		}
+	}
+	&-mark {
+		&:before {
+			content: '';
+			@include inline-block(middle);
+			@include relative(-1px);
+			// ------
+			@include square(14px);
+			background-image: url($img + '/mark.png');
+			margin-left: 0;
+			margin-right: 5px;
+		}
+	}
+	&-foot {
+		padding-top: 6px;
+	}
+	&-attention {
+		padding-left: 6px;
+		color: #f39700;
+	}
+}
+
+
+@mixin tips-safe-check4($word, $_4) {
+	#{$_4 + ':after'} {
+		content: $word;
+	}
+}
+
+@mixin tips-safe() {
+	$_1: '';
+	$_2: '';
+	$_3: '';
+	$_4: '';
+	float: left;
+	@extend .clearfix;
+	&-word {
+		float: left;
+		margin-right: 8px;
+	}
+	&-check {
+		$_1: & + '1';
+		$_2: & + '2';
+		$_3: & + '3';
+		$_4: & + '4';
+		&1, &2, &3 {
+			float: left;
+			@include square(19px, 11px);
+			background-color: #dcdcdc;
+			margin-right: 2px;
+			margin-top: 4px;
+		}
+		&4 {
+			float: left;
+			margin-left: 4px;
+		}
+	}
+	&.level1 {
+		#{$_1} {
+			background-color: #f34956;
+		}
+		@include tips-safe-check4("低", $_4);
+	}
+	&.level2 {
+		#{$_1}, #{$_2} {
+			background-color: #ffaf00;
+		}
+		@include tips-safe-check4("中", $_4);
+	}
+	&.level3 {
+		#{$_1}, #{$_2}, #{$_3} {
+			background-color: #009a00;
+		}
+		@include tips-safe-check4("高", $_4);
+	}
+}
+

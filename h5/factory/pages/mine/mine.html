@@ -1,0 +1,79 @@
+@@include('../../../source/include/top.html', {"name": "mine"})
+<div class="screen-r" ms-controller="mine">
+    <div class="mine">
+    	<div class="mine-block">
+			<div class="mine-head">
+				<div class="mine-head-picture"><img ms-attr-src="photo" alt="" class="img-w"></div>
+				<div class="mine-head-name">{{name}}</div>
+				<div class="mine-head-phone">{{phone}}</div>
+				<div class="mine-head-card" ms-visible="setRealName"></div>
+			</div>
+		</div>
+		<div class="mine-block">
+			<a href="#!/view/nickname" class="mine-item">
+				<div class="mine-icon-1"></div>
+				<div class="mine-item-name">昵称</div>
+				<div class="mine-item-tip">{{setnick}}</div>
+				<div class="mine-item-arrow"></div>
+			</a>
+			<a href="#!/view/setting-address" class="mine-item">
+				<div class="mine-icon-2"></div>
+				<div class="mine-item-name">果仁宝地址</div>
+				<div class="mine-item-tip">查看</div>
+				<div class="mine-item-arrow"></div>
+			</a>
+			<a href="bankcard.html" class="mine-item">
+				<div class="mine-icon-3"></div>
+				<div class="mine-item-name">银行卡</div>
+				<div class="mine-item-arrow"></div>
+			</a>
+		</div>
+		<div class="mine-block">
+			<div class="mine-item" ms-click="address_mine_click">
+				<div class="mine-icon-4"></div>
+				<div class="mine-item-name">果仁市场</div>
+				<div class="mine-item-tip">{{setMarketAddressTip}}</div>
+				<div class="mine-item-arrow"></div>
+			</div>
+			<div class="mine-item" ms-click="walletAddress_click">
+				<div class="mine-icon-5"></div>
+				<div class="mine-item-name">钱包地址</div>
+				<div class="mine-item-tip">{{setWallet}}</div>
+				<div class="mine-item-arrow"></div>
+			</div>
+		</div>
+		<div class="mine-block">
+			<a href="security.html" class="mine-item">
+				<div class="mine-icon-6"></div>
+				<div class="mine-item-name">安全中心</div>
+				<div class="mine-item-arrow"></div>
+			</a>
+		</div>
+		<div class="mine-block">
+			<a href="#!/view/setting" class="mine-item">
+				<div class="mine-icon-7"></div>
+				<div class="mine-item-name">设置</div>
+				<div class="mine-item-arrow"></div>
+			</a>
+		</div>
+	</div>
+	<div class="view">
+		@@include('../../views/nickname/nickname.html', {
+			"label": "我的昵称",
+			"placeholder": "请输入我的昵称"
+		})
+		@@include('../../views/address/address-mine.html')
+		@@include('../../views/address/address-wallet.html')
+		<!-- 设置 -->
+		@@include('../../views/setting/setting.html')
+		@@include('../../views/setting/setting-about.html')
+		@@include('../../views/setting/setting-us.html')
+		@@include('../../views/setting/setting-feedback.html')
+		@@include('../../views/setting/setting-agreement.html')
+		@@include('../../views/setting/setting-address.html')
+	</div>
+	<div class="alert"></div>
+	<div class="dialog">
+	</div>
+</div>
+@@include('../../../source/include/bottom.html', {"name": "mine"})

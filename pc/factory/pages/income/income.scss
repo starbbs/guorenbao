@@ -1,0 +1,137 @@
+@charset "utf-8";
+
+
+// 2015-10-17 16:12:29 创建
+// 果仁宝 交易详情页面
+
+
+// 引入
+@import '../../../source/scss/main';
+
+@import '../../components/top/top';
+@import '../../components/header/header';
+@import '../../components/footer/footer';
+@import '../../components/pager/pager';
+
+
+
+// income
+.income {
+
+	$img: $g-factory + '/pages/income/images';
+
+	$margin: 10px; // 左右外空白
+	$border-color: #e8e8e8;
+	$border: 1px solid $border-color;
+
+	display: table;
+	width: 100%;
+	min-height: 1000px;
+	background-color: #fff;
+
+	&-title {
+		@include height(40px);
+		margin: 30px $margin 0;
+		padding: 0 15px;
+		border-bottom: $border;
+		color: #312121;
+		font-weight: bold;
+		font-size: 16px;
+	}
+
+	&-chart {
+		margin: 42px $margin 0;
+		border: $border;
+		box-shadow: inset 0px 0px 2px rgba(0,0,0,.1);
+		padding-bottom: 10px;
+		border-radius: 3px;
+		overflow: hidden;
+		&-title {
+			@include height(30px);
+			padding-top: 12px;
+			color: $g-silver;
+		}
+		&-yesterday {
+			float: left;
+			margin-left: 70px;
+			width: 168px;
+		}
+		&-balance {
+			float: left;
+			width: 176px;
+		}
+		&-rate {
+			float: left;
+		}
+		&-history {
+			float: right;
+			margin-right: 30px;
+		}
+		&-content {
+			height: 300px;
+			margin-left: 10px;
+			margin-right: 20px;
+		}
+	}
+
+	&-list {
+		margin: 56px $margin 0;
+		&-head {
+			@include height(34px);
+			border: $border;
+			background-color: #fbfbfb;
+			color: $g-gray;
+		}
+		&-line {
+			margin-top: 3px;
+			height: 48px;
+			line-height: 40px;
+			border: $border;
+			background-color: #fff;
+			color: $g-dark;
+			&:nth-child(odd) {
+				background-color: #fbfbfb;
+			}
+		}
+		&-date {
+			float: left;
+			padding-left: 28px;
+			width: 166px;
+		}
+		&-price {
+			float: left;
+			width: 286px;
+			text-align: center;
+		}
+		&-earn {
+			float: left;
+			width: 280px;
+			text-align: center;
+		}
+		&-history {
+			float: right;
+			width: 190px;
+			text-align: center;
+		}
+		&-pager {
+			margin-top: 22px;
+			margin-right: 8px;
+			height: 20px;
+		}
+	}
+
+	&-description {
+		margin: 0 $margin;
+		padding: 0 16px 16px;
+		line-height: 24px;
+		&-title {
+			margin-top: 28px;
+			font-weight: bold;
+		}
+		&-content {
+			color: $g-gray;
+		}
+	}
+}
+
+

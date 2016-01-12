@@ -1,0 +1,278 @@
+@charset "utf-8";
+
+
+// 张树垚 2015-06-17 13:50:26 创建
+// 果仁宝 注册页面
+
+
+// 引入
+@import '../../../source/scss/main';
+
+@import '../../components/top/top';
+@import '../../components/header/header';
+@import '../../components/footer/footer';
+
+@import '../../components/dialog/dialog';
+@import '../../components/dialog-login/dialog-login';
+
+
+// regist
+.regist {
+
+	$img: $g-factory + '/pages/regist/images';
+
+	$regist-width: 800px;	// 注册框宽度
+	$state-height: 30px;	// 状态条高度
+	$input: & + '-input';	// input
+	$input-width: 228px;	// input的宽
+
+	@include atlw(40px, 50%, $regist-width);
+	margin-left: - $regist-width / 2;
+
+	&-state { // 状态栏 到第几步
+		@include height($state-height);
+		text-align: center;
+		&-item {
+			$w1: 0.19;	// 长条宽度比例
+			$w2: 0.08;	// 短条宽度比例
+			// 4 * $w1 + 3 * $w2 = 1
+			$word: "";	// 长条
+			$line: "";	// 短条
+			&-word {
+				$word: & + "";
+				width: $regist-width * $w1;
+				float: left;
+				border-radius: $g_border_radius;
+				background-color: #000;
+			}
+			&-line {
+				$line: & + "";
+				$h: 2px;
+				@include square($regist-width * $w2, $h);
+				float: left;
+				background-color: #000;
+				margin-top: ($state-height - $h) / 2;
+			}
+			float: left;
+			opacity: .6;
+			color: #999999;
+			&.on {
+				opacity: 1;
+				color: #fff;
+				#{$word} {
+					background-color: $g_blue;
+				}
+				#{$line} {
+					background-color: $g_blue;
+				}
+			}
+		}
+	}
+
+	&-box { // 主盒子
+		$box: & + '';
+		display: none;
+		width: 100%;
+		position: relative;
+		margin-top: 20px;
+		padding: 60px 0 100px;
+		background-color: #fff;
+		box-shadow: 0px 0px 10px #000;
+		border-radius: $g_border_radius;
+		&.on {
+			display: block;
+		}
+		&-p80 {
+			@extend #{$box};
+			padding: 80px 0;
+		}
+	}
+	&-top { // 右上角账号
+		@include atr(20px, 30px);
+		&-left {
+			color: #999999;
+		}
+		&-right {
+			color: #3d3d3d;
+			font-weight: bold;
+		}
+	}
+	&-line { // 每一个常规行
+
+		$line: & + '';
+		$left: '';
+		$right: '';
+
+		margin-bottom: 26px;
+		@include height(30px);
+		clear: both;
+		@mixin m($num) {
+			@at-root {
+				#{& + '-m' + $num} {
+					@extend #{$line};
+					margin-bottom: $num * 1px;
+				}
+			}
+		}
+		@include m(0);
+		@include m(12);
+
+		&-left {
+			$left: & + "";
+			float: left;
+			@include square(197px - 24px, 100%);
+			padding-right: 24px;
+			text-align: right;
+			color: $g_gray;
+			position: relative;
+		}
+		&-right {
+			$right: & + "";
+			position: relative;
+			float: left;
+		}
+		&-title {
+			@extend #{$line};
+			#{$left} {
+				font-size: 14px;
+				color: $g_blue;
+			}
+			#{$right} {
+				color: #999999;
+			}
+		}
+	}
+	&-hr { // 分割线
+		border-bottom: 1px dotted $g_gray;
+		padding-top: 10px;
+		margin: 0 50px 26px;
+	}
+	@at-root { // 输入框
+		#{$input} {
+			@extend %input;
+			&-box {
+				position: relative;
+				float: left;
+			}
+			&-mobile {
+				@extend #{$input};
+				font-size: 20px;
+				font-weight: bold;
+			}
+		}
+	}
+	&-ident { // 验证码输入框
+		@include input(100px, 10px);
+		margin-right: 10px;
+		float: left;
+		&-get {
+			@include input( $input-width - 100px - 10px, false, 30px );
+			float: left;
+			border-color: $g_blue;
+			text-align: center;
+			&.sending {
+				border-color: $g-input-border;
+				background-color: #eeeeee;
+			}
+		}
+	}
+	&-tips { // 输入框后面跟的提示
+		display: none;
+		@extend %tips-box;
+		&-line {
+			@extend %tips-line;
+		}
+		&-head {
+			@extend %tips-head;
+			@extend .clearfix;
+		}
+		&-attention {
+			@extend %tips-foot;
+			@extend %tips-attention;
+		}
+	}
+	&-safe { // 提示里的安全程度
+		@include tips-safe;
+	}
+	&-done { // 输入框验证成功
+		display: none;
+		$square: 12px;
+		@include atlwh((30px - $square) / 2, 100%, $square, $square);
+		margin-left: 6px;
+		background-image: url($img + "/3.png");
+		&.show {
+			display: block;
+		}
+	}
+	&-agree { // 同意协议
+		display: inline-block;
+		@extend %checkbox_12;
+		@include relative(2px);
+		margin-right: 6px;
+		&-box {
+			cursor: pointer;
+		}
+	}
+	&-button { // 下一步按钮
+		@extend %button-blue-block;
+		width: $input-width;
+	}
+	&-skip { // 身份验证里的跳过
+		@include atl(0, $input-width + 22px);
+		@extend .blue-a;
+		width: 3em;
+		text-decoration: underline;
+	}
+	&-success { // 注册成功
+		width: 200px;
+		margin: 0 auto;
+		position: relative;
+		&-right {
+			@include square(74px);
+			@include atl(-7px, -74px - 12px);
+			background-image: url($img + "/4.png");
+		}
+		&-name {
+			margin-top: 40px;
+			line-height: 1;
+			color: #3d3d3d;
+			font-size: 14px;
+		}
+		&-title {
+			margin-top: 10px;
+			font-size: 40px;
+			line-height: 1;
+			text-align: justify;
+			white-space: nowrap;
+			letter-spacing: 4px;
+			color: $g_blue;
+		}
+		&-button {
+			margin-top: 25px;
+			@extend .clearfix;
+		}
+		&-goin {
+			float: left;
+			padding: 0 8px;
+			@extend %button-gray-border;
+		}
+		&-write {
+			float: right;
+			padding: 0 8px;
+			@extend %button-gray-border;
+		}
+		&-tip {
+			margin-top: 115px;
+			margin-bottom: 10px;
+			text-align: center;
+			color: #999999;
+		}
+	}
+}
+
+
+
+
+
+
+

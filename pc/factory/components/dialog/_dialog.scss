@@ -1,0 +1,99 @@
+@charset 'utf-8';
+
+// 张树垚 2015-09-01 19:15:35 创建
+// 弹框
+
+
+.dialog {
+
+	$img: $g-components + '/dialog';
+
+	@extend %afull;
+	z-index: 9999;
+	background-color: rgba(0,0,0,.7);
+	overflow: auto;
+	display: none;
+	
+	&-box { // 切换
+		@extend %afull;
+		display: none;
+	}
+	&-main { // 子元素居中, 放弹框内容
+		@extend %afull;
+		display: flex;
+		align-items: center; // -webkit-box-align
+		justify-content: center; // -webkit-box-pack
+	}
+	&-style { // 统一弹框样式
+		width: 730px;
+		padding: 10px 25px 70px;
+		position: relative;
+		font-size: 12px;
+		color: #000000;
+		border-radius: 5px;
+		box-shadow: 0px 0px 8px #000;
+		background-color: #fff;
+	}
+	&-title { // 标题
+		font-size: 14px;
+		line-height: 40px;
+		font-weight: bold;
+		border-bottom: 1px solid #dddddd;
+	}
+	&-close { // 关闭小叉子
+		@include square(8px);
+		@include atr(14px, 17px);
+		background-image: url($img + '/close.png');
+		cursor: pointer;
+		&:after {
+			content: '';
+			@include square(30px);
+			@include atl( (8px - 30px) / 2, (8px - 30px) / 2 );
+		}
+	}
+	&-content { // 内容
+		margin-top: 54px;
+	}
+	&-line { // 行
+		margin-bottom: 30px;
+		@include height(30px);
+		@extend .clearfix;
+	}
+	&-block { // 块
+		margin-bottom: 20px;
+		line-height: 30px;
+		@extend .clearfix;
+	}
+	&-last { // 结尾
+		line-height: 30px;
+		@extend .clearfix;
+	}
+	&-left { // 左侧
+		float: left;
+		width: 150px;
+		height: 100%;
+		min-height: 1px;
+		padding-right: 20px;
+		text-align: right;
+		color: $g-dark;
+	}
+	&-right { // 右侧
+		float: left;
+		height: 100%;
+		position: relative;
+	}
+	&-input { // 输入框
+		@extend %input;
+	}
+	&-tip { // 提示框
+		@extend %tips-box;
+		&-mark {
+			@extend %tips-mark;
+		}
+	}
+	&-button { // 按钮
+		margin-top: 20px;
+		@extend %button-blue-input;
+	}
+}
+

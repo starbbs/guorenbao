@@ -1,0 +1,16 @@
+@@include('../../../source/include/top.html', {"name": "login"})
+<div class="screen-a">
+	@@include('../../views/login/login.html')
+</div>
+<div class="view">
+	@@include('../../views/password/password-forget.html')
+	@@include('../../views/password/password-set.html')
+	@@include('../../views/password/password-success.html')
+</div>
+<div class="alert"></div>
+<div class="dialog">
+	<!-- 六次错误提示 -->
+	@@include('../../dialogs/alert/alert.html', { "type": 1 })
+</div>
+@@include('../../../source/include/bottom.html', {"name": "login"})
+

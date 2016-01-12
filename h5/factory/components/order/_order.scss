@@ -1,0 +1,42 @@
+@charset 'utf-8';
+
+
+// 张树垚 2016-01-09 17:23:41 创建
+// H5微信端 --- component-order
+
+
+.order {
+	$img: $g-components + '/order/images';
+	&-head {
+		margin: 22px $g-padding 0;
+		background-color: $g-white;
+		border-radius: $g-radius;
+		border: $g-border;
+		overflow: hidden;
+		font-family: $g-font-num;
+	}
+	&-box {
+		display: table;
+		width: 100%;
+		margin-top: 10px;
+	}
+	&-add {
+		@include sprite($img + '/add.png', 17px);
+		@include inline-block(middle);
+	}
+	&-bankicon {
+		border: $g-border;
+		border-radius: 50%;
+		overflow: hidden;
+		@include inline-block(middle);
+	}
+	&-bankname {
+		color: $g-blue;
+		font-size: 14px;
+		margin-left: 4px;
+		@include inline-block(middle);
+	}
+	&-button {
+		margin: 48px $g-padding 0;
+	}
+}

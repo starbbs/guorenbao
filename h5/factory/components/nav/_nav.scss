@@ -1,0 +1,64 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-20 11:48:05 创建
+// H5微信端 --- components-nav
+
+
+.nav {
+
+	$img: $g-components + '/nav/images';
+	$imgs: ('home', 42px, 45px) ('wealth', 47px, 47px) ('contacts', 49px, 44px) ('mine', 45px, 44px);
+	$bg: #282a2e; // 背景颜色
+	$on: #698ad6; // 激活时图标颜色
+	$def: #bfbfbf; // 默认图标和字体颜色, 边框颜色
+	$on-font: #f5f5f9; // 激活时字体颜色
+
+	display: flex;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 49px;
+	border-top: 1px solid $def;
+	background-color: $bg;
+
+	&-item {
+		flex: 1;
+		position: relative;
+		display: flex;
+		justify-content: center;
+	}
+	&-link {
+		display: flex;
+		flex-direction: column;
+		// align-items: center;
+		// padding-top: 5px;
+	}
+	&-icon {
+		flex: 1; // 子级用, 占位比
+		display: flex; // 父级用, 开启伸缩布局
+		align-items: center; // 父级用, 正轴排列规则
+		justify-content: center; // 父级用, 副轴排列规则
+		// flex-direction: column; // 父级用, 正轴方向
+	}
+	&-name {
+		color: $def;
+		text-align: center;
+		font-size: 10px;
+		line-height: 1.5;
+		white-space: nowrap;
+		.on & {
+			color: $on-font;
+		}
+	}
+	@each $name, $width, $height in $imgs {
+		&-#{$name} {
+			display: inline-block;
+			@include sprite($img + '/' + $name + '.png', px($width), px($height));
+			.on & {
+				@include sprite($img + '/' + $name + '-on.png', px($width), px($height));
+			}
+		}
+	}
+}

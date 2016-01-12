@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+// 张树垚 2014-12-15 17:06:29 创建
+// inline-block
+
+
+@mixin inline-block($vertical-align: null) {
+	display: inline-block;
+	@if type-of($vertical-align) != "null" {
+		vertical-align: #{$vertical-align};
+	}
+}
+
+
+
+
+
+
+

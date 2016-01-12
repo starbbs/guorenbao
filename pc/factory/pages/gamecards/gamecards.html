@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	@@include('../../../source/include/head.html', {
+		"name": "gamecards"
+	})
+
+<body ms-controller="gamecards">
+
+	@@include('../../../source/include/forIE.html')
+
+	<div class="wrap">
+
+		@@include('../../components/top/top.html', {
+			"login": false,
+			"logout": true
+		})
+
+		<div class="container2">
+			<div class="container-box">
+
+				<div class="gamecards">
+					<div class="gamecards-item" ms-repeat-item="list" ms-click="click(item)"><img alt="" ms-attr-src="item.src"></div>
+				</div>
+
+				@@include('../../components/footer/footer.html')
+			</div>
+		</div>
+
+	</div>
+
+	<div class="dialog">
+
+		<!-- 实名认证 -->
+		<div class="dialog-box">
+			<div class="dialog-main">
+				<div class="dialog-gamecards dialog-style">
+					<div class="dialog-title">购买</div>
+					<div class="dialog-close"></div>
+					<div class="dialog-content">
+						<div class="dialog-line">
+							<div class="dialog-left">点卡</div>
+							<div class="dialog-right">{{name}}</div>
+						</div>
+						<div class="dialog-line">
+							<div class="dialog-left">金额</div>
+							<div class="dialog-right">50</div>
+						</div>
+						<div class="dialog-line">
+							<div class="dialog-left">银行</div>
+							<div class="dialog-right">
+								<select name="" id="" class="dialog-input">
+									<option value="招商银行">招商银行</option>
+									<option value="工商银行">工商银行</option>
+									<option value="农业银行">农业银行</option>
+									<option value="中国银行">中国银行</option>
+									<option value="北京银行">北京银行</option>
+									<option value="建设银行">建设银行</option>
+									<option value="交通银行">交通银行</option>
+									<option value="浦发银行">浦发银行</option>
+								</select>
+							</div>
+						</div>
+						<div class="dialog-line">
+							<div class="dialog-left">银行卡号</div>
+							<div class="dialog-right">
+								<input type="text" class="dialog-input">
+							</div>
+						</div>
+						<div class="dialog-line">
+							<div class="dialog-left"></div>
+							<div class="dialog-right">
+								<div class="dialog-button" ms-click="next">购　买</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 购买失败 -->
+		<div class="dialog-box">
+			<div class="dialog-main">
+				<div class="dialog-success dialog-style">
+					<div class="dialog-title">购买</div>
+					<div class="dialog-close"></div>
+					<div class="dialog-content">
+						<div class="dialog-line">
+							<div class="dialog-left"></div>
+							<div class="dialog-right">购买成功!</div>
+						</div>
+						<div class="dialog-line">
+							<div class="dialog-left">点卡</div>
+							<div class="dialog-right">{{name}}</div>
+						</div>
+						<div class="dialog-line">
+							<div class="dialog-left">卡号</div>
+							<div class="dialog-right">{{number}}</div>
+						</div>
+						<div class="dialog-line">
+							<div class="dialog-left">密码</div>
+							<div class="dialog-right">{{password}}</div>
+						</div>
+						<div class="dialog-line">
+							<div class="dialog-left"></div>
+							<div class="dialog-right">
+								<div class="dialog-button" ms-click="confirm">确　定</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>

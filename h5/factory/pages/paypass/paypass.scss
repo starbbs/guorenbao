@@ -1,0 +1,29 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-30 16:55:15 创建
+// H5微信端 --- 支付密码重置
+
+
+@import '../../../source/scss/main';
+
+@import '../../views/view';
+
+// @import '../../dialogs/dialog';
+
+
+body {
+	background-color: $g-background;
+}
+
+// ::-webkit-input-placeholder {
+// 	color: red;
+// }
+
+.paypass {
+	$img: $g-pages + '/paypass/images';
+	&-page {}
+	&-view, &-choose, &-ident, &-protection, &-authentication {
+		@extend .view-style;
+	}
+}

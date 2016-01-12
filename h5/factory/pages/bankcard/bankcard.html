@@ -1,0 +1,27 @@
+@@include('../../../source/include/top.html', {"name": "bankcard"})
+<div class="screen-r">
+    <div class="bankcard" ms-controller="bankcard">
+    	<!-- <div class="bank zhaoshang"></div> -->
+		<div class="bankcard-item c1" ms-repeat-item="list" ms-click="bankcard_detail_click" ms-attr-data-id="{{item.id}}">
+			<div class="bankcard-item-label">
+				<div class="bankcard-item-icon"><i class="bank" ms-class="{{item.bankDataDic}}" ></i></div>
+				<div class="bankcard-item-name">{{item.bankName}}</div>
+				<div class="bankcard-item-type">{{item.typeName}}</div>
+			</div>
+			<div class="bankcard-item-number">{{item.cardNo}}</div>
+		</div>		
+		<div class="bankcard-item add" ms-click="bankcard_append_click">
+			<div class="bankcard-add-icon"></div>
+			<div class="bankcard-add-word">添加银行卡</div>
+		</div>
+	</div>
+	<div class="view">
+		@@include('./bankcard-detail.html')
+		@@include('./bankcard-append.html')
+		@@include('./bankcard-ident.html')
+	</div>
+	<div class="alert"></div>
+	<div class="dialog">
+	</div>
+</div>
+@@include('../../../source/include/bottom.html', {"name": "bankcard"})

@@ -1,0 +1,140 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-20 11:22:45 创建
+// H5微信端 --- 个人首页
+
+
+@import '../../../source/scss/main';
+
+@import '../../views/view';
+
+
+body {
+    background-color: $g-background;
+}
+
+
+.bankcard {
+
+	$img: $g-pages + '/bankcard/images';
+    @extend %fade-in;
+	overflow: hidden;
+	padding-bottom: $g-padding-bottom;
+
+	&-item {
+		$radius: 9px;
+		// @include square(300px, 110px);
+		height: 110px;
+		position: relative;
+		margin: 10px 10px 0;
+		border-top-left-radius: $radius;
+		border-top-right-radius: $radius;
+		color: $g-white;
+		line-height: 1;
+		white-space: nowrap;
+		&:after {
+			content: '';
+			position: absolute;
+			top: 100%;
+			left: -5px;
+			right: -5px;
+			border-top: 1px solid $g-silver;
+		}
+		&.whole {
+			height: 160px;
+			border-bottom-left-radius: $radius;
+			border-bottom-right-radius: $radius;
+			&:after {
+				top: 100px;
+				left: 0;
+				right: 0;
+				height: 40px;
+				background-color: rgba(0,0,0,.1);
+				border-top: none;
+			}
+		}
+		&.c1 {
+			background-image: url($img + '/1.png');
+		}
+		&.c2 {
+			background-image: url($img + '/2.png');
+		}
+		&.c3 {
+			background-image: url($img + '/3.png');
+		}
+		&.add {
+			background-color: $g-white;
+			border: 1px dashed $g-silver;
+		}
+		&-label {
+			overflow: hidden;
+			padding-top: 15px;
+			margin-left: 27px;
+		}
+		&-icon {
+			float: left;
+			margin-right: 12px;
+		}
+		&-name {
+			font-size: 14px;
+			margin-top: -1px;
+		}
+		&-type {
+			font-size: 11px;
+			margin-top: 5px;
+		}
+		&-number {
+			font-size: 21px;
+			text-align: right;
+			margin-top: 24px;
+			margin-right: 32px;
+		}
+	}
+	&-add {
+		&-icon {
+			@include sprite($img + '/add.png', 26px);
+			margin: 36px auto 0;
+		}
+		&-word {
+			text-align: center;
+			font-size: 16px;
+			color: $g-silver;
+			margin-top: 4px;
+		}
+	}
+
+	&-detail { // 详情
+		@extend .view-style;
+		&-date {
+			color: $g-ash;
+			margin-left: $g-padding;
+			margin-top: 6px;
+		}
+	}
+	&-append{ // 添加
+		@extend .view-style;
+		&-box {
+			margin-top: 22px;
+			&:first-child {
+				margin-top: 0;
+			}
+		}
+		&-line {
+			display: flex;
+			@include height(38px);
+			margin-top: -5px;
+			padding: 0 $g-padding;
+			background-color: $g-line;
+			border-top: 1px solid $g-white;
+			font-size: 14px;
+		}
+	}
+	&-ident { // 验证码
+		@extend .view-style;
+	}
+}
+
+@import '../../dialogs/dialog';
+
+@import '../../components/bank/bank';

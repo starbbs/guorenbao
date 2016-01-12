@@ -1,0 +1,60 @@
+@charset "utf-8";
+
+// 张树垚 2014-10-25 22:48:02 创建
+// background
+
+
+
+@mixin background-size($x: 100%, $y: 100%) {
+	@if $x == "help" {
+		// @warn '
+		// 	$x: 100%, $y: 100%
+		// 	1.50% 50%	=>	正常值
+		// 	2.cover		=>	字符串
+		// 	3."cover"	=>	字符串
+		// 	3.auto		=>	auto 100%
+		// 	4.null		=>	还原为auto
+		// ';
+	} @else if isNull($x) or $x == "null" {
+		background-size: auto;
+	} @else if isString($x) and $x != auto {
+		background-size: unquote($x);
+	} @else if isList($x) {
+		background-size: $x;
+	} @else {
+		background-size: $x $y;
+	}
+}
+
+@mixin background-full($url, $color: null) { // 设置100%背景
+	background: $color url($url) no-repeat;
+	@include background-size;
+}
+
+@mixin background-cover($url, $color: null) { // 设置cover背景
+	background: $color url($url) no-repeat;
+	@include background-size(cover);
+}
+
+@mixin background-center($url, $color: null, $position: center center) { // 设置中心位置背景
+	background: $color url($url) no-repeat $position;
+}
+
+@mixin background-no-repeat($url ,$position: null, $color: null) { // 不重复的背景
+	background: $color url($url) $position no-repeat;
+}
+
+@mixin background-black($opacity: 1) { // 黑色（半透明）背景
+	background-color: rgba(#000, $opacity);
+}
+
+
+
+
+
+
+
+
+
+
+

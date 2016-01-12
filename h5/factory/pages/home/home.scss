@@ -1,0 +1,191 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-20 11:22:45 创建
+// H5微信端 --- 个人首页
+
+
+@import '../../../source/scss/main';
+
+@import '../../components/nav/nav';
+
+// @import '../../views/view';
+
+// @import '../../dialogs/dialog';
+
+
+body {
+	background-color: $g-background;
+}
+
+
+.home {
+
+	$img: $g-pages + '/home/images';
+	$border: 1px solid $g-light;
+	$padding: 20px;
+
+	@extend %rw;
+	@extend %fade-in;
+	padding-bottom: $g-padding-bottom;
+
+	&-banner {
+		@extend %rw;
+	}
+	&-property {
+		margin-top: 6px;
+		border-top: $border;
+		border-bottom: $border;
+		padding-bottom: 11px;
+		overflow: hidden;
+		background-color: $g-white;
+		&-head {
+			padding: 0 $padding;
+			border-bottom: $border;
+			overflow: hidden;
+			height: px(115);
+			&-left {
+				float: left;
+				color: $g-gray;
+				margin-top: 22px;
+			}
+			&-right {
+				float: right;
+				color: $g-input;
+			}
+			&-cny {
+				float: left;
+				margin-top: 24px;
+				margin-right: 14px;
+			}
+			&-num {
+				float: left;
+				font-size: 40px;
+				line-height: 1.5
+			}
+			&-icon {
+				float: left;
+				margin-left: 11px;
+				&.up {
+					@include sprite($img + '/up.png', px(18), px(67));
+					margin-top: 9px;
+				}
+				&.down {
+					@include sprite($img + '/down.png', px(18), px(67));
+					margin-top: 11px;
+				}
+			}
+		}
+		&-content {
+			box-sizing: border-box;
+			padding: 0 $padding;
+			overflow: hidden;
+			height: px(148);
+			position: relative;
+			&-left {
+				float: left;
+				border-right: $border;
+				@include square(54%, 100%);
+			}
+			&-right {
+				float: left;
+				@include square(44%, 100%);
+				box-sizing: border-box;
+				padding-left: $padding;
+			}
+			&-label {
+				color: $g-silver;
+				margin-top: 15px;
+			}
+			&-eye {
+				@include atr(21px, $padding);
+				&.on {
+					@include sprite($img + '/eye-on.png', px(33), px(26));
+				}
+				&.off {
+					@include sprite($img + '/eye-off.png', px(33), px(26));
+				}
+			}
+			&-line {
+				overflow: hidden;
+				white-space: nowrap;
+			}
+			&-unit {
+				float: left;
+				margin-top: 10px;
+			}
+			&-guo {
+				font-size: 28px;
+				line-height: 1.3;
+				position: relative;
+				margin-left: 18px;
+				&.close {
+					&:after {
+						content: '****';
+						@extend %afull;
+						font-size: 36px;
+						line-height: 1.6;
+						background-color: $g-white;
+					}
+				}
+			}
+			&-money {
+				font-size: 16px;
+				line-height: 2.6;
+				position: relative;
+				margin-left: 16px;
+				&.close {
+					&:after {
+						content: '******';
+						@extend %afull;
+						font-size: 20px;
+						background-color: $g-white;
+					}
+				}
+			}
+		}
+	}
+	&-menu {
+
+		$imgs: 'bill' 'buy' 'game' 'message' 'recharge' 'transfer';
+
+		width: 100%;
+		margin-top: 5px;
+		border-top: $border;
+		border-left: $border;
+		box-sizing: border-box;
+		overflow: hidden;
+		background-color: $g-white;
+
+		@each $name in $imgs {
+			&-#{$name} {
+				display: block;
+				@include sprite($img + '/' + $name + '.png', px(70));
+			}
+		}
+
+		&-item {
+			float: left;
+			width: (100% / 3);
+			border-right: $border;
+			border-bottom: $border;
+			box-sizing: border-box;
+			position: relative;
+		}
+		&-link {
+			@extend %afull;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+		&-name {
+			margin-top: 10px;
+		}
+		&-qiang {
+			display: block;
+			@extend %atl;
+			@include sprite($img + '/qiang.png', px(57));
+		}
+	}
+}

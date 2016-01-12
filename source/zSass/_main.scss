@@ -1,0 +1,170 @@
+@charset "utf-8";
+
+// 张树垚 2014-12-06 14:28:51 创建
+// zSass主文件
+
+
+
+$prefix-global: "w3c"; // 目前项目应用
+
+
+
+$test-model: false !default;
+
+
+// 直接复制到项目中，选好需要什么文件和路径
+@import "base/base"; // 只用base的mixin
+@import "show"; // 使用base的mixin和show
+
+
+
+
+@if $test-model {
+	.base-test {
+		&-show {
+			@include show-transition();
+		}
+		&-animate {
+			// @include animation("help");
+			/* 1 */
+			@include animation("color");
+			/* 2 */
+			@include animation(color .3s ease);
+			/* 3 */
+			@include animation(color, .3s, ease);
+			/* 4 */
+			@include animation(color, .3s ease);
+			/* 5 */
+			@include animation(color, .3s ease, forwards);
+			/* aniframe */
+			@include aniframe(test) {
+				from {opacity: 1;}
+				to {opacity: 0;}
+			}
+		}
+		&-frames {
+			@include keyframes("color") {
+				form {color: #000;}
+				to {color: #fff;}
+			}
+		}
+		&-prefix {
+			color: pre == "pre";
+			@include prefix("color","123","all");
+		}
+	}
+	.function-test {
+		// color: prefix(b);
+		// #{prefix(color)}: b;
+		&-typeof {
+			color: type-of(1 2 3);
+			color: type-of((a:1,b:2));
+			color: type-of(&);
+			color: &;
+		}
+		&-unit {
+			/* unit */
+			color: getUnit(10px, 20px, 30px, 40%);
+			color: percentage(10px/20px);
+			color: unit(100%);
+			color: unit(100);
+			// color: unit("100%"); // 报错，要求参数是数字
+			/* 没有单位 */
+			color: isUnUnit(100);
+			color: isUnitless(100);
+			color: unitless(100);	// 推荐，sass自带
+			/* percent */
+			color: isPercent(100%);
+			color: isPercent("100%");
+			color: isPercent(100px);
+			/* px */
+			color: isPX(100px);
+			color: isPX(100%);
+			/* em */
+			color: isEm(100em);
+			color: isEm(100px);
+			color: isEm(100rem);
+			/* rem */
+			color: isREM(100rem);
+			color: isREM(100px);
+			color: isREM(100em);
+			/* deg */
+			color: isDeg(100deg);
+			color: isDeg(100);
+			/* s,second */
+			color: isS(100s);
+			color: isSecond(100);
+			/* ms,millisecond */
+			color: isMS(100ms);
+			color: isMS(100s);
+			/* cm,mm,pt */
+			/* 略，用到再加 */
+			/* 去掉单位 */
+			color: (100px / 1px);
+			color: removeUnit(100px);
+			color: removeUnit(100%);
+			color: removeUnit(100);
+			color: removeUnit(100rem);
+			color: removeUnit(100ms);
+			/* 设置单位 */
+			color: 1 + "px";
+			color: unquote(1 + "px");
+			color: setUnit(1,"px");
+			color: setUnit(1,"%");
+			color: setUnit(1,"deg");
+			color: setUnit(1,"mm");
+			/* 是单位 */
+			color: isUnit("pt");
+			color: isUnit("%");
+			color: isUnit("xx");
+			color: isUnit("");
+		}
+		&-percent {
+			color: percent(1,2);
+		}
+		&-selector {
+			color: selector-extend(".a .b",".b",".c");
+			color: selector-extend(".a:hover .b",".b",".c .d");
+		}
+		&-list {
+			/* 排序 */
+			$args: true "string" 10s;
+			$sort: time boolean string;
+			color: argsSort($args, $sort);
+			color: type-of(true);
+		}
+		&-string {
+			color: capitalize("abc");
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+// module
+// loading-bmw -- 宝马的loading页面
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,25 @@
+@charset "utf-8";
+
+
+
+@import "../main";
+@import "module";
+
+
+.test {
+	@include square(150px);
+	margin: 150px auto;
+	background-color: red;
+
+	//-- animate --//
+	// @include animate_bounce;
+	// @include animate_flash;
+	// @include animate_jello(1s, 0s, -10deg);
+	// @include animate_pulse;
+	// @include animate_rubberBand(1s, 0s, 0.4);
+	// @include animate_shake;
+	// @include animate_swing;
+	// @include animate_tada(1s, 0s, 0.2, 6deg);
+	@include animate_wobble(1s, 0s, 5%, 1deg);
+}
+

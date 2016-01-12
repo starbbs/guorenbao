@@ -1,0 +1,88 @@
+@charset "utf-8";
+
+
+// 张树垚 2014-12-09 12:05:47 创建
+// list函数
+
+
+
+// sass自带:
+
+// 1.append -- push，后面插入
+	// append(10px 20px, 30px) => 10px 20px 30px
+	// append((blue, red), green) => blue, red, green
+	// append(10px 20px, 30px 40px) => 10px 20px (30px 40px)
+	// append(10px, 20px, comma) => 10px, 20px
+	// append((blue, red), green, space) => blue red green
+
+
+
+// 2. index -- 位置
+	// index(1px solid red, solid) => 2
+	// index(1px solid red, dashed) => null
+	// index((width: 10px, height: 20px), (height 20px)) => 2
+
+
+
+// 3. join -- 转字符串，参数$list1,$list2,$separator:auto
+	// join(10px 20px, 30px 40px) => 10px 20px 30px 40px
+	// join((blue, red), (#abc, #def)) => blue, red, #abc, #def
+	// join(10px, 20px) => 10px 20px
+	// join(10px, 20px, comma) => 10px, 20px
+	// join((blue, red), (#abc, #def), space) => blue red #abc #def
+
+
+
+// 4. length -- 长度
+	// length(10px) => 1
+	// length(10px 20px 30px) => 3
+	// length((width: 10px, height: 20px)) => 2
+
+
+
+// 5.list-separator -- 分隔符
+	// list-separator(1px 2px 3px) => space
+	// list-separator(1px, 2px, 3px) => comma
+	// list-separator('foo') => space
+
+
+
+// 6. nth -- 第几个
+	// nth(10px 20px 30px, 1) => 10px
+	// nth((Helvetica, Arial, sans-serif), 3) => sans-serif
+	// nth((width: 10px, length: 20px), 2) => length, 20px
+
+
+
+// 用空格连接数组
+@function spaceList($list: ()) {
+	@return join((), $list, space);
+}
+
+
+
+// 用逗号连接数组
+@function commaList($list: ()) {
+	@return join((), $list, comma);
+}
+
+
+
+// 以特定方式排序数组
+@function argsSort($args, $sort) {
+	$result: ();
+	@each $i in $sort {
+		@each $j in $args {
+			@if call(is + capitalize($i), $j) {
+				$result: append($result, $j);
+			}
+		}
+	}
+	@return $result;
+}
+
+
+
+
+
+

@@ -1,0 +1,81 @@
+@charset "utf-8";
+
+
+// 张树垚 2015-06-26 17:08:23 创建
+// 输入框
+
+
+%input-style { // 可以被其它位置引用的样式
+	border: 1px solid $g-input-border;
+	border-radius: $g-border-radius;
+	background-color: #fff;
+	transition: $g-transition-duration border-color ease;
+}
+
+@mixin input($width: $g-input-width, $padding: 0, $height: $g-line-height, $reset: true) { // 制作input标签
+	// $padding: 10px;
+	// $padding: 10px 10px;
+	$padding-left: 0;
+	$padding-right: 0;
+	@if isNumber($padding) {
+		$padding-left: $padding;
+		$padding-right: $padding;
+		padding: 0 $padding;
+	} @else if isList($padding) {
+		$padding-left: nth($padding, 1);
+		$padding-right: nth($padding, 2);
+		padding: 0 $padding-right 0 $padding-left;
+	}
+	@extend %input-style;
+	@if $reset == true {
+		@extend %reset-input;
+	}
+	// $padding-top: ($height - 2px - 12px) / 2;
+	@include height($height - 2px);
+	@if $width != false {
+		width: $width - $padding-left - $padding-right - 2px;
+	}
+	&.success { // 成功
+		width: $width - 2px - $padding-left - $padding-right - 20px;
+		padding: 0 $padding-right + 20px 0 $padding-left;
+		background: #fff url($g-img + "/unit-1.png") ($width - 22px) ($height - 2px - 12px) / 2 no-repeat;
+	}
+	&.error { // 失败
+		border-color: $g-red;
+	}
+	&:focus { // 焦点
+		border-color: $g-blue;
+	}
+}
+
+
+%input {
+	@include input($g-input-width, 10px);
+	&-gop { // 果仁输入框
+		$width: $g-input-width;
+		@include input($width, 10px 20px);
+		background: #fff url($g-img + "/unit-3.png") ($width - 18px) ($g-line-height - 2px - 12px) / 2 no-repeat;
+	}
+	&-cny { // 人民币输入框
+
+	}
+}
+
+
+%select {
+	@include input($g-input-width, false);
+	padding: 0 10px;
+	background: url($g-img + '/unit-2.png') right center no-repeat;
+}
+
+
+
+
+
+
+
+
+
+
+
+

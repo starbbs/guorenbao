@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	@@include('../../../source/include/head.html', {
+		"name": "home"
+	})
+
+<body>
+
+	@@include('../../../source/include/forIE.html')
+
+	<div class="wrap" ms-controller="home">
+
+		@@include('../../components/top/top.html', {
+			"login": false,
+			"logout": true
+		})
+
+		@@include('../../components/header/header.html', {
+			"title": false,
+			"nav": "home"
+		})
+
+		<div class="container">
+			<div class="container-box">
+				<div class="home">
+					
+					<div class="home-box">
+						<div class="home-head">
+							<div class="home-title">我的果仁宝</div>
+							<div class="home-head-right">
+								<i class="home-head-right-img"></i>
+								<span>30日年化收益率</span>
+								<span class="home-head-right-num">{{percent}}%</span>
+							</div>
+						</div>
+						<div class="home-body">
+							<div class="home-person">
+								<div class="home-person-background">
+									<img src="images/home-1.jpg" alt="" class="img-w">
+								</div>
+
+								<div class="home-person-left">
+									<div class="home-person-left-picture">
+										<img ms-src="photo" alt="" class="img-w">
+									</div>
+									<div class="home-person-left-title">
+										<div class="home-person-left-title-mobile">
+											<span>{{uid}}</span>
+											<i class="home-person-left-title-set"></i>
+										</div>
+										<div class="home-person-left-title-line">
+											<span class="home-person-left-title-name">{{name}}</span>
+											<i class="home-person-left-title-card"></i>
+										</div>
+										<div class="home-person-left-title-bank">
+											<span>银行卡:</span>
+											<span class="home-person-left-title-bank-num">{{cardNum}}</span>
+											<span>张</span>
+											<a href="#" class="home-person-left-title-bank-admin">管理</a>
+										</div>
+									</div>
+									<div class="home-person-left-asset">上次登录时间：{{lastLoginTime}}</div>
+								</div>
+
+								<div class="home-person-center">
+									<div class="home-person-center-box">
+										<div class="home-person-center-title">我的果仁</div>
+										<div class="home-person-center-num">
+											<span class="home-person-center-num-name">GOP</span>
+											<span class="home-person-center-num-num">{{guo|currency(' ')}}</span>
+											<div class="home-person-center-click">
+												<div class="home-person-center-button-blue">买入</div>
+												<div class="home-person-center-button-gray">转账</div>
+											</div>
+										</div>
+									</div>
+									<div class="home-person-center-line"></div>
+									<div class="home-person-center-bottom">
+										<span class="bold">资产换算：<span class="gold">{{guo*gopPrice|currency}}</span></span>
+										<a href="#" class="home-person-center-bottom-right tdn">去交易所提现<i class="icon-arrow-right"></i></a>
+									</div>
+								</div>
+
+								<div class="home-person-right">
+									<div class="home-person-right-title">累计收益(￥)</div>
+									<div class="home-person-right-help"></div>
+									<div class="home-person-right-num">
+										<span class="home-person-right-num-add">{{history|sign}}</span><span>{{history}}</span>
+									</div>
+									<div class="home-person-right-bottom">
+										<a href="#" class="home-person-right-bottom-a">
+											<span>昨日</span>
+											<span>{{yesterday|sign}}{{yesterday}}</span>
+											<i class="home-person-right-bottom-icon"></i>
+										</a>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					
+					<div class="home-box">
+						<div class="home-head">
+							<div class="home-title">市场价格走势</div>
+						</div>
+						<div class="home-body">
+							<div class="home-chart">
+								<div class="home-chart-left">
+									<div class="home-chart-title gold">果仁市价(￥)</div>
+									<div class="home-chart-left-content">
+										<div class="home-chart-left-content-background"></div>
+										<div class="home-chart-left-content-num">{{gopPrice}}</div>
+										<div class="home-chart-left-content-time">{{time}} <i class="home-chart-left-content-refresh" ms-click="refresh($event)"></i></div>
+									</div>
+									<div class="home-chart-left-bottom">
+										<a href="#" class="home-chart-left-bottom-a">交易所大厅</a>
+										<i class="home-chart-left-bottom-separate"></i>
+										<a href="#" class="home-chart-left-bottom-a">数字咨询</a>
+										<i class="home-chart-left-bottom-separate"></i>
+										<a href="#" class="home-chart-left-bottom-a">快速买入</a>
+									</div>
+								</div>
+								<div class="home-chart-center">
+									<div class="home-chart-center-main">
+										<div class="home-chart-title dark">历史单价(￥)</div>
+										<div class="home-chart-center-tabs">
+											<div class="tab-border on" ms-click="tab('seven')">7日</div>
+											<div class="tab-border" ms-click="tab('thirty')">30日</div>
+										</div>
+										<div class="home-chart-center-main-chart"></div>
+									</div>
+								</div>
+								<div class="home-chart-right">
+									<div class="home-chart-right-title">最近{{chartLength}}涨跌幅约为<span ms-class="red:chartRate>=0" ms-class-1="green:chartRate<0">{{chartRate|sign}} {{chartRate|abs}}% {{chartRate|sign2}}</span></div>
+									<div class="home-chart-right-box">
+										<div class="home-chart-right-box-title">
+											{{chartDate}}
+											<div class="home-chart-right-box-right">{{chartDay}}</div>
+										</div>
+										<div class="home-chart-right-box-line">
+											当天0时价:
+											<div class="home-chart-right-box-right"
+												ms-class-1="green:chartPercent<0"
+												ms-class-2="red:chartPercent>0"
+												ms-class-3="dark:chartPercent==0"
+											>{{chartPrice}}</div>
+										</div>
+										<div class="home-chart-right-box-line">
+											涨跌幅:
+											<div class="home-chart-right-box-right"
+												ms-class-1="green:chartPercent<0"
+												ms-class-2="red:chartPercent>0"
+												ms-class-3="dark:chartPercent==0"
+											>{{chartPercent|sign}} {{chartPercent|abs}}%</div>
+										</div>
+										<div class="home-chart-right-box-line">
+											交易量:
+											<div class="home-chart-right-box-right">674512</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="home-box">
+						<div class="home-head">
+							<div class="home-title">近期交易</div>
+							<div class="home-title-check"><a href="#" class="home-title-check-a">查看所有记录<i class="home-title-check-img"></i></a></div>
+						</div>
+						<div class="home-body">
+							<div class="home-trade">
+								<div class="home-trade-head">
+									<div class="home-trade-td1">时间</div>
+									<div class="home-trade-td2">信息</div>
+									<div class="home-trade-td3">　金额变化</div>
+									<div class="home-trade-td4">状态</div>
+									<div class="home-trade-td5">&nbsp;操作</div>
+								</div>
+								<div class="home-trade-tr" ms-repeat-item="list">
+									<div class="home-trade-td1">{{item.time.substring(0,10)}}</div>
+									<div class="home-trade-td2">{{item.message}}</div>
+									<div class="home-trade-td3"
+										ms-class-1="green:item.status=='success'&&item.moneyChange>0"
+										ms-class-2="blue:item.status=='success'&&item.moneyChange<0"
+										ms-class-3="gray:item.status!='success'"
+									>{{item.moneyChange|sign}} {{item.moneyChange|abs|currency(' ')}} G</div>
+									<div class="home-trade-td4">{{item.status|status}}</div>
+									<div class="home-trade-td5">
+										<a href="#" class="home-trade-td5-click" ms-if-loop="item.status=='waitForPay'||item.status=='processing'">付款</a>
+										<a ms-href="./records.htm#!/detail/{{item.number}}" class="home-trade-td5-a" ms-if-loop="item.status!='waitForPay'&&item.status!='processing'">详情</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		@@include('../../components/footer/footer.html')
+
+	</div>
+</body>
+</html>

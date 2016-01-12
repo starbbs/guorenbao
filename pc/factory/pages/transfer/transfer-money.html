@@ -1,0 +1,13 @@
+<div class="transfer-line">
+	<div class="transfer-left">转出数量：</div>
+	<div class="transfer-right">
+		<input type="text" class="transfer-gop" placeholder="转出果仁数" ms-duplex="amount">
+		<div class="transfer-gop-line"></div>
+		<div class="transfer-gop-money">
+			<span class="gray">换算成金额约：</span> <span class="black">￥ <span class="money">{{amount|money}}</span></span>
+		</div>
+		@@if(typeof tip == 'undefined' || tip != false) {
+			<div class="transfer-gop-tip">转到GOPWallet地址需要收取费手续费0.01G。</div>
+		}
+	</div>
+</div>

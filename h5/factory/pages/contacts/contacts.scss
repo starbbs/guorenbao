@@ -1,0 +1,163 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-20 11:22:45 创建
+// H5微信端 --- 个人首页
+
+
+@import '../../../source/scss/main';
+
+@import '../../components/nav/nav';
+
+@import '../../views/view';
+@import '../../views/nickname/nickname';
+
+// @import '../../dialogs/dialog';
+
+
+body {
+	background-color: $g-background;
+}
+
+// ::-webkit-search-cancel-button { display: none; }
+
+
+.contacts {
+
+	$img: $g-pages + '/contacts/images';
+	$border: 1px solid $g-line;
+
+	@extend %rw;
+	@extend %fade-in;
+	overflow: hidden;
+	background-color: $g-background;
+	padding-bottom: $g-padding-bottom;
+
+	&-search { // 搜索
+		margin: 8px 10px 0;
+		background-color: $g-white;
+		border: $border;
+		overflow: hidden;
+		border-radius: $g-radius;
+		font-size: 14px;
+		text-align: center;
+		color: #8c8c8c;
+		@include height(34px);
+		position: relative;
+		&-icon {
+			&:before {
+				content: '';
+				display: inline-block;
+				@include sprite($img + '/search.png', 13px);
+				@include relative(1px);
+				margin-right: 8px;
+			}
+		}
+		&-input {
+			@extend %afull;
+			line-height: 34px;
+			box-sizing: border-box;
+			padding: 0 $g-padding;
+		}
+	}
+	&-tabs { // 切换
+		border: 1px solid $g-blue;
+		margin: 8px $g-padding 0;
+		border-radius: $g-radius;
+		display: flex;
+		overflow: hidden;
+		line-height: 29px;
+		&-item {
+			flex: 1;
+			text-align: center;
+			color: $g-blue;
+			background-color: $g-white;
+			&.on {
+				color: $g-white;
+				background-color: $g-blue;
+			}
+		}
+	}
+	&-list { // 列表
+		margin-top: 20px;
+	}
+	&-block { // 列表中每个块
+		border-bottom: $border;
+	}
+	&-title { // 列表块标题
+		@include height(22px);
+		color: #8c8c8c;
+		padding-left: $g-padding;
+	}
+	&-content { // 列表块内容
+		background-color: $g-white;
+	}
+	&-item { // 列表块元素
+		@include height(55px);
+		display: flex;
+		font-size: 16px;
+		&:last-child {
+			.contacts-item-right {
+				border-bottom: none;
+			}
+		}
+		&-left {
+			margin: 0 $g-padding;
+			@extend %flex-center;
+		}
+		&-img {
+			@include square(40px);
+			overflow: hidden;
+			border-radius: 50%;
+		}
+		&-right {
+			flex: 1;
+			border-bottom: $border;
+		}
+		&-name {
+			float: left;
+		}
+		&-phone {
+			float: right;
+			color: #999;
+			margin-right: $g-padding;
+		}
+	}
+
+	&-people { // 联系人详情
+		@extend .view-style;
+		&-pictory {
+			border-radius: 50%;
+			@include square(75px);
+			margin: 13px auto 0;
+			overflow: hidden;
+		}
+		&-name {
+			font-size: 16px;
+			text-align: center;
+		}
+		&-nickname {
+			text-align: center;
+			color: $g-ash;
+			line-height: 1;
+		}
+		&-text {
+			background-color: $g-white;
+			border-top: $g-border;
+			border-bottom: $g-border;
+			color: $g-ash;
+			margin-top: 28px;
+			padding: 0 $g-padding;
+			&-label {
+				width: 100px;
+			}
+		}
+		&-button {
+			@include abl(60px, $g-padding);
+			right: $g-padding;
+			.button {
+				margin-top: 15px;
+			}
+		}
+	}
+}

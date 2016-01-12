@@ -1,0 +1,111 @@
+@charset 'utf-8';
+
+
+// 张树垚 2016-01-08 20:10:35 创建
+// H5微信端 --- component-bill账单
+
+
+.bill {
+	$img: $g-components + '/bill/images';
+	&-green {
+		color: $g-green-bill;
+	}
+	&-box {
+		$h: 2px;
+		position: relative;
+		margin-top: 5px;
+		padding: 5px $g-padding 0;
+		background-color: $g-white;
+		font-size: 14px;
+		color: $g-ash;
+		border-top: $g-border;
+		border-bottom: $g-border;
+		&.last {
+			border-bottom: $h solid $g-background;
+			padding-bottom: 28px;
+			&:after {
+				content: '';
+				display: block;
+				@include atlw(100%);
+				height: $h;
+				background: url('../images/purchase-1.png') repeat-x;
+				background-size: auto $h;
+			}
+		}
+	}
+	&-head {
+		$w: 26px;
+		@include height(50px);
+		border-bottom: $g-border;
+		text-align: center;
+		font-size: 16px;
+		color: $g-dark;
+		&.no-border {
+			border-bottom: none;
+			margin-bottom: -20px;
+		}
+		&:before {
+			content: '';
+			@include inline-block(middle);
+			margin-right: 10px;
+		}
+		&.success {
+			&:before {
+				@include sprite($img + '/1.png', $w);
+			}
+		}
+		&.fail {
+			&:before {
+				@include sprite($img + '/2.png', $w);
+			}
+		}
+		&.going {
+			&:before {
+				@include sprite($img + '/3.png', $w);
+			}
+		}
+	}
+	&-get {
+		@extend .font-money;
+		border-bottom: $g-border;
+		&-number {
+			margin-top: 32px;
+		}
+		&-label {
+			font-size: 12px;
+			margin-top: 18px;
+			margin-bottom: 16px;
+		}
+	}
+	&-reason {
+		@include height(68px);
+		border-bottom: $g-border;
+	}
+	&-money {
+		@include height(46px);
+		border-bottom: $g-border;
+		margin-bottom: 12px;
+	}
+	&-label {
+		float: left;
+		font-size: 14px;
+	}
+	&-num {
+		float: right;
+		font-size: 16px;
+		font-family: $g-font-num;
+	}
+	&-detail {
+		margin-top: 12px;
+		font-size: 14px;
+		color: $g-ash;
+		&-item {
+			@include height(28px);
+		}
+	}
+	&-more {
+		text-align: center;
+		margin-top: 30px;
+	}
+}
+

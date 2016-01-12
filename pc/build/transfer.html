@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	
+<head>
+	<meta charset="UTF-8">
+	<title>果仁宝</title>
+	<meta name="fragment" content="!" />
+	<link rel="stylesheet" href="css/transfer.css">
+	<script src="js/avalon.js"></script>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/require.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/transfer.js"></script>
+</head>
+
+<body>
+
+	
+
+<!--[if lte IE 8]>
+	<div style="clear: both; height: 59px; padding-bottom: 15px; position: relative; margin:0 auto; z-index: 99999;">
+		<h1>您的浏览器版本过低, 推荐使用IE高版本或Chrome等浏览器, 以获取更快更安全的浏览体验!</h1>
+		<a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+			<img 
+				src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+				alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+				style="margin: 0 auto; display: block;"
+			/>
+		</a>
+	</div>
+<![endif]-->
+
+
+
+
+	<div class="wrap" ms-controller="transfer">
+
+		
+<!-- top 顶部 -->
+<div class="top" ms-controller="top">
+	<div class="top-box">
+
+		<!-- 左侧 -->
+		<div class="top-left">
+			<a href="#" class="top-left-a"><i class="top-left-mobile"></i>手机果仁宝</a>
+		</div>
+
+		<!-- 右侧 -->
+		<div class="top-right">
+
+			
+
+			
+				<span class="top-hello">{{time}}好，</span>
+				<div class="top-name">
+					<div class="top-name-hover">{{name}}</div>
+					<div class="top-name-box">
+						<div class="top-name-box-head">
+							<div class="top-name-box-phone">{{phone}}</div>
+							<div class="top-name-box-click">
+								<a class="top-name-box-a" href="./#">账户设置</a>
+								<!-- <a class="top-name-box-a" href="./setup.htm">账户设置</a> -->
+								<i class="top-name-box-separate"></i>
+								<a class="top-name-box-a" href="./#">交易记录</a>
+								<!-- <a class="top-name-box-a" href="./records.htm">交易记录</a> -->
+							</div>
+							<div class="top-name-box-img">
+								<img class="img-w" ms-src="photo" alt="">
+							</div>
+						</div>
+						<!-- <div class="top-name-box-line">
+							<span class="top-name-box-line-left">GOP：</span>
+							<span class="top-name-box-line-bold">{{gop | currency(' ')}}</span>
+							<a href="#" class="top-name-box-line-a">买入</a href="#">
+							<div class="top-name-box-line-right">收益</div>
+						</div> -->
+						<!-- <div class="top-name-box-line">
+							<span class="top-name-box-line-left">CNY：</span>
+							<span class="top-name-box-line-bold">{{cny | currency(' ')}}</span>
+							<a href="./recharge.htm" class="top-name-box-line-a">充值</a href="#">
+						</div> -->
+					</div>
+				</div>
+				<i class="top-separate"></i>
+				<span class="top-logout" ms-click="logout">退出</span>
+			
+
+			<i class="top-separate"></i>
+			<a href="#" class="top-trade">果仁市场</a>
+			<i class="top-separate"></i>
+
+			<!-- 疑问 -->
+			<a href="#" class="top-doubt"><span class="top-doubt-img"></span>疑问</a>
+
+		</div>
+
+	</div>
+</div>
+
+
+		
+
+<!-- header logo和导航 -->
+<div class="header">
+	<div class="header-box">
+
+		<!-- logo -->
+		<div class="header-logo">
+			
+				
+				
+					
+					
+						<a href="./home.htm" class="header-logo-img"></a>
+					
+					
+						<span class="header-logo-word">转账</span>
+					
+				
+			
+		</div>
+
+		
+
+	</div>
+</div>
+
+
+		<div class="container2">
+			<div class="container-box">
+
+				<!-- 转账 -->
+				<div class="transfer">
+
+					<div class="transfer-page">
+
+						<div class="transfer-top">
+							<div class="transfer-top-left">推广期间提供免费果仁转账。<span ms-if="!hasCertified">（未实名认证的用户不能使用该功能，去<a href="./setup.htm#!" class="blue-point">实名认证</a>）</span></div>
+							<div class="transfer-top-right">可用果仁：<span class="blue"><span class="big bold">{{guo}}</span> <span class="icon">G</span></span></div>
+						</div>
+
+						<div class="transfer-tab">
+							<div class="transfer-tab-head">
+								<a href="#!/tab/0" class="transfer-tab-head-click">转到交易所</a>
+								<div class="transfer-tab-head-right"><!-- 我的交易所账户：<span class="blue">188****3750</span><i class="icon-separate"></i> --><a href="#" class="gray-a tdn">前往果仁交易所<i class="icon-arrow-right"></i></a></div>
+							</div>
+							<div class="transfer-tab-body">
+								<div class="transfer-line">
+									<div class="transfer-left">我的交易所：</div>
+									<div class="transfer-right">
+										<input type="text" class="transfer-address" ms-duplex="address" ms-class="{{addressTip}}">
+										<div class="transfer-address-button" ms-click="getAddress">获取地址</div>
+									</div>
+								</div>
+								<div class="transfer-line">
+	<div class="transfer-left">转出数量：</div>
+	<div class="transfer-right">
+		<input type="text" class="transfer-gop" placeholder="转出果仁数" ms-duplex="amount">
+		<div class="transfer-gop-line"></div>
+		<div class="transfer-gop-money">
+			<span class="gray">换算成金额约：</span> <span class="black">￥ <span class="money">{{amount|money}}</span></span>
+		</div>
+		
+			<div class="transfer-gop-tip">转到GOPWallet地址需要收取费手续费0.01G。</div>
+		
+	</div>
+</div>
+
+								<div class="transfer-line">
+									<div class="transfer-left">支付密码：</div>
+									<div class="transfer-right">
+										
+<div class="payment" ms-controller="payment">
+	<div class="payment-box">
+		<input type="password" class="payment-input" maxlength="6" ms-on-blur="blur" ms-on-focus="focus" ms-on-input="input" ms-duplex="paypass" ms-class="{{state}}">
+	</div>
+	<div class="payment-check" ms-if="check">{{check}}</div>
+	<div class="payment-forget"><a href="#">忘记密码</a></div>
+	<!-- <div class="payment-word">支付密码：</div> -->
+	<div class="payment-error" ms-if="error">{{error}}</div>
+	<!-- <div class="payment-button">确认支付</div> -->
+</div>
+
+									</div>
+								</div>
+								<div class="transfer-button">确认转账</div>
+							</div>
+						</div>
+						<div class="transfer-tab">
+							<div class="transfer-tab-head">
+								<a href="#!/tab/1" class="transfer-tab-head-click">转到GOP Wallet</a>
+								<div class="transfer-tab-head-right"><a href="#" class="gray-a tdn">下载 GOP Wallet<i class="icon-download"></i></a></div>
+							</div>
+							<div class="transfer-tab-body">
+								<div class="transfer-line">
+									<div class="transfer-left"><i class="transfer-radio on"></i><span class="transfer-radio-word">上次应用</span></div>
+									<div class="transfer-right">
+										<div><span class="black">地址：　</span><span class="blue">dkjdofedlkfpwk3or9387403kdi9ufle;df;lf</span></div>
+										<div><span class="black">备注名：　</span><span class="gray">流砂妹纸</span></div>
+									</div>
+								</div>
+								<div class="transfer-radio-line">
+									<div class="transfer-left"><i class="transfer-radio"></i><span class="transfer-radio-word">其他地址</span></div>
+									<div class="transfer-right">
+										<input type="text" class="transfer-address" placeholder="请输入**位GOP Wallet 地址">
+										<div class="transfer-contacts">
+	<div class="transfer-contacts-point">GOPWallet 联系人</div>
+	<div class="transfer-contacts-box">
+		<div class="transfer-contacts-scroll">
+			<div class="transfer-contacts-item on"><span class="dark">左左</span><span class="silver">（1sdle****6e2a1）</span></div>
+			<div class="transfer-contacts-item"><span class="dark">小达</span><span class="silver">（mwqza****a13v7）</span></div>
+			<div class="transfer-contacts-item"><span class="dark">丽莎</span><span class="silver">（skgln****bnt7y）</span></div>
+			<div class="transfer-contacts-item"><span class="dark">艾小猪</span><span class="silver">（nlm6k****n7me9）</span></div>
+			<div class="transfer-contacts-item"><span class="dark">*伊莎</<span><span class="silver">（803de****6my1k）</span></div>
+			<div class="transfer-contacts-item"><span class="dark">*雅伦</<span><span class="silver">（2ddle****8el9a）</span></div>
+			<div class="transfer-contacts-item"><span class="dark">*美玲</<span><span class="silver">（3mgdl****6e2a1）</span></div>
+		</div>
+	</div>
+</div>
+
+									</div>
+								</div>
+								<div class="transfer-line">
+	<div class="transfer-left">转出数量：</div>
+	<div class="transfer-right">
+		<input type="text" class="transfer-gop" placeholder="转出果仁数" ms-duplex="amount">
+		<div class="transfer-gop-line"></div>
+		<div class="transfer-gop-money">
+			<span class="gray">换算成金额约：</span> <span class="black">￥ <span class="money">{{amount|money}}</span></span>
+		</div>
+		
+			<div class="transfer-gop-tip">转到GOPWallet地址需要收取费手续费0.01G。</div>
+		
+	</div>
+</div>
+
+								<div class="transfer-line">
+									<div class="transfer-left">支付密码：</div>
+									<div class="transfer-right">
+										
+<div class="payment" ms-controller="payment">
+	<div class="payment-box">
+		<input type="password" class="payment-input" maxlength="6" ms-on-blur="blur" ms-on-focus="focus" ms-on-input="input" ms-duplex="paypass" ms-class="{{state}}">
+	</div>
+	<div class="payment-check" ms-if="check">{{check}}</div>
+	<div class="payment-forget"><a href="#">忘记密码</a></div>
+	<!-- <div class="payment-word">支付密码：</div> -->
+	<div class="payment-error" ms-if="error">{{error}}</div>
+	<!-- <div class="payment-button">确认支付</div> -->
+</div>
+
+									</div>
+								</div>
+								<div class="transfer-button">确认转账</div>
+							</div>
+						</div>
+						<div class="transfer-tab">
+							<div class="transfer-tab-head">
+								<a href="#!/tab/2" class="transfer-tab-head-click">转给其他联系人</a>
+								<span class="transfer-tab-head-guo">果仁现价： <span class="money">{{gopPrice}}</span> <span class="icon">￥</span></span>
+							</div>
+							<div class="transfer-tab-body">
+								<div class="transfer-line">
+	<div class="transfer-left">转出数量：</div>
+	<div class="transfer-right">
+		<input type="text" class="transfer-gop" placeholder="转出果仁数" ms-duplex="amount">
+		<div class="transfer-gop-line"></div>
+		<div class="transfer-gop-money">
+			<span class="gray">换算成金额约：</span> <span class="black">￥ <span class="money">{{amount|money}}</span></span>
+		</div>
+		
+	</div>
+</div>
+
+								<div class="transfer-line-short">
+									<div class="transfer-left">收款人：</div>
+									<div class="transfer-right">
+										<input type="text" class="transfer-input">
+										<div class="transfer-contacts">
+	<div class="transfer-contacts-point">GOPWallet 联系人</div>
+	<div class="transfer-contacts-box">
+		<div class="transfer-contacts-scroll">
+			<div class="transfer-contacts-item on"><span class="dark">左左</span><span class="silver">（1sdle****6e2a1）</span></div>
+			<div class="transfer-contacts-item"><span class="dark">小达</span><span class="silver">（mwqza****a13v7）</span></div>
+			<div class="transfer-contacts-item"><span class="dark">丽莎</span><span class="silver">（skgln****bnt7y）</span></div>
+			<div class="transfer-contacts-item"><span class="dark">艾小猪</span><span class="silver">（nlm6k****n7me9）</span></div>
+			<div class="transfer-contacts-item"><span class="dark">*伊莎</<span><span class="silver">（803de****6my1k）</span></div>
+			<div class="transfer-contacts-item"><span class="dark">*雅伦</<span><span class="silver">（2ddle****8el9a）</span></div>
+			<div class="transfer-contacts-item"><span class="dark">*美玲</<span><span class="silver">（3mgdl****6e2a1）</span></div>
+		</div>
+	</div>
+</div>
+
+									</div>
+								</div>
+								<div class="transfer-line-short">
+									<div class="transfer-left">转账说明：</div>
+									<div class="transfer-right">
+										<input type="text" class="transfer-input" placeholder="转果仁">
+									</div>
+								</div>
+								<div class="transfer-line">
+									<div class="transfer-left">支付密码：</div>
+									<div class="transfer-right">
+										
+<div class="payment" ms-controller="payment">
+	<div class="payment-box">
+		<input type="password" class="payment-input" maxlength="6" ms-on-blur="blur" ms-on-focus="focus" ms-on-input="input" ms-duplex="paypass" ms-class="{{state}}">
+	</div>
+	<div class="payment-check" ms-if="check">{{check}}</div>
+	<div class="payment-forget"><a href="#">忘记密码</a></div>
+	<!-- <div class="payment-word">支付密码：</div> -->
+	<div class="payment-error" ms-if="error">{{error}}</div>
+	<!-- <div class="payment-button">确认支付</div> -->
+</div>
+
+									</div>
+								</div>
+								<div class="transfer-button">确认转账</div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+				
+
+<!-- footer 底部 -->
+<div class="footer">
+	<div class="footer-box">
+		<a href="#" class="footer-a">关于我们</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">官方微博</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">官方微信</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">招贤纳士</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">联系我们</a>
+		<i class="footer-i">果仁宝版权所有 2014-2015 ICP证:</i>
+		<br>
+		<a href="#" class="footer-a">数字果仁</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">果仁控股</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">神州数字</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">比特帮</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">谷壳宝</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">BTCtrade</a>
+		<span class="footer-s">|</span>
+		<a href="#" class="footer-a">游戏瓶</a>
+	</div>
+</div>
+
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>
