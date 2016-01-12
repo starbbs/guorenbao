@@ -3,7 +3,7 @@
 // H5微信端 --- 转果仁
 
 
-require(['router','api','h5-view','h5-price','h5-view-nickname','h5-text','h5-view-authentication'], function(router,api,View,price,nickname) {
+require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address-mine','h5-view-address-wallet','h5-text','h5-view-authentication'], function(router,api,View,price,nickname,address_mine,address_wallet) {
     
     router.init(true);
 	var gopToken = $.cookie('gopToken');
@@ -49,7 +49,14 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-text','h5-vi
 	        			console.log(data);
 	        		}
 	        	});	
-        	};                 
+        	}else{
+        		//跳转到钱包地址
+        		address_wallet.vm.hasNext=true;
+        		address_wallet.vm.callback=function(){
+        			router.go('/');
+        		}       		
+        		router.go('/view/address-wallet');   
+        	} 
         },
         marketWallet_click: function(e) {
         	//果仁市场
@@ -62,7 +69,14 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-text','h5-vi
         		$.extend(transfer_target, nowData); 
         		targetInit(vm.transferOutType);
         		router.go('/view/transfer-target');        
-        	};
+        	}else{
+        		//跳转到设置果仁市场
+        		address_mine.vm.hasNext=true;
+        		address_mine.vm.callback=function(){
+        			router.go('/');
+        		}
+        		router.go('/view/address-mine');
+        	}
         },
         gopContact_click: function(e) {
         	//果仁宝联系人
