@@ -3,7 +3,7 @@
 // H5微信端 --- 订单
 
 
-require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident', 'h5-dialog-bankcard', 'h5-bankcard-append', 'h5-bankcard-ident'], function(api, get, router, View, price, H5Bank, H5Ident, dialogBankcard, viewBankcardAppend, viewBankcardIdent) {
+require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident', 'h5-dialog-bankcard', 'h5-dialog-paypass', 'h5-bankcard-append', 'h5-bankcard-ident'], function(api, get, router, View, price, H5Bank, H5Ident, dialogBankcard, dialogPaypass, viewBankcardAppend, viewBankcardIdent) {
 
 	router.init();
 
@@ -78,11 +78,15 @@ require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident', '
 		ifConfirmPay: false,
 		confirmPay: function() { // 确认支付
 			if (!vm.ifConfirmPay) { return; }
+			dialogPaypass.show();
+			dialogPaypass.vm.callback = function(value) {
+				// 支付密码校验成功
+			};
 		}
 	});
 	avalon.scan();
 
-	var bankSelect = function(bank) {
+	var bankSelect = function(bank) { // 处理当前显示
 		bank = bank || vm.bankSelect.$model;
 		vm.bankSelectName = bank.name;
 		vm.bankSelectType = bank.type;

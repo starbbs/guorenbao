@@ -6,7 +6,11 @@
 define('h5-paypass', ['check'], function(check) {
 	var scan = function(context) {
 		$('.paypass input', context).forEach(function(input) {
-			input = $(input).on('input', function() {
+			input = $(input);
+			var native = input.get(0);
+			if (native._hasBindPaypassInput) { return; }
+			native._hasBindPaypassInput = true;
+			input.on('input', function() {
 				// items.removeClass('on').slice(0, this.value.length).addClass('on');
 				for (var i = 0; i < items.length; i++) {
 					var item = items.eq(i);
