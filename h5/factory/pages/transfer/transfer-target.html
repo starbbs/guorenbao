@@ -24,7 +24,7 @@
 		<div class="transfer-target-box-line">
 			<div class="text">
 				<span class="font-label">G</span>
-				<div class="text-box"><input id="address-mine-input" name="address-mine-input" class="text-input" autocomplete="off" ms-attr-placeholder="现可用果仁{{gopNum}}" type="number" maxlength="10" data-text='close' ms-duplex="transferNum?transferNum:''"></div>
+				<div class="text-box"><input id="address-mine-input" name="address-mine-input" class="text-input" autocomplete="off" ms-attr-placeholder="现可用果仁{{gopNum}}" type="number" maxlength="10" data-text='close' ms-on-input="getCnyMoney" ms-duplex="transferNum?transferNum:''"></div>
 				<div class="text-close"></div>
 			</div>
 		</div>
@@ -50,5 +50,5 @@
 			<div class="text-close"></div>
 		</div>
 	</div>
-	<div class="text-button"><span class="button" ms-attr-class="disabled:notchecked" ms-click="transfer_commit_click">转账</span></div>
+	<div class="text-button"><span class="button" ms-class="disabled:notchecked" ms-click="transfer_commit_click">转账</span></div>
 </div>

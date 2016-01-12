@@ -206,11 +206,13 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 		getCnyMoney: function(e) {
 			transfer_target.cnyMoney=transfer_target.price*this.value;
 			if (this.value>0 && this.value<=transfer_target.gopNum) {
-				notchecked=false;
-			};
+				transfer_target.notchecked=false;
+			}else{
+				transfer_target.notchecked=true;
+			}
 		},
 		transfer_commit_click: function() {
-			if (transfer_target.transferNum>0 &&transfer_target.transferNum<=transfer_target.gopNum) {
+			if (transfer_target.transferNum>0 && transfer_target.transferNum<=transfer_target.gopNum) {
 				var transferOutType=vm.transferOutType;
 				if (vm.transferOutType.indexOf('NEW')>0) {
 					transferOutType='NEW';
@@ -467,8 +469,37 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 			if (data.status == 200) {							
 				for (var i=0;i<data.data.transferOutList.length;i++) {
 	        		var item=data.data.transferOutList[i];
+	        		if (item.type=='WALLET_NEW') {	        			
+	        			if (item.photo) {
+	        				$('.img-w').show();
+	        			}else{
+	        				item.icon='1';
+	        				$('.img-w').hide();
+	        			}
+	        		}else if (item.type=='GOP_NEW') {//新果仁宝
+	        			if (item.photo) {
+	        				$('.img-w').show();
+	        			}else{
+	        				item.icon='1';
+	        				$('.img-w').hide();
+	        			}
+	        		}else if (item.type=='WALLET_CONTACT') {//钱包联系人
+	        			item.icon='5';;
+	        		}else if (item.type=='GOP_CONTACT') {//果仁宝联系人
+	        			if (item.photo) {
+	        				$('.img-w').show();
+	        			}else{
+	        				item.icon='5';
+	        				$('.img-w').hide();
+	        			}
+	        		}else if (item.type=='GOP_MARKET') {//果仁市场
+	        			item.icon='3';
+	        		}else if (item.type=='ME_WALLET') {//我的钱包
+	        			item.icon='2';
+	        		}
+	        		
 	        		if (item.phone) {
-	        			item.address=item.phone;
+	        			item.phone=item.phone;
 	        		}; 
 	        		if (item.address) {
 	        			item.address=item.address;

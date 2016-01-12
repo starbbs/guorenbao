@@ -986,7 +986,7 @@ define('api', ['cookie'], function() {
 			}
 		}
 	 */
-	add('transfer', '/deal/transfer');
+	add('transfer', '/transfer/send');
 
 	/** 45.转账交易详情查询接口
 	 * 参数:
