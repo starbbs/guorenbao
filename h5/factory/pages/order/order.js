@@ -3,7 +3,7 @@
 // H5微信端 --- 订单
 
 
-require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident'], function(api, get, router, View, price, H5Bank, H5Ident) {
+require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident', 'h5-dialog-bankcard', 'h5-bankcard-append', 'h5-bankcard-ident'], function(api, get, router, View, price, H5Bank, H5Ident, dialogBankcard, viewBankcardAppend, viewBankcardIdent) {
 
 	router.init();
 
@@ -60,7 +60,10 @@ require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident'], 
 		bankIndex: 0, // 选择银行卡
 		bankid: 0, // 银行卡ID
 		bankAdd: function() { // 添加银行卡
-
+			router.go('/view/bankcard-append');
+		},
+		bankShow: function() { // 显示银行卡浮层
+			dialogBankcard.show();
 		},
 		identInput: function() { // 验证码输入
 			vm.ifConfirmPay = false;
@@ -90,18 +93,33 @@ require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident'], 
 					vm.money = order.orderMoney;
 					vm.gopPrice = data.data.gopPrice;
 					vm.gopNum = data.data.gopNum;
-					// vm.gopNum = 20;
 					vm.productRealPrice = JSON.parse(product.extraContent).price;
 					vm.gopExchange();
+					// 银行卡相关
 					if (Array.isArray(data.data.bankCardList)) {
-						vm.bankList = data.data.bankCardList.map(function(item) {
-							item.className = H5Bank.json[item.bankName];
-							item.type = H5Bank.type[item.cardType];
-							item.tail = item.cardNo.substr(-4);
-							return item;
+						var list = data.data.bankCardList.map(function(item) {
+							return {
+								id: item.id, //id
+								tail: item.cardNo.substr(-4), // 尾号
+								name: item.bankName, // 名称
+								lang: H5Bank.json[item.bankName], // 英文
+								phone: item.bankPhone,
+								type: H5Bank.type[item.cardType],
+							};
 						});
+						dialogBankcard.vm.list = list.concat();
+						vm.bankList = list.concat();
+						dialogBankcard.vm.index = vm.bankIndex;
 						vm.bankSelect = $.extend({}, vm.bankList.$model[vm.bankIndex]);
 						vm.bankid = vm.bankSelect.id;
+						dialogBankcard.on('hide', function() {
+							vm.bankIndex = dialogBankcard.vm.index;
+							vm.bankSelect = $.extend({}, vm.bankList.$model[vm.bankIndex]);
+							vm.bankid = vm.bankSelect.id;
+						});
+						viewBankcardAppend.vm.callback = function() {
+							router.go('/');
+						};
 					}
 					// 打开页面
 					setTimeout(function() {

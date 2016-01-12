@@ -26,10 +26,10 @@
 		<div class="order-box">
 			<div class="text-tip-top">请选择银行卡</div>
 			<div class="block">
-				<div class="block-item" ms-visible="bankid">
+				<div class="block-item" ms-visible="bankid" ms-click="bankShow">
 					<div class="block-label">
-						<div class="order-bankicon"><i class="bank" ms-class="{{bankSelect.className}}"></i></div>
-						<div class="order-bankname">{{bankSelect.bankName}} {{bankSelect.type}}（{{bankSelect.tail}}）</div>
+						<div class="order-bankicon"><i class="bank" ms-class="{{bankSelect.lang}}"></i></div>
+						<div class="order-bankname">{{bankSelect.name}} {{bankSelect.type}}（{{bankSelect.tail}}）</div>
 					</div>
 					<div class="block-arrow"></div>
 				</div>
@@ -55,6 +55,8 @@
 	</div>
 	<div class="view">
 		@@include('./order-bill.html')
+		@@include('../bankcard/bankcard-append.html')
+		@@include('../bankcard/bankcard-ident.html')
 	</div>
 	<div class="alert"></div>
 	<div class="dialog">

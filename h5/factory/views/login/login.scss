@@ -20,7 +20,7 @@
 		border: 1px solid $g-white;
 		box-shadow: 0px 0px 5px $g-gray;
 		overflow: hidden;
-		>img {
+		> img {
 			border-radius: 50%;
 			@extend .img-f;
 		}

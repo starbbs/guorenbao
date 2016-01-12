@@ -101,7 +101,7 @@ gulp.task('h5-template', function() {
 	var date = new Date();
 	var opts = {
 		name: '', // name一定要清空, 慎用!
-		desc: '账单', // 描述'// H5微信端 --- {{desc}}'
+		desc: '修改用户密码', // 描述'// H5微信端 --- {{desc}}'
 		date: date.toLocaleDateString().replace(/\//g, '-') + ' ' + date.toTimeString().split(' ')[0]
 	};
 	return tools.template('../h5/source/template/**', '../h5/factory/pages', opts).pipe(tools.notify(opts.name + '模版已建立完成!'));

@@ -3,7 +3,7 @@
 // H5微信端 --- dialog-bankcard选择银行卡
 
 
-define('h5-dialog-bankcard', ['h5-dialog', 'api', 'h5-bank'], function(Dialog, api, bank) {
+define('h5-dialog-bankcard', ['h5-dialog', 'api', 'router', 'h5-bank'], function(Dialog, api, router, bank) {
 	var gopToken = $.cookie('gopToken');
 	var bankcard = new Dialog('bankcard');
 	var vm = bankcard.vm = avalon.define({
@@ -12,18 +12,23 @@ define('h5-dialog-bankcard', ['h5-dialog', 'api', 'h5-bank'], function(Dialog, a
 		index: 0,
 		check: function(i) { // 选择银行卡
 			vm.index = i;
+			vm.id = vm.list[i].id;
+			bankcard.hide();
 		},
 		close: function() {
 			bankcard.hide();
 		},
 		add: function() { // 添加银行卡
-			window.location.href = 'bankcard.html';
+			// window.location.href = 'bankcard.html';
+			bankcard.hide();
+			router.go('/view/bankcard-append');
 		}
 	});
 	avalon.scan(bankcard.native, vm);
 	var hasRequest = false;
 	bankcard.on('show', function() {
-		if (hasRequest && !vm.list.length) { return; }
+		console.log(hasRequest, vm.list.length)
+		if (hasRequest || vm.list.length) { return; }
 		api.bankcardSearch({
 			gopToken: gopToken
 		}, function(data) {

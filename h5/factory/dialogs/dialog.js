@@ -24,7 +24,7 @@ define('h5-dialog', [], function() {
 		return this;
 	};
 
-	var stackSupports = ['show'];
+	var stackSupports = ['show', 'hide'];
 	var stackMaker = function(name) {
 		return 'on' + name[0].toUpperCase() + name.substr(1) + 'Stack';
 	};
@@ -37,15 +37,16 @@ define('h5-dialog', [], function() {
 		this.self = $(this.className);
 		this.native = this.self.get(0);
 
+		stackSupports.forEach(function(name) {
+			this[stackMaker(name)] = [];
+		}.bind(this));
+
 		this.reset();
 	};
 	Dialog.prototype.main = main; // .dialog
 	Dialog.prototype.reset = function() { // 重置
 		this.self.removeClass('show show-immediately hide hide-immediately');
 		this.isShowing = false;
-		stackSupports.forEach(function(name) {
-			this[stackMaker(name)] = [];
-		}.bind(this));
 	};
 	/**
 	 * [show description]
@@ -73,6 +74,9 @@ define('h5-dialog', [], function() {
 		if (!this.isShowing) { return; }
 		this.isShowing = false;
 		this.self.addClass(ifHideImmediately ? 'hide-immediately' : 'hide');
+		this[stackMaker('hide')].length && this[stackMaker('hide')].forEach(function(callback) {
+			callback.call(this);
+		}.bind(this));
 		setTimeout(function() {
 			this.reset();
 			this.self.hide();
