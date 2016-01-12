@@ -32,6 +32,10 @@ define('h5-view-password', ['api', 'router', 'check', 'h5-view', 'h5-ident', 'h5
 			var passwordInput = $('#password-set-mobile');
 			var vm = set.vm = avalon.define({
 				$id: 'password-set',
+				pwdOld:null,
+				identifyingCode:null,
+				newPass:'',
+				identifyingCode:'',
 				ifNext: false,
 				input: function() {
 					vm.ifNext = check.password(passwordInput.val()).result;
@@ -43,7 +47,9 @@ define('h5-view-password', ['api', 'router', 'check', 'h5-view', 'h5-ident', 'h5
 						api.setLoginPassword({
 							gopToken: gopToken,
 							openId: openId,
-							password: passwordInput.val()
+							password: vm.newPass,
+							pwdOld:vm.pwdOld,
+							identifyingCode:vm.identifyingCode
 						}, function(data) {
 							if (data.status == 200) {
 								router.go('/view/password-success');
@@ -62,4 +68,6 @@ define('h5-view-password', ['api', 'router', 'check', 'h5-view', 'h5-ident', 'h5
 			return success;
 		})(),
 	};
+    
+    return viewPassword;
 });

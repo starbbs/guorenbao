@@ -716,16 +716,15 @@ define('api', ['cookie', 'h5-wait'], function() {
 	/** 36.修改登录密码
 	 * 参数:
 		{
-			"phone": "15079817107",
-			"identifyingCode": "23323"
+		    "gopToken":"e8er843er834i8df8d34jddfdf89df89dffd8d8f934j43jk34"，
+		    "pwdNew":"tjy565464",
+		    "pwdOld":"123456",
+		    "identifyingCode":"2323",
 		}
 	 * 返回:
 		{
-			"status": 200,
-			"msg": "success",
-			"data": {
-				"gopToken": "e8er843er834i8df8d34jddfdf89df89dffd8d8f934j43jk34"
-			}
+		    "status":200,
+		    "msg":"success"
 		}
 	 */
 	add('updatePwd', '/login/updatePwd');
