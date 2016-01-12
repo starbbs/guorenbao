@@ -87,7 +87,7 @@ require(['router','api','h5-view' ,'h5-ident', 'h5-paypass', 'h5-text'], functio
         	if(vm.paypass2==vm.paypass3 && vm.paypass3.length==6){
         		api.setPayPassword({
 					gopToken: gopToken,
-					payPwdNew:vm.paypass3
+					password:vm.paypass3
 	         	}, function(data) {
 	         		if (data.status == 200) {
 	    				router.go('/');	
