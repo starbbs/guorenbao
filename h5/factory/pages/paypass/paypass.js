@@ -85,7 +85,7 @@ require(['router','api','h5-view' ,'h5-ident', 'h5-paypass', 'h5-text'], functio
         },
         paypass_click_3: function(e) {
         	if(vm.paypass2==vm.paypass3 && vm.paypass3.length==6){
-        		api.changePayPwd({
+        		api.setPayPassword({
 					gopToken: gopToken,
 					payPwdNew:vm.paypass3
 	         	}, function(data) {
