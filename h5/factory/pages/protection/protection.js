@@ -34,20 +34,33 @@ require(['router', 'h5-view','api','h5-paypass', 'h5-text','cookie'], function(r
 			
         },
         selection_1_click: function(e) {
+        	if(!vm.question1 || !vm.answer1 || !vm.payPwd){
+        		$.alert("密保问题不能为空");
+        		return;
+        	}
         	router.go('view/protection-view-2');      	
         },
         selection_2_click: function(e) {
+        	if(!vm.question1 || !vm.answer1 || !vm.question2 || !vm.answer2 || !vm.payPwd){
+        		$.alert("密保问题不能为空");
+        		return;
+        	}
+        	if(vm.question==vm.question2 || vm.answer1==vm.answer2){
+        		$.alert("问题或答案不能相同");
+        		return;
+        	}
         	//保存
-        	api.checkBankCard({
+        	api.applyQuestion({
         		gopToken: gopToken,
-        		qtID1:vm.question1,
-        	    qt1:vm.answer1,
-        	    qtID2:vm.question2,
-        	    qt2:vm.answer2,
+        		question1:vm.question1,
+        		answer1:vm.answer1,
+        		question2:vm.question2,
+        	    answer2:vm.answer2,
         	    payPwd:vm.payPwd
          	}, function(data) {
          		if (data.status == 200) {
          			$.alert("设置成功");
+         			router.go('/');   
          		} else {
          			console.log(data);
          		}
