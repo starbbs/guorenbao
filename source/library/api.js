@@ -1378,6 +1378,19 @@ define('api', ['cookie', 'h5-wait'], function() {
 	 */
 	add('phoneLastest', '/consume/product/phoneRecharge/lastest');
 
+	/** 64.发送手机号验证码
+	 * 参数:
+		{
+			"gopToken": "aaaaqqqqwwwcsdfdsfgdsgsdrgsdr"
+		}
+	 * 返回:
+		{
+			"status": 200,
+			"msg": "success"
+		}
+	 */
+	add('phoneSendCode', '/common/user/phone/sendCode');
+
 	/** 66.发送银行手机号验证码
 	 * 参数:
 		{

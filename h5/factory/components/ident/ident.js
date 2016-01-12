@@ -49,6 +49,39 @@ define('h5-ident', ['api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], 
 							});
 						}).removeAttr('data-ident');
 					}, 300);
+				} else if (arr[2] === 'token') {
+					setTimeout(function() {
+						var gopToken = $.cookie('gopToken');
+						var self = $(item);
+						var count = 0; // 点击次数
+						_reset(self);
+						self.on('click', function() {
+							if (self.hasClass('silver')) { return; }
+							if (!gopToken) { return; }
+							count++;
+							if (count > 6) {
+								setTimeout(function() {
+									// 第六次点击后, 给联系客服的提示
+								}, 3000);
+							}
+							var time = 60;
+							self.removeClass('blue').addClass('silver').html(time + '秒后重发');
+							var timer = setInterval(function() {
+								time--;
+								if (time <= 0) {
+									clearInterval(timer);
+									_reset(self);
+								} else {
+									self.html(time + '秒后重发');
+								}
+							}, 1000);
+							api.phoneSendCode({
+								gopToken: $.cookie('gopToken'),
+							}, function(data) {
+								$.alert(data.status == 200 ? '验证码发送成功' : data.msg);
+							});
+						}).removeAttr('data-ident');
+					}, 300);
 				}
 			} else if (arr.length > 1) {
 				setTimeout(function() {
