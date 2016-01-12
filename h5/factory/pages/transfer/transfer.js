@@ -418,6 +418,9 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-text','h5-vi
 			if (data.status == 200) {						
 				if(!data.data.realname){
 					router.go('/view/authentication');
+					setTimeout(function() {
+						router.go('/view/authentication');
+					});	
 				}
 				if(data.data.marketGopAddress){
 					vm.marketGopAddress=data.data.marketGopAddress;//果仁市场地址
@@ -443,6 +446,7 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-text','h5-vi
 				console.log(data);
 			}
 		});
+		
 		api.transferRecent({
 			gopToken: gopToken
 		}, function(data) {
