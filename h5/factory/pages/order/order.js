@@ -57,6 +57,10 @@ require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident', '
 		rmbUse: 0, // 使用多少人民币
 		bankList: [], // 银行卡列表
 		bankSelect: {}, // 选择银行卡
+		bankSelectName: '',
+		bankSelectType: '',
+		bankSelectClass: '',
+		bankSelectTail: '',
 		bankIndex: 0, // 选择银行卡
 		bankid: 0, // 银行卡ID
 		bankAdd: function() { // 添加银行卡
@@ -78,6 +82,29 @@ require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident', '
 	});
 	avalon.scan();
 
+	var bankSelect = function(bank) {
+		bank = bank || vm.bankSelect.$model;
+		vm.bankSelectName = bank.name;
+		vm.bankSelectType = bank.type;
+		vm.bankSelectClass = bank.lang;
+		vm.bankSelectTail = bank.tail;
+	};
+	var bankListRefresh = function(list) { // 刷新银行卡列表
+		list = H5Bank.dataHandler(list);
+		dialogBankcard.vm.list = list.concat();
+		vm.bankList = list.concat();
+		dialogBankcard.vm.index = vm.bankIndex;
+		vm.bankSelect = $.extend({}, vm.bankList.$model[vm.bankIndex]);
+		vm.bankid = vm.bankSelect.id;
+		bankSelect();
+	};
+	var bankListReturn = function() {
+		vm.bankIndex = dialogBankcard.vm.index;
+		vm.bankSelect = $.extend({}, vm.bankList.$model[vm.bankIndex]);
+		vm.bankid = vm.bankSelect.id;
+		bankSelect();
+	};
+
 	if (get.data.id) { // 有订单ID, 跳转订单详情
 		api.query({
 			gopToken: gopToken,
@@ -97,28 +124,23 @@ require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident', '
 					vm.gopExchange();
 					// 银行卡相关
 					if (Array.isArray(data.data.bankCardList)) {
-						var list = data.data.bankCardList.map(function(item) {
-							return {
-								id: item.id, //id
-								tail: item.cardNo.substr(-4), // 尾号
-								name: item.bankName, // 名称
-								lang: H5Bank.json[item.bankName], // 英文
-								phone: item.bankPhone,
-								type: H5Bank.type[item.cardType],
-							};
-						});
-						dialogBankcard.vm.list = list.concat();
-						vm.bankList = list.concat();
-						dialogBankcard.vm.index = vm.bankIndex;
-						vm.bankSelect = $.extend({}, vm.bankList.$model[vm.bankIndex]);
-						vm.bankid = vm.bankSelect.id;
+						bankListRefresh(data.data.bankCardList);
 						dialogBankcard.on('hide', function() {
-							vm.bankIndex = dialogBankcard.vm.index;
-							vm.bankSelect = $.extend({}, vm.bankList.$model[vm.bankIndex]);
-							vm.bankid = vm.bankSelect.id;
+							bankListReturn();
 						});
 						viewBankcardAppend.vm.callback = function() {
-							router.go('/');
+							api.bankcardSearch({
+								gopToken: gopToken
+							}, function(data) {
+								if (data.status == 200) {
+									bankListRefresh(data.data.list);
+									setTimeout(function() {
+										router.go('/');
+									}, 100);
+								} else {
+									$.alert(data.msg);
+								}
+							});
 						};
 					}
 					// 打开页面

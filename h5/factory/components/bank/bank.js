@@ -4,32 +4,46 @@
 
 
 define('h5-bank', function() {
-	var bank = {};
-	var json = bank.json = {};
-	var type = bank.type = {
-		SAVINGS_DEPOSIT_CARD: '储蓄卡',
-		CREDIT_CARD: '信用卡'
+	var bank = {
+		json: ['中国民生银行:minsheng',
+				'中国邮政储蓄银行:youzheng',
+				'中国光大银行:guangda',
+				'交通银行:jiaotong',
+				'上海浦东发展银行:pufa',
+				'上海银行:shanghai',
+				'兴业银行:xingye',
+				'中国建设银行:zhongjian',
+				'北京农商银行:beinong',
+				'北京银行:beiyin',
+				'中国工商银行:gongshang',
+				'广发银行:guangfa',
+				'华夏银行:huaxia',
+				'平安银行:pingan',
+				'招商银行:zhaoshang',
+				'中国银行:zhongguo',
+				'中信银行:zhongxin'].reduce(function(json, item) {
+					item = item.split(':');
+					json[item[0]] = item[1];
+					return json;
+				}, {}),
+		type: {
+			SAVINGS_DEPOSIT_CARD: '储蓄卡',
+			CREDIT_CARD: '信用卡'
+		},
+		dataHandler: function(list) {
+			return list.map(function(item) {
+				return {
+					id: item.id, //id
+					tail: item.cardNo.substr(-4), // 尾号
+					name: item.bankName, // 名称
+					lang: bank.json[item.bankName], // 英文
+					phone: item.bankPhone,
+					type: bank.type[item.cardType],
+				};
+			});
+		}
 	};
-	var add = function(name, lang) {
-		json[name] = lang;
-	};
-	add('中国民生银行','minsheng');
-	add('中国邮政储蓄银行','youzheng');
-	add('中国光大银行','guangda');
-	add('交通银行','jiaotong');
-	add('上海浦东发展银行','pufa');
-	add('上海银行','shanghai');
-	add('兴业银行','xingye');
-	add('中国建设银行','zhongjian');
-	add('北京农商银行','beinong');
-	add('北京银行','beiyin');
-	add('中国工商银行','gongshang');
-	add('广发银行','guangfa');
-	add('华夏银行','huaxia');
-	add('平安银行','pingan');
-	add('招商银行','zhaoshang');
-	add('中国银行','zhongguo');
-	add('中信银行','zhongxin');
+	
 	return bank;
 });
 
