@@ -23,20 +23,35 @@ define('h5-bankcard-append', ['router', 'api', 'h5-view', 'h5-bankcard-ident', '
                     if (data.status == 200) {
                         vm.bankName = data.data.bankName;
                         vm.cardType = data.data.cardType;
-                        if (data.data.cardType = 'SAVINGS_DEPOSIT_CARD') {
+                        if (data.data.cardType == 'SAVINGS_DEPOSIT_CARD') {
                             vm.cardTypeStr = '储蓄卡';
+                            var reg = /^0?1[3|4|5|8|7][0-9]\d{8}$/;
+            				if (reg.test(vm.phone)) {
+            					vm.checked = false;
+            				}else{
+            					vm.checked = true;
+            				}
+                            
                         } else {
                             vm.cardTypeStr = '信用卡';
                         }
-                        vm.checked = true;
+                        
                     } else {
                         console.log(data);
                     }
                 });
             }
         },
+        checkPhone:function(e){
+        	 var reg = /^0?1[3|4|5|8|7][0-9]\d{8}$/;
+        	 if (reg.test(this.value)) {
+				vm.checked = false;
+			 }else{
+				vm.checked = true;
+			 }	
+        },
         bankcard_add_next_click: function() {
-            if (vm.bankName) {
+            if (!vm.checked) {
                 var nowData = {};
                 nowData.gopToken = gopToken;
                 nowData.bankName = vm.bankName;

@@ -25,12 +25,12 @@
 			<div class="block-text">
 				<label for="bankcard-append-phone" class="text">
 					<div class="text-label">手机号</div>
-					<div class="text-box"><input id="bankcard-append-phone" name="bankcard-append-phone" type="tel" class="text-input" autocomplete="off" placeholder="银行卡预留手机号" maxlength="11" data-text="close" ms-duplex="phone"></div>
+					<div class="text-box"><input id="bankcard-append-phone" name="bankcard-append-phone" type="tel" class="text-input" autocomplete="off" placeholder="银行卡预留手机号" maxlength="11" data-text="close" ms-on-input="checkPhone" ms-duplex="phone"></div>
 					<div class="text-close"></div>
 					<div class="text-alert"></div>
 				</label>
 			</div>
 		</div>
 	</div>
-	<div class="text-button"><span class="button" ms-attr-disabled="checked" ms-click="bankcard_add_next_click">下一步</span></div>
+	<div class="text-button"><span class="button" ms-class="disabled:checked" ms-click="bankcard_add_next_click">下一步</span></div>
 </div>
