@@ -48,7 +48,7 @@ define('h5-view-address-wallet', ['router', 'api','h5-view','check','h5-alert','
             }
             api.walletAdd({
                 gopToken: gopToken,
-                defaultWallet:false,
+                defaultWallet:vm.walletList.length>0?false:true,
                 address:vm.walletAddress
             }, function(data) {
                 if (data.status == 200) {
@@ -101,6 +101,12 @@ define('h5-view-address-wallet', ['router', 'api','h5-view','check','h5-alert','
             $(this).addClass('top');
         }       
     });
+    
+    $(document).on('swipeRight', '.address-wallet-item', function() {        
+        $(this).removeClass('del');
+        $(this).removeClass('top');      
+    });
+    
 	return address_wallet;
 });
 
