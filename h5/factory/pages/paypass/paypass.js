@@ -182,7 +182,7 @@ require(['router','api','h5-view' ,'h5-ident', 'h5-paypass', 'h5-text', 'h5-weix
 	         		}
 	         	});
 			}else{
-				$.alert("新密码格式错误");
+				$.alert("两次输入不一致");
 			}      	
         }
 	});
