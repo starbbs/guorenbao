@@ -6,6 +6,7 @@
 var gulp = require('gulp');
 var rjs = require('gulp-requirejs');
 var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
 
 var filePath = require('./05 file-path 路径处理.js');
 
@@ -20,6 +21,7 @@ var filePath = require('./05 file-path 路径处理.js');
  * @param    {[string|array]}           output                [输出路径]
  * @param    {[json]}                   options               [参数]
  *           {[json]}                   options.rjsPaths      [参数: rjs配置]
+ *           {[json]}                   options.uglify        [参数: 是否压缩js]
  * @return   {[gulp-stream]}
  */
 module.exports = function(input, output, options) {
@@ -42,7 +44,8 @@ module.exports = function(input, output, options) {
 			include: [],
 			module: [],
 			// optimize: 'uglify'
-		}).pipe(uglify())
+		})
+		.pipe(options.uglify ? uglify() : rename(function(path) {}))
 		.pipe(gulp.dest(output));
 	};
 	if (input.extname === 'html') { // 提取对应js

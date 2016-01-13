@@ -7,26 +7,105 @@
 
 @import '../../../source/scss/main';
 
-
-.info {
-	$img: $g-pages + '/info/images';
-	&-box {}
-	&-item {}
-	&-left {}
-	&-right {}
-
-	&-img {}
-	&-top {}
-	&-bottom {}
-
-	&-label {}
-	&-time {}
-	&-num {}
-
-	&-icon {}
-}
-
-
 @import '../../views/view';
 
 @import '../../dialogs/dialog';
+
+
+body {
+	background-color: $g-background;
+}
+
+
+.info {
+
+	$img: $g-pages + '/info/images';
+
+	&-box {
+		margin-top: 5px;
+		border-top: $g-border;
+		border-bottom: $g-border;
+		background-color: $g-white;
+	}
+	&-item {
+		height: 64px;
+		&:last-child {
+			.info-right {
+				border-bottom: none;
+			}
+		}
+	}
+	&-left {
+		float: left;
+		@include square(75px, 100%);
+	}
+	&-right {
+		margin-left: 75px;
+		height: 100%;
+		box-sizing: border-box;
+		border-bottom: $g-border;
+		line-height: 24px;
+		overflow: hidden;
+		padding-right: $g-padding;
+	}
+
+	&-img {
+		@include square(46px);
+		border-radius: 50%;
+		overflow: hidden;
+		margin-top: 8px;
+		margin-left: $g-padding;
+	}
+	&-top {
+		overflow: hidden;
+		margin-top: 8px;
+	}
+	&-bottom {
+		overflow: hidden;
+	}
+
+	&-label {
+		font-size: 14px;
+		float: left;
+	}
+	&-time {
+		float: right;
+		font-size: 11px;
+		color: $g-ash;
+	}
+	&-summary {
+		float: left;
+		font-size: 12px;
+		color: #777;
+		width: 80%;
+		@extend %text-overflow;
+		@extend .font-num;
+	}
+	&-num {
+		float: right;
+		@include square(18px);
+		line-height: 18px;
+		border-radius: 50%;
+		background-color: $g-red;
+		color: $g-white;
+		text-align: center;
+		font-size: 10px;
+		margin-top: 2px;
+		@extend .font-num;
+	}
+
+	&-icon {
+		&-system {
+			display: block;
+			@include sprite($img + '/system.png', 46px);
+		}
+		&-guo {
+			display: block;
+			@include sprite($img + '/guo.png', 46px);
+		}
+		&-duobao {
+			display: block;
+			@include sprite($img + '/duobao.png', 46px);
+		}
+	}
+}
