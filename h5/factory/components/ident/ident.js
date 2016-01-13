@@ -53,6 +53,13 @@ define('h5-ident', ['api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], 
 			});
 		}).removeAttr('data-ident');
 	};
+	/**
+	 * [_scan 扫描]
+	 * @Author   张树垚
+	 * @DateTime 2016-01-13 11:33:49
+	 * @param    {[context]}      context      [jQuery的选择父级]
+	 * @return   {[null]}                      [无返回]
+	 */
 	var _scan = function(context) {
 		$('[data-ident]', context).each(function(i, item) {
 			var arr = item.dataset.ident.split('|');
