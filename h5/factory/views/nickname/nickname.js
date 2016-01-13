@@ -21,8 +21,9 @@ define('h5-view-nickname', ['h5-view', 'api', 'h5-text'], function(View, api) {
 					nicknameView.onFinish();
 					if(vm.callback){
 						vm.callback();
-					}
-					window.history.back();
+					}else{
+						window.history.back();
+					}					
 				} else {
 					console.log(data);
 				}

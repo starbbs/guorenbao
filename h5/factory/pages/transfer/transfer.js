@@ -363,6 +363,9 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 		remark_click: function(e) {
 			var nowData={};
 			nowData.id=transfer_bill.personId;
+			nowData.callback=function(){
+				router.go('/'); 
+			}
 			$.extend(nickname.vm, nowData);
 			router.go('/view/nickname'); 
 		}
