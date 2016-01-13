@@ -12,6 +12,10 @@ require(['router','api','h5-view','h5-view-password'], function(router,api,View,
 		pass:'',
 		errorTime:0,
 		check_password_click: function () { 
+			if(!vm.pass){
+				$.alert("原密码不能为空");
+				return;
+			}
 			if(vm.errorTime>=3){
 				var options={};
 				var date=new Date(); 
