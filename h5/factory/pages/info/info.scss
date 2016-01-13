@@ -10,6 +10,20 @@
 
 .info {
 	$img: $g-pages + '/info/images';
+	&-box {}
+	&-item {}
+	&-left {}
+	&-right {}
+
+	&-img {}
+	&-top {}
+	&-bottom {}
+
+	&-label {}
+	&-time {}
+	&-num {}
+
+	&-icon {}
 }
 
 
