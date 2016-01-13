@@ -36,6 +36,10 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 	        			nowData.name='我的钱包';
 	        			for (var i=0;i<data.data.walletList.length;i++) {
 	        				var item=data.data.walletList[i]; 
+	        				if(!nowData.address){
+	        					nowData.address=item.address;
+	        					nowData.walletId=item.id;
+	        				}
 	        				if(item.defaultWallet){
 	        					nowData.address=item.address;
 	        					nowData.walletId=item.id;
