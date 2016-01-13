@@ -67,6 +67,7 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
         		var nowData={};
         		nowData.address=vm.marketGopAddress;
         		nowData.name='果仁市场';
+        		nowData.isMarket=true;
         		$.extend(transfer_target, nowData); 
         		targetInit(vm.transferOutType);
         		router.go('/view/transfer-target');        
@@ -266,6 +267,7 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 		cnyMoney:0,//约合人民币
 		content:'',//转账说明
 		notchecked:true,//是否没有检验通过
+		isMarket:false,//是否是果仁市场
 		getCnyMoney: function(e) {
 			transfer_target.cnyMoney=transfer_target.price*this.value;
 			if (this.value>0 && this.value<=transfer_target.gopNum) {
