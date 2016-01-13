@@ -111,6 +111,28 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 	var transfer_new = avalon.define({
 		$id: 'transfer-new',
 		newTarget:'',
+		checked: true,
+		check:function(e){
+			if (this.value.length!=11 && this.value.length!=67 && this.value.length!=68) {
+				transfer_new.checked=true;
+			}else if(this.value.length==11){
+				var reg = /^0?1[3|4|5|8\7][0-9]\d{8}$/;
+				if (!reg.test(this.value)) {
+					transfer_new.checked=true;
+				}else{
+					transfer_new.checked=false;
+				}
+			}else if(this.value.indexOf('GOP')!=0){
+				transfer_new.checked=true;
+			}else{
+				transfer_new.checked=false;
+			}	
+			if(transfer_new.checked){
+				$(this).addClass("error");
+			}else{
+				$(this).removeClass("error");
+			}
+		},
 		new_next_click:function(e){
 			if(transfer_new.newTarget==''){
 				$.alert("手机号或地址为空");
@@ -146,18 +168,26 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
         			address:transfer_new.newTarget
 	        	}, function(data) {
 	        		if (data.status == 200) {
-	        			nowData.name=data.data.nick;
-	        			if(data.data.photo){
-	        				nowData.photo=data.data.photo;
-	        			}
+	        			if(data.data){
+	        				nowData.name=data.data.nick;
+		        			if(data.data.photo){
+		        				nowData.photo=data.data.photo;
+		        			}
+	        			}	        			
+		        		$.extend(transfer_target, nowData);
+		        	    targetInit(vm.transferOutType);
+			        	router.go('/view/transfer-target');
 	        		} else {
+	        			if(transfer_new.newTarget.length==11){
+	        				$.alert('该手机号未注册');
+	        			}else{
+	        				$.extend(transfer_target, nowData);
+			        	    targetInit(vm.transferOutType);
+				        	router.go('/view/transfer-target');
+	        			}
 	        			console.log(data);
 	        		}
-	        		$.extend(transfer_target, nowData);
-	        	});
-			    
-			    targetInit(vm.transferOutType);
-	        	router.go('/view/transfer-target');        
+	        	});			        
 	        }else{
 	        	$.alert('地址格式错误');
 	        }
