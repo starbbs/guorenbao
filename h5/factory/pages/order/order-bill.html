@@ -20,26 +20,26 @@
 					</div>
 				</div>
 			</div>
-			<div class="bill-money">
+			<!-- <div class="bill-money">
 				<div class="bill-label dark">获得返利(G)</div>
 				<div class="bill-num blue">+1.20</div>
-			</div>
+			</div> -->
 			<div class="bill-detail">
 				<div class="bill-detail-item">
 					<div class="fl">商品信息</div>
-					<div class="fr dark">手机充值100元</div>
+					<div class="fr dark">{{productDesc}}</div>
 				</div>
 				<div class="bill-detail-item">
 					<div class="fl">收款方</div>
-					<div class="fr dark">北京移动</div>
+					<div class="fr dark">北京果仁宝科技有限公司</div>
 				</div>
 				<div class="bill-detail-item">
 					<div class="fl">交易时间</div>
-					<div class="fr dark">2015-11-04 08:37:43</div>
+					<div class="fr dark">{{orderTime}}</div>
 				</div>
 			</div>
 		</div>
-		<div class="text-button"><span class="button">完成</span></div>
-		<div class="bill-more"><span class="blue">更多</span></div>
+		<div class="text-button"><span class="button" ms-click="finish">完成</span></div>
+		<div class="bill-more"><span class="blue" ms-click="showMore">更多</span></div>
 	</div>
 </div>

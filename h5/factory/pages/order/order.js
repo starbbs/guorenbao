@@ -6,11 +6,11 @@
 require(['api', 'get', 'router',
 	'h5-view', 'h5-bankcard-append', 'h5-bankcard-ident', 'h5-view-authentication',
 	'h5-price', 'h5-bank', 'h5-ident', 'h5-component-bill',
-	'h5-dialog-bankcard', 'h5-dialog-paypass'],
+	'h5-dialog-bankcard', 'h5-dialog-paypass', 'h5-dialog-more'],
 	function(api, get, router,
 		View, viewBankcardAppend, viewBankcardIdent, viewAuthentication,
 		price, H5Bank, H5Ident, H5Bill,
-		dialogBankcard, dialogPaypass) {
+		dialogBankcard, dialogPaypass, dialogMore) {
 
 	router.init();
 
@@ -43,10 +43,12 @@ require(['api', 'get', 'router',
 				vm.rmbUse = 0;
 				vm.gopUse = vm.money / vm.gopPrice;
 				vm.gopMoney = vm.money;
+				// vm.ifConfirmPay = true;
 			} else {
 				vm.rmbUse = vm.money - vm.gopNum * vm.gopPrice;
 				vm.gopUse = vm.gopNum;
 				vm.gopMoney = vm.gopNum * vm.gopPrice;
+				// vm.ifConfirmPay = false;
 			}
 		},
 		rmbUse: 0, // 使用多少人民币
@@ -105,18 +107,27 @@ require(['api', 'get', 'router',
 
 	var vmBill = avalon.define({
 		$id: 'order-bill',
-		status: '',
-		headContent: '',
-		status: '',
-		failReason: '',
-		orderMoney: 0,
-		payMoney: 0,
-		payGop: 0,
+		status: '',				// 订单状态(头部class)
+		headContent: '',		// 标题
+		failReason: '',			// 失败原因
+		orderMoney: 0,			// 订单金额
+		payMoney: 0,			// 支付金额
+		payGop: 0,				// 支付果仁
+		productDesc: '',		// 商品描述
+		orderTime: '',			// 交易时间
+		orderId: '',			// 订单号
+		flowId: '',				// 流水号
+		finish: function() {	// 完成
+			window.location.href = 'home.html';
+		},
+		showMore: function() {	// 显示更多
+			dialogMore.show();
+		}
 	});
 	var showBill = function(data) { // 显示订单详情
 		// data是来自于query接口的数据(data.data)
 		var order = data.consumeOrder; // 订单信息
-		var product = data.product; // 商品信息
+		var product = data.product || {}; // 商品信息
 		var record = data.recordList || {}; // 支付记录
 		vmBill.status = H5Bill.statusClass[order.status];
 		vmBill.headContent = H5Bill.statusZhCN[order.status];
@@ -124,6 +135,10 @@ require(['api', 'get', 'router',
 		vmBill.orderMoney = order.orderMoney || 0;
 		vmBill.payMoney = record.payMoney || 0;
 		vmBill.payGop = record.payGop || 0;
+		vmBill.productDesc = product.productDesc || '';
+		vmBill.orderTime = record.updateTime || order.createTime || '';
+		vmBill.orderId = dialogMore.vm.orderId = get.data.id;
+		vmBill.flowId = dialogMore.vm.flowId = record.tradeNo || '';
 		setTimeout(function() {
 			router.go('/view/order-bill');
 		}, 100);
@@ -226,6 +241,7 @@ require(['api', 'get', 'router',
 	switch(get.data.from) { // 判断来源
 
 		case 'phonecharge': // 来自手机充值
+			document.title = '订单-手机充值';
 			break;
 
 		case 'loverelay': // 来自爱心接力
