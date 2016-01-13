@@ -18,6 +18,9 @@
 	&.disabled {
 		color: #aabff5;
 	}
+	&.error {
+		border-color: $g-red;
+	}
 	&.white {
 		background-color: $g-white;
 		color: #777;
