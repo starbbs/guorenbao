@@ -1,9 +1,8 @@
-<div class="order-bill">
+<div class="order-bill" ms-controller="order-bill">
 	<div class="order-bill-scroll">
 		<div class="bill-box last">
-			<div class="bill-head success">交易成功</div>
-			<!-- <div class="bill-head fail">交易失败</div> -->
-			<div class="bill-reason">
+			<div class="bill-head" ms-class="{{status}}">{{headContent}}</div>
+			<div class="bill-reason" ms-if="status=='fail'">
 				<div class="fl">失败原因</div>
 				<div class="fr red">银行卡金额不足</div>
 			</div>

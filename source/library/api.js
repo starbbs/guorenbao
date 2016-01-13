@@ -1096,20 +1096,18 @@ define('api', ['cookie', 'h5-wait'], function() {
 		{
 			"gopToken": "e8er843er834i8df8d34jddfdf89df89dffd8d8f934j43jk34"，
 			"useGop": true,
-			"payOrderId": 50,
+			"consumeOrderId": 50,
 			"identifyingCode": "23323",
-			"payPwd": "22323"
+			"bankCardId": 12,
+			"payPassword": "22323"
 		}
 	 * 返回:
 		{
 			"status": 200,
-			"msg": "success",
-			"data": {
-				"payOrderId": 1
-			}
+			"msg": "success"
 		}
 	 */
-	add('pay', '/payOrder/pay');
+	add('pay', '/consume/order/pay');
 
 	/** 49.账单列表接口
 	 * 参数:

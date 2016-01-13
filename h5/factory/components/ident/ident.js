@@ -7,6 +7,35 @@ define('h5-ident', ['api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], 
     var _reset = function(self) {
 		self.removeClass('silver').addClass('blue').html('获取验证码');
 	};
+	var _bind = function(item, checkFun, apiName, apiData) {
+		var count = 0; // 点击次数
+		var self = $(item);
+		_reset(self);
+		self.on('click', function() {
+			if (self.hasClass('silver')) { return; }
+			if (checkFun()) { return; }
+			count++;
+			if (count > 6) {
+				setTimeout(function() {
+					// 第六次点击后, 给联系客服的提示
+				}, 3000);
+			}
+			var time = 60;
+			self.removeClass('blue').addClass('silver').html(time + '秒后重发');
+			var timer = setInterval(function() {
+				time--;
+				if (time <= 0) {
+					clearInterval(timer);
+					_reset(self);
+				} else {
+					self.html(time + '秒后重发');
+				}
+			}, 1000);
+			api[apiName](apiData, function(data) {
+				$.alert(data.status == 200 ? '验证码发送成功' : data.msg);
+			});
+		}).removeAttr('data-ident');
+	};
 	var _scan = function(context) {
 		$('[data-ident]', context).each(function(i, item) {
 			var arr = item.dataset.ident.split('|');
@@ -18,135 +47,36 @@ define('h5-ident', ['api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], 
 					setTimeout(function() {
 						var vm = avalon.vmodels[arr[0]];
 						var id = vm[arr[1]];
-						var self = $(item);
-						var count = 0; // 点击次数
-						_reset(self);
-						self.on('click', function() {
-							if (self.hasClass('silver')) { return; }
-							if (!id) { return; }
-							count++;
-							if (count > 6) {
-								setTimeout(function() {
-									// 第六次点击后, 给联系客服的提示
-								}, 3000);
-							}
-							var time = 60;
-							self.removeClass('blue').addClass('silver').html(time + '秒后重发');
-							var timer = setInterval(function() {
-								time--;
-								if (time <= 0) {
-									clearInterval(timer);
-									_reset(self);
-								} else {
-									self.html(time + '秒后重发');
-								}
-							}, 1000);
-							api.bankSendCode({
-								gopToken: $.cookie('gopToken'),
-								bankId: id
-							}, function(data) {
-								$.alert(data.status == 200 ? '验证码发送成功' : data.msg);
-							});
-						}).removeAttr('data-ident');
+						_bind(item, function() {
+							return !id
+						}, 'bankSendCode', {
+							gopToken: $.cookie('gopToken'),
+							bankId: id
+						});
 					}, 300);
-				} else if (arr[2] === 'token') {
-					setTimeout(function() {
-						var gopToken = $.cookie('gopToken');
-						var self = $(item);
-						var count = 0; // 点击次数
-						_reset(self);
-						self.on('click', function() {
-							if (self.hasClass('silver')) { return; }
-							if (!gopToken) { return; }
-							count++;
-							if (count > 6) {
-								setTimeout(function() {
-									// 第六次点击后, 给联系客服的提示
-								}, 3000);
-							}
-							var time = 60;
-							self.removeClass('blue').addClass('silver').html(time + '秒后重发');
-							var timer = setInterval(function() {
-								time--;
-								if (time <= 0) {
-									clearInterval(timer);
-									_reset(self);
-								} else {
-									self.html(time + '秒后重发');
-								}
-							}, 1000);
-							api.phoneSendCode({
-								gopToken: $.cookie('gopToken'),
-							}, function(data) {
-								$.alert(data.status == 200 ? '验证码发送成功' : data.msg);
-							});
-						}).removeAttr('data-ident');
-					}, 300);
+				} else if (arr[2] === 'token') { // 根据gopToken --- a|b|token
+					_bind(item, function() {
+						return !gopToken;
+					}, 'phoneSendCode', {
+						gopToken: $.cookie('gopToken'),
+					});
 				}
 			} else if (arr.length > 1) {
 				setTimeout(function() {
 					var vm = avalon.vmodels[arr[0]];
-					var self = $(item);
-					var count = 0; // 点击次数
-					_reset(self);
-					self.on('click', function() {
-						if (self.hasClass('silver')) { return; }
-						if (!check.phone(vm[arr[1]] + '').result) { return; }
-						count++;
-						if (count > 6) {
-							setTimeout(function() {
-								// 第六次点击后, 给联系客服的提示
-							}, 3000);
-						}
-						var time = 60;
-						self.removeClass('blue').addClass('silver').html(time + '秒后重发');
-						var timer = setInterval(function() {
-							time--;
-							if (time <= 0) {
-								clearInterval(timer);
-								_reset(self);
-							} else {
-								self.html(time + '秒后重发');
-							}
-						}, 1000);
-						api.sendCode({
-							phone: vm[arr[1]]
-						}, function(data) {
-							$.alert(data.status == 200 ? '验证码发送成功' : data.msg);
-						});
-					}).removeAttr('data-ident');
+					_bind(item, function() {
+						return !check.phone(vm[arr[1]] + '').result;
+					}, 'sendCode', {
+						phone: vm[arr[1]]
+					});
 				}, 300);
 			} else {
 				var phoneInput = $('#' + item.dataset.ident);
-				var self = $(item);
-				var count = 0; // 点击次数
-				_reset(self);
-				self.on('click', function() {
-					if (self.hasClass('silver')) { return; }
-					if (!h5Check.phone(phoneInput)) { return; }
-					count++;
-					if (count > 6) {
-						setTimeout(function() {
-							// 第六次点击后, 给联系客服的提示
-						}, 3000);
-					}
-					var time = 60;
-					self.removeClass('blue').addClass('silver').html(time + '秒后重发');
-					var timer = setInterval(function() {
-						time--;
-						if (time <= 0) {
-							clearInterval(timer);
-							_reset(self);
-						} else {
-							self.html(time + '秒后重发');
-						}
-					}, 1000);
-					api.sendCode({
-						phone: phoneInput.val()
-					}, function(data) {
-						$.alert(data.status == 200 ? '验证码发送成功' : data.msg);
-					});
-				}).removeAttr('data-ident');				
+				_bind(item, function() {
+					return !h5Check.phone(phoneInput);
+				}, 'sendCode', {
+					phone: phoneInput.val()
+				});			
 			}
 		});
 	};

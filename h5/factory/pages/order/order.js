@@ -10,6 +10,7 @@ require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident', '
 	var main = $('.order');
 	var gopToken = $.cookie('gopToken');
 	var viewBill = new View('order-bill');
+	var identInput = $('#order-ident');
 
 	var status = {
 		PROCESSING: '进行中',
@@ -71,7 +72,7 @@ require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident', '
 		},
 		identInput: function() { // 验证码输入
 			vm.ifConfirmPay = false;
-			H5Ident.bankCheck(vm.bankid, $('#order-ident'), function() {
+			H5Ident.bankCheck(vm.bankid, identInput, function() {
 				vm.ifConfirmPay = true;
 			});
 		},
@@ -81,10 +82,50 @@ require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident', '
 			dialogPaypass.show();
 			dialogPaypass.vm.callback = function(value) {
 				// 支付密码校验成功
+				api.pay({
+					gopToken: gopToken, // token
+					useGop: vm.gopIfUse, // 是否使用果仁
+					consumeOrderId: get.data.id, // 订单id
+					identifyingCode: identInput.val(), // 短信验证码
+					bankCardId: vm.bankid, // 银行卡id
+					payPassword: value, // 支付密码
+				}, function(data) {
+					if (data.status == 200) {
+						api.query({
+							gopToken: gopToken,
+							consumeOrderId: get.data.id
+						}, function(data) {
+							if (data.status == 200) {
+								showBill(data.data);
+							} else {
+								$.alert(data.msg);
+							}
+						});
+					} else {
+						$.alert(data.msg);
+					}
+				});
 			};
 		}
 	});
-	avalon.scan();
+
+	var vmBill = avalon.define({
+		$id: 'order-bill',
+		status: '',
+		headContent: '',
+		status: '',
+	});
+	var showBill = function(data) { // 显示订单详情
+		// data是来自于query接口的数据(data.data)
+		var order = data.consumeOrder; // 订单信息
+		var product = data.product; // 商品信息
+		var record = data.recordList; // 支付记录
+		vmBill.status = statusClass[order.status];
+		vmBill.headContent = status[order.status];
+		setTimeout(function() {
+			router.go('/view/order-bill');
+		}, 100);
+	};
 
 	var bankSelect = function(bank) { // 处理当前显示
 		bank = bank || vm.bankSelect.$model;
@@ -157,7 +198,7 @@ require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident', '
 					};
 					price.get();
 				} else {
-					router.go('/view/order-bill');
+					showBill(data.data);
 				}
 			} else {
 				$.alert(data.msg);
@@ -177,6 +218,8 @@ require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident', '
 
 		default: // 无来源
 	}
+
+	avalon.scan();
 });
 
 

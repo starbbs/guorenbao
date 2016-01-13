@@ -7,6 +7,7 @@ define(['mmRouter', 'mmHistory'], function() {
 
 	var obj = {};
 
+	var hasInit = false;
 	var router = {
 		/**
 		 * [router.init 初始化]
@@ -16,6 +17,8 @@ define(['mmRouter', 'mmHistory'], function() {
 		 * @return   {[type]}         [无返回]
 		 */
 		init: function(opts, ifRoot) {
+			if (hasInit) { return; }
+			hasInit = true;
 			if (typeof opts === 'boolean') {
 				ifRoot = opts;
 				opts = {};

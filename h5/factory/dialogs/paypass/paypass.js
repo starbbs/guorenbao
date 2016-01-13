@@ -29,6 +29,5 @@ define('h5-dialog-paypass', ['h5-dialog', 'h5-paypass', 'check'], function(Dialo
 	paypass.on('show', function() {
 		input.get(0).focus();
 	});
-	paypass.show();
 	return paypass;
 });

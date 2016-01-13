@@ -14,12 +14,12 @@ define('h5-wait', function() {
 	$.fn.wait = function(text) {
 		var el = this.get(0);
 		if (!text) { // 停止
-			clearInterval(el.waitTimer);
-			delete el.waitTimer;
+			clearInterval(el.__waitTimer);
+			delete el.__waitTimer;
 		} else { // 开始
 			var count = 0;
-			clearInterval(el.waitTimer);
-			el.waitTimer = setInterval(function() {
+			clearInterval(el.__waitTimer);
+			el.__waitTimer = setInterval(function() {
 				this.html(text + '....'.slice(0, ++count % 4));
 			}.bind(this), 1000);
 		}
