@@ -53,6 +53,7 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
         		//跳转到钱包地址
         		address_wallet.vm.hasNext=true;
         		address_wallet.vm.callback=function(){
+        			init();
         			router.go('/');
         		}       		
         		router.go('/view/address-wallet');   
@@ -73,6 +74,7 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
         		//跳转到设置果仁市场
         		address_mine.vm.hasNext=true;
         		address_mine.vm.callback=function(){
+        			init();
         			router.go('/');
         		}
         		router.go('/view/address-mine');
@@ -81,12 +83,14 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
         gopContact_click: function(e) {
         	//果仁宝联系人
         	vm.transferOutType='GOP_CONTACT';
-           	router.go('/view/transfer-contacts');        
+           	router.go('/view/transfer-contacts');
+           	transfer_contacts.query();
         },
         walletContact_click: function(e) {
         	//钱包联系人
         	vm.transferOutType='WALLET_CONTACT';
-           	router.go('/view/transfer-contacts');        
+           	router.go('/view/transfer-contacts'); 
+           	transfer_contacts.query();
         },
         transfer_click: function(e) {
         	//最近联系人
@@ -108,6 +112,25 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 		$id: 'transfer-new',
 		newTarget:'',
 		new_next_click:function(e){
+			if(transfer_new.newTarget==''){
+				$.alert("手机号或地址为空");
+				return;
+			}else if(transfer_new.newTarget.length==11){
+				var reg = /^0?1[3|4|5|8\7][0-9]\d{8}$/;
+				if (!reg.test(transfer_new.newTarget)) {
+				     $.alert("该手机号格式不正确");
+				     return;
+				}
+			}else if(transfer_new.newTarget.length==67 || transfer_new.newTarget.length==68){
+				if(transfer_new.newTarget.indexOf('GOP')!=0){
+					$.alert("该地址格式不正确");
+				    return;
+				}
+			}else{
+				$.alert("该地址格式不正确");
+			    return;
+			}
+			 
 	        if (transfer_new.newTarget!='') {
 	        	var nowData={};
 	        	var  re = /^1\d{10}$/
@@ -147,6 +170,10 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 		search:'',
 		list:[],
 		submit: function() {
+			transfer_contacts.query();
+			return false;
+		},
+		query: function() {
 			api.person({
 				contactType:vm.transferOutType,
 				contactQuery: transfer_contacts.search,
@@ -158,7 +185,6 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 					console.log(data);
 				}
 			});
-			return false;
 		},
 		listClick: function(ev) {
 			var item = $(ev.target).closest('.contacts-item');
@@ -387,6 +413,10 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 	};
 
 	var targetInit=function(transferOutType){
+		transfer_target.transferNum=0;//转果仁数
+		transfer_target.cnyMoney=0;//约合人民币
+		transfer_target.content='';//转账说明
+		transfer_target.notchecked=true,//是否没有检验通过
 		$('.transfer-target-head').hide();
 		$('.transfer-target-box').hide();
 		if (transferOutType=='WALLET_NEW') {
@@ -471,26 +501,26 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 	        		var item=data.data.transferOutList[i];
 	        		if (item.type=='WALLET_NEW') {	        			
 	        			if (item.photo) {
-	        				$('.img-w').show();
+	        				$('.img-w-'+data.personId).show();
 	        			}else{
 	        				item.icon='1';
-	        				$('.img-w').hide();
+	        				$('.img-w-'+data.personId).hide();
 	        			}
 	        		}else if (item.type=='GOP_NEW') {//新果仁宝
 	        			if (item.photo) {
-	        				$('.img-w').show();
+	        				$('.img-w-'+data.personId).show();
 	        			}else{
 	        				item.icon='1';
-	        				$('.img-w').hide();
+	        				$('.img-w-'+data.personId).hide();
 	        			}
 	        		}else if (item.type=='WALLET_CONTACT') {//钱包联系人
 	        			item.icon='5';;
 	        		}else if (item.type=='GOP_CONTACT') {//果仁宝联系人
 	        			if (item.photo) {
-	        				$('.img-w').show();
+	        				$('.img-w-'+data.personId).show();
 	        			}else{
 	        				item.icon='5';
-	        				$('.img-w').hide();
+	        				$('.img-w-'+data.personId).hide();
 	        			}
 	        		}else if (item.type=='GOP_MARKET') {//果仁市场
 	        			item.icon='3';
@@ -507,6 +537,14 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 	        		if (!item.address) {
 	        			item.address=item.phone;
 	        		};
+	        		if(item.address){
+	        			if(item.address.length==11){
+		        			item.addressStr=item.address.substr(0,4)+'****'+item.address.substr(7,4);
+	        				
+		        		}else if(item.address.length>11){
+		        			item.addressStr=item.address.substr(0,8)+'**********';
+		        		}
+	        		}
 	        		vm.list.push(item);	   				
 	        	}
 	        	

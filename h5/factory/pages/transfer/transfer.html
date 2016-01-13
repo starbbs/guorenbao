@@ -41,11 +41,11 @@
 		<div class="text-tip-top">最近</div>
 		<div class="block">
 			<div class="transfer-item" ms-repeat-item="list" ms-click="transfer_click" ms-attr-personId="item.personId" ms-attr-transferOutType="item.type" ms-attr-name="item.name" ms-attr-address="item.address" ms-attr-photo="item.photo">
-				<div class="transfer-item-img"><img ms-attr-src="item.photo||'./images/index-2.jpg'" alt="" class="img-w"></div>
+				<div class="transfer-item-img"><img ms-attr-src="item.photo||'./images/index-2.jpg'" alt="" class="img-w img-w-{item.personId}"></div>
 				<div class="transfer-icon-{{item.icon}}"></div>
 				<div class="transfer-item-line">
 					<div class="block-label">{{item.name}}</div>
-					<div class="transfer-item-address">{{item.address}}</div>
+					<div class="transfer-item-address">{{item.addressStr}}</div>
 				</div>
 			</div>			
 		</div>
