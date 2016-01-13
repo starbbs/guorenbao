@@ -75,8 +75,26 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
         		//跳转到设置果仁市场
         		address_mine.vm.hasNext=true;
         		address_mine.vm.callback=function(){
-        			init();
-        			router.go('/');
+        			api.info({
+        				gopToken: gopToken
+        			}, function(data) {
+        				if (data.status == 200) {						
+        					if(data.data.marketGopAddress){
+        						vm.marketGopAddress=data.data.marketGopAddress;//果仁市场地址
+        						vm.transferOutType='GOP_MARKET';
+        	            		vm.gopAddress=vm.marketGopAddress;
+        	            		var nowData={};
+        	            		nowData.address=vm.marketGopAddress;
+        	            		nowData.name='果仁市场';
+        	            		nowData.isMarket=true;
+        	            		$.extend(transfer_target, nowData); 
+        	            		targetInit(vm.transferOutType);
+        	            		router.go('/view/transfer-target'); 
+        					}
+        				} else {
+        					console.log(data);
+        				}
+        			}); 
         		}
         		router.go('/view/address-mine');
         	}
@@ -292,27 +310,27 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 					content:transfer_target.content,
 					transferNum:parseFloat(transfer_target.transferNum),
 					payPassword:transfer_target.payPassword
-				}, function(data) {
-					var nowData={};
-					nowData.address=transfer_target.address;
-					nowData.phone=transfer_target.phone;
-					nowData.name=transfer_target.name;
-					nowData.photo=transfer_target.photo;
-					nowData.personId=transfer_target.personId;
-					nowData.walletId=transfer_target.walletId;
-					nowData.serviceFee=transfer_target.serviceFee;
-					nowData.transferNum=transfer_target.transferNum;
-					nowData.content=transfer_target.content;
-					nowData.transferOutId=data.data.transferOutId;
+				}, function(data) {					
 					if (data.status == 200) {	
-						nowData.successFlag=true;					
+						var nowData={};
+						nowData.successFlag=true;	
+						nowData.address=transfer_target.address;
+						nowData.phone=transfer_target.phone;
+						nowData.name=transfer_target.name;
+						nowData.photo=transfer_target.photo;
+						nowData.personId=transfer_target.personId;
+						nowData.walletId=transfer_target.walletId;
+						nowData.serviceFee=transfer_target.serviceFee;
+						nowData.transferNum=transfer_target.transferNum;
+						nowData.content=transfer_target.content;
+						nowData.transferOutId=data.data.transferOutId;
+						$.extend(transfer_bill, nowData);
+						router.go('/view/transfer-bill'); 
+						transfer_bill_init(nowData);
 					} else {
-						nowData.successFlag=false;
 						console.log(data);
-					}
-					$.extend(transfer_bill, nowData);
-					router.go('/view/transfer-bill'); 
-					transfer_bill_init(nowData);
+						$.alert(data);
+					}					
 				});
 			};
 		},
