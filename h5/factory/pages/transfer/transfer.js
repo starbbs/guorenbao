@@ -314,7 +314,11 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 					if (data.status == 200) {	
 						var nowData={};
 						nowData.successFlag=true;	
-						nowData.address=transfer_target.address;
+						if(transfer_target.address.length==11){
+							nowData.addres=transfer_target.address.substr(0,4)+'****'+transfer_target.address.substr(7,4);
+						}else{
+							nowData.address=transfer_target.address.substr(0,8)+'**********';
+						}					
 						nowData.phone=transfer_target.phone;
 						nowData.name=transfer_target.name;
 						nowData.photo=transfer_target.photo;
