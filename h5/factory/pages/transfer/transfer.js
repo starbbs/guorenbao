@@ -168,11 +168,17 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
         			address:transfer_new.newTarget
 	        	}, function(data) {
 	        		if (data.status == 200) {
-	        			if(data.data){
-	        				nowData.name=data.data.nick;
+	        			if(data.data){	        				
 		        			if(data.data.photo){
 		        				nowData.photo=data.data.photo;
 		        			}
+		        			if(data.data.nick){
+		        				nowData.name=data.data.nick;
+		        			}else{
+		        				nowData.name="未命名地址";
+		        			}
+	        			}else{
+	        				nowData.name="未命名地址";
 	        			}	        			
 		        		$.extend(transfer_target, nowData);
 		        	    targetInit(vm.transferOutType);
@@ -181,6 +187,7 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 	        			if(transfer_new.newTarget.length==11){
 	        				$.alert('该手机号未注册');
 	        			}else{
+	        				nowData.name="未命名地址";
 	        				$.extend(transfer_target, nowData);
 			        	    targetInit(vm.transferOutType);
 				        	router.go('/view/transfer-target');
