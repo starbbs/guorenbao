@@ -3,7 +3,7 @@
 // H5微信端 --- 转果仁
 
 
-require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address-mine','h5-view-address-wallet','h5-text','h5-view-authentication', 'h5-weixin'], function(router,api,View,price,nickname,address_mine,address_wallet) {
+require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address-mine','h5-view-address-wallet','h5-dialog-paypass','h5-text','h5-view-authentication', 'h5-weixin'], function(router,api,View,price,nickname,address_mine,address_wallet,dialogPaypass) {
     
     router.init(true);
 	var gopToken = $.cookie('gopToken');
@@ -298,49 +298,56 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 				transfer_target.notchecked=true;
 			}
 		},
+		commit_send:function(){
+			
+			
+		},
 		transfer_commit_click: function() {
 			if (transfer_target.transferNum>0 && transfer_target.transferNum<=transfer_target.gopNum) {
-				var transferOutType=vm.transferOutType;
-				if (vm.transferOutType.indexOf('NEW')>0) {
-					transferOutType='NEW';
-				}
-				api.transfer({
-					gopToken: gopToken,
-					transferType:transferOutType,
-					personId:transfer_target.personId,
-					address:transfer_target.address,
-					walletId:transfer_target.walletId,
-					serviceFee:parseFloat(transfer_target.serviceFee),
-					content:transfer_target.content,
-					transferNum:parseFloat(transfer_target.transferNum),
-					payPassword:transfer_target.payPassword
-				}, function(data) {					
-					if (data.status == 200) {	
-						var nowData={};
-						nowData.successFlag=true;	
-						if(transfer_target.address.length==11){
-							nowData.addres=transfer_target.address.substr(0,4)+'****'+transfer_target.address.substr(7,4);
-						}else{
-							nowData.address=transfer_target.address.substr(0,8)+'**********';
+				dialogPaypass.show();
+				dialogPaypass.vm.callback = function(value) {
+					var transferOutType=vm.transferOutType;
+					if (vm.transferOutType.indexOf('NEW')>0) {
+						transferOutType='NEW';
+					}
+					api.transfer({
+						gopToken: gopToken,
+						transferType:transferOutType,
+						personId:transfer_target.personId,
+						address:transfer_target.address,
+						walletId:transfer_target.walletId,
+						serviceFee:parseFloat(transfer_target.serviceFee),
+						content:transfer_target.content,
+						transferNum:parseFloat(transfer_target.transferNum),
+						payPassword:value
+					}, function(data) {					
+						if (data.status == 200) {	
+							var nowData={};
+							nowData.successFlag=true;	
+							if(transfer_target.address.length==11){
+								nowData.addres=transfer_target.address.substr(0,4)+'****'+transfer_target.address.substr(7,4);
+							}else{
+								nowData.address=transfer_target.address.substr(0,8)+'**********';
+							}					
+							nowData.phone=transfer_target.phone;
+							nowData.name=transfer_target.name;
+							nowData.photo=transfer_target.photo;
+							nowData.personId=transfer_target.personId;
+							nowData.walletId=transfer_target.walletId;
+							nowData.serviceFee=transfer_target.serviceFee;
+							nowData.transferNum=transfer_target.transferNum;
+							nowData.content=transfer_target.content;
+							nowData.transferOutId=data.data.transferOutId;
+							$.extend(transfer_bill, nowData);
+							router.go('/view/transfer-bill'); 
+							transfer_bill_init(nowData);
+						} else {
+							console.log(data);
+							$.alert(data);
 						}					
-						nowData.phone=transfer_target.phone;
-						nowData.name=transfer_target.name;
-						nowData.photo=transfer_target.photo;
-						nowData.personId=transfer_target.personId;
-						nowData.walletId=transfer_target.walletId;
-						nowData.serviceFee=transfer_target.serviceFee;
-						nowData.transferNum=transfer_target.transferNum;
-						nowData.content=transfer_target.content;
-						nowData.transferOutId=data.data.transferOutId;
-						$.extend(transfer_bill, nowData);
-						router.go('/view/transfer-bill'); 
-						transfer_bill_init(nowData);
-					} else {
-						console.log(data);
-						$.alert(data);
-					}					
-				});
-			};
+					});
+				};
+			}
 		},
 	});
 

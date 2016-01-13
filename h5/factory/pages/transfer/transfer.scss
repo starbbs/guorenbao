@@ -8,11 +8,16 @@
 @import '../../../source/scss/main';
 
 @import '../../views/view';
+
 @import '../../views/nickname/nickname';
+
 @import '../../views/authentication/authentication';
+
 @import '../../views/address/address';
 
-// @import '../../dialogs/dialog';
+@import '../../dialogs/dialog';
+
+@import '../../dialogs/paypass/paypass';
 
 @import '../../components/bill/bill';
 
