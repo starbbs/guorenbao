@@ -105,7 +105,7 @@ require(['router', 'api','h5-view','check','h5-view-address-mine','h5-view-addre
 		        				vm.name=nick.nickname;
 		        			}
 		        			if(vm.setnick=='未设置'){
-		        				vm.setnick=='已设置';
+		        				vm.setnick=='修改';
 		        			}
 		        			vm.nickname=nick.nickname;
 		        			router.go('/');
@@ -129,7 +129,7 @@ require(['router', 'api','h5-view','check','h5-view-address-mine','h5-view-addre
 				vm.photo = data.data.photo;
 			}			
 			if(data.data.nickname){
-				vm.setnick='已设置';//昵称。null或空字符串都表示未设置
+				vm.setnick='修改';//昵称。null或空字符串都表示未设置
 				vm.name = data.data.nickname;
 				vm.nickname=data.data.nickname;
 			}
