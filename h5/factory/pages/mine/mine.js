@@ -8,9 +8,9 @@ require(['router', 'api','h5-view','check','h5-view-address-mine','h5-view-addre
 
     var gopToken = $.cookie('gopToken');
 	var mine = $('.mine');
-	var nickname = new View('nickname');
 	var setting_address = new View('setting-address');
 	var setting=new View('setting');
+	var nicknameView = new View('nickname');
 	var setting_about=new View('setting-about');
 	var setting_us=new View('setting-us');
 	var setting_feedback=new View('setting-feedback');
@@ -29,6 +29,10 @@ require(['router', 'api','h5-view','check','h5-view-address-mine','h5-view-addre
 		hasMarketAddress:false,//是否有果仁市场地址标志
 		setMarketAddress:false,//正在设置果仁市场地址标志
 		marketGopAddress:'',//果仁市场地址
+		nick_click:function(){
+			nick.nickname=vm.nickname;
+			router.go('/view/nickname');
+		},
         address_mine_click:function(){//果仁市场跳转
             var nowData={};
             if(vm.marketGopAddress!=''){
@@ -63,29 +67,6 @@ require(['router', 'api','h5-view','check','h5-view-address-mine','h5-view-addre
             });       
             
         },
-		nickname_click: function () { //设置昵称
-			if(!check.empty(vm.nickname)){
-				 api.updateNick({
-		        		gopToken: gopToken,
-		        		nick:vm.nickname
-		        	}, function(data) {
-		        		if (data.status == 200) {
-		        			$.alert('设置成功!');
-		        			if(!vm.setRealName){
-		        				vm.name=vm.nickname;
-		        			}
-		        			if(vm.setnick=='未设置'){
-		        				vm.setnick=='已设置';
-		        			}
-		        			router.go('/');
-		        		} else {
-		        			console.log(data);
-		        		}
-		        	});
-			}else{
-				$.alert('请输入昵称!');
-			}
-        },
         address_back_click: function () {//返回
         	router.go('/');
         },
@@ -109,7 +90,34 @@ require(['router', 'api','h5-view','check','h5-view-address-mine','h5-view-addre
 
 	});
 	
-
+	var nick=avalon.define({
+		$id: 'nickname',
+		nickname: '',
+		nickname_click: function() {
+			if(!check.empty(nick.nickname)){
+				 api.updateNick({
+		        		gopToken: gopToken,
+		        		nick:nick.nickname
+		        	}, function(data) {
+		        		if (data.status == 200) {
+		        			$.alert('设置成功!');
+		        			if(!vm.setRealName){
+		        				vm.name=nick.nickname;
+		        			}
+		        			if(vm.setnick=='未设置'){
+		        				vm.setnick=='已设置';
+		        			}
+		        			vm.nickname=nick.nickname;
+		        			router.go('/');
+		        		} else {
+		        			console.log(data);
+		        		}
+		        	});
+			}else{
+				$.alert('请输入昵称!');
+			}
+		}
+	});
 	
 	//初始加载用户信息
 	api.info({
@@ -143,14 +151,7 @@ require(['router', 'api','h5-view','check','h5-view-address-mine','h5-view-addre
 			console.log(data);
 		}
 	});
-	
-	// $(document).on('swipeLeft', '.address-item', function() {
-	// 	$(this).addClass('del');
-	// });
-	
 
-	
-	
 	avalon.scan();
 	setTimeout(function() {
 		mine.addClass('on');
