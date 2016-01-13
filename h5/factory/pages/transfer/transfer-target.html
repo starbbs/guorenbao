@@ -2,29 +2,29 @@
     <div class="transfer-target-head my-wallet">
 		<div class="transfer-icon-2-big"></div>
 		<div class="transfer-target-head-name">我的钱包</div>
-		<div class="transfer-target-head-address">{{address}}</div>
+		<div class="transfer-target-head-address">{{address.substr(0,8)+'**********'}}</div>
 	</div>
 	<div class="transfer-target-head gop-market">
 		<div class="transfer-icon-3-big"></div>
 		<div class="transfer-target-head-name">果仁市场</div>
-		<div class="transfer-target-head-address">{{address}}</div>
+		<div class="transfer-target-head-address">{{address.substr(0,8)+'**********'}}</div>
 	</div>
 	<div class="transfer-target-head phone-address">
 		<div class="transfer-target-head-img"><img ms-attr-src="photo" alt="" class="img-w"></div>
 		<div class="transfer-target-head-name">{{name}}</div>
-		<div class="transfer-target-head-address">{{address}}</div>
+		<div class="transfer-target-head-address">{{address.substr(0,4)+'****'+address.substr(7,4)}}</div>
 	</div>
 	<div class="transfer-target-head wallet-address">
 		<div class="transfer-icon-5-big"></div>
 		<div class="transfer-target-head-name">{{name}}</div>
-		<div class="transfer-target-head-address">{{address}}</div>
+		<div class="transfer-target-head-address">{{address.substr(0,8)+'**********'}}</div>
 	</div>
 	<div class="transfer-target-box wallet">
 		<div class="transfer-target-box-title">转出数量</div>
 		<div class="transfer-target-box-line">
 			<div class="text">
 				<span class="font-label">G</span>
-				<div class="text-box"><input id="address-mine-input" name="address-mine-input" class="text-input" autocomplete="off" ms-attr-placeholder="现可用果仁{{gopNum}}" type="number" maxlength="10" data-text='close' ms-on-input="getCnyMoney" ms-duplex="transferNum?transferNum:''"></div>
+				<div class="text-box"><input id="address-mine-input" name="address-mine-input" class="text-input" autocomplete="off" ms-attr-placeholder="现可用果仁{{parseFloat(gopNum).toFixed(2)}}" type="number" maxlength="10" data-text='close' ms-on-input="getCnyMoney" ms-duplex="transferNum?transferNum:''"></div>
 				<div class="text-close"></div>
 			</div>
 		</div>
@@ -37,7 +37,7 @@
 		<div class="transfer-target-box-line">
 			<div class="text">
 				<span class="font-label">G</span>
-				<div class="text-box"><input id="address-mine-input" name="address-mine-input" class="text-input" autocomplete="off" ms-attr-placeholder="现可用果仁{{gopNum}}" type="number" maxlength="10" data-text='close' ms-on-input="getCnyMoney" ms-duplex="transferNum?transferNum:''"></div>
+				<div class="text-box"><input id="address-mine-input" name="address-mine-input" class="text-input" autocomplete="off" ms-attr-placeholder="现可用果仁{{parseFloat(gopNum).toFixed(2)}}" type="number" maxlength="10" data-text='close' ms-on-input="getCnyMoney" ms-duplex="transferNum?transferNum:''"></div>
 				<div class="text-close"></div>
 			</div>
 		</div>
