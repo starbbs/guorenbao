@@ -1,9 +1,9 @@
 <div class="address-wallet" ms-controller="address-wallet">
     <div class="text-tip-top">我的钱包地址</div>
 	<div class="block">
-		<div class="block-item address-wallet-item address-item"  ms-repeat-item="walletList"  ms-class-1="del:defaultWallet" ms-class-2="top:!defaultWallet">
-			<div class="block-label">{{item.address}}</div>
-			<div class="address-top" ms-attr-data-id="{{item.id}}" ms-click="walletAddress_top_click">置顶</div>
+		<div class="block-item address-wallet-item address-item"  ms-repeat-item="walletList"  ms-attr-data-top="{{item.defaultWallet}}">
+			<div class="block-label">{{item.address.substr(0,8)+'**********'}}</div>
+			<div class="address-top" ms-attr-data-id="{{item.id}}" ms-click="walletAddress_top_click" ms-if-loop="!$first">置顶</div>
 			<div class="address-del" ms-attr-data-id="{{item.id}}" ms-click="walletAddress_del_click">删除</div>
 		</div>
 	</div>

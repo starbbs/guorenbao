@@ -59,6 +59,11 @@ define('h5-view-address-mine', ['router', 'api','h5-view','check','h5-alert','h5
 	$(document).on('swipeLeft', '.address-item', function() {
 		$(this).addClass('del');
 	});
+	
+	$(document).on('swipeRight', '.address-item', function() {
+		$(this).removeClass('del');
+	});
+
 
 	return address_mine;
 });
