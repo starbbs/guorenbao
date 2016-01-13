@@ -108,4 +108,112 @@ body {
 			@include sprite($img + '/duobao.png', 46px);
 		}
 	}
+
+	&-block { // 块
+		overflow: hidden;
+		&-time {
+			text-align: center;
+			line-height: 1;
+			font-size: 12px;
+			color: $g-white;
+			margin-top: 20px;
+			&-inline {
+				@extend .font-num;
+				display: inline-block;
+				border-radius: $g-radius;
+				background-color: $g-silver;
+				padding: 5px 7px;
+			}
+		}
+		&-main {
+			display: block;
+			margin: 16px $g-padding 0;
+			position: relative;
+			border: $g-border;
+			background-color: $g-white;
+			overflow: hidden;
+			border-radius: $g-radius;
+			line-height: 20px;
+			&-img {}
+			&-desc {
+				font-size: 14px;
+				color: #777;
+				padding: 10px $g-padding;
+			}
+			&-bottom {
+				border-top: $g-border;
+				@include height(38px);
+				padding: 0 $g-padding;
+				font-size: 14px;
+				&:after {
+					content: '';
+					display: block;
+					float: right;
+					margin-top: 12px;
+					@include sprite($img + '/arrow.png', 8px, 13px);
+				}
+			}
+			&-top {
+				@include height(70px);
+				font-size: 16px;
+				&-img {
+					float: left;
+					@include square(26px);
+					margin-left: $g-padding;
+					margin-top: 22px;
+				}
+				&-word {
+					margin-left: 58px;
+					margin-right: $g-padding;
+					@extend %text-overflow;
+				}
+			}
+		}
+		&-icon {
+			&.contacts { // 钱包联系人
+				@include sprite($img + '/contacts.png', 26px);
+			}
+			// &.gop-contacts { // 果仁联系人
+			// 	@include sprite($img + '/gop-contacts.png', 26px);
+			// }
+			&.market { // 果仁市场
+				@include sprite($img + '/market.png', 26px);
+			}
+			&.wallet { // 钱包
+				@include sprite($img + '/wallet.png', 26px);
+			}
+			&.fail { // 交易失败
+				@include sprite($img + '/fail.png', 26px);
+			}
+			&.success { // 交易成功
+				@include sprite($img + '/success.png', 26px);
+			}
+			&.close { // 交易关闭
+				@include sprite($img + '/close.png', 26px);
+			}
+		}
+	}
+
+
+	&-system {
+		@extend .view-style;
+	}
+	&-guo {
+		@extend .view-style;
+	}
+	&-message {
+		@extend .view-style;
+		&-title {
+			line-height: 20px;
+			font-size: 14px;
+			text-align: center;
+			margin: 20px $g-padding 0;
+		}
+		&-paragraph {
+			line-height: 18px;
+			font-size: 12px;
+			color: $g-gray;
+			margin: 16px $g-padding;
+		}
+	}
 }

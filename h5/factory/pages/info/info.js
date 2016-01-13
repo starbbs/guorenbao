@@ -4,6 +4,15 @@
 
 
 require(['api', 'router', 'h5-weixin'], function(api, router) {
+
 	router.init(true);
+
+	var gopToken = $.cookie('gopToken');
+
+	api.messageInfo({
+		gopToken: gopToken
+	}, function(data) {
+		console.log(data);
+	});
 });
 
