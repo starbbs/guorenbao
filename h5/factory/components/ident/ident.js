@@ -4,9 +4,26 @@
 
 
 define('h5-ident', ['api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], function(api, check, h5Check) {
+	/**
+	 * [_reset 重置ident元素]
+	 * @Author   张树垚
+	 * @DateTime 2016-01-13 11:23:48
+	 * @param    {[jQuery]}      self     [ident元素]
+	 * @return   {[null]}                 [无返回]
+	 */
     var _reset = function(self) {
 		self.removeClass('silver').addClass('blue').html('获取验证码');
 	};
+	/**
+	 * [_bind description]
+	 * @Author   张树垚
+	 * @DateTime 2016-01-13 11:23:42
+	 * @param    {[domElement]}         item          [绑定元素]
+	 * @param    {[function]}           checkFun      [验证函数, 返回true则禁止下一步]
+	 * @param    {[string]}             apiName       [接口名称]
+	 * @param    {[function|json]}      apiData       [接口数据, 动态数据用function传]
+	 * @return   {[null]}                             [无返回]
+	 */
 	var _bind = function(item, checkFun, apiName, apiData) {
 		var count = 0; // 点击次数
 		var self = $(item);
@@ -31,7 +48,7 @@ define('h5-ident', ['api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], 
 					self.html(time + '秒后重发');
 				}
 			}, 1000);
-			api[apiName](apiData, function(data) {
+			api[apiName](typeof apiData === 'function' ? apiData() : apiData, function(data) {
 				$.alert(data.status == 200 ? '验证码发送成功' : data.msg);
 			});
 		}).removeAttr('data-ident');
@@ -66,16 +83,17 @@ define('h5-ident', ['api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], 
 					var vm = avalon.vmodels[arr[0]];
 					_bind(item, function() {
 						return !check.phone(vm[arr[1]] + '').result;
-					}, 'sendCode', {
-						phone: vm[arr[1]]
+					}, 'sendCode', function() {
+						return { phone: vm[arr[1]] };
 					});
 				}, 300);
 			} else {
-				var phoneInput = $('#' + item.dataset.ident);
+				var phoneInput = $('#' + arr[0]);
+				console.log(arr[0], phoneInput)
 				_bind(item, function() {
 					return !h5Check.phone(phoneInput);
-				}, 'sendCode', {
-					phone: phoneInput.val()
+				}, 'sendCode', function() {
+					return { phone: phoneInput.val() };
 				});			
 			}
 		});

@@ -3,7 +3,14 @@
 // H5微信端 --- 订单
 
 
-require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident', 'h5-dialog-bankcard', 'h5-dialog-paypass', 'h5-bankcard-append', 'h5-bankcard-ident'], function(api, get, router, View, price, H5Bank, H5Ident, dialogBankcard, dialogPaypass, viewBankcardAppend, viewBankcardIdent) {
+require(['api', 'get', 'router',
+	'h5-view', 'h5-bankcard-append', 'h5-bankcard-ident', 'h5-view-authentication',
+	'h5-price', 'h5-bank', 'h5-ident', 'h5-component-bill',
+	'h5-dialog-bankcard', 'h5-dialog-paypass'],
+	function(api, get, router,
+		View, viewBankcardAppend, viewBankcardIdent, viewAuthentication,
+		price, H5Bank, H5Ident, H5Bill,
+		dialogBankcard, dialogPaypass) {
 
 	router.init();
 
@@ -11,19 +18,6 @@ require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident', '
 	var gopToken = $.cookie('gopToken');
 	var viewBill = new View('order-bill');
 	var identInput = $('#order-ident');
-
-	var status = {
-		PROCESSING: '进行中',
-		SUCCESS: '交易成功',
-		FAILURE: '交易失败',
-		CLOSE: '交易关闭'
-	};
-	var statusClass = {
-		PROCESSING: 'going',
-		SUCCESS: 'success',
-		FAILURE: 'fail',
-		CLOSE: 'close'
-	};
 
 	var vm = avalon.define({
 		$id: 'order',
@@ -114,14 +108,22 @@ require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident', '
 		status: '',
 		headContent: '',
 		status: '',
+		failReason: '',
+		orderMoney: 0,
+		payMoney: 0,
+		payGop: 0,
 	});
 	var showBill = function(data) { // 显示订单详情
 		// data是来自于query接口的数据(data.data)
 		var order = data.consumeOrder; // 订单信息
 		var product = data.product; // 商品信息
-		var record = data.recordList; // 支付记录
-		vmBill.status = statusClass[order.status];
-		vmBill.headContent = status[order.status];
+		var record = data.recordList || {}; // 支付记录
+		vmBill.status = H5Bill.statusClass[order.status];
+		vmBill.headContent = H5Bill.statusZhCN[order.status];
+		vmBill.failReason = record.payResult || '';
+		vmBill.orderMoney = order.orderMoney || 0;
+		vmBill.payMoney = record.payMoney || 0;
+		vmBill.payGop = record.payGop || 0;
 		setTimeout(function() {
 			router.go('/view/order-bill');
 		}, 100);
@@ -188,6 +190,19 @@ require(['api', 'get', 'router', 'h5-view', 'h5-price', 'h5-bank', 'h5-ident', '
 							});
 						};
 					}
+					// 判断是否实名认证
+					api.isCertification({
+						gopToken: gopToken
+					}, function(data) {
+						if (data.status == 200) {
+
+						} else if (data.status == 400) {
+							$.alert('您尚未实名认证');
+							viewAuthentication.show();
+						} else {
+							$.alert(data.msg);
+						}
+					});
 					// 打开页面
 					setTimeout(function() {
 						main.addClass('on');

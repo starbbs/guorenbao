@@ -53,6 +53,7 @@
 			'h5-text': 					H5_COMPONENTS + '/text/text',
 			'h5-paypass': 				H5_COMPONENTS + '/paypass/paypass',
 			'h5-wait': 					H5_COMPONENTS + '/wait/wait',
+			'h5-component-bill': 		H5_COMPONENTS + '/bill/bill',
 			'h5-view': 					H5_VIEWS + '/view',
 			'h5-view-authentication': 	H5_VIEWS + '/authentication/authentication',
 			'h5-view-choose': 			H5_VIEWS + '/choose/choose',

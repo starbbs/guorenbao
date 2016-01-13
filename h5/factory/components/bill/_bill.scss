@@ -64,6 +64,11 @@
 				@include sprite($img + '/3.png', $w);
 			}
 		}
+		&.close {
+			&:before {
+				@include sprite($img + '/4.png', $w);
+			}
+		}
 	}
 	&-get {
 		@extend .font-money;

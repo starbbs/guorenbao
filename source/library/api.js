@@ -624,9 +624,6 @@ define('api', ['cookie', 'h5-wait'], function() {
 		{
 			"status": 200,
 			"msg": "success"
-			"data": {
-				"isCertification": "实名认证"
-			}
 		}
 	 */
 	add('isCertification', '/security/isCertification');

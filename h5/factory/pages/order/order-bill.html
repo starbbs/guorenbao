@@ -2,21 +2,21 @@
 	<div class="order-bill-scroll">
 		<div class="bill-box last">
 			<div class="bill-head" ms-class="{{status}}">{{headContent}}</div>
-			<div class="bill-reason" ms-if="status=='fail'">
+			<div class="bill-reason" ms-if="failReason">
 				<div class="fl">失败原因</div>
-				<div class="fr red">银行卡金额不足</div>
+				<div class="fr red">{{failReason}}</div>
 			</div>
-			<div class="order-bill-detail">
+			<div class="order-bill-detail" ms-if="orderMoney">
 				<div class="bill-label dark">订单金额(¥)</div>
-				<div class="bill-num dark">-100.00</div>
-				<div class="order-bill-detail-box">
+				<div class="bill-num dark">-{{orderMoney.toFixed(2)}}</div>
+				<div class="order-bill-detail-box" ms-if="payMoney||payGop">
 					<div class="order-bill-detail-item">
 						<div class="bill-label">支付金额</div>
-						<div class="bill-num">-25.39</div>
+						<div class="bill-num">-{{payMoney.toFixed(2)}}</div>
 					</div>
 					<div class="order-bill-detail-item">
-						<div class="bill-label">使用<span class="bill-green">23.68</span>个果仁</div>
-						<div class="bill-num">-74.61</div>
+						<div class="bill-label">使用<span class="bill-green">{{payGop.toFixed(2)}}</span>个果仁</div>
+						<div class="bill-num">-{{(orderMoney-payMoney).toFixed(2)}}</div>
 					</div>
 				</div>
 			</div>

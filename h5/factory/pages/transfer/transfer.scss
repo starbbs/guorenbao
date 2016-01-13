@@ -7,12 +7,10 @@
 
 @import '../../../source/scss/main';
 
-
 @import '../../views/view';
-
 @import '../../views/nickname/nickname';
-
 @import '../../views/authentication/authentication';
+@import '../../views/address/address';
 
 // @import '../../dialogs/dialog';
 
@@ -20,7 +18,6 @@
 
 @import '../contacts/contacts';
 
-@import '../../views/address/address';
 
 body {
     background-color: $g-background;
