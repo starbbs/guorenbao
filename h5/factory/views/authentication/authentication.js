@@ -12,18 +12,33 @@ define('h5-view-authentication', ['h5-view', 'api','h5-text','cookie'], function
 		realName:'',
 		Idcard:'',
 		next_click: function() {
-			api.applyCertification({
-				gopToken: gopToken,
-				name:vm.realName,
-				IDcard:vm.Idcard
-			}, function(data) {		
-				if (data.status == 200) {
-					$('.not-authed').removeClass('on');
-					$('.authed').addClass('on');
-				} else {
-					console.log(data);
-				}
-			});
+			var reg1=/^[\u2E80-\u9FFF]+$/;//Unicode编码中的汉字范围
+			if(!reg1.test(vm.realName)){
+				 $.alert("请输入中文名");
+				 return;
+			}
+			
+			var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;  
+			   if(reg.test(vm.Idcard))  
+			   {  
+				   api.applyCertification({
+						gopToken: gopToken,
+						name:vm.realName,
+						IDcard:vm.Idcard
+					}, function(data) {		
+						if (data.status == 200) {
+							$('.not-authed').removeClass('on');
+							$('.authed').addClass('on');
+						} else {
+							console.log(data);
+							$.alert("身份证号或名字错误");
+						}
+					});
+			   } else{
+				   $.alert("身份证号格式错误");
+			   }
+			   
+			
 		},
 		finish_click:function(){
 			router.go('/');
@@ -35,7 +50,7 @@ define('h5-view-authentication', ['h5-view', 'api','h5-text','cookie'], function
 	}, function(data) {		
 		if (data.status == 200 && data.data.name) {
 			vm.realName="*"+data.data.name.substr(1,data.data.name.length-1);	
-			vm.Idcard=data.data.IDcard.substr(0,2)+"***********"+data.data.IDcard.substr(data.data.IDcard.length-3,2);
+			vm.Idcard=data.data.IDcard.substr(0,2)+"***********"+data.data.IDcard.substr(data.data.IDcard.length-2,2);
 			$('.not-authed').removeClass('on');
 			$('.authed').addClass('on');
 		} else {
