@@ -13,7 +13,7 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'api', 'h5-paypass'], functio
 		callback: $.noop, // 下一步
 		input: function() {
 			var value = this.value;
-			// if (check.paypassCondition(value) && check.paypass(value).result) {
+			if (check.paypassCondition(value) && check.paypass(value).result) {
 				api.checkPayPwd({
 					gopToken: $.cookie('gopToken'),
 					payPwd: value
@@ -25,7 +25,7 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'api', 'h5-paypass'], functio
 						console.log(data);
 					}
 				});
-			// }
+			}
 		}
 	});
 	var input = $('#dialog-paypass-input');
