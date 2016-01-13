@@ -757,10 +757,10 @@ define('api', ['cookie', 'h5-wait'], function() {
 	/** 39.验证密保问题
 	 * 参数:
 		{
-			"gopToken": "e8er843er834i8df8d34jddfdf89df89dffd8d8f934j43jk34"，
-			"qtNumber": 1,
-			"qtID": 5,
-			"qt": "不知道"
+		    "gopToken":"e8er843er834i8df8d34jddfdf89df89dffd8d8f934j43jk34"，
+		    "qtNumber":1,
+		    "question":"我爸爸叫什么？",
+		     "answer" :"xxxx"
 		}
 	 * 返回:
 		{
@@ -1386,6 +1386,20 @@ define('api', ['cookie', 'h5-wait'], function() {
 	 */
 	add('phoneSendCode', '/common/user/phone/sendCode');
 
+	/** 65.验证手机短信验证码是否正确
+	 * 参数:
+		{
+			"gopToken":"3452345234534dfg",
+		  	"identifyingCode":"15079817107"
+		}
+	 * 返回:
+		{
+			"status": 200,
+			"msg": "success"
+		}
+	 */
+	add('phoneIdentifyingCode', '/common/user/phone/identifyingCode');
+	
 	/** 66.发送银行手机号验证码
 	 * 参数:
 		{
@@ -1474,5 +1488,20 @@ define('api', ['cookie', 'h5-wait'], function() {
 	 */
 	add('weixinInfo', '/common/weixin/signature');
 
+	/**
+	 * 68.获取密保问题 
+	 * {
+		    "gopToken":"e8er843er834i8df8d34jddfdf89df89dffd8d8f934j43jk34"，
+		    "qusetionNumber":1
+		}
+		
+		{
+		    "status":200,
+		    "msg":"success",
+		    "data":{"question":"我爸爸叫什么？"}
+		}
+	 */
+	add('getQuestion', '/security/getQuestion');
+	
 	return api;
 });
