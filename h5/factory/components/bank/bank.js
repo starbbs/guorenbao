@@ -21,6 +21,7 @@ define('h5-bank', function() {
 				'平安银行:pingan',
 				'招商银行:zhaoshang',
 				'中国银行:zhongguo',
+				'中国农业银行:zhongnong',
 				'中信银行:zhongxin'].reduce(function(json, item) {
 					item = item.split(':');
 					json[item[0]] = item[1];

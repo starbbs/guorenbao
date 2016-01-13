@@ -3,7 +3,7 @@
 // H5微信端 --- 注册页面
 
 
-require(['api', 'check', 'router', 'h5-view', 'h5-check', 'h5-ident', 'h5-text', 'h5-alert', 'h5-paypass', 'cookie'], function(api, check, router, View, h5Check, h5Ident) {
+require(['api', 'check', 'router', 'h5-view', 'h5-check', 'h5-ident', 'h5-text', 'h5-alert', 'h5-paypass', 'h5-weixin'], function(api, check, router, View, h5Check, h5Ident) {
 
 	router.init(true);
 

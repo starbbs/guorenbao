@@ -3,7 +3,7 @@
 // H5微信端 --- 个人首页
 
 
-require(['router', 'api', 'h5-price'], function(router, api, price) {
+require(['router', 'api', 'h5-price', 'h5-weixin'], function(router, api, price) {
 
 	router.init(true);
 

@@ -3,7 +3,7 @@
 // H5微信端 --- 手机充值
 
 
-require(['api', 'check', 'get', 'h5-alert'], function(api, check, get) {
+require(['api', 'check', 'get', 'h5-alert', 'h5-weixin'], function(api, check, get) {
 	var gopToken = $.cookie('gopToken');
 	var main = $('.phonecharge');
 	var focusTimer = null;

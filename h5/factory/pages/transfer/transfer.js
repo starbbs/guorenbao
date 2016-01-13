@@ -3,7 +3,7 @@
 // H5微信端 --- 转果仁
 
 
-require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address-mine','h5-view-address-wallet','h5-text','h5-view-authentication'], function(router,api,View,price,nickname,address_mine,address_wallet) {
+require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address-mine','h5-view-address-wallet','h5-text','h5-view-authentication', 'h5-weixin'], function(router,api,View,price,nickname,address_mine,address_wallet) {
     
     router.init(true);
 	var gopToken = $.cookie('gopToken');

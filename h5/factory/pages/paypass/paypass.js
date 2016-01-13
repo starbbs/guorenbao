@@ -3,7 +3,7 @@
 // H5微信端 --- 支付密码重置
 
 
-require(['router','api','h5-view' ,'h5-ident', 'h5-paypass', 'h5-text'], function(router,api,View) {
+require(['router','api','h5-view' ,'h5-ident', 'h5-paypass', 'h5-text', 'h5-weixin'], function(router,api,View) {
     router.init(true);
 	var gopToken = $.cookie('gopToken');
 	var paypass = $('.paypass-page');

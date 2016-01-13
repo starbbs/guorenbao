@@ -8,7 +8,7 @@
 .bank {
 	$img: $g-components + '/bank/images';
 	$width: px(58); // 宽高
-	$imgs:	('minsheng' 'youzheng'), // 绿
+	$imgs:	('minsheng' 'youzheng' 'zhongnong'), // 绿
 			('guangda' 'jiaotong' 'pufa' 'shanghai' 'xingye' 'zhongjian'), // 蓝
 			('beinong' 'beiyin' 'gongshang' 'guangfa' 'huaxia' 'pingan' 'zhaoshang' 'zhongguo' 'zhongxin'); // 红
 

@@ -3,7 +3,7 @@
 // H5微信端 --- 银行卡信息
 
 
-require(['router','api','h5-view','hashMap','h5-bankcard-append','h5-bankcard-detail', 'h5-ident', 'h5-text'], function(router,api,View,hashMap,bankcard_append,bankcard_detail) {
+require(['router','api','h5-view','hashMap','h5-bankcard-append','h5-bankcard-detail', 'h5-ident', 'h5-text', 'h5-weixin'], function(router,api,View,hashMap,bankcard_append,bankcard_detail) {
     
     router.init(true);
 	var gopToken = $.cookie('gopToken');

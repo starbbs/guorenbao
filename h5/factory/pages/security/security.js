@@ -3,7 +3,7 @@
 // H5微信端 --- 安全中心
 
 
-require(['router','api','h5-view','h5-view-password','h5-view-authentication'], function(router,api,View) {
+require(['router','api','h5-view','h5-view-password','h5-view-authentication', 'h5-weixin'], function(router,api,View) {
     router.init(true);
 	var gopToken = $.cookie('gopToken');
 	var security = $('.security');

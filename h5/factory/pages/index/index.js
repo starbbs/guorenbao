@@ -3,7 +3,7 @@
 // H5微信端 首页
 
 
-require(['router', 'authorization'], function(router, authorization) {
+require(['router', 'authorization', 'h5-weixin'], function(router, authorization) {
 	router.init(true);
 	console.log(authorization.default);
 	avalon.define({

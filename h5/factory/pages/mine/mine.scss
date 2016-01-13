@@ -15,6 +15,8 @@
 
 // @import '../../dialogs/dialog';
 
+@import '../../components/nav/nav';
+
 
 body {
 	background-color: $g-background;
@@ -43,9 +45,11 @@ body {
 		line-height: 1;
 		position: relative;
 		&-picture {
-			border: $border;
+			// border: $border;
 			border-radius: 50%;
-			padding: 2px;
+			border: 2px solid $g-white;
+			box-shadow: 0px 0px 0px 1px $g-line;
+			// padding: 2px;
 			overflow: hidden;
 			@include square(75px);
 			margin: 8px auto;

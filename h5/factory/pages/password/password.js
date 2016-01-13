@@ -3,7 +3,7 @@
 // H5微信端 --- 修改用户密码
 
 
-require(['router','api','h5-view','h5-view-password'], function(router,api,View,viewPassword) {
+require(['router','api','h5-view','h5-view-password', 'h5-weixin'], function(router,api,View,viewPassword) {
     router.init(true);
 	var gopToken = $.cookie('gopToken');
 	var password = $('.password');

@@ -3,7 +3,7 @@
 // H5微信端 --- 登陆页面
 
 
-require(['router', 'h5-view-login'], function(router, viewLogin) {
+require(['router', 'h5-view-login', 'h5-weixin'], function(router, viewLogin) {
 	router.init(true);
 });
 

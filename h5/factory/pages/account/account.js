@@ -3,7 +3,7 @@
 // H5微信端 --- 账单
 
 
-require(['router', 'api'], function(router, api) {
+require(['router', 'api', 'h5-weixin'], function(router, api) {
 
 	// 1.下拉加载
 	// 2.点击详情

@@ -4,6 +4,9 @@
 
 
 define('h5-ident', ['api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], function(api, check, h5Check) {
+
+	var gopToken = $.cookie('gopToken');
+
 	/**
 	 * [_reset 重置ident元素]
 	 * @Author   张树垚
@@ -70,19 +73,20 @@ define('h5-ident', ['api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], 
 				if (arr[2] === 'bankcardid') { // 根据银行卡ID
 					setTimeout(function() {
 						var vm = avalon.vmodels[arr[0]];
-						var id = vm[arr[1]];
 						_bind(item, function() {
-							return !id
-						}, 'bankSendCode', {
-							gopToken: $.cookie('gopToken'),
-							bankId: id
+							return !vm[arr[1]]
+						}, 'bankSendCode', function() {
+							return {
+								gopToken: gopToken,
+								bankId: vm[arr[1]]
+							}
 						});
 					}, 300);
 				} else if (arr[2] === 'token') { // 根据gopToken --- a|b|token
 					_bind(item, function() {
 						return !gopToken;
 					}, 'phoneSendCode', {
-						gopToken: $.cookie('gopToken'),
+						gopToken: gopToken,
 					});
 				}
 			} else if (arr.length > 1) {
@@ -96,7 +100,6 @@ define('h5-ident', ['api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], 
 				}, 300);
 			} else {
 				var phoneInput = $('#' + arr[0]);
-				console.log(arr[0], phoneInput)
 				_bind(item, function() {
 					return !h5Check.phone(phoneInput);
 				}, 'sendCode', function() {
@@ -132,7 +135,7 @@ define('h5-ident', ['api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], 
 			var ident = identInput.val();
 			if (check.identCondition(ident) && check.ident(ident).result) {
 				api.bankIdentifyingCode({
-					gopToken: $.cookie('gopToken'),
+					gopToken: gopToken,
 					identifyingCode: ident,
 					bankId: bankcardid
 				}, function(data) {

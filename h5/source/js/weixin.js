@@ -4,10 +4,63 @@
 
 define('h5-weixin', ['api'], function(api) {
 	var weixin = {
+		// 参数
 		appId: null,
 		timestamp: null,
 		nonceStr: null,
 		signature: null,
+		// 分享
+		title: '果仁宝',
+		desc: '我是果仁宝, 测试描述, 今天天气不错',
+		link: location.protocol + '//www.goopal.me/index.html',
+		imgUrl: location.protocol + '//www.goopal.me/images/share.jpg',
+		type: '',
+		dataUrl: '',
+		success: function() { // 用户确认分享后执行的回调函数
+			$.alert('分享成功');
+		},
+		cancel: function() { // 用户取消分享后执行的回调函数
+			$.alert('分享取消');
+		},
+		/**
+		 * [setShare 设置微信分享]
+		 * @Author   张树垚
+		 * @DateTime 2016-01-13 16:38:42
+		 * @param    {[string]}         type        [分享类型, all, timeline, appMessage]
+		 * @param    {[json]}           options       [分享标题]
+		 *           {[string]}         options.title        [description]
+		 *           {[string]}         options.desc         [description]
+		 *           {[string]}         options.link         [description]
+		 *           {[string]}         options.imgUrl         [description]
+		 */
+		setShare: function(type, options) {
+			if (typeof type !== 'string') {
+				options = type;
+				type = 'all';
+			}
+			options = options || {};
+			if (arguments.length === 0 || type === 'all' || type === 'timeline') { // 分享到朋友圈
+				wx.onMenuShareTimeline($.extend({
+					title: weixin.title, // 分享标题
+					link: weixin.link, // 分享链接
+					imgUrl: weixin.imgUrl, // 分享图标
+					success: weixin.success,
+					cancel: weixin.cancel,
+				}, options));
+			}
+			if (arguments.length === 0 || type === 'all' || type === 'appMessage') {
+				wx.onMenuShareAppMessage($.extend({
+					title: weixin.title, // 分享标题
+					desc: weixin.desc, // 分享描述
+					link: weixin.link, // 分享链接
+					imgUrl: weixin.imgUrl, // 分享图标
+					type: weixin.type, // 分享类型,music、video或link，不填默认为link
+					dataUrl: weixin.dataUrl, // 如果type是music或video，则要提供数据链接，默认为空
+					success: weixin.success,
+					cancel: weixin.cancel,
+				}, options));
+			}
+		},
 	};
 	api.weixinInfo({
 		url: window.location.href
@@ -102,6 +155,7 @@ define('h5-weixin', ['api'], function(api) {
 					"menuItem:share:email",			// 邮件
 					"menuItem:share:brand",			// 一些特殊公众号
 				]);
+				weixin.setShare();
 			});
 		} else {
 			console.log(data);
