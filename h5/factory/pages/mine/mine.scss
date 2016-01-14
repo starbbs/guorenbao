@@ -32,6 +32,7 @@ body {
 	@extend %rw;
     @extend %fade-in;
 	padding-bottom: $g-padding-bottom;
+	background-color: $g-background;
 
 	&-block {
 		margin-top: $margin-top;

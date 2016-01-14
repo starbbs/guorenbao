@@ -35,13 +35,12 @@ require(['router', 'api', 'h5-price', 'h5-weixin'], function(router, api, price)
 	}, function(data) {
 		if (data.status == 200) {
 			vm.gopNum = data.data.gopNum;
+			setTimeout(function() {
+				home.addClass('on');
+			}, 100);
 		} else {
 			console.log(data);
 		}
 	});
-
-	setTimeout(function() {
-		home.addClass('on');
-	}, 100);
 });
 

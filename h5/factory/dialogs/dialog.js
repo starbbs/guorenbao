@@ -10,6 +10,9 @@ define('h5-dialog', [], function() {
 	var _duration = 400; // 运动时间
 	var main = $('.dialog');
 
+	main.on('touchmove', function(ev) {
+		ev.preventDefault();
+	});
 	main.isShowing = false;
 	main.show = function() {
 		if (main.isShowing) { return; }

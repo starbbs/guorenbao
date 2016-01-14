@@ -44,6 +44,9 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 				if (item[0] === 'hour') {
 					result.hour2 = item[1] < 10 ? ('0' + item[1]) : ('' + item[1]);
 				}
+				if (item[0] === 'minute') {
+					result.minute2 = item[1] < 10 ? ('0' + item[1]) : ('' + item[1]);
+				}
 				return result;
 			}, {});
 		}
@@ -129,11 +132,12 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 			var compare = timeCompare(now, item._date);
 			var day = {
 				day: compare ? compare : ('周' + time.day2),
-				time: compare ? (time.hour2 + ':' + time.minute) : (time.month2 + '-' + time.date),
+				time: compare ? (time.hour2 + ':' + time.minute2) : (time.month2 + '-' + time.date),
 				bills: bills
 			};
+			console.log(day)
 			if (result.length > 1 && result[result.length - 1].month2 === time.month2) { // 和上个月相同
-				result[result.length - 1].day.push(day);
+				result[result.length - 1].days.push(day);
 			} else { // 没有这个月份, 创建
 				result.push({
 					month: nowMonth === time.month ? '本月' : (time.month2 + '月'),
