@@ -8,8 +8,8 @@ define('api', ['cookie', 'h5-wait'], function() {
 	// var basePath = '.'; // 同域
 	// var basePath = 'http://172.16.27.110:8080/'; // 郑明海本地
 	// var basePath = typeof __basePath === 'undefined' ? 'http://www.goopal.me' : __basePath;
-	var basePath = 'http://www.goopal.me';
-
+//	var basePath = 'http://www.goopal.me';
+	var basePath = 'http://172.16.14.28:';
 	/** [api 接口集合] */
 	var api = {};
 
