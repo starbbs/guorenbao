@@ -615,7 +615,7 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 	        		};
 	        		if(item.address){
 	        			if(item.address.length==11){
-		        			item.addressStr=item.address.substr(0,4)+'****'+item.address.substr(7,4);
+		        			item.addressStr=item.address.substr(0,3)+'****'+item.address.substr(7,4);
 	        				
 		        		}else if(item.address.length>11){
 		        			item.addressStr=item.address.substr(0,8)+'**********';
