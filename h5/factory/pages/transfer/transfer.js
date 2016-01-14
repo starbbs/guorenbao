@@ -22,6 +22,7 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
         newTarget_click: function(e) {
         	//新目标
         	vm.transferOutType='NEW';
+        	transfer_new.newTarget='';
             router.go('/view/transfer-new');      
         },
         myWallet_click: function(e) {
