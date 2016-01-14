@@ -28,30 +28,45 @@ require(['router','api','h5-view' ,'h5-ident', 'h5-paypass', 'h5-text', 'h5-weix
 		answer2:'',
 		phone:'',
 		identifyingCode:'',
+		chooseUrl:'',
 		checkCode_click:function(){
 			if(vm.identifyingCode){
 				api.phoneIdentifyingCode({
 					gopToken: gopToken,
 					identifyingCode:vm.identifyingCode
 				}, function(data) {
-					if (data.status == 200) {								
-						api.getQuestion({
-							gopToken: gopToken,
-							qusetionNumber:1
-						}, function(data) {
-							if (data.status == 200) {			
-								vm.question1=data.data.question;
-								router.go('view/paypass-protection-1');
-							} else {
+					if (data.status == 200) {	
+						if(vm.chooseUrl=='paypass-protection-1'){
+							api.getQuestion({
+								gopToken: gopToken,
+								qusetionNumber:1
+							}, function(data) {
+								if (data.status == 200) {			
+									vm.question1=data.data.question;
+									router.go('view/paypass-protection-1');
+								} else {
+									console.log(data);
+									$.alert("验证码错误");
+								}
+							});
+						}else if(vm.chooseUrl=='paypass-authentication'){
+							//身份证认证				
+							if(vm.realName && vm.realName!=''){
+								vm.realName="*"+data.data.realname.substr(1,data.data.realname.length-1);	
+								router.go('view/paypass-authentication');
+							}else {
 								console.log(data);
-								$.alert("验证码错误");
+								$.alert("未实名认证,请先实名认证");
 							}
-						});
+						}
+						
 					} else {
 						console.log(data);
 						$.alert("验证码错误");
 					}
 				});
+				
+				
 			}else{
 				$.alert("请输入验证码");
 			}
@@ -66,7 +81,7 @@ require(['router','api','h5-view' ,'h5-ident', 'h5-paypass', 'h5-text', 'h5-weix
 				if (data.status == 200) {	
 					api.getQuestion({
 						gopToken: gopToken,
-						qusetionNumber:1
+						qusetionNumber:2
 					}, function(data) {
 						if (data.status == 200) {			
 							vm.question2=data.data.question;
@@ -99,34 +114,24 @@ require(['router','api','h5-view' ,'h5-ident', 'h5-paypass', 'h5-text', 'h5-weix
 			});
 		},
 		ident:function(view){
-			if(view=='paypass-ident'){
-				//密保问题设置
-				api.info({
-					gopToken: gopToken
-				}, function(data) {
-					if (data.status == 200) {			
-						if(data.data.phone){
-							vm.phone=data.data.phone;	
-						}
-					} else {
-						console.log(data);
+			vm.chooseUrl=view;
+			//身份证认证				
+			api.info({
+				gopToken: gopToken
+			}, function(data) {
+				if (data.status == 200) {			
+					if(data.data.realname){
+						vm.realName="*"+data.data.realname.substr(1,data.data.realname.length-1);	
 					}
-				});
-			}else{
-				//身份证认证				
-				api.info({
-					gopToken: gopToken
-				}, function(data) {
-					if (data.status == 200) {			
-						if(data.data.realname){
-							vm.realName="*"+data.data.realname.substr(1,data.data.realname.length-1);	
-						}
-					} else {
-						console.log(data);
-					}
-				});
-			}
-			router.go('view/'+view);
+					vm.phone=data.data.phone;
+					vm.identifyingCode="";
+					router.go('view/paypass-ident');
+				} else {
+					console.log(data);
+					$.alert(data.msg);
+				}
+			});
+			
 		},
 		authentication_click:function(e){
 			if(vm.Idcard.length==18){
