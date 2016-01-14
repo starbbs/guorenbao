@@ -4,6 +4,7 @@
 
 
 require(['router', 'authorization', 'h5-weixin'], function(router, authorization) {
+	return window.location.href = 'choose.html';
 	router.init(true);
 	console.log(authorization.default);
 	avalon.define({
@@ -13,12 +14,6 @@ require(['router', 'authorization', 'h5-weixin'], function(router, authorization
 		}
 	});
 	avalon.scan();
-	setTimeout(function() {
-		router.go('/view/alert');
-		setTimeout(function() {
-			alert(location.href);
-		}, 100);
-	}, 200);
 });
 
 

@@ -10,8 +10,8 @@ require(['router', 'api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h
 	var select = new View('choose-select');
 	var selectVM = select.vm = avalon.define({
 		$id: 'choose-select',
-		userNick: '昵称',
-		userImage: 'images/index-2.jpg'
+		userNick: '', // 微信昵称
+		userImage: '' // 微信头像
 	});
 	avalon.scan(select.native, selectVM);
 
@@ -31,33 +31,32 @@ require(['router', 'api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h
 		}, 100);
 	};
 
-	setTimeout(function() {
-		if (get.data.code) {
-			// 已授权
+	if ($.cookie('gopToken')) { // 有token
+		gotoHome();
+	} else {
+		if (get.data.code) { // 已授权
 			api.wxlogin({
 				code: get.data.code
 			}, function(data) {
 				if (data.status == 200) {
-					if (data.data.gopToken) {
-						// 已绑定
+					if (data.data.gopToken) { // 已绑定
 						$.cookie('gopToken', data.data.gopToken); // 果仁账户token
 						gotoHome();
-					} else {
-						// 未绑定
-						selectVM.userNick = viewLogin.vm.userNick = data.data.nick; // 昵称
-						selectVM.userImage = viewLogin.vm.userImage = data.data.img; // 头像
+					} else { // 未绑定
 						$.cookie('openId', data.data.openid); // 微信id
+						selectVM.userNick = viewLogin.vm.userNick = data.data.nick;
+						selectVM.userImage = viewLogin.vm.userImage = data.data.img;
 						gotoChoose();
 					}
 				} else {
-					console.log(data);
+					$.alert(data.msg);
 				}
 			});
-		} else {
-			// 未授权
+		} else { // 未授权
 			gotoAuthorization();
 		}
-	}, 100);
+	}
+
 });
 
 

@@ -103,7 +103,7 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 			item._dateTime = item._date.getTime();
 			return item;
 		}).sort(function(item1, item2) { // 排序
-			return item1._dateTime < item2._dateTime;
+			return item2._dateTime - item1._dateTime;
 		}).forEach(function(item) { // 提取
 			var time = timeHandler(item._date);
 			var bills = [];
@@ -128,6 +128,7 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 			if (bills.length == 0) { console.log(item); }
 			var compare = timeCompare(now, item._date);
 			var day = {
+				_time: item._dateTime,
 				day: compare ? compare : ('周' + time.day2),
 				time: compare ? (time.hour2 + ':' + time.minute2) : (time.month2 + '-' + time.date),
 				bills: bills
@@ -148,7 +149,7 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 		$id: 'account',
 		list: [],
 		showAccount: function(ev) {
-			alert('流水号:' + $(ev.target).closest('.account-item').get(0).dataset.id);
+			console.log('流水号:' + $(ev.target).closest('.account-item').get(0).dataset.id);
 		}
 	});
 	avalon.scan(main.get(0), vm);
