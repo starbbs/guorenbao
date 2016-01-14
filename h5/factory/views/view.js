@@ -49,6 +49,20 @@ define('h5-view', ['router', 'h5-alert'], function(router) {
 			}, time);
 		}
 	};
+
+	var refreshList = [];
+	var refreshTimer = null;
+	var refresh = function() {
+		main.children().each(function(i, item) {
+			var name = item.className.split(' ')[0];
+			refreshList[i] = name;
+			if (name in router.view) {
+				router.view[name].refreshIndex = i;
+			} else {
+				console.log('view:' + name + '不存在!');
+			}
+		});
+	};
 	var View = function(name) {
 
 		// 注册
@@ -63,6 +77,10 @@ define('h5-view', ['router', 'h5-alert'], function(router) {
 		this.self = $(this.className); // choice -> .choice
 		this.native = this.self.get(0);
 		this.isShowing = false;
+
+		// 排序
+		clearTimeout(refreshTimer);
+		refreshTimer = setTimeout(refresh, 300);
 	};
 	View.prototype.config = function(opts) {
 		opts && $.extend(this, opts);
@@ -70,6 +88,9 @@ define('h5-view', ['router', 'h5-alert'], function(router) {
 	View.prototype.show = function(ifShowImmediately) {
 		this.self.addClass(ifShowImmediately ? 'show-immediately' : 'show');
 		this.isShowing = true;
+		refreshList.slice(this.refreshIndex + 1).forEach(function(name) {
+			name in router.view && router.view[name].hide(ifShowImmediately);
+		});
 	};
 	View.prototype.hide = function(ifHideImmediately, ifHideOthers) {
 		if (ifHideOthers) { // 同时隐藏其他所有views

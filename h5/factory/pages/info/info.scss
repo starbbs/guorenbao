@@ -21,6 +21,9 @@ body {
 
 	$img: $g-pages + '/info/images';
 
+	@extend %rw;
+	@extend %fade-in;
+
 	&-box {
 		margin-top: 5px;
 		border-top: $g-border;

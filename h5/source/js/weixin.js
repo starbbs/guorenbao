@@ -2,7 +2,7 @@
 // H5微信端 --- 微信分享
 
 
-define('h5-weixin', ['api'], function(api) {
+define('h5-weixin', ['api', 'h5-alert'], function(api) {
 	var weixin = {
 		// 参数
 		appId: null,

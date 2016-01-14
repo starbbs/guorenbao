@@ -19,7 +19,7 @@ define('h5-text', ['check'], function(check) {
 			input = $(input).on('input', function() {
 				checkClose(this.value, close);
 			});
-			var close = input.closest('.text').find('.text-close').on('click', function() {
+			var close = input.closest('.text').find('.text-close').on('touchstart', function() {
 				close.removeClass('on');
 				input.val('').get(0).focus();
 			});
@@ -27,7 +27,7 @@ define('h5-text', ['check'], function(check) {
 		},
 		eye: function(input) {
 			input = $(input);
-			var eye = input.closest('.text').find('.text-eye').on('click', function() {
+			var eye = input.closest('.text').find('.text-eye').on('touchstart', function() {
 				if (eye.hasClass('on')) {
 					eye.removeClass('on');
 					input.attr('type', 'password');

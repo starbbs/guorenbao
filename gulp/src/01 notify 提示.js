@@ -6,6 +6,14 @@
 var notify = require('gulp-notify');
 
 
+// {
+// 	err: function(message) {},
+// 	html: function(message) {},
+// 	sass: function(message) {},
+// 	build: function(message) {},
+// }
+
+
 /**
  * [notify 桌面提示]
  * @Author   张树垚
