@@ -339,6 +339,7 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 							nowData.transferNum=transfer_target.transferNum;
 							nowData.content=transfer_target.content;
 							nowData.transferOutId=data.data.transferOutId;
+							nowData.createTime=data.data.createTime;
 							$.extend(transfer_bill, nowData);
 							router.go('/view/transfer-bill'); 
 							transfer_bill_init(nowData);
@@ -369,6 +370,10 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 		tradeNo:'2015110563563544101',//流水号
 		stage:'half',
 		transferOutId:null,
+		createTime:new Date(),
+		successTime:new Date(),
+		isSuccess:false,
+		isProcessing:false,
 		back_click: function(e) {
 			router.go('/'); 
 		},
@@ -388,7 +393,6 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 		$('.bill-head').hide();
 		$('.transfer-icon').hide();
 		$('.bill-detail').hide();
-		$('.transfer-bill-detail').hide();		
 		$('.bill-get-number').removeClass("light");
 		$('.bill-get-label').removeClass("light");
 		$('.bill-get-label').removeClass("ash");
@@ -434,6 +438,7 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 				 //transfer_bill.serviceFee=datas.data.transferOut.serviceFee;
 				 // transfer_bill.address=datas.data.transferOut.address;
 				 transfer_bill.status=datas.data.transferOut.status;
+				 transfer_bill.createTime=datas.data.transferOut.createTime;
 				 transfer_bill.updateTime=datas.data.transferOut.updateTime;
 				 transfer_bill.tradeNo=datas.data.transferOut.serialNum;
 				 if (transfer_bill.personId) {
@@ -448,6 +453,8 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 						$('.bill-detail-success').show();
 						$('.transfer-bill-desc-right').show();
 						transfer_bill.stage='finish';
+						transfer_bill.successTip="";
+						transfer_bill.isSuccess=true;
 						$('.back').hide();
 				}else if(transfer_bill.status=='PROCESSING'){
 						$('.bill-head.going').show();
@@ -456,6 +463,10 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 						$('.bill-detail-success').show();
 						$('.transfer-bill-desc-left').show();
 						transfer_bill.stage='half';
+						var myDate = new Date();//TODO兼容晚上
+						myDate.setHours(myDate.getHours()+2);
+						transfer_bill.successTime=myDate;
+						transfer_bill.isProcessing=true;
 						$('.back').hide();
 				}else{
 						$('.bill-head.fail').show();

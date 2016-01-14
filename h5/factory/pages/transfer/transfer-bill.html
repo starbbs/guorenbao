@@ -32,11 +32,12 @@
 		<div class="transfer-bill-desc">
 			<div class="transfer-bill-detail transfer-bill-desc-left">
 				<div class="transfer-bill-desc-name" ms-class="green:stage=='half'">提交成功</div>
-				<div class="transfer-bill-desc-time">{{ new Date | date("yyyy-MM-dd:HH:mm:ss")}}</div>
+				<div class="transfer-bill-desc-time">{{ createTime | date("yyyy-MM-dd:HH:mm:ss")}}</div>
 			</div>
 			<div class="transfer-bill-detail transfer-bill-desc-right">
 				<div class="transfer-bill-desc-name"  ms-class="green:stage=='finish'">转账成功</div>
-				<div class="transfer-bill-desc-time">{{ new Date | date("yyyy-MM-dd:HH:mm:ss")}}</div>
+				<div class="transfer-bill-desc-time" ms-visible="isSuccess">{{ createTime | date("yyyy-MM-dd:HH:mm:ss")}}</div>
+				<div class="transfer-bill-desc-time" ms-visible="isProcessing">预计{{ successTime | date("yyyy-MM-dd:HH:mm:ss")}}前</div>
 			</div>
 		</div>
 		<div class="bill-detail bill-detail-success">
