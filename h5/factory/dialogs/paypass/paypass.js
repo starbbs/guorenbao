@@ -32,5 +32,8 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'api', 'h5-paypass'], functio
 	paypass.on('show', function() {
 		input.get(0).focus();
 	});
+	paypass.on('hide', function() {
+		input.get(0).blur();
+	});
 	return paypass;
 });

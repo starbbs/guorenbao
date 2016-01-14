@@ -19,11 +19,16 @@ body {
 
 
 .account {
+
 	$img: $g-pages + '/account/images';
+
 	@extend %rw;
 	@extend %fade-in;
 	overflow: hidden;
 	font-family: $g-font-num;
+	padding-bottom: $g-padding-bottom;
+	background-color: $g-background;
+
 	&-month {
 		margin-top: 3px;
 		@include height(26px);

@@ -50,20 +50,6 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 				return result;
 			}, {});
 		}
-		// 输出:
-		// 	{
-		// 		year: 2016,
-		// 		month: 01,
-		// 		month2: 2,
-		// 		month3: '二'
-		// 		date: 08,
-		// 		day: 1,
-		// 		day2: '一',
-		// 		hour: 5,
-		// 		hour2: '05',
-		// 		minute: 30,
-		// 		second: 16
-		// 	}
 	};
 	var timeClearHour = function(time) { // 干掉小时, 分钟, 秒, 毫秒
 		if (time.constructor === Date) {
@@ -89,7 +75,7 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 	};
 
 	var numHandler = function(number, unit) {
-		return (number > 0 ? '+' : '-') + unit + (Math.abs(number));
+		return (number > 0 ? '+' : '-') + ' ' + unit + ' ' + (Math.abs(number));
 	};
 
 	var now = new Date();
@@ -100,10 +86,20 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 		FAILURE: '交易失败',
 		CLOSE: '交易关闭',
 	};
+	var parseDate = function(time) { // 把字符串时间转为对应Date实例
+		// 2016-01-14 02:33:44
+		var match = time.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2})\:(\d{2})\:(\d{2})/);
+		return 'setFullYear,setMonth,setDate,setHours,setMinutes,setSeconds'.split(',').reduce(function(date, item, index) {
+			if (item === 'setMonth') { match[index + 1] -= 1; }
+			date[item](parseInt(match[index + 1]));
+			return date;
+		}, new Date());
+		// return new Date(time);
+	};
 	var dataHandler = function(data) {
 		var result = [];
 		data.map(function(item) { // 确定时间
-			item._date = new Date(item.status === 'SUCCESS' ? item.businessTime : item.createTime);
+			item._date = parseDate(item.status === 'SUCCESS' ? item.businessTime : item.createTime);
 			item._dateTime = item._date.getTime();
 			return item;
 		}).sort(function(item1, item2) { // 排序
@@ -111,7 +107,7 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 		}).forEach(function(item) { // 提取
 			var time = timeHandler(item._date);
 			var bills = [];
-			if (item.gopNumber) { // 果仁消费
+			if (typeof item.gopNumber === 'number') { // 果仁消费
 				bills.push({
 					id: item.id,
 					img: item.targetImg,
@@ -120,7 +116,7 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 					status: status[item.status]
 				});
 			}
-			if (item.money) { // 金币消费
+			if (typeof item.money === 'number') { // 金币消费
 				bills.push({
 					id: item.id,
 					img: item.targetImg,
@@ -129,14 +125,14 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 					status: status[item.status]
 				});
 			}
+			if (bills.length == 0) { console.log(item); }
 			var compare = timeCompare(now, item._date);
 			var day = {
 				day: compare ? compare : ('周' + time.day2),
 				time: compare ? (time.hour2 + ':' + time.minute2) : (time.month2 + '-' + time.date),
 				bills: bills
 			};
-			console.log(day)
-			if (result.length > 1 && result[result.length - 1].month2 === time.month2) { // 和上个月相同
+			if (result.length > 0 && result[result.length - 1].month2 === time.month2) { // 和上个月相同
 				result[result.length - 1].days.push(day);
 			} else { // 没有这个月份, 创建
 				result.push({
@@ -146,23 +142,7 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 				});
 			}
 		});
-		console.log(result)
 		return result;
-		// result = [{
-		// 	month: '10月', // 或本月
-		// 	month2: 11,
-		// 	days: [{
-		// 		day: '今天', // 今天, 昨天, 前天或周数
-		// 		time: '10:50', // 时间或日期
-		// 		bills: [{
-		// 			id: '', // 流水号
-		// 			img: '', // 头像
-		// 			change: '', // 交易变化
-		// 			desc: '', // 说明
-		// 			status: '交易成功', // 状态
-		// 		}]
-		// 	}]
-		// }];
 	};
 	var vm = avalon.define({
 		$id: 'account',
