@@ -603,16 +603,13 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 	        		}else if (item.type=='ME_WALLET') {//我的钱包
 	        			item.icon='2';
 	        		}
-	        		
+
 	        		if (item.phone) {
 	        			item.phone=item.phone;
-	        		}; 
-	        		if (item.address) {
-	        			item.address=item.address;
-	        		}; 
-	        		if (!item.address) {
 	        			item.address=item.phone;
-	        		};
+	        		}else{
+	        			item.address=item.address;
+	        		}
 	        		if(item.address){
 	        			if(item.address.length==11){
 		        			item.addressStr=item.address.substr(0,3)+'****'+item.address.substr(7,4);
