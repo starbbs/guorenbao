@@ -62,6 +62,7 @@ define('h5-view', ['router', 'h5-alert'], function(router) {
 				console.log('view:' + name + '不存在!');
 			}
 		});
+		console.log(refreshList)
 	};
 	var View = function(name) {
 
@@ -86,12 +87,12 @@ define('h5-view', ['router', 'h5-alert'], function(router) {
 		opts && $.extend(this, opts);
 	};
 	View.prototype.show = function(ifShowImmediately) {
+		refreshList.slice(this.refreshIndex + 1).forEach(function(name) {
+			router.view[name].hide(ifShowImmediately);
+		});
 		if (this.isShowing) { return; }
 		this.isShowing = true;
 		this.self.addClass(ifShowImmediately ? 'show-immediately' : 'show');
-		refreshList.slice(this.refreshIndex + 1).forEach(function(name) {
-			name in router.view && router.view[name].hide(ifShowImmediately);
-		});
 	};
 	View.prototype.hide = function(ifHideImmediately, ifHideOthers) {
 		if (!this.isShowing) { return; }

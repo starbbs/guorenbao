@@ -86,6 +86,12 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 		FAILURE: '交易失败',
 		CLOSE: '交易关闭',
 	};
+	var typeClasses = {
+		TRANSFER_IN: 'transfer',
+		TRANSFER_OUT: 'transfer',
+		BUY_IN: 'buy',
+		PAY: 'phone',
+	};
 	var parseDate = function(time) { // 把字符串时间转为对应Date实例
 		// 2016-01-14 02:33:44
 		var match = time.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2})\:(\d{2})\:(\d{2})/);
@@ -97,15 +103,15 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 		// return new Date(time);
 	};
 	var dataHandler = function(data) {
-		var result = [];
-		data.map(function(item) { // 确定时间
+		return data.map(function(item) { // 确定时间
 			item._date = parseDate(item.status === 'SUCCESS' ? item.businessTime : item.createTime);
 			item._dateTime = item._date.getTime();
 			return item;
 		}).sort(function(item1, item2) { // 排序
 			return item2._dateTime - item1._dateTime;
-		}).forEach(function(item) { // 提取
+		}).reduce(function(result, item) { // 提取
 			var time = timeHandler(item._date);
+			var type = typeClasses[item.type];
 			var bills = [];
 			if (typeof item.gopNumber === 'number') { // 果仁消费
 				bills.push({
@@ -113,7 +119,8 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 					img: item.targetImg,
 					change: numHandler(item.gopNumber, 'G'),
 					desc: item.businessDesc,
-					status: status[item.status]
+					status: status[item.status],
+					type: typeClasses[item.type]
 				});
 			}
 			if (typeof item.money === 'number') { // 金币消费
@@ -122,7 +129,8 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 					img: item.targetImg,
 					change: numHandler(item.money, '¥'),
 					desc: item.businessDesc,
-					status: status[item.status]
+					status: status[item.status],
+					type: type
 				});
 			}
 			if (bills.length == 0) { console.log(item); }
@@ -142,8 +150,8 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 					days: [day]
 				});
 			}
-		});
-		return result;
+			return result;
+		}, []);
 	};
 	var vm = avalon.define({
 		$id: 'account',

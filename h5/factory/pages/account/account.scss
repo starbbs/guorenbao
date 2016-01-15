@@ -68,6 +68,17 @@ body {
 		@include square(36px);
 		margin-top: 17px;
 	}
+	&-icon {
+		&.transfer {
+			@include sprite($img + '/3.png', 36px);
+		}
+		&.buy {
+			@include sprite($img + '/2.png', 36px);
+		}
+		&.phone {
+			@include sprite($img + '/1.png', 36px);
+		}
+	}
 	&-main {
 		height: 100%;
 		border-bottom: $g-border;
