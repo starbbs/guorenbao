@@ -23,6 +23,7 @@ require(['router', 'api','h5-view','check','h5-view-address-mine','h5-view-addre
 		photo: './images/picture.png',
 		setnick:'未设置',
 		nickname:'',
+		feedback:'',
 		setMarketAddressTip:'未设置',
 		setWallet:'未设置',
 		setRealName:false,//是否实名认证标志
@@ -71,21 +72,20 @@ require(['router', 'api','h5-view','check','h5-view-address-mine','h5-view-addre
         	router.go('/');
         },
         feedback_click: function () {//问题反馈
-        	if(!check.empty(vm.feedback)){
-        		api.updateNick({
-            		gopToken: gopToken,
-            		nick:vm.nickname
-            	}, function(data) {
-            		if (data.status == 200) {
-            			$.alert('设置成功!');
-            		} else {
-            			console.log(data);
-            		}
-            	});	
-        	}else{
-        		$.alert('请输入反馈信息!');
+        	if(check.empty(vm.feedback) || vm.feedback=='＃果仁宝意见反馈＃' || vm.feedback.length<10 || vm.feedback.length>140){
+        		$.alert("用户可输入10-140个汉字");
         	}
-        	
+        	api.fankui({
+        		gopToken: gopToken,
+        		fankuiContext:vm.feedback
+        	}, function(data) {
+        		if (data.status == 200) {
+        			$.alert('谢谢您的意见反馈!');
+        			router.go('/');
+        		} else {
+        			console.log(data);
+        		}
+        	});	
         },
 
 	});

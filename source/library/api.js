@@ -1502,5 +1502,19 @@ define('api', ['cookie', 'h5-wait'], function() {
 	 */
 	add('getQuestion', '/security/getQuestion');
 	
+	/**
+	 * 用户反馈 
+	 * {
+		    "gopToken":"e8er843er834i8df8d34jddfdf89df89dffd8d8f934j43jk34"，
+		    "fankuiContext":"这这那那"
+		}
+		
+		{
+		    "status":200,
+		    "msg":"success"
+		}
+	 */
+	add('fankui','/fankui/send')
+	
 	return api;
 });
