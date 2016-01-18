@@ -1,7 +1,17 @@
 @@include('../../../source/include/top.html', {"name": "index"})
 <div class="screen-r">
-	<div class="index" ms-controller="index">
-		<img src="./images/index-1.jpg" alt="" class="img-w" ms-click="renzheng">
+	<div class="index">请等待...</div>
+	<div class="view">
+		@@include('./index-select.html')
+		@@include('../../views/login/login.html')
+		@@include('../../views/password/password-forget.html')
+		@@include('../../views/password/password-set.html')
+		@@include('../../views/password/password-success.html')
+	</div>
+	<div class="alert"></div>
+	<div class="dialog">
+		<!-- 六次错误提示 -->
+		@@include('../../dialogs/alert/alert.html', { "type": 1 })
 	</div>
 </div>
 @@include('../../../source/include/bottom.html', {"name": "index"})

@@ -3,7 +3,7 @@
 
 
 
-define('api', ['cookie', 'h5-wait'], function() {
+define('api', ['cookie', 'h5-alert', 'h5-wait'], function() {
 
 	// var basePath = '.'; // 同域
 	// var basePath = 'http://172.16.27.110:8080/'; // 郑明海本地
@@ -46,16 +46,27 @@ define('api', ['cookie', 'h5-wait'], function() {
 				data: JSON.stringify(data),
 				dataType: 'json',
 				success: function(data) {
+					if (data.status == 300) { // {msg: "用户登录/验证失败，请重新登录", status: "300"}
+						if (window.location.href.indexOf('/index.html') === -1) {
+							return window.location.href = 'index.html';
+						}
+					} else if (data.status == 304) { // {msg: "服务器异常", status: "300"}
+						$.alert('服务器异常, 请联系后台人员!');
+					}
 					callback && callback.call(this, data);
 					success && success.call(this, data);
 				},
-				error: function(err) {
-					console.log('Error: ', err);
+				error: function(xhrObj, text, err) {
+					console.log('Error: ', arguments);
+					if (text === 'timeout') {
+						$.alert('请求超时...<br>请检查您的网络');
+					}
 				},
 				complete: function() {
 					xhr = null;
 					isRequesting = false;
-				}
+				},
+				timeout: 10000
 			});
 		};
 	};

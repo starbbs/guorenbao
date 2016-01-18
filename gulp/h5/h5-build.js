@@ -100,7 +100,7 @@ gulp.task('h5-js-move', function() {
 gulp.task('h5-template', function() {
 	var date = new Date();
 	var opts = {
-		name: '', // name一定要清空, 慎用!
+		name: 'aaa', // name一定要清空, 慎用!
 		desc: '消息', // 描述'// H5微信端 --- {{desc}}'
 		date: date.toLocaleDateString().replace(/\//g, '-') + ' ' + date.toTimeString().split(' ')[0]
 	};
