@@ -1,0 +1,50 @@
+@charset 'utf-8';
+
+
+// 张树垚 2015-12-11 13:54:44 创建
+// H5微信端 首页
+
+
+@import '../../../source/scss/main';
+
+
+html {
+	background-color: #000004;
+}
+
+
+.welcome {
+	@extend %rw;
+	@extend %fade-in;
+	&-banner {
+		@extend %rw;
+		&-box {}
+		&-item {}
+		&-nav {
+			@include ablw(18px);
+			height: 4px;
+			text-align: center;
+			font-size: 0;
+			&-item {
+				display: inline-block;
+				@include square(8px, 100%);
+				background-color: #bdbdbd;
+				margin: 0 2px;
+				&.on {
+					background-color: $g-dark;
+				}
+			}
+		}
+	}
+	&-main {
+		@extend %rw;
+	}
+	&-code {
+		@include aposx(6.85%, set(200));
+	}
+}
+
+
+
+
+
