@@ -81,9 +81,13 @@ require(['router', 'api','h5-view','check','h5-view-address-mine','h5-view-addre
         	}, function(data) {
         		if (data.status == 200) {
         			$.alert('谢谢您的意见反馈!');
-        			router.go('/');
+        			//router.go('/');
+        			vm.feedback = "";
+        			window.history.back();
+
         		} else {
         			console.log(data);
+        			$.alert(data.msg);
         		}
         	});	
         },
