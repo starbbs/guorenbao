@@ -298,6 +298,7 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 			}else{
 				transfer_target.notchecked=true;
 			}
+			console.log(transferNum);
 		},
 		commit_send:function(){
 			

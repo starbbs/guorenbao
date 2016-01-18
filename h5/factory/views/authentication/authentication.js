@@ -11,6 +11,7 @@ define('h5-view-authentication', ['h5-view', 'api','h5-text','cookie'], function
 		$id: name,
 		realName:'',
 		Idcard:'',
+		callback: $.noop,
 		next_click: function() {
 			var reg1=/^[\u2E80-\u9FFF]+$/;//Unicode编码中的汉字范围
 			if(!reg1.test(vm.realName)){
@@ -29,6 +30,7 @@ define('h5-view-authentication', ['h5-view', 'api','h5-text','cookie'], function
 						if (data.status == 200) {
 							$('.not-authed').removeClass('on');
 							$('.authed').addClass('on');
+							vm.callback();
 						} else {
 							console.log(data);
 							$.alert("身份证号或名字错误");
