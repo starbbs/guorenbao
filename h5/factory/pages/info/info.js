@@ -12,16 +12,23 @@ require(['api', 'router', 'get', 'h5-weixin'], function(api, router, get) {
 	// www.goopal.me/info.html?from=wx_info&type=1&id=...
 	switch(get.data.from) {
 		case 'wx_info': // 来自微信消息
-			switch(get.data.type) {
-				case '1':
-					$.alert('微信消息, 类型1');
+			switch(get.data.type.toUpperCase()) {
+				case 'CONSUME_ORDER': // 超时关闭消费果仁订单消息
+					window.location.href = 'order.html?from=wx_info&id=' + get.data.id;
 					break;
-				case '2':
-					$.alert('微信消息, 类型2');
+				case 'BUYIN_ORDER': // 超时关闭买果仁订单消息
+					window.location.href = 'purchase.html?from=wx_info&id=' + get.data.id;
+					break;
+				case 'TRANSFER_IN': // 转入消息
+				case 'TRANSFER_OUT': // 转出消息
+					window.location.href = 'transfer.html?from=wx_info&id=' + get.data.id;
+					break;
+				case 'DUOBAO_ACTIVITY': // 果仁夺宝
+					$.alert('果仁夺宝尚未上线!');
 					break;
 				default:
 					$.alert('不是正确的微信消息种类');
-			}		
+			}
 			break;
 		default:
 			$.alert('没有收到通知<br>即将跳转首页', function() {
