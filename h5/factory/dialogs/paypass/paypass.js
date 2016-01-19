@@ -33,7 +33,9 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'api', 'h5-paypass'], functio
 		input.get(0).focus();
 	});
 	paypass.on('hide', function() {
-		input.get(0).blur();
+		// 清除input的value并失焦
+		input.val('').get(0).blur();
+		input.get(0).paypassClear();
 	});
 	return paypass;
 });

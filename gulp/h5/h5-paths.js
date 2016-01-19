@@ -47,6 +47,7 @@ module.exports = {
 		'module': PATH_LIBRARY + '/api',
 		'router': PATH_LIBRARY + '/router',
 		'hashMap': PATH_LIBRARY + '/hashMap',
+		'touch-slide': 		PATH_LIBRARY + '/src/TouchSlide.1.1.source',
 		// PC端部分
 		'bank': PATH_COMPONENTS + '/bank/bank',
 		'bank-icon': PATH_COMPONENTS + '/bank-icon/bank-icon',

@@ -45,6 +45,7 @@ define('api', ['cookie', 'h5-alert', 'h5-wait'], function() {
 				type: 'post',
 				data: JSON.stringify(data),
 				dataType: 'json',
+				timeout: 30000,
 				success: function(data) {
 					if (data.status == 300) { // {msg: "用户登录/验证失败，请重新登录", status: "300"}
 						if (window.location.href.indexOf('/index.html') === -1) {
@@ -65,8 +66,7 @@ define('api', ['cookie', 'h5-alert', 'h5-wait'], function() {
 				complete: function() {
 					xhr = null;
 					isRequesting = false;
-				},
-				timeout: 10000
+				}
 			});
 		};
 	};

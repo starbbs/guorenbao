@@ -10,6 +10,10 @@ define('h5-paypass', ['check'], function(check) {
 			var native = input.get(0);
 			if (native._hasBindPaypassInput) { return; }
 			native._hasBindPaypassInput = true;
+			var items = input.next().children();
+			native.paypassClear = function() {
+				items.removeClass('on');
+			};
 			input.on('input', function() {
 				// items.removeClass('on').slice(0, this.value.length).addClass('on');
 				for (var i = 0; i < items.length; i++) {
@@ -25,7 +29,6 @@ define('h5-paypass', ['check'], function(check) {
 					}
 				}
 			});
-			var items = input.next().children();
 		});
 	};
 	scan();

@@ -8,7 +8,7 @@ require(['router', 'api', 'h5-price', 'h5-weixin'], function(router, api, price)
 	router.init(true);
 
 	var gopToken = $.cookie('gopToken');
-	var home = $('.home');
+	var main = $('.home');
 	var vm = avalon.define({
 		$id: 'home',
 		price: 0,
@@ -19,7 +19,7 @@ require(['router', 'api', 'h5-price', 'h5-weixin'], function(router, api, price)
 		},
 		gopNum: 0
 	});
-	avalon.scan(home.get(0), vm);
+	avalon.scan(main.get(0), vm);
 
 	price.onFirstChange = function(next) {
 		vm.price = next;
@@ -35,12 +35,13 @@ require(['router', 'api', 'h5-price', 'h5-weixin'], function(router, api, price)
 	}, function(data) {
 		if (data.status == 200) {
 			vm.gopNum = data.data.gopNum;
-			setTimeout(function() {
-				home.addClass('on');
-			}, 100);
 		} else {
 			console.log(data);
 		}
 	});
+
+	setTimeout(function() {
+		main.addClass('on');
+	}, 100);
 });
 

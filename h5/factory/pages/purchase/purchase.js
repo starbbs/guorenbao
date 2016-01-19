@@ -14,12 +14,14 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 	var statusClass = {
 		SUCCESS: 'success',
 		FAILURE: 'fail',
-		PROCESSING: 'going'
+		PROCESSING: 'going',
+		CLOSE: 'close'
 	};
 	var statusContent = {
 		SUCCESS: '交易成功',
 		FAILURE: '交易失败',
-		PROCESSING: '交易进行中'
+		PROCESSING: '交易进行中',
+		CLOSE: '交易关闭'
 	};
 
 	var main = $('.purchase');
@@ -40,10 +42,12 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 				payType: 'WEIXIN_MP_PAY'
 			}, function(data) {
 				if (data.status == 200) {
-					vmOrder.gopNum = data.data.buyinOrder.gopNum;
-					vmOrder.price = data.data.buyinOrder.price;
 					vmOrder.orderMoney = data.data.buyinOrder.orderMoney;
+					setOrderNum();
 					vmOrder.click = function() {
+						vmBill.price = vmOrder.price;
+						vmBill.gopNum = vmOrder.gopNum;
+						vmBill.money = vmOrder.orderMoney;
 						wx.chooseWXPay({ // 微信支付
 							timestamp: data.data.WEIXIN_MP_PAY.timeStamp.replace(/s/g, 'S'), // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
 							nonceStr: data.data.WEIXIN_MP_PAY.nonceStr, // 支付签名随机串，不长于 32 位
@@ -56,17 +60,16 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 									buyinOrderId: data.data.buyinOrder.id,
 									payType: 'WEIXIN_MP_PAY'
 								}, function(data) {
+									price.stop();
+									console.log(data)
 									var order = data.data.buyinOrder;
 									vmBill.status = order.status;
 									vmBill.headClass = statusClass[order.status];
 									vmBill.headContent = statusContent[order.status];
-									vmBill.gopNum = order.gopNum ? order.gopNum : '';
 									vmBill.failReason = order.status === 'FAILURE' ? order.payResult : '';
-									vmBill.money = order.status === 'FAILURE' ? order.orderMoney : order.payMoney;
-									vmBill.price = order.price;
 									vmBill.createTime = order.createTime;
 									vmBill.order = order.orderCode;
-									vmBill.flowId = order.serialNum;
+									vmBill.flowId = order.serialNum || 0;
 									setTimeout(function() {
 										router.go('/view/purchase-bill');
 									}, 100);
@@ -91,6 +94,9 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		orderMoney: 0,
 		click: $.noop
 	});
+	var setOrderNum = function() {
+		vmOrder.gopNum = Math.round(vmOrder.orderMoney / vmOrder.price * 100) / 100;
+	};
 	var vmBill = avalon.define({
 		$id: 'purchase-bill',
 		status: '',				// 订单状态
@@ -113,7 +119,8 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 	avalon.scan();
 
 	price.onFirstChange = price.onChange = function(next) {
-		vm.price = next;
+		vm.price = vmOrder.price = next;
+		setOrderNum();
 	};
 	price.get();
 

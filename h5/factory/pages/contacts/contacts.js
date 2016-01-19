@@ -197,64 +197,6 @@ require(['router', 'api', 'h5-view', 'h5-view-nickname', 'h5-weixin'], function(
 
 	setTimeout(function() {
 		main.addClass('on');
-		// contacts.list = dataHandler({
-		// 	"B" : [{
-		// 			"address" : "strduf************************************",
-		// 			"phone" : "139****7743",
-		// 			"name" : "bbb",
-		// 			"picture" : "aaaaaaaaaaaaaa",
-		// 			"id": 123,
-		// 			"gopUserNick": "aaaaaaaaaaaaaa",
-		// 			"contactPersonName": "bbb"
-		// 		},{
-		// 			"address" : "strduf************************************",
-		// 			"phone" : "139****7743",
-		// 			"name" : "bbb",
-		// 			"picture" : "aaaaaaaaaaaaaa",
-		// 			"id": 123,
-		// 			"gopUserNick": "aaaaaaaaaaaaaa",
-		// 			"contactPersonName": "bbb"
-		// 		},{
-		// 			"address" : "strduf************************************",
-		// 			"phone" : "139****7743",
-		// 			"name" : "bbb",
-		// 			"picture" : "aaaaaaaaaaaaaa",
-		// 			"id": 123,
-		// 			"gopUserNick": "aaaaaaaaaaaaaa",
-		// 			"contactPersonName": "bbb"
-		// 		}
-		// 	],
-		// 	"C" : [{
-		// 			"address" : "strduf************************************",
-		// 			"phone" : "139****7743",
-		// 			"name" : "bbb",
-		// 			"picture" : "aaaaaaaaaaaaaa",
-		// 			"id": 123,
-		// 			"gopUserNick": "aaaaaaaaaaaaaa",
-		// 			"contactPersonName": "bbb"
-		// 		}
-		// 	],
-		// 	"D" : [{
-		// 			"address" : "strduf************************************",
-		// 			"phone" : "139****7743",
-		// 			"name" : "bbb",
-		// 			"picture" : "aaaaaaaaaaaaaa",
-		// 			"id": 123,
-		// 			"gopUserNick": "aaaaaaaaaaaaaa",
-		// 			"contactPersonName": "bbb"
-		// 		}
-		// 	],
-		// 	"Other" : [{
-		// 			"address" : "strduf************************************",
-		// 			"phone" : "139****7743",
-		// 			"name" : "bbb",
-		// 			"picture" : "aaaaaaaaaaaaaa",
-		// 			"id": 123,
-		// 			"gopUserNick": "aaaaaaaaaaaaaa",
-		// 			"contactPersonName": "bbb"
-		// 		}
-		// 	]
-		// });
 	}, 100);
 });
 
