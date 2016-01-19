@@ -8,7 +8,7 @@
 @import '../../../source/scss/main';
 
 
-// @import '../../views/view';
+@import '../../views/view';
 
 // @import '../../dialogs/dialog';
 
@@ -114,6 +114,10 @@ body {
 	}
 	&-page {
 		line-height: 24px;
+	}
+
+	&-bill {
+		@extend .view-style;
 	}
 }
 

@@ -15,7 +15,14 @@ require(['router', 'api','h5-view','check','h5-view-address-mine','h5-view-addre
 	var setting_us=new View('setting-us');
 	var setting_feedback=new View('setting-feedback');
 	var setting_agreement=new View('setting-agreement');
-		
+
+	setting.on('show', function() {
+		console.log('show')
+	});
+	setting.on('hide', function() {
+		console.log('hide')
+	});
+
 	var vm = avalon.define({
 		$id: 'mine',
 		name: '',

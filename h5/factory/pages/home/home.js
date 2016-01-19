@@ -26,7 +26,7 @@ require(['router', 'api', 'h5-price', 'h5-weixin'], function(router, api, price)
 	};
 	price.onChange = function(next, now, change) {
 		vm.priceChange = change;
-		vm.price = now;
+		vm.price = next;
 	};
 	price.get();
 

@@ -40,6 +40,13 @@ input, select, textarea {
 	@extend %reset-input;
 	font: #{$g-font-input}/2 Helvetica;
 }
+::-webkit-inner-spin-button { // input[type=number]的上下小箭头
+	-webkit-appearance: none;
+}
+::-webkit-input-placeholder {
+    color: $g-silver;
+    text-indent: 2px;
+}
 
 // 去掉各 Table  cell 的边距并让其边重合
 table {

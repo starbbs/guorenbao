@@ -3,6 +3,7 @@
 
 
 define('h5-weixin', ['api', 'h5-alert'], function(api) {
+	var base = 'www.goopal.com.cn';
 	var weixin = {
 		// 参数
 		appId: null,
@@ -12,8 +13,8 @@ define('h5-weixin', ['api', 'h5-alert'], function(api) {
 		// 分享
 		title: '果仁宝',
 		desc: '我是果仁宝, 测试描述, 今天天气不错',
-		link: location.protocol + '//www.goopal.me/index.html',
-		imgUrl: location.protocol + '//www.goopal.me/images/share.jpg',
+		link: location.protocol + '//' + base + '/index.html',
+		imgUrl: location.protocol + '//' + base + '/images/share.jpg',
 		type: '',
 		dataUrl: '',
 		success: function() { // 用户确认分享后执行的回调函数
@@ -63,12 +64,20 @@ define('h5-weixin', ['api', 'h5-alert'], function(api) {
 		},
 	};
 	api.weixinInfo({
-		url: window.location.href
+		url: (function() {
+			var href = window.location.href;
+			var i1 = href.indexOf('?');
+			var i2 = href.indexOf('#');
+			if (i1 > -1 && i2 > -1) {
+				Math.min(i1, i2);
+			}
+			return href;
+		})()
 	}, function(data) {
 		if (data.status == 200) {
 			var returnData = data.data.signatureData;
 			wx.config({
-				debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+				debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
 				appId: weixin.appId = returnData.appId,				// 必填，公众号的唯一标识
 				timestamp: weixin.timestamp = returnData.timestamp,	// 必填，生成签名的时间戳
 				nonceStr: weixin.nonceStr = returnData.nonceStr,	// 必填，生成签名的随机串

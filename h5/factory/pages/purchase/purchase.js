@@ -24,6 +24,8 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		CLOSE: '交易关闭'
 	};
 
+	var comfirmData = {};
+
 	var main = $('.purchase');
 	var vm = avalon.define({
 		$id: 'purchase',
@@ -54,6 +56,18 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 							package: data.data.WEIXIN_MP_PAY.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
 							signType: data.data.WEIXIN_MP_PAY.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
 							paySign: data.data.WEIXIN_MP_PAY.paySign, // 支付签名
+							success: function(res) { // 成功
+
+							},
+							fail: function(res) { // 失败
+
+							},
+							cancel: function(res) { // 取消
+
+							},
+							trigger: function(res) { // 菜单点击
+
+							},
 							complete: function(res) { // 完成
 								api.queryBuyinOrder({ // 买入订单详情
 									gopToken: gopToken,

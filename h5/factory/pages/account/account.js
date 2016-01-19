@@ -113,6 +113,13 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 			var time = timeHandler(item._date);
 			var type = typeClasses[item.type];
 			var bills = [];
+			if (type === 'phone') { // 消费果仁, 果仁+人民币
+
+			} else if (type === 'buy') { // 买果仁, 人民币
+
+			} else if (type === 'transfer') { // 转果仁, 果仁
+
+			}
 			if (typeof item.gopNumber === 'number') { // 果仁消费
 				bills.push({
 					id: item.id,

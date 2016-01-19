@@ -33,8 +33,12 @@ define('h5-view', ['router', 'h5-alert'], function(router) {
 	var main = $('.view');
 	var removeAllClass = function() {
 		_list.forEach(function(name) {
-			router.view[name].self.removeClass('show show-immediately hide hide-immediately');
-			router.view[name].isShowing = false;
+			var view = router.view[name];
+			view.self.removeClass('show show-immediately hide hide-immediately');
+			view.isShowing = false;
+			view[stackMaker('hide')].length && view[stackMaker('hide')].forEach(function(callback) {
+				callback.call(view);
+			});
 		});
 		main.removeClass('hide hide-immediately');
 	};
@@ -62,7 +66,10 @@ define('h5-view', ['router', 'h5-alert'], function(router) {
 				console.log('view:' + name + '不存在!');
 			}
 		});
-		console.log(refreshList)
+	};
+	var stackSupports = ['show', 'hide'];
+	var stackMaker = function(name) {
+		return 'on' + name[0].toUpperCase() + name.substr(1) + 'Stack';
 	};
 	var View = function(name) {
 
@@ -79,6 +86,10 @@ define('h5-view', ['router', 'h5-alert'], function(router) {
 		this.native = this.self.get(0);
 		this.isShowing = false;
 
+		stackSupports.forEach(function(name) {
+			this[stackMaker(name)] = [];
+		}.bind(this));
+
 		// 排序
 		clearTimeout(refreshTimer);
 		refreshTimer = setTimeout(refresh, 300);
@@ -93,6 +104,9 @@ define('h5-view', ['router', 'h5-alert'], function(router) {
 		if (this.isShowing) { return; }
 		this.isShowing = true;
 		this.self.addClass(ifShowImmediately ? 'show-immediately' : 'show');
+		this[stackMaker('show')].length && this[stackMaker('show')].forEach(function(callback) {
+			callback.call(this);
+		}.bind(this));
 	};
 	View.prototype.hide = function(ifHideImmediately, ifHideOthers) {
 		if (!this.isShowing) { return; }
@@ -112,6 +126,12 @@ define('h5-view', ['router', 'h5-alert'], function(router) {
 			}
 			self.addClass(ifHideImmediately ? 'hide-immediately' : 'hide');
 		}
+		this[stackMaker('hide')].length && this[stackMaker('hide')].forEach(function(callback) {
+			callback.call(this);
+		}.bind(this));
+	};
+	View.prototype.on = function(name, callback) {
+		this[stackMaker(name)].push(callback);
 	};
 
 	return View;
