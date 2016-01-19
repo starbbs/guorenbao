@@ -34,6 +34,6 @@
 			<div class="fr">{{flowId}}</div>
 		</div>
 	</div>
-	<div class="text-button" ms-if="status!='FAILURE'"><span class="button">完成</span></div>
-	<div class="text-button" ms-if="status=='FAILURE'"><span class="button">重新支付</span></div>
+	<div class="text-button" ms-if="status!='FAILURE'"><span class="button" ms-click="finish">完成</span></div>
+	<div class="text-button" ms-if="status=='FAILURE'"><span class="button" ms-click="repay">重新支付</span></div>
 </div>

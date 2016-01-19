@@ -84,6 +84,10 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 									vmBill.createTime = order.createTime;
 									vmBill.order = order.orderCode;
 									vmBill.flowId = order.serialNum || 0;
+									// 不确定是否传参
+									if (order.price) { vmBill.price = order.price; }
+									if (order.gopNum) { vmBill.gopNum = order.gopNum; }
+									if (order.orderMoney) { vmBill.money = order.orderMoney; }
 									setTimeout(function() {
 										router.go('/view/purchase-bill');
 									}, 100);
@@ -126,7 +130,7 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		finish: function() {	// 完成
 			window.location.href = 'home.html';
 		},
-		rePay: function() {		// 重新支付
+		repay: function() {		// 重新支付
 			window.history.back();
 		}
 	});
