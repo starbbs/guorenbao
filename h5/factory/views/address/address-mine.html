@@ -16,7 +16,7 @@
 		</div>
 		<div class="block-item address-item" ms-visible="hasMarketAddress">
 			<div class="block-label">{{marketGopAddress.substr(0,8)+'**********'}}</div>
-			<div class="address-del">删除</div>
+			<div class="address-del" ms-click="marketAddress_del_click">删除</div>
 		</div>
 	</div>
 	<div class="text-button" ms-visible="hasNext"><span class="button" ms-click="address_mine_next" ms-visible="callback">下一步</span></div>
