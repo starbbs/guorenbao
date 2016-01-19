@@ -21,6 +21,12 @@ define('h5-view', ['router', 'h5-alert'], function(router) {
 				break;
 			}
 		}
+		_list.forEach(function(name) {
+			var view = router.view[name];
+			view[stackMaker('root')].length && view[stackMaker('root')].forEach(function(callback) {
+				callback.call(view);
+			});
+		});
 	};
 	router.get('/', ['all'], router.onRoot);
 	router.get('/view/:name', [_list], function(name) {
@@ -67,7 +73,7 @@ define('h5-view', ['router', 'h5-alert'], function(router) {
 			}
 		});
 	};
-	var stackSupports = ['show', 'hide'];
+	var stackSupports = ['show', 'hide', 'root'];
 	var stackMaker = function(name) {
 		return 'on' + name[0].toUpperCase() + name.substr(1) + 'Stack';
 	};
