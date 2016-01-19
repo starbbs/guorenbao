@@ -253,12 +253,12 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 			var arr = item.get(0).dataset.path.split('/');
 			var models = transfer_contacts.list[arr[0]].list[arr[1]];
 			var nowData={};
-			nowData.personId=models.$model.id;
-			if (models.$model.phone) {
-				nowData.address=models.$model.phone;
-			};
+			nowData.personId=models.$model.id;			
 			if (models.$model.address) {
 				nowData.address=models.$model.address;
+			};
+			if (models.$model.phone) {
+				nowData.address=models.$model.phone;
 			};
 			if (models.$model.picture) {
 				nowData.photo=models.$model.picture;
@@ -298,7 +298,7 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 			}else{
 				transfer_target.notchecked=true;
 			}
-			console.log(transferNum);
+			console.log(transfer_target.transferNum);
 		},
 		commit_send:function(){
 			
@@ -323,15 +323,23 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 						transferNum:parseFloat(transfer_target.transferNum),
 						payPassword:value
 					}, function(data) {					
-						if (data.status == 200) {	
+						if (data.status == 200) {
 							var nowData={};
-							nowData.successFlag=true;	
-							if(transfer_target.address.length==11){
-								nowData.addres=transfer_target.address.substr(0,4)+'****'+transfer_target.address.substr(7,4);
-							}else{
-								nowData.address=transfer_target.address.substr(0,8)+'**********';
-							}					
-							nowData.phone=transfer_target.phone;
+							nowData.successFlag=true;
+							if(transfer_target.address){
+								console.log("transfer_target.address===" + transfer_target.address);
+								if(transfer_target.address.length==11){
+									nowData.address=transfer_target.address.substr(0,3)+'****'+transfer_target.address.substr(7,4);
+								}else{
+									nowData.address=transfer_target.address.substr(0,8)+'**********';
+								}
+							};
+							console.log(nowData.address);
+							if(transfer_target.phone){
+								console.log("transfer_target.phone===" + transfer_target.phone);
+								nowData.phone=transfer_target.phone;
+							}
+							console.log(nowData.phone);
 							nowData.name=transfer_target.name;
 							nowData.photo=transfer_target.photo;
 							nowData.personId=transfer_target.personId;

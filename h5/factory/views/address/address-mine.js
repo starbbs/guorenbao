@@ -40,7 +40,7 @@ define('h5-view-address-mine', ['router', 'api','h5-view','check','h5-alert','h5
         		}
         	});	
         },
-        marketAddress_del_click: function () { //删除果仁市场地址     	
+        marketAddress_del_click: function () { //删除果仁市场地址 
         	api.marketDel({
         		gopToken: gopToken
         	}, function(data) {
