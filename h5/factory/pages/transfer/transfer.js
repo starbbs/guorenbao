@@ -292,12 +292,20 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 		notchecked:true,//是否没有检验通过
 		isMarket:false,//是否是果仁市场
 		getCnyMoney: function(e) {
-			transfer_target.cnyMoney=transfer_target.price*this.value;
+			
 			if (this.value>0 && this.value<=transfer_target.gopNum) {
 				transfer_target.notchecked=false;
 			}else{
 				transfer_target.notchecked=true;
 			}
+
+			var whether_include_numrice = this.value.indexOf(".");
+            if(whether_include_numrice!=-1){
+                if(this.value.substring(whether_include_numrice+1,whether_include_numrice+4).length>2){
+                    transfer_target.transferNum = this.value.substring(0,whether_include_numrice+3);
+                }
+            }
+            transfer_target.cnyMoney=transfer_target.price*this.value;
 			console.log(transfer_target.transferNum);
 		},
 		commit_send:function(){
