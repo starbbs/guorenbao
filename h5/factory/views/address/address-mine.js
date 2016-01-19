@@ -64,7 +64,6 @@ define('h5-view-address-mine', ['router', 'api','h5-view','check','h5-alert','h5
 		$(this).removeClass('del');
 
 	});
-
     address_mine.on("hide",function(){
         $(".address-item").removeClass('del top');
     });

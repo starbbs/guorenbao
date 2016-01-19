@@ -10,7 +10,7 @@ define(['get'], function(get) {
 	var set = function(url) {
 		return 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx55923db8dfb94e44&redirect_uri=' + encodeURIComponent(url) + '&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
 	};
-	var url = 'http://www.goopal.me/choose.html';
+	var url = 'http://www.goopal.me/';
 	return {
 		// base: base,
 		set: set,
