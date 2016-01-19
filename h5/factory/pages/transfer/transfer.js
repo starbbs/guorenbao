@@ -10,7 +10,7 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 	var transfer = $('.transfer');
 	var transfer_new = new View('transfer-new');
 	var transfer_contacts = new View('transfer-contacts');
-	var transfer_target = new View('transfer-target');
+	var transfer_target_view = new View('transfer-target');
 	var transfer_bill = new View('transfer-bill');
 	var vm = avalon.define({
 		$id: 'transfer',	
@@ -224,6 +224,7 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 	        }
     	},
 	});
+	
 
 	
 	var transfer_contacts = avalon.define({
@@ -271,8 +272,6 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 			router.go('/view/transfer-target'); 
 		}
 	});
-
-
 	var transfer_target = avalon.define({
 		$id: 'transfer-target',
 		address: '',
@@ -362,15 +361,13 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 							transfer_bill_init(nowData);
 						} else {
 							console.log(data);
-							$.alert(data);
+							$.alert(data.msg);
 						}					
 					});
 				};
 			}
 		},
 	});
-
-
 	var transfer_bill = avalon.define({
 		$id: 'transfer-bill',
 		address: '',
@@ -398,14 +395,16 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 			var nowData={};
 			nowData.id=transfer_bill.personId;
 			nowData.callback=function(){
-				router.go('/'); 
+				window.history.back();
+				window.history.back();
+				window.history.back();
+				refresh_list();
 			}
 			$.extend(nickname.vm, nowData);
 			router.go('/view/nickname'); 
 		}
 		
 	});
-
 	var transfer_bill_init=function(data){
 		$('.bill-head').hide();
 		$('.transfer-icon').hide();
@@ -515,7 +514,6 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 		});
 		return result.arr.concat(result.other);	
 	};
-
 	var targetInit=function(transferOutType){
 		transfer_target.transferNum=0;//转果仁数
 		transfer_target.cnyMoney=0;//约合人民币
@@ -551,11 +549,9 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 		//获取当前实价
 		getprice();
 	}
-
 	var getprice=function(){
 		price.once(setprice);
 	}
-
 	var setprice=function(price){
 		var nowData={};
 		nowData.price=price;
@@ -597,10 +593,17 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 			}
 		});
 		
+		refresh_list();
+	}
+
+
+
+	var refresh_list = function() {
 		api.transferRecent({
 			gopToken: gopToken
 		}, function(data) {
-			if (data.status == 200) {							
+			if (data.status == 200) {
+				vm.list.clear();	
 				for (var i=0;i<data.data.transferOutList.length;i++) {
 	        		var item=data.data.transferOutList[i];
 	        		if (item.type=='WALLET_NEW') {	        			
@@ -654,15 +657,16 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 			}
 		});
 	}
-	
-	
+	// nickname.vm.callback = function(){
+	// 	refresh_list();
+	// }
 	avalon.scan();
-	
 	init();
-	
+	transfer_target_view.on("root",function(){
+		dialogPaypass.hide();
+	});
 	setTimeout(function() {
 		transfer.addClass('on');
-	});	
-		
+	});
 });
 

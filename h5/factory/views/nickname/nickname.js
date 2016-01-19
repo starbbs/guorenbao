@@ -11,6 +11,7 @@ define('h5-view-nickname', ['h5-view', 'api', 'h5-text'], function(View, api) {
 		$id: 'nickname',
 		nickname: '',
 		id: '',
+		callback:$.noop,
 		nickname_click: function() {
 			api.updateRemark({
 				gopToken: gopToken,
@@ -19,11 +20,9 @@ define('h5-view-nickname', ['h5-view', 'api', 'h5-text'], function(View, api) {
 			}, function(data) {
 				if (data.status == 200) {
 					nicknameView.onFinish();
-					if(vm.callback){
-						vm.callback();
-					}else{
-						window.history.back();
-					}					
+					console.log("#############")
+					vm.callback();
+					window.history.back();
 				} else {
 					console.log(data);
 				}
