@@ -5,24 +5,16 @@
 
 define('h5-paypass', ['check'], function(check) {
 	var scan = function(context) {
-		$('.paypass input', context).forEach(function(input) {
-			input = $(input);
-			var native = input.get(0);
+		$('.paypass input', context).each(function(i, native) {
+			var input = $(native);
 			if (native._hasBindPaypassInput) { return; }
 			native._hasBindPaypassInput = true;
 			var items = input.next().children();
 			native.paypassClear = function() {
+				native.value = '';
 				items.removeClass('on');
 			};
-
-			input.next().on("touchstart",function(){
-				setTimeout(function(){
-					input.get(0).focus();
-				},300);
-			});
-
 			input.on('input', function() {
-				// items.removeClass('on').slice(0, this.value.length).addClass('on');
 				for (var i = 0; i < items.length; i++) {
 					var item = items.eq(i);
 					if (item.hasClass('on')) {

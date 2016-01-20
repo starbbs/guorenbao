@@ -24,7 +24,11 @@
 		@extend %afull;
 		z-index: 1;
 		opacity: 0;
-		height: 0;
+		font-size: 0;
+		// line-height: 0;
+		// height: 0;
+		line-height: 50px;
+		color: transparent;
 	}
 	&-box {
 		@include square(100%);

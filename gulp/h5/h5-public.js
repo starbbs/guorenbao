@@ -18,7 +18,7 @@ gulp.task('h5-js', function() {
 gulp.task('h5-rjs', ['h5-js'], function() {
 	return tools.rjs(paths.build + '/*.html', paths.public + '/js', {
 		rjsPaths: paths.rjs,
-		uglify: false
+		uglify: true
 	});
 });
 

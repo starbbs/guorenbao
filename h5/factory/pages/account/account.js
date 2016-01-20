@@ -1,4 +1,3 @@
-
 // 张树垚 2016-01-10 00:31:49 创建
 // H5微信端 --- 账单
 
@@ -17,7 +16,9 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 	var main = $('.account');
 
 	var getList = function() {
-		if (!page) { return; }
+		if (!page) {
+			return;
+		}
 	};
 
 	var timeHandler = function(time) { // 时间处理
@@ -36,10 +37,10 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 				result[item[0]] = item[1];
 				if (item[0] === 'month') {
 					result.month2 = item[1] + 1; // 月份(阿拉伯数字)
-					result.month3 = item[1] >= 10 ? item[1] === 10 ? '十一' : '十二' : '一二三四五六七八九十'[item[1]]; // 月份(中文数字)
+					result.month3 = item[1] >= 10 ? item[1] === 10 ? '十一' : '十二' : '一二三四五六七八九十' [item[1]]; // 月份(中文数字)
 				}
 				if (item[0] === 'day') {
-					result.day2 = '日一二三四五六'[item[1]]; // 周(中文数字)
+					result.day2 = '日一二三四五六' [item[1]]; // 周(中文数字)
 				}
 				if (item[0] === 'hour') {
 					result.hour2 = item[1] < 10 ? ('0' + item[1]) : ('' + item[1]);
@@ -96,13 +97,42 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 		// 2016-01-14 02:33:44
 		var match = time.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2})\:(\d{2})\:(\d{2})/);
 		return 'setFullYear,setMonth,setDate,setHours,setMinutes,setSeconds'.split(',').reduce(function(date, item, index) {
-			if (item === 'setMonth') { match[index + 1] -= 1; }
+			if (item === 'setMonth') {
+				match[index + 1] -= 1;
+			}
 			date[item](parseInt(match[index + 1]));
 			return date;
 		}, new Date());
 		// return new Date(time);
 	};
 	var dataHandler = function(data) {
+		var add = function(type, bills, item) {
+			switch (type) {
+				case 'money':
+					break;
+					bills.push({
+						id: item.id,
+						img: item.targetImg,
+						change: numHandler(item.money, '¥'),
+						desc: item.businessDesc,
+						status: status[item.status],
+						type: typeClasses[item.type]
+					});
+				case 'gop':
+					bills.push({
+						id: item.id,
+						img: item.targetImg,
+						change: numHandler(item.gopNumber, 'G'),
+						desc: item.businessDesc,
+						status: status[item.status],
+						type: typeClasses[item.type]
+					});
+					break;
+				default:
+					api.log('dataHandler出错啦!');
+					return;
+			}
+		};
 		return data.map(function(item) { // 确定时间
 			item._date = parseDate(item.status === 'SUCCESS' ? item.businessTime : item.createTime);
 			item._dateTime = item._date.getTime();
@@ -114,33 +144,16 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 			var type = typeClasses[item.type];
 			var bills = [];
 			if (type === 'phone') { // 消费果仁, 果仁+人民币
-
+				add('gop', bills, item);
+				add('money', bills, item);
 			} else if (type === 'buy') { // 买果仁, 人民币
-
+				add('money', bills, item);
 			} else if (type === 'transfer') { // 转果仁, 果仁
-
+				add('gop', bills, item);
+			} else {
+				console.log(item);
 			}
-			if (typeof item.gopNumber === 'number') { // 果仁消费
-				bills.push({
-					id: item.id,
-					img: item.targetImg,
-					change: numHandler(item.gopNumber, 'G'),
-					desc: item.businessDesc,
-					status: status[item.status],
-					type: typeClasses[item.type]
-				});
-			}
-			if (typeof item.money === 'number') { // 金币消费
-				bills.push({
-					id: item.id,
-					img: item.targetImg,
-					change: numHandler(item.money, '¥'),
-					desc: item.businessDesc,
-					status: status[item.status],
-					type: type
-				});
-			}
-			if (bills.length == 0) { console.log(item); }
+			console.log(type, bills);
 			var compare = timeCompare(now, item._date);
 			var day = {
 				_time: item._dateTime,
@@ -186,4 +199,3 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 	});
 	return;
 });
-

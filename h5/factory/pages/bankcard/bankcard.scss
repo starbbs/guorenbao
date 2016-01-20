@@ -80,6 +80,10 @@ body {
 		&-icon {
 			float: left;
 			margin-right: 12px;
+			border-radius: 50%;
+			background-color: #fff;
+			overflow: hidden;
+			padding: 2px;
 		}
 		&-name {
 			font-size: 14px;

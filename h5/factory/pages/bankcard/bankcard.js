@@ -48,7 +48,7 @@ require(['router', 'api', 'h5-view', 'hashMap',
 			router.go('/view/bankcard-append');
 		},
 		bankcard_detail_click: function(item) {
-			console.log(item);
+
 			bankcard_detail_vm.cardId = item.id;
 			bankcard_detail_vm.bankName = item.bankName;
 			bankcard_detail_vm.phone = item.bankPhone;
@@ -61,8 +61,9 @@ require(['router', 'api', 'h5-view', 'hashMap',
 
 			bankcard_detail_vm.callback = function() {
 				bankcardInit();
-				router.to('/');
+				window.history.back();
 			};
+
 			setTimeout(function() {
 				router.go('/view/bankcard-detail');
 			}, 100);

@@ -1,9 +1,14 @@
-// 余效俭 2016-01-08 8:58:22 创建
-// H5微信端 --- 银行卡信息
 
-define('h5-bankcard-ident', ['api', 'h5-view', 'h5-ident', 'h5-text'], function(api, View) {
+// 余效俭 2016-01-08 8:58:22 创建
+// H5微信端 --- 银行卡验证码
+
+
+define('h5-bankcard-ident', ['api', 'router', 'h5-view', 'h5-ident', 'h5-text'], function(api, router, View) {
+
 	var gopToken = $.cookie('gopToken');
+
 	var bankcard_ident = new View('bankcard-ident');
+
 	var vm = bankcard_ident.vm = avalon.define({
 		$id: 'bankcard-ident',
 		cardNo: '',

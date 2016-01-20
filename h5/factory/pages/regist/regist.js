@@ -7,6 +7,7 @@ require(['api', 'check', 'router', 'h5-view', 'h5-check', 'h5-ident', 'h5-text',
 
 	router.init(true);
 
+	var main = $('.regist');
 	var confirmData = { // 保存确定数据
 		phone: null,			// 手机号
 		identifyingCode: null,	// 验证码
@@ -123,5 +124,9 @@ require(['api', 'check', 'router', 'h5-view', 'h5-check', 'h5-ident', 'h5-text',
 		}
 	});
 	avalon.scan();
+
+	setTimeout(function() {
+		main.addClass('on');
+	}, 100);
 });
 

@@ -68,7 +68,6 @@ define(['mmRouter', 'mmHistory'], function() {
 				var args = Array.prototype.slice.call(arguments);
 				var hash = router.replace(name, args);
 
-				console.log(args);
 				// 是否有效
 				for (var i = 0; i < available.length; i++) {
 					var arr = available[i];
@@ -96,7 +95,6 @@ define(['mmRouter', 'mmHistory'], function() {
 		 * @Author   张树垚
 		 * @DateTime 2015-10-13 16:10:28
 		 * @param    {string}      hash [跳转路由描述]
-		 * @return   {[type]}           [avalon.router.navigate的返回值]
 		 */
 		go: function(hash) {
 			// if (hash === '/') { // 回归根部
@@ -109,17 +107,16 @@ define(['mmRouter', 'mmHistory'], function() {
 			// 		}
 			// 	}
 			// }
-			return avalon.router.navigate(hash);
+			avalon.router.navigate(hash);
 		},
 		/**
 		 * [router.to 更换URL,不产生历史记录]
 		 * @Author   张树垚
 		 * @DateTime 2016-01-20 16:10:28
 		 * @param    {string}      hash [跳转路由描述]
-		 * @return   {[type]}           [avalon.router.to的返回值]
 		 */
 		to: function(hash) {
-			return avalon.router.redirect(hash);
+			avalon.router.redirect(hash);
 		}
 	};
 

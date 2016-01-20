@@ -47,7 +47,7 @@ module.exports = {
 		'module': PATH_LIBRARY + '/api',
 		'router': PATH_LIBRARY + '/router',
 		'hashMap': PATH_LIBRARY + '/hashMap',
-		'touch-slide': 		PATH_LIBRARY + '/src/TouchSlide.1.1.source',
+		'touch-slide': PATH_LIBRARY + '/src/TouchSlide.1.1.source',
 		// PC端部分
 		'bank': PATH_COMPONENTS + '/bank/bank',
 		'bank-icon': PATH_COMPONENTS + '/bank-icon/bank-icon',
@@ -80,10 +80,9 @@ module.exports = {
 		'h5-dialog-alert': H5_DIALOGS + '/alert/alert',
 		'h5-dialog-bankcard': H5_DIALOGS + '/bankcard/bankcard',
 		'h5-dialog-paypass': H5_DIALOGS + '/paypass/paypass',
-		'h5-dialog-more': 			H5_DIALOGS + '/more/more',
-		'h5-bankcard-append': H5_FACTORY + '/pages/bankcard/bankcard-append',
-		'h5-bankcard-detail': H5_FACTORY + '/pages/bankcard/bankcard-detail',
-		'h5-bankcard-ident': H5_FACTORY + '/pages/bankcard/bankcard-ident',
+		'h5-dialog-more': H5_DIALOGS + '/more/more',
+		'h5-bankcard-append': H5_VIEWS + '/bankcard/bankcard-append',
+		'h5-bankcard-ident': H5_VIEWS + '/bankcard/bankcard-ident',
 		'h5-view-address-mine': H5_VIEWS + '/address/address-mine',
 		'h5-view-address-wallet': H5_VIEWS + '/address/address-wallet',
 	}

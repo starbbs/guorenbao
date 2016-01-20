@@ -18,6 +18,7 @@
 	$border: 1px solid $g-light;
 
 	@extend %afull;
+	@extend %fade-in;
 
 	&-title {
 		$title: & + '';
