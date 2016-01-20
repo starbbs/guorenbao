@@ -47,12 +47,9 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 					vmOrder.orderMoney = data.data.buyinOrder.orderMoney;
 					setOrderNum();
 					vmOrder.click = function() {
-						alert(vmOrder.price + ',' + vmOrder.gopNum + ',' + vmOrder.orderMoney)
 						vmBill.price = vmOrder.price;
 						vmBill.gopNum = vmOrder.gopNum;
 						vmBill.money = vmOrder.orderMoney;
-						alert(JSON.stringify(data))
-						alert(data.data.WEIXIN_MP_PAY.timeStamp);
 						wx.chooseWXPay({ // 微信支付
 							// timeStamp: data.data.WEIXIN_MP_PAY.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
 							timestamp: data.data.WEIXIN_MP_PAY.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
@@ -61,19 +58,15 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 							signType: data.data.WEIXIN_MP_PAY.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
 							paySign: data.data.WEIXIN_MP_PAY.paySign, // 支付签名
 							success: function(res) { // 成功
-								alert('success:' + JSON.stringify(res));
 							},
 							fail: function(res) { // 失败
-								alert('fail:' + JSON.stringify(res));
+								alert('fail:\n' + JSON.stringify(res));
 							},
 							cancel: function(res) { // 取消
-								alert('cancel:' + JSON.stringify(res));
 							},
 							trigger: function(res) { // 菜单点击
-								alert('trigger:' + JSON.stringify(res));
 							},
 							complete: function(res) { // 完成
-								alert('complete:' + JSON.stringify(res));
 								api.queryBuyinOrder({ // 买入订单详情
 									gopToken: gopToken,
 									buyinOrderId: data.data.buyinOrder.id,

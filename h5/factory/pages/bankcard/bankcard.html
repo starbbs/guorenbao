@@ -2,7 +2,7 @@
 <div class="screen-r">
     <div class="bankcard" ms-controller="bankcard">
     	<!-- <div class="bank zhaoshang"></div> -->
-		<div class="bankcard-item c1" ms-repeat-item="list" ms-click="bankcard_detail_click" ms-attr-data-id="{{item.id}}">
+		<div class="bankcard-item c1" ms-repeat-item="list" ms-click="bankcard_detail_click(item)">
 			<div class="bankcard-item-label">
 				<div class="bankcard-item-icon"><i class="bank" ms-class="{{item.bankDataDic}}" ></i></div>
 				<div class="bankcard-item-name">{{item.bankName}}</div>
@@ -17,8 +17,8 @@
 	</div>
 	<div class="view">
 		@@include('./bankcard-detail.html')
-		@@include('./bankcard-append.html')
-		@@include('./bankcard-ident.html')
+		@@include('../../views/bankcard/bankcard-append.html')
+		@@include('../../views/bankcard/bankcard-ident.html')
 	</div>
 	<div class="alert"></div>
 	<div class="dialog">

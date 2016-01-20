@@ -25,7 +25,7 @@ define(['mmRouter', 'mmHistory'], function() {
 			}
 			if (ifRoot) {
 				setTimeout(function() {
-					router.go('/');
+					router.to('/');
 				}, 100);
 			}
 			return avalon.history.start(avalon.mix({
@@ -94,22 +94,32 @@ define(['mmRouter', 'mmHistory'], function() {
 		/**
 		 * [router.go 跳转]
 		 * @Author   张树垚
-		 * @DateTime 2015-10-13
-		 * @param    {string}      name [跳转路由描述]
+		 * @DateTime 2015-10-13 16:10:28
+		 * @param    {string}      hash [跳转路由描述]
 		 * @return   {[type]}           [avalon.router.navigate的返回值]
 		 */
-		go: function(name) {
-			// if (name === '/') { // 回归根部
+		go: function(hash) {
+			// if (hash === '/') { // 回归根部
 			// 	router.onRoot && router.onRoot();
 			// } else {
-			// 	var arr = name.split('/');
+			// 	var arr = hash.split('/');
 			// 	if (arr[1] === 'view') {
 			// 		if (arr[2] in router.view) {
 			// 			router.view[arr[2]].show();
 			// 		}
 			// 	}
 			// }
-			return avalon.router.navigate(name);
+			return avalon.router.navigate(hash);
+		},
+		/**
+		 * [router.to 更换URL,不产生历史记录]
+		 * @Author   张树垚
+		 * @DateTime 2016-01-20 16:10:28
+		 * @param    {string}      hash [跳转路由描述]
+		 * @return   {[type]}           [avalon.router.to的返回值]
+		 */
+		to: function(hash) {
+			return avalon.router.redirect(hash);
 		}
 	};
 

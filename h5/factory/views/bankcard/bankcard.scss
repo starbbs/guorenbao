@@ -1,0 +1,33 @@
+@charset 'utf-8';
+
+
+// 张树垚 2016-01-20 15:01:07 创建
+// H5微信端 --- view-bankcard 添加银行卡分页
+
+
+.bankcard {
+
+	$img: $g-views + '/bankcard/images';
+
+	&-append{ // 添加
+		@extend .view-style;
+		&-box {
+			margin-top: 22px;
+			&:first-child {
+				margin-top: 0;
+			}
+		}
+		&-line {
+			display: flex;
+			@include height(38px);
+			margin-top: -5px;
+			padding: 0 $g-padding;
+			background-color: $g-line;
+			border-top: 1px solid $g-white;
+			font-size: 14px;
+		}
+	}
+	&-ident { // 验证码
+		@extend .view-style;
+	}
+}

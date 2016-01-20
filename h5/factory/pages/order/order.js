@@ -4,12 +4,12 @@
 
 
 require(['api', 'get', 'router',
-	'h5-view', 'h5-bankcard-append', 'h5-bankcard-ident', 'h5-view-authentication',
+	'h5-view', 'h5-bankcard-append', 'h5-view-authentication',
 	'h5-price', 'h5-bank', 'h5-ident', 'h5-component-bill',
 	'h5-dialog-bankcard', 'h5-dialog-paypass', 'h5-dialog-more',
 	'h5-weixin'],
 	function(api, get, router,
-		View, viewBankcardAppend, viewBankcardIdent, viewAuthentication,
+		View, viewBankcardAppend, viewAuthentication,
 		price, H5Bank, H5Ident, H5Bill,
 		dialogBankcard, dialogPaypass, dialogMore) {
 
@@ -240,16 +240,14 @@ require(['api', 'get', 'router',
 	}
 
 	switch(get.data.from) { // 判断来源
-
 		case 'phonecharge': // 来自手机充值
 			document.title = '订单-手机充值';
 			break;
-
 		case 'loverelay': // 来自爱心接力
 			document.title = '订单-爱心接力'
 			break;
-
 		default: // 无来源
+			document.title = '订单';
 	}
 
 	avalon.scan();
