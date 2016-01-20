@@ -92,16 +92,16 @@ require(['api', 'check', 'router', 'h5-view', 'h5-check', 'h5-ident', 'h5-text',
 		ifPaypass2Next: false,
 		paypassInput: function(num) {
 			// _paypass['items' + num].removeClass('on').slice(0, this.value.length).addClass('on');
-			vm['ifPaypass' + num + 'Next'] = check.paypass(this.value).result;
+			vm['ifPaypass' + num + 'Next'] = check.paypassCondition(this.value);
 		},
 		paypass1Next: function() {
-			if (vm.ifPaypass1Next && h5Check.paypass(_paypass.input1)) {
+			if (vm.ifPaypass1Next && check.paypassCondition(_paypass.input1)) {
 				router.go('/view/regist-paypass-2');
 				confirmData.paypass1 = _paypass.input1.val();
 			}
 		},
 		paypass2Next: function() {
-			if (vm.ifPaypass2Next && h5Check.paypass(_paypass.input2)) {
+			if (vm.ifPaypass2Next && check.paypassCondition(_paypass.input2)) {
 				var value = _paypass.input2.val();
 				if (value == confirmData.paypass1) {
 					api.setPayPassword({

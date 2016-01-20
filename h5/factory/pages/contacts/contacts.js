@@ -1,4 +1,3 @@
-
 // 张树垚 2015-12-20 11:27:22 创建
 // H5微信端 --- 个人首页
 
@@ -159,7 +158,9 @@ require(['router', 'api', 'h5-view', 'h5-view-nickname', 'h5-weixin'], function(
 		now: 'guoren', // 当前tab
 		tab: function(name) {
 			var self = $(this);
-			if (self.hasClass('on')) { return; }
+			if (self.hasClass('on')) {
+				return;
+			}
 			contacts.search = ''; // 切换时清空搜索框
 			self.addClass('on').siblings().removeClass('on');
 			getList(name);
@@ -168,7 +169,9 @@ require(['router', 'api', 'h5-view', 'h5-view-nickname', 'h5-weixin'], function(
 		list: [],
 		listClick: function(ev) {
 			var item = $(ev.target).closest('.contacts-item');
-			if (!item.length) { return; }
+			if (!item.length) {
+				return;
+			}
 			var arr = item.get(0).dataset.path.split('/');
 			nowData = contacts.list[arr[0]].list[arr[1]];
 			$.extend(people, nowData.$model);
@@ -183,6 +186,21 @@ require(['router', 'api', 'h5-view', 'h5-view-nickname', 'h5-weixin'], function(
 		picture: '',
 		gopUserNick: '',
 		id: '',
+		transfer: function() {
+			$.cookie('gop_contact', JSON.stringify({
+				address: people.address,
+				phone: people.phone,
+				name: people.name,
+				picture: people.picture,
+				gopUserNick: people.gopUserNick,
+				id: people.id,
+			}), {
+				expires: 1
+			});
+			setTimeout(function() {
+				window.location.href = 'transfer.html?from=contact';
+			}, 300);
+		},
 		click: function() {
 			nickname.vm.id = people.id;
 			nickname.vm.name = people.name;
@@ -199,4 +217,3 @@ require(['router', 'api', 'h5-view', 'h5-view-nickname', 'h5-weixin'], function(
 		main.addClass('on');
 	}, 100);
 });
-

@@ -90,6 +90,8 @@ define('h5-view-address-wallet', ['router', 'api','h5-view','check','h5-alert','
             }); 
         }
 	});
+
+    
     address_wallet.on("hide",function(){
         address_wallet.vm.walletAddress_add_show=false;
         address_wallet.vm.walletAddress='';
