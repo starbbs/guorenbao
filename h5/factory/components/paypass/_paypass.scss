@@ -24,6 +24,7 @@
 		@extend %afull;
 		z-index: 1;
 		opacity: 0;
+		height: 0;
 	}
 	&-box {
 		@include square(100%);

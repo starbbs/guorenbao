@@ -14,6 +14,13 @@ define('h5-paypass', ['check'], function(check) {
 			native.paypassClear = function() {
 				items.removeClass('on');
 			};
+
+			input.next().on("touchstart",function(){
+				setTimeout(function(){
+					input.get(0).focus();
+				},300);
+			});
+
 			input.on('input', function() {
 				// items.removeClass('on').slice(0, this.value.length).addClass('on');
 				for (var i = 0; i < items.length; i++) {

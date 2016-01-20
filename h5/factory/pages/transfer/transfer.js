@@ -283,7 +283,7 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 		walletId:null,
 		payPassword:'123456',//支付密码
 		serviceFee:0.01,//服务费
-		transferNum:0,//转果仁数	
+		transferNum:'',//转果仁数	
 		gopNum:0,//拥有果仁数	
 		price:0,//实价
 		cnyMoney:0,//约合人民币
@@ -378,7 +378,7 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 		personId: null,
 		walletId:null,
 		serviceFee:0.01,//服务费
-		transferNum:0,//转果仁数	
+		transferNum:'',//转果仁数	
 		content:'',//转账说明
 		successFlag:true,//是否提交成功
 		tradeNo:'2015110563563544101',//流水号
@@ -515,7 +515,7 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 		return result.arr.concat(result.other);	
 	};
 	var targetInit=function(transferOutType){
-		transfer_target.transferNum=0;//转果仁数
+		transfer_target.transferNum='';//转果仁数
 		transfer_target.cnyMoney=0;//约合人民币
 		transfer_target.content='';//转账说明
 		transfer_target.notchecked=true,//是否没有检验通过
@@ -664,6 +664,14 @@ require(['router','api','h5-view','h5-price','h5-view-nickname','h5-view-address
 	init();
 	transfer_target_view.on("root",function(){
 		dialogPaypass.hide();
+	});
+	transfer_target_view.on("hide",function(){
+		transfer_target.transferNum = '';
+		$('.transfer-target-box .text-input').val('');
+	});
+	transfer_target_view.on("show",function(){
+		transfer_target.transferNum = '';
+		$('.transfer-target-box .text-input').val('');
 	});
 	setTimeout(function() {
 		transfer.addClass('on');
