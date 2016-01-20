@@ -673,7 +673,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
 			} else {
 				api.log('cookie中并没有联系人数据');
 			}
-			$.cookie('gop_contact', null);
+			// $.cookie('gop_contact', null);
 		}
 	}, 100);
 });

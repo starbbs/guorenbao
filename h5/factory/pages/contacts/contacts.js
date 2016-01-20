@@ -194,7 +194,9 @@ require(['router', 'api', 'h5-view', 'h5-view-nickname', 'h5-weixin'], function(
 				picture: people.picture,
 				gopUserNick: people.gopUserNick,
 				id: people.id,
-			}));
+			}), {
+				expires: 1
+			});
 			setTimeout(function() {
 				window.location.href = 'transfer.html?from=contact';
 			}, 300);
