@@ -107,6 +107,15 @@
 		&-item {
 			@include height(28px);
 		}
+		&-left {
+			float: left;
+			width: 4em;
+			text-align: justify;
+			text-align-last: justify;
+		}
+		&-right {
+			float: right;
+		}
 	}
 	&-more {
 		text-align: center;

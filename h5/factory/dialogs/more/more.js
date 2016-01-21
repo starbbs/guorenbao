@@ -7,8 +7,7 @@ define('h5-dialog-more', ['h5-dialog'], function(Dialog) {
 	var more = new Dialog('more');
 	var vm = more.vm = avalon.define({
 		$id: 'dialog-more',
-		orderId: '',
-		flowId: '',
+		list: [],
 		close: function(ev) {
 			if (ev.target == this) {
 				more.hide();
