@@ -362,6 +362,13 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                         }
                     });
                 };
+            } else {
+            	if(transfer_target.transferNum < 0){
+	            	$.alert('请输入大于0的数');
+	            }
+	            if(transfer_target.gopNum <= 0){
+	            	$.alert('您的果仁币为0');
+	            }
             }
         },
     });
@@ -670,19 +677,19 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
             if (data) {
                 data = JSON.parse(data); //联系人数据
                 console.log(data);
-        		transfer_target.address = data.address;
-        		transfer_target.name = data.name;
-        		transfer_target.personId = data.id;
-        		transfer_target.photo = data.picture;
-        		transfer_target.phone = data.phone;
-        		if(data.type=="guoren"){
-        			vm.transferOutType = "GOP_CONTACT";
-        		}
-        		if(data.type=="wallet"){
-        			vm.transferOutType = "GOP_MARKET";
-        		}
-        		console.log(transfer_target);
-        		console.log(vm.transferOutType);
+                transfer_target.address = data.address;
+                transfer_target.name = data.name;
+                transfer_target.personId = data.id;
+                transfer_target.photo = data.picture;
+                transfer_target.phone = data.phone;
+                if (data.type == "guoren") {
+                    vm.transferOutType = "GOP_CONTACT";
+                }
+                if (data.type == "wallet") {
+                    vm.transferOutType = "GOP_MARKET";
+                }
+                console.log(transfer_target);
+                console.log(vm.transferOutType);
                 targetInit(vm.transferOutType);
                 router.go('/view/transfer-target');
             } else {

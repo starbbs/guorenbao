@@ -27,11 +27,6 @@ require(['router','api','h5-view','h5-view-password','h5-view-authentication', '
 			if (data.status == 200) {
 				vm.authenticationed=true;	
 				vm.authenticationedStr="已认证";
-//				if(data.data.isCertification && data.data.isCertification!='未实名认证'){
-//					vm.authenticationed=true;	
-//					vm.authenticationedStr="已认证";
-//				}
-				
 			} else {
 				console.log(data);
 			}
@@ -54,7 +49,7 @@ require(['router','api','h5-view','h5-view-password','h5-view-authentication', '
 	}
 	setTimeout(function() {
 		security.addClass('on');
-	});
+	},100);
 	init();
 });
 

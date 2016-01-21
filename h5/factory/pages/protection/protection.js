@@ -60,17 +60,15 @@ require(['router', 'h5-view','api','h5-paypass', 'h5-text','cookie', 'h5-weixin'
          	}, function(data) {
          		if (data.status == 200) {
          			$.alert("设置成功");
-         			router.go('/');   
+         			//router.go('/');
+                    window.location.href = 'security.html';
          		} else {
          			console.log(data);
          		}
          	});
         }
 	});
-	
-	
 	avalon.scan();
-
 	setTimeout(function() {
 		protection.addClass('on');
 	});
