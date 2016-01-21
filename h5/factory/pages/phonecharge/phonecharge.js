@@ -44,7 +44,7 @@ require(['api', 'check', 'get', 'h5-alert', 'h5-weixin'], function(api, check, g
 		},
 		close: function() { // 输入框清除
 			vm.phone = '';
-			$('#phonecharge-text-input').get(0).focus();
+			$('#phonecharge-text-input').val('').get(0).focus();
 		},
 		list: [], // 历史充值号码列表
 		listClick: function() { // 选择历史号码
@@ -87,17 +87,18 @@ require(['api', 'check', 'get', 'h5-alert', 'h5-weixin'], function(api, check, g
 		button: '支付', // 按钮显示
 		buttonClick: function() { // 按钮点击
 			if ($(this).hasClass('disabled')) { return; }
-			console.log(confirmData)
 			api.phoneRecharge({
 				gopToken: gopToken,
 				productId: confirmData.id,
 				phone: vm.phone
 			}, function(data) {
 				if (data.status == 200) {
-					window.location.href = get.add('order.html', { // 跳到公共订单页
-						from: 'phonecharge',
-						id: data.data.consumeOrderId
-					});
+					setTimeout(function() {
+						window.location.href = get.add('order.html', { // 跳到公共订单页
+							from: 'phonecharge',
+							id: data.data.consumeOrderId
+						});
+					}, 200);
 				} else {
 					$.alert(data.msg);
 				}

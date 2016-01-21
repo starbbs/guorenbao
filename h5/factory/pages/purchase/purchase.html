@@ -2,7 +2,7 @@
 <div class="screen-a">
 	<div class="purchase" ms-controller="purchase">
 		<div class="purchase-main">
-			<div class="purchase-main-number font-money">{{price.toFixed(2)}}</div>
+			<div class="purchase-main-number font-money">{{price|fix}}</div>
 			<div class="purchase-main-number-tip">果仁现价（¥）</div>
 			<div class="purchase-main-box">
 				<div class="purchase-main-item font-label">买入金额</div>
@@ -13,7 +13,7 @@
 						<div class="text-close" ms-click="moneyClear"></div>
 					</label>
 				</div>
-				<div class="purchase-main-item">预计买入　{{money?'G '+(money/price).toFixed(2):''}}</div>
+				<div class="purchase-main-item">预计买入　{{money?'G '+(money/price)|fix:''}}</div>
 			</div>
 			<div class="text-button"><span class="button" ms-class="disabled:!money" ms-click="buy">买入</span></div>
 			<div class="purchase-main-foot">以即时市场价格快速买入果仁<br>实际成交价格以结算时为准</div>

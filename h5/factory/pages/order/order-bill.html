@@ -8,15 +8,15 @@
 			</div>
 			<div class="order-bill-detail" ms-if="orderMoney">
 				<div class="bill-label dark">订单金额(¥)</div>
-				<div class="bill-num dark">-{{orderMoney.toFixed(2)}}</div>
+				<div class="bill-num dark">-{{orderMoney|fix}}</div>
 				<div class="order-bill-detail-box" ms-if="payMoney||payGop">
 					<div class="order-bill-detail-item">
 						<div class="bill-label">支付金额</div>
-						<div class="bill-num">-{{payMoney.toFixed(2)}}</div>
+						<div class="bill-num">-{{payMoney|fix}}</div>
 					</div>
 					<div class="order-bill-detail-item">
-						<div class="bill-label">使用<span class="bill-green">{{payGop.toFixed(2)}}</span>个果仁</div>
-						<div class="bill-num">-{{(orderMoney-payMoney).toFixed(2)}}</div>
+						<div class="bill-label">使用<span class="bill-green">{{payGop|fix}}</span>个果仁</div>
+						<div class="bill-num">-{{(orderMoney-payMoney)|fix}}</div>
 					</div>
 				</div>
 			</div>

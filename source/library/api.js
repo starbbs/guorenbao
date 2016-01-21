@@ -3,7 +3,7 @@
 
 
 
-define('api', ['cookie', 'h5-alert', 'h5-wait'], function() {
+define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 
 	// var basePath = '.'; // 同域
 	// var basePath = 'http://172.16.27.110:8080/'; // 郑明海本地

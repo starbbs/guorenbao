@@ -5,22 +5,22 @@
 			<div class="order-head-desc">
 				<div class="order-head-desc-line">
 					<div class="order-head-label">{{productDesc}}(¥)</div>
-					<div class="order-head-num">{{money.toFixed(2)}}</div>
+					<div class="order-head-num">{{money|fix}}</div>
 				</div>
 				<div class="order-head-desc-tip">
 					<div class="fl">收款方：北京果仁宝科技有限公司</div>
-					<div class="fr" ms-visible="productRealPrice"><del>{{productRealPrice.toFixed(2)}}</del></div>
+					<div class="fr" ms-visible="productRealPrice"><del>{{productRealPrice|fix}}</del></div>
 				</div>
 			</div>
 			<div class="order-head-use" ms-class="on:gopIfUse&&gopNum" ms-click="gopClick">
 				<div class="order-head-radio"></div>
 				<div class="order-head-label">使用果仁</div>
-				<div class="order-head-use-guo">G {{gopUse.toFixed(2)}}</div>
-				<div class="order-head-use-money">- {{gopMoney.toFixed(2)}}</div>
+				<div class="order-head-use-guo">G {{gopUse|fix}}</div>
+				<div class="order-head-use-money">- {{gopMoney|fix}}</div>
 			</div>
 			<div class="order-head-pay">
 				<div class="order-head-label">人民币支付</div>
-				<div class="order-head-num red">- {{rmbUse.toFixed(2)}}</div>
+				<div class="order-head-num red">- {{rmbUse|fix}}</div>
 			</div>
 		</div>
 		<div class="order-box">

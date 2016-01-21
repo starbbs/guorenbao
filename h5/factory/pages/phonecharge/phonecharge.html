@@ -4,7 +4,7 @@
 		<div class="phonecharge-head"><img src="./images/phonecharge-1.jpg" alt="" class="img-w"></div>
 		<div class="phonecharge-text">
 			<div class="phonecharge-text-box"><input type="tel" id="phonecharge-text-input" name="phonecharge-text-input" class="phonecharge-text-input" ms-class="non-null:phone" placeholder="请输入或选择手机号码" autocomplete="off" maxlength="11" ms-duplex="phone" ms-on-input="input" ms-on-focus="focus" ms-on-blur="blur"></div>
-			<div class="text-close" ms-class="on:phone" ms-click="close"></div>
+			<div class="text-close" ms-class="on:phone" ms-on-touchstart="close"></div>
 			<div class="phonecharge-text-operator" ms-visible="phone">{{carrier}}</div>
 			<div class="phonecharge-text-list" ms-visible="list.length&&focusing">
 				<div class="phonecharge-text-item" ms-repeat-item="list">

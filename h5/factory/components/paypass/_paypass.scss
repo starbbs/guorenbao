@@ -6,13 +6,18 @@
 
 
 .paypass {
-	@include square(290px, 46px);
+
+	$width: 290px;
+	$p2: ''; // 第二种效果
+
+	@include square($width, 46px);
 	margin: 0 auto;
 	position: relative;
-	$p2: '';
-	&-2 { // 第二种效果
+
+	&-2 {
 		$p2: & + '';
 	}
+
 	&-title {
 		text-align: center;
 		font-size: 16px;
@@ -25,10 +30,11 @@
 		z-index: 1;
 		opacity: 0;
 		font-size: 0;
-		// line-height: 0;
-		// height: 0;
 		line-height: 50px;
 		color: transparent;
+		box-sizing: border-box;
+		padding-left: $width + 10px;
+		overflow: hidden;
 	}
 	&-box {
 		@include square(100%);

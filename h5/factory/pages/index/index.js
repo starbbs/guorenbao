@@ -16,7 +16,6 @@ require(['router', 'api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h
 	avalon.scan(select.native, selectVM);
 
 	var gotoAuthorization = function() { // 跳转授权页, 未授权
-		return;
 		setTimeout(function() {
 			location.href = authorization.default;
 		}, 100);

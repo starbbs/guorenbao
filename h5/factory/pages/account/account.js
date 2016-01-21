@@ -2,7 +2,7 @@
 // H5微信端 --- 账单
 
 
-require(['router', 'api', 'h5-weixin'], function(router, api) {
+require(['router', 'api', 'filters', 'h5-weixin'], function(router, api, filters) {
 
 	// 1.下拉加载
 	// 2.点击详情
@@ -76,7 +76,7 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 	};
 
 	var numHandler = function(number, unit) {
-		return (number > 0 ? '+' : '-') + ' ' + unit + ' ' + (Math.abs(number));
+		return (number > 0 ? '+' : '-') + ' ' + unit + ' ' + Math.abs(filters.fix(number));
 	};
 
 	var now = new Date();
@@ -109,7 +109,6 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 		var add = function(type, bills, item) {
 			switch (type) {
 				case 'money':
-					break;
 					bills.push({
 						id: item.id,
 						img: item.targetImg,
@@ -118,6 +117,7 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 						status: status[item.status],
 						type: typeClasses[item.type]
 					});
+					break;
 				case 'gop':
 					bills.push({
 						id: item.id,
@@ -144,8 +144,8 @@ require(['router', 'api', 'h5-weixin'], function(router, api) {
 			var type = typeClasses[item.type];
 			var bills = [];
 			if (type === 'phone') { // 消费果仁, 果仁+人民币
-				add('gop', bills, item);
-				add('money', bills, item);
+				item.gopNumber && add('gop', bills, item);
+				item.money && add('money', bills, item);
 			} else if (type === 'buy') { // 买果仁, 人民币
 				add('money', bills, item);
 			} else if (type === 'transfer') { // 转果仁, 果仁

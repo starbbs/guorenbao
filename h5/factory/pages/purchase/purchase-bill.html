@@ -2,7 +2,7 @@
 	<div class="bill-box last">
 		<div class="bill-head" ms-class="{{headClass}}">{{headContent}}</div>
 		<div class="bill-get" ms-visible="gopNum">
-			<div class="bill-get-number">+{{gopNum.toFixed(2)}}</div>
+			<div class="bill-get-number">+{{gopNum|fix}}</div>
 			<div class="bill-get-label">获得果仁(G)</div>
 		</div>
 		<div class="bill-reason" ms-visible="failReason">
@@ -11,11 +11,11 @@
 		</div>
 		<div class="bill-money">
 			<div class="fl">{{status=='FAILURE'?'订单金额':'支付金额'}} (¥)</div>
-			<div class="fr dark font-num">-{{money.toFixed(2)}}</div>
+			<div class="fr dark font-num">-{{money|fix}}</div>
 		</div>
 		<div class="bill-detail-item">
 			<div class="fl">成交价 (¥)</div>
-			<div class="fr blue font-num">{{price.toFixed(2)}}</div>
+			<div class="fr blue font-num">{{price|fix}}</div>
 		</div>
 		<div class="bill-detail-item">
 			<div class="fl">收款方</div>
