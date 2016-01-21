@@ -21,13 +21,16 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 	setting.on('hide', function() {
 		console.log('hide')
 	});
+
 	address_mine.vm.setSuccess = function() {
 		vm.setMarketAddressTip = '已设置';
-		vm.marketGopAddress = address_mine.marketGopAddress;
+		vm.marketGopAddress = marketGopAddress.market;
 	};
+
 	address_mine.vm.setDelSuccess = function() {
 		vm.setMarketAddressTip = '未设置';
 	};
+
 	var vm = avalon.define({
 		$id: 'mine',
 		name: '',

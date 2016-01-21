@@ -1,0 +1,16 @@
+@charset 'utf-8';
+
+
+// 张树垚 2016-01-21 15:14:39 创建
+// H5微信端 --- 关于我们
+
+
+@import '../../../source/scss/main';
+
+@import '../../views/view';
+@import '../../views/about-us/about-us';
+
+
+.about-us {
+	$img: $g-pages + '/about-us/images';
+}

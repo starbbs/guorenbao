@@ -85,5 +85,7 @@ module.exports = {
 		'h5-bankcard-ident': H5_VIEWS + '/bankcard/bankcard-ident',
 		'h5-view-address-mine': H5_VIEWS + '/address/address-mine',
 		'h5-view-address-wallet': H5_VIEWS + '/address/address-wallet',
+		'h5-view-about-us': H5_VIEWS + '/about-us/about-us',
+		'h5-view-agreement': H5_VIEWS + '/agreement/agreement',
 	}
 };

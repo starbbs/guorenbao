@@ -1,0 +1,45 @@
+@charset 'utf-8';
+
+
+// 张树垚 2016-01-21 15:14:39 创建
+// H5微信端 --- 关于我们
+
+
+.about-us {
+
+	$img: $g-views + '/about-us/images';
+
+	@extend .view-style;
+	font-size: 11px;
+	line-height: 16px;
+
+	&-scroll {
+		padding-bottom: $g-padding-bottom;
+	}
+	&-head {
+		font-size: 12px;
+		margin-left: $g-padding;
+		margin-bottom: 24px;
+		border-bottom: $g-border;
+		overflow: hidden;
+		padding: 16px 1px;
+		line-height: 20px;
+		&-img {
+			float: left;
+			@include sprite($img + '/1.png', 38px);
+			margin-right: 16px;
+		}
+	}
+	&-title {
+		margin-top: 18px;
+		margin-left: 10px;
+		margin-bottom: 1em;
+		font-weight: bold;
+	}
+	&-paragraph {
+		color: $g-gray;
+		margin: 0 $g-padding 1em;
+	}
+}
+
+

@@ -1,0 +1,17 @@
+@charset 'utf-8';
+
+
+// 张树垚 2016-01-21 15:15:27 创建
+// H5微信端 --- 服务协议
+
+
+@import '../../../source/scss/main';
+
+@import '../../views/view';
+@import '../../views/agreement/agreement';
+
+
+.agreement {
+	$img: $g-pages + '/agreement/images';
+}
+

@@ -1,0 +1,35 @@
+@charset 'utf-8';
+
+
+// 张树垚 2016-01-21 15:14:39 创建
+// H5微信端 --- view-agreement 服务协议
+
+
+.agreement {
+
+	$img: $g-views + '/agreement/images';
+
+	@extend .view-style;
+	line-height: 16px;
+	color: $g-gray;
+	font-size: 11px;
+
+	&-scroll {
+		padding: 0 $g-padding $g-padding-bottom;
+	}
+	&-title {
+		text-align: center;
+		font-size: 12px;
+		margin-top: 23px;
+		margin-bottom: 15px;
+	}
+	&-label {
+		color: $g-dark;
+		margin-top: 16px;
+	}
+	&-paragraph {
+		margin-top: 8px;
+	}
+}
+
+
