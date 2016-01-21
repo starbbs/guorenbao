@@ -24,6 +24,11 @@ define('filters', function() {
 			str = isNaN(parseFloat(str)) ? 0 : parseFloat(str);
 			length = isNaN(parseInt(length)) ? 2 : parseInt(length);
 			return (Math.round(str * Math.pow(10, length)) / Math.pow(10, length)).toFixed(length);
+		},
+		tail: function(str, length) {
+			str = typeof str !== 'string' ? '' : parseFloat(str);
+			length = isNaN(parseInt(length)) ? 4 : Math.abs(parseInt(length));
+			return str.substr(- length);
 		}
 	});
 });

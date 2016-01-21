@@ -98,7 +98,7 @@ require(['api', 'check', 'get', 'h5-alert', 'h5-weixin'], function(api, check, g
 							from: 'phonecharge',
 							id: data.data.consumeOrderId
 						});
-					}, 200);
+					}, 1000 / 60);
 				} else {
 					$.alert(data.msg);
 				}
@@ -106,6 +106,7 @@ require(['api', 'check', 'get', 'h5-alert', 'h5-weixin'], function(api, check, g
 		}
 	});
 	avalon.scan(main.get(0), vm);
+
 	api.phoneLastest({
 		gopToken: gopToken
 	}, function(data) {
