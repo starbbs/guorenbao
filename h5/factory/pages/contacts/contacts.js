@@ -68,7 +68,7 @@ require(['router', 'api', 'h5-view', 'h5-view-nickname', 'h5-weixin'], function(
         for (var i in data) {
             if (data.hasOwnProperty(i)) {
                 result[i.length === 1 ? 'arr' : 'other'].push({ // 字母放到arr, 其他放到other
-                    name: i,
+                    name: typeof(i)==Number?i:'其他',
                     list: data[i]
                 });
             }
