@@ -659,10 +659,11 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
     };
     avalon.scan();
     init();
-    transfer_target_view.on("root", function() {
-        dialogPaypass.hide();
-    });
+    // transfer_target_view.on("root", function() {
+    //     dialogPaypass.hide();
+    // });
     transfer_target_view.on("hide", function() {
+    	dialogPaypass.hide();
         transfer_target.transferNum = '';
         $('.transfer-target-box .text-input').val('');
     });
@@ -682,6 +683,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                 transfer_target.personId = data.id;
                 transfer_target.photo = data.picture;
                 transfer_target.phone = data.phone;
+                console.log("++++++++++++"+transfer_target.phone);
                 if (data.type == "guoren") {
                     vm.transferOutType = "GOP_CONTACT";
                 }

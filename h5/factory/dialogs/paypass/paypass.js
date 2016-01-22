@@ -5,6 +5,7 @@
 
 define('h5-dialog-paypass', ['h5-dialog', 'check', 'api', 'h5-paypass'], function(Dialog, check, api) {
 	var paypass = new Dialog('paypass');
+	var inputTimer = null;
 	var vm = paypass.vm = avalon.define({
 		$id: 'dialog-paypass',
 		close: function() {
@@ -13,18 +14,22 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'api', 'h5-paypass'], functio
 		callback: $.noop, // 下一步
 		input: function() {
 			var value = this.value;
+			clearTimeout(inputTimer);
 			if (check.paypassCondition(value)/* && check.paypass(value).result*/) {
-				api.checkPayPwd({
-					gopToken: $.cookie('gopToken'),
-					payPwd: value
-				}, function(data) {
-					if (data.status == 200) {
-						paypass.hide();
-						vm.callback(value);
-					} else {
-						console.log(data);
-					}
-				});
+				setTimeout(function(){
+					api.checkPayPwd({
+						gopToken: $.cookie('gopToken'),
+						payPwd: value
+					}, function(data) {
+						if (data.status == 200) {
+							paypass.hide();
+							vm.callback(value);
+						} else {
+							$.alert(data.msg);
+							console.log(data);
+						}
+					});
+				},500);
 			}
 		}
 	});
