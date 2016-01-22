@@ -7,6 +7,10 @@
 
 .bill {
 	$img: $g-components + '/bill/images';
+	&-scroll {
+		@extend %rw;
+		padding-bottom: $g-padding-bottom;
+	}
 	&-green {
 		color: $g-green-bill;
 	}
@@ -70,6 +74,25 @@
 			}
 		}
 	}
+	&-wait {
+		border: $g-border;
+		border-radius: $g-radius;
+		overflow: hidden;
+		line-height: 50px;
+		padding: 15px $g-padding 0;
+		margin-top: 8px;
+		margin-bottom: 24px;
+		&-left {
+			float: left;
+			color: $g-dark;
+			font-size: 14px;
+		}
+		&-right {
+			float: right;
+			color: $g-red;
+			font-size: 22px;
+		}
+	}
 	&-get {
 		@extend .font-money;
 		border-bottom: $g-border;
@@ -85,6 +108,40 @@
 	&-reason {
 		@include height(68px);
 		border-bottom: $g-border;
+	}
+	&-pay {
+		overflow: hidden;
+		border-bottom: $g-border;
+		padding: 16px 0;
+		&-box {
+			clear: both;
+			padding-top: 10px;
+			.bill-num {
+				font-size: 14px;
+			}
+		}
+		&-item {
+			@include height(24px);
+			margin-left: 28px;
+			margin-right: 10px;
+			position: relative;
+			&:before {
+				content: '';
+				display: block;
+				@include square(0, 100%);
+				border-left: 1px $g-ash dotted;
+				@include atl(-15px, -13px);
+			}
+			&:after {
+				content: '';
+				display: block;
+				@include square(5px);
+				border-radius: 50%;
+				background-color: $g-green-bill;
+				@include atl(9px, -15px);
+				z-index: 1;
+			}
+		}
 	}
 	&-money {
 		@include height(46px);

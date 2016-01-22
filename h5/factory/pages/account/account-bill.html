@@ -1,1 +1,58 @@
-<div class="account-bill"></div>
+<div class="account-bill">
+	<div class="bill-scroll">
+		<div class="bill-box last">
+			<div class="bill-head" ms-class="{{status}}">{{headContent}}</div>
+			<div class="bill-wait">
+				<div class="bill-wait-left">等待支付(¥)</div>
+				<div class="bill-wait-right">-95.00</div>
+			</div>
+			<!-- <div class="bill-reason" ms-if="failReason">
+				<div class="fl">失败原因</div>
+				<div class="fr red">{{failReason}}</div>
+			</div>
+			<div class="bill-pay" ms-if="orderMoney">
+				<div class="bill-label" ms-class-1="ash:status=='fail'" ms-class-2="dark:status!='fail'">订单金额(¥)</div>
+				<div class="bill-num dark">-{{orderMoney|fix}}</div>
+				<div class="bill-pay-box" ms-if="status=='success'">
+					<div class="bill-pay-item" ms-if="payMoney">
+						<div class="bill-label">支付金额</div>
+						<div class="bill-num">-{{payMoney|fix}}</div>
+					</div>
+					<div class="bill-pay-item" ms-if="payGop">
+						<div class="bill-label">使用<span class="bill-green">{{payGop|fix}}</span>个果仁</div>
+						<div class="bill-num">-{{(orderMoney-payMoney)|fix}}</div>
+					</div>
+				</div>
+			</div> -->
+			<!-- <div class="bill-money">
+				<div class="bill-label dark">获得返利(G)</div>
+				<div class="bill-num blue">+1.20</div>
+			</div> -->
+			<div class="bill-detail">
+				<div class="bill-detail-item" ms-if="productDesc">
+					<div class="bill-detail-left">商品信息</div>
+					<div class="bill-detail-right dark">{{productDesc}}</div>
+				</div>
+				<div class="bill-detail-item">
+					<div class="bill-detail-left">收款方</div>
+					<div class="bill-detail-right dark">北京果仁宝科技有限公司</div>
+				</div>
+				<div class="bill-detail-item" ms-if="status=='success'&&orderTime">
+					<div class="bill-detail-left">交易时间</div>
+					<div class="bill-detail-right dark">{{orderTime}}</div>
+				</div>
+				<div class="bill-detail-item" ms-if="status!='success'&&createTime">
+					<div class="bill-detail-left">创建时间</div>
+					<div class="bill-detail-right dark">{{createTime}}</div>
+				</div>
+				<div class="bill-detail-item" ms-if="status!='success'&&orderCode">
+					<div class="bill-detail-left">订单号</div>
+					<div class="bill-detail-right ash">{{orderCode}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="text-button"><span class="button" ms-click="finish">完成</span></div>
+		<div class="text-button"><span class="button" ms-click="gotoPay">前往支付</span></div>
+		<div class="bill-more"><span class="blue" ms-if="status=='success'" ms-click="showMore">更多</span></div>
+	</div>	
+</div>

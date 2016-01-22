@@ -1,20 +1,20 @@
 <div class="order-bill" ms-controller="order-bill">
-	<div class="order-bill-scroll">
+	<div class="bill-scroll">
 		<div class="bill-box last">
 			<div class="bill-head" ms-class="{{status}}">{{headContent}}</div>
 			<div class="bill-reason" ms-if="failReason">
 				<div class="fl">失败原因</div>
 				<div class="fr red">{{failReason}}</div>
 			</div>
-			<div class="order-bill-detail" ms-if="orderMoney">
+			<div class="bill-pay" ms-if="orderMoney">
 				<div class="bill-label" ms-class-1="ash:status=='fail'" ms-class-2="dark:status!='fail'">订单金额(¥)</div>
 				<div class="bill-num dark">-{{orderMoney|fix}}</div>
-				<div class="order-bill-detail-box" ms-if="status=='success'">
-					<div class="order-bill-detail-item" ms-if="payMoney">
+				<div class="bill-pay-box" ms-if="status=='success'">
+					<div class="bill-pay-item" ms-if="payMoney">
 						<div class="bill-label">支付金额</div>
 						<div class="bill-num">-{{payMoney|fix}}</div>
 					</div>
-					<div class="order-bill-detail-item" ms-if="payGop">
+					<div class="bill-pay-item" ms-if="payGop">
 						<div class="bill-label">使用<span class="bill-green">{{payGop|fix}}</span>个果仁</div>
 						<div class="bill-num">-{{(orderMoney-payMoney)|fix}}</div>
 					</div>

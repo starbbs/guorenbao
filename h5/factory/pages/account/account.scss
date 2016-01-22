@@ -7,10 +7,11 @@
 
 @import '../../../source/scss/main';
 
-
 @import '../../views/view';
 
 // @import '../../dialogs/dialog';
+
+@import '../../components/bill/bill';
 
 
 body {
@@ -118,6 +119,11 @@ body {
 
 	&-bill {
 		@extend .view-style;
+		&-scroll {}
+		&-detail {
+			&-box {}
+			&-item {}
+		}
 	}
 }
 

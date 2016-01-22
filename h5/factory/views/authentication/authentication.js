@@ -17,7 +17,6 @@ define('h5-view-authentication', ['h5-view', 'api', 'h5-text', 'cookie'], functi
 				$.alert('请输入中文名');
 				return;
 			}
-
 			var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
 			if (reg.test(vm.Idcard)) {
 				api.applyCertification({
@@ -37,11 +36,9 @@ define('h5-view-authentication', ['h5-view', 'api', 'h5-text', 'cookie'], functi
 			} else {
 				$.alert('身份证号格式错误');
 			}
-
-
 		},
 		finish_click: function() {
-			router.go('/');
+			router.to('/');
 		}
 	});
 

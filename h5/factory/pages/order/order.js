@@ -128,6 +128,7 @@ require(['api', 'get', 'router',
 				dialogMore.show();
 			}
 		});
+
 		var showBill = function(data) { // 显示订单详情
 			// data是来自于query接口的数据(data.data)
 			var order = data.consumeOrder; // 订单信息
@@ -161,7 +162,7 @@ require(['api', 'get', 'router',
 				dialogMore.vm.list = list;
 			}
 			setTimeout(function() {
-				router.go('/view/order-bill');
+				router.to('/view/order-bill');
 			}, 100);
 		};
 
@@ -188,6 +189,7 @@ require(['api', 'get', 'router',
 			bankSelect();
 		};
 
+		// 进入页面
 		if (get.data.id) { // 有订单ID, 跳转订单详情
 			api.query({
 				gopToken: gopToken,
@@ -196,8 +198,13 @@ require(['api', 'get', 'router',
 				if (data.status == 200) {
 					var order = data.data.consumeOrder; // 订单信息
 					var product = data.data.product; // 产品信息
-					if (order.status === 'PROCESSING') {
-						router.go('/');
+					var record = data.data.recordList; // 付款记录
+					if (order.status === 'PROCESSING' && !record.length) { // 进行中(未付款)
+						// 打开页面
+						router.to('/');
+						setTimeout(function() {
+							main.addClass('on');
+						}, 200);
 						// 刷新数据
 						vm.productDesc = product.productDesc;
 						vm.money = order.orderMoney;
@@ -211,14 +218,14 @@ require(['api', 'get', 'router',
 							dialogBankcard.on('hide', function() {
 								bankListReturn();
 							});
-							viewBankcardAppend.vm.callback = function() {
+							viewBankcardAppend.vm.callback = function() { // 银行卡添加回调
 								api.bankcardSearch({
 									gopToken: gopToken
 								}, function(data) {
 									if (data.status == 200) {
 										bankListRefresh(data.data.list);
 										setTimeout(function() {
-											router.go('/');
+											router.to('/');
 										}, 100);
 									} else {
 										$.alert(data.msg);
@@ -239,16 +246,12 @@ require(['api', 'get', 'router',
 								$.alert(data.msg);
 							}
 						});
-						// 打开页面
-						setTimeout(function() {
-							main.addClass('on');
-						}, 200);
-						price.onChange = function(next) {
+						price.onChange = price.onFirstChange = function(next) {
 							vm.gopPrice = next;
 							vm.gopExchange();
 						};
 						price.get();
-					} else {
+					} else { // 失败, 成功, 进行中(已付款)
 						showBill(data.data);
 					}
 				} else {
