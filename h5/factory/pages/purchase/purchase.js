@@ -58,15 +58,6 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 							signType: data.data.WEIXIN_MP_PAY.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
 							paySign: data.data.WEIXIN_MP_PAY.paySign, // 支付签名
 							success: function(res) { // 成功
-							},
-							fail: function(res) { // 失败
-								alert('fail:\n' + JSON.stringify(res));
-							},
-							cancel: function(res) { // 取消
-							},
-							trigger: function(res) { // 菜单点击
-							},
-							complete: function(res) { // 完成
 								api.queryBuyinOrder({ // 买入订单详情
 									gopToken: gopToken,
 									buyinOrderId: data.data.buyinOrder.id,
@@ -75,7 +66,8 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 									price.stop();
 									console.log(data)
 									var order = data.data.buyinOrder;
-									vmBill.status = order.status;
+									// vmBill.status = order.status;
+									vmBill.status = 'SUCCESS'; // 强制订单成功
 									vmBill.headClass = statusClass[order.status];
 									vmBill.headContent = statusContent[order.status];
 									vmBill.failReason = order.status === 'FAILURE' ? order.payResult : '';
@@ -90,34 +82,17 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 										router.go('/view/purchase-bill');
 									}, 100);
 								});
+							},
+							fail: function(res) { // 失败
+								alert('微信支付失败:\n' + JSON.stringify(res));
+							},
+							cancel: function(res) { // 取消
+							},
+							trigger: function(res) { // 菜单点击
+							},
+							complete: function(res) { // 完成
 							}
 						});
-						
-						/*function onBridgeReady() {
-							WeixinJSBridge.invoke(
-								'getBrandWCPayRequest', {
-									"appId": "wx55923db8dfb94e44", //公众号名称，由商户传入     
-									"timeStamp": data.data.WEIXIN_MP_PAY.timeStamp,
-									"nonceStr": data.data.WEIXIN_MP_PAY.nonceStr,
-									"package": data.data.WEIXIN_MP_PAY.package,
-									"signType": data.data.WEIXIN_MP_PAY.signType,
-									"paySign": data.data.WEIXIN_MP_PAY.paySign
-								},
-								function(res) {
-									if (res.err_msg == "get_brand_wcpay_request:ok") {} // 使用以上方式判断前端返回,微信团队郑重提示:res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
-								}
-							);
-						}
-						if (typeof WeixinJSBridge == "undefined") {
-							if (document.addEventListener) {
-								document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-							} else if (document.attachEvent) {
-								document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
-								document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-							}
-						} else {
-							onBridgeReady();
-						}*/
 					};
 					setTimeout(function() {
 						router.go('/view/purchase-order');

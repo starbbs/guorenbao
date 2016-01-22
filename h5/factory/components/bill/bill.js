@@ -16,6 +16,12 @@ define('h5-component-bill', function() {
 			SUCCESS: '交易成功',
 			FAILURE: '交易失败',
 			CLOSE: '交易关闭'
+		},
+		typeClass: { // 类型对应class名称
+			TRANSFER_IN: 'transfer',
+			TRANSFER_OUT: 'transfer',
+			BUY_IN: 'buy',
+			PAY: 'phone',
 		}
 	};
 	return bill;

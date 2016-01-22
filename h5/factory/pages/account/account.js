@@ -2,10 +2,8 @@
 // H5微信端 --- 账单
 
 
-require(['router', 'api', 'filters', 'h5-weixin'], function(router, api, filters) {
-
-	// 1.下拉加载
-	// 2.点击详情
+require(['router', 'api', 'filters', 'h5-component-bill',
+	'h5-weixin'], function(router, api, filters, H5bill) {
 
 	router.init(true);
 
@@ -74,25 +72,6 @@ require(['router', 'api', 'filters', 'h5-weixin'], function(router, api, filters
 			}
 		}
 	};
-
-	var numHandler = function(number, unit) {
-		return (number > 0 ? '+' : '-') + ' ' + unit + ' ' + Math.abs(filters.fix(number));
-	};
-
-	var now = new Date();
-	var nowMonth = now.getMonth();
-	var status = {
-		PROCESSING: '进行中',
-		SUCCESS: '交易成功',
-		FAILURE: '交易失败',
-		CLOSE: '交易关闭',
-	};
-	var typeClasses = {
-		TRANSFER_IN: 'transfer',
-		TRANSFER_OUT: 'transfer',
-		BUY_IN: 'buy',
-		PAY: 'phone',
-	};
 	var parseDate = function(time) { // 把字符串时间转为对应Date实例
 		// 2016-01-14 02:33:44
 		var match = time.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2})\:(\d{2})\:(\d{2})/);
@@ -105,32 +84,46 @@ require(['router', 'api', 'filters', 'h5-weixin'], function(router, api, filters
 		}, new Date());
 		// return new Date(time);
 	};
+
+	var numHandler = function(number, unit) { // 数值处理
+		return (number > 0 ? '+' : '-') + ' ' + unit + ' ' + Math.abs(filters.fix(number));
+	};
+
+	var now = new Date();
+	var nowMonth = now.getMonth();
 	var dataHandler = function(data) {
-		var add = function(type, bills, item) {
-			switch (type) {
-				case 'money':
-					bills.push({
-						id: item.id,
-						img: item.targetImg,
-						change: numHandler(item.money, '¥'),
-						desc: item.businessDesc,
-						status: status[item.status],
-						type: typeClasses[item.type]
-					});
-					break;
-				case 'gop':
-					bills.push({
-						id: item.id,
-						img: item.targetImg,
-						change: numHandler(item.gopNumber, 'G'),
-						desc: item.businessDesc,
-						status: status[item.status],
-						type: typeClasses[item.type]
-					});
-					break;
-				default:
-					api.log('dataHandler出错啦!');
-					return;
+		var add = function(kind, bills, item) {
+			var type = H5bill.typeClass[item.type];
+			var bill = {
+				id: item.id,
+				img: '',
+				desc: item.businessDesc,
+				status: H5bill.statusZhCN[item.status],
+				type: type
+			};
+			var types = {
+				money: 'money',
+				gop: 'gopNumber'
+			};
+			var coins = {
+				money: '¥',
+				gop: 'G'
+			}
+			bill.change = numHandler(item[types[kind]], coins[kind]);
+			bills.push(bill);
+			if (type === 'transfer') {
+				api.billPhoto({
+					gopToken: gopToken,
+					businessId: item.businessId,
+					businessType: item.type
+				}, function(data) {
+					if (data.status == 200) {
+						data.data.photoUrl && (bill.img = data.data.photoUrl);
+						data.data.name && (bill.desc = '转账 - ' + data.data.name);
+					} else {
+						console.log(data);
+					}
+				});
 			}
 		};
 		return data.map(function(item) { // 确定时间
@@ -141,7 +134,7 @@ require(['router', 'api', 'filters', 'h5-weixin'], function(router, api, filters
 			return item2._dateTime - item1._dateTime;
 		}).reduce(function(result, item) { // 提取
 			var time = timeHandler(item._date);
-			var type = typeClasses[item.type];
+			var type = H5bill.typeClass[item.type];
 			var bills = [];
 			if (type === 'phone') { // 消费果仁, 果仁+人民币
 				item.gopNumber && add('gop', bills, item);
@@ -153,7 +146,6 @@ require(['router', 'api', 'filters', 'h5-weixin'], function(router, api, filters
 			} else {
 				console.log(item);
 			}
-			console.log(type, bills);
 			var compare = timeCompare(now, item._date);
 			var day = {
 				_time: item._dateTime,

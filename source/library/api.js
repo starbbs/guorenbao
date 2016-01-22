@@ -15,26 +15,31 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 	/** [add 添加接口]
 	 * @Author   张树垚
 	 * @Date     2015-10-13
-	 * @param    {[string]}    name [api名称]
-	 * @param    {[string]}    url  [api地址]
+	 * @param    {[string]}		      name                     [api名称]
+	 * @param    {[string]}           url                      [api地址]
+	 * @param    {[json]}             options                  [api地址]
+	 *           {[function]}         options.callback         [接口固定回调]
+	 *           {[boolean]}          options.asyn             [是否异步请求]
+	 * @特点:
+	 *     1.同步请求, 连续请求会自动中断上一个
 	 */
-	var add = api.add = function(name, url, callback) {
+	var add = api.add = function(name, url, options) {
 		if (name in api) {
 			alert('api名称' + name + '已存在!');
 			return;
 		}
 		for (var i in api) {
-			if(api.hasOwnProperty(i) && api[i] === url) {
+			if (api.hasOwnProperty(i) && api[i] === url) {
 				alert('该接口地址' + url + '已添加!');
 				return;
 			}
 		}
 		var xhr = null;
-		var isRequesting = false;
+		options = options || {};
 		api[name] = function(data, success) { // 每个接口具体请求
-			if (isRequesting) { return; }
-			isRequesting = true;
-			xhr && xhr.abort();
+			if (xhr && !options.asyn) {
+				xhr.abort();
+			}
 			if (typeof data === 'function') {
 				success = data;
 				data = {};
@@ -48,13 +53,14 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 				timeout: 30000,
 				success: function(data) {
 					if (data.status == 300) { // {msg: "用户登录/验证失败，请重新登录", status: "300"}
+						return
 						if (window.location.href.indexOf('/index.html') === -1) {
 							return window.location.href = 'index.html';
 						}
 					} else if (data.status == 304) { // {msg: "服务器异常", status: "300"}
 						$.alert('服务器异常, 请联系后台人员!');
 					}
-					callback && callback.call(this, data);
+					options.callback && options.callback.call(this, data);
 					success && success.call(this, data);
 				},
 				error: function(xhrObj, text, err) {
@@ -65,7 +71,6 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 				},
 				complete: function() {
 					xhr = null;
-					isRequesting = false;
 				}
 			});
 		};
@@ -75,8 +80,7 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 		api.loginCheck({
 			phone: '',
 			password: ''
-		}, function(data) {
-		});
+		}, function(data) {});
 	};
 
 	/** 打印一条醒目的信息
@@ -114,7 +118,9 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 	add('cleanUser', '/common/cleanUser');
 	window.cleanUser = function() {
 		var gopToken = $.cookie('gopToken');
-		if (!gopToken) { return api.log('>> gopToken已消失, 可能原因:\n 1.cookie过期, 请联系Java工程师手动删除\n 2.已被删除, 请联系Java工程师查询'); }
+		if (!gopToken) {
+			return api.log('>> gopToken已消失, 可能原因:\n 1.cookie过期, 请联系Java工程师手动删除\n 2.已被删除, 请联系Java工程师查询');
+		}
 		api.cleanUser({
 			gopToken: gopToken
 		}, function(data) {
@@ -1409,7 +1415,7 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 		}
 	 */
 	add('phoneIdentifyingCode', '/common/user/phone/identifyingCode');
-	
+
 	/** 66.发送银行手机号验证码
 	 * 参数:
 		{
@@ -1452,8 +1458,8 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 		}
 	 */
 	add('phoneDelete', '/consume/product/phoneRecharge/clean');
-    
-    /** 70 识别银行卡
+
+	/** 70 识别银行卡
      * 参数:
 		{  
   			"bankCard" : "6226220124577111"
@@ -1469,11 +1475,11 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 		}
 	 */
 	add('checkBankCard', '/common/checkBankCard');
-    
-    add('transferValidate', '/transfer/validate');
-    
+
+	add('transferValidate', '/transfer/validate');
+
 	add('transferQuery', '/transfer/query');
-    
+
 	add('transferRecent', '/transfer/recent');
 
 	/** 77.微信签名
@@ -1498,34 +1504,16 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 	 */
 	add('weixinInfo', '/common/weixin/signature');
 
-	/**
-	 * 68.获取密保问题 
-	 * {
-		    "gopToken":"e8er843er834i8df8d34jddfdf89df89dffd8d8f934j43jk34"，
-		    "qusetionNumber":1
-		}
-		
-		{
-		    "status":200,
-		    "msg":"success",
-		    "data":{"question":"我爸爸叫什么？"}
-		}
-	 */
+	// 68.获取密保问题 
 	add('getQuestion', '/security/getQuestion');
-	
-	/**
-	 * 用户反馈 
-	 * {
-		    "gopToken":"e8er843er834i8df8d34jddfdf89df89dffd8d8f934j43jk34"，
-		    "fankuiContext":"这这那那"
-		}
-		
-		{
-		    "status":200,
-		    "msg":"success"
-		}
-	 */
-	add('fankui','/fankui/send')
-	
+
+	// 77.用户反馈信息
+	add('fankui', '/fankui/send');
+
+	// 83.获取联系人头像（49.账单列表接口的附加接口）
+	add('billPhoto', '/bill/contentPhoto', {
+		asyn: true
+	});
+
 	return api;
 });
