@@ -205,10 +205,16 @@ require(['router', 'api', 'h5-view', 'h5-view-nickname', 'h5-weixin'], function(
         click: function() {
             nickname.vm.id = people.id;
             nickname.vm.name = people.name;
+            router.go('/view/nickname');
         }
     });
     nickname.onFinish = function() {
         people.name = nowData.name = nickname.vm.name; // 同步
+        console.log(people.name);
+        console.log(nowData.name);
+        console.log(nickname.vm.name);
+        console.log(nickname.vm.nickname);
+        people.name = nowData.name = nickname.vm.nickname;
         tabs.guoren.list.length = tabs.wallet.list.length = 0; // 重新请求
     };
     avalon.scan();

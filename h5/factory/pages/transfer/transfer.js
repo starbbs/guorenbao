@@ -205,6 +205,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                                 nowData.name = data.data.nick;
                             } else {
                                 nowData.name = "未命名地址";
+                                transfer_bill.hasSetup = false;
                             }
                         } else {
                             nowData.name = "未命名地址";
@@ -392,6 +393,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
         successTime: new Date(),
         isSuccess: false,
         isProcessing: false,
+        hasSetup:true,
         back_click: function(e) {
             router.go('/');
         },
@@ -486,6 +488,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                     myDate.setHours(myDate.getHours() + 2);
                     transfer_bill.successTime = myDate;
                     transfer_bill.isProcessing = true;
+                    transfer_bill.hasSetup = false;
                     $('.back').hide();
                 } else {
                     $('.bill-head.fail').show();
