@@ -141,6 +141,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
         $id: 'transfer-new',
         newTarget: '',
         checked: true,
+        newguorentype:false,
         check: function(e) {
             if (this.value.length != 11 && this.value.length != 67 && this.value.length != 68) {
                 transfer_new.checked = true;
@@ -150,11 +151,13 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                     transfer_new.checked = true;
                 } else {
                     transfer_new.checked = false;
+                    transfer_new.newguorentype = false;
                 }
             } else if (this.value.indexOf('GOP') != 0) {
                 transfer_new.checked = true;
             } else {
                 transfer_new.checked = false;
+                transfer_new.newguorentype = true;
             }
             if (transfer_new.checked) {
                 $(this).addClass("error");
@@ -201,11 +204,22 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                             if (data.data.photo) {
                                 nowData.photo = data.data.photo;
                             }
-                            if (data.data.nick) {
-                                nowData.name = data.data.nick;
-                            } else {
-                                nowData.name = "未命名地址";
-                                transfer_bill.hasSetup = false;
+                            if (re.test(transfer_new.newTarget)) {
+                                if (data.data.nick) {
+                                    nowData.name = data.data.nick;
+                                    console.log("nowData.name" + nowData.name);
+                                } else {
+                                    nowData.name = "未命名用户";
+                                    transfer_bill.hasSetup = false;
+                                }
+                            } else if (transfer_new.newTarget.indexOf('GOP') >= 0) {
+                                if (data.data.nick) {
+                                    nowData.name = data.data.nick;
+                                    console.log("nowData.name" + nowData.name);
+                                } else {
+                                    nowData.name = "未命名地址";
+                                    transfer_bill.hasSetup = false;
+                                }
                             }
                         } else {
                             nowData.name = "未命名地址";
@@ -458,6 +472,11 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                 transfer_bill.transContent = datas.data.transferOut.transContent;
                 //transfer_bill.serviceFee=datas.data.transferOut.serviceFee;
                 // transfer_bill.address=datas.data.transferOut.address;
+                if(transfer_new.newguorentype){  //true 代表的是钱包地址  false 代表手机号
+                    transfer_bill.serviceFee = 0.01;
+                } else {
+                    transfer_bill.serviceFee = '免费';
+                }
                 transfer_bill.status = datas.data.transferOut.status;
                 transfer_bill.createTime = datas.data.transferOut.createTime;
                 transfer_bill.updateTime = datas.data.transferOut.updateTime;

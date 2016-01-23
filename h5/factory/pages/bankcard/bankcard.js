@@ -60,6 +60,8 @@ require(['router', 'api', 'h5-view', 'hashMap',
 			bankcard_detail_vm.cardTypeStr = item.typeName;
 
 			bankcard_detail_vm.callback = function() {
+				bankcard_append.vm.cardNo ='';
+				bankcard_append.vm.phone = '';
 				bankcardInit();
 				window.history.back();
 			};
@@ -102,6 +104,7 @@ require(['router', 'api', 'h5-view', 'hashMap',
 
 	var bankcardInit = function() {
 		vm.list.clear();
+		
 		api.bankcardSearch({
 			gopToken: gopToken,
 		}, function(data) {

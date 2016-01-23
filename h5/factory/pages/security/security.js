@@ -31,16 +31,18 @@ require(['router','api','h5-view','h5-view-password','h5-view-authentication', '
 				console.log(data);
 			}
 		});
-		api.isQuestion({
-			gopToken: gopToken
-		}, function(data) {
-			if (data.status == 200) {
-				vm.setProtected=true;	
-				vm.setProtectedStr="已设置";
-			} else {
-				console.log(data);
-			}
-		});
+		setTimeout(function(){
+			api.isQuestion({
+				gopToken: gopToken
+			}, function(data) {
+				if (data.status == 200) {
+					vm.setProtected=true;	
+					vm.setProtectedStr="已设置";
+				} else {
+					console.log(data);
+				}
+			});
+		},200);
 	}
 	avalon.scan();
 	viewAuthen.vm.callback = function(){
