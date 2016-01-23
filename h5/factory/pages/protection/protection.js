@@ -59,9 +59,10 @@ require(['router', 'h5-view','api','h5-paypass', 'h5-text','cookie', 'h5-weixin'
         	    payPwd:vm.payPwd
          	}, function(data) {
          		if (data.status == 200) {
-         			$.alert("设置成功");
-         			//router.go('/');
-                    window.location.href = 'security.html';
+         			$.alert("密保问题一旦设置将不可更改，请牢记您的密保问题");
+                    setTimeout(function(){
+                        window.location.href = 'security.html';
+                    },2000);
          		} else {
          			console.log(data);
          		}
