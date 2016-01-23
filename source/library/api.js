@@ -53,7 +53,6 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 				timeout: 30000,
 				success: function(data) {
 					if (data.status == 300) { // {msg: "用户登录/验证失败，请重新登录", status: "300"}
-						return
 						if (window.location.href.indexOf('/index.html') === -1) {
 							return window.location.href = 'index.html';
 						}

@@ -2,10 +2,10 @@
 // H5微信端 --- 账单
 
 
-require(['router', 'api', 'filters', 'h5-component-bill',
-	'h5-weixin'], function(router, api, filters, H5bill) {
+require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4',
+	'h5-weixin'], function(router, api, get, filters, H5bill, iScroll) {
 
-	router.init(true);
+	router.init();
 
 	var gopToken = $.cookie('gopToken');
 	var page = 1; // 账单页数, 当返回列表长度小于当前列表长度时, 置零, 不再请求
@@ -13,12 +13,64 @@ require(['router', 'api', 'filters', 'h5-component-bill',
 
 	var main = $('.account');
 
-	var getList = function() {
-		if (!page) {
-			return;
+	var init = function() {
+		switch (get.data.from) {
+			case 'wx_info':
+				router.to('/view/account-bill');
+				break;
+			default:
+				router.to('/');
+				getList();
 		}
 	};
 
+	var originList = [];
+	var bottomHeight = 20;
+	var myScroll = new iScroll('main', {
+		vScrollbar: false,
+		preventDefault: true,
+		click: true,
+		// useTransition: true,
+		onScrollMove: function() {
+		},
+		onScrollEnd: function() {
+			if (this.y - bottomHeight < this.maxScrollY) {
+				getList();
+			}
+		},
+	});
+	var getList = function(callback) {
+		if (vm.loading) { return; }
+		if (!page) {
+			vm.loading = true;
+			vm.loadingWord = '大大, 已经没有了...';
+			setTimeout(function() {
+				vm.loading = false;
+			}, 1000);
+			return;
+		}
+		vm.loading = true;
+		api.billList({
+			gopToken: gopToken,
+			billListPage: page,
+			billListPageSize: size
+		}, function(data) {
+			if (data.status == 200) {
+				vm.loading = false;
+				vm.list = dataHandler(originList = originList.concat(data.data.list));
+				page = data.data.list.length < size ? 0 : page + 1;
+				callback && callback(data);
+				!main.hasClass('on') && setTimeout(function() {
+					main.addClass('on');
+				}, 200);
+			} else {
+				$.alert(data.msg);
+				console.log(data);
+			}
+		});
+	};
+
+	// 处理 getList 的工具方法 -- 开始
 	var timeHandler = function(time) { // 时间处理
 		// if (typeof time === 'string') {
 		// 	// 输入: "2016-01-08 05:30:16"
@@ -165,29 +217,23 @@ require(['router', 'api', 'filters', 'h5-component-bill',
 			return result;
 		}, []);
 	};
+	// 处理 getList 的工具方法 -- 结束
+
 	var vm = avalon.define({
 		$id: 'account',
+		loading: false,
+		loadingWord: '加载中...',
 		list: [],
+		listCallback: function() {
+			setTimeout(function() {
+				myScroll.refresh();
+			}, 200);
+		},
 		showAccount: function(ev) {
 			console.log('流水号:' + $(ev.target).closest('.account-item').get(0).dataset.id);
 		}
 	});
 	avalon.scan(main.get(0), vm);
-	api.billList({
-		gopToken: gopToken,
-		billListPage: page,
-		billListPageSize: size
-	}, function(data) {
-		if (data.status == 200) {
-			vm.list = dataHandler(data.data.list);
-			page = data.data.list.length < size ? 0 : page + 1;
-			setTimeout(function() {
-				main.addClass('on');
-			}, 200);
-		} else {
-			$.alert(data.msg);
-			console.log(data);
-		}
-	});
-	return;
+
+	init();
 });

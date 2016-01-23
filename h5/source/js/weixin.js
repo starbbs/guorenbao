@@ -13,7 +13,7 @@ define('h5-weixin', ['api', 'h5-alert'], function(api) {
 		// 分享
 		title: '果仁宝',
 		desc: '我是果仁宝, 测试描述, 今天天气不错',
-		link: location.protocol + '//' + base + '/index.html',
+		link: location.protocol + '//' + base + '/welcome.html',
 		imgUrl: location.protocol + '//' + base + '/images/share.jpg',
 		type: '',
 		dataUrl: '',
@@ -136,23 +136,23 @@ define('h5-weixin', ['api', 'h5-alert'], function(api) {
 				]
 			});
 			wx.ready(function() {
-				wx.hideOptionMenu(); // 隐藏右上角菜单接口
-				/*wx.hideMenuItems({
+				// wx.hideOptionMenu(); // 隐藏右上角菜单接口
+				wx.hideMenuItems({
 					menuList: [ // 批量隐藏功能按钮接口
 						// 基本类
 						"menuItem:exposeArticle", // 举报
 						"menuItem:setFont", // 调整字体
 						"menuItem:dayMode", // 日间模式
 						"menuItem:nightMode", // 夜间模式
-						"menuItem:refresh", // 刷新
-						"menuItem:profile", // 查看公众号（已添加）
-						"menuItem:addContact", // 查看公众号（未添加）
+						// "menuItem:refresh", // 刷新
+						// "menuItem:profile", // 查看公众号（已添加）
+						// "menuItem:addContact", // 查看公众号（未添加）
 						// 传播类
-						"menuItem:share:appMessage", // 发送给朋友
-						"menuItem:share:timeline", // 分享到朋友圈
+						// "menuItem:share:appMessage", // 发送给朋友
+						// "menuItem:share:timeline", // 分享到朋友圈
 						"menuItem:share:qq", // 分享到QQ
 						"menuItem:share:weiboApp", // 分享到Weibo
-						"menuItem:favorite", // 收藏
+						// "menuItem:favorite", // 收藏
 						"menuItem:share:facebook", // 分享到FB
 						"menuItem:share:QZone", // 分享到 QQ 空间
 						// 保护类
@@ -166,7 +166,7 @@ define('h5-weixin', ['api', 'h5-alert'], function(api) {
 						"menuItem:share:email", // 邮件
 						"menuItem:share:brand", // 一些特殊公众号
 					]
-				});*/
+				});
 				weixin.setShare();
 			});
 		} else {

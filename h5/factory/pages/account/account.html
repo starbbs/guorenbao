@@ -1,7 +1,7 @@
 @@include('../../../source/include/top.html', {"name": "account"})
-<div class="screen-r">
+<div class="screen-a" id="main">
 	<div class="account" ms-click="showAccount($event)">
-		<div ms-repeat-group="list">
+		<div ms-repeat-group="list" data-repeat-rendered="listCallback">
 			<div class="account-month">{{group.month}}</div>
 			<div class="account-day" ms-repeat-day="group.days">
 				<div class="account-time">
@@ -28,6 +28,7 @@
 				</div>
 			</div>
 		</div>
+		<div class="account-loading" ms-visible="loading"><span>{{loadingWord}}</span></div>
 	</div>
 	<div class="alert"></div>
 	<div class="view">

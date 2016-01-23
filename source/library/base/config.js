@@ -29,9 +29,10 @@
 			'm': 				PATH_LIBRARY + '/api',
 			'mmRouter': 		PATH_LIBRARY + '/src/mmRouter',
 			'mmHistory': 		PATH_LIBRARY + '/src/mmHistory',
+			'iScroll4': 		PATH_LIBRARY + '/src/iscroll4',
 			'module': 			PATH_LIBRARY + '/api',
 			'router': 			PATH_LIBRARY + '/router',
-			'hashMap':		  PATH_LIBRARY + '/hashMap',
+			'hashMap':			PATH_LIBRARY + '/hashMap',
 			'touch-slide': 		PATH_LIBRARY + '/src/TouchSlide.1.1.source',
 			// PC端部分
 			'bank': 			PATH_COMPONENTS + '/bank/bank',

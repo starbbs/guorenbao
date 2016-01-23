@@ -30,6 +30,17 @@ body {
 	padding-bottom: $g-padding-bottom;
 	background-color: $g-background;
 
+	&-loading {
+		text-align: center;
+		margin-top: 10px;
+		span {
+			padding: 4px 8px;
+			background-color: $g-silver;
+			color: $g-white;
+			border-radius: $g-radius;
+		}
+	}
+
 	&-month {
 		margin-top: 3px;
 		@include height(26px);
