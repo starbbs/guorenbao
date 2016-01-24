@@ -409,7 +409,8 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
         isProcessing: false,
         hasSetup:true,
         back_click: function(e) {
-            router.go('/');
+            //router.go('/');
+            window.location.href = 'transfer.html';
         },
         remark_click: function(e) {
             var nowData = {};
@@ -495,7 +496,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                     transfer_bill.stage = 'finish';
                     transfer_bill.successTip = "";
                     transfer_bill.isSuccess = true;
-                    $('.back').hide();
+                    //$('.back').hide();
                 } else if (transfer_bill.status == 'PROCESSING') {
                     $('.bill-head.going').show();
                     $('.bill-get-number').removeClass("light");
@@ -508,13 +509,13 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                     transfer_bill.successTime = myDate;
                     transfer_bill.isProcessing = true;
                     transfer_bill.hasSetup = false;
-                    $('.back').hide();
+                    //$('.back').hide();
                 } else {
                     $('.bill-head.fail').show();
                     $('.bill-get-number').addClass("light");
                     $('.bill-get-label').addClass("light");
                     $('.bill-detail-failure').show();
-                    $('.back').show();
+                    //$('.back').show();
                 }
             } else {
                 console.log(datas);

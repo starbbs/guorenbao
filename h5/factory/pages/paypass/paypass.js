@@ -178,7 +178,13 @@ require(['router', 'api', 'h5-view', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-we
 				}, function(data) {
 					if (data.status == 200) {
 						$.alert('修改支付密码成功');
-						router.go('/');
+						console.log("dddddddddd")
+						vm.paypass1 = '';
+						vm.paypass2 = '';
+						vm.paypass3 = '';
+						vm.Idcard = '';
+						vm.identifyingCode = '';
+						window.location.href = 'security.html';
 					} else {
 						console.log(data);
 						$.alert(data.msg);
@@ -190,7 +196,6 @@ require(['router', 'api', 'h5-view', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-we
 		}
 	});
 	avalon.scan();
-
 	api.isQuestion({
 		gopToken: gopToken
 	}, function(data) {
@@ -200,7 +205,6 @@ require(['router', 'api', 'h5-view', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-we
 			vm.hasProtected = false;
 		}
 	});
-
 	setTimeout(function() {
 		paypass.addClass('on');
 	});

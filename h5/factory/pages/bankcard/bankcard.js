@@ -5,7 +5,7 @@
 require(['router', 'api', 'h5-view', 'hashMap',
 	'h5-bankcard-append', 'h5-ident', 'h5-text', 'h5-weixin'
 ], function(router, api, View, hashMap,
-	bankcard_append) {
+	bankcard_append,bankcard_ident) {
 
 	router.init(true);
 
@@ -48,7 +48,6 @@ require(['router', 'api', 'h5-view', 'hashMap',
 			router.go('/view/bankcard-append');
 		},
 		bankcard_detail_click: function(item) {
-
 			bankcard_detail_vm.cardId = item.id;
 			bankcard_detail_vm.bankName = item.bankName;
 			bankcard_detail_vm.phone = item.bankPhone;
@@ -58,7 +57,6 @@ require(['router', 'api', 'h5-view', 'hashMap',
 			bankcard_detail_vm.cardNo = item.cardNo;
 			bankcard_detail_vm.cardType = item.type;
 			bankcard_detail_vm.cardTypeStr = item.typeName;
-
 			bankcard_detail_vm.callback = function() {
 				bankcard_append.vm.cardNo ='';
 				bankcard_append.vm.phone = '';
@@ -71,6 +69,12 @@ require(['router', 'api', 'h5-view', 'hashMap',
 			}, 100);
 		}
 	});
+
+	// bankcard_ident.vm.callback = function(){
+	// 	bankcard_ident.vm.identifyingCode = '';
+	// 	bankcard_append.vm.cardNo = '';
+	// 	bankcard_append.vm.phone = '';
+	// }
 
 	var bankcard_detail = new View('bankcard-detail');
 	var bankcard_detail_vm = avalon.define({
