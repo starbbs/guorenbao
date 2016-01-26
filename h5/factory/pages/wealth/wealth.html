@@ -25,11 +25,11 @@
 			<div class="wealth-now"><span class="gray">果仁现价</span>　<span class="input bold">¥ {{price|fix}}</span></div>
 			<div class="wealth-tab">
 				<div class="wealth-tab-item">30日年化收益率</div>
-				<div class="wealth-tab-item on">历史价格<span class="wealth-tab-history"><span class="wealth-tab-history-item">7日</span><span class="wealth-tab-history-item on">30日</span></span></div>
+				<div class="wealth-tab-item on">历史价格<span class="wealth-tab-history"><span class="wealth-tab-history-item" ms-class="on:historyDay==7" ms-click="historyClick(7)">7日</span><span class="wealth-tab-history-item" ms-class="on:historyDay==30" ms-click="historyClick(30)">30日</span></span></div>
 			</div>
 			<div class="wealth-chart-box">
-				<div class="wealth-chart-item"></div>
-				<div class="wealth-chart-item"></div>
+				<div class="wealth-chart-item" id="chart-history"></div>
+				<!-- <div class="wealth-chart-item"></div> -->
 			</div>
 			<div class="wealth-tits">
 				<span class="wealth-tits-item"></span>
@@ -44,4 +44,7 @@
 	<div class="alert"></div>
 	<!-- <div class="dialog"></div> -->
 </div>
-@@include('../../../source/include/bottom.html', {"name": "wealth"})
+@@include('../../../source/include/bottom.html', {
+	"name": "wealth",
+	"jquery": true
+})

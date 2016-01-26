@@ -127,9 +127,7 @@ require(['dom', 'api', 'router', 'top', 'hchart'], function(dom, api, router, to
 	});
 	avalon.scan();
 
-	// router.get();
 	router.init();
-
 });
 
 
