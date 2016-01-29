@@ -16,7 +16,7 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'api', 'h5-paypass'], functio
 			var value = this.value;
 			clearTimeout(inputTimer);
 			if (check.paypassCondition(value)/* && check.paypass(value).result*/) {
-				setTimeout(function(){
+				inputTimer = setTimeout(function(){
 					api.checkPayPwd({
 						gopToken: $.cookie('gopToken'),
 						payPwd: value
@@ -26,7 +26,6 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'api', 'h5-paypass'], functio
 							vm.callback(value);
 						} else {
 							$.alert(data.msg);
-							console.log(data);
 						}
 					});
 				},500);

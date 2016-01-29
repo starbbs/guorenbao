@@ -44,6 +44,7 @@ module.exports = {
 		'm': PATH_LIBRARY + '/api',
 		'mmRouter': PATH_LIBRARY + '/src/mmRouter',
 		'mmHistory': PATH_LIBRARY + '/src/mmHistory',
+		'iScroll4': PATH_LIBRARY + '/src/iscroll4',
 		'module': PATH_LIBRARY + '/api',
 		'router': PATH_LIBRARY + '/router',
 		'hashMap': PATH_LIBRARY + '/hashMap',

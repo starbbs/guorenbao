@@ -130,9 +130,24 @@ body {
 		width: 100%;
 		&-box {
 			@extend %afull;
+			overflow: hidden;
+		}
+		&-scroll {
+			@extend %afull;
+			@include t3d();
+		}
+		&-slide {
+			@extend %afull;
+			&:nth-child(2) {
+				@include t3d(100%);
+			}
 		}
 		&-item {
-			@include atlwh(18px, 5%, 90%, 124px);
+			// @include atlwh(18px, 5%, 90%, 124px);
+			@extend %afull;
+		}
+		&-cover {
+			@extend %afull;
 		}
 	}
 	&-now {

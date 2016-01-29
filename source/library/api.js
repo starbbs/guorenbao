@@ -6,7 +6,7 @@
 define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 
 	// var basePath = '.'; // 同域
-	var basePath = 'http://www.goopal.me';
+	var basePath = 'http://116.213.142.89:8080';
 
 	/** [api 接口集合] */
 	var api = {};

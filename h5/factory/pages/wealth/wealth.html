@@ -28,12 +28,20 @@
 				<div class="wealth-tab-item on">历史价格<span class="wealth-tab-history"><span class="wealth-tab-history-item" ms-class="on:historyDay==7" ms-click="historyClick(7)">7日</span><span class="wealth-tab-history-item" ms-class="on:historyDay==30" ms-click="historyClick(30)">30日</span></span></div>
 			</div>
 			<div class="wealth-chart-box">
-				<div class="wealth-chart-item" id="chart-history"></div>
-				<!-- <div class="wealth-chart-item"></div> -->
+				<div class="wealth-chart-scroll">
+					<div class="wealth-chart-slide">
+						<div class="wealth-chart-item" id="chart-history"></div>
+						<div class="wealth-chart-cover"></div>
+					</div>
+					<div class="wealth-chart-slide">
+						<div class="wealth-chart-item" id="chart-annual"></div>
+						<div class="wealth-chart-cover"></div>
+					</div>
+				</div>
 			</div>
 			<div class="wealth-tits">
 				<span class="wealth-tits-item"></span>
-				<span class="wealth-tits-item on"></span>
+				<span class="wealth-tits-item"></span>
 			</div>
 		</div>
 	</div>

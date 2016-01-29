@@ -2,7 +2,7 @@
 // H5微信端 --- 个人首页
 
 
-require(['router', 'api', 'h5-price', 'h5-view', 'filters', 'hchart', 'h5-weixin'], function(router, api, price, View) {
+require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'filters', 'hchart', 'h5-weixin'], function(router, api, price, View, TouchSlide) {
 
 	router.init(true);
 
@@ -47,12 +47,34 @@ require(['router', 'api', 'h5-price', 'h5-view', 'filters', 'hchart', 'h5-weixin
 
 	// 历史首页图表
 	var chartHistory = $('#chart-history');
+	var chartHistoryData = [];
+	var chartHistoryDate = [];
+	var chartHistoryHandler = function(list) {
+		chartHistoryData.length = 0;
+		chartHistoryDate.length = 0;
+		list.forEach(function(item) {
+			chartHistoryData.push(item.price);
+			chartHistoryDate.push(item.date.replace(/\d{4}-(\d{2})-(\d{2})/, function(s, s1, s2) {
+				return s1 + '/' + s2;
+			}));
+		});
+	};
 	var chartHistorySet = function() {
 		api.historyPrice({
 			historyDay: vm.historyDay,
 			gopToken: gopToken
 		}, function(data) {
 			if (data.status == 200) {
+				// chartHistoryHandler([
+				// 	{id: 8, createTime: "2016-01-19 00:00:00", price: 2, date: "2016-01-19"},
+				// 	{id: 9, createTime: "2016-01-20 00:00:00", price: 5, date: "2016-01-20"},
+				// 	{id: 10, createTime: "2016-01-21 00:00:00", price: 7, date: "2016-01-21"},
+				// 	{id: 11, createTime: "2016-01-22 00:00:00", price: 4, date: "2016-01-22"},
+				// 	{id: 12, createTime: "2016-01-23 00:00:00", price: 1, date: "2016-01-23"},
+				// 	{id: 13, createTime: "2016-01-24 00:00:00", price: 2, date: "2016-01-24"},
+				// 	{id: 14, createTime: "2016-01-25 00:00:00", price: 9, date: "2016-01-25"}
+				// ]);
+				chartHistoryHandler(data.data.list);
 				chartHistory.highcharts({
 					chart: {
 						type: 'areaspline'
@@ -68,11 +90,13 @@ require(['router', 'api', 'h5-price', 'h5-view', 'filters', 'hchart', 'h5-weixin
 						y: 100,
 					},
 					xAxis: {
-						tickInterval: 1,
+						// tickInterval: 3, // x坐标轴脚标间隔
+						tickInterval: (function() {
+							return chartHistoryData.length - 1;
+						})(),
 						labels: {
 							formatter: function() {
-								return this.value;
-								return chartDate[this.value];
+								return chartHistoryDate[this.value];
 							}
 						}
 					},
@@ -80,6 +104,15 @@ require(['router', 'api', 'h5-price', 'h5-view', 'filters', 'hchart', 'h5-weixin
 						title: {
 							text: ''
 						},
+						tickInterval: (function() {
+							// var reduce = chartHistoryData.reduce(function(result, item) {
+							// 	item = parseFloat(item);
+							// 	if (!result.max || result.max < item) { result.max = item; }
+							// 	if (!result.min || result.min > item) { result.min = item; }
+							// 	return result;
+							// }, {});
+							return avalon.filters.fix(Math.round(Math.max.apply(Math, chartHistoryData) * 1.1) / 4);
+						})(),
 						labels: {
 							formatter: function() {
 								return this.value;
@@ -94,15 +127,15 @@ require(['router', 'api', 'h5-price', 'h5-view', 'filters', 'hchart', 'h5-weixin
 								radius: 1,
 								states: {
 									hover: {
-										enabled: true
+										enabled: false
 									}
 								}
 							}
 						}
 					},
 					series: [{
-						name: '日收益',
-						data: [1,2,3,4,5,6,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+						name: '历史价格',
+						data: chartHistoryData
 					}]
 				});
 			} else {
