@@ -16,9 +16,9 @@ require(['router', 'api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h
 	avalon.scan(select.native, selectVM);
 
 	var gotoAuthorization = function() { // 跳转授权页, 未授权
-		// return
+		return
 		setTimeout(function() {
-			location.href = authorization.default;
+			window.location.href = authorization.default;
 		}, 100);
 	};
 	var gotoSelect = function() { // 跳转select分页, 已授权, 未绑定账号
@@ -28,7 +28,7 @@ require(['router', 'api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h
 	};
 	var gotoHome = function() { // 跳转home页面, 已授权, 已绑定账号
 		setTimeout(function() {
-			location.href = 'home.html';
+			window.location.href = 'home.html';
 		}, 100);
 	};
 

@@ -1,34 +1,37 @@
 @@include('../../../source/include/top.html', {"name": "account"})
-<div class="screen-a" id="main">
-	<div class="account" ms-click="showAccount($event)">
-		<div ms-repeat-group="list" data-repeat-rendered="listCallback">
-			<div class="account-month">{{group.month}}</div>
-			<div class="account-day" ms-repeat-day="group.days">
-				<div class="account-time">
-					<div class="account-time-big">{{day.day}}</div>
-					<div class="account-time-small">{{day.time}}</div>
-				</div>
-				<div class="account-list">
-					<div class="account-item" ms-repeat-bill="day.bills" ms-data-id="bill.id">
-						<div class="account-img">
-							<img ms-if-loop="bill.img" ms-attr-src="bill.img" alt="" class="img-w">
-							<div ms-if-loop="!bill.img" class="account-icon"  ms-class="{{bill.type}}"></div>
-						</div>
-						<div class="account-main">
-							<div class="account-left">
-								<div class="account-change">{{bill.change}}</div>
-								<div class="account-action">{{bill.desc}}</div>
+<div class="screen-a">
+	<div class="account" id="account" ms-click="showAccount($event)">
+		<div class="account-scroll">
+			<div ms-repeat-group="list" data-repeat-rendered="listCallback">
+				<div class="account-month">{{group.month}}</div>
+				<div class="account-day" ms-repeat-day="group.days">
+					<div class="account-time">
+						<div class="account-time-big">{{day.day}}</div>
+						<div class="account-time-small">{{day.time}}</div>
+					</div>
+					<div class="account-list">
+						<div class="account-item" ms-repeat-bill="day.bills" ms-data-id="bill.id" ms-data-type="bill.type">
+							<div class="account-img">
+								<img ms-visible="bill.img" ms-attr-src="bill.img" alt="" class="img-w">
+								<div ms-visible="!bill.img" class="account-icon"  ms-class="{{bill.type}}"></div>
 							</div>
-							<div class="account-right">
-								<div class="account-result" ms-class="page:day.bills.length>1">{{bill.status}}</div>
-								<div class="account-page" ms-if-loop="day.bills.length>1">{{$index+1}}/{{day.bills.length}}</div>
+							<div class="account-main">
+								<div class="account-left">
+									<div class="account-change">{{bill.change}}</div>
+									<div class="account-action">{{bill.desc}}</div>
+								</div>
+								<div class="account-right">
+									<div class="account-result" ms-class="page:day.bills.length>1">{{bill.status}}</div>
+									<div class="account-page" ms-visible="day.bills.length>1">{{$index+1}}/{{day.bills.length}}</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<div class="account-loading" ms-visible="loading"><span>{{loadingWord}}</span></div>
+			
 		</div>
-		<div class="account-loading" ms-visible="loading"><span>{{loadingWord}}</span></div>
 	</div>
 	<div class="alert"></div>
 	<div class="view">

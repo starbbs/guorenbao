@@ -267,7 +267,7 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 	// 49.账单列表接口
 	add('billList', '/bill/list');
 
-	// 50.账单详情接口
+	// 50.账单详情接口 -- 无法使用
 	add('account', '/bill/account');
 
 	// 51.消息列表接口

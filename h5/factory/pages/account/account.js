@@ -2,8 +2,9 @@
 // H5微信端 --- 账单
 
 
-require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4',
-	'h5-weixin'], function(router, api, get, filters, H5bill, iScroll) {
+require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iScroll4',
+	'h5-weixin'
+], function(router, api, get, filters, View, H5bill, iScroll) {
 
 	router.init();
 
@@ -11,12 +12,12 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4',
 	var page = 1; // 账单页数, 当返回列表长度小于当前列表长度时, 置零, 不再请求
 	var size = 20; // 账单列表
 
-	var main = $('.account');
-
-	var init = function() {
+	var main = $('.account'); // 主容器
+	var init = function() { // 初始化
 		switch (get.data.from) {
-			case 'wx_info':
+			case 'wx_info': // 来自微信消息
 				router.to('/view/account-bill');
+				getAccount('type', get.data.id);
 				break;
 			default:
 				router.to('/');
@@ -25,22 +26,23 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4',
 	};
 
 	var originList = [];
-	var bottomHeight = 20;
-	var myScroll = new iScroll('main', {
+	var bottomHeight = 20; // 下拉加载的高度
+	var accountScroll = new iScroll('account', {
 		vScrollbar: false,
 		preventDefault: true,
 		click: true,
 		// useTransition: true,
-		onScrollMove: function() {
-		},
+		onScrollMove: function() {},
 		onScrollEnd: function() {
 			if (this.y - bottomHeight < this.maxScrollY) {
 				getList();
 			}
 		},
 	});
-	var getList = function(callback) {
-		if (vm.loading) { return; }
+	var getList = function(callback) { // 获取列表
+		if (vm.loading) {
+			return;
+		}
 		if (!page) {
 			vm.loading = true;
 			vm.loadingWord = '大大, 已经没有了...';
@@ -58,7 +60,8 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4',
 			if (data.status == 200) {
 				vm.loading = false;
 				vm.list = dataHandler(originList = originList.concat(data.data.list));
-				page = data.data.list.length < size ? 0 : page + 1;
+				getPhotos();
+				page = data.data.list.length < size ? 0 : page + 1; // 是否停止请求
 				callback && callback(data);
 				!main.hasClass('on') && setTimeout(function() {
 					main.addClass('on');
@@ -68,6 +71,205 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4',
 				console.log(data);
 			}
 		});
+	};
+	var getPhotos = function() { // 获得头像和人名, 需要在vm赋值list完成后修改属性
+		vm.list.forEach(function(month) {
+			month.days.forEach(function(day) {
+				day.bills.forEach(function(bill) {
+					if (bill.type === 'transfer' && !bill.hasImg) {
+						api.billPhoto({
+							gopToken: gopToken,
+							businessId: bill.id,
+							businessType: bill.type
+						}, function(data) {
+							if (data.status == 200) {
+								// bill.img = '111';
+								// bill.desc = '111';
+								bill.hasImg = true; // 防止重复多次请求
+								data.data.photoUrl && (bill.img = data.data.photoUrl);
+								data.data.name && (bill.desc = '转账 - ' + data.data.name);
+							} else {
+								console.log(data);
+							}
+						});
+					}
+				});
+			});
+		});
+	};
+	var getAccount = function(type, id) { // 获得account信息并挂载到billViewModel上, 并不负责展示
+		switch (type) {
+			case 'phone': // 消费
+				api.query({
+					gopToken: gopToken,
+					consumeOrderId: id
+				}, function(data) {
+					/*{
+						"data": {
+							"bankCardList": [{
+								"cardType": "SAVINGS_DEPOSIT_CARD",
+								"bankName": "建设银行",
+								"cardNo": "1111222233332874",
+								"id": 1， "bankPhone": "15895910256"
+							}, {
+								"cardType": "CREDIT_CARD",
+								"bankName": "浦发银行",
+								"cardNo": "1111222233334444",
+								"id": 2,
+								"bankPhone": "15895910256"
+							}],
+							"product": {
+								"productDesc": "话费充值",
+								"extraContent": "{\"price\":30}",
+								"currency": "RMB",
+								"id": 13,
+								"price": 12.900000,
+								"productName": "30元话费",
+								"productType": "SHOUJICHONGZHIKA"
+							},
+							"consumeOrder": {
+								"orderMoney": 30.000000,
+								"productId": 13,
+								"createTime": "2015-12-20 09:42:51",
+								"extraContent": "{\"phone\":\"13146556570\"}",
+								"currency": "RMB",
+								"orderCode": "1",
+								”gopPrice”: 2.3,
+								"updateTime": "2015-12-20 09:42:51",
+								"id": 2,
+								"userId": 26,
+								"productType": "SHOUJICHONGZHIKA",
+								"status": "PROCESSING"
+							},
+							"recordList": [{
+								"payMoney": 2.00,
+								"payType": "GOP_PAY",
+								"tradeNo": "20151224163438600901",
+								"createTime": "2015-12-24 16:34:38",
+								"tradeStatus": "FAILURE",
+								"updateTime": "2015-12-24 16:34:38",
+								"payResult": "哈哈哈哈哈哈",
+								"payGop": 2.000000
+							}],
+							"gopPrice": 12.345678,
+							"gopNum": 0.00
+						},
+						"msg": "success",
+						"status": "200"
+					}*/
+					console.log(data);
+				});
+				break;
+			case 'buy': // 买入
+				api.queryBuyinOrder({
+					gopToken: gopToken,
+					buyinOrderId: id,
+					payType: "WEIXIN_MP_PAY"
+				}, function(data) {
+					/*{ // 已支付，成功
+						"data": {
+							"buyinOrder": {
+								"payType": "UNION_PAY",
+								"orderMoney": 12.35,
+								"createTime": "2015-12-21 16:36:00",
+								"orderCode": "201512211636006262",
+								"updateTime": "2015-12-21 16:36:00",
+								"id": 7,
+								"userId": 26,
+								"status": "SUCCESS",
+								"price": 12.99,
+								"gopNum": 7.987555,
+								"payMoney": 12.35,
+								"serialNum": "12124132413",
+								"payTime": "2015-12-21 16:36:00",
+								"payResult": "失败"
+							}
+						},
+						"msg": "success",
+						"status": "200"
+					}*/
+					/*{ // 已支付，失败
+						"data": {
+							"buyinOrder": {
+								"payType": "UNION_PAY",
+								"orderMoney": 12.35,
+								"createTime": "2015-12-21 16:36:00",
+								"orderCode": "201512211636006262",
+								"updateTime": "2015-12-21 16:36:00",
+								"id": 7,
+								"userId": 26,
+								"status": "FAILURE",
+								"payResult": "余额不足"
+							}
+						},
+						"msg": "success",
+						"status": "200"
+					}*/
+					/*{ // 未支付，payType=UNION_PAY
+						"data": {
+							"buyinOrder": {
+								"payType": "UNION_PAY",
+								"orderMoney": 12.35,
+								"createTime": "2015-12-21 16:36:00",
+								"orderCode": "201512211636006262",
+								"updateTime": "2015-12-21 16:36:00",
+								"id": 7,
+								"userId": 26,
+								"status": "PROCESSING"
+							},
+							"UNION_PAY": {
+								"bankCardList": [{
+									"bankPhone": "150****7107",
+									"cardType": "CREDIT_CARD",
+									"bankName": "jianse",
+									"cardNo": "**** **** **** 4567"
+								}, {
+									"bankPhone": "150****7107",
+									"cardType": "CREDIT_CARD",
+									"bankName": "jianse",
+									"cardNo": "**** **** **** 4567"
+								}]
+							}
+						},
+						"msg": "success",
+						"status": "200"
+					}*/
+					console.log(data)
+				});
+				break;
+			case 'transfer': // 转账
+				api.transferQuery({
+					gopToken: gopToken,
+					transferOutId: id
+				}, function(data) {
+					/*{
+						"data": {
+							"transferOut": {
+								"serviceFee": 0.010000,
+								"address": "asdfghjkl",
+								"updateTime": "2015-12-09 12:12:12",
+								"type": "ME_WALLET",
+								"gopNum": 12.340000,
+								"userId": 26,
+								"createTime": "2015-09-10 09:12:26",
+								"phone": "13146556570",
+								"transContent": "(づ￣3￣)づ╭?～",
+								"personId": 1,
+								"walletId": 1,
+								"id": 1,
+								"failureMsg": "还不知道失败原因",
+								"status": "PROCESSING"
+							}
+						},
+						"msg": "success",
+						"status": "200"
+					}*/
+					console.log(data);
+				});
+				break;
+			default:
+				$.alert('未知类型的账单<br>值为 ' + type);
+		}
 	};
 
 	// 处理 getList 的工具方法 -- 开始
@@ -85,18 +287,20 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4',
 				item = item.split(':');
 				item[1] = time[item[1]]();
 				result[item[0]] = item[1];
-				if (item[0] === 'month') {
-					result.month2 = item[1] + 1; // 月份(阿拉伯数字)
-					result.month3 = item[1] >= 10 ? item[1] === 10 ? '十一' : '十二' : '一二三四五六七八九十' [item[1]]; // 月份(中文数字)
-				}
-				if (item[0] === 'day') {
-					result.day2 = '日一二三四五六' [item[1]]; // 周(中文数字)
-				}
-				if (item[0] === 'hour') {
-					result.hour2 = item[1] < 10 ? ('0' + item[1]) : ('' + item[1]);
-				}
-				if (item[0] === 'minute') {
-					result.minute2 = item[1] < 10 ? ('0' + item[1]) : ('' + item[1]);
+				switch (item[0]) { // 个别特殊处理
+					case 'month':
+						result.month2 = item[1] + 1; // 月份(阿拉伯数字)
+						result.month3 = item[1] >= 10 ? item[1] === 10 ? '十一' : '十二' : '一二三四五六七八九十' [item[1]]; // 月份(中文数字)
+						break;
+					case 'day':
+						result.day2 = '日一二三四五六' [item[1]]; // 周(中文数字)
+						break;
+					case 'hour':
+						result.hour2 = item[1] < 10 ? ('0' + item[1]) : ('' + item[1]);
+						break;
+					case 'minute':
+						result.minute2 = item[1] < 10 ? ('0' + item[1]) : ('' + item[1]);
+						break;
 				}
 				return result;
 			}, {});
@@ -137,47 +341,30 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4',
 		// return new Date(time);
 	};
 
-	var numHandler = function(number, unit) { // 数值处理
-		return (number > 0 ? '+' : '-') + ' ' + unit + ' ' + Math.abs(filters.fix(number));
-	};
-
-	var now = new Date();
-	var nowMonth = now.getMonth();
-	var dataHandler = function(data) {
-		var add = function(kind, bills, item) {
-			var type = H5bill.typeClass[item.type];
-			var bill = {
-				id: item.id,
-				img: '',
-				desc: item.businessDesc,
-				status: H5bill.statusZhCN[item.status],
-				type: type
-			};
-			var types = {
-				money: 'money',
-				gop: 'gopNumber'
-			};
-			var coins = {
-				money: '¥',
-				gop: 'G'
-			}
-			bill.change = numHandler(item[types[kind]], coins[kind]);
-			bills.push(bill);
-			if (type === 'transfer') {
-				api.billPhoto({
-					gopToken: gopToken,
-					businessId: item.businessId,
-					businessType: item.type
-				}, function(data) {
-					if (data.status == 200) {
-						data.data.photoUrl && (bill.img = data.data.photoUrl);
-						data.data.name && (bill.desc = '转账 - ' + data.data.name);
-					} else {
-						console.log(data);
-					}
-				});
-			}
+	var now = new Date(); // 当前时间
+	var nowMonth = now.getMonth(); // 当前月份
+	var dataAdd = function(kind, bills, item) {
+		var type = H5bill.typeClass[item.type];
+		var bill = {
+			id: item.businessId,
+			img: '',
+			desc: item.businessDesc,
+			status: H5bill.statusZhCN[item.status],
+			type: type,
+			originType: item.type
 		};
+		var types = {
+			money: 'money',
+			gop: 'gopNumber'
+		};
+		var coins = {
+			money: '¥',
+			gop: 'G'
+		}
+		bill.change = numHandler(item[types[kind]], coins[kind]);
+		bills.push(bill);
+	};
+	var dataHandler = function(data) {
 		return data.map(function(item) { // 确定时间
 			item._date = parseDate(item.status === 'SUCCESS' ? item.businessTime : item.createTime);
 			item._dateTime = item._date.getTime();
@@ -188,15 +375,19 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4',
 			var time = timeHandler(item._date);
 			var type = H5bill.typeClass[item.type];
 			var bills = [];
-			if (type === 'phone') { // 消费果仁, 果仁+人民币
-				item.gopNumber && add('gop', bills, item);
-				item.money && add('money', bills, item);
-			} else if (type === 'buy') { // 买果仁, 人民币
-				add('money', bills, item);
-			} else if (type === 'transfer') { // 转果仁, 果仁
-				add('gop', bills, item);
-			} else {
-				console.log(item);
+			switch (type) { // 账单类型
+				case 'phone': // 消费果仁, 果仁+人民币
+					item.gopNumber && dataAdd('gop', bills, item);
+					item.money && dataAdd('money', bills, item);
+					break;
+				case 'buy': // 买果仁, 人民币
+					dataAdd('money', bills, item);
+					break;
+				case 'transfer': // 转果仁, 果仁
+					dataAdd('gop', bills, item);
+					break;
+				default:
+					console.log(item);
 			}
 			var compare = timeCompare(now, item._date);
 			var day = {
@@ -217,6 +408,9 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4',
 			return result;
 		}, []);
 	};
+	var numHandler = function(number, unit) { // 数值处理
+		return (number > 0 ? '+' : '-') + ' ' + unit + ' ' + Math.abs(filters.fix(number));
+	};
 	// 处理 getList 的工具方法 -- 结束
 
 	var vm = avalon.define({
@@ -226,14 +420,27 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4',
 		list: [],
 		listCallback: function() {
 			setTimeout(function() {
-				myScroll.refresh();
+				accountScroll.refresh();
 			}, 200);
 		},
 		showAccount: function(ev) {
-			console.log('流水号:' + $(ev.target).closest('.account-item').get(0).dataset.id);
+			var data = $(ev.target).closest('.account-item').get(0).dataset;
+			getAccount(data.type, data.id);
 		}
 	});
 	avalon.scan(main.get(0), vm);
+
+	var bill = $('.account-bill');
+	var billView = new View('account-bill');
+	var billViewModel = avalon.define({
+		$id: 'account-bill'
+	});
+	avalon.scan(bill.get(0), billViewModel);
+	billView.on('hide', function() {
+		if (!vm.list.length) { // 没有list长度时获取list
+			getList();
+		}
+	});
 
 	init();
 });

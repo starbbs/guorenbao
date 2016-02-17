@@ -23,13 +23,16 @@ body {
 
 	$img: $g-pages + '/account/images';
 
-	@extend %rw;
+	@extend %afull;
 	@extend %fade-in;
 	overflow: hidden;
 	font-family: $g-font-num;
 	padding-bottom: $g-padding-bottom;
 	background-color: $g-background;
 
+	&-scroll {
+		@extend %rw;
+	}
 	&-loading {
 		text-align: center;
 		margin-top: 10px;
