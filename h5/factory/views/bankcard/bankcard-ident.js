@@ -9,6 +9,8 @@ define('h5-bankcard-ident', ['api', 'router', 'h5-view', 'h5-ident', 'h5-text'],
 
 	var bankcard_ident = new View('bankcard-ident');
 
+
+
 	var vm = bankcard_ident.vm = avalon.define({
 		$id: 'bankcard-ident',
 		cardNo: '',
@@ -22,6 +24,7 @@ define('h5-bankcard-ident', ['api', 'router', 'h5-view', 'h5-ident', 'h5-text'],
 		callback: $.noop,
 		bankcard_add_click: function() {
 			if (vm.identifyingCode) {
+				console.log(vm.bankName);
 				api.bankcardAdd({
 					gopToken: gopToken,
 					bankName: vm.bankName,

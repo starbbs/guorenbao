@@ -65,6 +65,7 @@ define('h5-bankcard-append', ['router', 'api', 'h5-view', 'h5-bankcard-ident', '
 				nowData.callback = function() {
 					vm.callback();
 				};
+				console.log(nowData);
 				$.extend(bankcard_ident.vm, nowData);
 				router.go('/view/bankcard-ident');
 			};
