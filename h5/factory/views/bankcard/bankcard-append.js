@@ -9,6 +9,7 @@ define('h5-bankcard-append', ['router', 'api', 'h5-view', 'h5-bankcard-ident', '
 
 	var bankcard_append = new View('bankcard-append');
 
+
 	var vm = bankcard_append.vm = avalon.define({
 		$id: 'bankcard-append',
 		cardNo: '',
@@ -85,6 +86,11 @@ define('h5-bankcard-append', ['router', 'api', 'h5-view', 'h5-bankcard-ident', '
 				router.go('/view/bankcard-ident');
 			};
 		}
+	});
+
+	bankcard_append.on('hide', function() {
+		vm.cardNo = '';
+		vm.phone = '';
 	});
 
 	return bankcard_append;

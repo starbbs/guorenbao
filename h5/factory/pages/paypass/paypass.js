@@ -52,7 +52,7 @@ require(['router', 'api', 'h5-view', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-we
 						} else if (vm.chooseUrl == 'paypass-authentication') {
 							//身份证认证				
 							if (vm.realName && vm.realName != '') {
-								vm.realName = "*" + vm.realName.substr(1, vm.realName.length - 1);
+								//vm.realName = "*" + vm.realName.substr(1, vm.realName.length - 1);
 								router.go('view/paypass-authentication');
 							} else {
 								console.log(data);
@@ -121,7 +121,9 @@ require(['router', 'api', 'h5-view', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-we
 			}, function(data) {
 				if (data.status == 200) {
 					if (data.data.realname) {
-						vm.realName = "*" + data.data.realname.substr(1, data.data.realname.length - 1);
+						//vm.realName = "*" + data.data.realname.substr(1, data.data.realname.length - 1);
+						vm.realName = data.data.realname;
+						console.log(vm.realName);
 					}
 					vm.phone = data.data.phone;
 					vm.identifyingCode = "";

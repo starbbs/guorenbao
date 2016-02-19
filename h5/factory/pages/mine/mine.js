@@ -1,7 +1,7 @@
 // 余效俭 2016-01-07 17:26:56 创建
 // H5微信端 --- 我的
 
-require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-address-wallet', 'h5-alert', 'h5-text', 'h5-weixin'], function(router, api, View, check, address_mine, address_wallet) {
+require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-address-wallet','h5-view-about-us','h5-view-agreement','h5-alert', 'h5-text', 'h5-weixin'], function(router, api, View, check, address_mine, address_wallet) {
 
 	router.init(true);
 
@@ -14,6 +14,8 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 	var setting_us = new View('setting-us');
 	var setting_feedback = new View('setting-feedback');
 	var setting_agreement = new View('setting-agreement');
+
+
 
 	setting.on('show', function() {
 		console.log('show')

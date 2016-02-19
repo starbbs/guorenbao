@@ -7,7 +7,6 @@ define('h5-bankcard-ident', ['api', 'router', 'h5-view', 'h5-ident', 'h5-text'],
 	var gopToken = $.cookie('gopToken');
 	var bankcard_ident = new View('bankcard-ident');
 	bankcard_ident.on('hide',function(){
-		//alert('1');
 		vm.cardNo = '';
 		vm.phone = '';
 		vm.identifyingCode = '';
