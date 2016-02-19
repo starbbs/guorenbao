@@ -61,12 +61,15 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                 });
             } else {
                 //跳转到钱包地址
-                address_wallet.vm.hasNext = true;
+                address_wallet.vm.hasStepNext = true;
                 address_wallet.vm.callback = function() {
                     init();
-                    router.go('/');
+                    //router.go('/');
+
+                    targetInit(vm.transferOutType);
+                    router.go('/view/transfer-target');
                 }
-                router.go('/view/address-wallet');
+                //router.go('/view/address-wallet');
             }
         },
         marketWallet_click: function(e) {
@@ -83,7 +86,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                 router.go('/view/transfer-target');
             } else {
                 //跳转到设置果仁市场
-                address_mine.vm.hasNext = true;
+                address_mine.vm.hasStepNext = true;
                 address_mine.vm.callback = function() {
                     api.info({
                         gopToken: gopToken

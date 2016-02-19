@@ -6,7 +6,7 @@ define('h5-view-address-wallet', ['router', 'api','h5-view','check','h5-alert','
 	var address_wallet = new View('address-wallet');
 	var vm=address_wallet.vm = avalon.define({
 		$id: 'address-wallet',
-        hasNext:false,//是否有下一步跳转
+        hasStepNext:false,//是否有下一步跳转
 		walletList:[],//钱包地址列表
         walletAddress:'',//添加的钱包地址
         walletAddress_add_show:false,//是否显示添加钱包地址		
@@ -55,6 +55,7 @@ define('h5-view-address-wallet', ['router', 'api','h5-view','check','h5-alert','
                     $.alert('添加成功!'); 
                     vm.walletAddress='';
                     vm.walletAddress_add_show=false;
+                    vm.hasStepNext = true;
                     vm.walletAddress_query_click();                 
                 } else {
                     $.alert(data.msg);

@@ -21,34 +21,49 @@ define('h5-bankcard-append', ['router', 'api', 'h5-view', 'h5-bankcard-ident', '
 		identifyingCode: '',
 		callback: $.noop,
 		check: function(e) {
-			if (this.value.length > 15) {
-				api.checkBankCard({
-					bankCard: this.value
-				}, function(data) {
-					if (data.status == 200) {
-						vm.bankName = data.data.bankName;
-						vm.cardType = data.data.cardType;
-						if (data.data.cardType == 'SAVINGS_DEPOSIT_CARD') {
-							vm.cardTypeStr = '储蓄卡';
-							var reg = /^0?1[3|4|5|8|7][0-9]\d{8}$/;
-							if (reg.test(vm.phone)) {
-								vm.checked = false;
+			if (this.value.length == 15 || this.value.length == 19) {
+				if (this.value.length > 15) {
+					api.checkBankCard({
+						bankCard: this.value
+					}, function(data) {
+						if (data.status == 200) {
+							vm.bankName = data.data.bankName;
+							vm.cardType = data.data.cardType;
+							if (data.data.cardType == 'SAVINGS_DEPOSIT_CARD') {
+								vm.cardTypeStr = '储蓄卡';
+								var reg = /^0?1[3|4|5|8|7][0-9]\d{8}$/;
+								if (reg.test(vm.phone)) {
+									vm.checked = false;
+								} else {
+									vm.checked = true;
+								}
+								//$('.banknameAndcardtypestr').text(vm.bankName +　'' +　vm.cardTypeStr);
 							} else {
-								vm.checked = true;
+								vm.cardTypeStr = '信用卡';
+								//$('.banknameAndcardtypestr').text(vm.bankName +　'' +　vm.cardTypeStr);
 							}
+							$('.banknameAndcardtypestr').text(vm.bankName +　' ' +　vm.cardTypeStr);
 						} else {
-							vm.cardTypeStr = '信用卡';
+							//console.log(data.msg);
+							//vm.bankName = data.msg;
+							$('.banknameAndcardtypestr').text('请输入正确的卡号');
+							vm.checked = true;
+							//vm.bankName = '请输入正确的卡号';
+							//vm.cardTypeStr = '';
 						}
-					} else {
-						console.log(data);
-					}
-				});
+					});
+				}
+			} else {
+				//$('.banknameAndcardtypestr').text('');
 			}
 		},
 		checkPhone: function(e) {
 			var reg = /^0?1[3|4|5|8|7][0-9]\d{8}$/;
 			if (reg.test(this.value)) {
 				vm.checked = false;
+				if(vm.cardTypeStr == '信用卡') {
+					$.alert('暂时不支持信用卡');
+				}
 			} else {
 				vm.checked = true;
 			}

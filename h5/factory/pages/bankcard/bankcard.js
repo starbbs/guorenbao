@@ -109,6 +109,10 @@ require(['router', 'api', 'h5-view', 'hashMap',
 	var bankcardInit = function() {
 		vm.list.clear();
 		
+		// bankcard_ident.vm.identifyingCode = '';
+		// bankcard_append.vm.cardNo = '';
+		// bankcard_append.vm.phone = '';
+
 		api.bankcardSearch({
 			gopToken: gopToken,
 		}, function(data) {

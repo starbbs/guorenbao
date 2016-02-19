@@ -5,7 +5,7 @@ define('h5-view-address-mine', ['router', 'api', 'h5-view', 'check', 'h5-alert',
     var address_mine = new View('address-mine');
     var vm = address_mine.vm = avalon.define({
         $id: 'address-mine',
-        hasNext: false, //是否有下一步跳转
+        hasStepNext: false, //是否有下一步跳转
         hasMarketAddress: false, //是否有果仁市场地址标志
         setMarketAddress: false, //正在设置果仁市场地址标志
         marketGopAddress: '', //果仁市场地址
@@ -38,6 +38,8 @@ define('h5-view-address-mine', ['router', 'api', 'h5-view', 'check', 'h5-alert',
                     vm.hasMarketAddress = true;
                     vm.setMarketAddress = false;
                     //vm.marketGopAddress = '';
+
+                    vm.hasStepNext = true;
                     vm.setSuccess();
                 } else {
                     console.log(data);

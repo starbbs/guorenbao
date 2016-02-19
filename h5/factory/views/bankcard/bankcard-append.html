@@ -6,7 +6,7 @@
 			<div class="block-text">
 				<label for="bankcard-append-number" class="text">
 					<div class="text-label">卡号</div>
-					<div class="text-box"><input id="bankcard-append-number" name="bankcard-append-number" type="tel" class="text-input" autocomplete="off" placeholder="银行卡号" maxlength="24" data-text="close" ms-on-input="check" ms-duplex="cardNo"></div>
+					<div class="text-box"><input id="bankcard-append-number" name="bankcard-append-number" type="tel" class="text-input" autocomplete="off" placeholder="银行卡号" minlength="16" maxlength="19" data-text="close" ms-on-input="check" ms-duplex="cardNo"></div>
 					<div class="text-close"></div>
 					<div class="text-alert"></div>
 				</label>
@@ -14,7 +14,7 @@
 		</div>
 		<div class="bankcard-append-line">
 			<div class="text-label">卡类型</div>
-			<div class="text-box">{{bankName}} {{cardTypeStr}}</div>
+			<div class="text-box banknameAndcardtypestr">{{bankName}} {{cardTypeStr}}</div>
 		</div>
 	</div>
 	<div class="bankcard-append-box">
