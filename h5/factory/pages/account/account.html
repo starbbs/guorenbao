@@ -2,7 +2,7 @@
 <div class="screen-a">
 	<div class="account" id="account" ms-click="showAccount($event)">
 		<div class="account-scroll">
-			<div ms-repeat-group="list" data-repeat-rendered="listCallback">
+			<div ms-repeat-group="list" data-repeat-rendered="listRepeatCallback">
 				<div class="account-month">{{group.month}}</div>
 				<div class="account-day" ms-repeat-day="group.days">
 					<div class="account-time">
@@ -10,7 +10,7 @@
 						<div class="account-time-small">{{day.time}}</div>
 					</div>
 					<div class="account-list">
-						<div class="account-item" ms-repeat-bill="day.bills" ms-data-id="bill.id" ms-data-type="bill.type">
+						<div class="account-item" ms-repeat-bill="day.bills" ms-data-id="bill.id" ms-data-type="bill.originType">
 							<div class="account-img">
 								<img ms-visible="bill.img" ms-attr-src="bill.img" alt="" class="img-w">
 								<div ms-visible="!bill.img" class="account-icon"  ms-class="{{bill.type}}"></div>

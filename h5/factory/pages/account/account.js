@@ -16,8 +16,8 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 	var init = function() { // 初始化
 		switch (get.data.from) {
 			case 'wx_info': // 来自微信消息
+				getAccount(get.data.type, get.data.id);
 				router.to('/view/account-bill');
-				getAccount('type', get.data.id);
 				break;
 			default:
 				router.to('/');
@@ -98,61 +98,32 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 		});
 	};
 	var getAccount = function(type, id) { // 获得account信息并挂载到billViewModel上, 并不负责展示
+		console.log(type)
+		type = (type + '').toUpperCase();
 		switch (type) {
-			case 'phone': // 消费
-				api.query({
+			case 'TRANSFER_OUT': // 转账, 转出
+				api.transferQuery({
 					gopToken: gopToken,
-					consumeOrderId: id
+					transferOutId: id
 				}, function(data) {
 					/*{
 						"data": {
-							"bankCardList": [{
-								"cardType": "SAVINGS_DEPOSIT_CARD",
-								"bankName": "建设银行",
-								"cardNo": "1111222233332874",
-								"id": 1， "bankPhone": "15895910256"
-							}, {
-								"cardType": "CREDIT_CARD",
-								"bankName": "浦发银行",
-								"cardNo": "1111222233334444",
-								"id": 2,
-								"bankPhone": "15895910256"
-							}],
-							"product": {
-								"productDesc": "话费充值",
-								"extraContent": "{\"price\":30}",
-								"currency": "RMB",
-								"id": 13,
-								"price": 12.900000,
-								"productName": "30元话费",
-								"productType": "SHOUJICHONGZHIKA"
-							},
-							"consumeOrder": {
-								"orderMoney": 30.000000,
-								"productId": 13,
-								"createTime": "2015-12-20 09:42:51",
-								"extraContent": "{\"phone\":\"13146556570\"}",
-								"currency": "RMB",
-								"orderCode": "1",
-								”gopPrice”: 2.3,
-								"updateTime": "2015-12-20 09:42:51",
-								"id": 2,
+							"transferOut": {
+								"serviceFee": 0.010000,
+								"address": "asdfghjkl",
+								"updateTime": "2015-12-09 12:12:12",
+								"type": "ME_WALLET",
+								"gopNum": 12.340000,
 								"userId": 26,
-								"productType": "SHOUJICHONGZHIKA",
+								"createTime": "2015-09-10 09:12:26",
+								"phone": "13146556570",
+								"transContent": "(づ￣3￣)づ╭?～",
+								"personId": 1,
+								"walletId": 1,
+								"id": 1,
+								"failureMsg": "还不知道失败原因",
 								"status": "PROCESSING"
-							},
-							"recordList": [{
-								"payMoney": 2.00,
-								"payType": "GOP_PAY",
-								"tradeNo": "20151224163438600901",
-								"createTime": "2015-12-24 16:34:38",
-								"tradeStatus": "FAILURE",
-								"updateTime": "2015-12-24 16:34:38",
-								"payResult": "哈哈哈哈哈哈",
-								"payGop": 2.000000
-							}],
-							"gopPrice": 12.345678,
-							"gopNum": 0.00
+							}
 						},
 						"msg": "success",
 						"status": "200"
@@ -160,11 +131,36 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 					console.log(data);
 				});
 				break;
-			case 'buy': // 买入
+			case 'TRANSFER_IN': // 转账, 转入
+				api.transferInQuery({
+					gopToken: gopToken,
+					transferInId: id
+				}, function(data) {
+					/*{
+						"data": {
+							"transferIn": {
+								"transferTime": "2016-01-04 17:58:15",
+								"transferAddress": "uga000000",
+								"id": 11,
+								"gopNum": 0.010000,
+								"userId": 23,
+								"status": "SUCCESS",
+								”personId”: 111,
+								”transContent”: ”转账说明”
+							}
+						},
+						"msg": "success",
+						"status": "200"
+					}*/
+					console.log(data)
+				});
+				break;
+			case 'BUYIN_ORDER': // 买入, 消息
+			case 'BUY_IN': // 买入, 列表
 				api.queryBuyinOrder({
 					gopToken: gopToken,
 					buyinOrderId: id,
-					payType: "WEIXIN_MP_PAY"
+					payType: 'WEIXIN_MP_PAY'
 				}, function(data) {
 					/*{ // 已支付，成功
 						"data": {
@@ -237,29 +233,61 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 					console.log(data)
 				});
 				break;
-			case 'transfer': // 转账
-				api.transferQuery({
+			case 'CONSUME_ORDER': // 消费, 消息
+			case 'PAY': // 消费, 列表
+				api.query({
 					gopToken: gopToken,
-					transferOutId: id
+					consumeOrderId: id
 				}, function(data) {
 					/*{
 						"data": {
-							"transferOut": {
-								"serviceFee": 0.010000,
-								"address": "asdfghjkl",
-								"updateTime": "2015-12-09 12:12:12",
-								"type": "ME_WALLET",
-								"gopNum": 12.340000,
+							"bankCardList": [{
+								"cardType": "SAVINGS_DEPOSIT_CARD",
+								"bankName": "建设银行",
+								"cardNo": "1111222233332874",
+								"id": 1， "bankPhone": "15895910256"
+							}, {
+								"cardType": "CREDIT_CARD",
+								"bankName": "浦发银行",
+								"cardNo": "1111222233334444",
+								"id": 2,
+								"bankPhone": "15895910256"
+							}],
+							"product": {
+								"productDesc": "话费充值",
+								"extraContent": "{\"price\":30}",
+								"currency": "RMB",
+								"id": 13,
+								"price": 12.900000,
+								"productName": "30元话费",
+								"productType": "SHOUJICHONGZHIKA"
+							},
+							"consumeOrder": {
+								"orderMoney": 30.000000,
+								"productId": 13,
+								"createTime": "2015-12-20 09:42:51",
+								"extraContent": "{\"phone\":\"13146556570\"}",
+								"currency": "RMB",
+								"orderCode": "1",
+								”gopPrice”: 2.3,
+								"updateTime": "2015-12-20 09:42:51",
+								"id": 2,
 								"userId": 26,
-								"createTime": "2015-09-10 09:12:26",
-								"phone": "13146556570",
-								"transContent": "(づ￣3￣)づ╭?～",
-								"personId": 1,
-								"walletId": 1,
-								"id": 1,
-								"failureMsg": "还不知道失败原因",
+								"productType": "SHOUJICHONGZHIKA",
 								"status": "PROCESSING"
-							}
+							},
+							"recordList": [{
+								"payMoney": 2.00,
+								"payType": "GOP_PAY",
+								"tradeNo": "20151224163438600901",
+								"createTime": "2015-12-24 16:34:38",
+								"tradeStatus": "FAILURE",
+								"updateTime": "2015-12-24 16:34:38",
+								"payResult": "哈哈哈哈哈哈",
+								"payGop": 2.000000
+							}],
+							"gopPrice": 12.345678,
+							"gopNum": 0.00
 						},
 						"msg": "success",
 						"status": "200"
@@ -418,23 +446,54 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 		loading: false,
 		loadingWord: '加载中...',
 		list: [],
-		listCallback: function() {
+		listRepeatCallback: function() { // 循环结束回调
 			setTimeout(function() {
 				accountScroll.refresh();
 			}, 200);
 		},
-		showAccount: function(ev) {
+		showAccount: function(ev) { // 显示账单详情(事件代理)
 			var data = $(ev.target).closest('.account-item').get(0).dataset;
 			getAccount(data.type, data.id);
+			router.go('/view/account-bill');
 		}
 	});
 	avalon.scan(main.get(0), vm);
 
 	var bill = $('.account-bill');
 	var billView = new View('account-bill');
-	var billViewModel = avalon.define({
-		$id: 'account-bill'
-	});
+	var billInitOptions = { // 初始化
+		type: '', // 类型
+		status: '', // 订单状态
+		headClass: '', // 头部样式名
+		headContent: '', // 头部内容
+		waitForPay: false, // 等待支付
+		failReason: '', // 失败原因
+		orderMoney: 0, // 订单金额
+		payMoney: 0, // 支付金额
+		payGop: 0, // 支付果仁数
+		productDesc: '', // 商品信息
+		orderTime: '', // 交易时间
+		createTime: '', // 创建时间
+		orderCode: '', // 订单号
+		ifFinishButton: false, // 是否显示"完成"按钮
+		ifPayButton: false, // 是否显示"前往支付"按钮
+		ifShowMore: false, // 是否显示"更多"
+	};
+	var billViewModel = avalon.define($.extend({
+		$id: 'account-bill',
+		finish: function() { // 完成
+
+		},
+		gotoPay: function() { // 前往支付
+
+		},
+		showMore: function() { // 更多
+
+		},
+	}, billInitOptions));
+	var billViewModelSet = function(options) {
+		return $.extend(billViewModel, billInitOptions, options);
+	};
 	avalon.scan(bill.get(0), billViewModel);
 	billView.on('hide', function() {
 		if (!vm.list.length) { // 没有list长度时获取list

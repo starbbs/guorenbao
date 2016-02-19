@@ -32,6 +32,7 @@ body {
 
 	&-scroll {
 		@extend %rw;
+		padding-bottom: 300px;
 	}
 	&-loading {
 		text-align: center;

@@ -327,6 +327,9 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 	// 74.验证转果仁新目标地址
 	add('transferValidate', '/transfer/validate');
 
+	// 75.查询转入果仁记录
+	add('transferInQuery', '/transfer/in/query');
+
 	// 76.查询历史收益
 	add('totalIncomeList', '/myWealth/totalIncomeList');
 

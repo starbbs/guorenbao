@@ -11,8 +11,9 @@
 
 	@extend .view-style;
 	line-height: 16px;
-	color: $g-gray;
+	color: $g-dark;
 	font-size: 11px;
+	word-break: break-all;
 
 	&-scroll {
 		padding: 0 $g-padding $g-padding-bottom;
@@ -24,7 +25,7 @@
 		margin-bottom: 15px;
 	}
 	&-label {
-		color: $g-dark;
+		color: $g-black;
 		margin-top: 16px;
 	}
 	&-paragraph {
