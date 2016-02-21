@@ -13,6 +13,10 @@ define('h5-view-address-mine', ['router', 'api', 'h5-view', 'check', 'h5-alert',
         setSuccess: $.noop,
         setDelSuccess: $.noop,
         address_mine_next: function() { //返回
+            console.log("~~~xxx~~~~")
+            console.log(vm);
+            console.log(vm.callback);
+            console.log("~~~~xxx~~~")
             if (vm.callback) {
                 vm.callback();
             }
@@ -39,7 +43,7 @@ define('h5-view-address-mine', ['router', 'api', 'h5-view', 'check', 'h5-alert',
                     vm.setMarketAddress = false;
                     //vm.marketGopAddress = '';
 
-                    vm.hasStepNext = true;
+                    vm.hasStepNext = false;
                     vm.setSuccess();
                 } else {
                     console.log(data);
@@ -52,6 +56,7 @@ define('h5-view-address-mine', ['router', 'api', 'h5-view', 'check', 'h5-alert',
             }, function(data) {
                 if (data.status == 200) {
                     $.alert('删除成功!');
+                    vm.hasStepNext = false;
                     vm.hasMarketAddress = false;
                     vm.marketGopAddress = '';
                     $('#address-mine-input').val('');

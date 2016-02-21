@@ -52,8 +52,8 @@ require(['router', 'h5-view','api','h5-paypass', 'h5-text','cookie', 'h5-weixin'
             obj2.options.add(new Option("我最喜欢的宠物名字是什么？","我最喜欢的宠物名字是什么？"));
             obj2.options.add(new Option("我最喜欢的明星是谁？","我最喜欢的明星是谁？"));
             obj2.options.add(new Option("我奶奶的名字是什么？","我奶奶的名字是什么？"));
-            obj2.options.add(new Option("我的高中班主任的名字是什么？","我的高中班主任的名字是什么？"));
-            obj2.options.add(new Option("我的初中班主任的名字是什么？","我的初中班主任的名字是什么？"));
+            obj2.options.add(new Option("我的高中班主任叫什么？","我的高中班主任叫什么？"));
+            obj2.options.add(new Option("我的初中班主任叫什么？","我的初中班主任叫什么？"));
             obj2.options.add(new Option("我最好的朋友叫什么名字？","我最好的朋友叫什么名字？"));
             obj2.options.remove(index);
         	router.go('view/protection-view-2');      	

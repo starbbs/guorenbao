@@ -163,6 +163,7 @@
 		color: $g-ash;
 		&-item {
 			@include height(28px);
+			display: flex;
 		}
 		&-left {
 			float: left;

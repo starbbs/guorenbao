@@ -32,6 +32,9 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
         },
         myWallet_click: function(e) {
             //我的钱包
+
+            console.log(vm.hasWallet);
+
             if (vm.hasWallet) {
                 vm.transferOutType = 'ME_WALLET';
                 api.walletList({
@@ -61,15 +64,15 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                 });
             } else {
                 //跳转到钱包地址
-                address_wallet.vm.hasStepNext = true;
+                address_wallet.vm.hasStepNext = false;
                 address_wallet.vm.callback = function() {
                     init();
                     //router.go('/');
-
+                    console.log('dddddddd');
                     targetInit(vm.transferOutType);
                     router.go('/view/transfer-target');
                 }
-                //router.go('/view/address-wallet');
+                router.go('/view/address-wallet');
             }
         },
         marketWallet_click: function(e) {
@@ -144,6 +147,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
         $id: 'transfer-new',
         newTarget: '',
         checked: true,
+        internalGopAddress:'',
         newguorentype:false,
         check: function(e) {
             if (this.value.length != 11 && this.value.length != 67 && this.value.length != 68) {
@@ -203,6 +207,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                     address: transfer_new.newTarget
                 }, function(data) {
                     if (data.status == 200) {
+                        console
                         if (data.data) {
                             if (data.data.photo) {
                                 nowData.photo = data.data.photo;
@@ -230,6 +235,8 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                         $.extend(transfer_target, nowData);
                         targetInit(vm.transferOutType);
                         router.go('/view/transfer-target');
+                    } else if(data.status == 400){
+                        $.alert('不要给自己转账哦');
                     } else {
                         if (transfer_new.newTarget.length == 11) {
                             $.alert('该手机号未注册');

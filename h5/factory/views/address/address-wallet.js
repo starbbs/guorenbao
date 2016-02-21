@@ -55,7 +55,7 @@ define('h5-view-address-wallet', ['router', 'api','h5-view','check','h5-alert','
                     $.alert('添加成功!'); 
                     vm.walletAddress='';
                     vm.walletAddress_add_show=false;
-                    vm.hasStepNext = true;
+                    vm.hasStepNext = false;
                     vm.walletAddress_query_click();                 
                 } else {
                     $.alert(data.msg);
@@ -96,6 +96,7 @@ define('h5-view-address-wallet', ['router', 'api','h5-view','check','h5-alert','
     address_wallet.on("hide",function(){
         address_wallet.vm.walletAddress_add_show=false;
         address_wallet.vm.walletAddress='';
+        window.location.reload(true);
     });
 	
     $(document).on('swipeLeft', '.address-wallet-item', function() {        
