@@ -22,6 +22,10 @@ define('h5-component-bill', function() {
 			TRANSFER_OUT: 'transfer',
 			BUY_IN: 'buy',
 			PAY: 'phone',
+		},
+		payType: { // 支付方式
+			UNION_PAY: '银联支付',
+			WEIXIN_MP_PAY: '微信支付'
 		}
 	};
 	return bill;

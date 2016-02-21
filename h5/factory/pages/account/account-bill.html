@@ -3,15 +3,19 @@
 		<div class="bill-box last">
 			<div class="bill-head" ms-class="{{headClass}}">{{headContent}}</div>
 			<div class="bill-wait" ms-visible="waitForPay">
-				<div class="bill-wait-left">等待支付(¥)</div>
+				<div class="bill-wait-left">等待支付 (¥)</div>
 				<div class="bill-wait-right">-{{orderMoney|fix}}</div>
 			</div>
 			<div class="bill-reason" ms-visible="failReason">
 				<div class="fl">失败原因</div>
 				<div class="fr red">{{failReason}}</div>
 			</div>
+			<div class="bill-reason" ms-visible="closeReason">
+				<div class="fl">关闭原因</div>
+				<div class="fr red">{{closeReason}}</div>
+			</div>
 			<div class="bill-pay" ms-visible="orderMoney">
-				<div class="bill-label" ms-class-1="ash:status=='fail'" ms-class-2="dark:status!='fail'">订单金额(¥)</div>
+				<div class="bill-label" ms-class-1="ash:status=='fail'" ms-class-2="dark:status!='fail'">订单金额 (¥)</div>
 				<div class="bill-num dark">-{{orderMoney|fix}}</div>
 				<div class="bill-pay-box" ms-visible="status=='success'">
 					<div class="bill-pay-item" ms-visible="payMoney">
@@ -37,17 +41,21 @@
 					<div class="bill-detail-left">收款方</div>
 					<div class="bill-detail-right dark">北京果仁宝科技有限公司</div>
 				</div>
-				<div class="bill-detail-item" ms-visible="status=='success'&&orderTime">
+				<div class="bill-detail-item" ms-visible="orderTime">
 					<div class="bill-detail-left">交易时间</div>
 					<div class="bill-detail-right dark">{{orderTime}}</div>
 				</div>
-				<div class="bill-detail-item" ms-visible="status!='success'&&createTime">
+				<div class="bill-detail-item" ms-visible="createTime">
 					<div class="bill-detail-left">创建时间</div>
 					<div class="bill-detail-right dark">{{createTime}}</div>
 				</div>
-				<div class="bill-detail-item" ms-visible="status!='success'&&orderCode">
+				<div class="bill-detail-item" ms-visible="orderCode">
 					<div class="bill-detail-left">订单号</div>
 					<div class="bill-detail-right ash">{{orderCode}}</div>
+				</div>
+				<div class="bill-detail-item" ms-visible="payType">
+					<div class="bill-detail-left">支付方式</div>
+					<div class="bill-detail-right ash">{{payType}}</div>
 				</div>
 			</div>
 		</div>

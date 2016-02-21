@@ -102,198 +102,18 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 		type = (type + '').toUpperCase();
 		switch (type) {
 			case 'TRANSFER_OUT': // 转账, 转出
-				api.transferQuery({
-					gopToken: gopToken,
-					transferOutId: id
-				}, function(data) {
-					/*{
-						"data": {
-							"transferOut": {
-								"serviceFee": 0.010000,
-								"address": "asdfghjkl",
-								"updateTime": "2015-12-09 12:12:12",
-								"type": "ME_WALLET",
-								"gopNum": 12.340000,
-								"userId": 26,
-								"createTime": "2015-09-10 09:12:26",
-								"phone": "13146556570",
-								"transContent": "(づ￣3￣)づ╭?～",
-								"personId": 1,
-								"walletId": 1,
-								"id": 1,
-								"failureMsg": "还不知道失败原因",
-								"status": "PROCESSING"
-							}
-						},
-						"msg": "success",
-						"status": "200"
-					}*/
-					console.log(data);
-				});
+				transferOutHandler(type, id);
 				break;
 			case 'TRANSFER_IN': // 转账, 转入
-				api.transferInQuery({
-					gopToken: gopToken,
-					transferInId: id
-				}, function(data) {
-					/*{
-						"data": {
-							"transferIn": {
-								"transferTime": "2016-01-04 17:58:15",
-								"transferAddress": "uga000000",
-								"id": 11,
-								"gopNum": 0.010000,
-								"userId": 23,
-								"status": "SUCCESS",
-								”personId”: 111,
-								”transContent”: ”转账说明”
-							}
-						},
-						"msg": "success",
-						"status": "200"
-					}*/
-					console.log(data)
-				});
+				transferInHandler(type, id);
 				break;
 			case 'BUYIN_ORDER': // 买入, 消息
 			case 'BUY_IN': // 买入, 列表
-				api.queryBuyinOrder({
-					gopToken: gopToken,
-					buyinOrderId: id,
-					payType: 'WEIXIN_MP_PAY'
-				}, function(data) {
-					/*{ // 已支付，成功
-						"data": {
-							"buyinOrder": {
-								"payType": "UNION_PAY",
-								"orderMoney": 12.35,
-								"createTime": "2015-12-21 16:36:00",
-								"orderCode": "201512211636006262",
-								"updateTime": "2015-12-21 16:36:00",
-								"id": 7,
-								"userId": 26,
-								"status": "SUCCESS",
-								"price": 12.99,
-								"gopNum": 7.987555,
-								"payMoney": 12.35,
-								"serialNum": "12124132413",
-								"payTime": "2015-12-21 16:36:00",
-								"payResult": "失败"
-							}
-						},
-						"msg": "success",
-						"status": "200"
-					}*/
-					/*{ // 已支付，失败
-						"data": {
-							"buyinOrder": {
-								"payType": "UNION_PAY",
-								"orderMoney": 12.35,
-								"createTime": "2015-12-21 16:36:00",
-								"orderCode": "201512211636006262",
-								"updateTime": "2015-12-21 16:36:00",
-								"id": 7,
-								"userId": 26,
-								"status": "FAILURE",
-								"payResult": "余额不足"
-							}
-						},
-						"msg": "success",
-						"status": "200"
-					}*/
-					/*{ // 未支付，payType=UNION_PAY
-						"data": {
-							"buyinOrder": {
-								"payType": "UNION_PAY",
-								"orderMoney": 12.35,
-								"createTime": "2015-12-21 16:36:00",
-								"orderCode": "201512211636006262",
-								"updateTime": "2015-12-21 16:36:00",
-								"id": 7,
-								"userId": 26,
-								"status": "PROCESSING"
-							},
-							"UNION_PAY": {
-								"bankCardList": [{
-									"bankPhone": "150****7107",
-									"cardType": "CREDIT_CARD",
-									"bankName": "jianse",
-									"cardNo": "**** **** **** 4567"
-								}, {
-									"bankPhone": "150****7107",
-									"cardType": "CREDIT_CARD",
-									"bankName": "jianse",
-									"cardNo": "**** **** **** 4567"
-								}]
-							}
-						},
-						"msg": "success",
-						"status": "200"
-					}*/
-					console.log(data)
-				});
+				buyInHandler(type, id);
 				break;
 			case 'CONSUME_ORDER': // 消费, 消息
 			case 'PAY': // 消费, 列表
-				api.query({
-					gopToken: gopToken,
-					consumeOrderId: id
-				}, function(data) {
-					/*{
-						"data": {
-							"bankCardList": [{
-								"cardType": "SAVINGS_DEPOSIT_CARD",
-								"bankName": "建设银行",
-								"cardNo": "1111222233332874",
-								"id": 1， "bankPhone": "15895910256"
-							}, {
-								"cardType": "CREDIT_CARD",
-								"bankName": "浦发银行",
-								"cardNo": "1111222233334444",
-								"id": 2,
-								"bankPhone": "15895910256"
-							}],
-							"product": {
-								"productDesc": "话费充值",
-								"extraContent": "{\"price\":30}",
-								"currency": "RMB",
-								"id": 13,
-								"price": 12.900000,
-								"productName": "30元话费",
-								"productType": "SHOUJICHONGZHIKA"
-							},
-							"consumeOrder": {
-								"orderMoney": 30.000000,
-								"productId": 13,
-								"createTime": "2015-12-20 09:42:51",
-								"extraContent": "{\"phone\":\"13146556570\"}",
-								"currency": "RMB",
-								"orderCode": "1",
-								”gopPrice”: 2.3,
-								"updateTime": "2015-12-20 09:42:51",
-								"id": 2,
-								"userId": 26,
-								"productType": "SHOUJICHONGZHIKA",
-								"status": "PROCESSING"
-							},
-							"recordList": [{
-								"payMoney": 2.00,
-								"payType": "GOP_PAY",
-								"tradeNo": "20151224163438600901",
-								"createTime": "2015-12-24 16:34:38",
-								"tradeStatus": "FAILURE",
-								"updateTime": "2015-12-24 16:34:38",
-								"payResult": "哈哈哈哈哈哈",
-								"payGop": 2.000000
-							}],
-							"gopPrice": 12.345678,
-							"gopNum": 0.00
-						},
-						"msg": "success",
-						"status": "200"
-					}*/
-					console.log(data);
-				});
+				consumeHandler(type, id);
 				break;
 			default:
 				$.alert('未知类型的账单<br>值为 ' + type);
@@ -371,7 +191,7 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 
 	var now = new Date(); // 当前时间
 	var nowMonth = now.getMonth(); // 当前月份
-	var dataAdd = function(kind, bills, item) {
+	var dataAdd = function(kind, bills, item) { // 添加数据
 		var type = H5bill.typeClass[item.type];
 		var bill = {
 			id: item.businessId,
@@ -441,6 +261,7 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 	};
 	// 处理 getList 的工具方法 -- 结束
 
+	// 账单列表
 	var vm = avalon.define({
 		$id: 'account',
 		loading: false,
@@ -452,13 +273,17 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 			}, 200);
 		},
 		showAccount: function(ev) { // 显示账单详情(事件代理)
-			var data = $(ev.target).closest('.account-item').get(0).dataset;
-			getAccount(data.type, data.id);
-			router.go('/view/account-bill');
+			var target = $(ev.target).closest('.account-item');
+			if (target.length) {
+				var data = target.get(0).dataset;
+				getAccount(data.type, data.id);
+				router.go('/view/account-bill');
+			}
 		}
 	});
 	avalon.scan(main.get(0), vm);
 
+	// 帐单详情
 	var bill = $('.account-bill');
 	var billView = new View('account-bill');
 	var billInitOptions = { // 初始化
@@ -468,6 +293,7 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 		headContent: '', // 头部内容
 		waitForPay: false, // 等待支付
 		failReason: '', // 失败原因
+		closeReason: '', // 关闭原因
 		orderMoney: 0, // 订单金额
 		payMoney: 0, // 支付金额
 		payGop: 0, // 支付果仁数
@@ -475,24 +301,29 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 		orderTime: '', // 交易时间
 		createTime: '', // 创建时间
 		orderCode: '', // 订单号
+		payType: '', // 支付方式
 		ifFinishButton: false, // 是否显示"完成"按钮
 		ifPayButton: false, // 是否显示"前往支付"按钮
 		ifShowMore: false, // 是否显示"更多"
 	};
-	var billViewModel = avalon.define($.extend({
+	var billViewModel = avalon.define($.extend({ // 账单vm
 		$id: 'account-bill',
 		finish: function() { // 完成
-
+			router.go('/');
 		},
 		gotoPay: function() { // 前往支付
-
 		},
 		showMore: function() { // 更多
 
 		},
 	}, billInitOptions));
-	var billViewModelSet = function(options) {
+	var billViewModelSet = function(options) { // 设置账单vm
 		return $.extend(billViewModel, billInitOptions, options);
+	};
+	var billViewModelSetGotoPay = function(id) {
+		billViewModel.gotoPay = function() {
+			window.location.href = './order.html?from=account&id' + id;
+		};
 	};
 	avalon.scan(bill.get(0), billViewModel);
 	billView.on('hide', function() {
@@ -500,6 +331,222 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 			getList();
 		}
 	});
+
+	// 数据处理
+	var buyInHandler = function(type, id) { // 买入
+		api.queryBuyinOrder({
+			gopToken: gopToken,
+			buyinOrderId: id,
+			payType: 'WEIXIN_MP_PAY'
+		}, function(data) {
+			/*{ // 已支付，成功
+				"data": {
+					"buyinOrder": {
+						"payType": "UNION_PAY",
+						"orderMoney": 12.35,
+						"createTime": "2015-12-21 16:36:00",
+						"orderCode": "201512211636006262",
+						"updateTime": "2015-12-21 16:36:00",
+						"id": 7,
+						"userId": 26,
+						"status": "SUCCESS",
+						"price": 12.99,
+						"gopNum": 7.987555,
+						"payMoney": 12.35,
+						"serialNum": "12124132413",
+						"payTime": "2015-12-21 16:36:00",
+						"payResult": "失败"
+					}
+				},
+				"msg": "success",
+				"status": "200"
+			}*/
+			/*{ // 已支付，失败
+				"data": {
+					"buyinOrder": {
+						"payType": "UNION_PAY",
+						"orderMoney": 12.35,
+						"createTime": "2015-12-21 16:36:00",
+						"orderCode": "201512211636006262",
+						"updateTime": "2015-12-21 16:36:00",
+						"id": 7,
+						"userId": 26,
+						"status": "FAILURE",
+						"payResult": "余额不足"
+					}
+				},
+				"msg": "success",
+				"status": "200"
+			}*/
+			/*{ // 未支付，payType=UNION_PAY
+				"data": {
+					"buyinOrder": {
+						"payType": "UNION_PAY",
+						"orderMoney": 12.35,
+						"createTime": "2015-12-21 16:36:00",
+						"orderCode": "201512211636006262",
+						"updateTime": "2015-12-21 16:36:00",
+						"id": 7,
+						"userId": 26,
+						"status": "PROCESSING"
+					},
+					"UNION_PAY": {
+						"bankCardList": [{
+							"bankPhone": "150****7107",
+							"cardType": "CREDIT_CARD",
+							"bankName": "jianse",
+							"cardNo": "**** **** **** 4567"
+						}, {
+							"bankPhone": "150****7107",
+							"cardType": "CREDIT_CARD",
+							"bankName": "jianse",
+							"cardNo": "**** **** **** 4567"
+						}]
+					}
+				},
+				"msg": "success",
+				"status": "200"
+			}*/
+			console.log(data)
+			var order = data.data.buyinOrder; // 订单
+			var list = data.data.recordList; // 支付
+			billViewModelSet({
+				type: type,  // 类型
+				status: order.status,  // 订单状态
+				headClass: H5bill.statusClass[order.status],  // 头部样式名
+				headContent: H5bill.statusZhCN[order.status],  // 头部内容
+				waitForPay: order.status == 'PROCESSING' && (!list || !list.length),  // 等待支付
+				failReason: order.status == 'FAILURE' ? order.payResult : '',  // 失败原因
+				closeReason: order.status == 'CLOSE' ? order.payResult : '',  // 关闭原因
+				orderMoney: order.orderMoney,  // 订单金额
+				payMoney: order.payMoney ? order.payMoney : 0,  // 支付金额
+				payGop: order.gopNum ? order.gopNum : 0,  // 支付果仁数
+				productDesc: '',  // 商品信息
+				orderTime: order.orderTime,  // 交易时间
+				createTime: order.createTime,  // 创建时间
+				orderCode: order.orderCode,  // 订单号
+				payType: H5bill.payType[order.payType],  // 支付方式
+				ifFinishButton: true,  // 是否显示"完成"按钮
+				ifPayButton: false,  // 是否显示"前往支付"按钮
+				ifShowMore: false,  // 是否显示"更多"
+			});
+		});
+	};
+	var consumeHandler = function(type, id) { // 消费
+		api.query({
+			gopToken: gopToken,
+			consumeOrderId: id
+		}, function(data) {
+			/*{
+				"data": {
+					"bankCardList": [{
+						"cardType": "SAVINGS_DEPOSIT_CARD",
+						"bankName": "建设银行",
+						"cardNo": "1111222233332874",
+						"id": 1， "bankPhone": "15895910256"
+					}, {
+						"cardType": "CREDIT_CARD",
+						"bankName": "浦发银行",
+						"cardNo": "1111222233334444",
+						"id": 2,
+						"bankPhone": "15895910256"
+					}],
+					"product": {
+						"productDesc": "话费充值",
+						"extraContent": "{\"price\":30}",
+						"currency": "RMB",
+						"id": 13,
+						"price": 12.900000,
+						"productName": "30元话费",
+						"productType": "SHOUJICHONGZHIKA"
+					},
+					"consumeOrder": {
+						"orderMoney": 30.000000,
+						"productId": 13,
+						"createTime": "2015-12-20 09:42:51",
+						"extraContent": "{\"phone\":\"13146556570\"}",
+						"currency": "RMB",
+						"orderCode": "1",
+						”gopPrice”: 2.3,
+						"updateTime": "2015-12-20 09:42:51",
+						"id": 2,
+						"userId": 26,
+						"productType": "SHOUJICHONGZHIKA",
+						"status": "PROCESSING"
+					},
+					"recordList": [{
+						"payMoney": 2.00,
+						"payType": "GOP_PAY",
+						"tradeNo": "20151224163438600901",
+						"createTime": "2015-12-24 16:34:38",
+						"tradeStatus": "FAILURE",
+						"updateTime": "2015-12-24 16:34:38",
+						"payResult": "哈哈哈哈哈哈",
+						"payGop": 2.000000
+					}],
+					"gopPrice": 12.345678,
+					"gopNum": 0.00
+				},
+				"msg": "success",
+				"status": "200"
+			}*/
+			console.log(data);
+		});
+	};
+	var transferInHandler = function(type, id) { // 转入
+		api.transferInQuery({
+			gopToken: gopToken,
+			transferInId: id
+		}, function(data) {
+			/*{
+				"data": {
+					"transferIn": {
+						"transferTime": "2016-01-04 17:58:15",
+						"transferAddress": "uga000000",
+						"id": 11,
+						"gopNum": 0.010000,
+						"userId": 23,
+						"status": "SUCCESS",
+						”personId”: 111,
+						”transContent”: ”转账说明”
+					}
+				},
+				"msg": "success",
+				"status": "200"
+			}*/
+			console.log(data)
+		});
+	};
+	var transferOutHandler = function(type, id) { // 传出
+		api.transferQuery({
+			gopToken: gopToken,
+			transferOutId: id
+		}, function(data) {
+			/*{
+				"data": {
+					"transferOut": {
+						"serviceFee": 0.010000,
+						"address": "asdfghjkl",
+						"updateTime": "2015-12-09 12:12:12",
+						"type": "ME_WALLET",
+						"gopNum": 12.340000,
+						"userId": 26,
+						"createTime": "2015-09-10 09:12:26",
+						"phone": "13146556570",
+						"transContent": "(づ￣3￣)づ╭?～",
+						"personId": 1,
+						"walletId": 1,
+						"id": 1,
+						"failureMsg": "还不知道失败原因",
+						"status": "PROCESSING"
+					}
+				},
+				"msg": "success",
+				"status": "200"
+			}*/
+			console.log(data);
+		});
+	};
 
 	init();
 });
