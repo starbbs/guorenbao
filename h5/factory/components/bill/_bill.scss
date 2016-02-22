@@ -4,6 +4,8 @@
 // 张树垚 2016-01-08 20:10:35 创建
 // H5微信端 --- component-bill账单
 
+.fllabel {float: left;flex:1.2;}
+.frlabel {float: right;flex:3.8;}
 
 .bill {
 	$img: $g-components + '/bill/images';

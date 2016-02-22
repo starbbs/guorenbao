@@ -91,6 +91,9 @@ define('h5-bankcard-append', ['router', 'api', 'h5-view', 'h5-bankcard-ident', '
 	bankcard_append.on('hide', function() {
 		vm.cardNo = '';
 		vm.phone = '';
+		vm.bankName = '';
+		vm.cardTypeStr = '';
+		$('.banknameAndcardtypestr').text('');
 	});
 
 	return bankcard_append;

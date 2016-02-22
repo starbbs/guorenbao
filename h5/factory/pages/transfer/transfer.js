@@ -160,11 +160,11 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                     transfer_new.checked = false;
                     transfer_new.newguorentype = false;
                 }
-            } else if (this.value.indexOf('GOP') != 0) {
-                transfer_new.checked = true;
-            } else {
+            } else if (this.value.indexOf('GOP') != -1) {
                 transfer_new.checked = false;
                 transfer_new.newguorentype = true;
+            } else {
+                transfer_new.checked = true;
             }
             if (transfer_new.checked) {
                 $(this).addClass("error");
@@ -207,10 +207,13 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                     address: transfer_new.newTarget
                 }, function(data) {
                     if (data.status == 200) {
-                        console
+                        //console
                         if (data.data) {
                             if (data.data.photo) {
                                 nowData.photo = data.data.photo;
+                            }
+                            if(data.data.phone) {
+                                nowData.address_to_phone = data.data.phone;
                             }
                             if (re.test(transfer_new.newTarget)) {
                                 if (data.data.nick) {
@@ -319,6 +322,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
         content: '', //转账说明
         notchecked: true, //是否没有检验通过
         isMarket: false, //是否是果仁市场
+        address_to_phone: '',
         getCnyMoney: function(e) {
             if (this.value > 0 && this.value <= transfer_target.gopNum) {
                 transfer_target.notchecked = false;
@@ -486,7 +490,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                 if(transfer_new.newguorentype){  //true 代表的是钱包地址  false 代表手机号
                     transfer_bill.serviceFee = 0.01;
                 } else {
-                    transfer_bill.serviceFee = '免费';
+                    transfer_bill.serviceFee = '0.00';
                 }
                 transfer_bill.status = datas.data.transferOut.status;
                 transfer_bill.createTime = datas.data.transferOut.createTime;

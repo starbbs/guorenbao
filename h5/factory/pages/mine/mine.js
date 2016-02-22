@@ -49,6 +49,7 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 		hasMarketAddress: false, //是否有果仁市场地址标志
 		setMarketAddress: false, //正在设置果仁市场地址标志
 		marketGopAddress: '', //果仁市场地址
+		internalGopAddress: '',
 		nick_click: function() {
 			nick.nickname = vm.nickname;
 			router.go('/view/nickname');
