@@ -110,7 +110,7 @@ define('check', function() {
 			return /^((\d{16})|(\d{19}))$/.test(trim(value));
 		},
 		cardCondition: function(value) {
-			return value.length > 16;
+			return value.length >= 16;
 		},
 		idcard: function(value) { // 身份证验证
 			return /^((\d{15})|(\d{17}[\dXx]))$/.test(trim(value));

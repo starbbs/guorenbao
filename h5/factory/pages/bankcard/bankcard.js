@@ -48,21 +48,23 @@ require(['router', 'api', 'h5-view', 'hashMap',
 			router.go('/view/bankcard-append');
 		},
 		bankcard_detail_click: function(item) {
-			bankcard_detail_vm.cardId = item.id;
-			bankcard_detail_vm.bankName = item.bankName;
-			bankcard_detail_vm.phone = item.bankPhone;
-			bankcard_detail_vm.phoneStr = item.bankPhone;
-			bankcard_detail_vm.createTime = item.createTime;
-			bankcard_detail_vm.bankDataDic = item.bankDataDic;
-			bankcard_detail_vm.cardNo = item.cardNo;
-			bankcard_detail_vm.cardType = item.type;
-			bankcard_detail_vm.cardTypeStr = item.typeName;
-			bankcard_detail_vm.callback = function() {
-				bankcard_append.vm.cardNo ='';
-				bankcard_append.vm.phone = '';
-				bankcardInit();
-				window.history.back();
-			};
+			$.extend(bankcardDetailViewModel, {
+				cardId: item.id,
+				bankName: item.bankName,
+				phone: item.bankPhone,
+				phoneStr: item.bankPhone,
+				createTime: item.createTime,
+				bankDataDic: item.bankDataDic,
+				cardNo: item.cardNo,
+				cardType: item.type,
+				cardTypeStr: item.typeName,
+				callback: function() {
+					bankcard_append.vm.cardNo ='';
+					bankcard_append.vm.phone = '';
+					bankcardInit();
+					window.history.back();
+				},
+			});
 
 			setTimeout(function() {
 				router.go('/view/bankcard-detail');
@@ -77,7 +79,7 @@ require(['router', 'api', 'h5-view', 'hashMap',
 	// }
 
 	var bankcard_detail = new View('bankcard-detail');
-	var bankcard_detail_vm = avalon.define({
+	var bankcardDetailViewModel = avalon.define({
 		$id: 'bankcard-detail',
 		cardNo: '',
 		bankName: '',
@@ -89,16 +91,16 @@ require(['router', 'api', 'h5-view', 'hashMap',
 		createTime: '',
 		bankDataDic: '',
 		back_click: function() {
-			bankcard_detail_vm.callback && bankcard_detail_vm.callback();
+			bankcardDetailViewModel.callback && bankcardDetailViewModel.callback();
 		},
 		del_click: function() {
 			api.bankcardDel({
 				gopToken: gopToken,
-				cardId: bankcard_detail_vm.cardId
+				cardId: bankcardDetailViewModel.cardId
 			}, function(data) {
 				if (data.status == 200) {
 					$.alert('解绑成功');
-					bankcard_detail_vm.callback && bankcard_detail_vm.callback();
+					bankcardDetailViewModel.callback && bankcardDetailViewModel.callback();
 				} else {
 					console.log(data);
 				}
@@ -119,7 +121,7 @@ require(['router', 'api', 'h5-view', 'hashMap',
 			if (data.status == 200) {
 				for (var i = 0; i < data.data.list.length; i++) {
 					var item = data.data.list[i];
-					if (item.type = 'SAVINGS_DEPOSIT_CARD') {
+					if (item.type == 'SAVINGS_DEPOSIT_CARD') {
 						item.typeName = '储蓄卡';
 					} else {
 						item.typeName = '信用卡';
