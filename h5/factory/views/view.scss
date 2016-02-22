@@ -8,13 +8,12 @@
 .view {
 
 	$time: .5s;
+	$padding-bottom: 400px; // 底部添加长度, 避免键盘消失时, 浏览器重绘留下空白, 露出底下页面
 
 	@include fixed(0, 100%);
 	z-index: $g-index-view;
 	@include square(100%);
 	@include t3d(0);
-
-	background-color: $g-background;
 
 	&.on {
 		left: 0;
@@ -32,6 +31,7 @@
 		overflow-y: auto;
 		@include t3d(0);
 		background-color: $g-background;
+		padding-bottom: $padding-bottom;
 		&.show {
 			transition: $time;
 			@include t3d(-100%);
@@ -46,6 +46,10 @@
 				@include t3d(0);
 			}
 		}
+	}
+	&-box {
+		@include absolute('tlr');
+		bottom: $padding-bottom;
 	}
 }
 
