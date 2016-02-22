@@ -51,6 +51,11 @@
 		@include absolute('tlr');
 		bottom: $padding-bottom;
 	}
+	&-bottom {
+		@include absolute('lr');
+		bottom: $padding-bottom;
+		height: 0;
+	}
 }
 
 
