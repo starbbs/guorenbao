@@ -47,6 +47,7 @@ define('h5-view-address-mine', ['router', 'api', 'h5-view', 'check', 'h5-alert',
                     vm.setSuccess();
                 } else {
                     console.log(data);
+                    $.alert(data.msg)
                 }
             });
         },

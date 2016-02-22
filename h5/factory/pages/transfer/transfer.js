@@ -541,13 +541,22 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
             arr: [],
             other: []
         };
+        console.log(data);
         for (var i in data) {
+            console.log(i);
             if (data.hasOwnProperty(i)) {
                 result[i.length === 1 ? 'arr' : 'other'].push({ // 字母放到arr, 其他放到other
-                    name: i,
+                    /*name: i,*/
+                    /*name: typeof(i)==Number?i:'其他',*/
+                    name: i!=='Other'?i:'其他',
                     list: data[i]
                 });
             }
+            // if(item.name){
+            //     item.name = item.name;
+            // } else {
+            //     item.name = '未命名用户';
+            // }
         };
         result.arr.sort(function(a1, a2) {
             return a1.name > a2.name;
@@ -643,6 +652,9 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                 vm.list.clear();
                 for (var i = 0; i < data.data.transferOutList.length; i++) {
                     var item = data.data.transferOutList[i];
+                    // console.log("***************");
+                    // console.log(item);
+                    // console.log("***************");
                     if (item.type == 'WALLET_NEW') {
                         if (item.photo) {
                             $('.img-w-' + data.personId).show();
@@ -666,10 +678,27 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                             item.icon = '5';
                             $('.img-w-' + data.personId).hide();
                         }
+                        if(item.name){
+                            item.name = item.name;
+                        } else {
+                            item.name = '未命名用户';
+                        }
                     } else if (item.type == 'GOP_MARKET') { //果仁市场
                         item.icon = '3';
                     } else if (item.type == 'ME_WALLET') { //我的钱包
                         item.icon = '2';
+                    }
+
+                    if (item.photo) {
+                        $('.img-w-' + data.personId).show();
+                    } else {
+                        item.icon = '5';
+                        $('.img-w-' + data.personId).hide();
+                    }
+                    if(item.name){
+                        item.name = item.name;
+                    } else {
+                        item.name = '未命名用户';
                     }
 
                     if (item.phone) {
@@ -688,7 +717,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                     }
                     vm.list.push(item);
                 }
-
             } else {
                 console.log(data);
             }
