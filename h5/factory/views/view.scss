@@ -14,6 +14,8 @@
 	@include square(100%);
 	@include t3d(0);
 
+	background-color: $g-background;
+
 	&.on {
 		left: 0;
 	}

@@ -164,8 +164,8 @@
 		font-size: 14px;
 		color: $g-ash;
 		&-item {
-			@include height(28px);
-			display: flex;
+			line-height: 28px;
+			overflow: hidden;
 		}
 		&-left {
 			float: left;
@@ -175,6 +175,14 @@
 		}
 		&-right {
 			float: right;
+			width: 60%;
+			text-align: right;
+			// &:first-line {
+			// 	text-align: right;
+			// }
+			// &:first-letter {
+			// 	font-size: 20px;
+			// }
 		}
 	}
 	&-more {

@@ -166,7 +166,7 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 	};
 	var timeDayDiffer = function(timeA, timeB) { // 两个时间的日期差
 		if (timeA.constructor === Date && timeB.constructor === Date) {
-			return Math.round((timeClearHour(timeA).getTime() - timeClearHour(timeB).getTime()) / 1000 / 60 / 60 / 24)
+			return Math.round((timeClearHour(timeA).getTime() - timeClearHour(timeB).getTime()) / 1000 / 60 / 60 / 24);
 		}
 	};
 	var timeCompare = function(timeA, timeB) { // 已A为准, 返回B是A的今天, 昨天, 前天
@@ -287,11 +287,13 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 	var bill = $('.account-bill');
 	var billView = new View('account-bill');
 	var billInitOptions = { // 初始化
+		id: '', // 账单ID
 		type: '', // 类型
 		status: '', // 订单状态
 		headClass: '', // 头部样式名
 		headContent: '', // 头部内容
 		waitForPay: false, // 等待支付
+		gopNum: 0, // 买入果仁数
 		failReason: '', // 失败原因
 		closeReason: '', // 关闭原因
 		orderMoney: 0, // 订单金额
@@ -301,29 +303,51 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 		orderTime: '', // 交易时间
 		createTime: '', // 创建时间
 		orderCode: '', // 订单号
+		serialNum: '', // 流水号
 		payType: '', // 支付方式
 		ifFinishButton: false, // 是否显示"完成"按钮
 		ifPayButton: false, // 是否显示"前往支付"按钮
+		ifRePayButton: false, // 是否显示"重新支付"按钮
 		ifShowMore: false, // 是否显示"更多"
+		ifClose: false, // 是否显示"关闭"
 	};
 	var billViewModel = avalon.define($.extend({ // 账单vm
 		$id: 'account-bill',
-		finish: function() { // 完成
+		finish: function() { // 完成 -- 完成按钮只有在买果仁流程的最后一步会显示
 			router.go('/');
 		},
 		gotoPay: function() { // 前往支付
+			window.location.href = './order.html?from=account&id=' + billViewModel.id;
 		},
 		showMore: function() { // 更多
-
+		},
+		close: function() { // 关闭订单
+			var type = billViewModel.type;
+			var id = billViewModel.id;
+			// 关闭买果仁
+			api.closeBuyinOrder({
+				gopToken: gopToken,
+				buyinOrderId: id
+			}, function(data) {
+				if (data.status == 200) {
+					$.alert('关闭成功');
+					buyInHandler(type, id);
+				}
+			});
+			// 关闭消费果仁
+			api.closeConsumeOrder({
+				gopToken: gopToken,
+				consumeOrderId: id
+			}, function(data) {
+				if (data.status == 200) {
+					$.alert('关闭成功');
+					consumeHandler(type, id);
+				}
+			});
 		},
 	}, billInitOptions));
 	var billViewModelSet = function(options) { // 设置账单vm
 		return $.extend(billViewModel, billInitOptions, options);
-	};
-	var billViewModelSetGotoPay = function(id) {
-		billViewModel.gotoPay = function() {
-			window.location.href = './order.html?from=account&id' + id;
-		};
 	};
 	avalon.scan(bill.get(0), billViewModel);
 	billView.on('hide', function() {
@@ -408,27 +432,36 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 				"status": "200"
 			}*/
 			console.log(data)
+			if (!data.data || !data.data.buyinOrder) {
+				return;
+			}
 			var order = data.data.buyinOrder; // 订单
 			var list = data.data.recordList; // 支付
+			var waitForPay = order.status == 'PROCESSING' && (!list || !list.length);
 			billViewModelSet({
-				type: type,  // 类型
-				status: order.status,  // 订单状态
-				headClass: H5bill.statusClass[order.status],  // 头部样式名
-				headContent: H5bill.statusZhCN[order.status],  // 头部内容
-				waitForPay: order.status == 'PROCESSING' && (!list || !list.length),  // 等待支付
-				failReason: order.status == 'FAILURE' ? order.payResult : '',  // 失败原因
-				closeReason: order.status == 'CLOSE' ? order.payResult : '',  // 关闭原因
-				orderMoney: order.orderMoney,  // 订单金额
-				payMoney: order.payMoney ? order.payMoney : 0,  // 支付金额
-				payGop: order.gopNum ? order.gopNum : 0,  // 支付果仁数
-				productDesc: '',  // 商品信息
-				orderTime: order.orderTime,  // 交易时间
-				createTime: order.createTime,  // 创建时间
-				orderCode: order.orderCode,  // 订单号
-				payType: H5bill.payType[order.payType],  // 支付方式
-				ifFinishButton: true,  // 是否显示"完成"按钮
-				ifPayButton: false,  // 是否显示"前往支付"按钮
-				ifShowMore: false,  // 是否显示"更多"
+				id: id, // 账单ID
+				type: type, // 类型
+				status: order.status, // 订单状态
+				headClass: H5bill.statusClass[order.status], // 头部样式名
+				headContent: H5bill.statusZhCN[order.status], // 头部内容
+				waitForPay: waitForPay, // 等待支付
+				gopNum: order.gopNum, // 买入果仁数
+				failReason: order.status == 'FAILURE' ? order.payResult : '', // 失败原因
+				closeReason: order.status == 'CLOSE' ? order.payResult : '', // 关闭原因
+				orderMoney: order.orderMoney, // 订单金额
+				payMoney: order.payMoney, // 支付金额
+				payGop: order.gopNum, // 支付果仁数
+				productDesc: order.businessDesc, // 商品信息
+				orderTime: order.orderTime, // 交易时间
+				createTime: order.createTime, // 创建时间
+				orderCode: order.orderCode, // 订单号
+				serialNum: order.serialNum, // 流水号
+				payType: H5bill.payType[order.payType], // 支付方式
+				ifFinishButton: false, // 是否显示"完成"按钮
+				ifPayButton: waitForPay, // 是否显示"前往支付"按钮
+				ifRePayButton: false, // 是否显示"重新支付"按钮
+				ifShowMore: false, // 是否显示"更多"
+				ifClose: waitForPay, // 是否显示"关闭"
 			});
 		});
 	};
@@ -491,6 +524,13 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 				"status": "200"
 			}*/
 			console.log(data);
+			if (!data.data || !data.data.consumeOrder) {
+				return;
+			}
+			var order = data.data.consumeOrder;
+			var list = data.data.recordList;
+			var waitForPay = order.status == 'PROCESSING' && (!list || !list.length);
+			billViewModelSet({});
 		});
 	};
 	var transferInHandler = function(type, id) { // 转入
@@ -514,7 +554,8 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 				"msg": "success",
 				"status": "200"
 			}*/
-			console.log(data)
+			console.log(data);
+			billViewModelSet();
 		});
 	};
 	var transferOutHandler = function(type, id) { // 传出
@@ -545,6 +586,7 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 				"status": "200"
 			}*/
 			console.log(data);
+			billViewModelSet();
 		});
 	};
 

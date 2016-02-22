@@ -339,6 +339,12 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 	// 79.微信签名
 	add('weixinInfo', '/common/weixin/signature');
 
+	// 80.关闭买果仁订单接口
+	add('closeBuyinOrder', '/gop/closeBuyinOrder');
+
+	// 81.关闭消费果仁订单接口（手机充值订单）
+	add('closeConsumeOrder', '/consume/order/close');
+
 	// 83.获取联系人头像（49.账单列表接口的附加接口）
 	add('billPhoto', '/bill/contentPhoto', {
 		asyn: true // 可同时请求多次
