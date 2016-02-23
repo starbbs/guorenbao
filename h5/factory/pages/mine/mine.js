@@ -30,7 +30,6 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 	};
 
 	address_wallet.vm.callback = function(){
-		console.log(router.go('/'));
 		router.go('/');
 	}
 

@@ -32,9 +32,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
         },
         myWallet_click: function(e) {
             //我的钱包
-
             console.log(vm.hasWallet);
-
             if (vm.hasWallet) {
                 vm.transferOutType = 'ME_WALLET';
                 api.walletList({
@@ -69,8 +67,37 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                     init();
                     //router.go('/');
                     console.log('dddddddd');
-                    targetInit(vm.transferOutType);
-                    router.go('/view/transfer-target');
+
+                    vm.transferOutType = 'ME_WALLET';
+                    api.walletList({
+                        gopToken: gopToken
+                    }, function(data) {
+                        if (data.status == 200) {
+                            var nowData = {};
+                            nowData.name = '我的钱包';
+                            for (var i = 0; i < data.data.walletList.length; i++) {
+                                var item = data.data.walletList[i];
+                                if (!nowData.address) {
+                                    nowData.address = item.address;
+                                    nowData.walletId = item.id;
+                                }
+                                if (item.defaultWallet) {
+                                    nowData.address = item.address;
+                                    nowData.walletId = item.id;
+                                    break;
+                                }
+                            }
+                            $.extend(transfer_target, nowData);
+                            //targetInit(vm.transferOutType);
+                            targetInit('new_walletaddress_nextstep');
+                            router.go('/view/transfer-target');
+                        } else {
+                            console.log(data);
+                        }
+                    });
+                    //targetInit(vm.transferOutType);
+                    //targetInit('new_walletaddress_nextstep');
+                    //router.go('/view/transfer-target');
                 }
                 router.go('/view/address-wallet');
             }
@@ -591,6 +618,10 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
             $('.gop-market').show();
             $('.wallet').show();
         } else if (transferOutType == 'ME_WALLET') {
+            //我的钱包
+            $('.my-wallet').show();
+            $('.wallet').show();
+        } else if (transferOutType == 'new_walletaddress_nextstep'){
             //我的钱包
             $('.my-wallet').show();
             $('.wallet').show();
