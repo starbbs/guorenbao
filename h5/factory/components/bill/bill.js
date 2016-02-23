@@ -9,13 +9,13 @@ define('h5-component-bill', function() {
 			PROCESSING: 'going',
 			SUCCESS: 'success',
 			FAILURE: 'fail',
-			CLOSE: 'close'
+			CLOSE: 'close',
 		},
 		statusZhCN: { // 订单状态对应中文
 			PROCESSING: '进行中',
 			SUCCESS: '交易成功',
 			FAILURE: '交易失败',
-			CLOSE: '交易关闭'
+			CLOSE: '已关闭',
 		},
 		typeClass: { // 类型对应class名称
 			TRANSFER_IN: 'transfer',
@@ -24,8 +24,9 @@ define('h5-component-bill', function() {
 			PAY: 'phone',
 		},
 		payType: { // 支付方式
+			GOP_PAY: '果仁宝支付',
 			UNION_PAY: '银联支付',
-			WEIXIN_MP_PAY: '微信支付'
+			WEIXIN_MP_PAY: '微信支付',
 		}
 	};
 	return bill;

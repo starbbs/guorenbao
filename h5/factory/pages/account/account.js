@@ -293,12 +293,14 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 		headClass: '', // 头部样式名
 		headContent: '', // 头部内容
 		waitForPay: false, // 等待支付
-		gopNum: 0, // 买入果仁数
+		gopNum: 0, // 买果仁--果仁数
+		gopPrice: 0, // 买果仁--成交价
+		buyMoney: 0, // 买果仁--支付金额
 		failReason: '', // 失败原因
 		closeReason: '', // 关闭原因
 		orderMoney: 0, // 订单金额
-		payMoney: 0, // 支付金额
-		payGop: 0, // 支付果仁数
+		payMoney: 0, // 消费--支付金额
+		payGop: 0, // 消费--支付果仁数
 		productDesc: '', // 商品信息
 		orderTime: '', // 交易时间
 		createTime: '', // 创建时间
@@ -445,22 +447,19 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 				headClass: H5bill.statusClass[order.status], // 头部样式名
 				headContent: H5bill.statusZhCN[order.status], // 头部内容
 				waitForPay: waitForPay, // 等待支付
-				gopNum: order.gopNum, // 买入果仁数
+				gopNum: order.gopNum, // 买果仁--果仁数
+				gopPrice: order.price, // 买果仁--成交价
+				buyMoney: order.payMoney, // 买果仁--支付金额
 				failReason: order.status == 'FAILURE' ? order.payResult : '', // 失败原因
 				closeReason: order.status == 'CLOSE' ? order.payResult : '', // 关闭原因
 				orderMoney: order.orderMoney, // 订单金额
-				payMoney: order.payMoney, // 支付金额
-				payGop: order.gopNum, // 支付果仁数
 				productDesc: order.businessDesc, // 商品信息
 				orderTime: order.orderTime, // 交易时间
 				createTime: order.createTime, // 创建时间
 				orderCode: order.orderCode, // 订单号
 				serialNum: order.serialNum, // 流水号
 				payType: H5bill.payType[order.payType], // 支付方式
-				ifFinishButton: false, // 是否显示"完成"按钮
 				ifPayButton: waitForPay, // 是否显示"前往支付"按钮
-				ifRePayButton: false, // 是否显示"重新支付"按钮
-				ifShowMore: false, // 是否显示"更多"
 				ifClose: waitForPay, // 是否显示"关闭"
 			});
 		});
@@ -529,8 +528,40 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 			}
 			var order = data.data.consumeOrder;
 			var list = data.data.recordList;
+			var product = data.data.product;
 			var waitForPay = order.status == 'PROCESSING' && (!list || !list.length);
-			billViewModelSet({});
+			var payMoney, payGop;
+			if (order.status == 'SUCCESS' && list && list.length) {
+				list.forEach(function(item) {
+					item.payMoney && (payMoney = item.payMoney);
+					item.payGop && (payGop = item.payGop);
+				});
+			}
+			billViewModelSet({
+				id: id, // 账单ID
+				type: type, // 类型
+				status: order.status, // 订单状态
+				headClass: H5bill.statusClass[order.status], // 头部样式名
+				headContent: H5bill.statusZhCN[order.status], // 头部内容
+				waitForPay: waitForPay, // 等待支付
+				// gopNum: order.gopNum, // 买入果仁数
+				// gopPrice: order.price, // 买入果仁成交价
+				failReason: order.status == 'FAILURE' ? order.payResult : '', // 失败原因
+				closeReason: order.status == 'CLOSE' ? order.payResult : '', // 关闭原因
+				orderMoney: order.orderMoney, // 订单金额
+				payMoney: payMoney, // 支付金额
+				payGop: payGop, // 支付果仁数
+				productDesc: product.productDesc, // 商品信息
+				orderTime: order.orderTime, // 交易时间
+				createTime: order.createTime, // 创建时间
+				orderCode: order.orderCode, // 订单号
+				serialNum: order.serialNum, // 流水号
+				payType: H5bill.payType[order.payType], // 支付方式
+				ifFinishButton: false, // 是否显示"完成"按钮
+				ifPayButton: waitForPay, // 是否显示"前往支付"按钮
+				ifRePayButton: order.status == 'FAILURE', // 是否显示"重新支付"按钮
+				ifClose: waitForPay, // 是否显示"关闭"
+			});
 		});
 	};
 	var transferInHandler = function(type, id) { // 转入
