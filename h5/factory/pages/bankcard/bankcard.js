@@ -5,7 +5,7 @@
 require(['router', 'api', 'h5-view', 'hashMap',
 	'h5-bankcard-append', 'h5-ident', 'h5-text', 'h5-weixin'
 ], function(router, api, View, hashMap,
-	bankcard_append,bankcard_ident) {
+	bankcardAppend, bankcardIdent) {
 
 	router.init(true);
 
@@ -41,13 +41,13 @@ require(['router', 'api', 'h5-view', 'hashMap',
 		phone: '',
 		phoneStr: '',
 		identifyingCode: '',
-		bankcard_append_click: function() {
-			bankcard_append.vm.callback = function() {
+		bankcardAppendClick: function() {
+			bankcardAppend.vm.callback = function() {
 				bankcardInit();
 			};
 			router.go('/view/bankcard-append');
 		},
-		bankcard_detail_click: function(item) {
+		bankcardDetailClick: function(item) {
 			$.extend(bankcardDetailViewModel, {
 				cardId: item.id,
 				bankName: item.bankName,
@@ -59,24 +59,17 @@ require(['router', 'api', 'h5-view', 'hashMap',
 				cardType: item.type,
 				cardTypeStr: item.typeName,
 				callback: function() {
-					bankcard_append.vm.cardNo ='';
-					bankcard_append.vm.phone = '';
+					bankcardAppend.vm.cardNo = '';
+					bankcardAppend.vm.phone = '';
 					bankcardInit();
 					window.history.back();
 				},
 			});
-
 			setTimeout(function() {
 				router.go('/view/bankcard-detail');
 			}, 100);
 		}
 	});
-
-	// bankcard_ident.vm.callback = function(){
-	// 	bankcard_ident.vm.identifyingCode = '';
-	// 	bankcard_append.vm.cardNo = '';
-	// 	bankcard_append.vm.phone = '';
-	// }
 
 	var bankcard_detail = new View('bankcard-detail');
 	var bankcardDetailViewModel = avalon.define({
@@ -90,8 +83,9 @@ require(['router', 'api', 'h5-view', 'hashMap',
 		cardId: 0,
 		createTime: '',
 		bankDataDic: '',
+		callback: $.noop,
 		back_click: function() {
-			bankcardDetailViewModel.callback && bankcardDetailViewModel.callback();
+			bankcardDetailViewModel.callback();
 		},
 		del_click: function() {
 			api.bankcardDel({
@@ -100,7 +94,7 @@ require(['router', 'api', 'h5-view', 'hashMap',
 			}, function(data) {
 				if (data.status == 200) {
 					$.alert('解绑成功');
-					bankcardDetailViewModel.callback && bankcardDetailViewModel.callback();
+					bankcardDetailViewModel.callback();
 				} else {
 					console.log(data);
 				}
@@ -110,22 +104,13 @@ require(['router', 'api', 'h5-view', 'hashMap',
 
 	var bankcardInit = function() {
 		vm.list.clear();
-		
-		// bankcard_ident.vm.identifyingCode = '';
-		// bankcard_append.vm.cardNo = '';
-		// bankcard_append.vm.phone = '';
-
 		api.bankcardSearch({
 			gopToken: gopToken,
 		}, function(data) {
 			if (data.status == 200) {
 				for (var i = 0; i < data.data.list.length; i++) {
 					var item = data.data.list[i];
-					if (item.type == 'SAVINGS_DEPOSIT_CARD') {
-						item.typeName = '储蓄卡';
-					} else {
-						item.typeName = '信用卡';
-					}
+					item.typeName = item.cardType == 'SAVINGS_DEPOSIT_CARD' ? '储蓄卡' : '信用卡';
 					item.bankDataDic = hashMap.get(item.bankName);
 					vm.list.push(item);
 					hashMap.put(item.id, item);
@@ -134,7 +119,7 @@ require(['router', 'api', 'h5-view', 'hashMap',
 				console.log(data);
 			}
 		});
-	}
+	};
 
 	avalon.scan();
 
