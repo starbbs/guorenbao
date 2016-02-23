@@ -612,10 +612,9 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
         }, function(data) {
             if (data.status == 200) {
                 if (!data.data.realname) {
-                    router.go('/view/authentication');
                     setTimeout(function() {
-                        router.go('/view/authentication');
-                    });
+                        router.to('/view/authentication');
+                    },100);
                 }
                 if (data.data.marketGopAddress) {
                     vm.marketGopAddress = data.data.marketGopAddress; //果仁市场地址

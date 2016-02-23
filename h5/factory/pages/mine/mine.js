@@ -29,6 +29,11 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 		vm.marketGopAddress = address_mine.vm.marketGopAddress;
 	};
 
+	address_wallet.vm.callback = function(){
+		console.log(router.go('/'));
+		router.go('/');
+	}
+
 	address_mine.vm.setDelSuccess = function() {
 		vm.setMarketAddressTip = '未设置';
 		//address_mine.vm.marketGopAddress = '';
