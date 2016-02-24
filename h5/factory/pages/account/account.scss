@@ -83,6 +83,8 @@ body {
 		float: left;
 		@include square(36px);
 		margin-top: 17px;
+		border-radius: 50%;
+		overflow: hidden;
 	}
 	&-icon {
 		&.transfer {

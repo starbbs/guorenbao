@@ -60,7 +60,7 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 			if (data.status == 200) {
 				vm.loading = false;
 				vm.list = dataHandler(originList = originList.concat(data.data.list));
-				getPhotos();
+				// getPhotos();
 				page = data.data.list.length < size ? 0 : page + 1; // 是否停止请求
 				callback && callback(data);
 				!main.hasClass('on') && setTimeout(function() {
@@ -72,7 +72,7 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 			}
 		});
 	};
-	var getPhotos = function() { // 获得头像和人名, 需要在vm赋值list完成后修改属性
+	var getPhotos = function() { // 获得头像和人名, 需要在vm赋值list完成后修改属性 -- 弃用
 		vm.list.forEach(function(month) {
 			month.days.forEach(function(day) {
 				day.bills.forEach(function(bill) {
@@ -98,22 +98,21 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 		});
 	};
 	var getAccount = function(type, id) { // 获得account信息并挂载到billViewModel上, 并不负责展示
-		console.log(type)
 		type = (type + '').toUpperCase();
 		switch (type) {
 			case 'TRANSFER_OUT': // 转账, 转出
-				transferOutHandler(type, id);
+				transferOutHandler(type, id, 'TRANSFER_OUT');
 				break;
 			case 'TRANSFER_IN': // 转账, 转入
-				transferInHandler(type, id);
+				transferInHandler(type, id, 'TRANSFER_IN');
 				break;
 			case 'BUYIN_ORDER': // 买入, 消息
 			case 'BUY_IN': // 买入, 列表
-				buyInHandler(type, id);
+				buyInHandler(type, id, 'BUY_IN');
 				break;
 			case 'CONSUME_ORDER': // 消费, 消息
 			case 'PAY': // 消费, 列表
-				consumeHandler(type, id);
+				consumeHandler(type, id, 'PAY');
 				break;
 			default:
 				$.alert('未知类型的账单<br>值为 ' + type);
@@ -209,6 +208,14 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 			money: '¥',
 			gop: 'G'
 		}
+		if (type == 'transfer' && item.extra) { // 转账加头像
+			bill.img = item.extra.photo || '';
+			bill.desc = item.extra.name ? '转账 - ' + item.extra.name : bill.desc;
+		}
+		if (type == 'phone' && kind == 'gop') { // 修改money数据, 使其变为人民币支付金额
+			item.money = item.gopNumber * item.gopPrice - item.money;
+			Math.abs(item.money) < 0.01 && (item.money = 0);
+		}
 		bill.change = numHandler(item[types[kind]], coins[kind]);
 		bills.push(bill);
 	};
@@ -239,10 +246,12 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 			}
 			var compare = timeCompare(now, item._date);
 			var day = {
-				_time: item._dateTime,
+				id: item.businessId,
 				day: compare ? compare : ('周' + time.day2),
 				time: compare ? (time.hour2 + ':' + time.minute2) : (time.month2 + '-' + time.date),
-				bills: bills
+				type: type,
+				originType: item.type,
+				bills: bills,
 			};
 			if (result.length > 0 && result[result.length - 1].month2 === time.month2) { // 和上个月相同
 				result[result.length - 1].days.push(day);
@@ -359,7 +368,7 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 	});
 
 	// 数据处理
-	var buyInHandler = function(type, id) { // 买入
+	var buyInHandler = function(type, id, name) { // 买入
 		api.queryBuyinOrder({
 			gopToken: gopToken,
 			buyinOrderId: id,
@@ -464,7 +473,7 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 			});
 		});
 	};
-	var consumeHandler = function(type, id) { // 消费
+	var consumeHandler = function(type, id, name) { // 消费
 		api.query({
 			gopToken: gopToken,
 			consumeOrderId: id
@@ -564,7 +573,7 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 			});
 		});
 	};
-	var transferInHandler = function(type, id) { // 转入
+	var transferInHandler = function(type, id, name) { // 转入
 		api.transferInQuery({
 			gopToken: gopToken,
 			transferInId: id
@@ -589,7 +598,7 @@ require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iSc
 			billViewModelSet();
 		});
 	};
-	var transferOutHandler = function(type, id) { // 传出
+	var transferOutHandler = function(type, id, name) { // 传出
 		api.transferQuery({
 			gopToken: gopToken,
 			transferOutId: id
