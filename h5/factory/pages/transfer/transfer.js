@@ -451,7 +451,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
         hasSetup:true,
         back_click: function(e) {
             //router.go('/');
-            window.location.href = 'transfer.html';
+            window.location.href = 'home.html';
         },
         remark_click: function(e) {
             var nowData = {};
@@ -788,7 +788,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                 console.log(transfer_target);
                 console.log(vm.transferOutType);
                 targetInit(vm.transferOutType);
-                router.go('/view/transfer-target');
+                router.to('/view/transfer-target');
             } else {
                 api.log('cookie中并没有联系人数据');
             }

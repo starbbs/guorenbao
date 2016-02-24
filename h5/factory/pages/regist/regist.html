@@ -24,13 +24,14 @@
 		<div class="regist-button" ms-click="next"><a href="#" class="button" ms-class="disabled:!ifNext">下一步</a></div>
 		<div class="regist-foot">
 			轻点下一步，即表示你已阅读及同意<br>
-			<a href="#" class="a-blue">《果仁宝服务协议》</a>
+			<a href="#!/view/agreement" class="a-blue">《果仁宝服务协议》</a>
 		</div>
 	</div>
 	<div class="view">
 		@@include('./regist-password.html')
 		@@include('./regist-paypass.html', { "step": 1 })
 		@@include('./regist-paypass.html', { "step": 2 })
+		@@include('../../views/agreement/agreement.html')
 	</div>
 	<div class="alert">验证码不正确，请重新输入</div>
 </div>

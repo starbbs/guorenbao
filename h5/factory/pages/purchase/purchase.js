@@ -3,7 +3,7 @@
 // H5微信端 --- 买果仁
 
 
-require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'api', 'h5-text', 'h5-ident', 'h5-weixin'], function(router, View, dialogBankcard, price, weixin, api) {
+require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'api','check','h5-text', 'h5-ident', 'h5-weixin'], function(router, View, dialogBankcard, price, weixin, api,check) {
 
 	router.init(true);
 
@@ -31,6 +31,8 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		$id: 'purchase',
 		price: 0,
 		money: '',
+		ifBuy:false,
+		expect:'',
 		moneyClear: function() {
 			vm.money = '';
 		},
@@ -43,6 +45,7 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 				orderMoney: vm.money,
 				payType: 'WEIXIN_MP_PAY'
 			}, function(data) {
+				vm.money = '';
 				if (data.status == 200) {
 					vmOrder.orderMoney = data.data.buyinOrder.orderMoney;
 					setOrderNum();
@@ -102,6 +105,11 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 					console.log(data);
 				}
 			});
+		},
+		gopBuyValidate:function(){
+			console.log('gopBuyValidate');
+			vm.ifBuy = check.gopBuyValidate(this.value,vm.price);
+			vm.expect = this.value?'G '+(this.value/vm.price).toFixed(2):'';
 		}
 	});
 	var vmOrder = avalon.define({

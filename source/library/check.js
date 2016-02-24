@@ -131,6 +131,9 @@ define('check', function() {
 		realnameCondition: function(value) {
 			return value.length > 2;
 		},
+		gopBuyValidate:function(textValue,gopPrice){
+			return textValue/gopPrice>=0.01;
+		},
 	// 复杂校验
 		password: function(value) { // 登录密码格式验证
 			if (empty(value)) { return result('321'); }
