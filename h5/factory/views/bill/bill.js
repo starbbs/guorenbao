@@ -5,6 +5,9 @@
 
 require('h5-view-bill', ['h5-view'], function(View) {
 	var billView = new View('bill');
+	var vm = avalon.define({
+		$id: 'bill'
+	});
 	bill.getAccount = function() {};
 	return billView;
 });

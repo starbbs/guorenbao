@@ -28,7 +28,7 @@
 	&-feedback {
 		@extend .setting;
 		&-box {
-			@extend %afull;
+			@extend .view-box;
 			display: flex;
 			flex-direction: column;
 			box-sizing: border-box;
