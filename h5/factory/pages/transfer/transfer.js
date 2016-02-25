@@ -266,7 +266,8 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                         targetInit(vm.transferOutType);
                         router.go('/view/transfer-target');
                     } else if(data.status == 400){
-                        $.alert('不要给自己转账哦');
+                        // 手机号未注册 或 不能给自己转账
+                        $.alert(data.msg);
                     } else {
                         if (transfer_new.newTarget.length == 11) {
                             $.alert('该手机号未注册');

@@ -50,6 +50,8 @@
 	&-box {
 		@include absolute('tlr');
 		bottom: $padding-bottom;
+		overflow-x: hidden;
+		overflow-y: auto;
 	}
 	&-bottom {
 		@include absolute('lr');
