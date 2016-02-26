@@ -2,9 +2,9 @@
 // H5微信端 --- 账单
 
 
-require(['router', 'api', 'get', 'filters', 'h5-view', 'h5-component-bill', 'iScroll4',
+require(['router', 'api', 'get', 'filters', 'h5-view-bill', 'h5-component-bill', 'iScroll4',
 	'h5-weixin'
-], function(router, api, get, filters, View, H5bill, iScroll) {
+], function(router, api, get, filters, billView, H5bill, iScroll) {
 
 	router.init();
 

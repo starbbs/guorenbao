@@ -34,7 +34,7 @@ require('h5-view-bill', ['h5-view', 'api'], function(View, api) {
 		ifClose: false, // 是否显示"关闭"
 	};
 	var vm = avalon.define($.extend({ // 账单vm
-		$id: 'bill'
+		$id: 'bill',
 		finish: function() { // 完成 -- 完成按钮只有在买果仁流程的最后一步会显示
 			bill.onFinish();
 			router.go('/');
