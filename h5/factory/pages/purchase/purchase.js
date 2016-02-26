@@ -1,9 +1,8 @@
-
 // 张树垚 2016-01-04 17:34:09 创建
 // H5微信端 --- 买果仁
 
 
-require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'api','check','h5-text', 'h5-ident', 'h5-weixin'], function(router, View, dialogBankcard, price, weixin, api,check) {
+require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'api', 'check', 'h5-text', 'h5-ident', 'h5-weixin'], function(router, View, dialogBankcard, price, weixin, api, check) {
 
 	router.init(true);
 
@@ -27,22 +26,23 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 	var comfirmData = {};
 
 	var main = $('.purchase');
-	var vm = avalon.define({
+	var vm = avalon.define({ // 主页面
 		$id: 'purchase',
 		price: 0,
 		money: '',
-		ifBuy:false,
-		expect:'',
+		ifBuy: false,
+		expect: '',
 		moneyClear: function() {
 			vm.money = '';
 		},
 		buy: function() {
-			var self = $(this);
-			if (self.hasClass('disabled')) { return; }
-			self.addClass('disabled');
+			if (!vm.ifBuy) {
+				return;
+			}
+			vm.ifBuy = false;
 			api.createBuyinOrder({ // 创建买入订单
 				gopToken: gopToken,
-				orderMoney: vm.money,
+				orderMoney: $('#purchase-main-money').val(),
 				payType: 'WEIXIN_MP_PAY'
 			}, function(data) {
 				vm.money = '';
@@ -78,9 +78,15 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 									vmBill.order = order.orderCode;
 									vmBill.flowId = order.serialNum || 0;
 									// 不确定是否传参
-									if (order.price) { vmBill.price = order.price; }
-									if (order.gopNum) { vmBill.gopNum = order.gopNum; }
-									if (order.orderMoney) { vmBill.money = order.orderMoney; }
+									if (order.price) {
+										vmBill.price = order.price;
+									}
+									if (order.gopNum) {
+										vmBill.gopNum = order.gopNum;
+									}
+									if (order.orderMoney) {
+										vmBill.money = order.orderMoney;
+									}
 									setTimeout(function() {
 										router.go('/view/purchase-bill');
 									}, 100);
@@ -106,10 +112,10 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 				}
 			});
 		},
-		gopBuyValidate:function(){
+		gopBuyValidate: function() {
 			console.log('gopBuyValidate');
-			vm.ifBuy = check.gopBuyValidate(this.value,vm.price);
-			vm.expect = this.value?'G '+(this.value/vm.price).toFixed(2):'';
+			vm.ifBuy = check.gopBuyValidate(this.value, vm.price);
+			vm.expect = this.value ? 'G ' + (this.value / vm.price).toFixed(2) : '';
 		}
 	});
 	var vmOrder = avalon.define({
@@ -124,20 +130,20 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 	};
 	var vmBill = avalon.define({
 		$id: 'purchase-bill',
-		status: '',				// 订单状态
-		headClass: '',			// 头部对应class
-		headContent: '',		// 头部对应文字
-		gopNum: 0,				// 交易果仁数
-		failReason: '',			// 失败原因
-		money: 0,				// 交易金额
-		price: 0,				// 果仁兑换价
-		createTime: '',			// 创建时间
-		orderId: 0,				// 订单号
-		flowId: '',				// 流水号
-		finish: function() {	// 完成
+		status: '', // 订单状态
+		headClass: '', // 头部对应class
+		headContent: '', // 头部对应文字
+		gopNum: 0, // 交易果仁数
+		failReason: '', // 失败原因
+		money: 0, // 交易金额
+		price: 0, // 果仁兑换价
+		createTime: '', // 创建时间
+		orderId: 0, // 订单号
+		flowId: '', // 流水号
+		finish: function() { // 完成
 			window.location.href = 'home.html';
 		},
-		repay: function() {		// 重新支付
+		repay: function() { // 重新支付
 			window.history.back();
 		}
 	});
@@ -155,4 +161,3 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 
 	return;
 });
-

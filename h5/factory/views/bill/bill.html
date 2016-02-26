@@ -1,1 +1,87 @@
-<div class="bill"></div>
+<div class="bill" ms-controller="bill">
+	<div class="view-box">
+		<div class="bill-scroll">
+			<div class="bill-box last">
+				<div class="bill-head" ms-class="{{headClass}}">{{headContent}}</div>
+				<div class="bill-wait" ms-visible="waitForPay">
+					<div class="bill-wait-left">等待支付(¥)</div>
+					<div class="bill-wait-right">-{{orderMoney|fix}}</div>
+				</div>
+				<div class="bill-get" ms-visible="gopNum">
+					<div class="bill-get-number">+{{gopNum|fix}}</div>
+					<div class="bill-get-label">获得果仁(G)</div>
+				</div>
+				<div class="bill-reason" ms-visible="failReason">
+					<div class="fl">失败原因</div>
+					<div class="fr red">{{failReason}}</div>
+				</div>
+				<div class="bill-reason" ms-visible="closeReason">
+					<div class="fl">关闭原因</div>
+					<div class="fr red">{{closeReason}}</div>
+				</div>
+				<div class="bill-pay" ms-visible="orderMoney&&!buyMoney">
+					<div class="bill-label" ms-class-1="ash:status=='FAILURE'" ms-class-2="dark:status!='FAILURE'">订单金额(¥)</div>
+					<div class="bill-num dark">-{{orderMoney|abs|fix}}</div>
+					<div class="bill-pay-box" ms-visible="status=='SUCCESS'&&(payMoney||payGop)">
+						<div class="bill-pay-item" ms-visible="payMoney">
+							<div class="bill-label">支付金额</div>
+							<div class="bill-num">-{{payMoney|fix}}</div>
+						</div>
+						<div class="bill-pay-item" ms-visible="payGop">
+							<div class="bill-label">使用<span class="bill-green">{{payGop|fix}}</span>个果仁</div>
+							<div class="bill-num">-{{(orderMoney-payMoney)|fix}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="bill-pay" ms-visible="status=='SUCCESS'&&buyMoney">
+					<div class="bill-label ash">支付金额(¥)</div>
+					<div class="bill-num dark">-{{buyMoney|fix}}</div>
+				</div>
+				<!-- <div class="bill-money">
+					<div class="bill-label dark">获得返利(G)</div>
+					<div class="bill-num blue">+1.20</div>
+				</div> -->
+				<div class="bill-detail">
+					<div class="bill-detail-item" ms-visible="productDesc">
+						<div class="bill-detail-left">商品信息</div>
+						<div class="bill-detail-right dark" ms-class="ash:status=='CLOSE'">{{productDesc}}</div>
+					</div>
+					<div class="bill-detail-item" ms-visible="gopPrice">
+						<div class="bill-detail-left">成交价</div>
+						<div class="fl">(¥)</div>
+						<div class="bill-detail-right blue">{{gopPrice|fix}}</div>
+					</div>
+					<!-- <div class="bill-detail-item" ms-visible="payType">
+						<div class="bill-detail-left">支付方式</div>
+						<div class="bill-detail-right" ms-class-1="ash:status=='CLOSE'" ms-class-2="dark:status!='CLOSE'">{{payType}}</div>
+					</div> -->
+					<div class="bill-detail-item">
+						<div class="bill-detail-left">收款方</div>
+						<div class="bill-detail-right" ms-class-1="ash:status=='CLOSE'" ms-class-2="dark:status!='CLOSE'">北京果仁宝科技有限公司</div>
+					</div>
+					<div class="bill-detail-item" ms-visible="orderTime">
+						<div class="bill-detail-left">交易时间</div>
+						<div class="bill-detail-right" ms-class-1="ash:status=='CLOSE'" ms-class-2="dark:status!='CLOSE'">{{orderTime}}</div>
+					</div>
+					<div class="bill-detail-item" ms-visible="createTime">
+						<div class="bill-detail-left">创建时间</div>
+						<div class="bill-detail-right" ms-class-1="ash:status=='CLOSE'" ms-class-2="dark:status!='CLOSE'">{{createTime}}</div>
+					</div>
+					<div class="bill-detail-item" ms-visible="orderCode">
+						<div class="bill-detail-left">订单号</div>
+						<div class="bill-detail-right ash">{{orderCode}}</div>
+					</div>
+					<div class="bill-detail-item" ms-visible="serialNum">
+						<div class="bill-detail-left">流水号</div>
+						<div class="bill-detail-right ash">{{serialNum}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="text-button"><span class="button" ms-visible="ifFinishButton" ms-click="finish">完成</span></div>
+			<div class="text-button"><span class="button" ms-visible="ifPayButton" ms-click="gotoPay">前往支付</span></div>
+			<div class="text-button"><span class="button" ms-visible="ifRePayButton" ms-click="gotoPay">重新支付</span></div>
+			<div class="bill-more"><span class="blue" ms-visible="ifShowMore" ms-click="showMore">更多</span></div>
+			<div class="bill-more"><span class="blue" ms-visible="ifClose" ms-click="close">关闭</span></div>
+		</div>
+	</div>
+</div>

@@ -9,8 +9,20 @@
 				<div class="purchase-main-text">
 					<label for="purchase-main-money" class="text">
 						<div class="font-label">¥</div>
-						<div class="text-box"><input id="purchase-main-money" name="purchase-main-money" type="number" class="text-input" autocomplete="off" placeholder="请输入买入金额" maxlength="6" data-text="close|formatTwoDecimalPlaces" ms-attr-value="money" ms-on-input="gopBuyValidate"/></div>
-						<!-- ms-on-focus="focus" ms-on-blur="blur" data-formatTwoDecimalPlaces="" -->
+						<div class="text-box">
+							<input
+								id="purchase-main-money"
+								name="purchase-main-money"
+								type="number"
+								class="text-input"
+								autocomplete="off"
+								placeholder="请输入买入金额"
+								maxlength="6"
+								data-text="close"
+								ms-attr-value="money"
+								ms-on-input="gopBuyValidate"
+							/>
+						</div>
 						<div class="text-close" ms-click="moneyClear"></div>
 					</label>
 				</div>
