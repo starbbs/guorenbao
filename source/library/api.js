@@ -11,6 +11,12 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 	/** [api 接口集合] */
 	var api = {};
 
+	var goIndex = function() { // 返回首页
+		if (window.location.href.indexOf('/index.html') === -1) {
+			return window.location.href = 'index.html';
+		}
+	};
+
 	/** [add 添加接口]
 	 * @Author   张树垚
 	 * @Date     2015-10-13
@@ -53,10 +59,11 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 				dataType: 'json',
 				timeout: 30000,
 				success: function(data) {
+					if (!data) {
+						goIndex();
+					}
 					if (data.status == 300) { // {msg: "用户登录/验证失败，请重新登录", status: "300"}
-						if (window.location.href.indexOf('/index.html') === -1) {
-							return window.location.href = 'index.html';
-						}
+						goIndex();
 					} else if (data.status == 304) { // {msg: "服务器异常", status: "300"}
 						$.alert('服务器异常, 请联系后台人员!');
 					}

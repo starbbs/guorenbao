@@ -2,9 +2,9 @@
 // H5微信端 --- 账单
 
 
-require(['router', 'api', 'get', 'filters', 'h5-view-bill', 'h5-component-bill', 'iScroll4',
+require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5-view-bill',
 	'h5-weixin'
-], function(router, api, get, filters, billView, H5bill, iScroll) {
+], function(router, api, get, filters, H5bill, iScroll, billView) {
 
 	router.init();
 
@@ -16,8 +16,8 @@ require(['router', 'api', 'get', 'filters', 'h5-view-bill', 'h5-component-bill',
 	var init = function() { // 初始化
 		switch (get.data.from) {
 			case 'wx_info': // 来自微信消息
-				getAccount(get.data.type, get.data.id);
-				router.to('/view/account-bill');
+				billView.set(get.data.type, get.data.id);
+				router.to('/view/bill');
 				break;
 			default:
 				router.to('/');
@@ -239,8 +239,8 @@ require(['router', 'api', 'get', 'filters', 'h5-view-bill', 'h5-component-bill',
 			var target = $(ev.target).closest('.account-item');
 			if (target.length) {
 				var data = target.get(0).dataset;
-				getAccount(data.type, data.id);
-				router.go('/view/account-bill');
+				billView.set(data.type, data.id);
+				router.go('/view/bill');
 			}
 		}
 	});

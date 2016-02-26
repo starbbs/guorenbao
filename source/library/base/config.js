@@ -69,7 +69,7 @@
 			'h5-view-address-wallet':	H5_VIEWS + '/address/address-wallet',
 			'h5-view-authentication': 	H5_VIEWS + '/authentication/authentication',
 			'h5-view-agreement':		H5_VIEWS + '/agreement/agreement',
-			'h5-view-bill':				H5_VIEWS + '/bill/bill',
+			'h5-view-bill':				H5_VIEWS + '/bill/bill', 
 			'h5-view-choose': 			H5_VIEWS + '/choose/choose',
 			'h5-view-login': 			H5_VIEWS + '/login/login',
 			'h5-view-password': 		H5_VIEWS + '/password/password',

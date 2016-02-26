@@ -3,7 +3,8 @@
 // H5微信端 --- view-bill 账单详情分页
 
 
-require('h5-view-bill', ['h5-view', 'api'], function(View, api) {
+define('h5-view-bill', ['h5-view', 'api', 'h5-component-bill'], function(View, api, H5bill) {
+	var gopToken = $.cookie('gopToken');
 	var bill = new View('bill');
 	var main = $('.bill');
 	var initOptions = { // 初始化
