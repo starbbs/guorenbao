@@ -13,9 +13,12 @@
 			$id: 'home',
 			price: 0,
 			priceChange: 0,
-			visible: true,
+			visible: $.cookie('visible_ok'),
 			visibleChange: function() {
 				vm.visible = !vm.visible;
+
+				$.cookie('visible_ok',vm.visible,10);
+
 			},
 			gopNum: 0
 		});
