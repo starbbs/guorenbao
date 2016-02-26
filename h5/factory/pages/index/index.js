@@ -22,6 +22,7 @@ require(['router', 'api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h
 		}, 100);
 	};
 	var gotoSelect = function() { // 跳转select分页, 已授权, 未绑定账号
+		alert(1)
 		setTimeout(function() {
 			router.go('/view/index-select');
 		}, 100);
