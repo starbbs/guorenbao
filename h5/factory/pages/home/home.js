@@ -13,12 +13,10 @@
 			$id: 'home',
 			price: 0,
 			priceChange: 0,
-			visible: $.cookie('visible_ok'),
+			visible_ok:eval($.cookie('gopHomeEye')),    //true==close
 			visibleChange: function() {
-				vm.visible = !vm.visible;
-
-				$.cookie('visible_ok',vm.visible,10);
-
+				vm.visible_ok = !vm.visible_ok;
+				$.cookie('gopHomeEye',vm.visible_ok);
 			},
 			gopNum: 0
 		});
