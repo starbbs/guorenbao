@@ -5,7 +5,7 @@
 	window.onfocus = function() {
 		'getGopNum' in _root && _root.getGopNum();
 	};
-	require(['router', 'api', 'h5-price', 'h5-weixin'], function(router, api, price) {
+	require(['router', 'api', 'h5-price', 'h5-weixin','touch-slide'], function(router, api, price,weixin,TouchSlide) {
 		router.init(true);
 		var gopToken = $.cookie('gopToken');
 		var main = $('.home');
@@ -20,6 +20,8 @@
 			},
 			gopNum: 0
 		});
+		//轮播图;
+		TouchSlide({slideCell:'touchSlide',autoPlay:true,autoPage:true});
 		avalon.scan(main.get(0), vm);
 		price.onFirstChange = function(next) {
 			vm.price = next;
