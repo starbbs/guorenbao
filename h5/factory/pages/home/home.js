@@ -17,6 +17,7 @@
 			visibleChange: function() {
 				vm.visible_ok = !vm.visible_ok;
 				$.cookie('gopHomeEye',vm.visible_ok);
+			
 			},
 			gopNum: 0
 		});
