@@ -40,6 +40,13 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		money: '',
 		ifBuy: false,
 		expect: '',
+		ifBottomShow: true,
+		focus: function(){
+			vm.ifBottomShow = false;
+		},
+		blur: function(){
+			vm.ifBottomShow = true;
+		},
 		moneyClear: function() {
 			vm.money = '';
 		},
