@@ -2,28 +2,36 @@
 // H5微信端 --- 买果仁
 
 
-require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'api', 'check', 'h5-text', 'h5-ident', 'h5-weixin'], function(router, View, dialogBankcard, price, weixin, api, check) {
+require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'api', 'check', 'h5-view-bill'
+	'h5-text', 'h5-ident', 'h5-weixin'], function(router, View, dialogBankcard, price, weixin, api, check, billView) {
 
 	router.init(true);
 
 	var gopToken = $.cookie('gopToken');
 	var viewOrder = new View('purchase-order');
-	var viewBill = new View('purchase-bill');
 
-	var statusClass = {
-		SUCCESS: 'success',
-		FAILURE: 'fail',
-		PROCESSING: 'going',
-		CLOSE: 'close'
+	var wxPayOptions = { // 微信支付设置
+		timestamp: '', // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+		nonceStr: '', // 支付签名随机串，不长于 32 位
+		package: '', // 统一支付接口返回的prepay_id参数值，提交格式如:prepay_id=***）
+		signType: '', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+		paySign: '', // 支付签名
+		success: function(res) { // 成功
+			price.stop();
+			billView.set('BUY_IN', vmOrder.id);
+			billView.showFinish();
+			router.go('/view/bill');
+		},
+		fail: function(res) { // 失败
+			alert('微信支付失败:\n' + JSON.stringify(res) + '\n请截图发送给开发人员, 谢谢!');
+		},
+		cancel: function(res) { // 取消
+		},
+		trigger: function(res) { // 菜单点击
+		},
+		complete: function(res) { // 完成
+		}
 	};
-	var statusContent = {
-		SUCCESS: '交易成功',
-		FAILURE: '交易失败',
-		PROCESSING: '交易进行中',
-		CLOSE: '交易关闭'
-	};
-
-	var comfirmData = {};
 
 	var main = $('.purchase');
 	var vm = avalon.define({ // 主页面
@@ -47,62 +55,10 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 			}, function(data) {
 				vm.money = '';
 				if (data.status == 200) {
-					vmOrder.orderMoney = data.data.buyinOrder.orderMoney;
+					var order = data.data.buyinOrder;
+					vmOrder.orderMoney = order.orderMoney;
 					setOrderNum();
-					vmOrder.click = function() {
-						vmBill.price = vmOrder.price;
-						vmBill.gopNum = vmOrder.gopNum;
-						vmBill.money = vmOrder.orderMoney;
-						wx.chooseWXPay({ // 微信支付
-							// timeStamp: data.data.WEIXIN_MP_PAY.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-							timestamp: data.data.WEIXIN_MP_PAY.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-							nonceStr: data.data.WEIXIN_MP_PAY.nonceStr, // 支付签名随机串，不长于 32 位
-							package: data.data.WEIXIN_MP_PAY.package, // 统一支付接口返回的prepay_id参数值，提交格式如:prepay_id=***）
-							signType: data.data.WEIXIN_MP_PAY.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-							paySign: data.data.WEIXIN_MP_PAY.paySign, // 支付签名
-							success: function(res) { // 成功
-								api.queryBuyinOrder({ // 买入订单详情
-									gopToken: gopToken,
-									buyinOrderId: data.data.buyinOrder.id,
-									payType: 'WEIXIN_MP_PAY'
-								}, function(data) {
-									price.stop();
-									console.log(data)
-									var order = data.data.buyinOrder;
-									// vmBill.status = order.status;
-									vmBill.status = 'SUCCESS'; // 强制订单成功
-									vmBill.headClass = statusClass[order.status];
-									vmBill.headContent = statusContent[order.status];
-									vmBill.failReason = order.status === 'FAILURE' ? order.payResult : '';
-									vmBill.createTime = order.createTime;
-									vmBill.order = order.orderCode;
-									vmBill.flowId = order.serialNum || 0;
-									// 不确定是否传参
-									if (order.price) {
-										vmBill.price = order.price;
-									}
-									if (order.gopNum) {
-										vmBill.gopNum = order.gopNum;
-									}
-									if (order.orderMoney) {
-										vmBill.money = order.orderMoney;
-									}
-									setTimeout(function() {
-										router.go('/view/purchase-bill');
-									}, 100);
-								});
-							},
-							fail: function(res) { // 失败
-								alert('微信支付失败:\n' + JSON.stringify(res));
-							},
-							cancel: function(res) { // 取消
-							},
-							trigger: function(res) { // 菜单点击
-							},
-							complete: function(res) { // 完成
-							}
-						});
-					};
+					$.extend(wxPayOptions, data.data.WEIXIN_MP_PAY);
 					setTimeout(function() {
 						router.go('/view/purchase-order');
 					}, 100);
@@ -118,17 +74,20 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 			vm.expect = this.value ? 'G ' + (this.value / vm.price).toFixed(2) : '';
 		}
 	});
-	var vmOrder = avalon.define({
+	var vmOrder = avalon.define({ // 订单页面
 		$id: 'purchase-order',
-		gopNum: 0,
-		price: 0,
-		orderMoney: 0,
-		click: $.noop
+		id: 0, // 订单ID
+		gopNum: 0, // 买入果仁数
+		price: 0, // 实时价
+		orderMoney: 0, // 订单金额
+		click: function() { // 下一步
+			wx.chooseWXPay(wxPayOptions);
+		}
 	});
 	var setOrderNum = function() {
 		vmOrder.gopNum = Math.round(vmOrder.orderMoney / vmOrder.price * 100) / 100;
 	};
-	var vmBill = avalon.define({
+	/*var vmBill = avalon.define({ // 账单页面
 		$id: 'purchase-bill',
 		status: '', // 订单状态
 		headClass: '', // 头部对应class
@@ -146,7 +105,7 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		repay: function() { // 重新支付
 			window.history.back();
 		}
-	});
+	});*/
 	avalon.scan();
 
 	price.onFirstChange = price.onChange = function(next) {

@@ -245,5 +245,13 @@ define('h5-view-bill', ['h5-view', 'api', 'h5-component-bill'], function(View, a
 	return $.extend(bill, {
 		set: set, // 设置账单
 		vm: vm, // 账单vm(不建议暴露)
+		showFinish: function(status) { // 是否显示"完成"
+			if (!arguments.length) {
+				status = true;
+			}
+			vm.ifFinishButton = status;
+		},
+		onFinish: $.noop, // 点击完成时
+		onGotoPay: $.noop, // 点击支付时(可 return false 取消默认)
 	});
 });
