@@ -18,11 +18,12 @@
 				vm.visible_ok = !vm.visible_ok;
 				$.cookie('gopHomeEye',vm.visible_ok);
 			},
-			gopNum: 0
+			gopNum: 0,
+			bannerImgArr:['./images/index-1.png','./images/index-2.png','./images/index-1.png','./images/index-2.png']
 		});
-		//轮播图;
-		TouchSlide({slideCell:'touchSlide',autoPlay:true});
 		avalon.scan(main.get(0), vm);
+		//轮播图;
+		TouchSlide({slideCell:'#touchSlide',autoPlay:true,mainCell:'.home-banner-bd'});
 		price.onFirstChange = function(next) {
 			vm.price = next;
 		};
