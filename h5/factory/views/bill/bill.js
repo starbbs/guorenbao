@@ -251,6 +251,12 @@ define('h5-view-bill', ['h5-view', 'api', 'h5-component-bill'], function(View, a
 			}
 			vm.ifFinishButton = status;
 		},
+		showMore: function(status) { // 是否显示"更多"
+			if (!arguments.length) {
+				status = true;
+			}
+			vm.ifShowMore = status;
+		},
 		onFinish: $.noop, // 点击完成时
 		onGotoPay: $.noop, // 点击支付时(可 return false 取消默认)
 	});

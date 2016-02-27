@@ -20,7 +20,7 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 			price.stop();
 			billView.set('BUY_IN', vmOrder.id);
 			billView.showFinish();
-			router.go('/view/bill');
+			router.to('/view/bill');
 		},
 		fail: function(res) { // 失败
 			alert('微信支付失败:\n' + JSON.stringify(res) + '\n请截图发送给开发人员, 谢谢!');
@@ -64,6 +64,7 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 				if (data.status == 200) {
 					var order = data.data.buyinOrder;
 					vmOrder.orderMoney = order.orderMoney;
+					vmOrder.id = order.id;
 					setOrderNum();
 					$.extend(wxPayOptions, data.data.WEIXIN_MP_PAY);
 					setTimeout(function() {

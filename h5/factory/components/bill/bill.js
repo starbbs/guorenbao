@@ -27,7 +27,9 @@ define('h5-component-bill', function() {
 			GOP_PAY: '果仁宝支付',
 			UNION_PAY: '银联支付',
 			WEIXIN_MP_PAY: '微信支付',
-		}
+			WEIXIN_OPEN_PAY: '微信支付',
+			ALIPAY: '支付宝支付',
+		},
 	};
 	return bill;
 });
