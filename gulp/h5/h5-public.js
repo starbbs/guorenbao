@@ -13,8 +13,8 @@ var uglify = require('gulp-uglify');
 
 
 gulp.task('h5-js', function() {
-	return gulp.src(paths.build + '/js/*.js')
-		.pipe(uglify())
+	return gulp.src(path.join(paths.build, '/js/*.js'))
+		// .pipe(uglify())
 		.pipe(gulp.dest(paths.public + '/js'))
 });
 gulp.task('h5-rjs', ['h5-js'], function() {
