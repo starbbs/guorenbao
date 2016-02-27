@@ -4,7 +4,6 @@
 // 张树垚 2015-12-24 11:13:14 创建
 // H5微信端 --- viesw-address 地址
 
-
 .address {
 	$img: $g-views + '/address/images';
 	$w: set(96);
@@ -24,6 +23,7 @@
 		}
 	}
 	&-add {
+		/*引入 sprite方法 传入$img 和宽高值*/
 		@include sprite($img + '/add.png', 17px);
 		margin-right: 12px;
 	}
@@ -45,6 +45,13 @@
 		background-color: #c7c7cc;
 		& ~ .address-del {
 			left: 100% + $w;
+		}
+	}
+	&-bottom-tips {
+		color:$g-gray;
+		span{
+			display:block;
+			text-align:center;
 		}
 	}
 }
