@@ -21,7 +21,7 @@
 			gopNum: 0
 		});
 		//轮播图;
-		TouchSlide({slideCell:'touchSlide',autoPlay:true,autoPage:true});
+		TouchSlide({slideCell:'touchSlide',autoPlay:true});
 		avalon.scan(main.get(0), vm);
 		price.onFirstChange = function(next) {
 			vm.price = next;
