@@ -343,6 +343,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
         walletId: null,
         payPassword: '123456', //支付密码
         serviceFee: 0.01, //服务费
+        serviceFeeShow:0.01,
         transferNum: '', //转果仁数	
         gopNum: 0, //拥有果仁数	
         price: 0, //实价
@@ -376,7 +377,9 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                     var transferOutType = vm.transferOutType;
                     if (vm.transferOutType.indexOf('NEW') > 0) {
                         transferOutType = 'NEW';
+                        transfer_target.serviceFee = 0;
                     }
+                    console.log("transfer_target.serviceFee" +　transfer_target.serviceFee);
                     api.transfer({
                         gopToken: gopToken,
                         transferType: transferOutType,
@@ -401,6 +404,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                             if (transfer_target.phone) {
                                 nowData.phone = transfer_target.phone;
                             }
+                            console.log(transfer_target.serviceFee);
                             nowData.name = transfer_target.name;
                             nowData.photo = transfer_target.photo;
                             nowData.personId = transfer_target.personId;
@@ -439,6 +443,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
         personId: null,
         walletId: null,
         serviceFee: 0.01, //服务费
+        serviceFeeShow:'0.00',
         transferNum: '', //转果仁数	
         content: '', //转账说明
         successFlag: true, //是否提交成功
@@ -518,12 +523,17 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                 if(transfer_new.newguorentype){  //true 代表的是钱包地址  false 代表手机号
                     transfer_bill.serviceFee = 0.01;
                 } else {
-                    transfer_bill.serviceFee = '0.00';
+                    transfer_bill.serviceFee = 0;
+                    transfer_bill.serviceFeeShow = '0.00';
+                    transfer_target.serviceFee = 0;
                 }
                 transfer_bill.status = datas.data.transferOut.status;
                 transfer_bill.createTime = datas.data.transferOut.createTime;
                 transfer_bill.updateTime = datas.data.transferOut.updateTime;
                 transfer_bill.tradeNo = datas.data.transferOut.serialNum;
+
+                
+
                 if (transfer_bill.personId) {
                     $('.remark').show();
                 } else {

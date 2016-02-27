@@ -4,6 +4,8 @@
 
 
 var gulp = require('gulp');
+var path = require('path');
+
 var tools = require('../tools');
 var paths = require('./h5-paths');
 
@@ -37,9 +39,9 @@ gulp.task('h5-img', function() {
 });
 
 gulp.task('h5-sprite', function() {
-	return tools.cssSprite(paths.build + '/css/*.css', {
-		css: paths.public + '/css',
-		img: paths.public + '/images'
+	return tools.cssSprite(path.join(paths.build, '/css/*.css'), {
+		css: path.join(paths.public + '/css'),
+		img: path.join(paths.public + '/images')
 	})
 });
 

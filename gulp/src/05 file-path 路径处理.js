@@ -3,6 +3,10 @@
 // gulp工具 -- 处理原始路径
 
 
+var path = require('path');
+
+
+
 /**
  * [filePath 处理原始路径]
  * @Author   张树垚
@@ -18,10 +22,11 @@
  *           {[string]}          json.path       [路径./dir2/dir1]                [路径./dir2]
  *           {[string]}          json.origin     [原路径./dir2/dir1/file.json]     [原路径./dir2/dir1]
  */
-module.exports = function(path) {
-	if (/\.\w+$/.test(path)) { // 所有文件
-		var filename = path.match(/\/([\*\w\-\.]+)$/)[1]; // 文件名(带后缀)
-		var pathname = path.replace('/' + filename, ''); // 路径名
+module.exports = function(url) {
+	url = path.normalize(url).replace(/\\/g, '/');
+  	if (/\.\w+$/.test(url)) { // 所有文件
+		var filename = url.match(/\/([\*\w\-\.]+)$/)[1]; // 文件名(带后缀)
+		var pathname = url.replace('/' + filename, ''); // 路径名
 		var extname = filename.match(/\.(\w+)$/)[1]; // 后缀名
 		var dirname = pathname.match(/\/([\w\-]+)$/)[1]; // 文件夹名
 		var basename = filename.replace(/\.[^\.]+$/, ''); // 文件名(不带后缀)
@@ -29,10 +34,10 @@ module.exports = function(path) {
 			type: 'file',
 			filename: filename,
 			basename: basename,
-			extname: extname,
+			extname: extname, 
 			dirname: dirname,
 			path: pathname,
-			origin: path
+			origin: url
 		};
 		var types = [{
 			name: 'image',
@@ -58,18 +63,18 @@ module.exports = function(path) {
 		return {
 			type: 'dir',
 			filename: null,
-			basename: matchDir(path, /\/([\w\-\s]+)$/, 1),
+			basename: matchDir(url, /\/([\w\-\s]+)$/, 1),
 			extname: null,
-			dirname: matchDir(path, /\/([\w\-\s]+)\/([\w\-\s]+)$/, 1),
-			path: path.replace(/\/([\w\-\s]+)$/, ''),
-			origin: path
+			dirname: matchDir(url, /\/([\w\-\s]+)\/([\w\-\s]+)$/, 1),
+			path: url.replace(/\/([\w\-\s]+)$/, ''),
+			origin: url
 		}
 	}
 };
 
 
-function matchDir(path, reg, index) {
-	var match = path.match(reg);
+function matchDir(url, reg, index) {
+	var match = url.match(reg);
 	if (match && match[index]) { return match[index]; }
 	return '.';
 }

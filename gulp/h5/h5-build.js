@@ -4,6 +4,8 @@
 
 
 var gulp = require('gulp');
+var path = require('path');
+
 var tools = require('../tools');
 var paths = require('./h5-paths');
 
@@ -26,10 +28,10 @@ gulp.task('h5-include', function() {
 		return todo(path.path + '/' + path.dirname + '.' + path.extname);
 	});
 	gulp.watch([
-		paths.source + '/include/*.html',
-		paths.views + '/**/*.html',
-		paths.dialogs + '/**/*.html',
-		paths.components + '/**/*.html'], function(event) {
+		path.join(paths.source, '/include/*.html'),
+		path.join(paths.views, '/**/*.html'),
+		path.join(paths.dialogs, '/**/*.html'),
+		path.join(paths.components, '/**/*.html')], function(event) {
 			return todo();
 		});
 	return todo();
@@ -38,15 +40,21 @@ gulp.task('h5-include', function() {
 
 // sass部分
 gulp.task('h5-sass', function() {
-	var page = paths.pages + '/**/*.scss';
-	var todo = function(path) {
-		return tools.sass(path || page, paths.build + '/css')
-				.pipe(notify('h5-sass', path));
+	var page = path.join(paths.pages, '/**/*.scss');
+	var todo = function(url) {
+		return tools.sass(url || page, path.join(paths.build, '/css'))
+				.pipe(notify('h5-sass', url));
 	};
 	gulp.watch(page, function(event) {
 		return todo(event.path);
 	});
-	gulp.watch([paths.source + '/scss/**/*.scss', paths.common + '/zSass/**/*.scss', paths.views + '/**/*.scss', paths.components + '/**/*.scss', paths.dialogs + '/**/*.scss'], function(event) {
+	gulp.watch([
+		path.join(paths.source, '/scss/**/*.scss'),
+		path.join(paths.common, '/zSass/**/*.scss'),
+		path.join(paths.views, '/**/*.scss'),
+		path.join(paths.components, '/**/*.scss'),
+		path.join(paths.dialogs, '/**/*.scss')
+	], function(event) {
 		return todo();
 	});
 	return todo();
@@ -55,20 +63,24 @@ gulp.task('h5-sass', function() {
 
 // 图片部分
 gulp.task('h5-img-move', function() {
-	var todo = function(path, useReg) {
+	var todo = function(url, useReg) {
 		var opts = {
 			type: 'image',
-			rename: function(path) {
-				path.basename = path.dirname.replace(/(\/?images\/?)|(^\.)/, '') + path.basename.replace(/^_+/, '-');
+			rename: function(url) {
+				url.dirname = url.dirname.replace(/\\/g, '/');
+				url.basename = url.dirname.replace(/(\/?images\/?)|(^\.)/, '') + url.basename.replace(/^_+/, '-');
 			}
 		};
 		useReg && (opts.fileReg = /^_/);
-		tools.fileMove(path, paths.build + '/images', opts)
-			.pipe(notify('h5-img-move', path))
+		tools.fileMove(url, path.join(paths.build, '/images'), opts)
+			.pipe(notify('h5-img-move', url))
 	};
-	todo(paths.pages + '/**/**', true);
-	todo(paths.source + '/images/**/**');
-	gulp.watch([paths.pages + '/**/**', paths.source + '/images/**/**'], function(event) {
+	todo(path.join(paths.pages, '/**/**'), true);
+	todo(path.join(paths.source, '/images/**/**'));
+	gulp.watch([
+		path.join(paths.pages, '/**/**'), 
+		path.join(paths.source, '/images/**/**')
+	], function(event) {
 		var path = tools.filePath(event.path);
 		if (path.type === 'image') {
 			todo(path.origin, /\/pages\//.test(path.origin));
@@ -79,12 +91,12 @@ gulp.task('h5-img-move', function() {
 
 // js部分
 gulp.task('h5-js-move', function() {
-	var js = [paths.pages + '/**/*.js', paths.common + '/library/base/*.js'];
-	var todo = function(path) {
-		return gulp.src(path)
+	var js = [path.join(paths.pages, '/**/*.js'), path.join(paths.common, '/library/base/*.js')];
+	var todo = function(url) {
+		return gulp.src(url)
 			.pipe(tools.removeDirname())
-			.pipe(gulp.dest(paths.build + '/js'))
-			.pipe(notify('h5-js-move', path))
+			.pipe(gulp.dest(path.join(paths.build, '/js')))
+			.pipe(notify('h5-js-move', url))
 	};
 	todo(js);
 	gulp.watch(js, function(event) {
