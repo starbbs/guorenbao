@@ -172,8 +172,8 @@ require(['router', 'api', 'h5-view', 'h5-view-nickname', 'h5-weixin'], function(
             if (!item.length) {
                 return;
             }
-            var arr = item.get(0).dataset.path.split('/');
-            nowData = contacts.list[arr[0]].list[arr[1]];
+            var arr = item.get(0).dataset.path.split('/'); 
+            nowData = contacts.list[arr[0]].list[arr[1]];   
             $.extend(people, nowData.$model);
             router.go('/view/contacts-people');
         }

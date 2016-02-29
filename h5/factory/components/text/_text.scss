@@ -34,6 +34,14 @@
 		@include square(100%);
 		box-sizing: border-box;
 	}
+	&-select {
+		@include sprite($img + '/5.png', 13px , 8px);
+		display: block;
+		@include square(100%);
+		box-sizing: border-box;
+		background-repeat: no-repeat;
+		background-position: right center;
+	}
 	&-close {
 		@include sprite($img + '/1.png', 15px, 15px);
 		opacity: 0;
