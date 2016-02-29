@@ -53,8 +53,14 @@
 	&-eye {
 		@include sprite($img + '/2.png', 19px, 11px);
 		margin-left: $g-margin;
+		position: relative;
 		&.on {
 			@include sprite($img + '/3.png', 19px, 11px);
+		}
+		&:after {
+			content: '';
+			display: block;
+			@include atlwh(-180%, -50%, 200%, 450%);
 		}
 	}
 	&-alert {
