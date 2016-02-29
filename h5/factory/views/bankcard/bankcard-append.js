@@ -87,7 +87,8 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 				});
 				router.go('/view/bankcard-ident');
 			}else{
-				$.alert('不支持此银行类型');
+				$.alert('不支持此银行类型或输入卡号错误');
+				vm.checked = true;
 			}
 		}
 	});
