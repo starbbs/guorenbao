@@ -52,8 +52,14 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 							}
 						} else {
 							vm.cardTypeStr = '信用卡';
+							vm.checked = true;
+							$.alert('不支持信用卡支付');
 						}
 						$('.banknameAndcardtypestr').text(vm.bankName + 　' ' + 　vm.cardTypeStr);
+						if(!checkValidBankList(vm.bankName)){
+							vm.checked = true;
+							$.alert('不支持该银行');
+						}
 					} else {
 						$('.banknameAndcardtypestr').text('请输入正确的卡号');
 						vm.checked = true;
@@ -61,19 +67,19 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 				});
 			}
 		},
+		clear:function(name){
+			vm[name]='';
+		},
 		checkPhone: function(e) {
 			var reg = /^0?1[3|4|5|8|7][0-9]\d{8}$/;
-			if (reg.test(this.value)) {
+			if (reg.test(this.value) && checkValidBankList(vm.bankName) &&vm.cardTypeStr !='信用卡') {
 				vm.checked = false;
-				if (vm.cardTypeStr == '信用卡') {
-					$.alert('暂时不支持信用卡');
-				}
 			} else {
 				vm.checked = true;
 			}
 		},
 		bankcard_add_next_click: function() {
-			if (!vm.checked && checkValidBankList(vm.bankName)){
+			if (!vm.checked){
 				$.extend(bankcard_ident.vm, {
 					gopToken: gopToken,
 					bankName: vm.bankName,
@@ -87,8 +93,10 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 				});
 				router.go('/view/bankcard-ident');
 			}else{
-				$.alert('不支持此银行类型或输入卡号错误');
-				vm.checked = true;
+				if(!vm.checked){
+					$.alert('不支持此银行类型或输入卡号错误');
+					vm.checked = true;
+				}
 			}
 		}
 	});
