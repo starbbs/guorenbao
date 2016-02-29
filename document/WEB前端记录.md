@@ -7,6 +7,12 @@ WEB前端记录.md
 
 张树垚([ccforeverd](https://github.com/ccforeverd)) 2016-02-29 16:24:16 创建
 
+github地址: <https://github.com/starbbs/guorenbao/blob/master/document/WEB前端记录.md>
+
+(如果图片无法加载, 请移步到github上查看原文档)
+
+
+
 ## 宗旨
 
 1. 方便查找和维护
@@ -89,6 +95,6 @@ __(四) 细节__
 ![重构计划][plan]
 
 
-
+[原文档](https://github.com/starbbs/guorenbao/blob/master/document/WEB前端记录.md)
 
 
