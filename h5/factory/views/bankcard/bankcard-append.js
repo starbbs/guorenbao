@@ -50,16 +50,16 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 							} else {
 								vm.checked = true;
 							}
-						} else {
+							if(!checkValidBankList(vm.bankName)){
+								vm.checked = true;
+								$.alert('不支持该银行');
+							}
+						}else{
 							vm.cardTypeStr = '信用卡';
 							vm.checked = true;
 							$.alert('不支持信用卡支付');
 						}
 						$('.banknameAndcardtypestr').text(vm.bankName + 　' ' + 　vm.cardTypeStr);
-						if(!checkValidBankList(vm.bankName)){
-							vm.checked = true;
-							$.alert('不支持该银行');
-						}
 					} else {
 						$('.banknameAndcardtypestr').text('请输入正确的卡号');
 						vm.checked = true;
@@ -69,6 +69,7 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 		},
 		clear:function(name){
 			vm[name]='';
+			vm.checked = true;
 		},
 		checkPhone: function(e) {
 			var reg = /^0?1[3|4|5|8|7][0-9]\d{8}$/;

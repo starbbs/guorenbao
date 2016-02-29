@@ -29,6 +29,7 @@ require(['router', 'api', 'h5-view', 'hashMap',
 	hashMap.put('招商银行', 'zhaoshang');
 	hashMap.put('中国银行', 'zhongguo');
 	hashMap.put('中信银行', 'zhongxin');
+	hashMap.put('中国农业银行', 'zhongnong');
 
 	var vm = avalon.define({
 		$id: 'bankcard',
