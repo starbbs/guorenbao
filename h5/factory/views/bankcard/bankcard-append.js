@@ -8,10 +8,24 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 
 	var bankcard_append = new View('bankcard-append');
 
+	var _validBankList;  		 //存放后台传过来支持的银行类型
+	api.static(function(data){	
+		if(data.status==200){
+			_validBankList = data.data.validBankList;
+		}
+	});							//判断用户的卡号是否在支持的银行类型中
+	var checkValidBankList = function(val){
+		for(var i=0; i<_validBankList.length; i++){
+			if(val === _validBankList[i]){
+				return true;
+			}
+		}
+		return false;
+	};
 
 	var vm = bankcard_append.vm = avalon.define({
 		$id: 'bankcard-append',
-		cardNo: '',
+		cardNo: '',                
 		bankName: '',
 		cardTypeStr: '',
 		cardType: '',
@@ -20,9 +34,9 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 		phoneStr: '',
 		identifyingCode: '',
 		callback: $.noop,
-		check: function(e) {
-			if (check.cardCondition(this.value)) {
-				api.checkBankCard({
+		check: function(e) {							
+			if (check.cardCondition(this.value)) {		
+				api.checkBankCard({						
 					bankCard: this.value
 				}, function(data) {
 					if (data.status == 200) {
@@ -59,7 +73,7 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 			}
 		},
 		bankcard_add_next_click: function() {
-			if (!vm.checked) {
+			if (!vm.checked && checkValidBankList(vm.bankName)){
 				$.extend(bankcard_ident.vm, {
 					gopToken: gopToken,
 					bankName: vm.bankName,
@@ -72,7 +86,9 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 					},
 				});
 				router.go('/view/bankcard-ident');
-			};
+			}else{
+				$.alert('不支持此银行类型');
+			}
 		}
 	});
 
@@ -83,6 +99,6 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 		vm.cardTypeStr = '';
 		$('.banknameAndcardtypestr').text('');
 	});
-
+	
 	return bankcard_append;
 });
