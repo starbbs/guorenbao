@@ -1,4 +1,8 @@
 
+
+[plan]: https://github.com/starbbs/guorenbao/blob/master/document/%E6%9E%9C%E4%BB%81%E5%AE%9D%E5%AE%98%E7%BD%91%E9%87%8D%E6%9E%84%E8%AE%A1%E5%88%92.png "重构计划"
+
+
 WEB前端记录.md
 
 张树垚([ccforeverd](https://github.com/ccforeverd)) 2016-02-29 16:24:16 创建
@@ -81,5 +85,10 @@ __(四) 细节__
 
 
 ### 重构计划(持续更新)
+
+![重构计划][plan]
+
+
+
 
 
