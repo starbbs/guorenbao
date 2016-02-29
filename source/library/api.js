@@ -297,7 +297,10 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 
 	// 57.获取商品列表
 	add('productList', '/consume/product/list');
-
+	
+	// 61.静态资源
+	add('static','/common/static');
+	
 	// 62.手机号归属地和运营商
 	add('phoneInfo', '/common/phone/info');
 
