@@ -48,10 +48,14 @@
 		}
 	}
 	&-bottom-tips {
+		position:absolute;
+		top:550px;
+		left:50%;
+		width:150px;
+		margin:0 0 0 -75px;
 		color:$g-gray;
 		span{
-			display:block;
-			text-align:center;
+			display:block;			
 			& a{
 				color:#6888d9;
 			}
