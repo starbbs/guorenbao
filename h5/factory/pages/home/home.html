@@ -3,7 +3,13 @@
 	<div class="home" ms-controller="home">
 		<div class="home-banner" id="touchSlide">
 			<ul class="home-banner-bd">
-				<li ms-repeat-img='bannerImgArr'><img ms-attr-src="img" alt="" class="img-w"></li>
+				<li class="home-banner-bd-li" ms-repeat-img="bannerImgArr">
+					<a ms-if-loop="img.url" ms-attr-href="img.url"><img ms-attr-src="img.img" alt="" class="img-w"></a>
+					<img ms-if-loop="!img.url" ms-attr-src="img" alt="" class="img-w">
+				</li>
+			</ul>
+			<ul class="home-banner-hd">
+				<li class="home-banner-hd-li" ms-repeat="bannerImgArr"></li>
 			</ul>
 		</div>
 		<div class="home-property">

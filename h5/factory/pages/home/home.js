@@ -11,6 +11,7 @@
 		var main = $('.home');
 		var vm = avalon.define({
 			$id: 'home',
+			defaultIndex:0,
 			price: 0,
 			priceChange: 0,
 			visible_ok:eval($.cookie('gopHomeEye')),    //true==close
@@ -19,11 +20,25 @@
 				$.cookie('gopHomeEye',vm.visible_ok);
 			},
 			gopNum: 0,
-			bannerImgArr:['./images/index-1.png','./images/index-2.png','./images/index-1.png','./images/index-2.png']
+			bannerImgArr:[]
 		});
 		avalon.scan(main.get(0), vm);
-		//轮播图;
-		TouchSlide({slideCell:'#touchSlide',autoPlay:true,mainCell:'.home-banner-bd'});
+
+		// 首页轮播图
+		api.static(function(data) {
+			if (data.status == 200) {
+				vm.bannerImgArr = data.data.indexSlideAds;
+				setTimeout(function() {
+					TouchSlide({
+						slideCell:'#touchSlide',
+						autoPlay:true,
+						mainCell:'.home-banner-bd',
+						titCell:'.home-banner-hd-li'
+					});
+				}, 100);
+			}
+		});
+
 		price.onFirstChange = function(next) {
 			vm.price = next;
 		};

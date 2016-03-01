@@ -31,6 +31,24 @@ body {
 
 	&-banner {
 		@extend %rw;
+		position:relative;
+		&-hd{
+			overflow:hidden;
+			position:absolute;
+			right:0;
+			bottom:5px;
+			&-li{
+				width:10px;
+				height:10px;
+				border-radius:50%;
+				background-color:rgba($g-white, 0.5);
+				float:left;
+				margin-right:8px;
+				&.on {
+					background-color: $g-white;
+				}
+			} 			
+		}
 	}
 	&-property {
 		margin-top: 6px;
