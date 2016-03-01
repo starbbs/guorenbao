@@ -36,10 +36,7 @@ define('h5-bankcard-ident', ['api', 'router', 'h5-view', 'h5-ident', 'h5-text'],
 				}, function(data) {
 					if (data.status == 200) {
 						$.alert('绑定成功');
-						if (vm.callback) {
-							vm.callback();
-							router.to('/');
-						};
+						vm.callback && vm.callback();
 					} else {
 						console.log(data);
 						$.alert(data.msg);

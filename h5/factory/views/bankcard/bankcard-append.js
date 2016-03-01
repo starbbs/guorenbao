@@ -81,18 +81,32 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 		},
 		bankcard_add_next_click: function() {
 			if (!vm.checked){
-				$.extend(bankcard_ident.vm, {
-					gopToken: gopToken,
-					bankName: vm.bankName,
-					cardNo: vm.cardNo,
-					phone: vm.phone,
-					phoneStr: vm.phoneStr,
-					cardType: vm.cardType,
-					callback: function() {
-						vm.callback();
-					},
+				vm.checked = true;
+				$.alert('校验中，请稍后！');
+				//验证预留手机号是否正确
+				api.checkBankPhone({
+						gopToken:gopToken,
+						cardNo:vm.cardNo,
+						bankPhone:vm.phone
+					},function(data){
+						if(data.status==200){
+							$.extend(bankcard_ident.vm, {
+								gopToken: gopToken,
+								bankName: vm.bankName,
+								cardNo: vm.cardNo,
+								phone: vm.phone,
+								phoneStr: vm.phoneStr,
+								cardType: vm.cardType,
+								callback: function() {
+									vm.callback();
+								},
+							});
+							vm.checked = false;
+							router.go('/view/bankcard-ident');							
+						}else{
+							$.alert('手机号预留不正确，请重新输入');
+						}
 				});
-				router.go('/view/bankcard-ident');
 			}else{
 				if(!vm.checked){
 					$.alert('不支持此银行类型或输入卡号错误');
@@ -101,7 +115,13 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 			}
 		}
 	});
-
+	/*
+		{
+		"gopToken" : "7ea593562e3547e792985f6884f793d6"，
+	        "cardNo":"3205332334566",
+	        "bankPhone":"15895623333"
+		}
+	*/
 	bankcard_append.on('hide', function() {
 		vm.cardNo = '';
 		vm.phone = '';

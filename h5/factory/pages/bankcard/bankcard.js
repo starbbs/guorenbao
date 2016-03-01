@@ -42,13 +42,14 @@ require(['router', 'api', 'h5-view', 'hashMap',
 		phone: '',
 		phoneStr: '',
 		identifyingCode: '',
-		bankcardAppendClick: function() {
+		bankcardAppendClick: function() {			//添加新银行卡
 			bankcardAppend.vm.callback = function() {
 				bankcardInit();
+				window.history.go(-2);
 			};
 			router.go('/view/bankcard-append');
 		},
-		bankcardDetailClick: function(item) {
+		bankcardDetailClick: function(item) {		//某个银行卡详细信息
 			$.extend(bankcardDetailViewModel, {
 				cardId: item.id,
 				bankName: item.bankName,
