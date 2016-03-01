@@ -34,8 +34,8 @@ var maker = function(message, image) {
 		// sound: 'Funk', // 提示音: '咚'
 		// sound: 'Ping', // 提示音: '噔'
 		// sound: 'Sosumi', // 提示音: '噌'
-		// icon: path.join(__dirname, 'notify_icon.png'), // 左侧小图
-		contentImage: '../notify_img.jpg' // 右侧大图
+		icon: './notify_images/h5.png', // 左侧小图
+		contentImage: './notify_images/avatar.png' // 右侧大图
 	});
 };
 var error = maker.error = function() {};
