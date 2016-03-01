@@ -19,11 +19,7 @@ var notify = function(task, path) { // 提示
 // html部分
 gulp.task('h5-include', function() {
 	var page = paths.pages + '/**/*.html';
-	console.log('************');
-	console.log(paths.pages);
-	console.log('************');
 	var todo = function(path) {
-		console.log('xxxxxxxxxxx'+path);
 		return tools.fileInclude(path || page, paths.build, { strict: true })
 				.pipe(notify('h5-include', path));
 	};
