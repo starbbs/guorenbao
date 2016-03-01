@@ -2,8 +2,9 @@
 // H5微信端 --- 买果仁
 
 
-require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'api', 'check', 'h5-view-bill' ,
-	'h5-text', 'h5-ident', 'h5-weixin'], function(router, View, dialogBankcard, price, weixin, api, check, billView) {
+require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'api', 'check', 'h5-view-bill',
+	'h5-text', 'h5-ident', 'h5-weixin'
+], function(router, View, dialogBankcard, price, weixin, api, check, billView) {
 
 	router.init(true);
 
@@ -32,10 +33,11 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		trigger: function(res) { // 菜单点击
 		},
 		complete: function(res) { // 完成
-		}
+		},
 	};
 
 	var main = $('.purchase');
+
 	var vm = avalon.define({ // 主页面
 		$id: 'purchase',
 		price: 0, // 果仁实时价
@@ -43,10 +45,10 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		ifBuy: false, // 是否可购买
 		expect: '', // 预计购买
 		ifBottomShow: true, // 是否显示底部文字
-		focus: function(){
+		focus: function() {
 			vm.ifBottomShow = false;
 		},
-		blur: function(){
+		blur: function() {
 			vm.ifBottomShow = true;
 		},
 		moneyClear: function() {
@@ -86,10 +88,9 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 			});
 		},
 		gopBuyValidate: function() {
-			console.log('gopBuyValidate');
 			vm.ifBuy = check.gopBuyValidate(this.value, vm.price);
 			vm.expect = this.value ? 'G ' + (this.value / vm.price).toFixed(2) : '';
-		}
+		},
 	});
 	var vmOrder = avalon.define({ // 订单页面
 		$id: 'purchase-order',
@@ -105,25 +106,7 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 	var setOrderNum = function() {
 		vmOrder.gopNum = Math.round(vmOrder.orderMoney / vmOrder.price * 100) / 100;
 	};
-	/*var vmBill = avalon.define({ // 账单页面
-		$id: 'purchase-bill',
-		status: '', // 订单状态
-		headClass: '', // 头部对应class
-		headContent: '', // 头部对应文字
-		gopNum: 0, // 交易果仁数
-		failReason: '', // 失败原因
-		money: 0, // 交易金额
-		price: 0, // 果仁兑换价
-		createTime: '', // 创建时间
-		orderId: 0, // 订单号
-		flowId: '', // 流水号
-		finish: function() { // 完成
-			window.location.href = 'home.html';
-		},
-		repay: function() { // 重新支付
-			window.history.back();
-		}
-	});*/
+
 	avalon.scan();
 
 	price.onFirstChange = price.onChange = function(next) {
@@ -135,6 +118,4 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 	setTimeout(function() {
 		main.addClass('on');
 	}, 200);
-
-	return;
 });

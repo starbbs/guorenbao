@@ -10,14 +10,14 @@
 
 	@extend .view-style;
 
-	&-scroll {
+	&-scroll { // 滚动
 		@extend %rw;
 		padding-bottom: $g-padding-bottom;
 	}
-	&-green {
+	&-green { // 绿色
 		color: $g-green-bill;
 	}
-	&-box {
+	&-box { // 订单
 		$h: 2px;
 		position: relative;
 		margin-top: 5px;
@@ -40,7 +40,7 @@
 			}
 		}
 	}
-	&-head {
+	&-head { // 头部
 		$w: 26px;
 		@include height(50px);
 		border-bottom: $g-border;
@@ -77,7 +77,7 @@
 			}
 		}
 	}
-	&-wait {
+	&-wait { // 等待支付
 		border: $g-border;
 		border-radius: $g-radius;
 		overflow: hidden;
@@ -96,7 +96,7 @@
 			font-size: 22px;
 		}
 	}
-	&-get {
+	&-get { // 获得果仁
 		@extend .font-money;
 		border-bottom: $g-border;
 		&-number {
@@ -108,11 +108,11 @@
 			margin-bottom: 16px;
 		}
 	}
-	&-reason {
+	&-reason { // 失败原因
 		@include height(68px);
 		border-bottom: $g-border;
 	}
-	&-pay {
+	&-pay { // 支付金额和果仁
 		overflow: hidden;
 		border-bottom: $g-border;
 		padding: 16px 0;
@@ -146,21 +146,21 @@
 			}
 		}
 	}
-	&-money {
+	&-money { // 支付金额
 		@include height(46px);
 		border-bottom: $g-border;
 		margin-bottom: 12px;
 	}
-	&-label {
+	&-label { // 左侧文字
 		float: left;
 		font-size: 14px;
 	}
-	&-num {
+	&-num { // 右侧文字
 		float: right;
 		font-size: 16px;
 		font-family: $g-font-num;
 	}
-	&-detail {
+	&-detail { // 细节
 		margin-top: 12px;
 		font-size: 14px;
 		color: $g-ash;
@@ -186,7 +186,7 @@
 			// }
 		}
 	}
-	&-more {
+	&-more { // 更多
 		text-align: center;
 		margin-top: 30px;
 	}
