@@ -94,7 +94,8 @@ require(['api', 'check', 'get', 'h5-alert', 'h5-weixin'], function(api, check, g
 			}, function(data) {
 				if (data.status == 200) {
 					setTimeout(function() {
-						window.location.href = get.add('order.html', { // 跳到公共订单页
+						window.location.href = get.add('order.html', { 
+							// 跳到公共订单页 build/order.html?from=phonecharge&id=1525
 							from: 'phonecharge',
 							id: data.data.consumeOrderId
 						});

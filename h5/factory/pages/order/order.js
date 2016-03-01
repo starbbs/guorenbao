@@ -62,6 +62,9 @@ require(['api', 'get', 'router',
 			bankIndex: 0, // 选择银行卡
 			bankid: 0, // 银行卡ID
 			bankAdd: function() { // 添加银行卡
+				viewBankcardAppend.vm.callback = function(){
+					window.history.go(-2);
+				};
 				router.go('/view/bankcard-append');
 			},
 			bankShow: function() { // 显示银行卡浮层
@@ -272,6 +275,5 @@ require(['api', 'get', 'router',
 			default: // 无来源
 				document.title = '订单';
 		}
-
 		avalon.scan();
 	});
