@@ -11,10 +11,16 @@ define('h5-component-bill', function() {
 			FAILURE: 'fail',
 			CLOSE: 'close',
 		},
-		statusZhCN: { // 订单状态对应中文
+		statusBusiness: { // 交易状态对应中文
 			PROCESSING: '进行中',
 			SUCCESS: '交易成功',
 			FAILURE: '交易失败',
+			CLOSE: '已关闭',
+		},
+		statusTransfer: {
+			PROCESSING: '转账进行中',
+			SUCCESS: '转账成功',
+			FAILURE: '转账失败',
 			CLOSE: '已关闭',
 		},
 		typeClass: { // 类型对应class名称

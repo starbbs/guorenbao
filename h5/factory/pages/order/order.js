@@ -138,7 +138,7 @@ require(['api', 'get', 'router',
 			var product = data.product || {}; // 商品信息
 			var record = data.recordList || []; // 支付记录(是个数组, 包含人民币和果仁)
 			vmBill.status = H5Bill.statusClass[order.status];
-			vmBill.headContent = H5Bill.statusZhCN[order.status];
+			vmBill.headContent = H5Bill.statusBusiness[order.status];
 			vmBill.failReason = record.reduce(function(result, item) {
 				if (item.payMoney) { vmBill.payMoney = item.payMoney; }
 				if (item.payGop) { vmBill.payGop = item.payGop; }

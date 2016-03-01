@@ -150,7 +150,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			id: item.businessId,
 			img: '',
 			desc: item.businessDesc,
-			status: H5bill.statusZhCN[item.status],
+			status: H5bill.statusBusiness[item.status],
 			type: type,
 			originType: item.type
 		};

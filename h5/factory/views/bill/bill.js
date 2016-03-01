@@ -1,4 +1,3 @@
-
 // 张树垚 2016-02-24 16:16:44 创建
 // H5微信端 --- view-bill 账单详情分页
 
@@ -51,7 +50,7 @@ define('h5-view-bill', ['h5-view', 'api', 'h5-component-bill'], function(View, a
 		showMore: function() { // 更多
 		},
 		close: function() { // 关闭订单
-			switch(vm.type) {
+			switch (vm.type) {
 				case 'BUY_IN': // 关闭买果仁
 					api.closeBuyinOrder({
 						gopToken: gopToken,
@@ -110,7 +109,8 @@ define('h5-view-bill', ['h5-view', 'api', 'h5-component-bill'], function(View, a
 			buyinOrderId: id,
 			payType: 'WEIXIN_MP_PAY'
 		}, function(data) {
-			if (!data.data || !data.data.buyinOrder) {
+			if (!data.data || !data.data.buyinOrder || data.status != 200) {
+				data.msg && $.alert(data.msg);
 				return;
 			}
 			var order = data.data.buyinOrder; // 订单
@@ -121,7 +121,7 @@ define('h5-view-bill', ['h5-view', 'api', 'h5-component-bill'], function(View, a
 				type: type, // 类型
 				status: order.status, // 订单状态
 				headClass: H5bill.statusClass[order.status], // 头部样式名
-				headContent: H5bill.statusZhCN[order.status], // 头部内容
+				headContent: H5bill.statusBusiness[order.status], // 头部内容
 				waitForPay: waitForPay, // 等待支付
 				gopNum: order.gopNum, // 买果仁--果仁数
 				gopPrice: order.price, // 买果仁--成交价
@@ -145,7 +145,8 @@ define('h5-view-bill', ['h5-view', 'api', 'h5-component-bill'], function(View, a
 			gopToken: gopToken,
 			consumeOrderId: id
 		}, function(data) {
-			if (!data.data || !data.data.consumeOrder) {
+			if (!data.data || !data.data.consumeOrder || data.status != 200) {
+				data.msg && $.alert(data.msg);
 				return;
 			}
 			var order = data.data.consumeOrder;
@@ -164,10 +165,8 @@ define('h5-view-bill', ['h5-view', 'api', 'h5-component-bill'], function(View, a
 				type: type, // 类型
 				status: order.status, // 订单状态
 				headClass: H5bill.statusClass[order.status], // 头部样式名
-				headContent: H5bill.statusZhCN[order.status], // 头部内容
+				headContent: H5bill.statusBusiness[order.status], // 头部内容
 				waitForPay: waitForPay, // 等待支付
-				// gopNum: order.gopNum, // 买入果仁数
-				// gopPrice: order.price, // 买入果仁成交价
 				failReason: order.status == 'FAILURE' ? order.payResult : '', // 失败原因
 				closeReason: order.status == 'CLOSE' ? order.payResult : '', // 关闭原因
 				orderMoney: order.orderMoney, // 订单金额
@@ -179,7 +178,6 @@ define('h5-view-bill', ['h5-view', 'api', 'h5-component-bill'], function(View, a
 				orderCode: order.orderCode, // 订单号
 				serialNum: order.serialNum, // 流水号
 				payType: H5bill.payType[order.payType], // 支付方式
-				ifFinishButton: false, // 是否显示"完成"按钮
 				ifPayButton: waitForPay, // 是否显示"前往支付"按钮
 				ifRePayButton: order.status == 'FAILURE', // 是否显示"重新支付"按钮
 				ifClose: waitForPay, // 是否显示"关闭"
@@ -208,7 +206,38 @@ define('h5-view-bill', ['h5-view', 'api', 'h5-component-bill'], function(View, a
 				"status": "200"
 			}*/
 			console.log(data);
-			vmSet();
+			if (!data.data || !data.data.transferIn || data.status != 200) {
+				data.msg && $.alert(data.msg);
+				return;
+			}
+			var order = data.data
+			vmSet({
+				id: id, // 账单ID
+				type: type, // 类型
+				status: order.status, // 订单状态
+				headClass: H5bill.statusClass[order.status], // 头部样式名
+				headContent: H5bill.statusTransfer[order.status], // 头部内容
+				waitForPay: false, // 等待支付
+				gopNum: 0, // 买果仁--果仁数
+				gopPrice: 0, // 买果仁--成交价
+				buyMoney: 0, // 买果仁--支付金额
+				failReason: '', // 失败原因
+				closeReason: '', // 关闭原因
+				orderMoney: 0, // 订单金额
+				payMoney: 0, // 消费--支付金额
+				payGop: 0, // 消费--支付果仁数
+				productDesc: '', // 商品信息
+				orderTime: '', // 交易时间
+				createTime: '', // 创建时间
+				orderCode: '', // 订单号
+				serialNum: '', // 流水号
+				payType: '', // 支付方式
+				ifFinishButton: false, // 是否显示"完成"按钮
+				ifPayButton: false, // 是否显示"前往支付"按钮
+				ifRePayButton: false, // 是否显示"重新支付"按钮
+				ifShowMore: false, // 是否显示"更多"
+				ifClose: false, // 是否显示"关闭"
+			});
 		});
 	};
 	var transferOutHandler = function(type, id, name) { // 传出
