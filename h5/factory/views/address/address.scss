@@ -48,11 +48,9 @@
 		}
 	}
 	&-bottom-tips {
-		position:absolute;
-		top:550px;
-		left:50%;
-		width:150px;
-		margin:0 0 0 -75px;
+		@extend .view-bottom;
+		height: auto;
+		margin-bottom: 40px;
 		color:$g-gray;
 		span{
 			display:block;
