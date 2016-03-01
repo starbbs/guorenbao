@@ -8,6 +8,7 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 	router.init(true);
 
 	var gopToken = $.cookie('gopToken');
+
 	var viewOrder = new View('purchase-order');
 
 	var wxPayOptions = { // 微信支付设置
@@ -18,6 +19,7 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		paySign: '', // 支付签名
 		success: function(res) { // 成功
 			price.stop();
+			billView.forceStatus('SUCCESS');
 			billView.set('BUY_IN', vmOrder.id);
 			billView.showFinish();
 			router.to('/view/bill');
@@ -36,11 +38,11 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 	var main = $('.purchase');
 	var vm = avalon.define({ // 主页面
 		$id: 'purchase',
-		price: 0,
-		money: '',
-		ifBuy: false,
-		expect: '',
-		ifBottomShow: true,
+		price: 0, // 果仁实时价
+		money: '', // 买入金额
+		ifBuy: false, // 是否可购买
+		expect: '', // 预计购买
+		ifBottomShow: true, // 是否显示底部文字
 		focus: function(){
 			vm.ifBottomShow = false;
 		},
@@ -50,7 +52,7 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		moneyClear: function() {
 			vm.money = '';
 		},
-		buy: function() {
+		buy: function() { // 买入
 			if (!vm.ifBuy) {
 				return;
 			}
@@ -63,10 +65,17 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 				vm.money = '';
 				if (data.status == 200) {
 					var order = data.data.buyinOrder;
+					var pay = data.data.WEIXIN_MP_PAY;
 					vmOrder.orderMoney = order.orderMoney;
 					vmOrder.id = order.id;
 					setOrderNum();
-					$.extend(wxPayOptions, data.data.WEIXIN_MP_PAY);
+					$.extend(wxPayOptions, {
+						timestamp: pay.timeStamp,
+						nonceStr: pay.nonceStr,
+						package: pay.package,
+						signType: pay.signType,
+						paySign: pay.paySign,
+					});
 					setTimeout(function() {
 						router.go('/view/purchase-order');
 					}, 100);
@@ -89,6 +98,7 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		price: 0, // 实时价
 		orderMoney: 0, // 订单金额
 		click: function() { // 下一步
+			alert(JSON.stringify(wxPayOptions));
 			wx.chooseWXPay(wxPayOptions);
 		}
 	});

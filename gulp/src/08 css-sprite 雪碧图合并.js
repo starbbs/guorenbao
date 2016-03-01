@@ -31,7 +31,6 @@ module.exports = function(input, output, options) {
 	return gulp.src(input, function(somethingNULL, filePaths) {
 		filePaths.forEach(function(path) {
 			path = filePath(path);
-			console.log(path)
 			if (path.type === 'css') {
 				var spriteOutput = gulp.src(path.origin).pipe(sprite({
 					baseUrl: './',
