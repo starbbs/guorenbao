@@ -44,7 +44,7 @@ module.exports = function(url) {
 			exts: ['png', 'gif', 'jpg', 'jpeg', 'svg']
 		}, {
 			name: 'js',
-			exts: ['js']
+			exts: ['js', 'jsx']
 		}, {
 			name: 'css',
 			exts: ['css', 'scss', 'sass']
