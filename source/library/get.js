@@ -3,7 +3,7 @@
 // 公用 --- get
 
 
-define(function() {
+define('get', ['url'], function(url) {
 	var parse = function(str) {
 		var data = {};
 		str.split('&').forEach(function(item) {
@@ -45,7 +45,7 @@ define(function() {
 		}
 	};
 	return {
-		data: parse(location.search.replace(/^\?/, '')),
+		data: parse(url.search.replace(/^\?/, '')),
 		parse: parse,
 		stringify: stringify,
 		add: add
