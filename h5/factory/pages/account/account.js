@@ -5,7 +5,7 @@
 require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5-view-bill',
 	'h5-weixin'
 ], function(router, api, get, filters, H5bill, iScroll, billView) {
-
+	return;
 	router.init();
 
 	var gopToken = $.cookie('gopToken');

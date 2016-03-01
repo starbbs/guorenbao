@@ -4,6 +4,7 @@
 
 
 define('h5-view-bill', ['h5-view', 'api', 'h5-component-bill'], function(View, api, H5bill) {
+	var _forceStatus = '';
 	var gopToken = $.cookie('gopToken');
 	var bill = new View('bill');
 	var main = $('.bill');
@@ -58,7 +59,7 @@ define('h5-view-bill', ['h5-view', 'api', 'h5-component-bill'], function(View, a
 					}, function(data) {
 						if (data.status == 200) {
 							$.alert('关闭成功');
-							buyInHandler(vm.type, vm.id);
+							buyInHandler(vm.type, vm.id, 'BUY_IN');
 						}
 					});
 					break;
@@ -69,7 +70,7 @@ define('h5-view-bill', ['h5-view', 'api', 'h5-component-bill'], function(View, a
 					}, function(data) {
 						if (data.status == 200) {
 							$.alert('关闭成功');
-							consumeHandler(vm.type, vm.id);
+							consumeHandler(vm.type, vm.id, 'PAY');
 						}
 					});
 					break;
@@ -114,7 +115,7 @@ define('h5-view-bill', ['h5-view', 'api', 'h5-component-bill'], function(View, a
 			}
 			var order = data.data.buyinOrder; // 订单
 			var list = data.data.recordList; // 支付
-			var waitForPay = order.status == 'PROCESSING' && (!list || !list.length);
+			var waitForPay = (order.status = _forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
 			vmSet({
 				id: id, // 账单ID
 				type: type, // 类型
@@ -150,7 +151,7 @@ define('h5-view-bill', ['h5-view', 'api', 'h5-component-bill'], function(View, a
 			var order = data.data.consumeOrder;
 			var list = data.data.recordList;
 			var product = data.data.product;
-			var waitForPay = order.status == 'PROCESSING' && (!list || !list.length);
+			var waitForPay = (order.status = _forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
 			var payMoney, payGop;
 			if (order.status == 'SUCCESS' && list && list.length) {
 				list.forEach(function(item) {
@@ -243,6 +244,9 @@ define('h5-view-bill', ['h5-view', 'api', 'h5-component-bill'], function(View, a
 	};
 
 	return $.extend(bill, {
+		forceStatus: function(status) {
+			_forceStatus = status;
+		},
 		set: set, // 设置账单
 		vm: vm, // 账单vm(不建议暴露)
 		showFinish: function(status) { // 是否显示"完成"

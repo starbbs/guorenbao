@@ -11,7 +11,10 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 	/** [api 接口集合] */
 	var api = {};
 
-	var goIndex = function() { // 返回首页
+	var goIndex = function(useURL) { // 返回首页
+		if (useURL) {
+			
+		}
 		if (window.location.href.indexOf('/index.html') === -1) {
 			return window.location.href = 'index.html';
 		}
@@ -60,10 +63,12 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 				timeout: 30000,
 				success: function(data) {
 					if (!data) {
-						goIndex();
+						// alert('1:' + name + ';' + $.cookie('gopToken'));
+						goIndex(true);
 					}
 					if (data.status == 300) { // {msg: "用户登录/验证失败，请重新登录", status: "300"}
-						goIndex();
+						// alert(2);
+						goIndex(true);
 					} else if (data.status == 304) { // {msg: "服务器异常", status: "300"}
 						$.alert('服务器异常, 请联系后台人员!');
 					}
@@ -100,37 +105,9 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 			'border: 2px solid gray;' +
 			'text-shadow: 0px 0px 1px rgba(0,0,0,1);' +
 			'height: 30px;' +
-			'cursor: pointer;'
+			'cursor: pointer;' +
+			''
 		);
-	};
-
-	// 临时接口: 删除账户
-	add('cleanUser', '/common/cleanUser');
-	window.cleanUser = function() {
-		var gopToken = $.cookie('gopToken');
-		if (!gopToken) {
-			return api.log('>> gopToken已消失, 可能原因:\n 1.cookie过期, 请联系Java工程师手动删除\n 2.已被删除, 请联系Java工程师查询');
-		}
-		api.cleanUser({
-			gopToken: gopToken
-		}, function(data) {
-			if (data.status == 200) {
-				api.log('你的账户已删除成功!');
-				$.cookie('gopToken', null);
-			} else {
-				api.log('第一次删除失败, 进行第二次删除操作');
-				api.cleanUser({
-					gopToken: gopToken
-				}, function(data) {
-					if (data.status == 200) {
-						api.log('第二次删除成功, 你的账户已成功删除!');
-						$.cookie('gopToken', null);
-					} else {
-						api.log('第二次删除失败, 请联系Java工程师');
-					}
-				});
-			}
-		});
 	};
 
 	// 1.手机号注册
