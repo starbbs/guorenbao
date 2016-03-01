@@ -40,6 +40,7 @@ module.exports = {
 		'dom': PATH_LIBRARY + '/dom',
 		'filters': PATH_LIBRARY + '/filters',
 		'get': PATH_LIBRARY + '/get',
+		'url': PATH_LIBRARY + '/url',
 		'hchart': PATH_LIBRARY + '/src/highcharts',
 		'm': PATH_LIBRARY + '/api',
 		'mmRouter': PATH_LIBRARY + '/src/mmRouter',

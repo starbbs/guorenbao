@@ -98,9 +98,9 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		price: 0, // 实时价
 		orderMoney: 0, // 订单金额
 		click: function() { // 下一步
-			alert(JSON.stringify(wxPayOptions));
+			// alert(JSON.stringify(wxPayOptions));
 			wx.chooseWXPay(wxPayOptions);
-		}
+		},
 	});
 	var setOrderNum = function() {
 		vmOrder.gopNum = Math.round(vmOrder.orderMoney / vmOrder.price * 100) / 100;
