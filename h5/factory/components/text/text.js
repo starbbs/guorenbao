@@ -11,7 +11,9 @@ define('h5-text', ['check'], function(check) {
 		input[input.attr('type') === 'text' ? 'removeClass' : 'addClass']('on');
 	};
 	var checkSafe = function(input, safe) {
-		var level = '低中高'.indexOf(check.safe(input.val())) + 1; // 1,2,3
+		var value = input.val();
+		var level = !value ? 0 : ('低中高'.indexOf(check.safe(value)) + 1); // 1,2,3
+
 		safe.get(0).className = 'text-safe' + ' s' + level;
 	};
 	var checkFormatTwoDecimalPlaces = function(input){
