@@ -25,11 +25,16 @@ define('filters', function() {
 			length = isNaN(parseInt(length)) ? 2 : parseInt(length);
 			return ((Math.round(str * Math.pow(10, length))) / Math.pow(10, length)).toFixed(length);
 		},
-		tail: function(str, length) {
+		tail: function(str, length) { // 尾数
 			str = typeof str !== 'string' ? '' : parseFloat(str);
 			length = isNaN(parseInt(length)) ? 4 : Math.abs(parseInt(length));
 			return str.substr(- length);
-		}
+		},
+		omit: function(str, length) { // 省略
+			var l = 5; // 默认保留长度
+			length = isNaN(parseInt(length)) ? l : parseInt(length);
+			return str.length > 5 ? (str.substring(0, length) + '...') : str;
+		},
 	});
 });
 

@@ -152,7 +152,8 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			desc: item.businessDesc,
 			status: H5bill.statusBusiness[item.status],
 			type: type,
-			originType: item.type
+			originType: item.type,
+			iconClass: '',
 		};
 		var types = {
 			money: 'money',
@@ -162,13 +163,22 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			money: '¥',
 			gop: 'G'
 		}
-		if (type == 'transfer' && item.extra) { // 转账加头像
-			bill.img = item.extra.photo || '';
-			bill.desc = item.extra.name ? '转账 - ' + item.extra.name : bill.desc;
+		if (type === 'transfer' && item.extra) {
+			bill.img = item.extra.photo || ''; // 转账头像
+			item.extra.name && (bill.desc += ' - ' + item.extra.name); // 转账目标
+			if (item.extra.transferOutType === 'ME_WALLET' || item.extra.transferInType === 'ME_WALLET') {
+				bill.desc += ' - 我的钱包'
+				bill.iconClass = 'wallet';
+			}
 		}
-		if (type == 'phone' && kind == 'gop') { // 修改money数据, 使其变为人民币支付金额
-			item.money = item.gopNumber * item.gopPrice - item.money;
-			Math.abs(item.money) < 0.01 && (item.money = 0);
+		if (type === 'phone') {
+			if (kind === 'gop') { // 修改money数据, 使其变为人民币支付金额
+				item.money = item.gopNumber * item.gopPrice - item.money;
+				Math.abs(item.money) < 0.01 && (item.money = 0);
+			}
+			if (item.extra && item.extra.phoneInfo) {
+				item.extra.phoneInfo.carrier && (bill.desc += ' - ' + item.extra.phoneInfo.carrier); // 运营商
+			}
 		}
 		bill.change = numHandler(item[types[kind]], coins[kind]);
 		bills.push(bill);

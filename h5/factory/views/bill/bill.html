@@ -20,9 +20,9 @@
 					<div class="fr red">{{closeReason}}</div>
 				</div>
 				<div class="bill-pay" ms-visible="orderMoney&&!buyMoney">
-					<div class="bill-label" ms-class-1="ash:status=='FAILURE'" ms-class-2="dark:status!='FAILURE'">订单金额(¥)</div>
+					<div class="bill-label" ms-class-1="ash:status==='FAILURE'" ms-class-2="dark:status!=='FAILURE'">订单金额(¥)</div>
 					<div class="bill-num dark">-{{orderMoney|abs|fix}}</div>
-					<div class="bill-pay-box" ms-visible="status=='SUCCESS'&&(payMoney||payGop)">
+					<div class="bill-pay-box" ms-visible="status==='SUCCESS'&&(payMoney||payGop)">
 						<div class="bill-pay-item" ms-visible="payMoney">
 							<div class="bill-label">支付金额</div>
 							<div class="bill-num">-{{payMoney|fix}}</div>
@@ -33,39 +33,39 @@
 						</div>
 					</div>
 				</div>
-				<div class="bill-pay" ms-visible="status=='SUCCESS'&&buyMoney">
+				<div class="bill-pay" ms-visible="status==='SUCCESS'&&buyMoney">
 					<div class="bill-label ash">支付金额(¥)</div>
 					<div class="bill-num dark">-{{buyMoney|fix}}</div>
 				</div>
-				<!-- <div class="bill-money">
+				<div class="bill-money" ms-visible="rebate">
 					<div class="bill-label dark">获得返利(G)</div>
-					<div class="bill-num blue">+1.20</div>
-				</div> -->
+					<div class="bill-num blue">+{{rebate|fix}}</div>
+				</div>
 				<div class="bill-detail">
 					<div class="bill-detail-item" ms-visible="productDesc">
 						<div class="bill-detail-left">商品信息</div>
-						<div class="bill-detail-right dark" ms-class="ash:status=='CLOSE'">{{productDesc}}</div>
+						<div class="bill-detail-right dark" ms-class="ash:status==='CLOSE'">{{productDesc}}</div>
 					</div>
 					<div class="bill-detail-item" ms-visible="gopPrice">
 						<div class="bill-detail-left">成交价</div>
 						<div class="fl">(¥)</div>
 						<div class="bill-detail-right blue">{{gopPrice|fix}}</div>
 					</div>
-					<!-- <div class="bill-detail-item" ms-visible="payType">
+					<div class="bill-detail-item" ms-visible="payType">
 						<div class="bill-detail-left">支付方式</div>
-						<div class="bill-detail-right" ms-class-1="ash:status=='CLOSE'" ms-class-2="dark:status!='CLOSE'">{{payType}}</div>
-					</div> -->
-					<div class="bill-detail-item">
+						<div class="bill-detail-right" ms-class-1="ash:status==='CLOSE'" ms-class-2="dark:status!=='CLOSE'">{{payType}}</div>
+					</div>
+					<div class="bill-detail-item" ms-visible="type==='BUY_IN'||type==='PAY'">
 						<div class="bill-detail-left">收款方</div>
-						<div class="bill-detail-right" ms-class-1="ash:status=='CLOSE'" ms-class-2="dark:status!='CLOSE'">北京果仁宝科技有限公司</div>
+						<div class="bill-detail-right" ms-class-1="ash:status==='CLOSE'" ms-class-2="dark:status!='CLOSE'">北京果仁宝科技有限公司</div>
 					</div>
 					<div class="bill-detail-item" ms-visible="orderTime">
 						<div class="bill-detail-left">交易时间</div>
-						<div class="bill-detail-right" ms-class-1="ash:status=='CLOSE'" ms-class-2="dark:status!='CLOSE'">{{orderTime}}</div>
+						<div class="bill-detail-right" ms-class-1="ash:status==='CLOSE'" ms-class-2="dark:status!=='CLOSE'">{{orderTime}}</div>
 					</div>
 					<div class="bill-detail-item" ms-visible="createTime">
 						<div class="bill-detail-left">创建时间</div>
-						<div class="bill-detail-right" ms-class-1="ash:status=='CLOSE'" ms-class-2="dark:status!='CLOSE'">{{createTime}}</div>
+						<div class="bill-detail-right" ms-class-1="ash:status==='CLOSE'" ms-class-2="dark:status!=='CLOSE'">{{createTime}}</div>
 					</div>
 					<div class="bill-detail-item" ms-visible="orderCode">
 						<div class="bill-detail-left">订单号</div>

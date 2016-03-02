@@ -2,7 +2,10 @@
 **/.sass-cache
 **/node_modules
 **/.zip
+**/.psd
 h5/build
 h5/public
+pc/build
+pc/public
 exchange/build
 exchange/public
