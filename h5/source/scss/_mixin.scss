@@ -5,12 +5,14 @@
 // H5微信端 -- sass-mixin
 
 
-@mixin sprite($url, $width, $height: $width) { // 精灵图
-	width: $width;
-	height: $height;
+@mixin sprite($url: null, $width: null, $height: $width) { // 精灵图
 	@if type-of($url) != 'null' {
 		background-image: url($url); /* @meta {"sprite": {"h5": true}} */
 	}
-	background-size: $width $height;
+	@if isNull($width) != true {
+		background-size: $width $height;
+		width: $width;
+		height: $height;
+	}
 }
 

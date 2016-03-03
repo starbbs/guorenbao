@@ -10,7 +10,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 
 	var gopToken = $.cookie('gopToken');
 	var page = 1; // 账单页数, 当返回列表长度小于当前列表长度时, 置零, 不再请求
-	var size = 20; // 账单列表
+	var size = 50; // 账单列表
 
 	var main = $('.account'); // 主容器
 	var init = function() { // 初始化
@@ -230,7 +230,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		}, []);
 	};
 	var numHandler = function(number, unit) { // 数值处理
-		return (number > 0 ? '+' : '-') + ' ' + unit + ' ' + Math.abs(filters.fix(number));
+		return (number > 0 ? '+' : '-') + ' ' + unit + ' ' + filters.fix(Math.abs(number));
 	};
 	// 处理 getList 的工具方法 -- 结束
 

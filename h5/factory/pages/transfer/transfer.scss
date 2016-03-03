@@ -137,36 +137,6 @@ body {
 
 	&-bill {
 		@extend .view-style;
-		&-target { // 转账目标
-			height: 56px;
-			line-height: 1;
-			&-left {
-				float: left;
-				@include square(50%, 100%);
-				position: relative;
-			}
-			&-right {
-				height: 100%;
-				float: left;
-				margin-left: -18px;
-			}
-			&-img {
-				@include atr(10px, 32px);
-				@include square(35px);
-				border-radius: 50%;
-				overflow: hidden;
-			}
-			&-name {
-				font-size: 14px;
-				color: $g-dark;
-				margin-top: 12px;
-			}
-			&-address {
-				font: 10px $g-font-num;
-				color: $g-ash;
-				margin-top: 6px;
-			}
-		}
 		&-stage {
 			$init: $g-silver;
 			$finish: #2acea2;

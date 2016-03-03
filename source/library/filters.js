@@ -5,7 +5,9 @@
 
 define('filters', function() {
 
-	return $.extend(avalon.filters, {
+	var filters = avalon.filters;
+
+	return $.extend(filters, {
 	// 金额展示
 	// 示例: {{item.moneyChange|sign}} {{item.moneyChange|abs|currency(' ')}} G
 		sign: function(str) { // 判断正负
@@ -30,10 +32,13 @@ define('filters', function() {
 			length = isNaN(parseInt(length)) ? 4 : Math.abs(parseInt(length));
 			return str.substr(- length);
 		},
-		omit: function(str, length) { // 省略
+		omit: function(str, length, replace) { // 省略
 			var l = 5; // 默认保留长度
 			length = isNaN(parseInt(length)) ? l : parseInt(length);
-			return str.length > 5 ? (str.substring(0, length) + '...') : str;
+			return str.length > 5 ? (str.substring(0, length) + (replace || '...')) : str;
+		},
+		address: function(str, length) { // 地址省略
+			return filters.omit(str, 8, '**********');
 		},
 	});
 });

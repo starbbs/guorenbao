@@ -36,6 +36,18 @@ define('h5-component-bill', function() {
 			WEIXIN_OPEN_PAY: '微信支付',
 			ALIPAY: '支付宝支付',
 		},
+		transferType: { // 转账方式
+			WALLET_CONTACT: '钱包联系人',
+			GOP_CONTACT: '果仁宝联系人',
+			ME_WALLET: '我的钱包',
+			GOP_MARKET: '果仁市场',
+		},
+		transferClass: { // 转账样式
+			WALLET_CONTACT: 'address',
+			GOP_CONTACT: 'address',
+			ME_WALLET: 'wallet',
+			GOP_MARKET: 'market',
+		},
 	};
 	return bill;
 });

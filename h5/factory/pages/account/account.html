@@ -4,7 +4,7 @@
 		<div class="account-scroll">
 			<div ms-repeat-group="list" data-repeat-rendered="listRepeatCallback">
 				<div class="account-month">{{group.month}}</div>
-				<div class="account-day" ms-repeat-day="group.days" ms-data-type="day.type">
+				<div class="account-day" ms-repeat-day="group.days" ms-data-type="day.type" ms-if-loop="day.type==='transfer'">
 					<div class="account-time">
 						<div class="account-time-big">{{day.day}}</div>
 						<div class="account-time-small">{{day.time}}</div>

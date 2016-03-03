@@ -20,9 +20,10 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		paySign: '', // 支付签名
 		success: function(res) { // 成功
 			price.stop();
-			billView.forceStatus('SUCCESS');
-			billView.set('BUY_IN', vmOrder.id);
-			billView.showFinish();
+			billView.set('BUY_IN', vmOrder.id, {
+				forceStatus: 'SUCCESS',
+				ifFinishButton: true
+			});
 			router.to('/view/bill');
 		},
 		fail: function(res) { // 失败
