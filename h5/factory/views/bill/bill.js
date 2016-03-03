@@ -17,6 +17,8 @@ define('h5-view-bill', ['h5-view', 'api', 'h5-component-bill'], function(View, a
 		gopNum: 0, // 买果仁--果仁数
 		gopPrice: 0, // 买果仁--成交价
 		buyMoney: 0, // 买果仁--支付金额
+		transferNum: 0, // 转果仁--果仁数
+		poundage: 0, // 转果仁--手续费
 		rebate: 0, // 获得返利
 		failReason: '', // 失败原因
 		closeReason: '', // 关闭原因
@@ -212,33 +214,6 @@ define('h5-view-bill', ['h5-view', 'api', 'h5-component-bill'], function(View, a
 				return;
 			}
 			var order = data.data.transferIn;
-			vmSet({
-				id: id, // 账单ID
-				type: type, // 类型
-				status: order.status, // 订单状态
-				headClass: H5bill.statusClass[order.status], // 头部样式名
-				headContent: H5bill.statusTransfer[order.status] + '(G)', // 头部内容
-				waitForPay: false, // 等待支付
-				gopNum: 0, // 买果仁--果仁数
-				gopPrice: 0, // 买果仁--成交价
-				buyMoney: 0, // 买果仁--支付金额
-				failReason: '', // 失败原因
-				closeReason: '', // 关闭原因
-				orderMoney: 0, // 订单金额
-				payMoney: 0, // 消费--支付金额
-				payGop: 0, // 消费--支付果仁数
-				productDesc: '', // 商品信息
-				orderTime: '', // 交易时间
-				createTime: '', // 创建时间
-				orderCode: '', // 订单号
-				serialNum: '', // 流水号
-				payType: '', // 支付方式
-				ifFinishButton: false, // 是否显示"完成"按钮
-				ifPayButton: false, // 是否显示"前往支付"按钮
-				ifRePayButton: false, // 是否显示"重新支付"按钮
-				ifShowMore: false, // 是否显示"更多"
-				ifClose: false, // 是否显示"关闭"
-			});
 		});
 	};
 	var transferOutHandler = function(type, id, name) { // 传出
@@ -280,26 +255,12 @@ define('h5-view-bill', ['h5-view', 'api', 'h5-component-bill'], function(View, a
 				status: order.status, // 订单状态
 				headClass: H5bill.statusClass[order.status], // 头部样式名
 				headContent: H5bill.statusTransfer[order.status] + '(G)', // 头部内容
-				waitForPay: false, // 等待支付
-				gopNum: 0, // 买果仁--果仁数
-				gopPrice: 0, // 买果仁--成交价
-				buyMoney: 0, // 买果仁--支付金额
-				failReason: '', // 失败原因
-				closeReason: '', // 关闭原因
-				orderMoney: 0, // 订单金额
-				payMoney: 0, // 消费--支付金额
-				payGop: 0, // 消费--支付果仁数
-				productDesc: '', // 商品信息
-				orderTime: '', // 交易时间
-				createTime: '', // 创建时间
-				orderCode: '', // 订单号
-				serialNum: '', // 流水号
-				payType: '', // 支付方式
-				ifFinishButton: false, // 是否显示"完成"按钮
-				ifPayButton: false, // 是否显示"前往支付"按钮
-				ifRePayButton: false, // 是否显示"重新支付"按钮
-				ifShowMore: false, // 是否显示"更多"
-				ifClose: false, // 是否显示"关闭"
+				transferNum: order.gopNum, // 转果仁--果仁数
+				poundage: order.serviceFee, // 转果仁--手续费
+				failReason: order.failReason, // 失败原因
+				orderTime: order.updateTime, // 交易时间
+				createTime: order.createTime, // 创建时间
+				serialNum: order.serialNum, // 流水号
 			});
 		});
 	};

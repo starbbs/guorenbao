@@ -11,6 +11,10 @@
 					<div class="bill-get-number">+{{gopNum|fix}}</div>
 					<div class="bill-get-label">获得果仁(G)</div>
 				</div>
+				<div class="bill-get" ms-visible="transferNum">
+					<div class="bill-get-number">-{{transferNum|fix}}</div>
+					<div class="bill-get-label">手续费 {{poundage|fix}}</div>
+				</div>
 				<div class="bill-reason" ms-visible="failReason">
 					<div class="fl">失败原因</div>
 					<div class="fr red">{{failReason}}</div>
@@ -57,7 +61,7 @@
 					</div>
 					<div class="bill-detail-item" ms-visible="type==='BUY_IN'||type==='PAY'">
 						<div class="bill-detail-left">收款方</div>
-						<div class="bill-detail-right" ms-class-1="ash:status==='CLOSE'" ms-class-2="dark:status!='CLOSE'">北京果仁宝科技有限公司</div>
+						<div class="bill-detail-right" ms-class-1="ash:status==='CLOSE'" ms-class-2="dark:status!=='CLOSE'">北京果仁宝科技有限公司</div>
 					</div>
 					<div class="bill-detail-item" ms-visible="orderTime">
 						<div class="bill-detail-left">交易时间</div>
