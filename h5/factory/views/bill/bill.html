@@ -113,13 +113,13 @@
 						<div class="bill-detail-left">流水号</div>
 						<div class="bill-detail-right ash">{{serialNum}}</div>
 					</div>
-					<div class="bill-detail-item" ms-visible="type==='TRANSFER_IN'||type===''TRANSFER_OUT">
+					<div class="bill-detail-item" ms-visible="type==='TRANSFER_IN'||type==='TRANSFER_OUT'">
 						<div class="bill-detail-left">转账说明</div>
 						<div class="bill-detail-right ash">{{transferDesc}}</div>
 					</div>
 				</div>
 			</div>
-			<div class="text-button"><span class="button" ms-click="ifReturnHome" ms-click="returnHome">回到首页</span></div>
+			<div class="text-button"><span class="button" ms-visible="ifReturnHome" ms-click="returnHome">回到首页</span></div>
 			<div class="text-button"><span class="button" ms-visible="ifFinishButton" ms-click="finish">完成</span></div>
 			<div class="text-button"><span class="button" ms-visible="ifPayButton" ms-click="gotoPay">前往支付</span></div>
 			<div class="text-button"><span class="button" ms-visible="ifRePayButton" ms-click="gotoPay">重新支付</span></div>

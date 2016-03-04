@@ -29,30 +29,16 @@ define('url', function() {
 		console.log('%c' + name + ': %c' + json[name], 'color:blue;', isURL ? 'color:red;text-decoration:underline;' : 'color:black;');
 	};
 
-	log('href', true);
-	log('host');
-	log('search');
-	log('hash');
-	log('origin', true);
-	log('pathname');
-	log('port');
-	log('protocol');
-	log('filename');
-	log('dirname');
-
-	// console.log(
-	// 	'href: ' + href + '\n' +
-	// 	'host: ' + host + '\n' +
-	// 	'search: ' + search + '\n' +
-	// 	'hash: ' + hash + '\n' +
-	// 	'origin: ' + origin + '\n' +
-	// 	'pathname: ' + pathname + '\n' +
-	// 	'port: ' + port + '\n' +
-	// 	'protocol: ' + protocol + '\n' +
-	// 	'filename: ' + filename + '\n' +
-	// 	'dirname: ' + dirname + '\n' +
-	// 	''
-	// );
+	// log('href', true);
+	// log('host');
+	// log('search');
+	// log('hash');
+	// log('origin', true);
+	// log('pathname');
+	// log('port');
+	// log('protocol');
+	// log('filename');
+	// log('dirname');
 
 	return json;
 });

@@ -20,14 +20,14 @@
 
 
 body {
-    background-color: $g-background;
+	background-color: $g-background;
 }
 
 
 .transfer {
 	$img: $g-pages + '/transfer/images';
 	background-color: $g-background;
-    @extend %fade-in;
+	@extend %fade-in;
 	&-icon {
 		@for $i from 1 through 5 {
 			&-#{$i} {
