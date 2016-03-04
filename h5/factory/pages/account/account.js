@@ -148,7 +148,8 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		var type = H5bill.typeClass[item.type];
 		var bill = {
 			id: item.businessId,
-			img: '',
+			img: '', // 头像
+			name: '', // 姓名
 			desc: item.businessDesc,
 			status: H5bill.statusBusiness[item.status],
 			type: type,
@@ -165,7 +166,10 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		}
 		if (type === 'transfer' && item.extra) {
 			bill.img = item.extra.photo || ''; // 转账头像
-			item.extra.name && (bill.desc += ' - ' + item.extra.name); // 转账目标
+			if (item.extra.name) { // 转账目标
+				bill.desc += ' - ' + item.extra.name
+				bill.name = item.extra.name;
+			}
 			if (item.extra.transferOutType === 'ME_WALLET' || item.extra.transferInType === 'ME_WALLET') {
 				bill.desc += ' - 我的钱包'
 				bill.iconClass = 'wallet';
@@ -249,7 +253,10 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			var target = $(ev.target).closest('.account-item');
 			if (target.length) {
 				var data = target.get(0).dataset;
-				billView.set(data.type, data.id);
+				var options = {};
+				data.name && (options.transferName = data.name);
+				data.img && (options.transferImg = data.img);
+				billView.set(data.type, data.id, options);
 				router.go('/view/bill');
 			}
 		}

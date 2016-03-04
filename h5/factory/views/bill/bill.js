@@ -23,6 +23,9 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 		transferName: '', // 转果仁--名字
 		transferAddress: '', // 转果仁--地址
 		transferImg: '', // 转果仁--头像
+		transferStage: '', // 转果仁--阶段
+		transferStart: '', // 转果仁--创建时间
+		transferOver: '', // 转果仁--完成或预计时间
 		transferFailReason: '', // 转果仁--失败原因
 		poundage: 0, // 转果仁--手续费
 		transferDesc: '', // 转果仁--转账说明
@@ -40,6 +43,7 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 		orderCode: '', // 订单号
 		serialNum: '', // 流水号
 		payType: '', // 支付方式
+		ifReturnHome: false, // 是否显示"返回首页"按钮
 		ifFinishButton: false, // 是否显示"完成"按钮
 		ifPayButton: false, // 是否显示"前往支付"按钮
 		ifRePayButton: false, // 是否显示"重新支付"按钮
@@ -50,6 +54,13 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 	};
 	var vm = avalon.define($.extend({ // 账单vm
 		$id: 'bill',
+		returnHome: function() {
+			if (bill.onReturnHome() === false) {
+
+			} else {
+				window.location.href = './home.html';
+			}
+		},
 		finish: function() { // 完成 -- 完成按钮只有在买果仁流程的最后一步会显示
 			bill.onFinish();
 			router.go('/');
@@ -98,14 +109,6 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 		},
 	}, initSettings));
 	avalon.scan(main.get(0), vm);
-	var vmSet = function(settings, options) { // 设置账单vm
-		for(var i in options) {
-			if (settings.hasOwnProperty(i)) {
-				settings[i] = options[i];
-			}
-		}
-		return $.extend(vm, initSettings, settings);
-	};
 	var set = function(type, id, options) { // 设置账单, 分流 -- 不做view显示
 		type = (type + '').toUpperCase();
 		options = options || {};
@@ -128,6 +131,31 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 				$.alert('未知类型的账单<br>值为 ' + type);
 		}
 	};
+	var setVM = function(settings, options) { // 设置账单vm -- 清空原VM
+		for(var i in options) {
+			if (initSettings.hasOwnProperty(i)) {
+				settings[i] = options[i];
+			}
+		}
+		return $.extend(vm, initSettings, settings);
+	};
+	var setOne = function(key, value) { // 设置一个vm属性
+		vm[key] !== value && (vm[key] = value);
+	};
+	var setUser = function(personId) { // 设置联系人
+		api.contactInfo({
+			gopToken: gopToken,
+			personId: personId
+		}, function(data) {
+			if (data.status == 200) {
+				var name = data.data.remark || data.data.nick;
+				setOne('transferName', name || '未命名用户');
+				setOne('transferImg', data.data.photo || '');
+				setOne('transferAddress', filters.address(data.data.address) || filters.phone(data.data.phone) || '');
+				!name && vm.status === 'SUCCESS' && setOne('ifSetNickname', true); // 显示"设置备注名"的判断, 没有原名且转账成功
+			}
+		});
+	};
 
 	// 数据处理
 	var buyInHandler = function(type, id, options) { // 买入
@@ -143,7 +171,7 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 			var order = data.data.buyinOrder; // 订单
 			var list = data.data.recordList; // 支付
 			var waitForPay = (order.status = options.forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
-			vmSet({
+			setVM({
 				id: id, // 账单ID
 				type: type, // 类型
 				status: order.status, // 订单状态
@@ -187,7 +215,7 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 					item.payGop && (payGop = item.payGop);
 				});
 			}
-			vmSet({
+			setVM({
 				id: id, // 账单ID
 				type: type, // 类型
 				status: order.status, // 订单状态
@@ -216,29 +244,13 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 			gopToken: gopToken,
 			transferInId: id
 		}, function(data) {
-			/*{
-				"data": {
-					"transferIn": {
-						"transferTime": "2016-01-04 17:58:15",
-						"transferAddress": "uga000000",
-						"id": 11,
-						"gopNum": 0.010000,
-						"userId": 23,
-						"status": "SUCCESS",
-						”personId”: 111,
-						”transContent”: ”转账说明”
-					}
-				},
-				"msg": "success",
-				"status": "200"
-			}*/
 			console.log(data);
 			if (!data.data || !data.data.transferIn || data.status != 200) {
 				data.msg && $.alert(data.msg);
 				return;
 			}
 			var order = data.data.transferIn;
-			vmSet({
+			setVM({
 				id: id, // 账单ID
 				type: type, // 类型
 				status: order.status, // 订单状态
@@ -246,12 +258,20 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 				headContent: H5bill.statusTransfer[order.status] + '(G)', // 头部内容
 				transferSign: '+',
 				transferNum: order.gopNum, // 转果仁--果仁数
+				transferIcon: H5bill.transferClass[order.type], // 转果仁--图标
+				transferName: H5bill.transferType[order.type], // 转果仁--名字
+				transferAddress: order.address ? filters.address(order.address) : '', // 转果仁--地址
+				transferStage: H5bill.transferStage[order.status], // 转果仁--阶段
+				transferStart: order.createTime, // 转果仁--创建时间
+				transferOver: order.updateTime === order.createTime ? order.status === 'PROCESSING' ? avalon.filters.date(new Date().setHours(new Date().getHours() + 2), 'yyyy-MM-dd HH:mm:ss') : order.updateTime : order.updateTime, // 转果仁--完成或预计时间
+				transferFailReason: order.failureMsg, // 转果仁--失败原因
 				poundage: order.serviceFee, // 转果仁--手续费
-				failReason: order.failReason, // 失败原因
-				orderTime: order.updateTime, // 交易时间
-				createTime: order.createTime, // 创建时间
+				submitTime: order.status === 'FAILURE' ? order.createTime : '', // 提交时间
 				serialNum: order.serialNum, // 流水号
+				transferDesc: order.transContent, // 转果仁--转账说明
+				ifTip: order.status === 'FAILURE', // 是否显示底部提示
 			}, options);
+			order.personId && setUser(order.personId);
 		});
 	};
 	var transferOutHandler = function(type, id, options) { // 传出
@@ -265,7 +285,8 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 				return;
 			}
 			var order = data.data.transferOut;
-			vmSet({
+			console.log(order.updateTime, order.createTime, order.updateTime == order.createTime)
+			setVM({
 				id: id, // 账单ID
 				type: type, // 类型
 				status: order.status, // 订单状态
@@ -276,21 +297,24 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 				transferIcon: H5bill.transferClass[order.type], // 转果仁--图标
 				transferName: H5bill.transferType[order.type], // 转果仁--名字
 				transferAddress: order.address ? filters.address(order.address) : '', // 转果仁--地址
-				transferImg: '', // 转果仁--头像
+				transferStage: H5bill.transferStage[order.status], // 转果仁--阶段
+				transferStart: order.createTime, // 转果仁--创建时间
+				transferOver: order.updateTime === order.createTime ? order.status === 'PROCESSING' ? avalon.filters.date(new Date().setHours(new Date().getHours() + 2), 'yyyy-MM-dd HH:mm:ss') : order.updateTime : order.updateTime, // 转果仁--完成或预计时间
 				transferFailReason: order.failureMsg, // 转果仁--失败原因
 				poundage: order.serviceFee, // 转果仁--手续费
 				submitTime: order.status === 'FAILURE' ? order.createTime : '', // 提交时间
 				serialNum: order.serialNum, // 流水号
 				transferDesc: order.transContent, // 转果仁--转账说明
-				ifSetNickname: true, // 是否显示"设置备注名"按钮
-				ifTip: true, // 是否显示底部提示
+				ifTip: order.status === 'FAILURE', // 是否显示底部提示
 			}, options);
+			order.personId && setUser(order.personId);
 		});
 	};
 
 	return $.extend(bill, {
 		set: set, // 设置账单
 		// vm: vm, // 账单vm(不建议暴露)
+		onReturnHome: $.noop, // 点击返回首页时(可 return false 取消默认)
 		onFinish: $.noop, // 点击完成时
 		onGotoPay: $.noop, // 点击支付时(可 return false 取消默认)
 		onSetNickname: $.noop, // 点击设置备注名时

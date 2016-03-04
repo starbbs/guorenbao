@@ -16,7 +16,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
     var transfer_new = new View('transfer-new');
     var transfer_contacts = new View('transfer-contacts');
     var transfer_target_view = new View('transfer-target');
-    var transfer_bill = new View('transfer-bill');
     var vm = avalon.define({
         $id: 'transfer',
         hasWallet: false,
@@ -248,7 +247,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                                     console.log("nowData.name" + nowData.name);
                                 } else {
                                     nowData.name = "未命名用户";
-                                    transfer_bill.hasSetup = false;
                                 }
                             } else if (transfer_new.newTarget.indexOf('GOP') >= 0) {
                                 if (data.data.nick) {
@@ -256,7 +254,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                                     console.log("nowData.name" + nowData.name);
                                 } else {
                                     nowData.name = "未命名地址";
-                                    transfer_bill.hasSetup = false;
                                 }
                             }
                         } else {
@@ -404,19 +401,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
                             if (transfer_target.phone) {
                                 nowData.phone = transfer_target.phone;
                             }
-                            console.log(transfer_target.serviceFee);
-                            nowData.name = transfer_target.name;
-                            nowData.photo = transfer_target.photo;
-                            nowData.personId = transfer_target.personId;
-                            nowData.walletId = transfer_target.walletId;
-                            nowData.serviceFee = transfer_target.serviceFee;
-                            nowData.transferNum = transfer_target.transferNum;
-                            nowData.content = transfer_target.content;
-                            nowData.transferOutId = data.data.transferOutId;
-                            nowData.createTime = data.data.createTime;
-                            $.extend(transfer_bill, nowData);
-                            router.go('/view/transfer-bill');
-                            transfer_bill_init(nowData);
                         } else {
                             console.log(data);
                             $.alert(data.msg);
@@ -433,147 +417,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
             }
         },
     });
-    var transfer_bill = avalon.define({
-        $id: 'transfer-bill',
-        address: '',
-        phone: '',
-        name: '未命名地址',
-        photo: './images/picture.png',
-        gopUserNick: '未命名',
-        personId: null,
-        walletId: null,
-        serviceFee: 0.01, //服务费
-        serviceFeeShow:'0.00',
-        transferNum: '', //转果仁数	
-        content: '', //转账说明
-        successFlag: true, //是否提交成功
-        tradeNo: '2015110563563544101', //流水号
-        stage: 'half',
-        transferOutId: null,
-        createTime: new Date(),
-        successTime: new Date(),
-        isSuccess: false,
-        isProcessing: false,
-        hasSetup:true,
-        back_click: function(e) {
-            //router.go('/');
-            window.location.href = 'home.html';
-        },
-        remark_click: function(e) {
-            var nowData = {};
-            nowData.id = transfer_bill.personId;
-            nowData.callback = function() {
-                window.history.back();
-                window.history.back();
-                window.history.back();
-                refresh_list();
-            }
-            $.extend(nickname.vm, nowData);
-            router.go('/view/nickname');
-        }
-    });
-    var transfer_bill_init = function(data) {
-        $('.bill-head').hide();
-        $('.transfer-icon').hide();
-        $('.bill-detail').hide();
-        $('.bill-get-number').removeClass("light");
-        $('.bill-get-label').removeClass("light");
-        $('.bill-get-label').removeClass("ash");
-
-
-        if (vm.transferOutType == 'WALLET_NEW') {
-            //新钱包
-            if (data.photo) {
-                $('.img-w').show();
-            } else {
-                $('.transfer-icon-1').show();
-            }
-        } else if (vm.transferOutType == 'GOP_NEW') {
-            //新果仁宝
-            if (data.photo) {
-                $('.img-w').show();
-            } else {
-                $('.transfer-icon-1').show();
-            }
-        } else if (vm.transferOutType == 'WALLET_CONTACT') {
-            //钱包联系人
-            $('.transfer-icon-5').show();
-        } else if (vm.transferOutType == 'GOP_CONTACT') {
-            //果仁宝联系人
-            $('.img-w').show();
-        } else if (vm.transferOutType == 'GOP_MARKET') {
-            //果仁市场
-            $('.transfer-icon-3').show();
-        } else if (vm.transferOutType == 'ME_WALLET') {
-            //我的钱包
-            $('.transfer-icon-2').show();
-        }
-
-        api.transferQuery({
-            gopToken: gopToken,
-            transferOutId: data.transferOutId
-        }, function(datas) {
-            if (datas.status == 200) {
-                transfer_bill.personId = datas.data.transferOut.personId;
-                transfer_bill.walletId = datas.data.transferOut.walletId;
-                transfer_bill.failureMsg = datas.data.transferOut.failureMsg;
-                transfer_bill.transContent = datas.data.transferOut.transContent;
-                //transfer_bill.serviceFee=datas.data.transferOut.serviceFee;
-                // transfer_bill.address=datas.data.transferOut.address;
-                if(transfer_new.newguorentype){  //true 代表的是钱包地址  false 代表手机号
-                    transfer_bill.serviceFee = 0.01;
-                } else {
-                    transfer_bill.serviceFee = 0;
-                    transfer_bill.serviceFeeShow = '0.00';
-                    transfer_target.serviceFee = 0;
-                }
-                transfer_bill.status = datas.data.transferOut.status;
-                transfer_bill.createTime = datas.data.transferOut.createTime;
-                transfer_bill.updateTime = datas.data.transferOut.updateTime;
-                transfer_bill.tradeNo = datas.data.transferOut.serialNum;
-
-                
-
-                if (transfer_bill.personId) {
-                    $('.remark').show();
-                } else {
-                    $('.remark').hide();
-                }
-                if (transfer_bill.status == 'SUCCESS') {
-                    $('.bill-head.success').show();
-                    $('.bill-get-number').removeClass("light");
-                    $('.bill-get-label').removeClass("light");
-                    $('.bill-detail-success').show();
-                    $('.transfer-bill-desc-right').show();
-                    transfer_bill.stage = 'finish';
-                    transfer_bill.successTip = "";
-                    transfer_bill.isSuccess = true;
-                    //$('.back').hide();
-                } else if (transfer_bill.status == 'PROCESSING') {
-                    $('.bill-head.going').show();
-                    $('.bill-get-number').removeClass("light");
-                    $('.bill-get-label').removeClass("light");
-                    $('.bill-detail-success').show();
-                    $('.transfer-bill-desc-left').show();
-                    transfer_bill.stage = 'half';
-                    var myDate = new Date(); //TODO兼容晚上
-                    myDate.setHours(myDate.getHours() + 2);
-                    transfer_bill.successTime = myDate;
-                    transfer_bill.isProcessing = true;
-                    transfer_bill.hasSetup = false;
-                    //$('.back').hide();
-                } else {
-                    $('.bill-head.fail').show();
-                    $('.bill-get-number').addClass("light");
-                    $('.bill-get-label').addClass("light");
-                    $('.bill-detail-failure').show();
-                    //$('.back').show();
-                }
-            } else {
-                console.log(datas);
-            }
-        });
-    }
     var dataHandler = function(data) {
         var result = {
             arr: [],
@@ -764,10 +607,9 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
         });
     };
     avalon.scan();
+ 
     init();
-    // transfer_target_view.on("root", function() {
-    //     dialogPaypass.hide();
-    // });
+ 
     transfer_target_view.on("hide", function() {
     	dialogPaypass.hide();
         transfer_target.transferNum = '';
@@ -777,27 +619,24 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
         transfer_target.transferNum = '';
         $('.transfer-target-box .text-input').val('');
     });
+ 
     setTimeout(function() {
         transfer.addClass('on');
         if (get.data.from === 'contact') {
             var data = $.cookie('gop_contact');
             if (data) {
                 data = JSON.parse(data); //联系人数据
-                console.log(data);
                 transfer_target.address = data.address;
                 transfer_target.name = data.name;
                 transfer_target.personId = data.id;
                 transfer_target.photo = data.picture;
                 transfer_target.phone = data.phone;
-                console.log("++++++++++++"+transfer_target.phone);
                 if (data.type == "guoren") {
                     vm.transferOutType = "GOP_CONTACT";
                 }
                 if (data.type == "wallet") {
                     vm.transferOutType = "GOP_MARKET";
                 }
-                console.log(transfer_target);
-                console.log(vm.transferOutType);
                 targetInit(vm.transferOutType);
                 router.to('/view/transfer-target');
             } else {

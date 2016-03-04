@@ -28,6 +28,7 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 	 * @param    {[json]}             options                  [api地址]
 	 *           {[function]}         options.callback         [接口固定回调]
 	 *           {[boolean]}          options.asyn             [是否异步请求]
+	 *           {[array]}            options.ignoreStatus     [忽略状态码的默认提示]
 	 * @特点:
 	 *     1.同步请求, 连续请求会自动中断上一个
 	 */
@@ -66,10 +67,10 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 						// alert('1:' + name + ';' + $.cookie('gopToken'));
 						goIndex(true);
 					}
-					if (data.status == 300) { // {msg: "用户登录/验证失败，请重新登录", status: "300"}
+					if (data.status == 300 && options.ignoreStatus.indexOf(300) === -1) { // {msg: "用户登录/验证失败，请重新登录", status: "300"}
 						// alert(2);
 						goIndex(true);
-					} else if (data.status == 304) { // {msg: "服务器异常", status: "300"}
+					} else if (data.status == 304 && options.ignoreStatus.indexOf(304) === -1) { // {msg: "服务器异常", status: "304"}
 						$.alert('服务器异常, 请联系后台人员!');
 					}
 					options.callback && options.callback.call(this, data);
@@ -338,6 +339,11 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 	// 83.获取联系人头像（49.账单列表接口的附加接口）
 	add('billPhoto', '/bill/contentPhoto', {
 		asyn: true // 可同时请求多次
+	});
+
+	// 84.获取联系人信息
+	add('contactInfo', '/contact/info', {
+		ignoreStatus: [304] // 忽略304错误
 	});
 
 	return api;

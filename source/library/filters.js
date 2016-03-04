@@ -3,7 +3,7 @@
 // 过滤器
 
 
-define('filters', function() {
+define('filters', ['check'], function(check) {
 
 	var filters = avalon.filters;
 
@@ -39,6 +39,9 @@ define('filters', function() {
 		},
 		address: function(str, length) { // 地址省略
 			return filters.omit(str, 8, '**********');
+		},
+		phone: function(str) { // 手机省略
+			return check.phone(str).result ? String(str).substr(0,3) + '****' + String(str).substr(-4) : str;
 		},
 	});
 });

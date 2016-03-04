@@ -48,6 +48,12 @@ define('h5-component-bill', function() {
 			ME_WALLET: 'wallet',
 			GOP_MARKET: 'market',
 		},
+		transferStage: { // 转账阶段(同名样式)
+			PROCESSING: 'half',
+			SUCCESS: 'finish',
+			FAILURE: '',
+			CLOSE: '',
+		}
 	};
 	return bill;
 });
