@@ -18,8 +18,9 @@
 	padding: ($g-height-alert - $line-height) / 2 $g-margin;
 	@include t3d(-50%, 15%, 0);
 	opacity: 0;
-	word-break: break-all;
-	max-width: 60%;
+	white-space: nowrap;
+	// word-break: break-all;
+	// max-width: 60%;
 	// min-width: 40%;
 	display: none;
 	&.show {

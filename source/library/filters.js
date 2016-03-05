@@ -7,6 +7,13 @@ define('filters', ['check'], function(check) {
 
 	var filters = avalon.filters;
 
+	var fix = function(name, str, length) { // 保留小数位
+		str = isNaN(parseFloat(str)) ? 0 : parseFloat(str);
+		length = isNaN(parseInt(length)) ? 2 : parseInt(length);
+		var pow = Math.pow(10, length);
+		return ( (Math[name](str * pow)) / pow ).toFixed(length);
+	};
+
 	return $.extend(filters, {
 	// 金额展示
 	// 示例: {{item.moneyChange|sign}} {{item.moneyChange|abs|currency(' ')}} G
@@ -23,9 +30,13 @@ define('filters', ['check'], function(check) {
 			return Math.abs(str);
 		},
 		fix: function(str, length) { // 四舍五入后保留多少位小数
-			str = isNaN(parseFloat(str)) ? 0 : parseFloat(str);
-			length = isNaN(parseInt(length)) ? 2 : parseInt(length);
-			return ((Math.round(str * Math.pow(10, length))) / Math.pow(10, length)).toFixed(length);
+			return fix('round', str, length);
+		},
+		floorFix: function(str, length) { // 去尾后保留多少位小数
+			return fix('floor', str, length);
+		},
+		ceilFix: function(str, length) { // 进一后保留多少位小数
+			return fix('ceil', str, length);
 		},
 		tail: function(str, length) { // 尾数
 			str = typeof str !== 'string' ? '' : parseFloat(str);

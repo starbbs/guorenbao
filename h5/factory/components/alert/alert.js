@@ -16,14 +16,15 @@ define('h5-alert', function() {
 	};
 	handler[$.fx.animationEnd] = callback;
 	handler[$.fx.transitionEnd] = callback;
-	return $.alert = function(message, onHide) {
+	return $.alert = function(message, onHide, onHideTime) {
+		onHideTime === 'half' && (onHideTime = 16);
 		dom.html(message).show();
 		clearTimeout(timer);
 		setTimeout(function() {
 			dom.addClass('show');
 			timer = setTimeout(function() {
 				dom.on(handler).addClass('hide');
-				onHide && setTimeout(onHide, 1000);
+				onHide && setTimeout(onHide, onHideTime || 1000);
 			}, time);
 		}, 10);
 	};

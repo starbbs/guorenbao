@@ -155,15 +155,10 @@ define('check', function() {
 			return value.length >= 6;
 		},
 		paypass: function(value) { // 支付密码格式验证
-			for (var i = 0; i < paypassAvailable.length; i++) {
-				if (paypassAvailable[i][2].test(value) === paypassAvailable[i][1]) {
-					return result(paypassAvailable[i][0]);
-				}
-			}
-			return result('200');
+			return value.length === 6;
 		},
 		paypassCondition: function(value) {
-			return value.length >= 6;
+			return value.length === 6;
 		},
 		paypass2: function(value) { // 支付密码格式验证 -- 旧版
 			if (empty(value)) { return false; }
@@ -191,6 +186,14 @@ define('check', function() {
 			return {
 				result: true
 			};
+		},
+		paypass3: function(value) { // 支付密码格式验证 -- 次版
+			for (var i = 0; i < paypassAvailable.length; i++) {
+				if (paypassAvailable[i][2].test(value) === paypassAvailable[i][1]) {
+					return result(paypassAvailable[i][0]);
+				}
+			}
+			return result('200');
 		},
 		phone: function(value) { // 手机号校验
 			if (empty(value)) { return result('311'); }

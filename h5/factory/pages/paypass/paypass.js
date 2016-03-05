@@ -2,34 +2,141 @@
 // H5微信端 --- 支付密码重置
 
 
-require(['router', 'api', 'h5-view', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-weixin'], function(router, api, View) {
+require(['router', 'api', 'h5-view', 'check', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-weixin'], function(router, api, View, check) {
+
 	router.init(true);
+
 	var gopToken = $.cookie('gopToken');
 	var paypass = $('.paypass-page');
-	var paypass_choose = new View('paypass-choose');
-	var paypass_protection_1 = new View('paypass-protection-1');
-	var paypass_protection_2 = new View('paypass-protection-2');
-	var paypass_authentication = new View('paypass-authentication');
-	var paypass_ident = new View('paypass-ident');
-	var paypass_view_1 = new View('paypass-view-1');
-	var paypass_view_2 = new View('paypass-view-2');
-	var paypass_view_3 = new View('paypass-view-3');
+
+	var paypassChoose = new View('paypass-choose');
+	var paypassProtection1 = new View('paypass-protection-1');
+	var paypassProtection2 = new View('paypass-protection-2');
+	var paypassAuthentication = new View('paypass-authentication');
+	var paypassIdent = new View('paypass-ident');
+	var paypassView1 = new View('paypass-view-1');
+	var paypassView2 = new View('paypass-view-2');
+	var paypassView3 = new View('paypass-view-3');
+
 	var vm = avalon.define({
 		$id: 'paypass',
-		paypass1: '',
-		paypass2: '',
-		paypass3: '',
-		realName: '',
-		Idcard: '',
+
+		paypass1: '', // 双向绑定, input只校验不控制值
+		paypass1Next: false,
+		paypass1Input: function() {
+			vm.paypass1Next = check.paypassCondition(this.value);
+		},
+		paypass1Click: function() {
+			if (vm.paypass1Next && check.paypass(vm.paypass1)) {
+				//验证支付密码
+				api.checkPayPwd({
+					gopToken: gopToken,
+					payPwd: vm.paypass1
+				}, function(data) {
+					if (data.status == 200) {
+						router.go('/view/paypass-view-2');
+					} else {
+						console.log(data);
+						$.alert(data.msg);
+						$('#paypass-1').get(0).focus();
+					}
+				});
+			}
+		},
+		paypass2: '', // 双向绑定, input只校验不控制值
+		paypass2Next: false,
+		paypass2Input: function() {
+			vm.paypass2Next = check.paypassCondition(this.value);
+		},
+		paypass2Click: function() {
+			if (vm.paypass2Next && check.paypass(vm.paypass2)) {
+				router.go('/view/paypass-view-3');
+			}
+		},
+		paypass3: '', // 双向绑定, input只校验不控制值
+		paypass3Next: false,
+		paypass3Input: function() {
+			vm.paypass3Next = check.paypassCondition(this.value);
+		},
+		paypass3Click: function() {
+			if (vm.paypass3Next && check.paypass(vm.paypass3) && vm.paypass2 === vm.paypass3) {
+				api.setPayPassword({
+					gopToken: gopToken,
+					password: vm.paypass3
+				}, function(data) {
+					if (data.status == 200) {
+						vm.paypass1 = '';
+						vm.paypass2 = '';
+						vm.paypass3 = '';
+						vm.Idcard = '';
+						vm.identifyingCode = '';
+						$.alert('修改支付密码成功', function() {
+							window.location.href = './security.html';
+						}, 'half');
+					} else {
+						console.log(data);
+						$.alert(data.msg);
+					}
+				});
+			} else {
+				$.alert("两次输入不一致");
+			}
+		},
+
 		question1: '',
+		quesiotn1Click: function() {
+			api.checkQuestion({
+				gopToken: gopToken,
+				qtNumber: 1,
+				question: vm.question1,
+				answer: vm.answer1
+			}, function(data) {
+				if (data.status == 200) {
+					api.getQuestion({
+						gopToken: gopToken,
+						qusetionNumber: 2
+					}, function(data) {
+						if (data.status == 200) {
+							vm.question2 = data.data.question;
+							router.go('view/paypass-protection-2');
+						} else {
+							console.log(data);
+
+						}
+					});
+
+				} else {
+					console.log(data);
+					$.alert("验证问题错误");
+				}
+			});
+		},
 		question2: '',
+		quesiotn2Click: function() {
+			api.checkQuestion({
+				gopToken: gopToken,
+				qtNumber: 2,
+				question: vm.question2,
+				answer: vm.answer2
+			}, function(data) {
+				if (data.status == 200) {
+					router.go('view/paypass-view-2');
+				} else {
+					console.log(data);
+					$.alert("验证问题错误");
+				}
+			});
+		},
 		answer1: '',
 		answer2: '',
+
+		realName: '',
+		Idcard: '',
 		phone: '',
 		identifyingCode: '',
 		hasProtected: true,
 		chooseUrl: '',
-		checkCode_click: function() {
+		checkCodeClick: function() {
 			if (vm.identifyingCode) {
 				api.phoneIdentifyingCode({
 					gopToken: gopToken,
@@ -71,48 +178,6 @@ require(['router', 'api', 'h5-view', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-we
 				$.alert("请输入验证码");
 			}
 		},
-		quesiotn1_click: function() {
-			api.checkQuestion({
-				gopToken: gopToken,
-				qtNumber: 1,
-				question: vm.question1,
-				answer: vm.answer1
-			}, function(data) {
-				if (data.status == 200) {
-					api.getQuestion({
-						gopToken: gopToken,
-						qusetionNumber: 2
-					}, function(data) {
-						if (data.status == 200) {
-							vm.question2 = data.data.question;
-							router.go('view/paypass-protection-2');
-						} else {
-							console.log(data);
-
-						}
-					});
-
-				} else {
-					console.log(data);
-					$.alert("验证问题错误");
-				}
-			});
-		},
-		quesiotn2_click: function() {
-			api.checkQuestion({
-				gopToken: gopToken,
-				qtNumber: 2,
-				question: vm.question2,
-				answer: vm.answer2
-			}, function(data) {
-				if (data.status == 200) {
-					router.go('view/paypass-view-2');
-				} else {
-					console.log(data);
-					$.alert("验证问题错误");
-				}
-			});
-		},
 		ident: function(view) {
 			vm.chooseUrl = view;
 			//身份证认证				
@@ -134,7 +199,7 @@ require(['router', 'api', 'h5-view', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-we
 				}
 			});
 		},
-		authentication_click: function(e) {
+		authenticationClick: function() {
 			if (vm.Idcard.length == 18) {
 				api.checkIDcard({
 					gopToken: gopToken,
@@ -151,53 +216,10 @@ require(['router', 'api', 'h5-view', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-we
 				$.alert('身份证号码格式错误');
 			}
 		},
-		paypass_click_1: function(e) {
-			if (vm.paypass1.length == 6) {
-				//验证支付密码
-				api.checkPayPwd({
-					gopToken: gopToken,
-					payPwd: vm.paypass1
-				}, function(data) {
-					if (data.status == 200) {
-						router.go('view/paypass-view-2');
-					} else {
-						console.log(data);
-						$.alert(data.msg);
-					}
-				});
-			}
-		},
-		paypass_click_2: function(e) {
-			if (vm.paypass2.length == 6) {
-				router.go('view/paypass-view-3');
-			}
-		},
-		paypass_click_3: function(e) {
-			if (vm.paypass2 == vm.paypass3 && vm.paypass3.length == 6) {
-				api.setPayPassword({
-					gopToken: gopToken,
-					password: vm.paypass3
-				}, function(data) {
-					if (data.status == 200) {
-						$.alert('修改支付密码成功');
-						console.log("dddddddddd")
-						vm.paypass1 = '';
-						vm.paypass2 = '';
-						vm.paypass3 = '';
-						vm.Idcard = '';
-						vm.identifyingCode = '';
-						window.location.href = 'security.html';
-					} else {
-						console.log(data);
-						$.alert(data.msg);
-					}
-				});
-			} else {
-				$.alert("两次输入不一致");
-			}
-		}
 	});
+
 	avalon.scan();
+
 	api.isQuestion({
 		gopToken: gopToken
 	}, function(data) {
@@ -207,7 +229,8 @@ require(['router', 'api', 'h5-view', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-we
 			vm.hasProtected = false;
 		}
 	});
+
 	setTimeout(function() {
 		paypass.addClass('on');
-	});
+	}, 100);
 });
