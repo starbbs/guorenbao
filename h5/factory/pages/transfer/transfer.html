@@ -30,7 +30,7 @@
 					<div class="block-arrow"></div>
 				</div>
 			</div>
-			<div class="transfer-item" ms-click="walletContact_click">
+			<div class="transfer-item" ms-click="walletContactClick">
 				<div class="transfer-icon-5"></div>
 				<div class="transfer-item-line">
 					<div class="block-label">转到钱包联系人</div>
@@ -40,7 +40,7 @@
 		</div>
 		<div class="text-tip-top">最近</div>
 		<div class="block">
-			<div class="transfer-item" ms-repeat-item="list" ms-click="transfer_click" ms-attr-personId="item.personId" ms-attr-transferOutType="item.type" ms-attr-name="item.name" ms-attr-address="item.address" ms-attr-photo="item.photo">
+			<div class="transfer-item" ms-repeat-item="list" ms-click="transferClick" ms-attr-personId="item.personId" ms-attr-transferOutType="item.type" ms-attr-name="item.name" ms-attr-address="item.address" ms-attr-photo="item.photo">
 				<div class="transfer-item-img"><img ms-attr-src="item.photo||'./images/picture.png'" alt="" class="img-w img-w-{item.personId}"></div>
 				<div class="transfer-icon-{{item.icon}}"></div>
 				<div class="transfer-item-line">
