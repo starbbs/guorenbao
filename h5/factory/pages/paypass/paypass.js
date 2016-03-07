@@ -29,7 +29,6 @@ require(['router', 'api', 'h5-view', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-we
 		identifyingCode: '',
 		hasProtected: true,
 		chooseUrl: '',
-		//手机验证步骤  进入密保或实名回答
 		checkCode_click: function() {
 			if (vm.identifyingCode) {
 				api.phoneIdentifyingCode({
@@ -114,7 +113,6 @@ require(['router', 'api', 'h5-view', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-we
 				}
 			});
 		},
-		//通过密保或实名修改密码  进入短信验证页面
 		ident: function(view) {
 			vm.chooseUrl = view;
 			//身份证认证				
@@ -136,7 +134,6 @@ require(['router', 'api', 'h5-view', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-we
 				}
 			});
 		},
-		//身份证验证
 		authentication_click: function(e) {
 			if (vm.Idcard.length == 18) {
 				api.checkIDcard({
@@ -154,7 +151,6 @@ require(['router', 'api', 'h5-view', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-we
 				$.alert('身份证号码格式错误');
 			}
 		},
-		//密码修改完成第1步
 		paypass_click_1: function(e) {
 			if (vm.paypass1.length == 6) {
 				//验证支付密码
@@ -171,13 +167,11 @@ require(['router', 'api', 'h5-view', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-we
 				});
 			}
 		},
-		//密码修改完成第2步
 		paypass_click_2: function(e) {
 			if (vm.paypass2.length == 6) {
 				router.go('view/paypass-view-3');
 			}
 		},
-		//密码修改完成第3步
 		paypass_click_3: function(e) {
 			if (vm.paypass2 == vm.paypass3 && vm.paypass3.length == 6) {
 				api.setPayPassword({
@@ -192,8 +186,7 @@ require(['router', 'api', 'h5-view', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-we
 						vm.paypass3 = '';
 						vm.Idcard = '';
 						vm.identifyingCode = '';
-						window.history.go(-4);
-						//window.location.href = 'security.html';
+						window.location.href = 'security.html';
 					} else {
 						console.log(data);
 						$.alert(data.msg);

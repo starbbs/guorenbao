@@ -10,10 +10,10 @@
 						<div class="account-time-small">{{day.time}}</div>
 					</div>
 					<div class="account-list">
-						<div class="account-item" ms-repeat-bill="day.bills" ms-data-id="bill.id" ms-data-type="bill.originType">
+						<div class="account-item" ms-repeat-bill="day.bills" ms-data-id="bill.id" ms-data-type="bill.originType" ms-data-name="bill.name" ms-data-img="bill.img">
 							<div class="account-img">
 								<img ms-visible="bill.img" ms-attr-src="bill.img" alt="" class="img-w">
-								<div ms-visible="!bill.img" class="account-icon"  ms-class="{{bill.type}}"></div>
+								<div ms-visible="!bill.img" class="account-icon"  ms-class="{{bill.iconClass||bill.type}}"></div>
 							</div>
 							<div class="account-main">
 								<div class="account-left">

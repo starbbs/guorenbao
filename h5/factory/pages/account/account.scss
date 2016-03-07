@@ -95,6 +95,9 @@ body {
 		&.phone {
 			@include sprite($img + '/1.png', 36px);
 		}
+		&.wallet {
+			@include sprite($img + '/4.png', 36px);
+		}
 	}
 	&-main {
 		height: 100%;

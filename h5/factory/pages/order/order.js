@@ -3,13 +3,13 @@
 
 
 require(['api', 'get', 'router',
-		'h5-view', 'h5-bankcard-append', 'h5-view-authentication',
+		'h5-view', 'h5-bankcard-append', 'h5-view-authentication', 'h5-view-bill',
 		'h5-price', 'h5-bank', 'h5-ident', 'h5-component-bill',
 		'h5-dialog-bankcard', 'h5-dialog-paypass', 'h5-dialog-more',
 		'h5-weixin'
 	],
 	function(api, get, router,
-		View, viewBankcardAppend, viewAuthentication,
+		View, viewBankcardAppend, viewAuthentication, billView,
 		price, H5Bank, H5Ident, H5Bill,
 		dialogBankcard, dialogPaypass, dialogMore) {
 
@@ -17,7 +17,6 @@ require(['api', 'get', 'router',
 
 		var main = $('.order');
 		var gopToken = $.cookie('gopToken');
-		var viewBill = new View('order-bill');
 		var identInput = $('#order-ident');
 
 		var vm = avalon.define({
@@ -93,15 +92,9 @@ require(['api', 'get', 'router',
 						payPassword: value, // 支付密码
 					}, function(data) {
 						if (data.status == 200) {
-							api.query({
-								gopToken: gopToken,
-								consumeOrderId: get.data.id
-							}, function(data) {
-								if (data.status == 200) {
-									showBill(data.data);
-								} else {
-									$.alert(data.msg);
-								}
+							router.to('/view/bill');
+							billView.set('PAY', get.data.id, {
+								ifFinishButton: true
 							});
 						} else {
 							$.alert(data.msg);
@@ -110,64 +103,6 @@ require(['api', 'get', 'router',
 				};
 			}
 		});
-
-		var vmBill = avalon.define({
-			$id: 'order-bill',
-			status: '', // 订单状态(头部class)
-			headContent: '', // 标题
-			failReason: '', // 失败原因
-			orderMoney: 0, // 订单金额
-			payMoney: 0, // 支付金额
-			payGop: 0, // 支付果仁
-			productDesc: '', // 商品描述
-			createTime: '', // 创建时间
-			orderTime: '', // 交易时间
-			orderId: '', // 订单ID
-			orderCode: '', // 订单编号
-			finish: function() { // 完成
-				window.location.href = 'home.html';
-			},
-			showMore: function() { // 显示更多
-				dialogMore.show();
-			}
-		});
-
-		var showBill = function(data) { // 显示订单详情
-			// data是来自于query接口的数据(data.data)
-			var order = data.consumeOrder; // 订单信息
-			var product = data.product || {}; // 商品信息
-			var record = data.recordList || []; // 支付记录(是个数组, 包含人民币和果仁)
-			vmBill.status = H5Bill.statusClass[order.status];
-			vmBill.headContent = H5Bill.statusBusiness[order.status];
-			vmBill.failReason = record.reduce(function(result, item) {
-				if (item.payMoney) { vmBill.payMoney = item.payMoney; }
-				if (item.payGop) { vmBill.payGop = item.payGop; }
-				return result = H5Bill.statusClass[item.tradeStatus] === 'fail' ? item.payResult : result;
-			}, '');
-			vmBill.orderMoney = order.orderMoney || 0;
-			vmBill.productDesc = product.productDesc || '';
-			vmBill.createTime = order.createTime;
-			vmBill.orderTime = order.updateTime;
-			vmBill.orderCode = order.orderCode;
-			if (vmBill.status === 'success') {
-				var list = [{
-					left: '订单号',
-					right: order.orderCode
-				}];
-				record.forEach(function(item, i) {
-					if (record.length > 1) {
-						list.push({
-							left: i + 1 + '/' + record.length + ' 流水号',
-							right: item.tradeNo
-						});
-					}
-				});
-				dialogMore.vm.list = list;
-			}
-			setTimeout(function() {
-				router.to('/view/order-bill');
-			}, 100);
-		};
 
 		var bankSelect = function(bank) { // 处理当前显示
 			bank = bank || vm.bankSelect.$model;

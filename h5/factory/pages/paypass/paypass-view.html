@@ -5,7 +5,7 @@
 		@@if(step==3){再次输入六位支付密码，并牢记}
 	</div>
 	<div class="paypass">
-		<input class="paypass-input" id="paypass-@@step" name="paypass-@@step" autocomplete="off" maxlength="6" type="tel" ms-duplex="paypass@@step">
+		<input class="paypass-input" id="paypass-@@step" name="paypass-@@step" autocomplete="off" maxlength="6" type="tel" ms-duplex="paypass@@step" ms-on-input="paypass@@stepInput">
 		<div class="paypass-box">
 			<div class="paypass-item"></div>
 			<div class="paypass-item"></div>
@@ -15,7 +15,7 @@
 			<div class="paypass-item"></div>
 		</div>
 		<div class="paypass-button">
-			<span class="button" ms-class="disabled:!ifNext@@step" ms-click="paypass_click_@@step">下一步</span>
+			<span class="button" ms-class="disabled:!paypass@@stepNext" ms-click="paypass@@stepClick">下一步</span>
 		</div>
 	</div>
 </div>

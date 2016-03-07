@@ -1,74 +1,74 @@
 @@include('../../../source/include/top.html', {"name": "transfer"})
 <div class="screen-r">
-    <div class="transfer" ms-controller="transfer">
-        <div class="block">
-            <div class="transfer-item" ms-click="newTarget_click">
-                <div class="transfer-icon-1"></div>
-                <div class="transfer-item-line">
-                    <div class="block-label">转到新目标</div>
-                    <div class="block-arrow"></div>
-                </div>
-            </div>
-            <div class="transfer-item" ms-click="myWallet_click">
-                <div class="transfer-icon-2"></div>
-                <div class="transfer-item-line">
-                    <div class="block-label">转到我的钱包</div>
-                    <div class="block-arrow"></div>
-                </div>
-            </div>
-            <div class="transfer-item" ms-click="marketWallet_click">
-                <div class="transfer-icon-3"></div>
-                <div class="transfer-item-line">
-                    <div class="block-label">转到果仁市场</div>
-                    <div class="block-arrow"></div>
-                </div>
-            </div>
-            <div class="transfer-item" ms-click="gopContact_click">
-                <div class="transfer-icon-4"></div>
-                <div class="transfer-item-line">
-                    <div class="block-label">转到果仁宝联系人</div>
-                    <div class="block-arrow"></div>
-                </div>
-            </div>
-            <div class="transfer-item" ms-click="walletContact_click">
-                <div class="transfer-icon-5"></div>
-                <div class="transfer-item-line">
-                    <div class="block-label">转到钱包联系人</div>
-                    <div class="block-arrow"></div>
-                </div>
-            </div>
-        </div>
-        <div class="text-tip-top">最近</div>
-        <div class="block">
-            <div class="transfer-item" ms-repeat-item="list" ms-click="transfer_click" ms-attr-personId="item.personId" ms-attr-transferOutType="item.type" ms-attr-name="item.name" ms-attr-address="item.address" ms-attr-photo="item.photo">
-                <div class="transfer-item-img"><img ms-attr-src="item.photo||'./images/picture.png'" alt="" class="img-w img-w-{item.personId}"></div>
-                <div class="transfer-icon-{{item.icon}}"></div>
-                <div class="transfer-item-line">
-                    <div class="block-label">{{item.name}}</div>
-                    <div class="transfer-item-address">{{item.addressStr}}</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="view">
-        <!-- 果仁市场地址设置 -->
-        @@include('../../views/address/address-mine.html')
-        <!-- 钱包地址设置-->
-        @@include('../../views/address/address-wallet.html')
-        <!-- 地址 -->
-        @@include('./transfer-contacts.html') @@include('./transfer-new.html')
-        <!-- 转账 -->
-        @@include('./transfer-target.html')
-        <!-- 账单 -->
-        @@include('./transfer-bill.html')
-        <!-- 实名认证 -->
-        @@include('../../views/authentication/authentication.html')
-        <!-- 备注名称 -->
-        @@include('../../views/nickname/nickname.html',{"label":"备注名","placeholder":"请输入备注名"})
-    </div>
-    <div class="alert"></div>
-    <div class="dialog">
-        @@include('../../dialogs/paypass/paypass.html')
-    </div>
+	<div class="transfer" ms-controller="transfer">
+		<div class="block">
+			<div class="transfer-item" ms-click="newTargetClick">
+				<div class="transfer-icon-1"></div>
+				<div class="transfer-item-line">
+					<div class="block-label">转到新目标</div>
+					<div class="block-arrow"></div>
+				</div>
+			</div>
+			<div class="transfer-item" ms-click="myWalletClick">
+				<div class="transfer-icon-2"></div>
+				<div class="transfer-item-line">
+					<div class="block-label">转到我的钱包</div>
+					<div class="block-arrow"></div>
+				</div>
+			</div>
+			<div class="transfer-item" ms-click="marketWalletClick">
+				<div class="transfer-icon-3"></div>
+				<div class="transfer-item-line">
+					<div class="block-label">转到果仁市场</div>
+					<div class="block-arrow"></div>
+				</div>
+			</div>
+			<div class="transfer-item" ms-click="gopContactClick">
+				<div class="transfer-icon-4"></div>
+				<div class="transfer-item-line">
+					<div class="block-label">转到果仁宝联系人</div>
+					<div class="block-arrow"></div>
+				</div>
+			</div>
+			<div class="transfer-item" ms-click="walletContactClick">
+				<div class="transfer-icon-5"></div>
+				<div class="transfer-item-line">
+					<div class="block-label">转到钱包联系人</div>
+					<div class="block-arrow"></div>
+				</div>
+			</div>
+		</div>
+		<div class="text-tip-top">最近</div>
+		<div class="block">
+			<div class="transfer-item" ms-repeat-item="list" ms-click="transferClick" ms-attr-personId="item.personId" ms-attr-transferOutType="item.type" ms-attr-name="item.name" ms-attr-address="item.address" ms-attr-photo="item.photo">
+				<div class="transfer-item-img"><img ms-attr-src="item.photo||'./images/picture.png'" alt="" class="img-w img-w-{item.personId}"></div>
+				<div class="transfer-icon-{{item.icon}}"></div>
+				<div class="transfer-item-line">
+					<div class="block-label">{{item.name}}</div>
+					<div class="transfer-item-address">{{item.addressStr}}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="view">
+		<!-- 果仁市场地址设置 -->
+		@@include('../../views/address/address-mine.html')
+		<!-- 钱包地址设置-->
+		@@include('../../views/address/address-wallet.html')
+		<!-- 地址 -->
+		@@include('./transfer-contacts.html') @@include('./transfer-new.html')
+		<!-- 转账 -->
+		@@include('./transfer-target.html')
+		<!-- 账单 -->
+		@@include('../../views/bill/bill.html')
+		<!-- 实名认证 -->
+		@@include('../../views/authentication/authentication.html')
+		<!-- 备注名称 -->
+		@@include('../../views/nickname/nickname.html',{"label":"备注名","placeholder":"请输入备注名"})
+	</div>
+	<div class="alert"></div>
+	<div class="dialog">
+		@@include('../../dialogs/paypass/paypass.html')
+	</div>
 </div>
 @@include('../../../source/include/bottom.html', {"name": "transfer"})

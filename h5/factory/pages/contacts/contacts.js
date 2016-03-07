@@ -183,7 +183,7 @@ require(['router', 'api', 'h5-view', 'h5-view-nickname', 'h5-weixin'], function(
         address: '',
         phone: '',
         name: '',
-        picture: '',
+        picture: './images/picture.png',
         gopUserNick: '',
         id: '',
         transfer: function() {

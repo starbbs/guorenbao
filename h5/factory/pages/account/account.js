@@ -148,11 +148,13 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		var type = H5bill.typeClass[item.type];
 		var bill = {
 			id: item.businessId,
-			img: '',
+			img: '', // 头像
+			name: '', // 姓名
 			desc: item.businessDesc,
 			status: H5bill.statusBusiness[item.status],
 			type: type,
-			originType: item.type
+			originType: item.type,
+			iconClass: '',
 		};
 		var types = {
 			money: 'money',
@@ -162,13 +164,25 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			money: '¥',
 			gop: 'G'
 		}
-		if (type == 'transfer' && item.extra) { // 转账加头像
-			bill.img = item.extra.photo || '';
-			bill.desc = item.extra.name ? '转账 - ' + item.extra.name : bill.desc;
+		if (type === 'transfer' && item.extra) {
+			bill.img = item.extra.photo || ''; // 转账头像
+			if (item.extra.name) { // 转账目标
+				bill.desc += ' - ' + item.extra.name
+				bill.name = item.extra.name;
+			}
+			if (item.extra.transferOutType === 'ME_WALLET' || item.extra.transferInType === 'ME_WALLET') {
+				bill.desc += ' - 我的钱包'
+				bill.iconClass = 'wallet';
+			}
 		}
-		if (type == 'phone' && kind == 'gop') { // 修改money数据, 使其变为人民币支付金额
-			item.money = item.gopNumber * item.gopPrice - item.money;
-			Math.abs(item.money) < 0.01 && (item.money = 0);
+		if (type === 'phone') {
+			if (kind === 'gop') { // 修改money数据, 使其变为人民币支付金额
+				item.money = item.gopNumber * item.gopPrice - item.money;
+				Math.abs(item.money) < 0.01 && (item.money = 0);
+			}
+			if (item.extra && item.extra.phoneInfo) {
+				item.extra.phoneInfo.carrier && (bill.desc += ' - ' + item.extra.phoneInfo.carrier); // 运营商
+			}
 		}
 		bill.change = numHandler(item[types[kind]], coins[kind]);
 		bills.push(bill);
@@ -220,7 +234,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		}, []);
 	};
 	var numHandler = function(number, unit) { // 数值处理
-		return (number > 0 ? '+' : '-') + ' ' + unit + ' ' + Math.abs(filters.fix(number));
+		return (number > 0 ? '+' : '-') + ' ' + unit + ' ' + filters.fix(Math.abs(number));
 	};
 	// 处理 getList 的工具方法 -- 结束
 
@@ -239,7 +253,10 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			var target = $(ev.target).closest('.account-item');
 			if (target.length) {
 				var data = target.get(0).dataset;
-				billView.set(data.type, data.id);
+				var options = {};
+				data.name && (options.transferName = data.name);
+				data.img && (options.transferImg = data.img);
+				billView.set(data.type, data.id, options);
 				router.go('/view/bill');
 			}
 		}

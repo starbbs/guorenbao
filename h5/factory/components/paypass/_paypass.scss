@@ -26,18 +26,19 @@
 		margin-bottom: 20px;
 	}
 	&-input {
-		@extend %afull;
-		z-index: 1;
-		opacity: 0;
-		font-size: 0;
-		line-height: 50px;
-		color: transparent;
-		box-sizing: border-box;
-		padding-left: $width + 10px;
-		overflow: hidden;
+		@include square(100%);
+		position: relative;
+		z-index: 100;
+		opacity: 0; // ios光标浮现
+		font-size: 0; // ios光标浮现
+		color: transparent; // ios光标浮现
+		line-height: 50px; // ios光标浮现
+		// box-sizing: border-box;
+		// padding-left: $width + 10px;
+		// overflow: hidden;
 	}
 	&-box {
-		@include square(100%);
+		@extend %afull;
 		display: flex;
 		border: 1px solid $g-blue-border;
 		box-sizing: border-box;

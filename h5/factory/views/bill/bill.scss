@@ -21,23 +21,19 @@
 		$h: 2px;
 		position: relative;
 		margin-top: 5px;
-		padding: 5px $g-padding 0;
+		padding: 5px $g-padding 28px;
 		background-color: $g-white;
 		font-size: 14px;
 		color: $g-ash;
 		border-top: $g-border;
-		border-bottom: $g-border;
-		&.last {
-			border-bottom: $h solid $g-background;
-			padding-bottom: 28px;
-			&:after {
-				content: '';
-				display: block;
-				@include atlw(100%);
-				height: $h;
-				background: url('../images/purchase-1.png') repeat-x;
-				background-size: auto $h;
-			}
+		border-bottom: $h solid $g-background;
+		&:after {
+			content: '';
+			display: block;
+			@include atlw(100%);
+			height: $h;
+			background: url('../images/purchase-1.png') repeat-x;
+			background-size: auto $h;
 		}
 	}
 	&-head { // 头部
@@ -106,6 +102,134 @@
 			font-size: 12px;
 			margin-top: 18px;
 			margin-bottom: 16px;
+		}
+	}
+	&-target { // 转账目标
+		$height: 56px;
+		line-height: 1;
+		&-left {
+			float: left;
+			@include square(50%, $height);
+			position: relative;
+		}
+		&-right {
+			height: $height;
+			float: left;
+			margin-left: -18px;
+		}
+		&-bottom {
+			clear: both;
+			border-top: $g-border;
+			border-bottom: $g-border;
+			height: 5px;
+			background-color: $g-background;
+			margin-left: - $g-padding;
+			margin-right: - $g-padding;
+		}
+		&-img {
+			@include atr(10px, 32px);
+			// @include square(35px);
+			border-radius: 50%;
+			overflow: hidden;
+		}
+		&-icon {
+			@include sprite(null, 34px);
+			display: block;
+			&.address { // 钱包地址
+				@include sprite($img + '/7.png')
+			}
+			&.wallet { // 我的钱包
+				@include sprite($img + '/5.png');
+			}
+			&.market { // 果仁市场
+				@include sprite($img + '/6.png');
+			}
+		}
+		&-name {
+			font-size: 14px;
+			color: $g-dark;
+			margin-top: 12px;
+		}
+		&-address {
+			font: 10px $g-font-num;
+			color: $g-ash;
+			margin-top: 6px;
+		}
+	}
+	&-stage { // 转账阶段
+		$init: $g-silver;
+		$finish: #2acea2;
+		$line: '';
+		height: 2px;
+		background-color: $init;
+		margin: 35px 6px 0;
+		position: relative;
+		&:before {
+			content: '';
+			display: block;
+			@include atl(-2px);
+			@include square(6px);
+			background-color: $init;
+			border-radius: 50%;
+			z-index: 1;
+		}
+		&:after {
+			content: '';
+			display: block;
+			@include atr(-5px);
+			@include sprite($img + '/8.png', 12px);
+			z-index: 1;
+		}
+		&-line {
+			$line: & + '';
+			@include square(0, 100%);
+			background-color: $finish;
+		}
+		&.half {
+			&:before {
+				background-color: $finish;
+			}
+			#{$line} {
+				width: 50%;
+			}
+		}
+		&.finish {
+			&:before {
+				background-color: $finish;
+			}
+			#{$line} {
+				width: 100%;
+			}
+			&:after {
+				@include sprite($img + '/9.png', 12px);
+			}
+		}
+	}
+	&-desc { // 转账阶段描述
+		color: $g-silver;
+		line-height: 1;
+		margin-top: 20px;
+		overflow: hidden;
+		padding-bottom: 30px;
+		border-bottom: $g-border;
+		&-left {
+			float: left;
+			margin-left: 5px;
+		}
+		&-right {
+			float: right;
+			margin-right: 5px;
+			text-align: right;
+		}
+		&-name {
+			font-size: 14px;
+			&.green {
+				color: #2acea2;
+			}
+		}
+		&-time {
+			font-size: 10px;
+			margin-top: 8px;
 		}
 	}
 	&-reason { // 失败原因
@@ -189,6 +313,10 @@
 	&-more { // 更多
 		text-align: center;
 		margin-top: 30px;
+	}
+	&-tip { // 底部提示
+		line-height: 1.5;
+		text-align: center;
 	}
 }
 
