@@ -158,6 +158,26 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 	};
 
 	// 数据处理
+	var orderHandler = function(type, id, order, waitForPay) { // 统一处理的账单数据
+		return {
+			id: id, // 账单ID
+			type: type, // 类型
+			status: order.status, // 订单状态
+			headClass: H5bill.statusClass[order.status], // 头部样式名
+			headContent: H5bill.statusBusiness[order.status], // 头部内容
+			waitForPay: waitForPay, // 等待支付
+			failReason: order.status == 'FAILURE' ? order.payResult : '', // 失败原因
+			closeReason: order.status == 'CLOSE' ? order.payResult : '', // 关闭原因
+			orderMoney: order.orderMoney, // 订单金额
+			orderTime: order.updateTime === order.createTime ? '' : order.updateTime, // 交易时间
+			createTime: order.updateTime ? '' : order.createTime, // 创建时间
+			orderCode: order.orderCode, // 订单号
+			serialNum: order.serialNum, // 流水号
+			// payType: H5bill.payType[order.payType], // 支付方式
+			ifPayButton: waitForPay, // 是否显示"前往支付"按钮
+			ifClose: waitForPay, // 是否显示"关闭"
+		};
+	};
 	var buyInHandler = function(type, id, options) { // 买入
 		api.queryBuyinOrder({
 			gopToken: gopToken,
@@ -171,28 +191,12 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 			var order = data.data.buyinOrder; // 订单
 			var list = data.data.recordList; // 支付
 			var waitForPay = (order.status = options.forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
-			setVM({
-				id: id, // 账单ID
-				type: type, // 类型
-				status: order.status, // 订单状态
-				headClass: H5bill.statusClass[order.status], // 头部样式名
-				headContent: H5bill.statusBusiness[order.status], // 头部内容
-				waitForPay: waitForPay, // 等待支付
+			setVM($.extend(orderHandler(type, id, order, waitForPay), {
 				gopNum: order.gopNum, // 买果仁--果仁数
 				gopPrice: order.price, // 买果仁--成交价
 				buyMoney: order.payMoney, // 买果仁--支付金额
-				failReason: order.status == 'FAILURE' ? order.payResult : '', // 失败原因
-				closeReason: order.status == 'CLOSE' ? order.payResult : '', // 关闭原因
-				orderMoney: order.orderMoney, // 订单金额
 				productDesc: order.businessDesc, // 商品信息
-				orderTime: order.orderTime, // 交易时间
-				createTime: order.createTime, // 创建时间
-				orderCode: order.orderCode, // 订单号
-				serialNum: order.serialNum, // 流水号
-				// payType: H5bill.payType[order.payType], // 支付方式
-				ifPayButton: waitForPay, // 是否显示"前往支付"按钮
-				ifClose: waitForPay, // 是否显示"关闭"
-			}, options);
+			}), options);
 		});
 	};
 	var consumeHandler = function(type, id, options) { // 消费
@@ -215,28 +219,12 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 					item.payGop && (payGop = item.payGop);
 				});
 			}
-			setVM({
-				id: id, // 账单ID
-				type: type, // 类型
-				status: order.status, // 订单状态
-				headClass: H5bill.statusClass[order.status], // 头部样式名
-				headContent: H5bill.statusBusiness[order.status], // 头部内容
-				waitForPay: waitForPay, // 等待支付
-				failReason: order.status == 'FAILURE' ? order.payResult : '', // 失败原因
-				closeReason: order.status == 'CLOSE' ? order.payResult : '', // 关闭原因
-				orderMoney: order.orderMoney, // 订单金额
+			setVM($.extend(orderHandler(type, id, order, waitForPay), {
 				payMoney: payMoney, // 支付金额
 				payGop: payGop, // 支付果仁数
 				productDesc: product.productDesc, // 商品信息
-				orderTime: order.orderTime, // 交易时间
-				createTime: order.createTime, // 创建时间
-				orderCode: order.orderCode, // 订单号
-				serialNum: order.serialNum, // 流水号
-				// payType: H5bill.payType[order.payType], // 支付方式
-				ifPayButton: waitForPay, // 是否显示"前往支付"按钮
 				ifRePayButton: order.status == 'FAILURE', // 是否显示"重新支付"按钮
-				ifClose: waitForPay, // 是否显示"关闭"
-			}, options);
+			}), options);
 		});
 	};
 	var transferHandler = function(type, id, order) { // 统一处理的转账数据

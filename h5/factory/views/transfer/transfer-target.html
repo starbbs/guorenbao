@@ -1,0 +1,57 @@
+<div class="transfer-target" ms-controller="transfer-target">
+    <div class="transfer-target-head my-wallet">
+		<div class="transfer-icon-2-big"></div>
+		<div class="transfer-target-head-name">我的钱包</div>
+		<div class="transfer-target-head-address">{{address.substr(0,8)+'**********'}}</div>
+	</div>
+	<div class="transfer-target-head gop-market">
+		<div class="transfer-icon-3-big"></div>
+		<div class="transfer-target-head-name">果仁市场</div>
+		<div class="transfer-target-head-address">{{address.substr(0,8)+'**********'}}</div>
+	</div>
+	<div class="transfer-target-head phone-address">
+		<div class="transfer-target-head-img"><img ms-attr-src="photo" alt="" class="img-w"></div>
+		<div class="transfer-target-head-name">{{name}}</div>
+		<div class="transfer-target-head-address">{{phone.substr(0,3)+'****'+phone.substr(7,4)}}</div>
+	</div>
+	<div class="transfer-target-head wallet-address">
+		<div class="transfer-icon-5-big"></div>
+		<div class="transfer-target-head-name">{{name}}</div>
+		<!--<div class="transfer-target-head-address">{{address.substr(0,8)+'**********'}}</div>-->
+		<div class="transfer-target-head-address">{{addressToPhone}}</div>
+	</div>
+	<div class="transfer-target-box wallet">
+		<div class="transfer-target-box-title">转出数量</div>
+		<div class="transfer-target-box-fee">手续费 G 0.01</div>
+		<div class="transfer-target-box-line">
+			<div class="text">
+				<span class="font-label">G</span>
+				<div class="text-box"><input id="address-mine-input-1" name="address-mine-input-1" class="text-input" autocomplete="off" ms-attr-placeholder="现可用果仁{{parseFloat(gopNum)|fix}}" type="number" maxlength="10" data-text='close|formatTwoDecimalPlaces' ms-on-input="getCnyMoney" ms-duplex="transferNum"></div>
+				<div class="text-close"></div>
+			</div>
+		</div>
+		<!-- <div class="transfer-target-box-tip" ms-visible="!isMarket">手续费 G 0.01</div> -->
+		<div class="transfer-target-box-tip">约合RMB {{cnyMoney|fix}}</div>
+	</div>
+	<div class="transfer-target-box gop">
+		<div class="transfer-target-box-title">转出数量
+			<div class="transfer-target-box-fee">手续费 G 0.00</div>
+		</div>
+		<div class="transfer-target-box-line">
+			<div class="text">
+				<span class="font-label">G</span>
+				<div class="text-box"><input id="address-mine-input-2" name="address-mine-input-2" class="text-input" autocomplete="off" ms-attr-placeholder="现可用果仁{{parseFloat(gopNum)|fix}}" type="number" maxlength="10" data-text='close' ms-on-input="getCnyMoney" ms-duplex="transferNum"></div>
+				<div class="text-close"></div>
+			</div>
+		</div>
+		<div class="transfer-target-box-tip">约合RMB {{cnyMoney|fix}}</div>
+	</div>
+	<div class="transfer-target-detail">
+		<div class="text">
+			<div class="text-label">转账说明</div>
+			<div class="text-box"><input id="address-mine-input" name="address-mine-input" class="text-input" autocomplete="off" placeholder="20个字以内" type="text" maxlength="20" data-text='close' ms-duplex="content"></div>
+			<div class="text-close"></div>
+		</div>
+	</div>
+	<div class="text-button"><span class="button" ms-class="disabled:notchecked" ms-click="transferCommitClick">转账</span></div>
+</div>
