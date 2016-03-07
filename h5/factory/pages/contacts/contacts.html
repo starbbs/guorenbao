@@ -3,7 +3,7 @@
 	<div class="contacts" ms-controller="contacts">
 		<form class="contacts-search" action="javascript:;"  ms-on-submit="submit">
 			<div class="contacts-search-icon" ms-visible="!search">搜索</div>
-			<input type="search" class="contacts-search-input" ms-duplex="search">
+			<input type="search" id="contacts-search-input" class="contacts-search-input" ms-duplex="search">
 		</form>
 		<div class="contacts-tabs">
 			<div class="contacts-tabs-item on" ms-click="tab('guoren')">果仁宝联系人</div>
@@ -26,7 +26,10 @@
 			</div>
 		</div>
 	</div>
-	@@include('../../components/nav/nav.html', { "name": "contacts" })
+	@@include('../../components/nav/nav.html', {
+		"name": "contacts",
+		"keyboard": "hide(contacts-search-input)"
+	})
 	<div class="view">
 		@@include('./contacts-people.html')
 		@@include('../../views/nickname/nickname.html', {

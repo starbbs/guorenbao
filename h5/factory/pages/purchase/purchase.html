@@ -21,8 +21,6 @@
 								data-text="close|formatTwoDecimalPlaces"
 								ms-attr-value="money"
 								ms-on-input="gopBuyValidate"
-								ms-on-focus="focus"
-								ms-on-blur="blur"
 							/>
 						</div>
 						<div class="text-close" ms-click="moneyClear"></div>
@@ -31,7 +29,7 @@
 				<div class="purchase-main-item">预计买入　{{expect}}</div>
 			</div>
 			<div class="text-button"><span class="button" ms-class="disabled:!ifBuy" ms-click="buy">买入</span></div>
-			<div class="purchase-main-foot" ms-visible="ifBottomShow">以即时市场价格快速买入果仁<br>实际成交价格以结算时为准</div>
+			<div class="purchase-main-foot" data-keyboard="hide(purchase-main-money)">以即时市场价格快速买入果仁<br>实际成交价格以结算时为准</div>
 		</div>
 	</div>
 	<div class="view">

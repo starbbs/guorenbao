@@ -2,7 +2,7 @@
 // H5微信端 --- 个人首页
 
 
-require(['router', 'api', 'h5-view', 'h5-view-nickname', 'h5-weixin'], function(router, api, View, nickname) {
+require(['router', 'api', 'h5-view', 'h5-view-nickname', 'h5-weixin', 'h5-component-keyboard'], function(router, api, View, nickname) {
 
     router.init(true);
 
@@ -176,7 +176,7 @@ require(['router', 'api', 'h5-view', 'h5-view-nickname', 'h5-weixin'], function(
             nowData = contacts.list[arr[0]].list[arr[1]];   
             $.extend(people, nowData.$model);
             router.go('/view/contacts-people');
-        }
+        },
     });
     var people = avalon.define({
         $id: 'contacts-people',
@@ -206,14 +206,10 @@ require(['router', 'api', 'h5-view', 'h5-view-nickname', 'h5-weixin'], function(
             nickname.vm.id = people.id;
             nickname.vm.name = people.name;
             router.go('/view/nickname');
-        }
+        },
     });
     nickname.onFinish = function() {
         people.name = nowData.name = nickname.vm.name; // 同步
-        console.log(people.name);
-        console.log(nowData.name);
-        console.log(nickname.vm.name);
-        console.log(nickname.vm.nickname);
         people.name = nowData.name = nickname.vm.nickname;
         tabs.guoren.list.length = tabs.wallet.list.length = 0; // 重新请求
     };

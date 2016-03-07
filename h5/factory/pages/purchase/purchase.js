@@ -45,13 +45,6 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		money: '', // 买入金额
 		ifBuy: false, // 是否可购买
 		expect: '', // 预计购买
-		ifBottomShow: true, // 是否显示底部文字
-		focus: function() {
-			vm.ifBottomShow = false;
-		},
-		blur: function() {
-			vm.ifBottomShow = true;
-		},
 		moneyClear: function() {
 			vm.money = '';
 		},

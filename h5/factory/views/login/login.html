@@ -4,7 +4,7 @@
         <div class="login-main-item">
             <div class="text">
                 <label class="text-label" for="login-mobile">帐号</label>
-                <div class="text-box"><input id="login-mobile" class="text-input" autocomplete="off" placeholder="请输入注册手机号" type="tel" maxlength="11" data-text='close' ms-on-focus="focus" ms-on-blur="blur"></div>
+                <div class="text-box"><input id="login-mobile" class="text-input" autocomplete="off" placeholder="请输入注册手机号" type="tel" maxlength="11" data-text='close'></div>
                 <div class="text-close"></div>
             </div>
         </div>
@@ -18,5 +18,5 @@
         </div>
     </div>
     <div class="login-button" ms-click="click"><span class="button">登录</span></div>
-    <div class="login-forget" ms-visible="forgetShow"><a href="#!/view/password-forget" class="a-blue">忘记密码</a></div>
+    <div class="login-forget" data-keyboard="hide(login-mobile)"><a href="#!/view/password-forget" class="a-blue">忘记密码</a></div>
 </div>

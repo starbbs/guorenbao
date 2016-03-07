@@ -5,22 +5,22 @@
 	window.onfocus = function() {
 		'getGopNum' in _root && _root.getGopNum();
 	};
-	require(['router', 'api', 'h5-price', 'h5-weixin','touch-slide'], function(router, api, price,weixin,TouchSlide) {
+	require(['router', 'api', 'h5-price', 'h5-weixin', 'touch-slide'], function(router, api, price, weixin, TouchSlide) {
 		router.init(true);
 		var gopToken = $.cookie('gopToken');
 		var main = $('.home');
 		var vm = avalon.define({
 			$id: 'home',
-			defaultIndex:0,
+			defaultIndex: 0,
 			price: 0,
 			priceChange: 0,
-			visible_ok:eval($.cookie('gopHomeEye')),    //true==close
+			visible_ok: eval($.cookie('gopHomeEye')), //true==close
 			visibleChange: function() {
 				vm.visible_ok = !vm.visible_ok;
-				$.cookie('gopHomeEye',vm.visible_ok);
+				$.cookie('gopHomeEye', vm.visible_ok);
 			},
 			gopNum: 0,
-			bannerImgArr:[]
+			bannerImgArr: []
 		});
 		avalon.scan(main.get(0), vm);
 
@@ -30,10 +30,10 @@
 				vm.bannerImgArr = data.data.indexSlideAds;
 				setTimeout(function() {
 					TouchSlide({
-						slideCell:'#touchSlide',
-						autoPlay:true,
-						mainCell:'.home-banner-bd',
-						titCell:'.home-banner-hd-li'
+						slideCell: '#touchSlide',
+						autoPlay: true,
+						mainCell: '.home-banner-bd',
+						titCell: '.home-banner-hd-li'
 					});
 				}, 100);
 			}

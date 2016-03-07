@@ -1,6 +1,5 @@
-
 // 张树垚 2015-12-27 17:37:42 创建
-// H5微信端 --- components-text
+// H5微信端 --- components-text 文本控制插件组
 
 
 define('h5-text', ['check'], function(check) {
@@ -13,17 +12,16 @@ define('h5-text', ['check'], function(check) {
 	var checkSafe = function(input, safe) {
 		var value = input.val();
 		var level = !value ? 0 : ('低中高'.indexOf(check.safe(value)) + 1); // 1,2,3
-
 		safe.get(0).className = 'text-safe' + ' s' + level;
 	};
-	var checkFormatTwoDecimalPlaces = function(input){
+	var checkFormatTwoDecimalPlaces = function(input) {
 		var val = input.val();
 		var decimalFlag = val.indexOf('.');
 		right_splitLength = val.toString().split('.').length;
-		if(decimalFlag==-1){
+		if (decimalFlag === -1) {
 			return;
 		}
-		if(decimalFlag!=-1&&right_splitLength>=2) {
+		if (decimalFlag !== -1 && right_splitLength >= 2) {
 			val = Number(parseFloat(val)).toFixed(2);
 			input.val(val);
 		}
@@ -59,13 +57,13 @@ define('h5-text', ['check'], function(check) {
 			var safe = input.closest('.text').find('.text-safe');
 			checkSafe(input, safe);
 		},
-		formatTwoDecimalPlaces: function(input){
-			input = $(input).on('blur',function(){
+		formatTwoDecimalPlaces: function(input) {
+			input = $(input).on('blur', function() {
 				checkFormatTwoDecimalPlaces(input);
 			});
 		}
 	};
-	var scan = function(context) { 
+	var scan = function(context) {
 		$('input[data-text]', context).each(function(i, input) {
 			input.dataset.text.split('|').forEach(function(name) {
 				name in bind ? bind[name](input) : console.log('[Error] h5-text "' + name + '" do not exist!');

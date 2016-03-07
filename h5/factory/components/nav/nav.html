@@ -1,4 +1,4 @@
-<div class="nav">
+<div class="nav" @@if(typeof keyboard !== 'undefined'){data-keyboard="@@keyboard"}>
 	<div class="nav-item@@if(name==='home'){ on}">
 		<a href="@@if(name==='home'){javascript:;}@@if(name!=='home'){home.html}" class="nav-link">
 			<div class="nav-icon"><i class="nav-home"></i></div>

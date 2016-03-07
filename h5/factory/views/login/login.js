@@ -9,13 +9,6 @@ define('h5-view-login', ['h5-view', 'check', 'api', 'h5-view-password', 'h5-text
 		$id: 'view-login',
 		userNick: '袋鼠',
 		userImage: '',
-		forgetShow: true,
-		focus: function() {
-			vm.forgetShow = false;
-		},
-		blur: function() {
-			vm.forgetShow = true;
-		},
 		click: function() {
 			var phone = $('#login-mobile').val();
 			var phoneResult = check.phone(phone);

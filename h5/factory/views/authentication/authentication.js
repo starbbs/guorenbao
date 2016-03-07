@@ -14,8 +14,7 @@ define('h5-view-authentication', ['h5-view', 'api', 'h5-text', 'cookie'], functi
 		next_click: function() {
 			var reg1 = /^[\u2E80-\u9FFF]+$/; //Unicode编码中的汉字范围
 			if (!reg1.test(vm.realName)) {
-				$.alert('请输入中文名');
-				return;
+				return $.alert('请输入中文名');
 			}
 			var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
 			if (reg.test(vm.Idcard)) {
