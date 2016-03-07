@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>果仁宝</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no, email=no">
+<link rel="stylesheet" href="http://static.goopal.com.cn/gmgc/css/style.css">
+</head>
+
+<body>
+<!--授权-->
+
+<!--还有红包可抢-->
+<div id="wechat_some" style="display:none;">
+	<div class="top">
+    	<img src="http://static.goopal.com.cn/gmgc/images/top.png" alt="">
+    </div>
+    <div class="red_bag">
+    	<img src="http://static.goopal.com.cn/gmgc/images/red_bag.png" alt="">
+    </div>
+    <div class="money_infor">
+    	<p><span></span>元</p>
+        <p>一点心意，请笑纳</p>
+        <p>奖金已存入微信零钱</p>
+    </div>
+</div>
+<!--没有红包可抢-->
+<div id="wechat_none" style="display:none;">
+	<div class="top">
+    	<img src="http://static.goopal.com.cn/gmgc/images/top_none.png" alt="">
+    </div>
+    <div class="red_bag">
+    	<img src="http://static.goopal.com.cn/gmgc/images/red_bag_none.png" alt="">
+    </div>
+    <div class="money_infor_none">
+    	<p><span></span></p>
+        <p>礼金已送完</p>
+        <p>感谢你的关注</p>
+    </div>
+</div>
+<div id="need_follow" style="display:none;">
+	<div class="top">
+    	<img src="http://static.goopal.com.cn/gmgc/images/top_need_follow.png" alt="">
+    </div>
+    <div class="red_bag">
+    	<img src="http://static.goopal.com.cn/gmgc/images/red_bag_need_fllow.png" alt="">
+    </div>
+    <div class="money_infor_none">
+    	<p><span></span></p>
+        <p>关注后即可获得红包哦</p>
+        <p></p>
+    </div>
+</div>
+<div class="resize">
+	<img src="http://static.goopal.com.cn/gmgc/images/resize_tips.png" alt="">
+</div>
+<script type="text/javascript" src="http://static.goopal.com.cn/gmgc/js/zepto.min.js"></script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+var href = window.location.href;
+var ajaxUrl = 'http://116.213.142.87:8080/';
+
+//横竖屏
+resize = function(onVertical, onHorizontal) { // 横竖屏
+	var onResize = function() {
+		if (window.orientation == 180 || window.orientation == 0 || window.innerHeight > window.innerWidth) { // 竖屏
+			onVertical && onVertical();
+		}
+		if (window.orientation == 90 || window.orientation == -90 || window.innerHeight <= window.innerWidth) { // 横屏
+			onHorizontal && onHorizontal();
+		}
+	}
+	window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", onResize, false);
+	onResize();
+};
+//通过url获取code串码
+function getCode(hrefArg){
+	var hrefArr = hrefArg.substring(href.indexOf('?')+1).split('&');
+	var codeStr = hrefArr[0].substring(hrefArr[0].indexOf('=')+1);
+	return codeStr;
+};
+
+//获取奖励
+$.ajax({
+	url: ajaxUrl+'/gmgc/gift',
+	type: 'post',
+	data: JSON.stringify({
+		code: getCode(href)
+	}),
+	dataType: 'json',
+	success: function(data) {
+		if (data.status == 200) {
+			//用户是否关注
+			if(data.data.subscribe==0){
+				$('#need_follow').css('display','block');
+			}else if( data.data.money>0){
+				$('#wechat_some').css('display','block');
+				$('.money_infor p span').eq(0).html(data.data.money);				
+			}else if(data.data.money==-1){
+				$('#wechat_none').css('display','block');
+			}
+		}
+	}
+});
+
+//屏蔽分享等功能
+$.ajax({
+	url: ajaxUrl+'/gmgc/weixin/signature',
+	type: 'post',
+	data: JSON.stringify({
+		url:href 
+	}),
+	dataType: 'json',
+	success: function(data) {
+		if(data.status == 200) {
+			var returnData = data.data.signatureData;
+			wx.config({
+				debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+				signature:returnData.signature, // 必填，签名，见附录1
+				appId:returnData.appId, // 必填，公众号的唯一标识
+				url:returnData.url,
+				nonceStr:returnData.nonceStr, // 必填，生成签名的随机串
+				timestamp:returnData.timestamp, // 必填，生成签名的时间戳
+				jsApiList: [ // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+					'hideOptionMenu',
+					'hideMenuItems'
+				]
+			});
+			wx.ready(function() {
+				wx.hideOptionMenu(); // 隐藏右上角菜单接口
+				wx.hideMenuItems({
+					menuList: [ // 批量隐藏功能按钮接口
+						// 传播类
+						"menuItem:share:appMessage", // 发送给朋友
+						"menuItem:share:timeline", // 分享到朋友圈
+						"menuItem:share:qq", // 分享到QQ
+						"menuItem:share:weiboApp", // 分享到Weibo
+						"menuItem:share:facebook", // 分享到FB
+						"menuItem:share:QZone", // 分享到 QQ 空间
+						// 保护类
+						"menuItem:delete", // 删除
+						"menuItem:originPage", // 原网页
+						"menuItem:openWithQQBrowser", // 在QQ浏览器中打开
+						"menuItem:openWithSafari", // 在Safari中打开
+					]
+				});
+			});//end for wx.ready 
+		}
+	}
+});
+
+//横竖屏判断
+var resizeTipsBox = $('.resize');
+resize(function() {
+	resizeTipsBox.hide(); // 竖屏
+}, function() {
+	resizeTipsBox.show(); // 横屏
+});
+</script>
+</body>
+</html>

@@ -72,7 +72,7 @@ require(['router', 'api', 'h5-view', 'hashMap',
 			}, 100);
 		}
 	});
-
+	console.log(View);
 	var bankcard_detail = new View('bankcard-detail');
 	var bankcardDetailViewModel = avalon.define({
 		$id: 'bankcard-detail',

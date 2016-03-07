@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>果仁宝</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no, email=no">
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/avalon.js"></script>
+<script type="text/javascript" src="js/require.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<style type="text/css">
+.on{ color:red;}
+</style>
+</head>
+
+<body>
+	<div class="checkphone" ms-controller="checkphone">
+		<p>国家地区<input type="text" placeholder="+86 中国"></p>
+		<p>
+        	手机号码<input type="text" placeholder="请输入手机号码" ms-duplex="phoneNum" ms-on-input="checkphone()">
+        	<a href="javascript:;" ms-class="on:getValBtn" ms-on-click="getval()">获取验证码</a>
+        </p>
+		<p>验证码<input type="text" placeholder="请输入验证码" ms-duplex="value" ms-on-input="checkval()"></p>
+        <p><a href="javascript:;" ms-class="on:nextBok" ms-click="nextstep()">下一步</a></p>
+        <p>请绑定手机来完成登录</p>
+	</div>
+</body>
+<script type="text/javascript" src="js/checkphone.js"></script>
+</html>

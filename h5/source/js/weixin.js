@@ -63,6 +63,7 @@ define('h5-weixin', ['api', 'h5-alert'], function(api) {
 			}
 		},
 	};
+	//end for weixin_json
 	api.weixinInfo({
 		url: (function() {
 			var href = window.location.href;
@@ -167,9 +168,8 @@ define('h5-weixin', ['api', 'h5-alert'], function(api) {
 						"menuItem:share:brand", // 一些特殊公众号
 					]
 				});
-				weixin.setShare();
 			});
-		} else {
+		} else {					//状态码分支
 			console.log(data);
 		}
 	});

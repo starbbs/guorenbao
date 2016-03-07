@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>果仁宝</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no, email=no">
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/avalon.js"></script>
+<script type="text/javascript" src="js/require.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<style type="text/css">
+.on{ color:red;}
+.hide{ display:none}
+</style>
+</head>
+
+<body ms-controller='login'>
+<p><input type="text" ms-duplex-string="name" placeholder="请输入用户名name">{{name}}</p>
+<p><input type="text" ms-duplex-string="password" placeholder="请输入密码name">{{password}}</p>
+<input type="button" ms-on-click="loginFn()" value="请登录">
+<div class="view">
+    @@include('./userinfor.html');
+</div>
+</body>
+<script type="text/javascript" src="js/login.js"></script>
+</html>
