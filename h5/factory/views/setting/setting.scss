@@ -38,6 +38,10 @@
 			flex: 1;
 			position: relative;
 		}
+		&-tips{
+			 margin-top: 10px;
+			 margin-bottom: 10px;
+		}
 		&-text {
 			@extend %afull;
 			resize: none;

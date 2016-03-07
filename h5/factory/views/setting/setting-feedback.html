@@ -1,7 +1,14 @@
 <!-- 反馈 -->
 <div class="setting-feedback">
     <div class="setting-feedback-box">
-		<div class="setting-feedback-main"><textarea class="setting-feedback-text" placeholder="＃果仁宝意见反馈＃" ms-duplex="feedback">＃果仁宝意见反馈＃</textarea></div>
-		<div class="setting-feedback-button"><span class="button" ms-click="feedback_click">发送</span></div>
+		<div class="setting-feedback-main">
+			<textarea class="setting-feedback-text" placeholder="＃果仁宝意见反馈＃" ms-on-input="input" ms-duplex="feedback">＃果仁宝意见反馈＃</textarea>
+		</div>
+		<div class="setting-feedback-tips">
+			您还可输入10/{{textNum}}个文字！
+		</div>
+		<div class="setting-feedback-button">
+			<span class="button" ms-click="feedback_click">发送</span>
+		</div>
 	</div>	
 </div>

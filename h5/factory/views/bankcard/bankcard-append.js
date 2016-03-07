@@ -53,12 +53,12 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 							}
 							if(!checkValidBankList(vm.bankName)){//在上面数组中查找是否支持输入的银行卡
 								vm.checked = true;
-								$.alert('不支持该银行');
+								$.alert('抱歉，暂不支持本张银行卡，请更换一张');
 							}
 						}else{
 							vm.cardTypeStr = '信用卡';
 							vm.checked = true;
-							$.alert('不支持信用卡支付');
+							$.alert('抱歉，暂不支持信用卡支付，请更换一张');
 						}
 						$('.banknameAndcardtypestr').text(vm.bankName + 　' ' + 　vm.cardTypeStr);
 					} else {

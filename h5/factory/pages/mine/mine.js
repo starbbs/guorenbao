@@ -54,6 +54,8 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 		setMarketAddress: false, //正在设置果仁市场地址标志
 		marketGopAddress: '', //果仁市场地址
 		internalGopAddress: '',
+		textNum:140,//可输入的文字个数上线
+		abserveBok:true,//用户输入文字个数的 双向绑定开关
 		nick_click: function() {
 			nick.nickname = vm.nickname;
 			router.go('/view/nickname');
@@ -118,8 +120,15 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 				}
 			});
 		},
-
-	});
+		input:function(){
+			if(this.value.length>=140){
+				vm.abserveBok = false;
+				this.value = this.value.substring(0,140);
+				console.log(this.value.length);
+			}
+			vm.textNum = 140 - this.value.length;
+		}
+	})
 
 	var nick = avalon.define({
 		$id: 'nickname',
