@@ -11,6 +11,7 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 	var _validBankList;  		 //存放后台传过来支持的银行类型
 	api.static(function(data){	
 		if(data.status==200){
+			console.log(data.data.validBankList);
 			_validBankList = data.data.validBankList;
 		}
 	});							//判断用户的卡号是否在支持的银行类型中
@@ -34,23 +35,23 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 		phoneStr: '',
 		identifyingCode: '',
 		callback: $.noop,
-		check: function(e) {							
-			if (check.cardCondition(this.value)) {		
-				api.checkBankCard({						
+		check: function(e) {	//添加银行卡第一步  卡号检测				
+			if (check.cardCondition(this.value)) {//检测卡位数	16或19位
+				api.checkBankCard({//检测银行卡类型
 					bankCard: this.value
 				}, function(data) {
 					if (data.status == 200) {
 						vm.bankName = data.data.bankName;
 						vm.cardType = data.data.cardType;
-						if (data.data.cardType == 'SAVINGS_DEPOSIT_CARD') {
+						if (data.data.cardType == 'SAVINGS_DEPOSIT_CARD') {//储蓄 || 信用卡
 							vm.cardTypeStr = '储蓄卡';
 							var reg = /^0?1[3|4|5|8|7][0-9]\d{8}$/;
 							if (reg.test(vm.phone)) {
-								vm.checked = false;
+								vm.checked = false;  //手机号码初步正确
 							} else {
 								vm.checked = true;
 							}
-							if(!checkValidBankList(vm.bankName)){
+							if(!checkValidBankList(vm.bankName)){//在上面数组中查找是否支持输入的银行卡
 								vm.checked = true;
 								$.alert('不支持该银行');
 							}
