@@ -9,7 +9,7 @@
 		</div>
 		<div class="block-item" ms-visible="setMarketAddress">
             <div class="text">
-                <div class="text-box"><input id="address-mine-input" name="address-mine-input" class="text-input" autocomplete="off" placeholder="请输入果仁市场地址" type="tel" maxlength="70" data-text='close' ms-duplex="marketGopAddress"></div>
+                <div class="text-box"><input id="address-mine-input-focusa" name="address-mine-input" class="text-input" autocomplete="off" placeholder="请输入果仁市场地址" type="tel" maxlength="70" data-text='close' ms-duplex="marketGopAddress"></div>
                 <div class="text-close"></div>
             </div>
             <div class="address-finish" ms-click="marketAddress_save_click">完成</div>
@@ -20,7 +20,7 @@
 		</div>
 	</div>
 	<div class="text-button" ms-visible="hasStepNext"><span class="button" ms-click="address_mine_next" ms-visible="callback">下一步</span></div>
-	<div class="address-bottom-tips">
+	<div class="address-bottom-tips" data-keyboard="hide(address-mine-input-focusa)">
 		<span>请前往<a href="http://www.goopal.net.cn">www.goopal.net.cn</a></span>
 		<span>获取果仁市场地址</span>
 	</div>

@@ -1,7 +1,7 @@
 
 // 余效俭 2016-01-11 17:26:56 创建
 // H5微信端 --- 我的
-define('h5-view-address-wallet', ['router', 'api','h5-view','check','h5-alert','h5-text'], function(router, api,View,check) {
+define('h5-view-address-wallet', ['router', 'api','h5-view','check','h5-alert','h5-text','h5-component-keyboard'], function(router, api,View,check) {
     var gopToken = $.cookie('gopToken');
 	var address_wallet = new View('address-wallet');
 	var vm=address_wallet.vm = avalon.define({
