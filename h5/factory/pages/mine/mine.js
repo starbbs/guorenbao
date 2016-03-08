@@ -124,7 +124,7 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 				this.value = this.value.substring(0,140);
 				console.log(this.value.length);
 			}
-			vm.textNum = (this.value.length) +'/'+(140 - this.value.length);
+			vm.textNum = this.value.length +'/'+(140);
 		}
 	})
 
