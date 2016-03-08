@@ -51,9 +51,16 @@ define('h5-ident', ['api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], 
 					self.html(time + '秒后重发');
 				}
 			}, 1000);
-			api[apiName](typeof apiData === 'function' ? apiData() : apiData, function(data) {
-				$.alert(data.status == 200 ? '验证码发送成功' : data.msg);
-			});
+			var array = apiName.split('!');
+			switch(array[1]) {
+				case 'regist':
+					alert(1)
+					break;
+				default:
+					api[array[0]](typeof apiData === 'function' ? apiData() : apiData, function(data) {
+						$.alert(data.status == 200 ? '验证码发送成功' : data.msg);
+					});
+			}
 		}).removeAttr('data-ident');
 	};
 	/**
@@ -79,7 +86,7 @@ define('h5-ident', ['api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], 
 							return {
 								gopToken: gopToken,
 								bankId: vm[arr[1]]
-							}
+							};
 						});
 					}, 300);
 				} else if (arr[2] === 'token') { // 根据gopToken --- a|b|token
@@ -99,10 +106,12 @@ define('h5-ident', ['api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], 
 					});
 				}, 300);
 			} else {
-				var phoneInput = $('#' + arr[0]);
+				var array = arr[0].split('!');
+				var phoneInput = $('#' + array[0]);
 				_bind(item, function() {
 					return !h5Check.phone(phoneInput);
-				}, 'sendCode', function() {
+				}, 'sendCode' + (array.length > 1 ? ('!' + array[1]) : ''), function() {
+				// }, 'sendCode', function() {
 					return { phone: phoneInput.val() };
 				});			
 			}

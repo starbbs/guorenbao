@@ -11,12 +11,12 @@ require(['router', 'api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h
 	var selectVM = select.vm = avalon.define({
 		$id: 'index-select',
 		userNick: '', // 微信昵称
-		userImage: '' // 微信头像
+		userImage: '', // 微信头像
 	});
 	avalon.scan(select.native, selectVM);
 
 	var gotoAuthorization = function() { // 跳转授权页, 未授权
-		return
+		return;
 		setTimeout(function() {
 			window.location.href = authorization.default;
 		}, 100);

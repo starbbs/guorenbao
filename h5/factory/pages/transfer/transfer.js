@@ -2,11 +2,11 @@
 // H5微信端 --- 转果仁
 
 
-require(['router', 'api', 'h5-view', 'h5-price', 'get',
+require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 	'h5-view-nickname', 'h5-view-address-mine', 'h5-view-address-wallet', 'h5-view-bill',
 	'h5-dialog-paypass',
 	'h5-text', 'h5-view-authentication', 'h5-weixin'
-], function(router, api, View, price, get,
+], function(router, api, View, price, get, filters,
 	nickname, address_mine, address_wallet, billView,
 	dialogPaypass) {
 
@@ -337,6 +337,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
 		serviceFee: 0.01, // 服务费
 		serviceFeeShow: 0.01,
 		transferNum: '', // 转果仁数	
+		floorFix: filters.floorFix,
 		gopNum: 0, // 拥有果仁数	
 		price: 0, // 实价
 		cnyMoney: 0, // 约合人民币

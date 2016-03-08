@@ -60,7 +60,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			if (data.status == 200) {
 				vm.loading = false;
 				vm.list = dataHandler(originList = originList.concat(data.data.list));
-				// getPhotos();
+				// vm.list.pushArray(dataHandler(data.data.list));
 				page = data.data.list.length < size ? 0 : page + 1; // 是否停止请求
 				callback && callback(data);
 				!main.hasClass('on') && setTimeout(function() {

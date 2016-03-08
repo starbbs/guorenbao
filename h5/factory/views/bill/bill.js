@@ -152,7 +152,7 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 				var name = data.data.remark || data.data.nick;
 				setOne('transferName', name || '未命名用户');
 				setOne('transferImg', data.data.photo || '');
-				setOne('transferAddress', filters.address(data.data.address) || filters.phone(data.data.phone) || '');
+				setOne('transferAddress', filters.phone(data.data.phone) || filters.address(data.data.address) || '');
 				!name && vm.status === 'SUCCESS' && setOne('ifSetNickname', true); // 显示"设置备注名"的判断, 没有原名且转账成功
 			}
 		});
