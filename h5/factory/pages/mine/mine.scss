@@ -56,6 +56,10 @@ body {
 			overflow: hidden;
 			@include square(75px);
 			margin: 8px auto;
+			& img{
+				border-radius: 50%;
+				overflow: hidden;
+			}
 		}
 		&-name {
 			font-size: 18px;
