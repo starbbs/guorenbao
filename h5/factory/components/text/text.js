@@ -10,6 +10,7 @@ define('h5-text', ['check'], function(check) {
 		input[input.attr('type') === 'text' ? 'removeClass' : 'addClass']('on');
 	};
 	var checkSafe = function(input, safe) {
+		//safe为一个代表密码级别div
 		var value = input.val();
 		var level = !value ? 0 : ('低中高'.indexOf(check.safe(value)) + 1); // 1,2,3
 		safe.get(0).className = 'text-safe' + ' s' + level;
@@ -53,6 +54,7 @@ define('h5-text', ['check'], function(check) {
 		safe: function(input) {
 			input = $(input).on('input', function() {
 				checkSafe(input, safe);
+				console.log(safe);
 			});
 			var safe = input.closest('.text').find('.text-safe');
 			checkSafe(input, safe);
