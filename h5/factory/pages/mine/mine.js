@@ -15,13 +15,18 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 	var setting_feedback = new View('setting-feedback');
 	var setting_agreement = new View('setting-agreement');
 
-
+	var dbclickOrLongpress = '';   //安卓为长按, ios为双击, 在zepto的$.os对象中可判断浏览器
+	if($.os.ios){
+		dbclickOrLongpress = '双击';
+	}else if($.os.android){
+		dbclickOrLongpress = '长按';
+	}
 
 	setting.on('show', function() {
 		console.log('show')
 	});
 	setting.on('hide', function() {
-		console.log('hide')
+		console.log('hide');
 	});
 
 	address_mine.vm.setSuccess = function() {
@@ -54,6 +59,7 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 		setMarketAddress: false, //正在设置果仁市场地址标志
 		marketGopAddress: '', //果仁市场地址
 		internalGopAddress: '',
+		dbclickOrLongpress:dbclickOrLongpress,
 		textNum:'0/140',//可输入的文字个数上线
 		nick_click: function() {
 			nick.nickname = vm.nickname;
