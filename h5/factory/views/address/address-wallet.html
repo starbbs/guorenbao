@@ -3,8 +3,12 @@
 	<div class="block">
 		<div class="block-item address-wallet-item address-item"  ms-repeat-item="walletList"  ms-attr-data-top="{{item.defaultWallet}}">
 			<div class="block-label">{{item.address.substr(0,8)+'**********'}}</div>
-			<div class="address-top" ms-attr-data-id="{{item.id}}" ms-click="walletAddress_top_click" ms-if-loop="!$first">置顶</div>
-			<div class="address-del" ms-attr-data-id="{{item.id}}" ms-click="walletAddress_del_click">删除</div>
+			<div class="address-top" ms-attr-data-id="{{item.id}}" ms-click="walletAddress_top_click" ms-if-loop="!$first">
+				置顶
+			</div>
+			<div class="address-del" ms-attr-data-id="{{item.id}}" ms-click="walletAddress_del_click">
+				删除
+			</div>
 		</div>
 	</div>
 	<div>
@@ -19,10 +23,18 @@
 	                <div class="text-box"><input id="address-mine-input" name="address-mine-input" class="text-input" autocomplete="off" placeholder="请输入钱包地址" type="text" maxlength="70" data-text='close' ms-duplex="walletAddress"></div>
 	                <div class="text-close"></div>
 	            </div>
-	            <div class="address-finish" ms-click="walletAddress_save_click">完成</div>
+	            <div class="address-finish" ms-click="walletAddress_save_click">
+	            	完成
+	            </div>
 			</div>
 		</div>
 		
 	</div>
-	<div class="text-button" ms-visible="hasStepNext"><span class="button" ms-click="address_wallet_next">下一步</span></div>
+	<div class="text-button" ms-visible="hasStepNext">
+		<span class="button" ms-click="address_wallet_next">下一步</span>
+	</div>
+	<div class="address-bottom-tips">
+		<span>添加并设置默认的钱包地址</span>
+		<span>可以方便快速地将壮怀中的果仁转至您的钱包</span>
+	</div>
 </div>
