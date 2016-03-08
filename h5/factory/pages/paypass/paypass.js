@@ -28,6 +28,7 @@ require(['router', 'api', 'h5-view','get', 'h5-ident', 'h5-paypass', 'h5-text', 
 		phone: '',
 		identifyingCode: '',
 		hasProtected: true,
+		hasRealName: true,
 		chooseUrl: '',
 		checkCode_click: function() {
 			if (vm.identifyingCode) {
@@ -207,6 +208,23 @@ require(['router', 'api', 'h5-view','get', 'h5-ident', 'h5-paypass', 'h5-text', 
 			vm.hasProtected = false;
 		}
 	});
+	
+	//身份证认证				
+	api.info({
+		gopToken: gopToken
+	}, function(data) {
+		if (data.status == 200) {
+			if (data.data.realname && data.data.realname!='') {
+				vm.hasRealName = true;
+			}else{
+				vm.hasRealName = false;
+			}
+		} else {
+			console.log(data);
+			$.alert(data.msg);
+		}
+	});
+	
 	setTimeout(function() {
 		paypass.addClass('on');
 		if(get.data && get.data.from){
