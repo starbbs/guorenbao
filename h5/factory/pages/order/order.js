@@ -94,6 +94,7 @@ require(['api', 'get', 'router',
 						if (data.status == 200) {
 							router.to('/view/bill');
 							billView.set('PAY', get.data.id, {
+								forceStatus: 'PROCESSING',
 								ifFinishButton: true
 							});
 						} else {

@@ -63,8 +63,11 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 			}
 		},
 		finish: function() { // 完成 -- 完成按钮只有在买果仁流程的最后一步会显示
-			bill.onFinish();
-			router.go('/');
+			if (bill.onFinish() === false) {
+
+			} else {
+				window.location.href = './home.html';
+			}
 		},
 		gotoPay: function() { // 前往支付
 			if (bill.onGotoPay() === false) {
@@ -294,7 +297,7 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 		set: set, // 设置账单
 		// vm: vm, // 账单vm(不建议暴露)
 		onReturnHome: $.noop, // 点击返回首页时(可 return false 取消默认)
-		onFinish: $.noop, // 点击完成时
+		onFinish: $.noop, // 点击完成时(可 return false 取消默认)
 		onGotoPay: $.noop, // 点击支付时(可 return false 取消默认)
 		onSetNickname: $.noop, // 点击设置备注名时
 	});
