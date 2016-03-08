@@ -24,6 +24,7 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 		transferAddress: '', // 转果仁--地址
 		transferImg: '', // 转果仁--头像
 		transferStage: '', // 转果仁--阶段
+		transferTime: '', // 转果仁--到账时间
 		transferStart: '', // 转果仁--创建时间
 		transferOver: '', // 转果仁--完成或预计时间
 		transferFailReason: '', // 转果仁--失败原因
@@ -158,7 +159,7 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 	};
 
 	// 数据处理
-	var orderHandler = function(type, id, order, waitForPay) { // 统一处理的账单数据
+	var orderHandler = function(type, id, order, waitForPay, list) { // 统一处理的账单数据
 		return {
 			id: id, // 账单ID
 			type: type, // 类型
@@ -172,7 +173,9 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 			orderTime: order.updateTime === order.createTime ? '' : order.updateTime, // 交易时间
 			createTime: order.updateTime ? '' : order.createTime, // 创建时间
 			orderCode: order.orderCode, // 订单号
-			serialNum: order.serialNum, // 流水号
+			serialNum: $.isArray(list) ? list.map(function(item) {
+				return item.tradeNo;
+			}).join('<br>') : order.serialNum,
 			// payType: H5bill.payType[order.payType], // 支付方式
 			ifPayButton: waitForPay, // 是否显示"前往支付"按钮
 			ifClose: waitForPay, // 是否显示"关闭"
@@ -184,6 +187,7 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 			buyinOrderId: id,
 			payType: 'WEIXIN_MP_PAY'
 		}, function(data) {
+			console.log(data);
 			if (!data.data || !data.data.buyinOrder || data.status != 200) {
 				data.msg && $.alert(data.msg);
 				return;
@@ -191,7 +195,7 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 			var order = data.data.buyinOrder; // 订单
 			var list = data.data.recordList; // 支付
 			var waitForPay = (order.status = options.forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
-			setVM($.extend(orderHandler(type, id, order, waitForPay), {
+			setVM($.extend(orderHandler(type, id, order, waitForPay, list), {
 				gopNum: order.gopNum, // 买果仁--果仁数
 				gopPrice: order.price, // 买果仁--成交价
 				buyMoney: order.payMoney, // 买果仁--支付金额
@@ -204,6 +208,7 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 			gopToken: gopToken,
 			consumeOrderId: id
 		}, function(data) {
+			console.log(data);
 			if (!data.data || !data.data.consumeOrder || data.status != 200) {
 				data.msg && $.alert(data.msg);
 				return;
@@ -219,7 +224,7 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 					item.payGop && (payGop = item.payGop);
 				});
 			}
-			setVM($.extend(orderHandler(type, id, order, waitForPay), {
+			setVM($.extend(orderHandler(type, id, order, waitForPay, list), {
 				payMoney: payMoney, // 支付金额
 				payGop: payGop, // 支付果仁数
 				productDesc: product.productDesc, // 商品信息
@@ -233,12 +238,13 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 			type: type, // 类型
 			status: order.status, // 订单状态
 			headClass: H5bill.statusClass[order.status], // 头部样式名
-			headContent: H5bill.statusTransfer[order.status] + '(G)', // 头部内容
+			headContent: H5bill.statusTransfer[order.status][type] + ' (G)', // 头部内容
 			transferNum: order.gopNum, // 转果仁--果仁数
 			transferIcon: H5bill.transferClass[order.type], // 转果仁--图标
 			transferName: H5bill.transferType[order.type], // 转果仁--名字
 			transferAddress: order.address ? filters.address(order.address) : '', // 转果仁--地址
 			transferStage: H5bill.transferStage[order.status], // 转果仁--阶段
+			transferTime: order.transferTime, // 转果仁--到账时间
 			transferStart: order.createTime || order.updateTime || order.transferTime, // 转果仁--创建时间
 			transferOver: order.transferTime || (order.updateTime === order.createTime ? order.status === 'PROCESSING' ? avalon.filters.date(new Date().setHours(new Date().getHours() + 2), 'yyyy-MM-dd HH:mm:ss') : order.updateTime : order.updateTime), // 转果仁--完成或预计时间
 			transferFailReason: order.failureMsg, // 转果仁--失败原因

@@ -19,7 +19,10 @@ define('h5-component-bill', function() {
 		},
 		statusTransfer: {
 			PROCESSING: '转账进行中',
-			SUCCESS: '转账成功',
+			SUCCESS: {
+				TRANSFER_IN: '转入成功',
+				TRANSFER_OUT: '转账成功',
+			},
 			FAILURE: '转账失败',
 			CLOSE: '已关闭',
 		},
