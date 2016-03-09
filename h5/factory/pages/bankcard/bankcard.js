@@ -57,6 +57,7 @@ require(['router', 'api', 'h5-view', 'hashMap',
 		phoneStr: '',
 		identifyingCode: '',
 		bankcardAppendClick: function() {			//添加新银行卡
+			$('.text-close').removeClass('on');
 			bankcardAppend.vm.callback = function() {
 				bankcardInit();
 				window.history.go(-2);
