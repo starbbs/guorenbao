@@ -61,11 +61,11 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 				});
 			} else {
 				//跳转到钱包地址
-				address_wallet.vm.hasStepNext = false;
+				address_wallet.vm.hasStepNext = true;
 				address_wallet.vm.callback = function() {
 					init();
 					//router.go('/');
-					console.log('dddddddd');
+//					console.log('dddddddd');
 
 					vm.transferOutType = 'ME_WALLET';
 					api.walletList({
