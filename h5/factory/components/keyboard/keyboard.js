@@ -3,7 +3,7 @@
 
 
 define(function() {
-
+	console.log('已引入h5-component-keyboard');
 	var handles = { // 控制器
 		hide: function(id) { // 写法: data-keyboard="hide(id)" (id不用带引号)
 			var self = $(this);

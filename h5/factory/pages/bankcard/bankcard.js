@@ -14,12 +14,15 @@ require(['router', 'api', 'h5-view', 'hashMap',
 	var bankcard = $('.bankcard');
 	hashMap.put('中国民生银行', 'minsheng');
 	hashMap.put('中国邮政储蓄银行', 'youzheng');
+	hashMap.put('中国农业银行', 'zhongnong');
+
 	hashMap.put('中国光大银行', 'guangda');
 	hashMap.put('交通银行', 'jiaotong');
 	hashMap.put('上海浦东发展银行', 'pufa');
 	hashMap.put('上海银行', 'shanghai');
 	hashMap.put('兴业银行', 'xingye');
 	hashMap.put('中国建设银行', 'zhongjian');
+
 	hashMap.put('北京农商银行', 'beinong');
 	hashMap.put('北京银行', 'beiyin');
 	hashMap.put('中国工商银行', 'gongshang');
@@ -29,8 +32,19 @@ require(['router', 'api', 'h5-view', 'hashMap',
 	hashMap.put('招商银行', 'zhaoshang');
 	hashMap.put('中国银行', 'zhongguo');
 	hashMap.put('中信银行', 'zhongxin');
-	hashMap.put('中国农业银行', 'zhongnong');
 
+	var bankcardBgPicArr = [
+		'中国邮政储蓄银行,中国民生银行,中国农业银行',
+		'中国光大银行,交通银行,上海浦东发展银行,上海银行,,兴业银行,中国建设银行',
+		'北京农商银行,北京银行,中国工商银行,广发银行,华夏银行,平安银行,招商银行,中国银行,中信银行'
+	];
+	function findBankBgPic(val){
+		for(var i=0; i<bankcardBgPicArr.length; i++){
+			if(bankcardBgPicArr[i].indexOf(val)!=-1){
+				return i+1;
+			}
+		}
+	};
 	var vm = avalon.define({
 		$id: 'bankcard',
 		list: [],
@@ -42,6 +56,7 @@ require(['router', 'api', 'h5-view', 'hashMap',
 		phone: '',
 		phoneStr: '',
 		identifyingCode: '',
+		bankbgpic:'',
 		bankcardAppendClick: function() {			//添加新银行卡
 			bankcardAppend.vm.callback = function() {
 				bankcardInit();
@@ -60,6 +75,7 @@ require(['router', 'api', 'h5-view', 'hashMap',
 				cardNo: item.cardNo,
 				cardType: item.type,
 				cardTypeStr: item.typeName,
+				bankbgpic:findBankBgPic(item.bankName),
 				callback: function() {
 					bankcardAppend.vm.cardNo = '';
 					bankcardAppend.vm.phone = '';
@@ -85,6 +101,7 @@ require(['router', 'api', 'h5-view', 'hashMap',
 		cardId: 0,
 		createTime: '',
 		bankDataDic: '',
+		bankbgpic:'',
 		callback: $.noop,
 		back_click: function() {
 			bankcardDetailViewModel.callback();
@@ -111,9 +128,11 @@ require(['router', 'api', 'h5-view', 'hashMap',
 		}, function(data) {
 			if (data.status == 200) {
 				for (var i = 0; i < data.data.list.length; i++) {
+					console.log(data.data.list);
 					var item = data.data.list[i];
 					item.typeName = item.cardType == 'SAVINGS_DEPOSIT_CARD' ? '储蓄卡' : '信用卡';
 					item.bankDataDic = hashMap.get(item.bankName);
+					item.bankbgpic = findBankBgPic(item.bankName);
 					vm.list.push(item);
 					hashMap.put(item.id, item);
 				};
