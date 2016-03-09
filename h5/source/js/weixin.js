@@ -3,7 +3,7 @@
 
 
 define('h5-weixin', ['api', 'h5-alert'], function(api) {
-	var base = 'www.goopal.com.cn';
+	var base = 'www.goopal.com.cn/wx';
 	var weixin = {
 		// 参数
 		appId: null,
@@ -13,8 +13,8 @@ define('h5-weixin', ['api', 'h5-alert'], function(api) {
 		// 分享
 		title: '果仁宝',
 		desc: '我是果仁宝, 测试描述, 今天天气不错',
-		link: location.protocol + '//' + base + '/welcome.html',
-		imgUrl: location.protocol + '//' + base + '/images/share.jpg',
+		link: window.location.protocol + '//' + base + '/welcome.html',
+		imgUrl: window.location.protocol + '//' + base + '/images/share.jpg',
 		type: '',
 		dataUrl: '',
 		success: function() { // 用户确认分享后执行的回调函数

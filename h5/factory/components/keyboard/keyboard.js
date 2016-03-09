@@ -3,7 +3,7 @@
 
 
 define(function() {
-	console.log('已引入h5-component-keyboard');
+
 	var handles = { // 控制器
 		hide: function(id) { // 写法: data-keyboard="hide(id)" (id不用带引号)
 			var self = $(this);
@@ -21,7 +21,6 @@ define(function() {
 		$('[data-keyboard]', context).each(function(i, element) {
 			element.dataset.keyboard.split('|').forEach(function(string) {
 				var match = string.match(/(\w+)(\(([\w\,\-]+)\))?/);
-				console.log(string,match)
 				// hide				["hide", "hide", undefined, undefined]
 				// hide(id)			["hide(id)", "hide", "id"]
 				// hide(id,111)		["hide(id,111)", "hide", "id,111"]

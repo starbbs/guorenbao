@@ -2,7 +2,7 @@
 // H5微信端 --- view-bill 账单详情分页
 
 
-define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-view-nickname'], function(View, api, filters, H5bill, nicknameView) {
+define('h5-view-bill', ['h5-view', 'api', 'router', 'filters', 'h5-component-bill', 'h5-view-nickname'], function(View, api, router, filters, H5bill, nicknameView) {
 	var gopToken = $.cookie('gopToken');
 	var bill = new View('bill');
 	var main = $('.bill');
@@ -163,12 +163,12 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 			gopToken: gopToken,
 			personId: personId
 		}, function(data) {
+			console.log(data)
 			if (data.status == 200) {
-				var name = data.data.remark || data.data.nick;
-				setOne('transferName', name || '未命名用户');
+				setOne('transferName', data.data.remark || data.data.nick || '未命名用户');
 				setOne('transferImg', data.data.photo || '');
 				setOne('transferAddress', filters.phone(data.data.phone) || filters.address(data.data.address) || '');
-				!name && vm.status === 'SUCCESS' && setOne('ifSetNickname', true); // 显示"设置备注名"的判断, 没有原名且转账成功
+				!data.data.remark && vm.type === 'TRANSFER_OUT' && vm.status === 'SUCCESS' && setOne('ifSetNickname', true); // 显示"设置备注名"的判断, 没有原名且转账成功
 			}
 		});
 	};

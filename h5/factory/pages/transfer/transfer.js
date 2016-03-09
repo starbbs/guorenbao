@@ -340,7 +340,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 		serviceFee: 0.01, // 服务费
 		serviceFeeShow: 0.01,
 		transferNum: '', // 转果仁数	
-		floorFix: filters.floorFix,
 		gopNum: 0, // 拥有果仁数	
 		price: 0, // 实价
 		cnyMoney: 0, // 约合人民币
@@ -482,7 +481,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 						}		
 						viewAuthentication.vm.callbackFlag=true;
 						viewAuthentication.show();
-//						router.to('/view/authentication');
+						// router.to('/view/authentication');
 					}, 100);
 				}
 				if (data.data.marketGopAddress) {
@@ -500,8 +499,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 		}, function(data) {
 			if (data.status == 200) {
 				if (data.data.gopNum) {
-					vm.gopNum = data.data.gopNum; //果仁数量
-					transferTarget.gopNum = data.data.gopNum; //果仁数量
+					transferTarget.gopNum = vm.gopNum = filters.floorFix(data.data.gopNum); //果仁数量
 				}
 			} else {
 				console.log(data);
@@ -586,8 +584,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 	};
 	avalon.scan();
 
-	// init();
-
 	transferTargetView.on("hide", function() {
 		dialogPaypass.hide();
 		transferTarget.transferNum = '';
@@ -597,6 +593,8 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 		transferTarget.transferNum = '';
 		$('.transfer-target-box .text-input').val('');
 	});
+
+	init();
 
 	setTimeout(function() {
 		transfer.addClass('on');
@@ -621,7 +619,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 				api.log('cookie中并没有联系人数据');
 			}
 		} else {
-			init();
 		}
 	}, 100);
 });
