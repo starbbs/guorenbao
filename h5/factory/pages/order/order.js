@@ -191,7 +191,12 @@ require(['api', 'get', 'router',
 						};
 						price.get();
 					} else { // 失败, 成功, 进行中(已付款)
-						showBill(data.data);
+						console.log(data.data)
+						setTimeout(function() {
+							// billView.set('PAY', get.data.id);
+							billView.set('PAY', data.data);
+							router.to('/view/bill');
+						}, 10);
 					}
 				} else {
 					$.alert(data.msg);

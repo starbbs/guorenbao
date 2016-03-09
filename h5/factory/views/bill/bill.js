@@ -125,7 +125,7 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 				break;
 			case 'BUYIN_ORDER': // 买入, 消息
 			case 'BUY_IN': // 买入, 列表
-				buyInHandler('BUY_IN', id, options);
+				buyInRouter('BUY_IN', id, options);
 				break;
 			case 'CONSUME_ORDER': // 消费, 消息
 			case 'PAY': // 消费, 列表
@@ -183,6 +183,9 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 			ifPayButton: waitForPay, // 是否显示"前往支付"按钮
 			ifClose: waitForPay, // 是否显示"关闭"
 		};
+	};
+	var buyInRouter = function(type, id, options) { // 买入(传入id为数值则请求,否则只渲染)
+
 	};
 	var buyInHandler = function(type, id, options) { // 买入
 		api.queryBuyinOrder({
