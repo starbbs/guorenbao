@@ -110,7 +110,12 @@ define('check', function() {
 			return /^((\d{16})|(\d{19}))$/.test(trim(value));
 		},
 		cardCondition: function(value) {
-			return value.length === 16 || value.length === 19;
+			if(value.length === 16 || value.length === 19){
+				return true;
+			}else{
+				return false;
+			}
+			//return value.length === 16 || value.length === 19;
 		},
 		idcard: function(value) { // 身份证验证
 			return /^((\d{15})|(\d{17}[\dXx]))$/.test(trim(value));
@@ -136,6 +141,7 @@ define('check', function() {
 		},
 	// 复杂校验
 		password: function(value) { // 登录密码格式验证
+			//密码不为空
 			if (empty(value)) { return result('321'); }
 			// 1. 6-20位字符
 			if (value.length < 6 || value.length > 20) {
@@ -203,24 +209,30 @@ define('check', function() {
 			return value.length >= 11;
 		},
 		safe: function(value, withoutPassword) {
-			if (!withoutPassword) { // 是否验证密码格式
-				var password = check.password(value);
-				// if (password === false || password.result === false) { return '密码格式不正确'; }
-				if (password === false || password.result === false) { return '低'; }
-			}
-			// total: 总等级数
-			// 字符种类数/字符位数   6-10位(0)   11-15位(1)   16-20位(2)
-			//       2(0)           低(0)       低(1)        中(2)
-			//       3(1)           低(1)       中(2)        高(3)
-			//       4(2)           中(2)       高(3)        高(4)
-			var num = function(arr, str) { // 判断位置
-				var now = arr.length - 1;
-				for (var i = 0; i < arr.length; i++) {
-					if (arr[i] > str) { now--; }
+			if(check.safeCondition(value)){
+				if (!withoutPassword) { // 是否验证密码格式
+					var password = check.password(value);
+					// if (password === false || password.result === false) { return '密码格式不正确'; }
+					if (password === false || password.result === false) { return '低'; }
 				}
-				return now;
-			};
-			return ['低', '低', '中', '高', '高'][num([6, 11, 16], value.length) + num([2, 3, 4], characters(value))];
+				// total: 总等级数
+				// 字符种类数/字符位数   6-10位(0)   11-15位(1)   16-20位(2)
+				//       2(0)           低(0)       低(1)        中(2)
+				//       3(1)           低(1)       中(2)        高(3)
+				//       4(2)           中(2)       高(3)        高(4)
+				var num = function(arr, str) { // 判断位置
+					var now = arr.length - 1;
+					for (var i = 0; i < arr.length; i++) {
+						if (arr[i] > str) { now--; }
+					}
+					return now;
+				};
+				return ['低', '低', '中', '高', '高'][num([6, 11, 16], value.length) + num([2, 3, 4], characters(value))];
+			}
+
+		},
+		safeCondition: function(value) {
+			return value.length >= 6;
 		}
 	});
 

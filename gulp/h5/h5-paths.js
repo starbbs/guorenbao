@@ -72,6 +72,7 @@ module.exports = {
 		'h5-paypass': H5_COMPONENTS + '/paypass/paypass',
 		'h5-wait': H5_COMPONENTS + '/wait/wait',
 		'h5-component-bill': H5_COMPONENTS + '/bill/bill',
+		'h5-component-keyboard': H5_COMPONENTS + '/keyboard/keyboard',
 		'h5-dialog': H5_DIALOGS + '/dialog',
 		'h5-dialog-alert': H5_DIALOGS + '/alert/alert',
 		'h5-dialog-bankcard': H5_DIALOGS + '/bankcard/bankcard',

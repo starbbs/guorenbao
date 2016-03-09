@@ -19,6 +19,13 @@
 		display: table;
 		width: 100%;
 		margin-top: 10px;
+		.block{
+			.text{
+				.text-box{
+					#order-ident{ font: 14px/2 Helvetica}
+				}
+			}
+		}
 	}
 	&-add {
 		@include sprite($img + '/add.png', 17px);

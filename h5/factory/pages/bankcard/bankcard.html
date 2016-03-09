@@ -1,11 +1,11 @@
 @@include('../../../source/include/top.html', {"name": "bankcard"})
 <div class="screen-r">
     <div class="bankcard" ms-controller="bankcard">					 <!--点击进入某个银行卡详情-->
-		<div class="bankcard-item c1" ms-repeat-item="list" ms-click="bankcardDetailClick(item)">
+		<div ms-class="bankcard-item c{{item.bankbgpic}}" ms-repeat-item="list" ms-click="bankcardDetailClick(item)">  
 			<div class="bankcard-item-label">
 				<div class="bankcard-item-icon"><i class="bank" ms-class="{{item.bankDataDic}}" ></i></div>
 				<div class="bankcard-item-name">{{item.bankName}}</div>
-				<div class="bankcard-item-type">{{item.typeName}}</div>
+				<div class="bankcard-item-typed">{{item.typeName}}</div>
 			</div>
 			<div class="bankcard-item-number">{{item.cardNo}}</div>
 		</div>		

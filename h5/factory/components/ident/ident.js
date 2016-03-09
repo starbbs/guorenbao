@@ -1,4 +1,3 @@
-
 // 张树垚 2015-12-28 19:46:43 创建
 // H5微信端 --- component-ident 获取验证码
 
@@ -14,7 +13,7 @@ define('h5-ident', ['api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], 
 	 * @param    {[jQuery]}      self     [ident元素]
 	 * @return   {[null]}                 [无返回]
 	 */
-    var _reset = function(self) {
+	var _reset = function(self) {
 		self.removeClass('silver').addClass('blue').html('获取验证码');
 	};
 	/**
@@ -32,28 +31,48 @@ define('h5-ident', ['api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], 
 		var self = $(item);
 		_reset(self);
 		self.on('click', function() {
-			if (self.hasClass('silver')) { return; }
-			if (checkFun()) { return; }
-			count++;
-			if (count > 6) {
-				setTimeout(function() {
-					// 第六次点击后, 给联系客服的提示
-				}, 3000);
+			if (self.hasClass('silver')) {
+				return;
 			}
-			var time = 60;
-			self.removeClass('blue').addClass('silver').html(time + '秒后重发');
-			var timer = setInterval(function() {
-				time--;
-				if (time <= 0) {
-					clearInterval(timer);
-					_reset(self);
-				} else {
-					self.html(time + '秒后重发');
+			if (checkFun()) {
+				return;
+			}
+			var array = apiName.split('!');
+			var todo = function() {
+				count++;
+				if (count > 6) {
+					setTimeout(function() {
+						// 第六次点击后, 给联系客服的提示
+					}, 3000);
 				}
-			}, 1000);
-			api[apiName](typeof apiData === 'function' ? apiData() : apiData, function(data) {
-				$.alert(data.status == 200 ? '验证码发送成功' : data.msg);
-			});
+				var time = 60;
+				self.removeClass('blue').addClass('silver').html(time + '秒后重发');
+				var timer = setInterval(function() {
+					time--;
+					if (time <= 0) {
+						clearInterval(timer);
+						_reset(self);
+					} else {
+						self.html(time + '秒后重发');
+					}
+				}, 1000);
+				api[array[0]](typeof apiData === 'function' ? apiData() : apiData, function(data) {
+					$.alert(data.status == 200 ? '验证码发送成功' : data.msg);
+				});
+			};
+			switch (array[1]) {
+				case 'regist':
+					api.checkPhoneExist(typeof apiData === 'function' ? apiData() : apiData, function(data) {
+						if (data.status == 200) {
+							todo();
+						} else {
+							$.alert(data.msg);
+						}
+					});
+					break;
+				default:
+					todo();
+			}
 		}).removeAttr('data-ident');
 	};
 	/**
@@ -79,7 +98,7 @@ define('h5-ident', ['api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], 
 							return {
 								gopToken: gopToken,
 								bankId: vm[arr[1]]
-							}
+							};
 						});
 					}, 300);
 				} else if (arr[2] === 'token') { // 根据gopToken --- a|b|token
@@ -95,16 +114,22 @@ define('h5-ident', ['api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], 
 					_bind(item, function() {
 						return !check.phone(vm[arr[1]] + '').result;
 					}, 'sendCode', function() {
-						return { phone: vm[arr[1]] };
+						return {
+							phone: vm[arr[1]]
+						};
 					});
 				}, 300);
 			} else {
-				var phoneInput = $('#' + arr[0]);
+				var array = arr[0].split('!');
+				var phoneInput = $('#' + array[0]);
 				_bind(item, function() {
 					return !h5Check.phone(phoneInput);
-				}, 'sendCode', function() {
-					return { phone: phoneInput.val() };
-				});			
+				}, 'sendCode' + (array.length > 1 ? ('!' + array[1]) : ''), function() {
+					// }, 'sendCode', function() {
+					return {
+						phone: phoneInput.val()
+					};
+				});
 			}
 		});
 	};
@@ -149,4 +174,3 @@ define('h5-ident', ['api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], 
 		}
 	}
 });
-

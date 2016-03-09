@@ -67,10 +67,10 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 						// alert('1:' + name + ';' + $.cookie('gopToken'));
 						goIndex(true);
 					}
-					if (data.status == 300 && options.ignoreStatus.indexOf(300) === -1) { // {msg: "用户登录/验证失败，请重新登录", status: "300"}
+					if (data.status == 300 && options.ignoreStatus && options.ignoreStatus.indexOf(300) === -1) { // {msg: "用户登录/验证失败，请重新登录", status: "300"}
 						// alert(2);
 						goIndex(true);
-					} else if (data.status == 304 && options.ignoreStatus.indexOf(304) === -1) { // {msg: "服务器异常", status: "304"}
+					} else if (data.status == 304 && options.ignoreStatus && options.ignoreStatus.indexOf(304) === -1) { // {msg: "服务器异常", status: "304"}
 						$.alert('服务器异常, 请联系后台人员!');
 					}
 					options.callback && options.callback.call(this, data);
@@ -335,6 +335,9 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 
 	// 81.关闭消费果仁订单接口（手机充值订单）
 	add('closeConsumeOrder', '/consume/order/close');
+
+	// 82.验证手机号是否已经注册的接口
+	add('checkPhoneExist', '/user/checkPhoneExist');
 
 	// 83.获取联系人头像（49.账单列表接口的附加接口）
 	add('billPhoto', '/bill/contentPhoto', {

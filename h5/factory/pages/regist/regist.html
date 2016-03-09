@@ -18,11 +18,11 @@
 						<div class="text-close"></div>
 					</label>
 				</div>
-				<div class="regist-main-right" data-ident="regist-mobile"><span class="blue">获取验证码</span></div>
+				<div class="regist-main-right" data-ident="regist-mobile!regist"></div>
 			</div>
 		</div>
 		<div class="regist-button" ms-click="next"><a href="#" class="button" ms-class="disabled:!ifNext">下一步</a></div>
-		<div class="regist-foot">
+		<div class="regist-foot" data-keyboard="hide(regist-mobile)|hide(regist-identify)">
 			轻点下一步，即表示你已阅读及同意<br>
 			<a href="#!/view/agreement" class="a-blue">《果仁宝服务协议》</a>
 		</div>
@@ -36,4 +36,3 @@
 	<div class="alert">验证码不正确，请重新输入</div>
 </div>
 @@include('../../../source/include/bottom.html', {"name": "regist"})
-

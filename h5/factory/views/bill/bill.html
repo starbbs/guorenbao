@@ -13,7 +13,7 @@
 				</div>
 				<div class="bill-get" ms-visible="transferNum">
 					<div class="bill-get-number">{{transferSign}}{{transferNum|fix}}</div>
-					<div class="bill-get-label ash">手续费 {{poundage|fix}}</div>
+					<div class="bill-get-label ash" ms-visible="poundage">手续费 {{poundage|fix}}</div>
 				</div>
 				<div class="bill-target" ms-visible="type==='TRANSFER_IN'||type==='TRANSFER_OUT'">
 					<div class="bill-target-left">
@@ -23,15 +23,15 @@
 						</div>
 					</div>
 					<div class="bill-target-right">
-						<div class="bill-target-name">{{transferName}}</div>
+						<div class="bill-target-name">{{transferName|omit}}</div>
 						<div class="bill-target-address">{{transferAddress}}</div>
 					</div>
 					<div class="bill-target-bottom"></div>
 				</div>
-				<div class="bill-stage" ms-visible="transferStage" ms-class="{{transferStage}}">
+				<div class="bill-stage" ms-visible="type==='TRANSFER_OUT'&&transferStage" ms-class="{{transferStage}}">
 					<div class="bill-stage-line"></div>
 				</div>
-				<div class="bill-desc" ms-visible="transferStart||transferOver">
+				<div class="bill-desc" ms-visible="type==='TRANSFER_OUT'&&(transferStart||transferOver)">
 					<div class="bill-desc-left">
 						<div class="bill-desc-name green">提交成功</div>
 						<div class="bill-desc-time">{{transferStart}}</div>
@@ -93,9 +93,13 @@
 						<div class="bill-detail-left">收款方</div>
 						<div class="bill-detail-right" ms-class-1="ash:status==='CLOSE'" ms-class-2="dark:status!=='CLOSE'">北京果仁宝科技有限公司</div>
 					</div>
+					<div class="bill-detail-item" ms-visible="transferTime">
+						<div class="bill-detail-left">到账时间</div>
+						<div class="bill-detail-right ash">{{transferTime}}</div>
+					</div>
 					<div class="bill-detail-item" ms-visible="orderTime">
 						<div class="bill-detail-left">交易时间</div>
-						<div class="bill-detail-right" ms-class-1="ash:status==='CLOSE'" ms-class-2="dark:status!=='CLOSE'">{{orderTime}}</div>
+						<div class="bill-detail-right dark">{{orderTime}}</div>
 					</div>
 					<div class="bill-detail-item" ms-visible="submitTime">
 						<div class="bill-detail-left">提交时间</div>
@@ -109,9 +113,9 @@
 						<div class="bill-detail-left">订单号</div>
 						<div class="bill-detail-right ash">{{orderCode}}</div>
 					</div>
-					<div class="bill-detail-item" ms-visible="serialNum">
+					<div class="bill-detail-item" ms-visible="serialNum&&!transferTime">
 						<div class="bill-detail-left">流水号</div>
-						<div class="bill-detail-right ash">{{serialNum}}</div>
+						<div class="bill-detail-right ash">{{serialNum|html}}</div>
 					</div>
 					<div class="bill-detail-item" ms-visible="type==='TRANSFER_IN'||type==='TRANSFER_OUT'">
 						<div class="bill-detail-left">转账说明</div>

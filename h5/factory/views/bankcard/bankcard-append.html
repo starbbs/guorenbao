@@ -1,12 +1,14 @@
 <!-- 添加银行卡 -->
 <div class="bankcard-append" ms-controller="bankcard-append">
-    <div class="bankcard-append-box">
-    	<div class="text-tip-top">请使用您本人的银联储蓄卡</div>
+	<div class="bankcard-append-box">
+		<div class="text-tip-top">请使用您本人的银联储蓄卡</div>
 		<div class="block">
 			<div class="block-text">
 				<label for="bankcard-append-number" class="text">
 					<div class="text-label">卡号</div>
-					<div class="text-box"><input id="bankcard-append-number" name="bankcard-append-number" type="tel" class="text-input" autocomplete="off" placeholder="银行卡号" minlength="16" maxlength="19" data-text="close" ms-on-input="check" ms-duplex="cardNo"></div>
+					<div class="text-box">
+						<input id="bankcard-append-number" name="bankcard-append-number" type="tel" class="text-input" autocomplete="off" placeholder="银行卡号" minlength="16" maxlength="19" data-text="close" ms-on-input="check" ms-duplex="cardNo">
+					</div>
 					<div class="text-close" ms-on-click="clear('cardNo')"></div>
 					<div class="text-alert"></div>
 				</label>

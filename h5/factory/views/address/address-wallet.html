@@ -1,10 +1,14 @@
 <div class="address-wallet" ms-controller="address-wallet">
-    <div class="text-tip-top">我的钱包地址</div>
+	<div class="text-tip-top">我的钱包地址</div>
 	<div class="block">
 		<div class="block-item address-wallet-item address-item"  ms-repeat-item="walletList"  ms-attr-data-top="{{item.defaultWallet}}">
 			<div class="block-label">{{item.address.substr(0,8)+'**********'}}</div>
-			<div class="address-top" ms-attr-data-id="{{item.id}}" ms-click="walletAddress_top_click" ms-if-loop="!$first">置顶</div>
-			<div class="address-del" ms-attr-data-id="{{item.id}}" ms-click="walletAddress_del_click">删除</div>
+			<div class="address-top" ms-attr-data-id="{{item.id}}" ms-click="walletAddress_top_click" ms-if-loop="!$first">
+				置顶
+			</div>
+			<div class="address-del" ms-attr-data-id="{{item.id}}" ms-click="walletAddress_del_click">
+				删除
+			</div>
 		</div>
 	</div>
 	<div>
@@ -15,14 +19,22 @@
 				<div class="block-arrow"></div>
 			</div>
 			<div class="block-item" ms-visible="walletAddress_add_show">
-	            <div class="text">
-	                <div class="text-box"><input id="address-mine-input" name="address-mine-input" class="text-input" autocomplete="off" placeholder="请输入钱包地址" type="text" maxlength="70" data-text='close' ms-duplex="walletAddress"></div>
-	                <div class="text-close"></div>
-	            </div>
-	            <div class="address-finish" ms-click="walletAddress_save_click">完成</div>
+				<div class="text">
+					<div class="text-box"><input id="address-mine-input-focusb" name="address-mine-input" class="text-input" autocomplete="off" placeholder="请输入钱包地址" type="text" maxlength="70" data-text='close' ms-duplex="walletAddress"></div>
+					<div class="text-close"></div>
+				</div>
+				<div class="address-finish" ms-click="walletAddress_save_click">
+					完成
+				</div>
 			</div>
 		</div>
 		
 	</div>
-	<div class="text-button" ms-visible="hasStepNext"><span class="button" ms-click="address_wallet_next">下一步</span></div>
+	<div class="text-button" ms-visible="hasStepNext">
+		<span class="button" ms-click="address_wallet_next">下一步</span>
+	</div>
+	<div class="address-bottom-tips" data-keyboard="hide(address-mine-input-focusb)">
+		<span>请前往<a href="www.goopal.online" target="_blank">www.goopal.online</a></span>
+		<span>下载钱包获得钱包地址</span>
+	</div>
 </div>

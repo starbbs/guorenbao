@@ -1,9 +1,8 @@
-
 // 张树垚 2016-01-09 12:54:11 创建
 // H5微信端 --- 手机充值
 
 
-require(['api', 'check', 'get', 'h5-alert', 'h5-weixin'], function(api, check, get) {
+require(['api', 'check', 'get', 'filters', 'h5-alert', 'h5-weixin'], function(api, check, get, filters) {
 	var gopToken = $.cookie('gopToken');
 	var main = $('.phonecharge');
 	var focusTimer = null;
@@ -81,12 +80,14 @@ require(['api', 'check', 'get', 'h5-alert', 'h5-weixin'], function(api, check, g
 			if (item.length) {
 				item.addClass('on').siblings().removeClass('on');
 				confirmData = vm.goods[item.index()].$model;
-				vm.button = '支付：¥' + confirmData.use;
+				vm.button = '支付：¥' + filters.floorFix(confirmData.use);
 			}
 		},
 		button: '支付', // 按钮显示
 		buttonClick: function() { // 按钮点击
-			if ($(this).hasClass('disabled')) { return; }
+			if ($(this).hasClass('disabled')) {
+				return;
+			}
 			api.phoneRecharge({
 				gopToken: gopToken,
 				productId: confirmData.id,
@@ -94,7 +95,7 @@ require(['api', 'check', 'get', 'h5-alert', 'h5-weixin'], function(api, check, g
 			}, function(data) {
 				if (data.status == 200) {
 					setTimeout(function() {
-						window.location.href = get.add('order.html', { 
+						window.location.href = get.add('order.html', {
 							// 跳到公共订单页 build/order.html?from=phonecharge&id=1525
 							from: 'phonecharge',
 							id: data.data.consumeOrderId
@@ -125,11 +126,11 @@ require(['api', 'check', 'get', 'h5-alert', 'h5-weixin'], function(api, check, g
 			data.data.productList.forEach(function(item) {
 				var desc = JSON.parse(item.extraContent);
 				cards[desc.carrier].push({
-					id: item.id,				// 商品id
-					currency: item.currency,	// 货币(RMB)
-					price: desc.price,			// 显示价格
-					use: item.price,			// 实际价格
-					desc: item.productDesc,		// 描述
+					id: item.id, // 商品id
+					currency: item.currency, // 货币(RMB)
+					price: desc.price, // 显示价格
+					use: item.price, // 实际价格
+					desc: item.productDesc, // 描述
 				});
 			});
 			// console.log(cards)
@@ -142,4 +143,3 @@ require(['api', 'check', 'get', 'h5-alert', 'h5-weixin'], function(api, check, g
 	}, 100);
 	return;
 });
-
