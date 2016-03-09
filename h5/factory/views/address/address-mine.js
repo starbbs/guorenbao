@@ -41,9 +41,6 @@ define('h5-view-address-mine', ['router', 'api', 'h5-view', 'check', 'h5-alert',
                     //$.alert('设置成功!');
                     vm.hasMarketAddress = true;
                     vm.setMarketAddress = false;
-                    //vm.marketGopAddress = '';
-
-                    vm.hasStepNext = false;
                     vm.setSuccess();
                 } else {
                     console.log(data);
