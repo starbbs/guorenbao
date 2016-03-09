@@ -194,6 +194,9 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
 			}
 		},
 		newNextClick: function() {
+			if (transferNew.checked) {
+				return;
+			}
 			if (transferNew.newTarget == '') {
 				$.alert("手机号或地址为空");
 				return;
