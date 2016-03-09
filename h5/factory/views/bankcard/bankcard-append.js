@@ -34,8 +34,8 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 		phoneStr: '',
 		identifyingCode: '',
 		callback: $.noop,
-		check: function(e) { //添加银行卡第一步  卡号检测				
-			if (check.cardCondition(this.value)) { //检测卡位数	16或19位
+		check: function(e) { //添加银行卡第一步 卡号检测
+			if (check.cardCondition(this.value)) { //检测卡位数 16或19位
 				var _thisVal = this.value;
 				clearTimeout(checkCardNumTimer);
 				checkCardNumTimer = setTimeout(function() {
@@ -61,12 +61,12 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 							} else {
 								vm.cardTypeStr = '信用卡';
 								vm.checked = true;
-								$.alert('抱歉，暂不支持信用卡支付，请更换一张');
+								$.alert('抱歉，暂不支持本张银行卡，请更换一张');
 							}
-							$('.banknameAndcardtypestr').text(vm.bankName + 　' ' + 　vm.cardTypeStr);
 						} else {
-							$('.banknameAndcardtypestr').text('请输入正确的卡号');
+							vm.cardTypeStr = '信用卡';
 							vm.checked = true;
+							$.alert('抱歉，暂不支持信用卡支付，请更换一张');
 						}
 					})
 				}, 500);
@@ -80,12 +80,7 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 			$('.banknameAndcardtypestr').text('');
 		},
 		checkPhone: function(e) {
-			var reg = /^0?1[3|4|5|8|7][0-9]\d{8}$/;
-			if (reg.test(this.value) && checkValidBankList(vm.bankName) && vm.cardTypeStr != '信用卡') {
-				vm.checked = false;
-			} else {
-				vm.checked = true;
-			}
+			vm.checked = /^0?1[3|4|5|8|7][0-9]\d{8}$/.test(this.value) && checkValidBankList(vm.bankName) && vm.cardTypeStr !== '信用卡';
 		},
 		bankcard_add_next_click: function() {
 			if (!vm.checked) {
@@ -123,13 +118,6 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 			}
 		}
 	});
-	/*
-		{
-		"gopToken" : "7ea593562e3547e792985f6884f793d6"，
-	        "cardNo":"3205332334566",
-	        "bankPhone":"15895623333"
-		}
-	*/
 	bankcard_append.on('hide', function() {
 		vm.cardNo = '';
 		vm.phone = '';

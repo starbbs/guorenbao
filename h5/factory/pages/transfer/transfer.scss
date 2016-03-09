@@ -91,6 +91,10 @@ body {
 				@include square(70px);
 				border-radius: 50%;
 				overflow: hidden;
+				>img{
+					border-radius: 50%;
+					overflow: hidden;
+				}
 			}
 			&-name {
 				font-size: 16px;
