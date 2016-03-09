@@ -61,7 +61,7 @@ require(['api', 'get', 'router',
 			bankIndex: 0, // 选择银行卡
 			bankid: 0, // 银行卡ID
 			bankAdd: function() { // 添加银行卡
-				viewBankcardAppend.vm.callback = function(){
+				viewBankcardAppend.vm.callback = function() {
 					window.history.go(-2);
 				};
 				router.go('/view/bankcard-append');
@@ -130,77 +130,71 @@ require(['api', 'get', 'router',
 
 		// 进入页面
 		if (get.data.id) { // 有订单ID, 跳转订单详情
-			api.query({
-				gopToken: gopToken,
-				consumeOrderId: get.data.id
-			}, function(data) {
-				if (data.status == 200) {
-					var order = data.data.consumeOrder; // 订单信息
-					var product = data.data.product; // 产品信息
-					var record = data.data.recordList; // 付款记录
-					if (order.status === 'PROCESSING' && !record.length) { // 进行中(未付款)
-						// 打开页面
-						router.to('/');
-						setTimeout(function() {
-							main.addClass('on');
-						}, 200);
-						// 刷新数据
-						vm.productDesc = product.productDesc;
-						vm.money = order.orderMoney;
-						vm.gopPrice = data.data.gopPrice;
-						vm.gopNum = data.data.gopNum;
-						vm.productRealPrice = JSON.parse(product.extraContent).price;
-						vm.gopExchange();
-						// 银行卡相关
-						if (Array.isArray(data.data.bankCardList)) {
-							bankListRefresh(data.data.bankCardList);
-							dialogBankcard.on('hide', function() {
-								bankListReturn();
-							});
-							viewBankcardAppend.vm.callback = function() { // 银行卡添加回调
-								api.bankcardSearch({
-									gopToken: gopToken
-								}, function(data) {
-									if (data.status == 200) {
-										bankListRefresh(data.data.list);
-										setTimeout(function() {
-											router.to('/');
-										}, 100);
-									} else {
-										$.alert(data.msg);
-									}
-								});
-							};
-						}
-						// 判断是否实名认证
-						api.isCertification({
-							gopToken: gopToken
-						}, function(data) {
-							if (data.status == 200) {
-
-							} else if (data.status == 400) {
-								$.alert('您尚未实名认证');
-								viewAuthentication.show();
-							} else {
-								$.alert(data.msg);
-							}
-						});
-						price.onChange = price.onFirstChange = function(next) {
-							vm.gopPrice = next;
+			billView.set('PAY', get.data.id, {
+				onRequest: function(data) {
+					if (data.status == 200) {
+						var order = data.data.consumeOrder; // 订单信息
+						var product = data.data.product; // 产品信息
+						var record = data.data.recordList; // 付款记录
+						if (order.status === 'PROCESSING' && !record.length) { // 进行中(未付款)
+							// 打开页面
+							router.to('/');
+							setTimeout(function() {
+								main.addClass('on');
+							}, 100);
+							// 刷新数据
+							vm.productDesc = product.productDesc;
+							vm.money = order.orderMoney;
+							vm.gopPrice = data.data.gopPrice;
+							vm.gopNum = data.data.gopNum;
+							vm.productRealPrice = JSON.parse(product.extraContent).price;
 							vm.gopExchange();
-						};
-						price.get();
-					} else { // 失败, 成功, 进行中(已付款)
-						console.log(data.data)
-						setTimeout(function() {
-							// billView.set('PAY', get.data.id);
-							billView.set('PAY', data.data);
+							// 银行卡相关
+							if (Array.isArray(data.data.bankCardList)) {
+								bankListRefresh(data.data.bankCardList);
+								dialogBankcard.on('hide', function() {
+									bankListReturn();
+								});
+								viewBankcardAppend.vm.callback = function() { // 银行卡添加回调
+									api.bankcardSearch({
+										gopToken: gopToken
+									}, function(data) {
+										if (data.status == 200) {
+											bankListRefresh(data.data.list);
+											setTimeout(function() {
+												router.to('/');
+											}, 100);
+										} else {
+											$.alert(data.msg);
+										}
+									});
+								};
+							}
+							// 判断是否实名认证
+							api.isCertification({
+								gopToken: gopToken
+							}, function(data) {
+								if (data.status == 200) {
+
+								} else if (data.status == 400) {
+									$.alert('您尚未实名认证');
+									viewAuthentication.show();
+								} else {
+									$.alert(data.msg);
+								}
+							});
+							price.onChange = price.onFirstChange = function(next) {
+								vm.gopPrice = next;
+								vm.gopExchange();
+							};
+							price.get();
+						} else { // 失败, 成功, 进行中(已付款)
 							router.to('/view/bill');
-						}, 10);
+						}
+					} else {
+						$.alert(data.msg);
 					}
-				} else {
-					$.alert(data.msg);
-				}
+				},
 			});
 		} else {
 			$.alert('缺少订单号');

@@ -113,6 +113,17 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 		},
 	}, initSettings));
 	avalon.scan(main.get(0), vm);
+	/**
+	 * [set 设置账单详情]
+	 * @Author   张树垚
+	 * @DateTime 2016-03-09
+	 * @param    {[string]}       		type					[账单类型]
+	 * @param    {[string|number]}		id						[账单ID]
+	 * @param    {[json]}         		options					[设置参数]
+	 * @param    {[string]}       		options.forceStatus		[强制状态]
+	 * @param    {[function]}     		options.onRequest		[后台请求回调,参数data]
+	 * @param    {[function]}     		options.onRendered		[vm渲染回调,参数vm]
+	 */
 	var set = function(type, id, options) { // 设置账单, 分流 -- 不做view显示
 		type = (type + '').toUpperCase();
 		options = options || {};
@@ -125,7 +136,7 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 				break;
 			case 'BUYIN_ORDER': // 买入, 消息
 			case 'BUY_IN': // 买入, 列表
-				buyInRouter('BUY_IN', id, options);
+				buyInHandler('BUY_IN', id, options);
 				break;
 			case 'CONSUME_ORDER': // 消费, 消息
 			case 'PAY': // 消费, 列表
@@ -141,7 +152,8 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 				settings[i] = options[i];
 			}
 		}
-		return $.extend(vm, initSettings, settings);
+		$.extend(vm, initSettings, settings);
+		options.onRendered && options.onRendered(vm);
 	};
 	var setOne = function(key, value) { // 设置一个vm属性
 		vm[key] !== value && (vm[key] = value);
@@ -184,9 +196,6 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 			ifClose: waitForPay, // 是否显示"关闭"
 		};
 	};
-	var buyInRouter = function(type, id, options) { // 买入(传入id为数值则请求,否则只渲染)
-
-	};
 	var buyInHandler = function(type, id, options) { // 买入
 		api.queryBuyinOrder({
 			gopToken: gopToken,
@@ -194,6 +203,7 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 			payType: 'WEIXIN_MP_PAY'
 		}, function(data) {
 			console.log(data);
+			options.onRequest && options.onRequest(data);
 			if (!data.data || !data.data.buyinOrder || data.status != 200) {
 				data.msg && $.alert(data.msg);
 				return;
@@ -215,6 +225,7 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 			consumeOrderId: id
 		}, function(data) {
 			console.log(data);
+			options.onRequest && options.onRequest(data);
 			if (!data.data || !data.data.consumeOrder || data.status != 200) {
 				data.msg && $.alert(data.msg);
 				return;
@@ -267,6 +278,7 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 			transferInId: id
 		}, function(data) {
 			console.log(data);
+			options.onRequest && options.onRequest(data);
 			if (!data.data || !data.data.transferIn || data.status != 200) {
 				data.msg && $.alert(data.msg);
 				return;
@@ -284,6 +296,7 @@ define('h5-view-bill', ['h5-view', 'api', 'filters', 'h5-component-bill', 'h5-vi
 			transferOutId: id
 		}, function(data) {
 			console.log(data);
+			options.onRequest && options.onRequest(data);
 			if (!data.data || !data.data.transferOut || data.status != 200) {
 				data.msg && $.alert(data.msg);
 				return;
