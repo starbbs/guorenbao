@@ -47,7 +47,7 @@ require(['router', 'api', 'h5-view', 'hashMap',
 	};
 	var vm = avalon.define({
 		$id: 'bankcard',
-		list: [],
+		list: [],//用于存放已经绑定的银行卡
 		cardNo: '',
 		bankName: '',
 		cardTypeStr: '',
@@ -56,7 +56,6 @@ require(['router', 'api', 'h5-view', 'hashMap',
 		phone: '',
 		phoneStr: '',
 		identifyingCode: '',
-		bankbgpic:'',
 		bankcardAppendClick: function() {			//添加新银行卡
 			bankcardAppend.vm.callback = function() {
 				bankcardInit();
@@ -120,7 +119,7 @@ require(['router', 'api', 'h5-view', 'hashMap',
 			});
 		}
 	});
-
+	//页面刷新初始化银行卡列表函数
 	var bankcardInit = function() {
 		vm.list.clear();
 		api.bankcardSearch({
