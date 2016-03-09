@@ -200,15 +200,11 @@ require(['api', 'get', 'router',
 			$.alert('缺少订单号');
 		}
 
-		switch (get.data.from) { // 判断来源
-			case 'phonecharge': // 来自手机充值
-				document.title = '订单-手机充值';
-				break;
-			case 'loverelay': // 来自爱心接力
-				document.title = '订单-爱心接力'
-				break;
-			default: // 无来源
-				document.title = '订单';
-		}
+		document.title = {
+			phonecharge: '订单-手机充值', // 来自手机充值
+			loverelay: '订单-爱心接力', // 来自爱心接力
+			undefined: '订单', // 无来源
+		}[get.data.from];
+
 		avalon.scan();
 	});
