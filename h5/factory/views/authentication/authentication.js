@@ -11,6 +11,7 @@ define('h5-view-authentication', ['h5-view', 'api', 'h5-text', 'cookie'], functi
 		realName: '',
 		Idcard: '',
 		callback: $.noop,
+		callbackFlag:false,
 		next_click: function() {
 			var reg1 = /^[\u2E80-\u9FFF]+$/; //Unicode编码中的汉字范围
 			if (!reg1.test(vm.realName)) {
@@ -24,9 +25,11 @@ define('h5-view-authentication', ['h5-view', 'api', 'h5-text', 'cookie'], functi
 					IDcard: vm.Idcard
 				}, function(data) {
 					if (data.status == 200) {
-						$('.not-authed').removeClass('on');
-						$('.authed').addClass('on');
-						vm.callback();
+						$.alert('实名认证成功')
+						if(!vm.callback()){
+							$('.not-authed').removeClass('on');
+							$('.authed').addClass('on');
+						}
 					} else {
 						console.log(data);
 						$.alert('身份证号或名字错误');

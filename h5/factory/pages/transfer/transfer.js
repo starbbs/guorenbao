@@ -4,11 +4,11 @@
 
 require(['router', 'api', 'h5-view', 'h5-price', 'get',
 	'h5-view-nickname', 'h5-view-address-mine', 'h5-view-address-wallet', 'h5-view-bill',
-	'h5-dialog-paypass',
-	'h5-text', 'h5-view-authentication', 'h5-weixin'
+	'h5-dialog-paypass', 'h5-view-authentication',
+	'h5-text', 'h5-weixin'
 ], function(router, api, View, price, get,
 	nickname, address_mine, address_wallet, billView,
-	dialogPaypass) {
+	dialogPaypass,viewAuthentication) {
 
 	router.init();
 
@@ -472,7 +472,13 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get',
 			if (data.status == 200) {
 				if (!data.data.realname) {
 					setTimeout(function() {
-						router.to('/view/authentication');
+						viewAuthentication.vm.callback=function(){
+							router.to('/');
+							return true;
+						}		
+						viewAuthentication.vm.callbackFlag=true;
+						viewAuthentication.show();
+//						router.to('/view/authentication');
 					}, 100);
 				}
 				if (data.data.marketGopAddress) {

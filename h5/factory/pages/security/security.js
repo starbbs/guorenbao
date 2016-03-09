@@ -44,6 +44,7 @@ require(['router', 'api', 'h5-view', 'h5-view-password', 'h5-view-authentication
 		}, 200);
 	}
 	avalon.scan();
+	viewAuthen.vm.callbackFlag=true;
 	viewAuthen.vm.callback = function() {
 		vm.authenticationed = true;
 		vm.authenticationedStr = "已认证";

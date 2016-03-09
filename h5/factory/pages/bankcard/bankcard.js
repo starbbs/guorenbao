@@ -3,11 +3,11 @@
 
 
 require(['router', 'api', 'h5-view', 'hashMap',
-	'h5-bankcard-append', 'h5-ident', 'h5-text', 'h5-weixin'
+	'h5-bankcard-append','h5-ident', 'h5-view-authentication', 'h5-text', 'h5-weixin'
 ], function(router, api, View, hashMap,
-	bankcardAppend, bankcardIdent) {
+	bankcardAppend,bankcardIdent, viewAuthentication) {
 
-	router.init(true);
+	router.init();
 
 	var gopToken = $.cookie('gopToken');
 
@@ -42,12 +42,34 @@ require(['router', 'api', 'h5-view', 'hashMap',
 		phone: '',
 		phoneStr: '',
 		identifyingCode: '',
-		bankcardAppendClick: function() {			//添加新银行卡
-			bankcardAppend.vm.callback = function() {
-				bankcardInit();
-				window.history.go(-2);
-			};
-			router.go('/view/bankcard-append');
+		bankcardAppendClick: function() {	
+			// 判断是否实名认证
+			api.isCertification({
+				gopToken: gopToken
+			}, function(data) {
+				if (data.status == 200) {
+					//添加新银行卡
+					bankcardAppend.vm.callback = function() {
+						bankcardInit();
+						window.history.go(-2);
+					};
+					router.go('/view/bankcard-append');
+				} else if (data.status == 400) {
+					$.alert('请先进行实名认证');
+					viewAuthentication.vm.callback=function(){
+						bankcardAppend.vm.callback = function() {
+							bankcardInit();
+							window.history.go(-2);
+						};
+						router.go('/view/bankcard-append');
+						return true;
+					}		
+					viewAuthentication.vm.callbackFlag=true;
+					viewAuthentication.show();
+				} else {
+					$.alert(data.msg);
+				}
+			});			
 		},
 		bankcardDetailClick: function(item) {		//某个银行卡详细信息
 			$.extend(bankcardDetailViewModel, {
@@ -126,7 +148,7 @@ require(['router', 'api', 'h5-view', 'hashMap',
 	avalon.scan();
 
 	bankcardInit();
-
+	
 	setTimeout(function() {
 		bankcard.addClass('on');
 	}, 100);

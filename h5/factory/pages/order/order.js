@@ -61,10 +61,42 @@ require(['api', 'get', 'router',
 			bankIndex: 0, // 选择银行卡
 			bankid: 0, // 银行卡ID
 			bankAdd: function() { // 添加银行卡
-				viewBankcardAppend.vm.callback = function(){
-					window.history.go(-2);
-				};
-				router.go('/view/bankcard-append');
+				
+				// 判断是否实名认证
+				api.isCertification({
+					gopToken: gopToken
+				}, function(data) {
+					viewBankcardAppend.vm.callback = function(){
+						api.bankcardSearch({
+							gopToken: gopToken
+						}, function(data) {
+							if (data.status == 200) {
+								bankListRefresh(data.data.list);
+								setTimeout(function() {
+									router.to('/');
+								}, 100);
+							} else {
+								$.alert(data.msg);
+							}
+						});
+//						window.history.go(-2);
+					};
+					if (data.status == 200) {
+						router.go('/view/bankcard-append');
+					} else if (data.status == 400) {
+						$.alert('请先实名认证');
+						viewAuthentication.vm.callback=function(){							
+							router.go('/view/bankcard-append');
+							return true;
+						}		
+						viewAuthentication.vm.callbackFlag=true;
+						viewAuthentication.show();
+					} else {
+						$.alert(data.msg);
+					}
+				});
+				
+				
 			},
 			bankShow: function() { // 显示银行卡浮层
 				dialogBankcard.show();
@@ -171,19 +203,7 @@ require(['api', 'get', 'router',
 								});
 							};
 						}
-						// 判断是否实名认证
-						api.isCertification({
-							gopToken: gopToken
-						}, function(data) {
-							if (data.status == 200) {
-
-							} else if (data.status == 400) {
-								$.alert('您尚未实名认证');
-								viewAuthentication.show();
-							} else {
-								$.alert(data.msg);
-							}
-						});
+						
 						price.onChange = price.onFirstChange = function(next) {
 							vm.gopPrice = next;
 							vm.gopExchange();
