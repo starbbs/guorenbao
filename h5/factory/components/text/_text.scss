@@ -30,9 +30,14 @@
 		padding-right: 2px;
 	}
 	&-input {
+		$input: & + '';
 		display: block;
 		@include square(100%);
 		box-sizing: border-box;
+		&-ident {
+			@extend #{$input};
+			font-size: 14px;
+		}
 	}
 	&-select {
 		@include sprite($img + '/5.png', 13px , 8px);

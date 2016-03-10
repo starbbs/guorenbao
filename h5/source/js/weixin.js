@@ -2,8 +2,9 @@
 // H5微信端 --- 微信分享
 
 
-define('h5-weixin', ['api', 'h5-alert'], function(api) {
-	var base = 'www.goopal.com.cn/wx';
+define('h5-weixin', ['api', 'url', 'h5-alert'], function(api, url) {
+	var gopToken = $.cookie('gopToken');
+	var base = 'www.goopal.com.cn/wx'; // 地址
 	var weixin = {
 		// 参数
 		appId: null,
@@ -12,7 +13,7 @@ define('h5-weixin', ['api', 'h5-alert'], function(api) {
 		signature: null,
 		// 分享
 		title: '果仁宝',
-		desc: '我是果仁宝, 测试描述, 今天天气不错',
+		desc: '果仁宝，一站式消费理财新平台',
 		link: window.location.protocol + '//' + base + '/welcome.html',
 		imgUrl: window.location.protocol + '//' + base + '/images/share.jpg',
 		type: '',
@@ -62,23 +63,68 @@ define('h5-weixin', ['api', 'h5-alert'], function(api) {
 				}, options));
 			}
 		},
+		pay: { // 支付
+			options: { // 参数
+				timestamp: '', // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+				nonceStr: '', // 支付签名随机串，不长于 32 位
+				package: '', // 统一支付接口返回的prepay_id参数值，提交格式如:prepay_id=***）
+				signType: '', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+				paySign: '', // 支付签名
+				success: function(res) { // 成功
+					weixin.pay.onSuccess(res);
+				},
+				fail: function(res) { // 失败
+					alert('微信支付失败:\n' + JSON.stringify(res) + '\n请截图发送给开发人员, 谢谢!');
+					weixin.pay.onFail(res);
+				},
+				cancel: function(res) { // 取消
+				},
+				trigger: function(res) { // 菜单点击
+				},
+				complete: function(res) { // 完成
+					weixin.pay.onComplete(res);
+				},
+			},
+			create: function(money) {
+				api.createBuyinOrder({ // 创建买入订单
+					gopToken: gopToken,
+					orderMoney: money,
+					payType: 'WEIXIN_MP_PAY'
+				}, function(data) {
+					if (data.status == 200) {
+						var pay = data.data.WEIXIN_MP_PAY;
+						$.extend(weixin.pay.options, {
+							timestamp: pay.timeStamp,
+							nonceStr: pay.nonceStr,
+							package: pay.package,
+							signType: pay.signType,
+							paySign: pay.paySign,
+						});
+						weixin.pay.onCreate(data);
+					} else {
+						$.alert(data.msg);
+						console.log(data);
+					}
+				});
+			},
+			work: function() {
+				wx.chooseWXPay(weixin.pay.options);
+			},
+			onCreate: $.noop,
+			onSuccess: $.noop,
+			onFail: $.noop,
+			onComplete: $.noop,
+		},
 	};
-	//end for weixin_json
+
 	api.weixinInfo({
-		url: (function() {
-			var href = window.location.href;
-			var i1 = href.indexOf('?');
-			var i2 = href.indexOf('#');
-			if (i1 > -1 && i2 > -1) {
-				Math.min(i1, i2);
-			}
-			return href;
-		})()
+		// url: encodeURIComponent(window.location.href)
+		url: url.url + url.search
 	}, function(data) {
 		if (data.status == 200) {
 			var returnData = data.data.signatureData;
 			wx.config({
-				debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+				debug: false, // 开启调试模式，调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
 				appId: weixin.appId = returnData.appId, // 必填，公众号的唯一标识
 				timestamp: weixin.timestamp = returnData.timestamp, // 必填，生成签名的时间戳
 				nonceStr: weixin.nonceStr = returnData.nonceStr, // 必填，生成签名的随机串
@@ -168,10 +214,12 @@ define('h5-weixin', ['api', 'h5-alert'], function(api) {
 						"menuItem:share:brand", // 一些特殊公众号
 					]
 				});
+				weixin.setShare();
 			});
-		} else {					//状态码分支
+		} else { //状态码分支
 			console.log(data);
 		}
 	});
+
 	return weixin;
 });
