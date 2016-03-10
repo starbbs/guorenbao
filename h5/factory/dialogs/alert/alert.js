@@ -13,7 +13,7 @@ define('h5-dialog-alert', ['h5-dialog'], function(Dialog) {
 		this.html(html);
 		return alert;
 	};
-	alert.set = _html.bind(_button); // 设置内容
+	alert.set = _html.bind(_main); // 设置内容
 	alert.button = _html.bind(_button); // 设置按钮文字
 	return alert;
 });
