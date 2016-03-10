@@ -5,7 +5,7 @@
 define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-ident', 'h5-ident', 'h5-text'], function(router, api, check, View, bankcard_ident) {
 
 	var gopToken = $.cookie('gopToken');
-
+	var checkCardNumTimer = null;
 	var bankcard_append = new View('bankcard-append');
 
 	var _validBankList;  		 //存放后台传过来支持的银行类型
@@ -38,37 +38,39 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 		check: function(e) {	//添加银行卡  blur  卡号检测				
 			if (check.cardCondition(this.value)) {//检测卡位数	16或19位
 				var _thisVal = this.value;
-
-				api.checkBankCard({//检测银行卡类型
-					bankCard: _thisVal
-				}, function(data) {
-					if (data.status == 200) {
-						vm.bankName = data.data.bankName;
-						vm.cardType = data.data.cardType;
-						if (data.data.cardType == 'SAVINGS_DEPOSIT_CARD') {//储蓄 || 信用卡
-							vm.cardTypeStr = '储蓄卡';
-							var reg = /^0?1[3|4|5|8|7][0-9]\d{8}$/;
-							if (reg.test(vm.phone)) {
-								vm.checked = false;  //手机号码初步正确
-							} else {
+				clearTimeout(checkCardNumTimer);
+				checkCardNumTimer = setTimeout(function(){
+					api.checkBankCard({//检测银行卡类型
+						bankCard: _thisVal
+					}, function(data) {
+						if (data.status == 200) {
+							console.log('进行一次银行卡API校验');
+							vm.bankName = data.data.bankName;
+							vm.cardType = data.data.cardType;
+							if (data.data.cardType == 'SAVINGS_DEPOSIT_CARD') {//储蓄 || 信用卡
+								vm.cardTypeStr = '储蓄卡';
+								var reg = /^0?1[3|4|5|8|7][0-9]\d{8}$/;
+								if (reg.test(vm.phone)) {
+									vm.checked = false;  //手机号码初步正确
+								} else {
+									vm.checked = true;
+								}
+								if(!checkValidBankList(vm.bankName)){//在上面数组中查找是否支持输入的银行卡
+									vm.checked = true;
+									$.alert('抱歉，暂不支持本张银行卡，请更换一张');
+								}
+							}else{
+								vm.cardTypeStr = '信用卡';
 								vm.checked = true;
+								$.alert('抱歉，暂不支持信用卡支付，请更换一张');
 							}
-							if(!checkValidBankList(vm.bankName)){//在上面数组中查找是否支持输入的银行卡
-								vm.checked = true;
-								$.alert('抱歉，暂不支持本张银行卡，请更换一张');
-							}
-						}else{
-							vm.cardTypeStr = '信用卡';
+							$('.banknameAndcardtypestr').text(vm.bankName + 　' ' + 　vm.cardTypeStr);
+						} else {
+							$('.banknameAndcardtypestr').text('请输入正确的卡号');
 							vm.checked = true;
-							$.alert('抱歉，暂不支持信用卡支付，请更换一张');
 						}
-						$('.banknameAndcardtypestr').text(vm.bankName + 　' ' + 　vm.cardTypeStr);
-					} else {
-						$('.banknameAndcardtypestr').text('请输入正确的卡号');
-						vm.checked = true;
-					}
-				})					
-
+					})					
+				},500);
 			}else{//不符合16或19位的
 				$('.banknameAndcardtypestr').text('请输入正确的卡号');
 			}

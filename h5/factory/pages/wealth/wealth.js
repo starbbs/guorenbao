@@ -28,13 +28,19 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'filters', 'hcha
 			vm.historyDay = day;
 			chartHistorySet();
 		},
-		showHistory: function() {
+		showHistory: function() {  //展示历史财富
 			if (!historyVM.list.length) {
 				api.totalIncomeList({
-					gopToken: gopToken
+					gopToken: gopToken,
+					pageNo:1,
+					pageSize:10,
 				}, function(data) {
 					if (data.status == 200) {
 						historyVM.list = data.data.list;
+						for(var i=0; i<data.data.list.length; i++){
+							historyVM.total+=parseFloat(data.data.list[i]['income']);
+						}
+						
 					} else {
 						$.alert(data.msg);
 					}
