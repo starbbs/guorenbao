@@ -18,13 +18,22 @@ define('h5-component-bill', function() {
 			CLOSE: '已关闭',
 		},
 		statusTransfer: {
-			PROCESSING: '转账进行中',
+			PROCESSING: {
+				TRANSFER_IN: '转入进行中',
+				TRANSFER_OUT: '转账进行中',
+			},
 			SUCCESS: {
 				TRANSFER_IN: '转入成功',
 				TRANSFER_OUT: '转账成功',
 			},
-			FAILURE: '转账失败',
-			CLOSE: '已关闭',
+			FAILURE: {
+				TRANSFER_IN: '转入失败',
+				TRANSFER_OUT: '转账失败',
+			},
+			CLOSE: {
+				TRANSFER_IN: '已关闭',
+				TRANSFER_OUT: '已关闭',
+			},
 		},
 		typeClass: { // 类型对应class名称
 			TRANSFER_IN: 'transfer',

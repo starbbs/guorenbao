@@ -19,7 +19,7 @@
 		left: 0;
 	}
 	&.hide {
-		transition: $time;
+		// transition: $time;
 		@include t3d(100%);
 		&-immediately {
 			@include t3d(100%);
@@ -33,14 +33,14 @@
 		background-color: $g-background;
 		padding-bottom: $padding-bottom;
 		&.show {
-			transition: $time;
+			// transition: $time;
 			@include t3d(-100%);
 			&-immediately {
 				@include t3d(-100%);
 			}
 		}
 		&.hide {
-			transition: $time;
+			// transition: $time;
 			@include t3d(0);
 			&-immediately {
 				@include t3d(0);

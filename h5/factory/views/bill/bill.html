@@ -31,7 +31,7 @@
 				<div class="bill-stage" ms-visible="type==='TRANSFER_OUT'&&transferStage" ms-class="{{transferStage}}">
 					<div class="bill-stage-line"></div>
 				</div>
-				<div class="bill-desc" ms-visible="type==='TRANSFER_OUT'&&(transferStart||transferOver)">
+				<div class="bill-desc" ms-visible="type==='TRANSFER_OUT'&&transferStage&&(transferStart||transferOver)">
 					<div class="bill-desc-left">
 						<div class="bill-desc-name green">提交成功</div>
 						<div class="bill-desc-time">{{transferStart}}</div>
@@ -127,7 +127,7 @@
 			<div class="text-button"><span class="button" ms-visible="ifFinishButton" ms-click="finish">完成</span></div>
 			<div class="text-button"><span class="button" ms-visible="ifPayButton" ms-click="gotoPay">前往支付</span></div>
 			<div class="text-button"><span class="button" ms-visible="ifRePayButton" ms-click="gotoPay">重新支付</span></div>
-			<div class="text-button"><span class="button white" ms-visible="ifSetNickname" ms-click="gotoNickname">设置备注名</span></div>
+			<div class="text-button"><span class="button white" ms-visible="ifSetNickname" ms-click="setNickname">设置备注名</span></div>
 			<div class="bill-more"><span class="blue" ms-visible="ifShowMore" ms-click="showMore">更多</span></div>
 			<div class="bill-more"><span class="blue" ms-visible="ifClose" ms-click="close">关闭</span></div>
 			<div class="bill-tip" ms-visible="ifTip">如有疑问，请联系果仁宝客服<br><a class="a-blue" href="tel:400-184-9696">400-184-9696</a></div>

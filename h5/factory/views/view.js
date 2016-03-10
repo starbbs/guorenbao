@@ -35,7 +35,7 @@ define('h5-view', ['router', 'h5-alert'], function(router) {
 		}
 	});
 
-	var time = 500; // 运动时间, 使用的定时器, 没有绑定transitionEnd/animationEnd
+	var time = 10; // 运动时间, 使用的定时器, 没有绑定transitionEnd/animationEnd
 	var main = $('.view');
 	var removeAllClass = function() {
 		_list.forEach(function(name) {

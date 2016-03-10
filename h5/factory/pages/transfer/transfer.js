@@ -61,11 +61,11 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 				});
 			} else {
 				//跳转到钱包地址
-				address_wallet.vm.hasStepNext = false;
+				address_wallet.vm.hasStepNext = true;
 				address_wallet.vm.callback = function() {
 					init();
 					//router.go('/');
-					console.log('dddddddd');
+//					console.log('dddddddd');
 
 					vm.transferOutType = 'ME_WALLET';
 					api.walletList({
@@ -158,6 +158,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 			nowData.name = $(this).attr("name");
 			nowData.personId = $(this).attr("personId");
 			nowData.photo = $(this).attr("photo");
+			nowData.phone = $(this).attr("phone");
 			$.extend(transferTarget, nowData);
 			targetInit(vm.transferOutType);
 			router.go('/view/transfer-target');
@@ -237,6 +238,8 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 							}
 							if (data.data.phone) {
 								nowData.addressToPhone = data.data.phone;
+								nowData.phone = data.data.phone;
+//								vm.transferOutType="GOP_CONTACT";//果仁宝联系人
 							}
 							if (re.test(transferNew.newTarget)) {
 								if (data.data.nick) {
@@ -311,9 +314,11 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 			nowData.personId = models.$model.id;
 			if (models.$model.address) {
 				nowData.address = models.$model.address;
+				nowData.addressToPhone= models.$model.address.substr(0,8)+'**********';
 			};
 			if (models.$model.phone) {
 				nowData.address = models.$model.phone;
+				nowData.phone = models.$model.phone;
 			};
 			if (models.$model.picture) {
 				nowData.photo = models.$model.picture;
@@ -340,7 +345,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 		serviceFee: 0.01, // 服务费
 		serviceFeeShow: 0.01,
 		transferNum: '', // 转果仁数	
-		floorFix: filters.floorFix,
 		gopNum: 0, // 拥有果仁数	
 		price: 0, // 实价
 		cnyMoney: 0, // 约合人民币
@@ -482,7 +486,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 						}		
 						viewAuthentication.vm.callbackFlag=true;
 						viewAuthentication.show();
-//						router.to('/view/authentication');
+						// router.to('/view/authentication');
 					}, 100);
 				}
 				if (data.data.marketGopAddress) {
@@ -500,8 +504,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 		}, function(data) {
 			if (data.status == 200) {
 				if (data.data.gopNum) {
-					vm.gopNum = data.data.gopNum; //果仁数量
-					transferTarget.gopNum = data.data.gopNum; //果仁数量
+					transferTarget.gopNum = vm.gopNum = filters.floorFix(data.data.gopNum); //果仁数量
 				}
 			} else {
 				console.log(data);
@@ -586,8 +589,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 	};
 	avalon.scan();
 
-	// init();
-
 	transferTargetView.on("hide", function() {
 		dialogPaypass.hide();
 		transferTarget.transferNum = '';
@@ -597,6 +598,8 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 		transferTarget.transferNum = '';
 		$('.transfer-target-box .text-input').val('');
 	});
+
+	init();
 
 	setTimeout(function() {
 		transfer.addClass('on');
@@ -621,7 +624,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 				api.log('cookie中并没有联系人数据');
 			}
 		} else {
-			init();
 		}
 	}, 100);
 });
