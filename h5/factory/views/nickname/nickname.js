@@ -14,7 +14,7 @@ define('h5-view-nickname', ['h5-view', 'api', 'h5-text'], function(View, api) {
 			api.updateRemark({
 				gopToken: gopToken,
 				remark: vm.nickname,
-				personId: vm.id
+				personId: vm.id,
 			}, function(data) {
 				if (data.status == 200) {
 					vm.callback();

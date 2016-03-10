@@ -3,16 +3,16 @@
 	<div class="order-head">
 		<div class="purchase-order-head-float">
 			<div class="purchase-order-head-label">预获果仁(G)</div>
-			<div class="purchase-order-head-price green">+{{gopNum}}</div>
+			<div class="purchase-order-head-price green">+{{gopNum|floorFix}}</div>
 		</div>
 		<div class="purchase-order-head-float">
 			<div class="purchase-order-head-label">当前价格(¥)</div>
-			<div class="purchase-order-head-price">{{price}}</div>
+			<div class="purchase-order-head-price">{{price|fix}}</div>
 		</div>
 		<div class="purchase-order-head-clear">
 			<div class="purchase-order-head-bold">等待支付(¥)</div>
 			<div class="purchase-order-head-tip">收款方：北京果仁宝科技有限公司</div>
-			<div class="purchase-order-head-money">-{{orderMoney}}</div>
+			<div class="purchase-order-head-money">-{{orderMoney|fix}}</div>
 		</div>
 	</div>
 	<!-- <div class="order-box">

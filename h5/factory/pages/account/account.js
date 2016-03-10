@@ -94,7 +94,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 						result.month3 = item[1] >= 10 ? item[1] === 10 ? '十一' : '十二' : '一二三四五六七八九十' [item[1]]; // 月份(中文数字)
 						break;
 					case 'day':
-						result.day2 = '日一二三四五六' [item[1]]; // 周(中文数字)
+						result.day2 = '日一二三四五六'[item[1]]; // 周(中文数字)
 						break;
 					case 'hour':
 						result.hour2 = item[1] < 10 ? ('0' + item[1]) : ('' + item[1]);

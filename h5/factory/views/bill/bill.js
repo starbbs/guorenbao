@@ -165,7 +165,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'filters', 'h5-component-bil
 		}, function(data) {
 			console.log(data)
 			if (data.status == 200) {
-				setOne('transferName', data.data.remark || data.data.nick || '未命名用户');
+				setOne('transferName', data.data.remark || data.data.nick || '未命名地址');
 				setOne('transferImg', data.data.photo || '');
 				setOne('transferAddress', filters.phone(data.data.phone) || filters.address(data.data.address) || '');
 				!data.data.remark && vm.type === 'TRANSFER_OUT' && vm.status === 'SUCCESS' && setOne('ifSetNickname', true); // 显示"设置备注名"的判断, 没有原名且转账成功
