@@ -13,7 +13,7 @@
 	var H5_DIALOGS = H5_FACTORY + '/dialogs';
 	var H5_PAGES = H5_FACTORY + '/pages';
 	var H5_SOURCE = '../source';
-
+	
 	require.config({
 		baseUrl: './',
 		paths: {
