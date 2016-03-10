@@ -239,7 +239,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 							if (data.data.phone) {
 								nowData.addressToPhone = data.data.phone;
 								nowData.phone = data.data.phone;
-//								vm.transferOutType="GOP_CONTACT";//果仁宝联系人
+								vm.transferOutType = 'GOP_NEW';//果仁宝联系人
 							}
 							if (re.test(transferNew.newTarget)) {
 								if (data.data.nick) {
