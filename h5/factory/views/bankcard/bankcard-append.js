@@ -64,11 +64,6 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 								$.alert('抱歉，暂不支持信用卡支付，请更换一张');
 							}
 							$('.banknameAndcardtypestr').text(vm.bankName + 　' ' + 　vm.cardTypeStr);
-						} else {
-							$('.banknameAndcardtypestr').text('请输入正确的卡号');
-						} else {
-							vm.cardTypeStr = '信用卡';
-							vm.checked = true;
 						}
 					})
 				}, 500);
