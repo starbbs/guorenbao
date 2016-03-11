@@ -16,9 +16,9 @@ require('./h5/h5-public');
 gulp.task('h5', ['h5-build']);
 
 // 交易所端
-// require('./exchange/exchange-build');
-// require('./exchange/exchange-public');
-// gulp.task('exchange',['exchange-build']);
+require('./exchange/exchange-build');
+require('./exchange/exchange-public');
+gulp.task('exchange',['exchange-build']);
 
 
 // 任务

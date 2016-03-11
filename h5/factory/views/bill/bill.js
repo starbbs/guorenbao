@@ -2,10 +2,11 @@
 // H5微信端 --- view-bill 账单详情分页
 
 
-define('h5-view-bill', ['h5-view', 'api', 'router', 'filters', 'h5-component-bill', 'h5-view-nickname'], function(View, api, router, filters, H5bill, nicknameView) {
+define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-component-bill', 'h5-view-nickname'], function(View, api, router, weixin, filters, H5bill, nicknameView) {
 	var gopToken = $.cookie('gopToken');
 	var bill = new View('bill');
 	var main = $('.bill');
+	var nowData = null; // 当前使用的后台原始数据
 	var initSettings = { // 初始化
 		id: '', // 账单ID
 		type: '', // 类型
@@ -73,7 +74,22 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'filters', 'h5-component-bil
 			if (bill.onGotoPay() === false) {
 
 			} else {
-				window.location.href = './order.html?from=bill&id=' + vm.id;
+				if (vm.payType === '微信支付') {
+					var id = null;
+					weixin.pay.onSuccess = function(res) {
+						buyInHandler('BUY_IN', id, {
+							ifFinishButton: true
+						});
+					};
+					// weixin.pay.set(nowData.data.WEIXIN_MP_PAY);
+					// weixin.pay.work();
+					weixin.pay.create(vm.orderMoney, function(data) {
+						id = data.data.buyinOrder.id;
+						weixin.pay.work();
+					});
+				} else {
+					window.location.href = './order.html?from=bill&id=' + vm.id;
+				}
 			}
 		},
 		setNickname: function() { // 设置备注名
@@ -191,7 +207,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'filters', 'h5-component-bil
 			serialNum: $.isArray(list) ? list.map(function(item) {
 				return item.tradeNo;
 			}).join('<br>') : order.serialNum,
-			// payType: H5bill.payType[order.payType], // 支付方式
+			payType: H5bill.payType[order.payType], // 支付方式
 			ifPayButton: waitForPay, // 是否显示"前往支付"按钮
 			ifClose: waitForPay, // 是否显示"关闭"
 		};
@@ -202,7 +218,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'filters', 'h5-component-bil
 			buyinOrderId: id,
 			payType: 'WEIXIN_MP_PAY'
 		}, function(data) {
-			console.log(data);
+			console.log(nowData = data);
 			options.onRequest && options.onRequest(data);
 			if (!data.data || !data.data.buyinOrder || data.status != 200) {
 				data.msg && $.alert(data.msg);
@@ -224,7 +240,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'filters', 'h5-component-bil
 			gopToken: gopToken,
 			consumeOrderId: id
 		}, function(data) {
-			console.log(data);
+			console.log(nowData = data);
 			options.onRequest && options.onRequest(data);
 			if (!data.data || !data.data.consumeOrder || data.status != 200) {
 				data.msg && $.alert(data.msg);
@@ -277,7 +293,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'filters', 'h5-component-bil
 			gopToken: gopToken,
 			transferInId: id
 		}, function(data) {
-			console.log(data);
+			console.log(nowData = data);
 			options.onRequest && options.onRequest(data);
 			if (!data.data || !data.data.transferIn || data.status != 200) {
 				data.msg && $.alert(data.msg);
@@ -295,7 +311,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'filters', 'h5-component-bil
 			gopToken: gopToken,
 			transferOutId: id
 		}, function(data) {
-			console.log(data);
+			console.log(nowData = data);
 			options.onRequest && options.onRequest(data);
 			if (!data.data || !data.data.transferOut || data.status != 200) {
 				data.msg && $.alert(data.msg);
