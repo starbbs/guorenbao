@@ -43,8 +43,10 @@ gulp.task('exchange-img-move', function() {
 		var opts = {
 			type: 'image',
 			rename: function(path) {
-				path.dirname = path.dirname.replace(/\\/g, '/');
-				path.basename = path.dirname.replace(/(\/?images\/?)|(^\.)/, '') + path.basename.replace(/^_+/, '-');
+				if (path.dirname !== '.') {
+					path.dirname = path.dirname.replace(/\\/g, '/');
+					path.basename = path.dirname.replace(/(\/?images\/?)|(^\.)/, '') + '-' + path.basename.replace(/^_+/, '');
+				}
 			}
 		};
 		useReg && (opts.fileReg = /^_/);
@@ -104,10 +106,3 @@ gulp.task('exchange-css-move', function() {
 
 
 gulp.task('exchange-build', ['exchange-include', 'exchange-img-move', 'exchange-js-move', 'exchange-css-move']);
-
-
-
-
-
-
-
