@@ -60,7 +60,7 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'filters', 'hcha
 		chartHistoryDate.length = 0;
 		list.forEach(function(item) {
 			chartHistoryData.push(item.price);
-			chartHistoryDate.push(item.date.replace(/\d{4}-(\d{2})-(\d{2})/, function(s, s1, s2) {
+			chartHistoryDate.push(item.date.replace(/^\d{4}-(\d{2})-(\d{2}).*$/, function(s, s1, s2) {
 				return s1 + '/' + s2;
 			}));
 		});
@@ -121,7 +121,7 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'filters', 'hcha
 						})(),
 						labels: {
 							formatter: function() {
-								return this.value;
+								return this.value.toFixed(2);
 							}
 						}
 					},

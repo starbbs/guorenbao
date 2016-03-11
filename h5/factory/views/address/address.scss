@@ -48,14 +48,13 @@
 		}
 	}
 	&-bottom-tips {
-		@extend .view-bottom;
-		height: auto;
+		@extend %ablw;
 		margin-bottom: 40px;
-		color:$g-gray;
-		span{
+		color: $g-gray;
+		span {
 			display:block;
 			text-align:center;			
-			& a{
+			a {
 				color:#6888d9;
 			}
 		}
