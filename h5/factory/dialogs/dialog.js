@@ -11,6 +11,8 @@ define('h5-dialog', [], function() {
 
 	main.on('touchmove', function(ev) {
 		ev.preventDefault();
+		ev.stopPropagation();
+		return false;
 	});
 	main.isShowing = false;
 	main.show = function() {

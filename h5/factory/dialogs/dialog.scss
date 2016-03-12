@@ -76,5 +76,8 @@
 		@include sprite($img + '/close.png', 15px);
 		@include atl(17px, 18px);
 		z-index: 2;
+		&:after {
+			@extend %click;
+		}
 	}
 }
