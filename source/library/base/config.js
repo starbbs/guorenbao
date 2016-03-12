@@ -59,10 +59,16 @@
 			'h5-component-bill':		H5_COMPONENTS + '/bill/bill',
 			'h5-component-keyboard':	H5_COMPONENTS + '/keyboard/keyboard',
 			'h5-dialog':				H5_DIALOGS + '/dialog',
-			'h5-dialog-alert':			H5_DIALOGS + '/alert/alert',
+			
+
+			'h5-dialog-alert':			H5_DIALOGS + '/alert/alert',   
+			//添加对话
+			'h5-dialog-confirm':        H5_DIALOGS + '/confirm/confirm',
 			'h5-dialog-bankcard':		H5_DIALOGS + '/bankcard/bankcard',
 			'h5-dialog-paypass':		H5_DIALOGS + '/paypass/paypass',
 			'h5-dialog-more':			H5_DIALOGS + '/more/more',
+
+
 			'h5-bankcard-append':		H5_VIEWS + '/bankcard/bankcard-append',
 			'h5-bankcard-ident':		H5_VIEWS + '/bankcard/bankcard-ident',
 			'h5-view':					H5_VIEWS + '/view',

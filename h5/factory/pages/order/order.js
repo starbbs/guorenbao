@@ -5,13 +5,24 @@
 require(['api', 'get', 'router',
 		'h5-view', 'h5-bankcard-append', 'h5-view-authentication', 'h5-view-bill',
 		'h5-price', 'h5-bank', 'h5-ident', 'h5-component-bill',
-		'h5-dialog-bankcard', 'h5-dialog-paypass', 'h5-dialog-more',
+		'h5-dialog-bankcard', 'h5-dialog-paypass', 'h5-dialog-more','h5-dialog-confirm',
 		'h5-weixin'
 	],
 	function(api, get, router,
 		View, viewBankcardAppend, viewAuthentication, billView,
 		price, H5Bank, H5Ident, H5Bill,
-		dialogBankcard, dialogPaypass, dialogMore) {
+		dialogBankcard, dialogPaypass, dialogMore,dialogConfirm) {
+		//引入confirmjs 提前还有在config.js配置  html还要引入confirm.html
+		//显示
+		dialogConfirm.show();
+		//点击好后的事件
+		dialogConfirm.onConfirm = function() {
+			alert(1)
+		};
+		//设置confirm内容
+		dialogConfirm.set('12321321321321312')
+		console.log(dialogConfirm)
+		
 
 		router.init();
 

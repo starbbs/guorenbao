@@ -9,11 +9,23 @@ define('h5-dialog-alert', ['h5-dialog'], function(Dialog) {
 		alert.hide();
 	});
 	var _main = alert.self.find('.dialog-alert-main');
+	
+	//===============================
 	var _html = function(html) {
 		this.html(html);
 		return alert;
 	};
-	alert.set = _html.bind(_button); // 设置内容
+	alert.set = _html.bind(_main); // 设置内容
+	
+	//13-17行代码 等于以下
+	/*
+	alert.set = function(html){
+		_main.html(html);
+		return alert;	
+	}
+	*/
+	//===============================
+	
 	alert.button = _html.bind(_button); // 设置按钮文字
 	return alert;
 });
