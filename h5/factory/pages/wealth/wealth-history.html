@@ -1,11 +1,11 @@
 <div class="wealth-history" ms-controller="wealth-history">
 	<div class="wealth-history-scroll">
 		<div class="wealth-history-head">累计收益（¥）</div>
-		<div class="wealth-history-number" ms-class-1="red:total>0" ms-class-2="green:total<0">{{total}}</div>
+		<div class="wealth-history-number" ms-class-1="red:total>0" ms-class-2="green:total<0">{{total|floorFix}}</div>
 		<div class="wealth-history-list" ms-repeat="list">
 			<div class="wealth-history-item">
 				<div class="wealth-history-left">{{el.createTime}}</div>
-				<div class="wealth-history-right" ms-class-1="red:el.income>0" ms-class-2="green:el.income<0">{{el.income}}</div>
+				<div class="wealth-history-right" ms-class-1="red:el.income>0" ms-class-2="green:el.income<0">{{el.income|fix}}</div>
 			</div>
 			<!--
 			<div class="wealth-history-item">
