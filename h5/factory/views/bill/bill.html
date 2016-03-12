@@ -43,11 +43,11 @@
 				</div>
 				<div class="bill-reason" ms-visible="failReason">
 					<div class="fl">失败原因</div>
-					<div class="fr red">{{failReason}}</div>
+					<div class="fr red">{{failReason|html}}</div>
 				</div>
 				<div class="bill-reason" ms-visible="closeReason">
 					<div class="fl">关闭原因</div>
-					<div class="fr red">{{closeReason}}</div>
+					<div class="fr red">{{closeReason|html}}</div>
 				</div>
 				<div class="bill-pay" ms-visible="orderMoney&&!buyMoney">
 					<div class="bill-label" ms-class-1="ash:status==='FAILURE'" ms-class-2="dark:status!=='FAILURE'">订单金额(¥)</div>
@@ -100,6 +100,10 @@
 					<div class="bill-detail-item" ms-visible="orderTime">
 						<div class="bill-detail-left">交易时间</div>
 						<div class="bill-detail-right dark">{{orderTime}}</div>
+					</div>
+					<div class="bill-detail-item" ms-visible="closeTime">
+						<div class="bill-detail-left">关闭时间</div>
+						<div class="bill-detail-right ash">{{closeTime}}</div>
 					</div>
 					<div class="bill-detail-item" ms-visible="submitTime">
 						<div class="bill-detail-left">提交时间</div>

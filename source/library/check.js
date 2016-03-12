@@ -1,5 +1,3 @@
-
-
 // 张树垚 2015-08-24 16:56:17 创建
 // 检测模块
 
@@ -66,9 +64,9 @@ define('check', function() {
 		return count;
 	};
 	var charactersRegs = [ // 字符所有种类
-		/[A-Z]/,	// 大写字符
-		/[a-z]/,	// 小写字符
-		/[\d]/,		// 数字
+		/[A-Z]/, // 大写字符
+		/[a-z]/, // 小写字符
+		/[\d]/, // 数字
 		/[\~\`\!\@\#\$\%\^\&\*\(\)\-\_\+\=\\\|\[\]\{\}\;\:\"\'\,\<\.\>\/\?]/ // 标点
 	];
 	var charactersReg = new RegExp('^' + charactersRegs.join('').replace(/^\/|\/$|\]\/\/\[/g, '') + '+$'); // /^[a-zA-Z\d\~\`\!\@\#\$\%\^\&\*\(\)\-\_\+\=\\\|\[\]\{\}\;\:\"\'\,\<\.\>\/\?]+$/.test(value) 串联正则
@@ -84,7 +82,9 @@ define('check', function() {
 				for (var i = 0; i < numbers.length; i++) {
 					array.push(numbers.slice(i, length + i));
 					array.push(numbers.slice(i, length + i).reverse());
-					if (length + i === numbers.length) { break; }
+					if (length + i === numbers.length) {
+						break;
+					}
 				}
 				return new RegExp('^(' + array.join('|') + ')$');
 			})()]
@@ -101,25 +101,28 @@ define('check', function() {
 	 *         		json.reason		{string}	[校验失败的原因]
 	 */
 	$.extend(check, {
-	// 简单校验
-		number:function(value) { // 数字类型
+		// 简单校验
+		number: function(value) { // 数字类型
 			return $.isNumeric(value);
 		},
-	// 有oninput校验条件
+		gopBuyValidate: function(value, gopPrice) { // 买入校验
+			return parseFloat(value) / parseFloat(gopPrice) >= 0.01;
+		},
+		// 有oninput校验条件
 		card: function(value) { // 银行卡校验
 			return /^((\d{16})|(\d{19}))$/.test(trim(value));
 		},
 		cardCondition: function(value) {
-			if(value.length === 16 || value.length === 19){
+			if (value.length === 16 || value.length === 19) {
 				return true;
-			}else{
+			} else {
 				return false;
 			}
 			//return value.length === 16 || value.length === 19;
 		},
 		idcard: function(value) { // 身份证验证
 			return /^((\d{15})|(\d{17}[\dXx]))$/.test(trim(value));
-			
+
 		},
 		idcardCondition: function(value) {
 			return value.length >= 15;
@@ -136,13 +139,12 @@ define('check', function() {
 		realnameCondition: function(value) {
 			return value.length > 2;
 		},
-		gopBuyValidate:function(textValue,gopPrice){
-			return textValue/gopPrice>=0.01;
-		},
-	// 复杂校验
+		// 复杂校验
 		password: function(value) { // 登录密码格式验证
 			//密码不为空
-			if (empty(value)) { return result('321'); }
+			if (empty(value)) {
+				return result('321');
+			}
 			// 1. 6-20位字符
 			if (value.length < 6 || value.length > 20) {
 				return result('322');
@@ -167,7 +169,9 @@ define('check', function() {
 			return value.length === 6;
 		},
 		paypass2: function(value) { // 支付密码格式验证 -- 旧版
-			if (empty(value)) { return false; }
+			if (empty(value)) {
+				return false;
+			}
 			// 1. 交易密码为6位数字
 			if (!/^\d{6}$/.test(value)) {
 				return {
@@ -202,18 +206,22 @@ define('check', function() {
 			return result('200');
 		},
 		phone: function(value) { // 手机号校验
-			if (empty(value)) { return result('311'); }
+			if (empty(value)) {
+				return result('311');
+			}
 			return result(/^(\+86)?((13[0-9])|(14[57])|(15[0-35-9])|(17[0678])|(18[0-9]))\d{8}$/.test(value + '') ? '200' : '310');
 		},
 		phoneCondition: function(value) {
 			return value.length >= 11;
 		},
 		safe: function(value, withoutPassword) {
-			if(check.safeCondition(value)){
+			if (check.safeCondition(value)) {
 				if (!withoutPassword) { // 是否验证密码格式
 					var password = check.password(value);
 					// if (password === false || password.result === false) { return '密码格式不正确'; }
-					if (password === false || password.result === false) { return '低'; }
+					if (password === false || password.result === false) {
+						return '低';
+					}
 				}
 				// total: 总等级数
 				// 字符种类数/字符位数   6-10位(0)   11-15位(1)   16-20位(2)
@@ -223,7 +231,9 @@ define('check', function() {
 				var num = function(arr, str) { // 判断位置
 					var now = arr.length - 1;
 					for (var i = 0; i < arr.length; i++) {
-						if (arr[i] > str) { now--; }
+						if (arr[i] > str) {
+							now--;
+						}
 					}
 					return now;
 				};
@@ -292,7 +302,9 @@ define('check', function() {
 	};
 	Check.prototype.onInput = function() { // 输入时 -- this->InputElement, _this->Check
 		var _this = this.check;
-		if (_this.condition in check && !check[_this.condition](this.value)) { return; }
+		if (_this.condition in check && !check[_this.condition](this.value)) {
+			return;
+		}
 		_this.onBlur.call(this);
 	};
 	Check.prototype.onBlur = function() { // 失去焦点 -- this->InputElement, _this->Check
@@ -335,13 +347,3 @@ define('check', function() {
 
 	return check;
 });
-
-
-
-
-
-
-
-
-
-
