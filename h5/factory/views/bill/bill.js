@@ -40,6 +40,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 		payGop: 0, // 消费--支付果仁数
 		productDesc: '', // 商品信息
 		orderTime: '', // 交易时间
+		closeTime: '', // 关闭时间
 		submitTime: '', // 提交时间
 		createTime: '', // 创建时间
 		orderCode: '', // 订单号
@@ -198,10 +199,13 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			headClass: H5bill.statusClass[order.status], // 头部样式名
 			headContent: H5bill.statusBusiness[order.status], // 头部内容
 			waitForPay: waitForPay, // 等待支付
-			failReason: order.status == 'FAILURE' ? order.payResult : '', // 失败原因
-			closeReason: order.status == 'CLOSE' ? order.payResult : '', // 关闭原因
+			failReason: order.status == 'FAILURE' ? order.payResult || ($.isArray(list) ? list.reduce(function(string, item, index) {
+				return item.payResult ? string + (index ? '<br>' : '') + item.payResult : string; // 从支付方式中找出失败原因
+			}, '') : '') : '', // 失败原因
+			closeReason: order.status === 'CLOSE' ? order.payResult : '', // 关闭原因
 			orderMoney: order.orderMoney, // 订单金额
-			orderTime: order.updateTime === order.createTime ? '' : order.updateTime, // 交易时间
+			orderTime: order.status !== 'CLOSE' ? order.updateTime === order.createTime ? '' : order.updateTime : '', // 交易时间
+			closeTime: order.status === 'CLOSE' ? order.updateTime : '', // 关闭时间
 			createTime: order.updateTime ? '' : order.createTime, // 创建时间
 			orderCode: order.orderCode, // 订单号
 			serialNum: $.isArray(list) ? list.map(function(item) {
