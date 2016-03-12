@@ -1,4 +1,3 @@
-
 // 张树垚 2015-12-17 18:13:15 创建
 // H5微信端 -- 浮层
 
@@ -15,13 +14,17 @@ define('h5-dialog', [], function() {
 	});
 	main.isShowing = false;
 	main.show = function() {
-		if (main.isShowing) { return; }
+		if (main.isShowing) {
+			return;
+		}
 		main.isShowing = true;
 		main.addClass('on');
 		return this;
 	};
 	main.hide = function(ifHideImmediately) {
-		if (!main.isShowing) { return; }
+		if (!main.isShowing) {
+			return;
+		}
 		main.isShowing = false;
 		main.removeClass('on');
 		return this;
@@ -61,7 +64,9 @@ define('h5-dialog', [], function() {
 	 * @return   {[this]}                                   [返回自己]
 	 */
 	Dialog.prototype.show = function(ifShowImmediately, ifHideOthers, HideArr) { // 隐藏
-		if (this.isShowing) { return; }
+		if (this.isShowing) {
+			return;
+		}
 		this.isShowing = true;
 		this.main.show();
 		this.self.show();
@@ -74,7 +79,9 @@ define('h5-dialog', [], function() {
 		return this;
 	};
 	Dialog.prototype.hide = function(ifHideImmediately, ifNotHideMain) { // 显示
-		if (!this.isShowing) { return; }
+		if (!this.isShowing) {
+			return;
+		}
 		this.isShowing = false;
 		this.self.addClass(ifHideImmediately ? 'hide-immediately' : 'hide');
 		this[stackMaker('hide')].length && this[stackMaker('hide')].forEach(function(callback) {
@@ -93,5 +100,3 @@ define('h5-dialog', [], function() {
 	Dialog.prototype.off = function(name, callback) {};
 	return Dialog;
 });
-
-

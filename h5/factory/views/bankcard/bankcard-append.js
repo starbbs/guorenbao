@@ -2,7 +2,7 @@
 // H5微信端 --- 添加银行卡
 
 
-define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-ident', 'h5-ident', 'h5-text'], function(router, api, check, View, bankcard_ident) {
+define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-ident','h5-dialog-alert','h5-dialog-info', 'h5-ident', 'h5-text'], function(router, api, check, View, bankcard_ident,dialogAlert,dialogInfo) {
 
 	var gopToken = $.cookie('gopToken');
 	var checkCardNumTimer = null;
@@ -113,6 +113,17 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 					vm.checked = true;
 				}
 			}
+		},
+		//银行卡号  手机号 叹号说明
+		showBankNoDes:function(){
+			dialogInfo.setBtn('知道了');
+			dialogInfo.setTit('支持的银行');
+			dialogInfo.setList(dialogInfo.setListHtml(_validBankList));
+			dialogInfo.show();
+		},
+		showPhoneDes:function(){
+			dialogAlert.set('银行预留的手机号码是办理该银行卡时所填写的手机号码。没有预留，手机号忘记或者已停用，请联系银行客服更新处理。');
+			dialogAlert.show();
 		}
 	});
 	bankcard_append.on('hide', function() {

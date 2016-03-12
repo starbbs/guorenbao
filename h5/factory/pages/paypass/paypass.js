@@ -2,7 +2,7 @@
 // H5微信端 --- 支付密码重置
 
 
-require(['router', 'api', 'h5-view','get', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-weixin'], function(router, api, View,get) {
+require(['router', 'api', 'h5-view','get','h5-dialog-success', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-weixin'], function(router, api, View,get,dialogSuccess) {
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
 	var paypass = $('.paypass-page');
@@ -180,14 +180,29 @@ require(['router', 'api', 'h5-view','get', 'h5-ident', 'h5-paypass', 'h5-text', 
 					password: vm.paypass3
 				}, function(data) {
 					if (data.status == 200) {
-						$.alert('修改支付密码成功');
-						console.log("dddddddddd")
+						//$.alert('修改支付密码成功');
+						//console.log("dddddddddd")
 						vm.paypass1 = '';
 						vm.paypass2 = '';
 						vm.paypass3 = '';
 						vm.Idcard = '';
 						vm.identifyingCode = '';
-						window.location.href = 'security.html';
+						var successTimer = null;
+						var s = 3;
+						dialogSuccess.on('show',function(){
+							successTimer = setInterval(function(){
+								s--;
+								if(s==0){
+									clearInterval(successTimer);
+									window.location.href = 'security.html';
+									dialogSuccess.hide();
+								}else{
+									dialogSuccess.button.html('支付密码修改成功，请牢记，'+s+'s后自动跳转');
+								}
+							},1000);
+						});
+						dialogSuccess.set('支付密码修改成功，请牢记，3S后自动跳转');
+						dialogSuccess.show();
 					} else {
 						console.log(data);
 						$.alert(data.msg);

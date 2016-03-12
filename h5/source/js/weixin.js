@@ -85,22 +85,25 @@ define('h5-weixin', ['api', 'url', 'h5-alert'], function(api, url) {
 					weixin.pay.onComplete(res);
 				},
 			},
-			create: function(money) {
+			set: function(pay) {
+				$.extend(weixin.pay.options, {
+					timestamp: pay.timeStamp,
+					nonceStr: pay.nonceStr,
+					package: pay.package,
+					signType: pay.signType,
+					paySign: pay.paySign,
+				});
+			},
+			create: function(money, callback) {
 				api.createBuyinOrder({ // 创建买入订单
 					gopToken: gopToken,
 					orderMoney: money,
 					payType: 'WEIXIN_MP_PAY'
 				}, function(data) {
 					if (data.status == 200) {
-						var pay = data.data.WEIXIN_MP_PAY;
-						$.extend(weixin.pay.options, {
-							timestamp: pay.timeStamp,
-							nonceStr: pay.nonceStr,
-							package: pay.package,
-							signType: pay.signType,
-							paySign: pay.paySign,
-						});
+						weixin.pay.set(data.data.WEIXIN_MP_PAY);
 						weixin.pay.onCreate(data);
+						callback && callback(data);
 					} else {
 						$.alert(data.msg);
 						console.log(data);
@@ -108,6 +111,7 @@ define('h5-weixin', ['api', 'url', 'h5-alert'], function(api, url) {
 				});
 			},
 			work: function() {
+				alert(JSON.stringify(weixin.pay.options))
 				wx.chooseWXPay(weixin.pay.options);
 			},
 			onCreate: $.noop,

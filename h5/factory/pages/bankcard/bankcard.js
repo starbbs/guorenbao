@@ -3,9 +3,11 @@
 
 
 require(['router', 'api', 'h5-view', 'hashMap',
-	'h5-bankcard-append','h5-ident', 'h5-view-authentication', 'h5-text', 'h5-weixin'
+	'h5-bankcard-append','h5-ident', 'h5-view-authentication','h5-dialog-confirm', 'h5-text', 'h5-weixin'
 ], function(router, api, View, hashMap,
-	bankcardAppend,bankcardIdent, viewAuthentication) {
+	bankcardAppend,bankcardIdent, viewAuthentication,dialogConfirm) {
+
+
 
 	router.init();
 
@@ -128,20 +130,28 @@ require(['router', 'api', 'h5-view', 'hashMap',
 		back_click: function() {
 			bankcardDetailViewModel.callback();
 		},
-		del_click: function() {
-			api.bankcardDel({
+		del_click: function() {						//删除银行卡
+			dialogConfirm.set('解除绑定银行卡？');
+			dialogConfirm.show();
+		}
+	});
+
+	dialogConfirm.onConfirm = function(){//设置回调函数  回调函数的执行在confirm.js的btn点击绑定事件里
+		api.bankcardDel({
 				gopToken: gopToken,
 				cardId: bankcardDetailViewModel.cardId
 			}, function(data) {
+				console.log(data.status);
 				if (data.status == 200) {
 					$.alert('解绑成功');
 					bankcardDetailViewModel.callback();
 				} else {
 					console.log(data);
-				}
-			});
-		}
-	});
+			}
+		});
+	};
+
+
 	//页面刷新初始化银行卡列表函数
 	var bankcardInit = function() {
 		vm.list.clear();

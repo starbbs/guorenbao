@@ -8,7 +8,7 @@
 				<div class="bankcard-item-typed">{{item.typeName}}</div>
 			</div>
 			<div class="bankcard-item-number">{{item.cardNo}}</div>
-		</div>		
+		</div>
 		<div class="bankcard-item add" ms-click="bankcardAppendClick">
 			<div class="bankcard-add-icon"></div>
 			<div class="bankcard-add-word">添加银行卡</div>
@@ -22,6 +22,9 @@
 	</div>
 	<div class="alert"></div>
 	<div class="dialog">
+	@@include('../../dialogs/confirm/confirm.html')
+	@@include('../../dialogs/alert/alert.html')
+	@@include('../../dialogs/info/info.html')
 	</div>
 </div>
 @@include('../../../source/include/bottom.html', {"name": "bankcard"})

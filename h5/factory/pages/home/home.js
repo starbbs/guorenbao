@@ -1,10 +1,6 @@
 // 张树垚 2015-12-20 11:27:22 创建
 // H5微信端 --- 个人首页
 (function() {
-	var _root = {};
-	window.onfocus = function() {
-		'getGopNum' in _root && _root.getGopNum();
-	};
 	require(['router', 'api', 'h5-price', 'h5-weixin', 'touch-slide'], function(router, api, price, weixin, TouchSlide) {
 		router.init(true);
 		var gopToken = $.cookie('gopToken');
@@ -46,18 +42,15 @@
 			vm.priceChange = change;
 			vm.price = next;
 		};
-		_root.getGopNum = function() {
-			api.getGopNum({
-				gopToken: gopToken
-			}, function(data) {
-				if (data.status == 200) {
-					vm.gopNum = data.data.gopNum;
-				} else {
-					console.log(data);
-				}
-			});
-		};
-		_root.getGopNum();
+		api.getGopNum({
+			gopToken: gopToken
+		}, function(data) {
+			if (data.status == 200) {
+				vm.gopNum = data.data.gopNum;
+			} else {
+				console.log(data);
+			}
+		});
 		price.get();
 		setTimeout(function() {
 			main.addClass('on');

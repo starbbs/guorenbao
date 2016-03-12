@@ -2,7 +2,7 @@
 // H5微信端 --- view-authentication
 
 
-define('h5-view-authentication', ['h5-view', 'api', 'h5-text', 'cookie'], function(View, api) {
+define('h5-view-authentication', ['h5-view', 'api','h5-dialog-alert', 'h5-text', 'cookie'], function(View, api,dialogAlert) {
 	var name = 'authentication';
 	var gopToken = $.cookie('gopToken');
 	var view = new View(name);
@@ -41,6 +41,10 @@ define('h5-view-authentication', ['h5-view', 'api', 'h5-text', 'cookie'], functi
 		},
 		finish_click: function() {
 			router.to('/');
+		},
+		showAuthenDes:function(){
+			dialogAlert.set('为保证您的账户资金安全，请您输入真实姓名，实名信息校验正确后不可更改');
+			dialogAlert.show();
 		}
 	});
 

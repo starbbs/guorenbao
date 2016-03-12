@@ -20,6 +20,9 @@
 @import '../../dialogs/paypass/paypass';
 @import '../../dialogs/more/more';
 @import '../../dialogs/confirm/confirm';
+@import '../../dialogs/alert/alert';
+@import '../../dialogs/success/success';
+@import '../../dialogs/info/info';
 
 body {
 	background-color: $g-background;

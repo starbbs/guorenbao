@@ -9,8 +9,8 @@
 
 @import '../../views/view';
 
-// @import '../../dialogs/dialog';
-
+@import '../../dialogs/dialog';
+@import '../../dialogs/success/success';
 
 body {
 	background-color: $g-background;

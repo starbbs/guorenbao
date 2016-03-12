@@ -7,5 +7,9 @@
 
 .dialog-alert {
 	@extend .dialog-style;
+	.dialog-button{
+		text-align: center;
+		display: block;;
+	}
 }
 

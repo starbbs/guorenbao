@@ -3,7 +3,7 @@
 // H5微信端 --- view-password
 
 
-define('h5-view-password', ['api', 'router', 'check', 'h5-view', 'h5-ident', 'h5-text'], function(api, router, check, View, ident) {
+define('h5-view-password', ['api', 'router', 'check', 'h5-view', 'h5-ident','h5-dialog-success', 'h5-text'], function(api, router, check, View, ident,dialogSuccess) {
     var viewPassword = {
 		forget: (function() {
 			var forget = new View('password-forget');
@@ -53,7 +53,23 @@ define('h5-view-password', ['api', 'router', 'check', 'h5-view', 'h5-ident', 'h5
 							identifyingCode:vm.identifyingCode
 						}, function(data) {
 							if (data.status == 200) {
-								router.go('/view/password-success');
+								var successTimer = null;
+								var s = 3;	
+								dialogSuccess.set('登录密码修改成功，请牢记，3s后自动跳转');							
+								dialogSuccess.on('show',function(){
+									successTimer = setInterval(function(){
+										s--;
+										if(s==0){
+											clearInterval(successTimer);
+											dialogSuccess.hide();
+											window.location.href = 'security.html';
+										}else{
+											dialogSuccess.button.html('登录密码修改成功，请牢记，'+s+'s后自动跳转');
+										}
+									},1000);
+								});
+								dialogSuccess.show();
+								//router.go('/view/password-success');
 							} else {
 								$.alert(data.status + ': ' + data.msg);
 							}

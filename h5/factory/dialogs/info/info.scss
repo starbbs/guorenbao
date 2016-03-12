@@ -1,0 +1,30 @@
+﻿@charset 'utf-8';
+
+
+// 张树垚 2016-01-07 16:01:30 创建
+// H5微信端 --- dialog-info
+
+
+.dialog-info {
+	@extend .dialog-style;
+	$color333:'#333';
+	.dialog-main{
+		padding: 20px 10px 0px;
+	}
+	&-title{
+		color: $color333;
+	}
+	&-list{
+		overflow: hidden;
+		>li{
+			color: $color333;
+			font-size: 14px;
+			float: left;
+			width: 50%; text-align: center;
+		}
+	}
+	.dialog-button{
+		display: block;
+		text-align: center;
+	}
+}

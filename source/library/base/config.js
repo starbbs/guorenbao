@@ -13,7 +13,7 @@
 	var H5_DIALOGS = H5_FACTORY + '/dialogs';
 	var H5_PAGES = H5_FACTORY + '/pages';
 	var H5_SOURCE = '../source';
-
+	
 	require.config({
 		baseUrl: './',
 		paths: {
@@ -60,9 +60,10 @@
 			'h5-component-keyboard':	H5_COMPONENTS + '/keyboard/keyboard',
 			'h5-dialog':				H5_DIALOGS + '/dialog',
 			
-
-			'h5-dialog-alert':			H5_DIALOGS + '/alert/alert',   
 			//添加对话
+			'h5-dialog-alert':			H5_DIALOGS + '/alert/alert',   
+			'h5-dialog-success':		H5_DIALOGS + '/success/success',
+			'h5-dialog-info':			H5_DIALOGS + '/info/info',   
 			'h5-dialog-confirm':        H5_DIALOGS + '/confirm/confirm',
 			'h5-dialog-bankcard':		H5_DIALOGS + '/bankcard/bankcard',
 			'h5-dialog-paypass':		H5_DIALOGS + '/paypass/paypass',

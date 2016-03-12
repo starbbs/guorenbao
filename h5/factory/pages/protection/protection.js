@@ -2,7 +2,7 @@
 // H5微信端 --- 密保设置
 
 
-require(['router', 'h5-view', 'api', 'h5-paypass', 'h5-text', 'cookie', 'h5-weixin'], function(router, View, api) {
+require(['router', 'h5-view', 'api','h5-dialog-alert', 'h5-paypass', 'h5-text', 'cookie', 'h5-weixin'], function(router, View, api,dialogAlert) {
     router.init(true);
     var gopToken = $.cookie('gopToken');
     var protection = $('.protection');
@@ -68,6 +68,15 @@ require(['router', 'h5-view', 'api', 'h5-paypass', 'h5-text', 'cookie', 'h5-weix
                 return;
             }
             //保存
+            //设置密保成功后alert的内容及回调事件
+            var QA_html = '<p>密保问题一旦设置将不可更改，请牢记您的密保问题</p>'+
+                          '<p>'+vm.question1+'</br>'+ vm.answer1+'</p>'+
+                          '<p>'+vm.question2+'</br>'+ vm.answer2+'</p>';
+            dialogAlert.set(QA_html);
+            dialogAlert.onAlert = function(){
+                window.location.href = 'security.html';
+            };
+
             api.applyQuestion({
                 gopToken: gopToken,
                 question1: vm.question1,
@@ -75,18 +84,17 @@ require(['router', 'h5-view', 'api', 'h5-paypass', 'h5-text', 'cookie', 'h5-weix
                 question2: vm.question2,
                 answer2: vm.answer2,
                 payPwd: vm.payPwd
-            }, function(data) {
-                if (data.status == 200) {
-                    $.alert("密保问题一旦设置将不可更改，请牢记您的密保问题");
-                    setTimeout(function() {
-                        window.location.href = 'security.html';
-                    }, 2000);
-                } else {
-                    console.log(data);
-                }
+                }, function(data) {
+                    if (data.status == 200) {
+                        dialogAlert.show();
+                    }else{
+                        console.log(data);
+                    }
             });
         }
     });
+
+
     avalon.scan();
     setTimeout(function() {
         protection.addClass('on');

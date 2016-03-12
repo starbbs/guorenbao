@@ -11,8 +11,9 @@
 @import '../../views/authentication/authentication';
 @import '../../views/password/password';
 
-// @import '../../dialogs/dialog';
-
+@import '../../dialogs/dialog';
+@import '../../dialogs/success/success';
+@import '../../dialogs/alert/alert';
 
 body {
 	background-color: $g-background;

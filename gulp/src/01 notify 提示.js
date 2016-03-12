@@ -16,7 +16,7 @@ var images = {
 };
 var maker = function(message, image) {
 	notify = notify || require('gulp-notify');
-	if (!/zsy$/.test(message)) { message += ' -- by zsy'; }
+	// if (!/zsy$/.test(message)) { message += ' -- by zsy'; }
 	return notify({
 		title: '果仁宝 by zsy', // 标题
 		// subtitle: 'subtitle', // 子标题(可省)

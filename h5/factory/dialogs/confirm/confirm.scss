@@ -7,6 +7,11 @@
 
 .dialog-confirm {
 	@extend .dialog-style;
+	.dialog-main{
+		>p{
+			text-align: left;
+		}
+	}
 	&-cancel {
 		float: left;
 		width: 50%;

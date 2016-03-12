@@ -10,7 +10,7 @@
 						<input id="bankcard-append-number" name="bankcard-append-number" type="tel" class="text-input" autocomplete="off" placeholder="银行卡号" minlength="16" maxlength="19" data-text="close" ms-on-blur="check" ms-duplex="cardNo">
 					</div>
 					<div class="text-close" ms-on-click="clear('cardNo')"></div>
-					<div class="text-alert"></div>
+					<div class="text-alert" ms-on-click="showBankNoDes"></div>
 				</label>
 			</div>
 		</div>
@@ -29,7 +29,7 @@
 					<div class="text-label">手机号</div>
 					<div class="text-box"><input id="bankcard-append-phone" name="bankcard-append-phone" type="tel" class="text-input" autocomplete="off" placeholder="银行卡预留手机号" maxlength="11" data-text="close" ms-on-blur="checkPhone" ms-duplex="phone"></div>
 					<div class="text-close" ms-on-click="clear('phone')"></div>
-					<div class="text-alert"></div>
+					<div class="text-alert" ms-on-click="showPhoneDes"></div>
 				</label>
 			</div>
 		</div>

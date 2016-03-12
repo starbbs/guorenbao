@@ -3,7 +3,7 @@
 // H5微信端 --- 微信授权跳转页
 
 
-require(['router', 'api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h5-weixin'], function(router, api, get, authorization, View, viewLogin) {
+require(['router', 'api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h5-weixin'], function(router, api, get, authorization, View, viewLogin, weixin) {
 
 	router.init(true);
 

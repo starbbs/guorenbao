@@ -5,24 +5,73 @@
 require(['api', 'get', 'router',
 		'h5-view', 'h5-bankcard-append', 'h5-view-authentication', 'h5-view-bill',
 		'h5-price', 'h5-bank', 'h5-ident', 'h5-component-bill',
-		'h5-dialog-bankcard', 'h5-dialog-paypass', 'h5-dialog-more','h5-dialog-confirm',
+		'h5-dialog-bankcard', 'h5-dialog-paypass', 'h5-dialog-more','h5-dialog-confirm','h5-dialog-alert','h5-dialog-success','h5-dialog-info',
 		'h5-weixin'
 	],
 	function(api, get, router,
 		View, viewBankcardAppend, viewAuthentication, billView,
 		price, H5Bank, H5Ident, H5Bill,
-		dialogBankcard, dialogPaypass, dialogMore,dialogConfirm) {
+		dialogBankcard, dialogPaypass, dialogMore,dialogConfirm,dialogAlert,dialogSuccess,dialogInfo) {
+		
+
+
 		//引入confirmjs 提前还有在config.js配置  html还要引入confirm.html
-		//显示
-		dialogConfirm.show();
-		//点击好后的事件
+		
+		//====================================================================confirm
+		//dialogConfirm.show();
+		//点击好   后的回调函数
 		dialogConfirm.onConfirm = function() {
-			alert(1)
+			alert('this is confirm');
 		};
 		//设置confirm内容
-		dialogConfirm.set('12321321321321312')
-		console.log(dialogConfirm)
+		dialogConfirm.set('解除绑定银行卡？confirm');
 		
+		//=====================================================================alert
+		dialogAlert.show();
+		dialogAlert.set('恭喜银行卡绑定成功alert');
+
+		//=====================================================================Success
+		var successTimer = null;
+		var s = 100;
+		dialogSuccess.on('show',function(){   //订阅show时候的事件
+			alert('开始定时器');
+			successTimer = setInterval(function(){
+				s--;
+				if(s==0){
+					clearInterval(successTimer);
+					dialogSuccess.hide();
+				}else{
+					dialogSuccess.button.html('支付密码修改成功，请牢记，'+s+'s后自动跳转');
+				}
+			},1000);
+		});		
+		dialogSuccess.show();
+		dialogSuccess.set('支付密码修改成功，请牢记，3S后自动跳转');
+		
+		//==============================================================info
+		var inforJson = {
+			title:'支持的银行',
+			bankList:[
+					'中国工商银行',
+					'兴业银行',
+					'中国建设银行',
+					'中国民生银行',
+					'中国银行',
+					'中国光大银行',
+					'中国邮政储蓄银行',
+					'平安银行','交通银行','华夏银行','招商银行','北京银行','中信银行',
+					'广发银行','浦发银行','上海银行','北京农商银行'
+			]
+		};
+		//设置infor对话的html内容
+		dialogInfo.setBtn('知道了');
+		dialogInfo.setTit(inforJson.title);
+		dialogInfo.setList(dialogInfo.setListHtml(inforJson.bankList));
+		//dialogInfo.show();
+		
+
+
+
 
 		router.init();
 
