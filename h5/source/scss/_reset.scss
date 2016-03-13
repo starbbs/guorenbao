@@ -40,10 +40,12 @@ input, select, textarea {
 	@extend %reset-input;
 	font: #{$g-font-input}/2 Helvetica;
 }
-::-webkit-inner-spin-button { // input[type=number]的上下小箭头
-	-webkit-appearance: none;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button { // input[type=number]的上下小箭头
+    -webkit-appearance: none !important;
+    margin: 0;
 }
-::-webkit-input-placeholder {
+input::-webkit-input-placeholder {
     color: $g-silver;
     text-indent: 2px;
 }

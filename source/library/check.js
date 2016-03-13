@@ -2,7 +2,6 @@
 // 检测模块
 
 
-
 define('check', function() {
 
 	String.prototype.reverse = String.prototype.reverse || function() {

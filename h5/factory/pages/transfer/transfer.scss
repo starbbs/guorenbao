@@ -31,9 +31,9 @@ body {
 	&-icon {
 		@for $i from 1 through 5 {
 			&-#{$i} {
-				@include sprite($img + '/' + $i + '-a.png', 36px);
+				@include sprite($img + '/' + $i + '-a.png', 36px); // 小图
 				&-big {
-					@include sprite($img + '/' + $i + '-b.png', 70px);
+					@include sprite($img + '/' + $i + '-b.png', 70px); // 大图
 				}
 			}
 		}

@@ -15,20 +15,8 @@ define('h5-text', ['check'], function(check) {
 		var level = !value ? 0 : ('低中高'.indexOf(check.safe(value)) + 1); // 1,2,3
 		safe.get(0).className = 'text-safe' + ' s' + level;
 	};
-	var checkFormatTwoDecimalPlaces = function(input) {
-		var val = input.val();
-		var decimalFlag = val.indexOf('.');
-		right_splitLength = val.toString().split('.').length;
-		if (decimalFlag === -1) {
-			return;
-		}
-		if (decimalFlag !== -1 && right_splitLength >= 2) {
-			val = Number(parseFloat(val)).toFixed(2);
-			input.val(val);
-		}
-	}
 	var bind = {
-		close: function(input) {
+		close: function(input) { // 取消输入内容
 			input = $(input).on('input', function() {
 				checkClose(this.value, close);
 			});
@@ -38,7 +26,7 @@ define('h5-text', ['check'], function(check) {
 			});
 			checkClose(input.val(), close);
 		},
-		eye: function(input) {
+		eye: function(input) { // 显示输入密码
 			input = $(input);
 			var eye = input.closest('.text').find('.text-eye').on('touchstart', function() {
 				if (eye.hasClass('on')) {
@@ -51,7 +39,7 @@ define('h5-text', ['check'], function(check) {
 			});
 			checkEye(input);
 		},
-		safe: function(input) {
+		safe: function(input) { // 安全等级
 			input = $(input).on('input', function() {
 				checkSafe(input, safe);
 				console.log(safe);
@@ -59,9 +47,29 @@ define('h5-text', ['check'], function(check) {
 			var safe = input.closest('.text').find('.text-safe');
 			checkSafe(input, safe);
 		},
-		formatTwoDecimalPlaces: function(input) {
-			input = $(input).on('blur', function() {
-				checkFormatTwoDecimalPlaces(input);
+		two: function(input) { // 两位小数
+			input = $(input).on('keydown', function(event) {
+				switch(event.keyCode) {
+					case 8: // 退格
+					case 48: // 48-57 数字
+					case 49:
+					case 50:
+					case 51:
+					case 52:
+					case 53:
+					case 54:
+					case 55:
+					case 56:
+					case 57: // 48-57 数字
+						break;
+					case 190: // 点
+						if (this.value.indexOf('.') > -1) { // 无效
+							event.preventDefault();
+						}
+						break;
+					default:
+						event.preventDefault();
+				}
 			});
 		}
 	};
@@ -70,7 +78,7 @@ define('h5-text', ['check'], function(check) {
 			input.dataset.text.split('|').forEach(function(name) {
 				name in bind ? bind[name](input) : console.log('[Error] h5-text "' + name + '" do not exist!');
 			});
-			input.removeAttribute('data-text');
+			delete input.dataset.text;
 		});
 	};
 	scan();
