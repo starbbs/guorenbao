@@ -2,7 +2,7 @@
 // H5微信端 --- 买果仁
 
 
-require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'api', 'check', 'h5-view-bill', 'h5-text', 'h5-ident', 'h5-weixin', 'h5-component-keyboard'], function(router, View, dialogBankcard, price, weixin, api, check, billView) {
+require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'api', 'check', 'filters', 'h5-view-bill', 'h5-text', 'h5-ident', 'h5-weixin', 'h5-component-keyboard'], function(router, View, dialogBankcard, price, weixin, api, check, filters, billView) {
 
 	router.init(true);
 
@@ -48,7 +48,7 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		},
 		gopBuyValidate: function() {
 			vm.ifBuy = check.gopBuyValidate(this.value, vm.price);
-			vm.expect = this.value ? 'G ' + (this.value / vm.price).toFixed(2) : '';
+			vm.expect = this.value ? 'G ' + filters.floorFix(this.value / vm.price) : '';
 		},
 	});
 	var vmOrder = avalon.define({ // 订单页面

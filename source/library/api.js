@@ -17,7 +17,14 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 		}
 		if (window.location.href.indexOf('/index.html') === -1) {
 			return window.location.href = 'index.html';
+		} else {
+			$.alert('无法获得用户信息');
 		}
+	};
+
+	// 方便cookie
+	$.gopToken = function(token) {
+		return $.cookie('gopToken', token);
 	};
 
 	/** [add 添加接口]
@@ -65,7 +72,7 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 				success: function(data) {
 					if (!data) {
 						// alert('1:' + name + ';' + $.cookie('gopToken'));
-						goIndex(true);
+						return goIndex(true);
 					}
 					if (data.status == 300 && options.ignoreStatus && options.ignoreStatus.indexOf(300) === -1) { // {msg: "用户登录/验证失败，请重新登录", status: "300"}
 						// alert(2);
