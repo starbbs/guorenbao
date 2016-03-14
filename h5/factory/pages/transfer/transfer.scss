@@ -35,6 +35,11 @@ body {
 				&-big {
 					@include sprite($img + '/' + $i + '-b.png', 70px); // 大图
 				}
+				@if $i == 2 {
+					&-middle {
+						@include sprite($img + '/' + $i + '-c.png', 40px); // 中图(仅我的钱包)
+					}
+				}
 			}
 		}
 	}

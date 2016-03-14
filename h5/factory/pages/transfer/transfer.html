@@ -39,13 +39,14 @@
 			</div>
 		</div>
 		<div class="text-tip-top">最近</div>
-		<div class="block">
-			<div class="transfer-item" ms-repeat-item="list" ms-click="transferClick" ms-attr-personId="item.personId" ms-attr-transferOutType="item.type" ms-attr-name="item.name" ms-attr-address="item.address" ms-attr-photo="item.photo" ms-attr-phone="item.phone">
-				<div class="transfer-item-img"><img ms-attr-src="item.photo||'./images/picture.png'" alt="" class="img-w img-w-{item.personId}"></div>
-				<div class="transfer-icon-{{item.icon}}"></div>
+		<div class="block" ms-click="transferClick($event)">
+			<div class="transfer-item" ms-repeat-item="list" ms-data-index="$index">
+				<div class="transfer-item-img" ms-if-loop="item.type!=='ME_WALLET'"><img ms-attr-src="item.photo||'./images/picture.png'" alt="" class="img-w"></div>
+				<div class="transfer-icon-2-middle" ms-if-loop="item.type==='ME_WALLET'"></div>
 				<div class="transfer-item-line">
-					<div class="block-label">{{item.name}}</div>
-					<div class="transfer-item-address">{{item.addressStr}}</div>
+					<div class="block-label">{{item.name||'未命名用户'}}</div>
+					<div class="transfer-item-address" ms-if-loop="item.phone">{{item.phone|phone}}</div>
+					<div class="transfer-item-address" ms-if-loop="!item.phone">{{item.address|address}}</div>
 				</div>
 			</div>
 		</div>
@@ -56,7 +57,8 @@
 		<!-- 钱包地址设置-->
 		@@include('../../views/address/address-wallet.html')
 		<!-- 地址 -->
-		@@include('./transfer-contacts.html') @@include('./transfer-new.html')
+		@@include('./transfer-contacts.html')
+		@@include('./transfer-new.html')
 		<!-- 转账 -->
 		@@include('./transfer-target.html')
 		<!-- 账单 -->

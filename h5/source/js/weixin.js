@@ -74,7 +74,7 @@ define('h5-weixin', ['api', 'url', 'h5-alert'], function(api, url) {
 					weixin.pay.onSuccess(res);
 				},
 				fail: function(res) { // 失败
-					alert('微信支付失败:\n' + JSON.stringify(res) + '\n请截图发送给开发人员, 谢谢!');
+					alert('微信支付失败:\n' + JSON.stringify(res));
 					weixin.pay.onFail(res);
 				},
 				cancel: function(res) { // 取消
@@ -111,7 +111,6 @@ define('h5-weixin', ['api', 'url', 'h5-alert'], function(api, url) {
 				});
 			},
 			work: function() {
-				alert(JSON.stringify(weixin.pay.options))
 				wx.chooseWXPay(weixin.pay.options);
 			},
 			onCreate: $.noop,

@@ -6,9 +6,9 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 	'h5-view-nickname', 'h5-view-address-mine', 'h5-view-address-wallet', 'h5-view-bill',
 	'h5-dialog-paypass', 'h5-view-authentication',
 	'h5-text', 'h5-weixin'
-], function(router, api, View, price, get,filters,
+], function(router, api, View, price, get, filters,
 	nickname, address_mine, address_wallet, billView,
-	dialogPaypass,viewAuthentication) {
+	dialogPaypass, viewAuthentication) {
 
 	router.init();
 
@@ -147,16 +147,14 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 			router.go('/view/transfer-contacts');
 			transferContacts.query();
 		},
-		transferClick: function() { // 最近联系人
-			vm.transferOutType = $(this).attr("transferOutType");
-			vm.gopAddress = $(this).attr("address");
-			var nowData = {};
-			nowData.address = $(this).attr("address");
-			nowData.name = $(this).attr("name");
-			nowData.personId = $(this).attr("personId");
-			nowData.photo = $(this).attr("photo");
-			nowData.phone = $(this).attr("phone");
-			$.extend(transferTarget, nowData);
+		transferClick: function(event) { // 最近联系人
+			var item = vm.list.$model[$(event.target).closest('.transfer-item').get(0).dataset.index];
+			console.log(item)
+			vm.transferOutType = item.type;
+			transferTarget.address = vm.gopAddress = item.address;
+			transferTarget.name = item.name;
+			transferTarget.personId = item.personId;
+			transferTarget.photo = item.photo || item.address;
 			targetInit(vm.transferOutType);
 			router.go('/view/transfer-target');
 		},
@@ -234,24 +232,24 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 							if (data.data.photo) {
 								nowData.photo = data.data.photo;
 							}
-							if (data.data.phone) {				//果仁宝联系人
+							if (data.data.phone) { //果仁宝联系人
 								nowData.addressToPhone = data.data.phone;
 								nowData.phone = data.data.phone;
 								vm.transferOutType = 'GOP_NEW';
 							}
-							if (re.test(transferNew.newTarget)) {//如果目标是手机号
+							if (re.test(transferNew.newTarget)) { //如果目标是手机号
 								if (data.data.nick) {
 									nowData.name = data.data.nick;
 									console.log("nowData.name" + nowData.name);
 								} else {
 									nowData.name = "未命名用户";
 								}
-							} else if (transferNew.newTarget.indexOf('GOP') >= 0) {//如果目标是钱包地址
+							} else if (transferNew.newTarget.indexOf('GOP') >= 0) { //如果目标是钱包地址
 								if (data.data.nick) {
 									nowData.name = data.data.nick;
 									console.log("nowData.name" + nowData.name);
 								} else {
-									nowData.name = transferNew.newTarget.substr(0,8)+'**********';
+									nowData.name = transferNew.newTarget.substr(0, 8) + '**********';
 								}
 							}
 						} else {
@@ -312,7 +310,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 			nowData.personId = models.$model.id;
 			if (models.$model.address) {
 				nowData.address = models.$model.address;
-				nowData.addressToPhone= models.$model.address.substr(0,8)+'**********';
+				nowData.addressToPhone = models.$model.address.substr(0, 8) + '**********';
 			};
 			if (models.$model.phone) {
 				nowData.address = models.$model.phone;
@@ -391,9 +389,9 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 							var nowData = {};
 							nowData.successFlag = true;
 							if (transferTarget.address) {
-								if (transferTarget.address.length == 11) {//手机钱包
+								if (transferTarget.address.length == 11) { //手机钱包
 									nowData.address = transferTarget.address.substr(0, 3) + '****' + transferTarget.address.substr(7, 4);
-								} else {								//钱包地址
+								} else { //钱包地址
 									nowData.address = transferTarget.address.substr(0, 8) + '**********';
 								}
 							};
@@ -474,6 +472,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 			transferTarget.price = next;
 		});
 	};
+
 	var init = function() {
 		api.info({
 			gopToken: gopToken
@@ -481,11 +480,11 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 			if (data.status == 200) {
 				if (!data.data.realname) {
 					setTimeout(function() {
-						viewAuthentication.vm.callback=function(){
+						viewAuthentication.vm.callback = function() {
 							router.to('/');
 							return true;
-						}		
-						viewAuthentication.vm.callbackFlag=true;
+						}
+						viewAuthentication.vm.callbackFlag = true;
 						viewAuthentication.show();
 						// router.to('/view/authentication');
 					}, 100);
@@ -518,71 +517,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 			gopToken: gopToken
 		}, function(data) {
 			if (data.status == 200) {
-				vm.list.clear();
-				for (var i = 0; i < data.data.transferOutList.length; i++) {
-					var item = data.data.transferOutList[i];
-					if (item.type === 'WALLET_NEW') {
-						if (item.photo) {
-							$('.img-w-' + data.personId).show();
-						} else {
-							item.icon = '1';
-							$('.img-w-' + data.personId).hide();
-						}
-					} else if (item.type === 'GOP_NEW') { // 新果仁宝
-						if (item.photo) {
-							$('.img-w-' + data.personId).show();
-						} else {
-							item.icon = '1';
-							$('.img-w-' + data.personId).hide();
-						}
-					} else if (item.type === 'WALLET_CONTACT') { // 钱包联系人
-						item.icon = '5';;
-					} else if (item.type === 'GOP_CONTACT') { // 果仁宝联系人
-						if (item.photo) {
-							$('.img-w-' + data.personId).show();
-						} else {
-							item.icon = '5';
-							$('.img-w-' + data.personId).hide();
-						}
-						if (item.name) {
-							item.name = item.name;
-						} else {
-							item.name = '未命名用户';
-						}
-					} else if (item.type === 'GOP_MARKET') { //果仁市场
-						item.icon = '3';
-					} else if (item.type === 'ME_WALLET') { //我的钱包
-						item.icon = '2';
-					}
-
-					if (item.photo) {
-						$('.img-w-' + data.personId).show();
-					} else {
-						item.icon = '5';
-						$('.img-w-' + data.personId).hide();
-					}
-					if (item.name) {
-						item.name = item.name;
-					} else {
-						item.name = '未命名用户';
-					}
-
-					if (item.phone) {
-						item.phone = item.phone;
-						item.address = item.phone;
-					} else {
-						item.address = item.address;
-					}
-					if (item.address) {
-						if (item.address.length == 11) {
-							item.addressStr = item.address.substr(0, 3) + '****' + item.address.substr(7, 4);
-
-						} else if (item.address.length > 11) {
-							item.addressStr = item.address.substr(0, 8) + '**********';
-						}
-					}
-					vm.list.push(item);
-				}
+				vm.list = data.data.transferOutList;
 			} else {
 				console.log(data);
 			}
@@ -624,7 +559,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 			} else {
 				api.log('cookie中并没有联系人数据');
 			}
-		} else {
 		}
 	}, 100);
 });
