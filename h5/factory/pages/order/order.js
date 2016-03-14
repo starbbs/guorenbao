@@ -78,7 +78,7 @@ require(['api', 'get', 'router',
 								$.alert(data.msg);
 							}
 						});
-//						window.history.go(-2);
+						// window.history.go(-2);
 					};
 					if (data.status == 200) {
 						router.go('/view/bankcard-append');
