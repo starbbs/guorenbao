@@ -62,7 +62,7 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		},
 	});
 	var setOrderNum = function() {
-		vmOrder.gopNum = Math.round(vmOrder.orderMoney / vmOrder.price * 100) / 100;
+		vmOrder.gopNum = vmOrder.orderMoney / vmOrder.price;
 	};
 
 	avalon.scan();

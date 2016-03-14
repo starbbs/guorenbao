@@ -64,9 +64,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 				address_wallet.vm.hasStepNext = true;
 				address_wallet.vm.callback = function() {
 					init();
-					//router.go('/');
-//					console.log('dddddddd');
-
 					vm.transferOutType = 'ME_WALLET';
 					api.walletList({
 						gopToken: gopToken

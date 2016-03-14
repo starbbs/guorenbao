@@ -32,7 +32,7 @@ require(['api', 'router', 'get', 'h5-view-bill', 'h5-weixin'], function(api, rou
 					billView.set(type, get.data.id, {
 						onRendered: function() {
 							router.to('/view/bill');
-						}
+						},
 					});
 					break;
 				case 'DUOBAO_ACTIVITY': // 果仁夺宝
