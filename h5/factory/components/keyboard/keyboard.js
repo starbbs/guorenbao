@@ -6,6 +6,8 @@ define(function() {
 
 	var handles = { // 控制器
 		hide: function(id) { // 写法: data-keyboard="hide(id)" (id不用带引号)
+		console.log(id);
+		console.log(this);
 			var self = $(this);
 			var input = $('#' + id)
 				.on('focus', function() {
@@ -20,7 +22,11 @@ define(function() {
 	var scan = function(context) { // 扫描
 		$('[data-keyboard]', context).each(function(i, element) {
 			element.dataset.keyboard.split('|').forEach(function(string) {
+				console.log(string);
 				var match = string.match(/(\w+)(\(([\w\,\-]+)\))?/);
+				console.log(match);
+				console.log(element);
+				//hide(contacts-search-input);
 				// hide				["hide", "hide", undefined, undefined]
 				// hide(id)			["hide(id)", "hide", "id"]
 				// hide(id,111)		["hide(id,111)", "hide", "id,111"]
