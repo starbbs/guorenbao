@@ -24,11 +24,23 @@
 		white-space: nowrap;
 	}
 	&-box {
+		$box: & + '';
 		flex: 1;
 		height: 100%;
 		padding-left: $g-margin;
 		padding-right: 2px;
+		&-select {
+			@extend #{$box};
+			position: relative;
+			&:after {
+				content: '';
+				@include sprite($img + '/5.png', 14px, 8px);
+				@include atr(50%, 0);
+				@include y(-50%);
+			}
+		}
 	}
+	$input: '';
 	&-input {
 		$input: & + '';
 		display: block;
@@ -40,12 +52,9 @@
 		}
 	}
 	&-select {
-		@include sprite($img + '/5.png', 13px , 8px);
-		display: block;
-		@include square(100%);
-		box-sizing: border-box;
-		background-repeat: no-repeat;
-		background-position: right center;
+		@extend #{$input};
+		position: relative;
+		z-index: 1;
 	}
 	&-close {
 		@include sprite($img + '/1.png', 15px, 15px);
