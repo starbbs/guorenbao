@@ -6,14 +6,19 @@
 
 
 .dialog-success {
+	$translatex : -50%;
 	$img: $g-dialogs;
 	@extend .dialog-style;
 	&-img{
 		display: block;
-		@include sprite($img + '/success.png' , 41px);
-		width: 100%; 
-		background-repeat: no-repeat;
-		background-position: center;
+		@include sprite($img + '/success/success.png' , 40px);
+		position: relative;
+		left: 50%;
+		-webkit-transform:$translatex;
+		-moz-transform:$translatex;
+		-o-transform:$translatex;
+		-ms-transform:$translatex;
+		transform:$translatex;
 	}
 	.dialog-button{
 		display: block;

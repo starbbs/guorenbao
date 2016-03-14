@@ -21,6 +21,7 @@
 			'api':				PATH_LIBRARY + '/api',
 			'authorization':	PATH_LIBRARY + '/authorization',
 			'check':			PATH_LIBRARY + '/check',
+			'mydate':           PATH_LIBRARY + '/mydate',
 			'cookie':			PATH_LIBRARY + '/cookie',
 			'dom':				PATH_LIBRARY + '/dom',
 			'filters':			PATH_LIBRARY + '/filters',

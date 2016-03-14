@@ -2,7 +2,7 @@
 // H5微信端 --- 个人首页
 
 
-require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'filters', 'hchart', 'h5-weixin'], function(router, api, price, View, TouchSlide) {
+require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filters', 'hchart', 'h5-weixin'], function(router, api, price, View, TouchSlide,mydate) {
 
 	router.init(true);
 
@@ -36,11 +36,17 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'filters', 'hcha
 					pageSize:10,
 				}, function(data) {
 					if (data.status == 200) {
-						historyVM.list = data.data.list;
-						for(var i=0; i<data.data.list.length; i++){
+						console.log(data);
+						
+
+						// 已A为准, 返回B是A的今天, 昨天, 前天
+						console.log(new Date().getTime());
+						for(var i=0; i<data.data.list.length; i++){	
+							data.data.list.createTime= mydate.timeCompare(new Date(), mydate.parseDate(data.data.list[i].createTime));						
 							historyVM.total+=parseFloat(data.data.list[i]['income']);
 						}
-						
+						historyVM.list = data.data.list;
+						console.log(data.data.list);
 					} else {
 						$.alert(data.msg);
 					}
