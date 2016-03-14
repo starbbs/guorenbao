@@ -58,18 +58,27 @@ define('mydate', function() {
 		timeCompare:function(timeA, timeB) { // 已A为准, 返回B是A的今天, 昨天, 前天
 			if (timeA.constructor === Date && timeB.constructor === Date) {
 				if (timeA.getTime() >= timeB.getTime()) {
-					return ['今天', '昨天', '前天'][this.timeDayDiffer(timeA, timeB)];
+					if(this.timeDayDiffer(timeA, timeB) > 2){
+						return;
+					}else{
+						return ['今天', '昨天', '前天'][this.timeDayDiffer(timeA, timeB)];
+					}	
 				}
 			}
 		},
 		parseDate:function(time) { // 把字符串时间转为对应Date实例
 			// 2016-01-14 02:33:44
 			var match = time.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2})\:(\d{2})\:(\d{2})/);
+			//[2016-01-14 02:33:44 , 2016 , 01, 14, 02 , 33 , 44];
+			//console.log('match===>'+ match);
 			return 'setFullYear,setMonth,setDate,setHours,setMinutes,setSeconds'.split(',').reduce(function(date, item, index) {
 				if (item === 'setMonth') {
 					match[index + 1] -= 1;
 				}
 				date[item](parseInt(match[index + 1]));
+				//new Date[item](match[index+1]);
+				//new Date[setFullYear](match[0+1])
+				//new Date.setFullYear.(2016)				
 				return date;
 			}, new Date());
 			// return new Date(time);

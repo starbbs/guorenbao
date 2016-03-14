@@ -36,10 +36,22 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filter
 					pageSize:10,
 				}, function(data) {
 					if (data.status == 200) {
-						console.log(data);
+						//字符串  转成 时间实例
+						mydate.parseDate(data.data.list[0]['createTime']);
+						
+						
+						
+						var timerA = new Date();
 						for(var i=0; i<data.data.list.length; i++){					
 							historyVM.total+=parseFloat(data.data.list[i]['income']);
+							var timerB = mydate.parseDate(data.data.list[i]['createTime']);
+							if(mydate.timeCompare(timerA , timerB)){
+								data.data.list[i]['createTime'] = mydate.timeCompare(timerA , timerB);
+							}else{
+								data.data.list[i]['createTime'] = data.data.list[i]['createTime'].substr(0,10);
+							}
 						}
+											
 						historyVM.list = data.data.list;
 					} else {
 						$.alert(data.msg);
