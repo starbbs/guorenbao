@@ -67,8 +67,13 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 						}
 					})
 				}, 500);
-			} else { //不符合16或19位的
-				$('.banknameAndcardtypestr').text('请输入正确的卡号');
+			} else { //不符合16或19位的 近一步解决没卡号失焦
+				if(this.value!=''){
+					$('.banknameAndcardtypestr').text('请输入正确的卡号');
+				}else{
+					$('.banknameAndcardtypestr').text('');
+				}
+				
 			}
 		},
 		clear: function(name) {
