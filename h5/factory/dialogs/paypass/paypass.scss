@@ -8,11 +8,11 @@
 .dialog-paypass {
 	@extend .dialog-style;
 	&-box {
-		height: 184px;
+		height: 160px;
 		@extend .dialog-bottom;
 	}
 	&-main {
-		margin-top: 30px;
+		margin-top: 20px;
 	}
 	&-forget {
 		text-align: right;

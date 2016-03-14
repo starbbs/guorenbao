@@ -74,7 +74,7 @@
 	&-close { // bankcard, paypass的关闭
 		display: block;
 		@include sprite($img + '/close.png', 15px);
-		@include atl(17px, 18px);
+		@include atl(17px, 25px);
 		z-index: 2;
 		&:after {
 			@extend %click;

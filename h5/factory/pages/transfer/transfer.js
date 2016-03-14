@@ -194,6 +194,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 				$(this).removeClass("error");
 			}
 		},
+		//转到新目标   添加新目标(钱包地址或手机号)  的下一步操作
 		newNextClick: function() {
 			if (transferNew.checked) {
 				return;
@@ -213,7 +214,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 					return;
 				}
 			} else {
-				$.alert("该地址格式不正确");
+				$.alert("手机号或地址格式不正确");
 				return;
 			}
 
@@ -236,24 +237,24 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 							if (data.data.photo) {
 								nowData.photo = data.data.photo;
 							}
-							if (data.data.phone) {
+							if (data.data.phone) {				//果仁宝联系人
 								nowData.addressToPhone = data.data.phone;
 								nowData.phone = data.data.phone;
-								vm.transferOutType = 'GOP_NEW';//果仁宝联系人
+								vm.transferOutType = 'GOP_NEW';
 							}
-							if (re.test(transferNew.newTarget)) {
+							if (re.test(transferNew.newTarget)) {//如果目标是手机号
 								if (data.data.nick) {
 									nowData.name = data.data.nick;
 									console.log("nowData.name" + nowData.name);
 								} else {
 									nowData.name = "未命名用户";
 								}
-							} else if (transferNew.newTarget.indexOf('GOP') >= 0) {
+							} else if (transferNew.newTarget.indexOf('GOP') >= 0) {//如果目标是钱包地址
 								if (data.data.nick) {
 									nowData.name = data.data.nick;
 									console.log("nowData.name" + nowData.name);
 								} else {
-									nowData.name = "未命名地址";
+									nowData.name = transferNew.newTarget.substr(0,8)+'**********';
 								}
 							}
 						} else {
@@ -366,8 +367,10 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 			}
 			transferTarget.cnyMoney = transferTarget.price * this.value;
 		},
+		//确定转帐按钮
 		transferCommitClick: function() {
 			if (transferTarget.transferNum > 0 && transferTarget.transferNum <= transferTarget.gopNum) {
+				//密码输入框显示   AJAX密码确认后 设置回调函数
 				dialogPaypass.show();
 				dialogPaypass.vm.callback = function(value) {
 					var transferOutType = vm.transferOutType;
@@ -386,13 +389,14 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 						transferNum: parseFloat(transferTarget.transferNum),
 						payPassword: value
 					}, function(data) {
+						console.log(data);
 						if (data.status == 200) {
 							var nowData = {};
 							nowData.successFlag = true;
 							if (transferTarget.address) {
-								if (transferTarget.address.length == 11) {
+								if (transferTarget.address.length == 11) {//手机钱包
 									nowData.address = transferTarget.address.substr(0, 3) + '****' + transferTarget.address.substr(7, 4);
-								} else {
+								} else {								//钱包地址
 									nowData.address = transferTarget.address.substr(0, 8) + '**********';
 								}
 							};
