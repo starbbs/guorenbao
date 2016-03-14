@@ -45,10 +45,10 @@
 					<div class="fl">失败原因</div>
 					<div class="fr red">{{failReason|html}}</div>
 				</div>
-				<div class="bill-reason" ms-visible="closeReason">
+				<!-- <div class="bill-reason" ms-visible="closeReason">
 					<div class="fl">关闭原因</div>
 					<div class="fr red">{{closeReason|html}}</div>
-				</div>
+				</div> -->
 				<div class="bill-pay" ms-visible="orderMoney&&!buyMoney">
 					<div class="bill-label" ms-class-1="ash:status==='FAILURE'" ms-class-2="dark:status!=='FAILURE'">订单金额(¥)</div>
 					<div class="bill-num dark">-{{orderMoney|abs|fix}}</div>
