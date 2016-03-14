@@ -2,7 +2,7 @@
 // H5微信端 --- view-bill 账单详情分页
 
 
-define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-component-bill', 'h5-view-nickname'], function(View, api, router, weixin, filters, H5bill, nicknameView) {
+define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-component-bill', 'h5-view-nickname','h5-dialog-confirm'], function(View, api, router, weixin, filters, H5bill, nicknameView,dialogConfirm) {
 	var gopToken = $.cookie('gopToken');
 	var bill = new View('bill');
 	var main = $('.bill');
@@ -103,30 +103,34 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 		showMore: function() { // 更多
 		},
 		close: function() { // 关闭订单
-			switch (vm.type) {
-				case 'BUY_IN': // 关闭买果仁
-					api.closeBuyinOrder({
-						gopToken: gopToken,
-						buyinOrderId: vm.id
-					}, function(data) {
-						if (data.status == 200) {
-							$.alert('关闭成功');
-							buyInHandler(vm.type, vm.id, 'BUY_IN');
-						}
-					});
+			dialogConfirm.set('订单关闭后将无法继续付款，确定关闭？');
+			dialogConfirm.onConfirm = function() {
+				switch (vm.type) {
+					case 'BUY_IN': // 关闭买果仁
+						api.closeBuyinOrder({
+							gopToken: gopToken,
+							buyinOrderId: vm.id
+						}, function(data) {
+							if (data.status == 200) {
+								$.alert('关闭成功');
+								buyInHandler(vm.type, vm.id, 'BUY_IN');
+							}
+						});
+						break;
+					case 'PAY': // 关闭消费果仁
+						api.closeConsumeOrder({
+							gopToken: gopToken,
+							consumeOrderId: vm.id
+						}, function(data) {
+							if (data.status == 200) {
+								$.alert('关闭成功');
+								consumeHandler(vm.type, vm.id, 'PAY');
+							}
+						});
 					break;
-				case 'PAY': // 关闭消费果仁
-					api.closeConsumeOrder({
-						gopToken: gopToken,
-						consumeOrderId: vm.id
-					}, function(data) {
-						if (data.status == 200) {
-							$.alert('关闭成功');
-							consumeHandler(vm.type, vm.id, 'PAY');
-						}
-					});
-					break;
-			}
+				}
+			};
+			dialogConfirm.show();
 		},
 	}, initSettings));
 	avalon.scan(main.get(0), vm);
