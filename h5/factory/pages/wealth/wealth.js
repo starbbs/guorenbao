@@ -37,16 +37,10 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filter
 				}, function(data) {
 					if (data.status == 200) {
 						console.log(data);
-						
-
-						// 已A为准, 返回B是A的今天, 昨天, 前天
-						console.log(new Date().getTime());
-						for(var i=0; i<data.data.list.length; i++){	
-							data.data.list.createTime= mydate.timeCompare(new Date(), mydate.parseDate(data.data.list[i].createTime));						
+						for(var i=0; i<data.data.list.length; i++){					
 							historyVM.total+=parseFloat(data.data.list[i]['income']);
 						}
 						historyVM.list = data.data.list;
-						console.log(data.data.list);
 					} else {
 						$.alert(data.msg);
 					}
