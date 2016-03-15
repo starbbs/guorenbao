@@ -93,8 +93,9 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filter
 				chartHistoryHandler(data.data.list);
 				chartHistory.highcharts({
 					chart: {
-						type: 'areaspline'
+						// type: 'areaspline'
 					},
+					colors: ['#000'],
 					title: {
 						text: ''
 					},
@@ -136,16 +137,21 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filter
 						}
 					},
 					plotOptions: {
+						series: {
+							marker: {
+								enabled: false
+							}
+						},
 						area: {
 							marker: {
 								enabled: false,
-								symbol: 'circle',
-								radius: 1,
-								states: {
-									hover: {
-										enabled: false
-									}
-								}
+								// symbol: 'circle',
+								// radius: 1,
+								// states: {
+								// 	hover: {
+								// 		enabled: false
+								// 	}
+								// }
 							}
 						}
 					},

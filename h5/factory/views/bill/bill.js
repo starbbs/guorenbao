@@ -168,7 +168,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 				consumeHandler('PAY', id, options);
 				break;
 			default:
-				$.alert('未知类型的账单<br>值为 ' + type);
+				$.alert('未知类型的账单' + type);
 		}
 	};
 	var setVM = function(settings, options) { // 设置账单vm -- 清空原VM
@@ -208,7 +208,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			headContent: H5bill.statusBusiness[order.status], // 头部内容
 			waitForPay: waitForPay, // 等待支付
 			failReason: order.status == 'FAILURE' ? order.payResult || ($.isArray(list) ? list.reduce(function(string, item, index) {
-				return item.payResult ? string + (index ? '<br>' : '') + item.payResult : string; // 从支付方式中找出失败原因
+				return string += item.payResult || ''; // 从支付方式中找出失败原因
 			}, '') : '') : '', // 失败原因
 			closeReason: order.status === 'CLOSE' ? order.payResult : '', // 关闭原因
 			orderMoney: order.orderMoney, // 订单金额
