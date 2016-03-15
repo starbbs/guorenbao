@@ -159,7 +159,9 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 			router.go('/view/transfer-target');
 		},
 	});
+	
 
+	//转帐第一步
 	var transferNew = avalon.define({
 		$id: 'transfer-new',
 		newTarget: '',
@@ -242,14 +244,15 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 									nowData.name = data.data.nick;
 									console.log("nowData.name" + nowData.name);
 								} else {
-									nowData.name = "未命名用户";
+									nowData.name = '未命名用户';
 								}
 							} else if (transferNew.newTarget.indexOf('GOP') >= 0) { //如果目标是钱包地址
 								if (data.data.nick) {
 									nowData.name = data.data.nick;
 									console.log("nowData.name" + nowData.name);
 								} else {
-									nowData.name = transferNew.newTarget.substr(0, 8) + '**********';
+									nowData.name = '未命名用户';
+									console.log(nowData);
 								}
 							}
 						} else {
@@ -277,6 +280,8 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 			}
 		},
 	});
+
+
 
 	var transferContacts = avalon.define({
 		$id: 'transfer-contacts',
@@ -328,6 +333,8 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 		},
 	});
 
+
+	//转帐输入金额的部分
 	var transferTarget = avalon.define({
 		$id: 'transfer-target',
 		address: '',

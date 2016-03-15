@@ -9,17 +9,22 @@
 		<div class="transfer-target-head-name">果仁市场</div>
 		<div class="transfer-target-head-address">{{address.substr(0,8)+'**********'}}</div>
 	</div>
+	<!--手机联系人-->
 	<div class="transfer-target-head phone-address">
 		<div class="transfer-target-head-img"><img ms-attr-src="photo" alt="" class="img-w"></div>
 		<div class="transfer-target-head-name">{{name}}</div>
 		<div class="transfer-target-head-address">{{phone.substr(0,3)+'****'+phone.substr(7,4)}}</div>
 	</div>
+	<!--钱包地址-->
 	<div class="transfer-target-head wallet-address">
 		<div class="transfer-icon-5-big"></div>
 		<div class="transfer-target-head-name">{{name}}</div>
-		<!--<div class="transfer-target-head-address">{{address.substr(0,8)+'**********'}}</div>-->
-		<div class="transfer-target-head-address">{{addressToPhone}}</div>
+		<div class="transfer-target-head-address">{{address.substr(0,8)+'**********'}}</div>
+		<!--
+			<div class="transfer-target-head-address">{{addressToPhone}}</div>
+		-->
 	</div>
+	<!--转出数量及果任数量-->
 	<div class="transfer-target-box wallet">
 		<div class="transfer-target-box-title">转出数量</div>
 		<div class="transfer-target-box-fee">手续费 G 0.01</div>
@@ -53,5 +58,7 @@
 			<div class="text-close"></div>
 		</div>
 	</div>
-	<div class="text-button"><span class="button" ms-class="disabled:notchecked" ms-click="transferCommitClick">转账</span></div>
+	<div class="text-button">
+		<span class="button" ms-class="disabled:notchecked" ms-click="transferCommitClick">转账</span>
+	</div>
 </div>
