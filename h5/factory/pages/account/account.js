@@ -124,7 +124,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 				item.extra.recordList.forEach(function(item) {
 					switch(item.payType) {
 						case 'GOP_PAY':
-							bill.change = numHandler(-item.payGop, coins['gop']);
+							bill.change = numHandler(-filters.floorFix(item.payGop), coins['gop']);
 							break;
 						case 'UNION_PAY':
 							bill.change = numHandler(-item.payMoney, coins['money']);

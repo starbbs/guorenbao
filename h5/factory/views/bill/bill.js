@@ -2,11 +2,12 @@
 // H5微信端 --- view-bill 账单详情分页
 
 
-define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-component-bill', 'h5-view-nickname','h5-dialog-confirm'], function(View, api, router, weixin, filters, H5bill, nicknameView,dialogConfirm) {
+define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-component-bill', 'h5-view-nickname', 'h5-dialog-confirm'], function(View, api, router, weixin, filters, H5bill, nicknameView, dialogConfirm) {
 	var gopToken = $.cookie('gopToken');
 	var bill = new View('bill');
 	var main = $('.bill');
 	var nowData = null; // 当前使用的后台原始数据
+	var phoneRepayData = null; // 手机重新支付数据
 	var initSettings = { // 初始化
 		id: '', // 账单ID
 		type: '', // 类型
@@ -82,8 +83,6 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 							ifFinishButton: true
 						});
 					};
-					// weixin.pay.set(nowData.data.WEIXIN_MP_PAY);
-					// weixin.pay.work();
 					weixin.pay.create(vm.orderMoney, function(data) {
 						id = data.data.buyinOrder.id;
 						weixin.pay.work();
@@ -91,6 +90,11 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 				} else {
 					window.location.href = './order.html?from=bill&id=' + vm.id;
 				}
+			}
+		},
+		rePay: function() { // 重新支付 -- 按钮去掉了...
+			if (phoneRepayData) {
+				api.phoneRecharge(phoneRepayData, function(data) {});
 			}
 		},
 		setNickname: function() { // 设置备注名
@@ -127,7 +131,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 								consumeHandler(vm.type, vm.id, 'PAY');
 							}
 						});
-					break;
+						break;
 				}
 			};
 			dialogConfirm.show();
@@ -271,6 +275,11 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 				productDesc: product.productDesc, // 商品信息
 				ifRePayButton: order.status == 'FAILURE', // 是否显示"重新支付"按钮
 			}), options);
+			phoneRepayData = order.status == 'FAILURE' && order.productType === 'SHOUJICHONGZHIKA' ? {
+				gopToken: gopToken,
+				productId: order.productId,
+				phone: JSON.parse(order.extraContent).phone,
+			} : null;
 		});
 	};
 	var transferHandler = function(type, id, order) { // 统一处理的转账数据

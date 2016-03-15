@@ -8,12 +8,12 @@
 					<div class="bill-wait-right">-{{orderMoney|fix}}</div>
 				</div>
 				<div class="bill-get" ms-visible="gopNum">
-					<div class="bill-get-number">+{{gopNum|fix}}</div>
+					<div class="bill-get-number">+{{gopNum|floorFix}}</div>
 					<div class="bill-get-label">获得果仁(G)</div>
 				</div>
 				<div class="bill-get" ms-visible="transferNum">
-					<div class="bill-get-number">{{transferSign}}{{transferNum|fix}}</div>
-					<div class="bill-get-label ash">手续费 {{poundage|fix}}</div>
+					<div class="bill-get-number">{{transferSign}}{{transferNum|floorFix}}</div>
+					<div class="bill-get-label ash" ms-visible="type==='TRANSFER_OUT'">手续费 {{poundage|fix}}</div>
 				</div>
 				<div class="bill-target" ms-visible="type==='TRANSFER_IN'||type==='TRANSFER_OUT'">
 					<div class="bill-target-left">
@@ -58,7 +58,7 @@
 							<div class="bill-num">-{{payMoney|fix}}</div>
 						</div>
 						<div class="bill-pay-item" ms-visible="payGop">
-							<div class="bill-label">使用<span class="bill-green">{{payGop|fix}}</span>个果仁</div>
+							<div class="bill-label">使用<span class="bill-green">{{payGop|floorFix}}</span>个果仁</div>
 							<div class="bill-num">-{{(orderMoney-payMoney)|fix}}</div>
 						</div>
 					</div>
@@ -69,7 +69,7 @@
 				</div>
 				<div class="bill-money" ms-visible="rebate">
 					<div class="bill-label dark">获得返利(G)</div>
-					<div class="bill-num blue">+{{rebate|fix}}</div>
+					<div class="bill-num blue">+{{rebate|floorFix}}</div>
 				</div>
 				<div class="bill-detail">
 					<div class="bill-detail-item" ms-visible="transferFailReason">
@@ -130,7 +130,7 @@
 			<div class="text-button"><span class="button" ms-visible="ifReturnHome" ms-click="returnHome">回到首页</span></div>
 			<div class="text-button"><span class="button" ms-visible="ifFinishButton" ms-click="finish">完成</span></div>
 			<div class="text-button"><span class="button" ms-visible="ifPayButton" ms-click="gotoPay">前往支付</span></div>
-			<div class="text-button"><span class="button" ms-visible="ifRePayButton" ms-click="gotoPay">重新支付</span></div>
+			<!-- <div class="text-button"><span class="button" ms-visible="ifRePayButton" ms-click="rePay">重新支付</span></div> -->
 			<div class="text-button"><span class="button white" ms-visible="ifSetNickname" ms-click="setNickname">设置备注名</span></div>
 			<div class="bill-more"><span class="blue" ms-visible="ifShowMore" ms-click="showMore">更多</span></div>
 			<div class="bill-more"><span class="blue" ms-visible="ifClose" ms-click="close">关闭</span></div>

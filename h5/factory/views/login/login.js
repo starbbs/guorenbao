@@ -33,7 +33,7 @@ define('h5-view-login', ['h5-view', 'check', 'api', 'h5-view-password', 'h5-text
 					window.location.href = 'home.html';
 				}, 100);
 			});
-		}
+		},
 	});
 	avalon.scan(login.native, vm);
 	return login;
