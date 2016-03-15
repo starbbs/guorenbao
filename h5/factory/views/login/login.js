@@ -1,4 +1,3 @@
-
 // 张树垚 2015-12-16 16:11:10 创建
 // H5微信端 登录
 
@@ -7,7 +6,7 @@ define('h5-view-login', ['h5-view', 'check', 'api', 'h5-view-password', 'h5-text
 	var login = new View('login');
 	var vm = login.vm = avalon.define({
 		$id: 'view-login',
-		userNick: '袋鼠',
+		userNick: '',
 		userImage: '',
 		click: function() {
 			var phone = $('#login-mobile').val();

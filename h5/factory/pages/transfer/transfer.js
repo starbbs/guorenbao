@@ -197,21 +197,21 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 				return;
 			}
 			if (transferNew.newTarget == '') {
-				$.alert("手机号或地址为空");
+				$.alert('手机号或地址为空');
 				return;
 			} else if (transferNew.newTarget.length == 11) {
 				var reg = /^0?1[3|4|5|8\7][0-9]\d{8}$/;
 				if (!reg.test(transferNew.newTarget)) {
-					$.alert("该手机号格式不正确");
+					$.alert('该手机号格式不正确');
 					return;
 				}
 			} else if (transferNew.newTarget.length == 67 || transferNew.newTarget.length == 68) {
 				if (transferNew.newTarget.indexOf('GOP') != 0) {
-					$.alert("该地址格式不正确");
+					$.alert('该地址格式不正确');
 					return;
 				}
 			} else {
-				$.alert("手机号或地址格式不正确");
+				$.alert('手机号或地址格式不正确');
 				return;
 			}
 
@@ -247,13 +247,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 									nowData.name = '未命名用户';
 								}
 							} else if (transferNew.newTarget.indexOf('GOP') >= 0) { //如果目标是钱包地址
-								if (data.data.nick) {
-									nowData.name = data.data.nick;
-									console.log("nowData.name" + nowData.name);
-								} else {
-									nowData.name = '未命名用户';
-									console.log(nowData);
-								}
+								nowData.name = data.data.nick || '未命名用户';
 							}
 						} else {
 							nowData.name = "未命名地址";
