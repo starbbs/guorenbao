@@ -18,18 +18,13 @@ define(function() {
 				})
 		},
 	};
-
+	//data-keyboard="hide(contacts-search-input,id1,id2)"
 	var scan = function(context) { // 扫描
-		$('[data-keyboard]', context).each(function(i, element) {
-			element.dataset.keyboard.split('|').forEach(function(string) {
-				console.log(string);
+		$('[data-keyboard]', context).each(function(i, element) {					//遍历所有带属性的元素
+			element.dataset.keyboard.split('|').forEach(function(string) {			//遍历属性上的    方法
+				console.log(string);	//hide(contacts-search-input)
 				var match = string.match(/(\w+)(\(([\w\,\-]+)\))?/);
-				console.log(match);
-				console.log(element);
-				//hide(contacts-search-input);
-				// hide				["hide", "hide", undefined, undefined]
-				// hide(id)			["hide(id)", "hide", "id"]
-				// hide(id,111)		["hide(id,111)", "hide", "id,111"]
+				console.log(match);	
 				if (match && match[1] in handles) {
 					handles[match[1]].apply(element, match[3] ? match[3].split(',') : []);
 				}
