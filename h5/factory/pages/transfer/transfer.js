@@ -149,7 +149,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 		},
 		transferClick: function(event) { // 最近联系人
 			var item = vm.list.$model[$(event.target).closest('.transfer-item').get(0).dataset.index];
-			console.log(item)
 			vm.transferOutType = item.type;
 			transferTarget.address = vm.gopAddress = item.address;
 			transferTarget.name = item.name;
@@ -242,7 +241,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 							if (re.test(transferNew.newTarget)) { //如果目标是手机号
 								if (data.data.nick) {
 									nowData.name = data.data.nick;
-									console.log("nowData.name" + nowData.name);
 								} else {
 									nowData.name = '未命名用户';
 								}
@@ -266,7 +264,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 							targetInit(vm.transferOutType);
 							router.go('/view/transfer-target');
 						}
-						console.log(data);
 					}
 				});
 			} else {
