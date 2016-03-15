@@ -16,6 +16,8 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filter
 	});
 	avalon.scan(history.native, historyVM);
 
+
+
 	var listCache = {};
 	var vm = avalon.define({
 		$id: 'wealth',
@@ -29,21 +31,17 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filter
 			chartHistorySet();
 		},
 		showHistory: function() {  //展示历史财富
+			console.log(historyVM.total);
 			if (!historyVM.list.length) {
 				api.totalIncomeList({
 					gopToken: gopToken,
 					pageNo:1,
 					pageSize:10,
 				}, function(data) {
-					if (data.status == 200) {
-						//字符串  转成 时间实例
-						mydate.parseDate(data.data.list[0]['createTime']);
-						
-						
-						
+					if (data.status == 200) {						
+						//此处不用再计算累计收益 因为页面刷新时180行已经计算过了
 						var timerA = new Date();
-						for(var i=0; i<data.data.list.length; i++){					
-							historyVM.total+=parseFloat(data.data.list[i]['income']);
+						for(var i=0; i<data.data.list.length; i++){
 							var timerB = mydate.parseDate(data.data.list[i]['createTime']);
 							if(mydate.timeCompare(timerA , timerB)){
 								data.data.list[i]['createTime'] = mydate.timeCompare(timerA , timerB);
@@ -192,7 +190,7 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filter
 			console.log(data);
 		}
 	});
-
+	
 	setTimeout(function() {
 		main.addClass('on');
 	}, 100);
