@@ -7,6 +7,9 @@
     <link rel="stylesheet" type="text/css" href="./css/base.css">
     <link rel="stylesheet" type="text/css" href="./css/regist.css">
     <script type="text/javascript" src="./js/jquery-1.12.1.min.js"></script>
+    <script type="text/javascript" src="./js/require.js"></script>
+    <script type="text/javascript" src="./js/config.js"></script>
+    <script type="text/javascript" src="./js/regist.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -55,7 +58,7 @@
                             <a href="javascript:void(0);" class="rg_rg_skip">跳过此步</a>
                         </div>
                     </div>
-                    <div class="right_reg_side_content" style="display: none;">
+                    <div class="right_reg_side_content" style="display: flex;">
                         <div class="rg_lf_label">
                             <div class="label_div">
                                 <label for="username">手机号</label>
@@ -88,7 +91,7 @@
                                 <span>请输入正确的确认密码</span>
                             </div>
                             <div style="float: left;">我已阅读并同意<<果仁市场用户协议>></div>
-                            <div class="next_step_btn">下一步</div>
+                            <div class="next_step_btn next_step_sure">下一步</div>
                         </div>
                     </div>
                     <div class="right_reg_side_content" style="display: none;">
@@ -112,7 +115,7 @@
                             <div class="next_step_btn">下一步</div>
                         </div>
                     </div>
-                    <div class="right_reg_side_content" style="">
+                    <div class="right_reg_side_content" style="display: none;">
                         <div class="rg_lf_label">
                             <div class="label_div">
                                 <label for="username">姓名</label>
@@ -151,7 +154,7 @@
     </div>
 
     <script type="text/javascript">
-        $(function(){
+        /*$(function(){
             $("#test").on("click", function() {
                 alert("ssdds")
                 //var username = $("#username").val();
@@ -198,7 +201,7 @@
                     }
                 });
             });
-        });
+        });*/
     </script>
 </body>
 </html>

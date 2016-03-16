@@ -39,7 +39,7 @@ body {
     height: 100%;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
-
+    font-family: "Microsoft Yahei";
 }
 ol, ul {
     list-style: none;
