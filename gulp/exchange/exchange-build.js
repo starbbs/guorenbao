@@ -1,4 +1,4 @@
-// 徐乐天 2016年3月1日20:26:53 创建
+﻿// 徐乐天 2016年3月1日20:26:53 创建
 // gulp 交易所 生成到build文件夹
 
 
@@ -11,17 +11,14 @@ var paths = {
 	build: '../exchange/build',
 	source: '../exchange/source',
 	pages: '../exchange/factory/pages',
-	common: '../source'
+	common: '../source',
+	includes: '../exchange/factory/includes',
 };
-
 
 var notify = function(task, path) { // 提示
 	var notice = (path && !Array.isArray(path) && tools.filePath(path).type !== 'dir') ? tools.filePath(path).filename + ' ' : '全部文件';
 	return tools.notify(task + ': ' + notice + '编译完成!');
 };
-
-
-
 // html部分
 gulp.task('exchange-include', function() {
 	var page = path.join(paths.pages, '/**/*.html');
@@ -33,6 +30,9 @@ gulp.task('exchange-include', function() {
 	gulp.watch(page, function(event) {
 		return todo(event.path);
 	});
+	gulp.watch([path.join(paths.includes, '/**/*.html')], function(event) {
+			return todo();
+		});
 	return todo();
 });
 
@@ -44,12 +44,11 @@ gulp.task('exchange-img-move', function() {
 			type: 'image',
 			rename: function(path) {
 				if (path.dirname !== '.') {
-					path.dirname = path.dirname.replace(/\\/g, '/');
-					path.basename = path.dirname.replace(/(\/?images\/?)|(^\.)/, '') + '-' + path.basename.replace(/^_+/, '');
+					path.dirname = path.dirname.replace(/\\/g, '/').replace(/(\/?images\/?)|(^\.)/, '');
+					path.basename = path.dirname.replace(/\//g, '_') + '_' + path.basename.replace(/^_+/, '');
 				}
 			}
 		};
-		useReg && (opts.fileReg = /^_/);
 		tools.fileMove(url, path.join(paths.build, '/images'), opts)
 			.pipe(notify('exchange-img-move', url))
 	};

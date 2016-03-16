@@ -1,0 +1,467 @@
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+
+/*---滚动条默认显示样式--*/
+
+::-webkit-scrollbar-thumb {
+    background-color: #dddddd;
+    height: 50px;
+    outline-offset: -2px;
+    outline: 2px solid #fff;
+    -webkit-border-radius: 4px;
+    border: 2px solid #fff;
+}
+
+
+/*---鼠标点击滚动条显示样式--*/
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #cccccc;
+    height: 50px;
+    -webkit-border-radius: 4px;
+}
+
+
+/*---滚动条大小--*/
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+
+/*---滚动框背景样式--*/
+
+::-webkit-scrollbar-track-piece {
+    background-color: #fff;
+    -webkit-border-radius: 0;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: "微软雅黑";
+    background-color: #f6f6f6;
+}
+
+
+.topbar .content {
+    max-width: 1200px;
+    margin: 0 auto;
+    color: #999999;
+    height: 100%;
+    font-size:1.2rem;
+}
+
+.topbar .content span {
+    color: #cccccc;
+    font-size: 12px;
+}
+
+.topbar .content span:nth-child(1) {
+    /*color:blue;*/
+}
+.topbar .content span:nth-child(2) {
+    /*color:red;✔✘*/
+}
+.login_regist{
+    width:80px;
+    float:right;
+    right: 0px;
+    text-align:right;
+}
+.login_regist a{
+    text-decoration:none;
+    color:#999999;
+}
+.login_regist div{
+    display:inline;
+}
+.login_regist_vertical:after{
+        content: '|';
+    color: #838383;
+    width: 2px;
+    position: relative;
+    bottom: 1px;
+}
+
+.topnav {
+        width: 100%;
+    height: 80px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 4px #888888;
+}
+
+.topbanner {
+    height: 440px;
+    width: 100%;
+    position: relative;
+}
+
+.report_forms{
+    background-color: #ffffff;
+    display:flex;
+}
+.containerwraper{
+    margin-left: 20px;
+    width: 73%;
+    border-right: 1px dotted #cccccc;
+}
+.containerinnerwrapper{
+    max-width:100%;
+}
+
+.myassets{
+        width: 27%;
+    height: 100px;
+    background-color: #ffffff;
+    padding: 0 20px;
+}
+
+.myassetstop{
+        height: 83px;
+    border-bottom: 1px solid #e9e9e9;
+}
+.navcontent {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 80px;
+    position: relative;
+}
+
+.navlogo {
+    height: 100%;
+    width: 156px;
+    position: absolute;
+}
+.navlogo img {
+    cursor: pointer;
+    position: absolute;
+    top: 17px;
+}
+.rightfunction {
+    display: flex;
+    float: right;
+    position: relative;
+    top: 34px;
+}
+.feature {
+    width: 116px;
+    color: #777777;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+.index_on {
+    color:#0bbeee;
+}
+.bottom {
+    width: 100%;
+    height: 372px;
+    background-color: #282828;
+}
+
+.bottom h3 {
+    font-size: 1.6rem;
+    color: #999999;
+}
+.bottom a {
+    text-decoration: none;
+    color: #999999;
+    display: inline-block;
+    width: auto;
+    height: 20px;
+    line-height: 20px;
+    margin-right: 30px;
+    font-size: 1.4rem;
+}
+.bottom_up {
+    height: 148px;
+    border-bottom: 1px solid #333333;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+}
+.bottom_up .links {
+    width: 200px;
+    height: 100%;
+    flex: 1;
+}
+.bottom_down {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 223px;
+    position: relative;
+}
+.bottom_down h3 {
+    margin-top: 20px;
+}
+.links {
+    position: relative;
+}
+.links div:nth-of-type(1) {
+    position: absolute;
+    top: 76px;
+}
+.links div:last-child {
+    position: absolute;
+    bottom: 18px;
+}
+.bottom h3 {}
+.first h3,
+.second h3,
+.third h3,
+.fourth h3 {
+    margin-top: 40px;
+}
+.bottom_down .bottom_down_up div {
+    width: 200px;
+    float: left;
+    margin-top: 24px;
+    color: #666666;
+}
+.bottom_down_up {
+    height: 100px;
+    border-bottom: 1px solid #333;
+}
+.bottom_down_down {
+    height: 123px;
+    position: relative;
+}
+.bottom_down_down p {
+    color: #666666;
+    position: absolute;
+    top: 24px;
+}
+.quoted_price_top,
+.report_forms {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.quoted_price_top_wrapper{
+    display: flex;
+    height: 70px;
+    width: 100%;
+    background-color: #ffffff;
+    margin: 0 20px;
+    border-bottom: 1px solid #e6e6e6;
+}
+.quoted_price_top {
+        display: flex;
+    height: 70px;
+    margin-top: 14px;
+    background-color: #ffffff;
+}
+.fivth {
+    width: 200px;
+    height: 100%;
+    color: #999999;
+    padding-top: 76px;
+}
+.fivth span:first-child {
+    font-size: 1.4rem;
+}
+.fivth span:last-child {
+    font-size: 1.6rem;
+}
+.center_content{
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    margin-top: 14px;
+}
+.leftside{
+    width: 180px;
+    height: 730px;
+    flex: 0.2;
+    margin-right:14px;
+    margin-bottom:50px;
+    background-color: #ffffff;
+}
+.rightside{
+    width: 100%;
+    height: 730px;
+    background-color: #ffffff;
+    flex: 0.8;
+    padding: 0 34px;
+    font-size:1.2rem;
+}
+
+.ls_tab{
+    height: 94px;
+    line-height: 94px;
+    color: #333333;
+    text-align: center;
+    cursor:pointer;
+    font-size:1.4rem;
+    display:block;
+    text-decoration:none;
+}
+.ls_tab_on {
+    background-color: #fafafa;
+    font-weight: 600;
+}
+
+.topline{
+        margin: 28px 0 18px 0;
+    border-bottom: 2px solid #e6e6e6;
+}
+.rmbxh{
+    color: #333333;
+    font-size: 1.4rem;
+    display: inline-block;
+    height: 28px;
+    top: 2px;
+    position: relative;
+    cursor:pointer;
+}
+.rmbtx{
+    color: #333333;
+    font-size: 1.4rem;
+    display: inline-block;
+    height: 28px;
+    top: 2px;
+    position: relative;
+    margin-left:30px;
+    cursor:pointer;
+}
+.bottomon{
+    border-bottom: 2px solid #bababa;
+}
+
+.intro p{
+    line-height: 24px;
+    padding-left: 20px;
+    background-color: #fafafa;
+    padding-top:18px;
+}
+.intro p em{
+    color:#ff6600;
+}
+.topline b{
+    float: right;
+    bottom: 2px;
+    position: relative;
+}
+.topline b em:nth-child(1){
+    font-size:1.2rem;
+}
+.topline b em:nth-child(2){
+    font-size:1.2rem;
+}
+#total_assets{
+    font-size: 1.8rem;
+    color: #ff6600;
+}
+
+.right_reg_side_content{
+        display: flex;
+    margin-top: 40px;
+    position: relative;
+    margin-left: 20px;
+}
+
+.rg_lf_label{
+    flex:0.21;
+}
+.rg_lf_label .label_div{
+        height: 32px;
+    line-height: 32px;
+    margin-bottom: 26px;
+    text-align: right;
+    margin-right: 20px;
+    color: #424242;
+}
+
+
+.regist_input_div{
+    height:58px;
+    position:relative;
+}
+.regist_input_div span{
+    display: block;
+    float: left;
+    position: absolute;
+    top: 32px;
+    margin-top: 5px;
+    color: #ff6600;
+}
+.regist_rg_input{
+        height: 32px;
+    width: 240px;
+    border: 1px solid #d6d6d6;
+    padding-left: 14px;
+    box-sizing: border-box;
+    float:left;
+}
+.build_remit_btn{
+        height: 32px;
+    line-height: 32px;
+    background-color: #0bbeee;
+    border-radius: 4px;
+    width: 240px;
+    position: absolute;
+    top: 305px;
+    color: #ffffff;
+    cursor: pointer;
+    text-align: center;
+}
+
+.accountholder_tip{
+    height: 32px;
+    line-height: 32px;
+    position: relative;
+    left: 20px;
+}
+
+.accountholder_tipafter{
+    width: 16px;
+    height: 16px;
+    content: url(tips_img.png);
+    cursor: pointer;
+    left: 0px;
+    display: inline;
+}
+.tipscontent{
+    border: 1px solid #b0b5b6;
+    width: 256px;
+    position: absolute;
+    right: -126px;
+    display: inline-block;
+    bottom: 30px;
+    background-color: #f6f6f6;
+    padding: 10px 10px;
+    border-radius:2px;
+}
+
+.bankcard,.handlingcharget{
+    padding-top:10px;
+    border:none;
+    color:#777777;
+}
+
+.handlingcharget em{
+    margin-right:8px;
+}

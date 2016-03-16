@@ -1,4 +1,4 @@
-
+﻿
 // 张树垚 2015-12-04 09:49:51 创建
 // gulp工具 -- 文件转移
 
@@ -53,8 +53,7 @@ module.exports = function(input, output, options) {
 			if (options.type === 'file') { return path.type !== 'dir'; }
 		});
 		// 处理
-		var stream = gulp.src(files, { base: options.baseUrl || baseUrl });
-		stream.pipe(rename(function(path) {
+		var stream = gulp.src(files, { base: options.baseUrl || baseUrl }).pipe(rename(function(path) {
 			options.rename && options.rename(path);
 			options.removeDirname && (path.dirname = '');
 		}));

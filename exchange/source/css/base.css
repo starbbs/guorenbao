@@ -82,3 +82,294 @@ table {
     background-color: #fff;
     -webkit-border-radius: 0;
 }
+
+
+
+.topbar {
+    height: 28px;
+    background-color: #282828;
+    width: 100%;
+    margin: 0 auto;
+    line-height:28px;
+}
+
+.topbar .content {
+    max-width: 1200px;
+    margin: 0 auto;
+    color: #999999;
+    height: 100%;
+    line-height: 28px;
+    font-size:1.2rem;
+}
+
+.topbar .content span {
+    color: #cccccc;
+    font-size: 12px;
+}
+
+.topbar .content span:nth-child(1) {
+    /*color:blue;*/
+}
+.topbar .content span:nth-child(2) {
+    /*color:red;✔✘*/
+}
+.login_regist{
+    width:80px;
+    float:right;
+    right: 0px;
+    text-align:right;
+}
+.login_regist a{
+    text-decoration:none;
+    color:#999999;
+}
+.login_regist div{
+    display:inline;
+}
+.login_regist_vertical:after{
+    content: '|';
+    color: #838383;
+    width: 2px;
+    position: relative;
+    bottom: 1px;
+}
+
+.topnav {
+        width: 100%;
+    height: 80px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 4px #888888;
+}
+
+.topbanner {
+    height: 440px;
+    width: 100%;
+    position: relative;
+}
+
+.feature {
+    width: 116px;
+    color: #777777;
+    font-size: 1.6rem;
+    cursor: pointer;
+    text-decoration:none;
+}
+.index_on {
+    color:#0bbeee;
+}
+
+
+.bottom {
+    width: 100%;
+    height: 372px;
+    background-color: #282828;
+}
+
+.bottom h3 {
+    font-size: 1.6rem;
+    color: #999999;
+}
+
+.bottom a {
+    text-decoration: none;
+    color: #999999;
+    display: inline-block;
+    width: auto;
+    height: 20px;
+    line-height: 20px;
+    margin-right: 30px;
+    font-size: 1.4rem;
+}
+
+.bottom_up {
+    height: 148px;
+    border-bottom: 1px solid #333333;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+}
+
+.bottom_up .links {
+    width: 200px;
+    height: 100%;
+    flex: 1;
+}
+
+.bottom_down {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 223px;
+    position: relative;
+}
+
+.bottom_down h3 {
+    margin-top: 20px;
+}
+
+.links {
+    position: relative;
+}
+
+.links div:nth-of-type(1) {
+    position: absolute;
+    top: 76px;
+}
+
+.links div:last-child {
+    position: absolute;
+    bottom: 18px;
+}
+
+.bottom h3 {}
+
+.first h3,
+.second h3,
+.third h3,
+.fourth h3 {
+    margin-top: 40px;
+}
+
+.bottom_down .bottom_down_up div {
+    width: 200px;
+    float: left;
+    margin-top: 24px;
+    color: #666666;
+}
+
+.bottom_down_up {
+    height: 100px;
+    border-bottom: 1px solid #333;
+}
+
+.bottom_down_down {
+    height: 123px;
+    position: relative;
+}
+
+.bottom_down_down p {
+    color: #666666;
+    position: absolute;
+    top: 24px;
+}
+
+/****顶部通栏****/
+#newinfor{
+        position: absolute;
+    bottom: 12px;
+    height: 16px;
+    line-height: 16px;
+    color: #333333;
+}
+.message_flow{
+    margin:0 10px;
+}
+#newinfor_result{
+    position: absolute;
+    bottom: 12px;
+    color: #ff6600;
+    right: 0px;
+    height: 16px;
+    line-height: 16px;
+}
+.popup_message_box{
+
+}
+.message_flow{
+    height: 52px;
+}
+.message_flow p{
+    line-height: 26px;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+.login_header{
+    float:right;
+    color:#cccccc;
+}
+.message_content_p{
+    color:#565656;
+    position:relative;
+    top:6px;
+}
+.message_date_p{
+    color:#999999;
+    float:right;
+    margin-right:10px;
+}
+.second_message_flow{
+    border-top: 1px dotted #cccccc;
+}
+.login_header >div{
+    display:inline;
+}
+
+.login_header >div:nth-child(2){
+    display: inline-block;
+    padding: 0 6px;
+    cursor: pointer;
+    position:relative;
+}
+.login_header span{
+    color:#cccccc;
+}
+.login_header em{
+    color:#cccccc;
+}
+
+.login_regist{
+    width:80px;
+    float:right;
+    right: 0px;
+    text-align:right;
+}
+
+.messnumarea_font_color{
+    color:#333333;
+}
+.login_regist a,.login_header a{
+    text-decoration:none;
+    color:#cccccc;
+}
+
+.popup_message_box{
+    background-color: #ffffff;
+    width: 260px;
+    height: 178px;
+    z-index: 3;
+    position: absolute;
+    right: 0px;
+    display:none;
+}
+.popup_message_box div:nth-child(1){
+    color: #333333;
+    margin: 0 10px;
+    border-bottom: 1px solid #e6e6e6;
+    height: 44px;
+    position:relative;
+}
+.popup_message_box a{
+    text-decoration: none;
+    height: 30px;
+    line-height: 30px;
+    margin-right: 10px;
+    color: #0bbeee;
+    right: 0px;
+    position: absolute;
+}
+
+
+.login_header{
+    display:block;
+    float: right;
+    color: #cccccc;
+}
+
+
+.rightfunction{
+        display: flex;
+    float: right;
+    position: absolute;
+    top: 34px;
+    right: 0px;
+}

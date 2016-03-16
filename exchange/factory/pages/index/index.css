@@ -80,15 +80,6 @@ progress::-webkit-progress-value {
     overflow: hidden;
     font-family: "Microsoft Yahei";
 }
-
-.topbar {
-    height: 28px;
-    background-color: #282828;
-    width: 100%;
-    margin: 0 auto;
-    line-height: 28px;
-}
-
 .topbar .content {
     max-width: 1200px;
     margin: 0 auto;
@@ -101,23 +92,15 @@ progress::-webkit-progress-value {
     color: #cccccc;
     font-size: 12px;
 }
-.topbar .content span:nth-child(1) {
-    margin-right:10px;
-    color:#333333;
-}
 .topbar .content span:nth-child(2) {
     cursor: pointer;
-    background-color: #ffffff;
     height: 100%;
-    display: inline-block;
-    padding-left: 6px;
 }
 .topbar .content span:nth-child(3){
     margin-right: 10px;
     cursor: pointer;
     background-color: #ffffff;
     height: 100%;
-    display: inline-block;
     padding-right: 6px;
 }
 .topnav {
@@ -125,45 +108,13 @@ progress::-webkit-progress-value {
     height: 80px;
     background-color: #f8fdff;
 }
-
 .topbanner {
     height: 440px;
     width: 100%;
     position: relative;
 }
 
-.popup_message_box{
-    background-color: #ffffff;
-    width: 260px;
-    height: 178px;
-    z-index: 3;
-    position: absolute;
-    right: 113px;
-}
-.popup_message_box div:nth-child(1){
-    color: #333333;
-    margin: 0 10px;
-    border-bottom: 1px solid #e6e6e6;
-    margin-top: 14px;
-}
-.popup_message_box div:nth-child(1) em{
-    float:right;
-    color:#ff6600;
-}
 
-.popup_message_box div:nth-child(2) span{
-    border:none;
-}
-
-.popup_message_box div:nth-child(2),.popup_message_box div:nth-child(3){
-    height:50px;
-    color:#565656;
-}
-
-.popup_message_box a{
-    text-decoration: none;
-    float:right;
-}
 
 .navcontent {
     max-width: 1200px;
@@ -171,7 +122,6 @@ progress::-webkit-progress-value {
     height: 80px;
     position: relative;
 }
-
 .navlogo {
     height: 100%;
     width: 156px;
@@ -376,19 +326,7 @@ progress::-webkit-progress-value {
     color: #00951c;
 }
 
-.login_regist{
-    width:80px;
-    float:right;
-    right: 0px;
-    text-align:right;
-}
-.login_header{
-    float:right;
-}
-.login_regist a,.login_header a{
-    text-decoration:none;
-    color:#cccccc;
-}
+
 .login_regist div{
     display:inline;
 }
@@ -399,8 +337,6 @@ progress::-webkit-progress-value {
     position: relative;
     bottom: 1px;
 }
-
-
 .buy_order {
     flex: 1;
     margin-right: 10px;
@@ -709,7 +645,7 @@ progress::-webkit-progress-value {
 
 .eye_i {
     /* background: url('./eye.png') no-repeat 0 0; */
-    background: url('./eye_visible.png') no-repeat 0 0;
+    background: url('../images/index_eye_visible.png') no-repeat 0 0;
     width: 16px;
     height: 12px;
     background-size: 16px 12px;
@@ -721,8 +657,7 @@ progress::-webkit-progress-value {
 }
 
 .bottom_em_i {
-    /* background: url('./new_head.png') no-repeat 0 0; */
-    background: url('./already_authentication.png') no-repeat 0 0;
+    background: url('../images/index_already_authentication.png') no-repeat 0 0;
     width: 23px;
     height: 15px;
     background-size: 23px 15px;
@@ -777,7 +712,7 @@ progress::-webkit-progress-value {
 }
 
 .rightassets_i {
-    background: url('./g_logo.png') no-repeat 0 0;
+    background: url('../images/index_g_logo.png') no-repeat 0 0;
     width: 18px;
     height: 14px;
     position: absolute;
@@ -841,7 +776,7 @@ progress::-webkit-progress-value {
 }
 
 .quoted_price_first i {
-    background: url('./arrow_rise.png') no-repeat 0 0;
+    background: url('../images/index_arrow_rise.png') no-repeat 0 0;
     width: 10px;
     background-size: 100% 110%;
     position: absolute;
@@ -851,7 +786,7 @@ progress::-webkit-progress-value {
 }
 
 .quoted_price_seventh i {
-    background: url('./arrow_down.png') no-repeat 0 0;
+    background: url('../images/index_arrow_down.png') no-repeat 0 0;
     width: 8px;
     background-size: 100% 100%;
     position: absolute;

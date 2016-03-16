@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>重置登录密码</title>
+    <link rel="stylesheet" type="text/css" href="./css/base.css">
+    <link rel="stylesheet" type="text/css" href="./css/resetloginpwd.css">
+    <script type="text/javascript" src="./js/jquery-1.12.1.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="topnav">
+            <div class="navcontent">
+                <div class="navlogo">
+                    <img src="./images/logo.png" alt="" />
+                </div>
+                <div class="logo_register">重置登录密码</div>
+            </div>
+        </div>
+        <div class="centercontent">
+            <div class="registercontent">
+                <div class="left_reg_side">
+                    <hr></hr>
+                    <p class="reset_login_password_step_1" style="display: block;">重置登录密码</p>
+                    <p class="reset_login_password_step_2" style="display: none;">重置成功</p>
+                    <p class="reset_login_password_tips" style="display: block;">您正在重置账户<em id="who_account">187****7891</em>的登录密码</p>
+                </div>
+                <div class="right_reg_side">
+                    <div class="right_reg_side_content" style="">
+                        <div class="rg_lf_label" style="display: block;">
+                            <div class="label_div">
+                                <label for="username">手机号</label>
+                            </div>
+                            <div class="label_div">
+                                <label for="idcard">验证码</label>
+                            </div>
+                            <div class="label_div">
+                                <label for="username">登录密码</label>
+                            </div>
+                            <div class="label_div">
+                                <label for="idcard">确认密码</label>
+                            </div>
+                        </div>
+                        <div class="rg_rg_input" style="display: block;">
+                            <div class="regist_input_div">
+                                <input class="regist_rg_input" type="text" placeholder="请输入手机号" id="username"/>
+                                <span>请输入正确的手机号</span>
+                            </div>
+                            <div class="regist_input_div edit_yanzhengma">
+                                <input class="regist_rg_input" type="text" placeholder="请输入验证码" id="idcard"/>
+                                <div class="getauthcode">获取短信验证码</div>
+                                <span>请输入验证码</span>
+                            </div>
+                            <div class="regist_input_div">
+                                <input class="regist_rg_input" type="text" placeholder="6~12位非纯数字字符" id="idcard"/>
+                                <span>请输入正确的登录密码</span>
+                            </div>
+                            <div class="regist_input_div">
+                                <input class="regist_rg_input" type="text" placeholder="请再次输入登录密码" id="idcard"/>
+                                <span>请输入正确的确认密码</span>
+                            </div>
+                            <div class="next_step_btn">下一步</div>
+                            <a href="javascript:void(0);" class="cancelbtn">取消</a>
+                        </div>
+                        <div class="correct" style="display: none;">
+                            <div class="correct_left">
+                                <img src="./correct.png">
+                            </div>
+                            <div class="correct_right">
+                                <div class="correct_right_top">
+                                    <div>重置成功!</div>
+                                    <div><em id="howmanysecond">3s</em>后自动跳转进入首页</div>
+                                    <a href="javascript:void(0);">返回主页</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="bottom_down_down">
+                <p>©2013-2016 Copyright© 2016-20XX GOOPAL.NET.CN 果仁市场版权所有 京ICP备15066984 号-1 京公网安备XXXXXXXXXXXX号</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

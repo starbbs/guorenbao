@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>注册</title>
+    <link rel="stylesheet" type="text/css" href="./css/base.css">
+    <link rel="stylesheet" type="text/css" href="./css/regist.css">
+    <script type="text/javascript" src="./js/jquery-1.12.1.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="topnav">
+            <div class="navcontent">
+                <div class="navlogo">
+                    <img src="./images/logo.png" alt="" />
+                </div>
+                <div class="logo_register">注册</div>
+            </div>
+        </div>
+        <div class="centercontent">
+            <div class="registercontent">
+                <div class="left_reg_side">
+                    <hr></hr>
+                    <p class="regist_step_1" style="display: block;">注册果仁市场</p>
+                    <p class="regist_step_2" style="display: none;">设置支付密码</p>
+                    <p class="regist_step_3" style="display: none;">实名认证</p>
+                    <i class="indicate_step_1" style="display: block;"></i>
+                    <i class="indicate_step_2" style="display: none;"></i>
+                    <i class="indicate_step_3" style="display: none;"></i>
+                    <i class="indicate_step_4" style="display: none;"></i>
+                </div>
+                <div class="right_reg_side">
+                    <div class="right_reg_side_content" style="display: none;">
+                        <div class="rg_lf_label">
+                            <div class="label_username">
+                                <label for="username">姓名</label>
+                            </div>
+                            <div class="label_idcard">
+                                <label for="idcard">身份证</label>
+                            </div>
+                        </div>
+                        <div class="rg_rg_input">
+                            <div class="regist_input_u_div">
+                                <input class="regist_input_username" type="text" placeholder="请输入姓名" id="username"/>
+                                <span>请输入正确的姓名</span>
+                            </div>
+                            <div class="regist_input_i_div">
+                                <input class="regist_input_idcard" type="text" placeholder="请输入身份证号" id="idcard"/>
+                                <span>请输入正确的身份证号</span>
+                            </div>
+
+                            <div class="submitbtn">确认提交</div>
+
+                            <a href="javascript:void(0);" class="rg_rg_skip">跳过此步</a>
+                        </div>
+                    </div>
+                    <div class="right_reg_side_content" style="display: none;">
+                        <div class="rg_lf_label">
+                            <div class="label_div">
+                                <label for="username">手机号</label>
+                            </div>
+                            <div class="label_div">
+                                <label for="idcard">验证码</label>
+                            </div>
+                            <div class="label_div">
+                                <label for="username">登录密码</label>
+                            </div>
+                            <div class="label_div">
+                                <label for="idcard">确认密码</label>
+                            </div>
+                        </div>
+                        <div class="rg_rg_input">
+                            <div class="regist_input_div">
+                                <input class="regist_rg_input" type="text" placeholder="请输入手机号" id="username"/>
+                                <span>请输入正确的手机号</span>
+                            </div>
+                            <div class="regist_input_div">
+                                <input class="regist_rg_input" type="text" placeholder="请输入身份证号" id="idcard"/>
+                                <span>请输入正确的验证码</span>
+                            </div>
+                            <div class="regist_input_div">
+                                <input class="regist_rg_input" type="text" placeholder="6~12位非纯数字字符" id="idcard"/>
+                                <span>请输入正确的登录密码</span>
+                            </div>
+                            <div class="regist_input_div">
+                                <input class="regist_rg_input" type="text" placeholder="请再次输入登录密码" id="idcard"/>
+                                <span>请输入正确的确认密码</span>
+                            </div>
+                            <div style="float: left;">我已阅读并同意<<果仁市场用户协议>></div>
+                            <div class="next_step_btn">下一步</div>
+                        </div>
+                    </div>
+                    <div class="right_reg_side_content" style="display: none;">
+                        <div class="rg_lf_label">
+                            <div class="label_div">
+                                <label for="username">支付密码</label>
+                            </div>
+                            <div class="label_div">
+                                <label for="idcard">确认密码</label>
+                            </div>
+                        </div>
+                        <div class="rg_rg_input">
+                            <div class="regist_input_div">
+                                <input class="regist_rg_input" type="text" placeholder="8~20位非纯数字字符" id="username"/>
+                                <span>密码设置不符合规则</span>
+                            </div>
+                            <div class="regist_input_div">
+                                <input class="regist_rg_input" type="text" placeholder="请再次输入支付密码" id="idcard"/>
+                                <span>两次输入不一致</span>
+                            </div>
+                            <div class="next_step_btn">下一步</div>
+                        </div>
+                    </div>
+                    <div class="right_reg_side_content" style="">
+                        <div class="rg_lf_label">
+                            <div class="label_div">
+                                <label for="username">姓名</label>
+                            </div>
+                            <div class="label_div">
+                                <label for="idcard">身份证</label>
+                            </div>
+                        </div>
+                        <div class="rg_rg_input">
+                            <div class="regist_input_div">
+                                <input class="regist_rg_input" type="text" placeholder="请输入姓名" id="username"/>
+                                <span>请输入正确的姓名</span>
+                            </div>
+                            <div class="regist_input_div">
+                                <input class="regist_rg_input" type="text" placeholder="请输入身份证号" id="idcard"/>
+                                <span>请输入正确的身份证号</span>
+                            </div>
+                            <div class="next_step_btn">确认提交</div>
+
+                            <a href="javascript:void(0);" id="test">登录</a>
+                        </div>
+                    </div>
+
+                    <div class="bottom_tip" style="display: none;">
+                        <p>根据中华人民共和国有关法律，果仁市场只面向实名认证用户提供充值、交易、转账等服务，建议您进行实名身份信息提交。 </p>
+                        <b>（注意：身份信息一旦通过验证将无法更改，请填写您本人真实有效的身份信息。）</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="bottom_down_down">
+                <p>©2013-2016 Copyright© 2016-20XX GOOPAL.NET.CN 果仁市场版权所有 京ICP备15066984 号-1 京公网安备XXXXXXXXXXXX号</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function(){
+            $("#test").on("click", function() {
+                alert("ssdds")
+                //var username = $("#username").val();
+                //var password = $("#password").val();
+                //console.log("username"+username);
+                //console.log("password"+password);
+                var phonenum = "18701097891";
+                // $.ajax({
+                //     url: 'http://10.23.0.228:8080/common/sendCode',
+                //     data: {
+                //         "phone": phonenum,
+                //     },
+                //     type: 'post',
+                //     cache: false,
+                //     dataType: 'json',
+                //     success: function(data) {
+                //         if (data.msg == "true") {
+                //             alert("login");
+                //             //window.location.reload();
+                //         } else {
+                //         }
+                //     },
+                //     error: function() {
+                //         alert("error");
+                //     }
+                // });
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "http://10.23.0.228:8080/common/sendCode",
+                    data: JSON.stringify({
+                        phone: phonenum,
+                    }),
+                    cache: false,
+                    success: function(data) {
+                        if (data.msg == "true") {
+
+                        } else {
+                            
+                        }
+                    },
+                    error: function() {
+                        console.log("提交失败");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

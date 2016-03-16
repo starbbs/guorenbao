@@ -1,0 +1,109 @@
+@@include('../../../includes/head/head.html',{"name":"basicinfo","title":"我的账户-基本信息"})
+<body>
+    <div class="wrapper">
+        @@include('../../../includes/top/topbar.html')
+        @@include('../../../includes/top/topnav.html',{"feature_on":"mine"})
+        <div class="center_content">
+            <div class="leftside">
+                <a class="ls_tab ls_tab_on" href="basicinfo.html">基本信息</a>
+                <a class="ls_tab " href="certification.html">实名认证</a>
+                <a class="ls_tab" href="ssmessage.html">系统消息</a>
+            </div>
+            <div class="rightside">
+                <div class="lft_img">
+                    <div>
+                        <img src="./images/mine_basicinfo_real_username.png" alt="" width="20px;" height="16px;" />
+                    </div>
+                    <div>
+                        <img src="./images/mine_basicinfo_account_name.png" alt="" width="18px;" height="18px;" />
+                    </div>
+                    <div>
+                        <img src="./images/mine_basicinfo_uid.png" alt="" width="18px;" height="16px;" />
+                    </div>
+                    <div>
+                        <img src="./images/mine_basicinfo_login_password.png" alt="" width="15px;" height="18px;" class="login_pass_img" />
+                    </div>
+                    <div>
+                        <img src="./images/mine_basicinfo_payment_code.png" alt="" width="15px;" height="18px;" class="payment_code_img" />
+                    </div>
+                </div>
+                <div class="rft_content">
+                    <div><span>真实姓名</span><span>怀达</span>
+                        <a href="certification.html">查看</a>
+                    </div>
+                    <div><span>账户名</span><span>185****9935</span></div>
+                    <div><span>UID</span><span>22314</span></div>
+                    <div><span>登录密码</span><span>登录账户时需要输入的密码</span>
+                        <a href="modifyloginpassword.html">修改</a>
+                    </div>
+                    <div><span>支付密码</span><span>账户资金变动，修改账户信息时需要的密码</span>
+                        <div class="modification_retrieve_rule">
+                            <a href="modifypaymentcode.html">修改</a><a href="resetpaymentcode.html">找回</a><a href="javascript:showDiv();">规则</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @@include('../../../includes/bottom/bottom.html')
+    </div>
+    <div id="popDiv" class="popDiv" style="display:none;">
+        <div id='orgNote' class="note_div">
+            <h3>挂单支付密码</h3>
+            <img src="./images/close_btn.png" alt="" class="close_btn">
+            <div class="sel_div">
+                <select name="" id="">
+                    <option value="1">每次输入密码</option>
+                    <option value="2">仅需一次输入密码</option>
+                </select>
+            </div>
+            <div class="sure_btn">确认</div>
+        </div>
+    </div>
+    <div id="bg" class="bg" style="display:none;">这里是遮罩层</div>
+    <script type="text/javascript">
+        $(function() {
+            $(".bg").width($(document).width());
+            $('.bg').height($(document).height());
+
+            console.log($(document).width());
+            console.log($(document).height());
+
+            $('.bg').css('left', 0);
+            $('.bg').css('top', 0);
+
+            $(".close_btn").on("click",function(){
+                $("#popDiv").hide();
+                $("#bg").hide();
+            });
+
+            var flag = true;
+            $('.messagenum_area').on("click",function(){
+                if(flag){
+                    flag = false;
+                    $(this).css("background-color","#ffffff");
+                    $(".popup_message_box").show("100");
+                    $(".messagenum_area em").css("color","#333333");
+                    $(".msg_num").css("color","#333333");
+                } else {
+                    flag = true;
+                    $(this).css("background-color","#282828");
+                    $(".popup_message_box").hide("100");
+                    $(".messagenum_area em").css("color","#cccccc");
+                    $(".msg_num").css("color","#cccccc");
+                }
+            });
+        });
+
+        function showDiv() {
+            $("#bg").show();
+            $("#popDiv").fadeIn(500);
+        }
+
+        function closeDiv() {
+            $("#popDiv").hide();
+            $("#bg").hide();
+        }
+    </script>
+</body>
+
+</html>

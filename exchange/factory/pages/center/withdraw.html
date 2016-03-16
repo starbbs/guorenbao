@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>提现管理</title>
+    <link rel="stylesheet" type="text/css" href="./css/base.css">
+    <link rel="stylesheet" type="text/css" href="./css/jquery-ui.theme.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/withdraw.css">
+    <script type="text/javascript" src="./js/jquery-1.12.1.min.js"></script>
+    <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        @@include('../../includes/top/topbar.html')
+        @@include('../../includes/top/topnav.html',{"feature_on":"center"})
+        <div class="center_content">
+            <div class="leftside">
+                <a class="ls_tab" href="conditionofassets.html">资产状况</a>
+                <a class="ls_tab" href="cnydepositswithdrawal.html">人民币充值/提现</a>
+                <a class="ls_tab" href="nutstopupwithdrawal.html">果仁充值/提现</a>
+                <a class="ls_tab ls_tab_on" href="withdraw.html">提现管理</a>
+            </div>
+            <div class="rightside">
+                <div class="topline">
+                    <div class="rmbxh bottomon">人民币提现管理</div>
+                    <div class="rmbtx">果仁提现管理</div>
+                </div>
+                <div class="recharge" style="display: none;">
+                    <div class="intro">
+                        <p>
+                            <em>提示：</em>您的果仁转出至该地址后，需要整个goopal网络节点的确认后方可到账。具体情况视当时的网络节点状态而定 
+                        </p>
+                    </div>
+                    <div class="goopaladdress">
+                        <span>您的账户地址</span>
+                        <span class="gpal_address">1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</span>
+                        <img src="copy.png" alt="">
+                    </div>
+                </div>
+                <div class="withdraw_deposit" style="display: block;">
+                    <div class="intro">
+                        <em>您将添加果仁提现地址</em>
+                    </div>
+                    <div class="right_reg_side_content" style="display: flex;">
+                        <div class="rg_lf_label">
+                            <div class="label_div">
+                                <label for="username">地址备注</label>
+                            </div>
+                            <div class="label_div">
+                                <label for="idcard">地址</label>
+                            </div>
+                            <div class="label_div">
+                                <label for="username">支付密码</label>
+                            </div>
+                            <div class="label_div">
+                                <label for="idcard">验证码</label>
+                            </div>
+                        </div>
+                        <div class="rg_rg_input">
+                            <div class="regist_input_div">
+                                <input class="regist_rg_input" type="text" placeholder="请输入银行账号" id="idcard"/>
+                                <span>请输入正确的银行账号</span>
+                            </div>
+
+                            <div class="regist_input_div">
+                                <input class="regist_rg_input" type="text" placeholder="请输入银行账号" id="idcard"/>
+                                <span>请输入正确的银行账号</span>
+                            </div>
+                            <div class="regist_input_div">
+                                <input class="regist_rg_input" type="text" placeholder="请输入银行账号" id="idcard"/>
+                                <span>请输入正确的银行账号</span>
+                            </div>
+                            <div class="regist_input_div">
+                                <input class="regist_rg_input" type="text" placeholder="支付密码" id="idcard"/>
+                                <span>请输入所属银行</span>
+                            </div>
+                            <div class="build_remit_btn">确认添加</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @@include('../../includes/bottom/bottom.html')
+    </div>
+    <script type="text/javascript">
+        $(function(){
+            $('.rmbxh').on('click',function(){
+                $(this).addClass('bottomon');
+                $('.rmbtx').removeClass('bottomon');
+                $('.recharge').show();
+                $('.withdraw_deposit').hide();
+            });
+            $('.rmbtx').on('click',function(){
+                $(this).addClass('bottomon');
+                $('.rmbxh').removeClass('bottomon');
+                $('.recharge').hide();
+                $('.withdraw_deposit').show();
+            });
+        });
+    </script>
+</body>
+</html>

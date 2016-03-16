@@ -1,0 +1,399 @@
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+
+/*---滚动条默认显示样式--*/
+
+::-webkit-scrollbar-thumb {
+    background-color: #dddddd;
+    height: 50px;
+    outline-offset: -2px;
+    outline: 2px solid #fff;
+    -webkit-border-radius: 4px;
+    border: 2px solid #fff;
+}
+
+
+/*---鼠标点击滚动条显示样式--*/
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #cccccc;
+    height: 50px;
+    -webkit-border-radius: 4px;
+}
+
+
+/*---滚动条大小--*/
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+
+/*---滚动框背景样式--*/
+
+::-webkit-scrollbar-track-piece {
+    background-color: #fff;
+    -webkit-border-radius: 0;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: "微软雅黑";
+    background-color: #f6f6f6;
+}
+
+
+.report_forms {
+    background-color: #ffffff;
+    display: flex;
+}
+
+.containerwraper {
+    margin-left: 20px;
+    width: 73%;
+    border-right: 1px dotted #cccccc;
+}
+
+.containerinnerwrapper {
+    max-width: 100%;
+}
+
+.myassets {
+    width: 27%;
+    height: 100px;
+    background-color: #ffffff;
+    padding: 0 20px;
+}
+
+.myassetstop {
+    height: 83px;
+    border-bottom: 1px solid #e9e9e9;
+}
+
+.navcontent {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 80px;
+    position: relative;
+}
+
+.navlogo {
+    height: 100%;
+    width: 156px;
+    position: absolute;
+}
+
+.navlogo img {
+    cursor: pointer;
+    position: absolute;
+    top: 17px;
+}
+
+.feature {
+    width: 116px;
+    color: #777777;
+    font-size: 1.6rem;
+    cursor: pointer;
+    text-decoration:none;
+}
+.index_on {
+    color: #0bbeee;
+}
+.quoted_price_top,
+.report_forms {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.quoted_price_top_wrapper {
+    display: flex;
+    height: 70px;
+    width: 100%;
+    background-color: #ffffff;
+    margin: 0 20px;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.quoted_price_top {
+    display: flex;
+    height: 70px;
+    margin-top: 14px;
+    background-color: #ffffff;
+}
+
+.fivth {
+    width: 200px;
+    height: 100%;
+    color: #999999;
+    padding-top: 76px;
+}
+
+.fivth span:first-child {
+    font-size: 1.4rem;
+}
+
+.fivth span:last-child {
+    font-size: 1.6rem;
+}
+
+.center_content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    margin-top: 14px;
+}
+
+.leftside {
+    width: 180px;
+    height: 730px;
+    flex: 0.2;
+    margin-bottom: 50px;
+    background-color: #ffffff;
+}
+
+.rightside {
+    width: 100%;
+    height: 730px;
+    background-color: #ffffff;
+    flex: 0.8;
+    padding: 0 34px;
+    font-size: 1.2rem;
+    display: flex;
+}
+
+.lft_img {
+    flex: 0.05;
+}
+
+.lft_img div:nth-child(0) img {
+    position: relative;
+    top: 4px;
+}
+
+.lft_img div:nth-child(1) img {
+    position: relative;
+    top: 4px;
+}
+
+.lft_img div:nth-child(2) img {
+    position: relative;
+    top: 4px;
+}
+
+.lft_img div:nth-child(3) img {
+    position: relative;
+    top: 4px;
+}
+
+.lft_img div:nth-child(4) img {
+    position: relative;
+    top: 6px;
+}
+
+.lft_img div:nth-child(5) img {
+    position: relative;
+    top: 8px;
+}
+
+.login_pass_img {
+    position: relative;
+    top: 8px;
+}
+
+.rft_content {
+    flex: 0.95;
+}
+
+.rft_content >div {
+    border-bottom: 1px solid #cccccc;
+}
+
+.rft_content div span:nth-child(1) {
+    margin-left: 20px;
+    font-size: 1.4rem;
+    color: #333333;
+}
+
+.rft_content div span:nth-child(2) {
+    color: #999999;
+    position: absolute;
+    left: 300px;
+    height: 90px;
+    line-height: 90px;
+}
+
+.rft_content div a:last-child {
+    color: #0088cc;
+    text-decoration: none;
+    height: 90px;
+    line-height: 90px;
+    margin-right: 20px;
+    float: right;
+}
+
+.rft_content div a {
+    text-decoration: none;
+    color: #0088cc;
+}
+
+.rft_content div:last-child a:not(:last-child):after {
+    content: '|';
+    padding: 0 .3em 0 .1em;
+    color: #999;
+}
+
+.modification_retrieve_rule {
+    display: inline;
+    position: absolute;
+    right: 0px;
+}
+
+.modification_retrieve_rule a {}
+
+.rightside>div {
+    width: 100%;
+    line-height: 90px;
+    position: relative;
+}
+
+.ls_tab {
+    height: 94px;
+    line-height: 94px;
+    color: #333333;
+    text-align: center;
+    cursor: pointer;
+    display:block;
+    text-decoration:none;
+    font-size:1.4rem;
+}
+
+.ls_tab_on {
+    background-color: #fafafa;
+    font-weight: 600;
+}
+
+.topline {
+    margin: 28px 0 18px 0;
+    border-bottom: 2px solid #e6e6e6;
+}
+
+.rmbxh {
+    color: #333333;
+    font-size: 1.4rem;
+    display: inline-block;
+    height: 28px;
+    top: 2px;
+    position: relative;
+    cursor: pointer;
+}
+
+.rmbtx {
+    color: #333333;
+    font-size: 1.4rem;
+    display: inline-block;
+    height: 28px;
+    top: 2px;
+    position: relative;
+    margin-left: 30px;
+    cursor: pointer;
+}
+
+.bottomon {
+    border-bottom: 2px solid #bababa;
+}
+
+.intro p {
+    padding-left: 20px;
+    background-color: #fafafa;
+    color: #b4b4b4;
+    height: 50px;
+    line-height: 50px;
+}
+
+.intro p em {
+    color: #ff6600;
+}
+
+.popDiv {
+    width: 0;
+    height: 0;
+    background-color: red;
+    position: fixed;
+    left: 50%;
+    right: 50%;
+    top: 50%;
+    bottom: 50%;
+    z-index: 2;
+}
+.bg {
+    background-color: #333333;
+    opacity: 0.8;
+    z-index: 1;
+    position: absolute;
+}
+.note_div {
+    width: 320px;
+    height: 230px;
+    margin-left: -160px;
+    margin-top: -115px;
+    background-color: #ffffff;
+    border-radius: 6px;
+    padding: 0 43px;
+    position: relative;
+}
+.note_div h3{
+    top: 38px;
+    position: absolute;
+    font-size:1.6rem;
+}
+.note_div img{
+    position: absolute;
+    top: 42px;
+    right: 36px;
+    cursor: pointer;
+}
+.sure_btn{
+    width: 240px;
+    height: 36px;
+    color: white;
+    position: absolute;
+    bottom: 22px;
+    background: #0bbeee;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    text-align: center;
+    line-height: 36px;
+    cursor:pointer;
+}
+.sel_div{
+    position: absolute;
+    top: 100px;
+}
+.sel_div select{
+    width: 240px;
+    height: 28px;
+}

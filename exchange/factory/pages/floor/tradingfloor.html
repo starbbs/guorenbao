@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>交易大厅</title>
+    <link rel="stylesheet" type="text/css" href="./css/base.css">
+    <link rel="stylesheet" type="text/css" href="./css/jquery-ui.theme.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/tradingfloor.css">
+    <script type="text/javascript" src="./js/jquery-1.12.1.min.js"></script>
+    <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        @@include('../../includes/top/topbar.html')
+        @@include('../../includes/top/topnav.html',{"feature_on":"floor"})
+        <div class="quoted_price">
+            <div class="quoted_price_top">
+                <div class="quoted_price_top_wrapper">
+                    <div class="quoted_price_first quot_price">
+                        <div>最新成交价</div>
+                        <div>¥<em id="thelatestprice">3.00</em><i></i></div>
+                    </div>
+                    <div class="quoted_price_second quot_price">
+                        <div>买一价</div>
+                        <div>¥<em id="buyonece_price">3.10</em></div>
+                    </div>
+                    <div class="quoted_price_third quot_price">
+                        <div>卖一价</div>
+                        <div>¥<em id="sellonece_price">3.01</em></div>
+                    </div>
+                    <div class="quoted_price_fourth quot_price">
+                        <div>最高价</div>
+                        <div>¥<em id="thehighest_price">3.23</em></div>
+                    </div>
+                    <div class="quoted_price_fivth quot_price">
+                        <div>最低价</div>
+                        <div>¥<em id="thehighest_price">3.01</em></div>
+                    </div>
+                    <div class="quoted_price_sixth quot_price">
+                        <div>累计成交量</div>
+                        <div>11200.00</div>
+                    </div>
+                </div>
+                <!-- <div class="quoted_price_seventh quot_price">
+                    <div>涨跌幅</div>
+                    <div>-3.01%<i></i></div>
+                </div> -->
+            </div>
+            <div class="tabhover">
+                <div class="leftchart">
+                    分时图
+                </div>
+                <div class="rightchart">
+                    深度图
+                </div>
+            </div>
+            <div class="report_forms">
+                <div class="containerwraper">
+                    <div class="containerinnerwrapper">
+                        <div id="container" style="min-width: 310px; height: 400px;"></div>
+                    </div>
+                </div>
+                <div class="myassets">
+                    <div class="myassetstop">
+                        <div class="myassetstop_all">
+                            <span>总资产(¥)</span>
+                            <i></i>
+                            <div>---</div>
+                        </div>
+                    </div>
+                    <div class="myassetbottom">
+                        <div>
+                            <span>可用人民币</span>
+                            <i class="top_cny_i"></i>
+                            <div>---</div>
+                        </div>
+                        <div>
+                            <span>可用果仁</span>
+                            <i class="top_nutlet_i"></i>
+                            <div>---</div>
+                        </div>
+                        <div>
+                            <span>冻结人民币</span>
+                            <i class="bottom_cny_i"></i>
+                            <div>---</div>
+                        </div>
+                        <div>
+                            <span>冻结果仁</span>
+                            <i class="bottom_nutlet_i"></i>
+                            <div>---</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list_report_wraper">
+            <div class="buyin_soldout_wraper">
+                <div class="buyin">
+                    <div class="list_header">买入</div>
+                    <section class="buyin_sec">
+                        <div class="header_top">
+                            <div><span class="">限价</span></div>
+                            <div><span class="border_bottom_on">市价</span></div>
+                        </div>
+                        <section class="buyin_limitprices" style="display: none;">
+                            <div class="w_b">
+                                <div class="w_b_l"><em>账户余额</em><em id="wbl_m">300.00</em><em>CNY</em></div>
+                                <div class="w_b_r"><em>最佳买价</em><em id="wbr_m">3.00</em><em>CNY/GOP</em></div>
+                            </div>
+                            <div>
+                                <div>
+                                    <div>
+                                        <label for="">买入价格</label>
+                                    </div>
+                                    <div>
+                                        <input type="text" placeholder="输入希望买入的价格" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <label for="">买入数量</label>
+                                    </div>
+                                    <div>
+                                        <input type="text" placeholder="最大数量" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <label for="">比例</label>
+                                    </div>
+                                    <div class="slider_container">
+                                        <div id="slider_limited_price"></div><span id="buyin_slider_value"></span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <label for="">交易额</label>
+                                    </div>
+                                    <div>
+                                        <input type="text" placeholder="¥" class="dotted_input">
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="buying_btn">买入</div>
+                        </section>
+                        <section class="buyin_marketprices" style="display: block;">
+                            <div>
+                                <p class="buyin_marketprices_p">在市价剧烈波动的情况下，成交价格可能大幅偏离你买入时 的市价，请务必谨慎使用市价交易功能。</p>
+                            </div>
+                            <div class="form_wrapper">
+                                <div class="form_wrapper_leftdiv">
+                                    <div>买入价格</div>
+                                    <div>比例</div>
+                                    <div>交易额</div>
+                                </div>
+                                <div class="form_wrapper_rightdiv">
+                                    <div><input type="text" placeholder="以市场最优价格买入"></div>
+                                    <div class="slider_container">
+                                        <div id="slider_marketprice"></div><span id="slider_marketprice_value"></span>
+                                    </div>
+                                    <div><input type="text" placeholder="¥" class="jyeinput"></div>
+                                </div>
+                                <div class="market_price_buying_btn">买入</div>
+                            </div>
+                        </section>
+                    </section>
+                </div>
+                <div class="soldout">
+                    <div class="list_header">卖出</div>
+                    <section class="soldout_sec">
+                        <div class="header_top">
+                            <div><span class="border_bottom_on">限价</span></div>
+                            <div><span>市价</span></div>
+                        </div>
+                        <!-- <section class="soldout_limitprices">
+                        </section>
+                        <section class="soldout_marketprices">
+                        </section> -->
+
+                        <section class="buyin_limitprices" style="display: none;">
+                            <div class="w_b">
+                                <div class="w_b_l"><em>账户余额</em><em id="wbl_m">300.00</em><em>CNY</em></div>
+                                <div class="w_b_r"><em>最佳买价</em><em id="wbr_m">3.00</em><em>CNY/GOP</em></div>
+                            </div>
+                            <div>
+                                <div>
+                                    <div>
+                                        <label for="">买入价格</label>
+                                    </div>
+                                    <div>
+                                        <input type="text" placeholder="输入希望买入的价格" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <label for="">买入数量</label>
+                                    </div>
+                                    <div>
+                                        <input type="text" placeholder="最大数量" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <label for="">比例</label>
+                                    </div>
+                                    <div class="slider_container">
+                                        <!-- <div id="slider_limited_price"></div><span id="buyin_slider_value"></span> -->
+                                        <div id="sale_scale_limited"></div><span id="sale_slider_value"></span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <label for="">交易额</label>
+                                    </div>
+                                    <div>
+                                        <input type="text" placeholder="¥" class="dotted_input">
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="sale_btn">卖出</div>
+                        </section>
+                        <section class="buyin_marketprices" style="display: block;">
+                            <div>
+                                <p class="buyin_marketprices_p">在市价剧烈波动的情况下，成交价格可能大幅偏离你买入时 的市价，请务必谨慎使用市价交易功能。</p>
+                            </div>
+                            <div class="form_wrapper">
+                                <div class="form_wrapper_leftdiv">
+                                    <div>买入价格</div>
+                                    <div>比例</div>
+                                    <div>交易额</div>
+                                </div>
+                                <div class="form_wrapper_rightdiv">
+                                    <div><input type="text" placeholder="以市场最优价格买入"></div>
+                                    <div class="slider_container">
+                                        <div id="slider_marketprice_sale"></div><span id="sale_slider_marketprice_value"></span>
+                                    </div>
+                                    <div><input type="text" placeholder="¥" class="jyeinput"></div>
+                                </div>
+                                <!-- <div class="market_price_buying_btn">卖出</div> -->
+                            </div>
+                            <div class="market_price_sale_btn">卖出</div>
+                        </section>
+                    </section>
+                </div>
+            </div>
+            <div class="order_record orderlist">
+                <!-- <div class="list_header">成交记录</div> -->
+                <section class="order_record_list">
+                    <header class="table_header">
+                        <div class="header_con">买&nbsp;/&nbsp;卖家</div>
+                        <div class="header_con">出价</div>
+                        <div class="header_con">数量</div>
+                        <div class="header_con">折合人民币</div>
+                    </header>
+                    <div class="table_row">
+                        <div class="table_con saleprice">卖5</div>
+                        <div class="table_con">¥3.40</div>
+                        <div class="table_con">125.00</div>
+                        <div class="table_con">¥3.50</div>
+                    </div>
+                    <div class="table_row">
+                        <div class="table_con saleprice">卖4</div>
+                        <div class="table_con">¥3.40</div>
+                        <div class="table_con">125.00</div>
+                        <div class="table_con">¥3.50</div>
+                    </div>
+                    <div class="table_row">
+                        <div class="table_con saleprice">卖3</div>
+                        <div class="table_con">¥3.40</div>
+                        <div class="table_con">125.00</div>
+                        <div class="table_con">¥3.50</div>
+                    </div>
+                    <div class="table_row">
+                        <div class="table_con saleprice">卖2</div>
+                        <div class="table_con">¥3.40</div>
+                        <div class="table_con">125.00</div>
+                        <div class="table_con">¥3.50</div>
+                    </div>
+                    <div class="table_row">
+                        <div class="table_con saleprice">卖1</div>
+                        <div class="table_con">¥3.40</div>
+                        <div class="table_con">125.00</div>
+                        <div class="table_con">¥3.50</div>
+                    </div>
+                </section>
+                <div class="table_row_line"></div>
+                <section class="order_record_list">
+                    <div class="table_row">
+                        <div class="table_con buyprice">买5</div>
+                        <div class="table_con">¥3.40</div>
+                        <div class="table_con">125.00</div>
+                        <div class="table_con">¥3.50</div>
+                    </div>
+                    <div class="table_row">
+                        <div class="table_con buyprice">买4</div>
+                        <div class="table_con">¥3.40</div>
+                        <div class="table_con">125.00</div>
+                        <div class="table_con">¥3.50</div>
+                    </div>
+                    <div class="table_row">
+                        <div class="table_con buyprice">买3</div>
+                        <div class="table_con">¥3.40</div>
+                        <div class="table_con">125.00</div>
+                        <div class="table_con">¥3.50</div>
+                    </div>
+                    <div class="table_row">
+                        <div class="table_con buyprice">买2</div>
+                        <div class="table_con">¥3.40</div>
+                        <div class="table_con">125.00</div>
+                        <div class="table_con">¥3.50</div>
+                    </div>
+                    <div class="table_row">
+                        <div class="table_con buyprice">买1</div>
+                        <div class="table_con">¥3.40</div>
+                        <div class="table_con">125.00</div>
+                        <div class="table_con">¥3.50</div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    @@include('../../includes/bottom/bottom.html')
+    <script type="text/javascript" src="./js/highstock.js"></script>
+    <script type="text/javascript" src="./js/highcharts-more.js"></script>
+    <script type="text/javascript" src="./js/exporting.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=aapl-ohlcv.json&callback=?', function(data) {
+            // split the data set into ohlc and volume
+            var ohlc = [],
+                volume = [],
+                dataLength = data.length,
+                // set the allowed units for data grouping
+                groupingUnits = [
+                    [
+                        'week', // unit name
+                        [1] // allowed multiples
+                    ],
+                    [
+                        'month', [1, 2, 3, 4, 6]
+                    ]
+                ],
+                i = 0;
+            for (i; i < dataLength; i += 1) {
+                ohlc.push([
+                    data[i][0], // the date
+                    data[i][1], // open
+                    data[i][2], // high
+                    data[i][3], // low
+                    data[i][4] // close
+                ]);
+                volume.push([
+                    data[i][0], // the date
+                    data[i][5] // the volume
+                ]);
+            }
+            // create the chart
+            $('#container').highcharts('StockChart', {
+                rangeSelector: {
+                    selected: 1
+                },
+                title: {
+                    text: 'AAPL Historical'
+                },
+                yAxis: [{
+                    labels: {
+                        align: 'right',
+                        x: -3
+                    },
+                    title: {
+                        text: 'OHLC'
+                    },
+                    height: '60%',
+                    lineWidth: 2
+                }, {
+                    labels: {
+                        align: 'right',
+                        x: -3
+                    },
+                    title: {
+                        text: 'Volume'
+                    },
+                    top: '65%',
+                    height: '35%',
+                    offset: 0,
+                    lineWidth: 2
+                }],
+                series: [{
+                    type: 'candlestick',
+                    name: 'AAPL',
+                    data: ohlc,
+                    dataGrouping: {
+                        units: groupingUnits
+                    }
+                }, {
+                    type: 'column',
+                    name: 'Volume',
+                    data: volume,
+                    yAxis: 1,
+                    dataGrouping: {
+                        units: groupingUnits
+                    }
+                }]
+            });
+        });
+
+        $("#slider_limited_price").slider({
+            value: 0,
+            min: 0,
+            max: 100,
+            step: 1,
+            slide: function(event, ui) {
+                $("#buyin_slider_value").text(ui.value+"%");
+            }
+        });
+
+        $("#slider_marketprice").slider({
+            value: 0,
+            min: 0,
+            max: 100,
+            step: 1,
+            slide: function(event, ui) {
+                $("#slider_marketprice_value").text(ui.value+"%");
+            }
+        });
+
+        $("#sale_scale_limited").slider({
+            value: 0,
+            min: 0,
+            max: 100,
+            step: 1,
+            slide: function(event, ui) {
+                $("#sale_slider_value").text(ui.value+"%");
+            }
+        });
+
+        $("#slider_marketprice_sale").slider({
+            value: 0,
+            min: 0,
+            max: 100,
+            step: 1,
+            slide: function(event, ui) {
+                $("#sale_slider_marketprice_value").text(ui.value+"%");
+            }
+        });
+        //("#buyin_slider_value").val("$" + $("#slider").slider("value"));
+        
+        var flag = true;
+        $('.messagenum_area').on("click",function(){
+            if(flag){
+                flag = false;
+                $(this).css("background-color","#ffffff");
+                $(".popup_message_box").show("100");
+                $(".messagenum_area em").css("color","#333333");
+                $(".msg_num").css("color","#cccccc");
+            } else {
+                flag = true;
+                $(this).css("background-color","#282828");
+                $(".popup_message_box").hide("100");
+                $(".messagenum_area em").css("color","#cccccc");
+                $(".msg_num").css("color","#333333");
+            }
+        });
+    });
+    </script>
+</body>
+
+</html>
