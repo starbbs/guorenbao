@@ -58,10 +58,12 @@ define('mydate', function() {
 		timeCompare:function(timeA, timeB) { // 已A为准, 返回B是A的今天, 昨天, 前天
 			if (timeA.constructor === Date && timeB.constructor === Date) {
 				if (timeA.getTime() >= timeB.getTime()) {
-					if(this.timeDayDiffer(timeA, timeB) > 2){
-						return;
+					if(this.timeDayDiffer(timeA, timeB) > 2){//if(this.timeDayDiffer(timeA, timeB) > 2){
+						return false;
 					}else{
-						return ['今天', '昨天', '前天'][this.timeDayDiffer(timeA, timeB)];
+						//3-16前代码
+						return ['今天', '昨日', '前天'][this.timeDayDiffer(timeA, timeB)];
+						//return ['昨日', '前天'][this.timeDayDiffer(timeA, timeB)];
 					}	
 				}
 			}
@@ -82,6 +84,9 @@ define('mydate', function() {
 				return date;
 			}, new Date());
 			// return new Date(time);
+		},
+		date2String:function(date){      //日期转成字符串   2016-3-10
+			return date.toLocaleString().split(' ')[0].replace(/\//g,'-');
 		}
 	});
 

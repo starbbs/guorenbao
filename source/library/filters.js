@@ -19,7 +19,8 @@ define('filters', ['check'], function(check) {
 	// 示例: {{item.moneyChange|sign}} {{item.moneyChange|abs|currency(' ')}} G
 		sign: function(str) { // 判断正负
 			str = isNaN(parseFloat(str)) ? 0 : parseFloat(str);
-			return str != 0 ? str > 0 ? '+' : '-' : '';
+			//3-16前写法 return str != 0 ? str > 0 ? '+' : '-' : '';
+			return str >= 0 ? '+' : '-' ;
 		},
 		sign2: function(str) { // 判断正负2
 			str = isNaN(parseFloat(str)) ? 0 : parseFloat(str);

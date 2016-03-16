@@ -39,16 +39,25 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filter
 					pageSize:10,
 				}, function(data) {
 					if (data.status == 200) {						
+						console.log(data.data.list);
 						//此处不用再计算累计收益 因为页面刷新时180行已经计算过了
+						
+						//生成今日（期）
 						var timerA = new Date();
 						for(var i=0; i<data.data.list.length; i++){
+							//转成date对象
 							var timerB = mydate.parseDate(data.data.list[i]['createTime']);
+							//向前错一天  今日是昨日的收益  昨日是前天的收益 
+							timerB.setDate(timerB.getDate()-1);
+							//转化成今日昨日前日的表示
 							if(mydate.timeCompare(timerA , timerB)){
 								data.data.list[i]['createTime'] = mydate.timeCompare(timerA , timerB);
 							}else{
-								data.data.list[i]['createTime'] = data.data.list[i]['createTime'].substr(0,10);
+								data.data.list[i]['createTime'] = mydate.date2String(timerB); //日期转字符串
 							}
+
 						}
+						
 											
 						historyVM.list = data.data.list;
 					} else {
@@ -187,6 +196,7 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filter
 			console.log(data.data.totalIncome);
 			vm.total = historyVM.total = data.data.totalIncome;
 			vm.yesterday = data.data.yesterdayIncome;
+			//vm.yesterday = (data.data.yesterdayIncome>=0 ? '+'+ data.data.yesterdayIncome : data.data.yesterdayIncome);
 		} else {
 			console.log(data);
 		}

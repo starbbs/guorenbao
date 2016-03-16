@@ -5,7 +5,7 @@
 			<div class="wealth-head-bg up down"></div>
 			<div class="wealth-head-content">
 				<div class="wealth-head-line1"><span>¥</span>昨日浮动盈亏</div>
-				<div class="wealth-head-line2">{{yesterday|fix}}</div>
+				<div class="wealth-head-line2">{{yesterday|sign}}{{yesterday|abs|fix}}</div>
 				<div class="wealth-head-line3">累计</div>
 				<div class="wealth-head-line4">{{total|fix}}</div>
 			</div>
