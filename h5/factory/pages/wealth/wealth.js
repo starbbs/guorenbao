@@ -55,10 +55,9 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filter
 							}else{
 								data.data.list[i]['createTime'] = mydate.date2String(timerB); //日期转字符串
 							}
-
 						}
 						
-											
+						console.log(data.data.list);					
 						historyVM.list = data.data.list;
 					} else {
 						$.alert(data.msg);
@@ -196,7 +195,6 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filter
 			console.log(data.data.totalIncome);
 			vm.total = historyVM.total = data.data.totalIncome;
 			vm.yesterday = data.data.yesterdayIncome;
-			//vm.yesterday = (data.data.yesterdayIncome>=0 ? '+'+ data.data.yesterdayIncome : data.data.yesterdayIncome);
 		} else {
 			console.log(data);
 		}

@@ -85,8 +85,9 @@ define('mydate', function() {
 			}, new Date());
 			// return new Date(time);
 		},
-		date2String:function(date){      //日期转成字符串   2016-3-10
-			return date.toLocaleString().split(' ')[0].replace(/\//g,'-');
+		date2String:function(date){      //日期转成字符串  Sun Mar 13 2016 00:00:00 GMT+0800 (中国标准时间) ==> 2016-3-10
+			return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+			//return date.toLocaleString().split(' ')[0].replace(/\//g,'-');
 		}
 	});
 
