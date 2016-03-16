@@ -150,7 +150,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 		transferClick: function(event) { // 最近联系人
 			var item = vm.list.$model[$(event.target).closest('.transfer-item').get(0).dataset.index];
 			vm.transferOutType = item.type;
-			transferTarget.walletId=item.walletId;
+			transferTarget.walletId = item.walletId;
 			transferTarget.address = vm.gopAddress = item.phone || item.address;
 			transferTarget.name = item.name;
 			transferTarget.personId = item.personId;
@@ -160,10 +160,9 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 			router.go('/view/transfer-target');
 		},
 	});
-	
 
-	//转帐第一步
-	var transferNew = avalon.define({
+
+	var transferNew = avalon.define({ // 转帐第一步
 		$id: 'transfer-new',
 		newTarget: '',
 		checked: true,
@@ -275,7 +274,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 	});
 
 
-
 	var transferContacts = avalon.define({
 		$id: 'transfer-contacts',
 		search: '',
@@ -327,8 +325,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 	});
 
 
-	//转帐输入金额的部分
-	var transferTarget = avalon.define({
+	var transferTarget = avalon.define({ // 转帐输入金额的部分
 		$id: 'transfer-target',
 		address: '',
 		phone: '',
@@ -365,7 +362,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 		//确定转帐按钮
 		transferCommitClick: function() {
 			if (transferTarget.transferNum > 0 && transferTarget.transferNum <= transferTarget.gopNum) {
-				//密码输入框显示   AJAX密码确认后 设置回调函数
+				//密码输入框显示 AJAX密码确认后 设置回调函数
 				dialogPaypass.show();
 				dialogPaypass.vm.callback = function(value) {
 					var transferOutType = vm.transferOutType;
@@ -383,7 +380,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 						content: transferTarget.content,
 						transferNum: parseFloat(transferTarget.transferNum),
 						payPassword: value
-					}, function(data) {
+					}, function(data) { // 转账成功
 						console.log(data);
 						if (data.status == 200) {
 							var nowData = {};
@@ -402,6 +399,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 							billView.set('TRANSFER_OUT', data.data.transferOutId, {
 								ifReturnHome: true
 							});
+							init();
 						} else {
 							console.log(data);
 							$.alert(data.msg);
