@@ -33,6 +33,7 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'api', 'h5-paypass'], functio
 		}
 	});
 	var input = $('#dialog-paypass-input');
+
 	paypass.on('show', function() {
 		input.get(0).focus();
 	});
@@ -41,5 +42,6 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'api', 'h5-paypass'], functio
 		input.val('').get(0).blur();
 		input.get(0).paypassClear();
 	});
+
 	return paypass;
 });

@@ -58,6 +58,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		}, function(data) {
 			if (data.status == 200) {
 				vm.loading = false;
+				console.log(dataHandler(originList.concat(data.data.list)));
 				vm.list = dataHandler(originList = originList.concat(data.data.list));
 				// vm.list.pushArray(dataHandler(data.data.list));
 				page = data.data.list.length < size ? 0 : page + 1; // 是否停止请求
@@ -78,7 +79,21 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 
 	var now = new Date(); // 当前时间
 	var nowMonth = now.getMonth(); // 当前月份
-	var dataAdd = function(kind, bills, item) { // 添加数据
+	var dataAdd = function(kind, bills, item) { // 添加数据    dataAdd('all', bills, item);
+//dataAdd('all',[],{ 	_date:Wed Mar 16 2016 13:24:11 GMT+0800 (中国标准时间),
+//						_dateTime:1458105851732,
+//						businessDesc:"买果仁",
+//						businessId: 198,
+//						businessTime: "2016-03-16 13:56:00",
+//						createTime: "2016-03-16 13:24:11",
+//						extra: Object,
+//						gopPrice: 3,
+//						id: 769,
+//						money: -1, 
+//						status: "CLOSE", 
+//						type: "BUY_IN",
+//						userId: 21
+//					})
 		var type = H5bill.typeClass[item.type];
 		var bill = {
 			id: item.businessId,
@@ -101,8 +116,8 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		if (type === 'transfer' && item.extra) {
 			bill.img = item.extra.photo || ''; // 转账头像
 			if (item.extra.name) { // 转账目标
-				bill.desc += ' - ' + filters.omit(item.extra.name);
-				bill.name = filters.omit(item.extra.name);
+				bill.desc += ' - ' + filters.omit(item.extra.name); //转出-L
+				bill.name = filters.omit(item.extra.name);          //L
 			}
 			if (item.extra.transferOutType === 'ME_WALLET' || item.extra.transferInType === 'ME_WALLET') {
 				bill.desc += ' - 我的钱包';
@@ -144,6 +159,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		}
 	};
 	var dataHandler = function(data) {
+		//data 列表所有的数据条目
 		return data.map(function(item) { // 确定时间
 			item._date = mydate.parseDate(item.status === 'SUCCESS' ? item.businessTime : item.createTime);
 			item._dateTime = item._date.getTime();
@@ -151,9 +167,24 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		}).sort(function(item1, item2) { // 排序
 			return item2._dateTime - item1._dateTime;
 		}).reduce(function(result, item) { // 提取
-			var time = mydate.timeHandler(item._date);
+			var time = mydate.timeHandler(item._date); 	//time格式如下
+			//item._date ==> Wed Mar 16 2016 13:24:11 GMT+0800 (中国标准时间)
+			//把 date格式的数据 转化成
+			//{	year:'2016',
+			//	month:'2',
+			//	month2:'3',
+			//	month3:'三',
+			//	date:16,
+			//	day: 3,
+			//	day2:'三',
+			//	hour:  13,
+			//	hour2:'13',
+			//	minute:24,
+			//	minute2:'24'
+			//}
 			var type = H5bill.typeClass[item.type];
 			var bills = [];
+			//item是data里面的每一条数据
 			switch (type) { // 账单类型
 				case 'phone': // 消费果仁, 果仁+人民币
 					dataAdd('all', bills, item);

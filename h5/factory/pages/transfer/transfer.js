@@ -363,7 +363,9 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 		transferCommitClick: function() {
 			if (transferTarget.transferNum > 0 && transferTarget.transferNum <= transferTarget.gopNum) {
 				//密码输入框显示 AJAX密码确认后 设置回调函数
-				dialogPaypass.show();
+				setTimeout(function(){
+					dialogPaypass.show();
+				},700)
 				dialogPaypass.vm.callback = function(value) {
 					var transferOutType = vm.transferOutType;
 					if (vm.transferOutType.indexOf('NEW') > 0) {

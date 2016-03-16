@@ -8,6 +8,7 @@ define('mydate', function() {
 
 	$.extend(mydate,{
 		timeHandler: function(time) { // 时间处理
+			//time Wed Mar 16 2016 13:24:11 GMT+0800 (中国标准时间)
 			// if (typeof time === 'string') {
 			// 	// 输入: "2016-01-08 05:30:16"
 			// 	var match = time.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2})\:(\d{2})\:(\d{2})/);
@@ -18,13 +19,13 @@ define('mydate', function() {
 			// }
 			if (time.constructor === Date) {
 				return 'year:getFullYear,month:getMonth,date:getDate,day:getDay,hour:getHours,minute:getMinutes,second:getSeconds'.split(',').reduce(function(result, item) {
-					item = item.split(':');
-					item[1] = time[item[1]]();
-					result[item[0]] = item[1];
+					item = item.split(':'); //[year,getFullYear]
+					item[1] = time[item[1]]();	//getFullYear = time[getFullYear]()
+					result[item[0]] = item[1];  //result.year = '2016'
 					switch (item[0]) { // 个别特殊处理
 						case 'month':
 							result.month2 = item[1] + 1; // 月份(阿拉伯数字)
-							result.month3 = item[1] >= 10 ? item[1] === 10 ? '十一' : '十二' : '一二三四五六七八九十' [item[1]]; // 月份(中文数字)
+							result.month3 = item[1] >= 10 ? item[1] === 10 ? '十一' : '十二' : '一二三四五六七八九十' [item[1]]; // 月份(中文数字)															'一二三四五六七八九十'[2]	
 							break;
 						case 'day':
 							result.day2 = '日一二三四五六'[item[1]]; // 周(中文数字)
@@ -37,7 +38,7 @@ define('mydate', function() {
 							break;
 					}
 					return result;
-				}, {});
+				}, {});//reduce 传的累加器的基础值｛｝空
 			}
 		},
 		timeClearHour:function(time) { // 干掉小时, 分钟, 秒, 毫秒

@@ -13,6 +13,16 @@
 	&.on {
 		display: block;
 	}
+	&:before{
+		content:'';
+		position: absolute;
+		top: -400px; left: 0; width: 100%;height: 400px; background-color: rgba(0, 0, 0, 0.6);
+	}
+	&:after {
+		content: '';
+		position: absolute;
+		bottom: -400px; left: 0; width: 100%;height: 400px; background-color: rgba(0, 0, 0, 0.6);	
+	}
 	&-style { // 背景和显示
 		@extend %afull;
 		overflow: hidden;
