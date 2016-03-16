@@ -14,6 +14,11 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 			_validBankList = data.data.validBankList;
 		}
 	});
+
+	setTimeout(function(){
+		console.log(_validBankList);
+	},2000);
+
 	var checkValidBankList = function(val) {
 		for (var i = 0; i < _validBankList.length; i++) {
 			if (val === _validBankList[i]) {

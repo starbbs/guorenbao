@@ -112,7 +112,7 @@ define('check', function() {
 			return /^((\d{16})|(\d{19}))$/.test(trim(value));
 		},
 		cardCondition: function(value) {
-			if (value.length === 16 || value.length === 19) {
+			if (value.length === 16 || value.length === 19 || value.length === 18) {
 				return true;
 			} else {
 				return false;
