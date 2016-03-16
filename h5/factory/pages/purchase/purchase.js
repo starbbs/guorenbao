@@ -20,6 +20,8 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		expect: '', // 预计购买
 		moneyClear: function() {
 			vm.money = '';
+			vm.expect = '';
+			vm.ifBuy = false;
 		},
 		buy: function() { // 买入
 			if (!vm.ifBuy) {
@@ -47,7 +49,7 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 			weixin.pay.create($('#purchase-main-money').val());
 		},
 		gopBuyValidate: function() {
-			if(this.value.indexOf('.')!=-1){
+			if(this.value.indexOf('.')!=-1 || this.value.indexOf('*')!=-1 || this.value.indexOf('#')!=-1){
 				this.value = this.value.substring(0,this.value.indexOf('.'));
 			}
 			vm.ifBuy = check.gopBuyValidate(this.value, vm.price);
