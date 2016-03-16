@@ -2,7 +2,7 @@
 // H5微信端 --- 支付密码重置
 
 
-require(['router', 'api', 'h5-view','get','h5-dialog-success', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-weixin'], function(router, api, View,get,dialogSuccess) {
+require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-weixin'], function(router, api, View, get, dialogSuccess) {
 
 	router.init(true);
 
@@ -51,29 +51,26 @@ require(['router', 'api', 'h5-view','get','h5-dialog-success', 'h5-ident', 'h5-p
 									router.go('view/paypass-protection-1');
 								} else {
 									console.log(data);
-									$.alert("验证码错误");
+									$.alert('验证码错误');
 								}
 							});
 						} else if (vm.chooseUrl == 'paypass-authentication') {
 							//身份证认证				
 							if (vm.realName && vm.realName != '') {
-								//vm.realName = "*" + vm.realName.substr(1, vm.realName.length - 1);
+								//vm.realName = '*' + vm.realName.substr(1, vm.realName.length - 1);
 								router.go('view/paypass-authentication');
 							} else {
 								console.log(data);
-								$.alert("未实名认证,请先实名认证");
+								$.alert('未实名认证,请先实名认证');
 							}
 						}
-
 					} else {
 						console.log(data);
-						$.alert("验证码错误");
+						$.alert('验证码错误');
 					}
 				});
-
-
 			} else {
-				$.alert("请输入验证码");
+				$.alert('请输入验证码');
 			}
 		},
 		quesiotn1_click: function() {
@@ -99,7 +96,7 @@ require(['router', 'api', 'h5-view','get','h5-dialog-success', 'h5-ident', 'h5-p
 
 				} else {
 					console.log(data);
-					$.alert("验证问题错误");
+					$.alert('验证问题错误');
 				}
 			});
 		},
@@ -114,7 +111,7 @@ require(['router', 'api', 'h5-view','get','h5-dialog-success', 'h5-ident', 'h5-p
 					router.go('view/paypass-view-2');
 				} else {
 					console.log(data);
-					$.alert("验证问题错误");
+					$.alert('验证问题错误');
 				}
 			});
 		},
@@ -126,12 +123,10 @@ require(['router', 'api', 'h5-view','get','h5-dialog-success', 'h5-ident', 'h5-p
 			}, function(data) {
 				if (data.status == 200) {
 					if (data.data.realname) {
-						//vm.realName = "*" + data.data.realname.substr(1, data.data.realname.length - 1);
 						vm.realName = data.data.realname;
-						console.log(vm.realName);
 					}
 					vm.phone = data.data.phone;
-					vm.identifyingCode = "";
+					vm.identifyingCode = '';
 					router.go('view/paypass-ident');
 				} else {
 					console.log(data);
@@ -184,8 +179,6 @@ require(['router', 'api', 'h5-view','get','h5-dialog-success', 'h5-ident', 'h5-p
 					password: vm.paypass3
 				}, function(data) {
 					if (data.status == 200) {
-						//$.alert('修改支付密码成功');
-						//console.log("dddddddddd")
 						vm.paypass1 = '';
 						vm.paypass2 = '';
 						vm.paypass3 = '';
@@ -193,17 +186,17 @@ require(['router', 'api', 'h5-view','get','h5-dialog-success', 'h5-ident', 'h5-p
 						vm.identifyingCode = '';
 						var successTimer = null;
 						var s = 3;
-						dialogSuccess.on('show',function(){
-							successTimer = setInterval(function(){
+						dialogSuccess.on('show', function() {
+							successTimer = setInterval(function() {
 								s--;
-								if(s==0){
+								if (s == 0) {
 									clearInterval(successTimer);
 									window.location.href = 'security.html';
 									dialogSuccess.hide();
-								}else{
-									dialogSuccess.button.html('支付密码修改成功，请牢记，'+s+'s后自动跳转');
+								} else {
+									dialogSuccess.button.html('支付密码修改成功，请牢记，' + s + 's后自动跳转');
 								}
-							},1000);
+							}, 1000);
 						});
 						dialogSuccess.set('支付密码修改成功，请牢记，3S后自动跳转');
 						dialogSuccess.show();
@@ -213,42 +206,35 @@ require(['router', 'api', 'h5-view','get','h5-dialog-success', 'h5-ident', 'h5-p
 					}
 				});
 			} else {
-				$.alert("两次输入不一致");
+				$.alert('两次输入不一致');
 			}
 		}
 	});
+
 	avalon.scan();
+
 	api.isQuestion({
 		gopToken: gopToken
 	}, function(data) {
-		if (data.status == 200) {
-			vm.hasProtected = true;
-		} else {
-			vm.hasProtected = false;
-		}
+		vm.hasProtected = data.status == 200;
 	});
-	
+
 	//身份证认证				
 	api.info({
 		gopToken: gopToken
 	}, function(data) {
 		if (data.status == 200) {
-			if (data.data.realname && data.data.realname!='') {
-				vm.hasRealName = true;
-			}else{
-				vm.hasRealName = false;
-			}
+			vm.hasRealName = data.data.realname && data.data.realname != '';
 		} else {
 			console.log(data);
 			$.alert(data.msg);
 		}
 	});
-	
+
 	setTimeout(function() {
 		paypass.addClass('on');
 		if (get.data.from === 'dialog') {
 			router.to('/view/paypass-choose');
 		}
-	},100);
-
+	}, 100);
 });
