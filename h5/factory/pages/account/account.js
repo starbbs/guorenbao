@@ -100,13 +100,19 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		}
 		if (type === 'transfer' && item.extra) {
 			bill.img = item.extra.photo || ''; // 转账头像
-			if (item.extra.name) { // 转账目标
-				bill.desc += ' - ' + filters.omit(item.extra.name);
-				bill.name = filters.omit(item.extra.name);
-			}
-			if (item.extra.transferOutType === 'ME_WALLET' || item.extra.transferInType === 'ME_WALLET') {
-				bill.desc += ' - 我的钱包';
-				bill.iconClass = 'wallet';
+			switch(item.extra.transferOutType || item.extra.transferInType) {
+				case 'ME_WALLET': // 我的钱包
+					bill.desc += ' - 我的钱包';
+					bill.iconClass = 'wallet';
+					break;
+				case 'WALLET_CONTACT':
+				case 'GOP_CONTACT':
+				case 'GOP_MARKET':
+					bill.desc += ' - ' + (item.extra.name ? filters.omit(item.extra.name) : '未命名地址');
+					bill.name = item.extra.name ? filters.omit(item.extra.name) : '';
+					break;
+				default:
+					break;
 			}
 		}
 		if (type === 'phone') {
