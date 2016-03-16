@@ -18,7 +18,7 @@ require(['authorization', 'touch-slide', 'h5-weixin'], function(authorization, T
 	avalon.define({
 		$id: 'welcome',
 		renzheng: function() {
-			window.location.href = authorization.default;
+			// window.location.href = authorization.default;
 		}
 	});
 	avalon.scan();

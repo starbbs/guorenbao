@@ -22,7 +22,9 @@ body {
 
 .paypass {
 	$img: $g-pages + '/paypass/images';
-	&-page {}
+	&-page {
+		@extend %fade-in;
+	}
 	&-view, &-choose, &-ident, &-protection, &-authentication {
 		@extend .view-style;
 	}
