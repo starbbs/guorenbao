@@ -3,9 +3,12 @@
 
 
 require(['router', 'api', 'h5-view','get','h5-dialog-success', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-weixin'], function(router, api, View,get,dialogSuccess) {
+
 	router.init(true);
+
 	var gopToken = $.cookie('gopToken');
 	var paypass = $('.paypass-page');
+
 	var paypass_choose = new View('paypass-choose');
 	var paypass_protection_1 = new View('paypass-protection-1');
 	var paypass_protection_2 = new View('paypass-protection-2');
@@ -14,6 +17,7 @@ require(['router', 'api', 'h5-view','get','h5-dialog-success', 'h5-ident', 'h5-p
 	var paypass_view_1 = new View('paypass-view-1');
 	var paypass_view_2 = new View('paypass-view-2');
 	var paypass_view_3 = new View('paypass-view-3');
+
 	var vm = avalon.define({
 		$id: 'paypass',
 		paypass1: '',
@@ -242,8 +246,8 @@ require(['router', 'api', 'h5-view','get','h5-dialog-success', 'h5-ident', 'h5-p
 	
 	setTimeout(function() {
 		paypass.addClass('on');
-		if(get.data && get.data.from){
-			router.go(get.data.from);
+		if (get.data.from === 'dialog') {
+			router.to('/view/paypass-choose');
 		}
 	},100);
 
