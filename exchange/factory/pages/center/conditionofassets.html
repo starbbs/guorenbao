@@ -53,6 +53,67 @@
                         <a href="javascript:void(0);">转账</a>
                     </div>
                 </div>
+                <div class="topline">
+                    <span class="rmbxh">账户明细</span>
+                    <b><span>
+                        <a href="javascript:;" class="moreCheck">查看更多</a>
+                    </span></b>
+                </div>
+                <table class="aside-table" border="1" width="100%">
+                    <thead class="aside-table-thead">
+                        <tr>
+                            <td>时间</td>
+                            <td>操作类型</td>
+                            <td>人民币数量(¥)</td>
+                            <td>人民币数余额(¥)</td>
+                            <td>果仁数量(G)</td>
+                            <td>果仁余额(G)</td>
+                        </tr>
+                    </thead>
+                    <tbody class="aside-table-tbody">
+                        <!-- 载入前五条,如下为临时填充数据 -->
+                        <tr>
+                            <td >2016-03-16<br/><br/>11:02</td>
+                            <td class="operType">买入</td>
+                            <td >3200.00</td>
+                            <td >3200.00</td>
+                            <td >321.11</td>
+                            <td >321.11</td>
+                        </tr>
+                        <tr>
+                            <td >2016-03-16<br/><br/>11:02</td>
+                            <td class="operType">卖出</td>
+                            <td >3200.00</td>
+                            <td >3200.00</td>
+                            <td >321.11</td>
+                            <td >321.11</td>
+                        </tr>
+                        <tr>
+                            <td >2016-03-16<br/><br/>11:02</td>
+                            <td class="operType">果仁充值</td>
+                            <td >3200.00</td>
+                            <td >3200.00</td>
+                            <td >321.11</td>
+                            <td >321.11</td>
+                        </tr>
+                        <tr>
+                            <td >2016-03-16<br/><br/>11:02</td>
+                            <td class="operType">果仁提现</td>
+                            <td >3200.00</td>
+                            <td >3200.00</td>
+                            <td >321.11</td>
+                            <td >321.11</td>
+                        </tr>
+                        <tr>
+                            <td >2016-03-16<br/><br/>11:02</td>
+                            <td class="operType">人民币充值</td>
+                            <td >3200.00</td>
+                            <td >3200.00</td>
+                            <td >321.11</td>
+                            <td >321.11</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         @@include('../../includes/bottom/bottom.html')
@@ -73,6 +134,41 @@
                     $(".popup_message_box").hide("100");
                     $(".messagenum_area em").css("color","#cccccc");
                     $(".msg_num").css("color","#cccccc");
+                }
+            });
+
+            //暂无真实接口-为出现效果,暂时放这里,有接口时,删除 -开始
+            $(".operType").filter(":contains('买入')").css("color","red");
+            $(".operType").filter(":contains('卖出')").css("color","green");
+            //暂无真实接口-为出现效果,暂时放这里,有接口时,删除 -结束
+            
+            $.ajax({
+                url: "http://127.0.0.1/1.json",
+                type:"post",
+                dataType: "json",
+                cache: false,
+                success:function(data){
+                    var PageNum = 0; //0当前为第一页
+                    var html = [];
+                    for(var i=0; i<5;i++){
+                        html.push("<tr>");                                        
+                        html.push("<td>"+ data.data.list[PageNum+i].createDate +"</td>");
+                        html.push("<td class='operType'>"+ data.data.list[PageNum+i].operType +"</td>");
+                        html.push("<td>"+ data.data.list[PageNum+i].cnyNumber +"</td>");
+                        html.push("<td>"+ data.data.list[PageNum+i].cnyBalance +"</td>");
+                        html.push("<td>"+ data.data.list[PageNum+i].gopNumber +"</td>");
+                        html.push("<td>"+ data.data.list[PageNum+i].gopBalance +"</td>");
+                        html.push("</tr>");
+                        $(".aside-table-tbody").html("");  //添加前清空 
+                        $(".aside-table-tbody").append(html.join(""));
+
+                        //过滤内容显示不同颜色
+                        $(".operType").filter(":contains('买入')").css("color","red");
+                        $(".operType").filter(":contains('卖出')").css("color","green"); 
+                    }
+                },
+                error:function(err){
+                    console.log('财务中心-资产状况-账户明细表格，加载失败。');
                 }
             });
         });
