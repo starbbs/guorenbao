@@ -63,6 +63,20 @@
 			opacity: 1;
 		}
 		margin-right: 5px;
+		/*
+		&:after{
+			
+			width: 10%; height: 60%;
+			content: '';
+			display: block;
+			position: absolute;
+			top: -20%;
+			left: -90%;
+			//上下两个效果一样
+			@include atlwh(20% , 90% , 10% , 60%);
+			content: '';
+		}
+		*/
 	}
 	&-eye {
 		@include sprite($img + '/2.png', 19px, 11px);

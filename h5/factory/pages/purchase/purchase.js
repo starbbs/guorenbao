@@ -49,9 +49,12 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 			weixin.pay.create($('#purchase-main-money').val());
 		},
 		gopBuyValidate: function() {
-			if(this.value.indexOf('.')!=-1 || this.value.indexOf('*')!=-1 || this.value.indexOf('#')!=-1){
-				this.value = this.value.substring(0,this.value.indexOf('.'));
+			if(this.value.indexOf('*')!=-1){
+				this.value = this.value.substring(0,this.value.indexOf('*'));
 			}
+			if(this.value.indexOf('#')!=-1){
+				this.value = this.value.substring(0,this.value.indexOf('#'));
+			}						
 			vm.ifBuy = check.gopBuyValidate(this.value, vm.price);
 			vm.expect = this.value ? 'G ' + filters.floorFix(this.value / vm.price) : '';
 		},

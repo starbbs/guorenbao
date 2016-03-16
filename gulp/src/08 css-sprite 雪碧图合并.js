@@ -1,13 +1,8 @@
-
 // 张树垚 2015-12-06 13:37:06 创建
 // gulp工具 -- sprite生成, css压缩, sprite图压缩
 
 
 var gulp = require('gulp');
-var rename = require('gulp-rename');
-var sprite = require('gulp-sprite-generator');
-var minifycss = require("gulp-minify-css");
-var imagemin = require('gulp-imagemin');
 
 var filePath = require('./05 file-path 路径处理.js');
 
@@ -27,6 +22,10 @@ var filePath = require('./05 file-path 路径处理.js');
  * @return   {[gulp-stream]}
  */
 module.exports = function(input, output, options) {
+	var rename = require('gulp-rename');
+	var sprite = require('gulp-sprite-generator');
+	var minifycss = require("gulp-minify-css");
+	var imagemin = require('gulp-imagemin');
 	options = options || {};
 	return gulp.src(input, function(somethingNULL, filePaths) {
 		filePaths.forEach(function(path) {
@@ -59,6 +58,3 @@ module.exports = function(input, output, options) {
 		});
 	});
 };
-
-
-
