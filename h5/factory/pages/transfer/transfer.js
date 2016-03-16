@@ -150,10 +150,12 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 		transferClick: function(event) { // 最近联系人
 			var item = vm.list.$model[$(event.target).closest('.transfer-item').get(0).dataset.index];
 			vm.transferOutType = item.type;
-			transferTarget.address = vm.gopAddress = item.address;
+			transferTarget.walletId=item.walletId;
+			transferTarget.address = vm.gopAddress = item.phone || item.address;
 			transferTarget.name = item.name;
 			transferTarget.personId = item.personId;
-			transferTarget.photo = item.photo || item.address;
+			transferTarget.photo = item.photo;
+			transferTarget.phone = item.phone;
 			targetInit(vm.transferOutType);
 			router.go('/view/transfer-target');
 		},
