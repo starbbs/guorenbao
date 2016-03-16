@@ -13,6 +13,10 @@
 	var H5_DIALOGS = H5_FACTORY + '/dialogs';
 	var H5_PAGES = H5_FACTORY + '/pages';
 	var H5_SOURCE = '../source';
+
+	var MKT_FACTORY = '../factory';
+	var MKT_PAGES = MKT_FACTORY + '/pages';
+	var MKT_SOURCE = '../source';
 	
 	require.config({
 		baseUrl: './',
@@ -84,6 +88,10 @@
 			'h5-view-login':			H5_VIEWS + '/login/login',
 			'h5-view-password':			H5_VIEWS + '/password/password',
 			'h5-view-nickname':			H5_VIEWS + '/nickname/nickname',
+
+			//交易所项目
+			'api_mkt':                      MKT_SOURCE + '/js/api_market',
+			'mkt_info':                     MKT_SOURCE + '/js/info',
 		},
 		shim: {
 			jquery: {

@@ -9,6 +9,10 @@
     <link rel="stylesheet" type="text/css" href="./css/swiper.min.css">
     <script type="text/javascript" src="./js/swiper.min.js"></script>
     <script type="text/javascript" src="./js/jquery-1.12.1.min.js"></script>
+
+    <script type="text/javascript" src="./js/require.js"></script>
+    <script type="text/javascript" src="./js/config.js"></script>
+    <script type="text/javascript" src="./js/index.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -190,7 +194,7 @@
                     <div class="list_header">成交记录</div>
                     <section class="order_record_list">
                         <header class="table_header">
-                            <div class="header_con">买家</div>
+                            <div class="header_con">时间</div>
                             <div class="header_con">类型</div>
                             <div class="header_con">价格（¥）</div>
                             <div class="header_con">数量</div>
@@ -328,6 +332,74 @@
                     $(".msg_num").css("color","#cccccc");
                 }
             });
+
+
+            var isSubmit = function() {
+                var objArr = $(".main input");
+                var obj = "";
+                var verEnd = "";
+                for (var i = 0, l = objArr.length; i < l; i++) {
+                    obj = $(objArr[i]);
+                    if (obj.val() || i === l - 1) {
+                        //薪资字段为选填字段
+                        if (i === l - 1 && !obj.val()) {
+                            return true;
+                        }
+                        verEnd = verify(obj.val(), obj.attr("id"));
+                        if (verEnd === true) {
+                            if (i === l - 1) {
+                                return true;
+                            }
+                        } else {
+                            showWarnWin(verEnd, 1000);
+                            return false;
+                        }
+
+                    } else {
+                        showWarnWin("请输入" + obj.attr("placeholder"), 1000);
+                        return false;
+                    }
+                }
+            };
+            /**
+             * 输入字段校验
+             * [verify description]
+             * @param  {[String]} inputData [输入数据]
+             * @param  {[String]} dataType  [数据类型]
+             * @return {[boolean or String]}[验证结果]
+            */
+            var verify = function(inputData, dataType) {
+                var reg = "";
+                var varMes = '';
+                if (dataType === "name") {
+                    reg = /^[\u4E00-\u9FA5]{2,5}$/;
+                    varMes = "姓名请输入2~5个汉字";
+                } else if (dataType === "tel") {
+                    reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
+                    varMes = "请输入正确的手机号码";
+                } else if (dataType === "salary") {
+                    reg = /^[1-9]\d{1,4}$/;
+                    varMes = "薪资请输入3~5位数字";
+                } else if (dataType === "verCode") {
+                    reg = /^\d{6}$/;
+                    varMes = "验证码不正确";
+                } else {
+                    reg = /^.*$/;
+                }
+                //如果输入数据不为空则去掉收尾空格
+                if (inputData) {
+                    inputData = inputData.trim();
+                }
+                return reg.test(inputData) ? reg.test(inputData) : varMes;
+            };
+            /**
+             * 去掉字符串前后的空格
+             * [trim description]
+             * @return {[type]} [description]
+            */
+            String.prototype.trim = function() {
+                return this.replace(/(^\s*)|(\s*$)/g, '');
+            };
 	    });
     </script>
 </body>
