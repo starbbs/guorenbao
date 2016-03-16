@@ -102,11 +102,9 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 			if (vm.marketGopAddress != '') {
 				vm.transferOutType = 'GOP_MARKET';
 				vm.gopAddress = vm.marketGopAddress;
-				var nowData = {};
-				nowData.address = vm.marketGopAddress;
-				nowData.name = '果仁市场';
-				nowData.isMarket = true;
-				$.extend(transferTarget, nowData);
+				transferTarget.address = vm.marketGopAddress;
+				transferTarget.name = '果仁市场';
+				transferTarget.isMarket = true;
 				targetInit(vm.transferOutType);
 				router.go('/view/transfer-target');
 			} else {
@@ -121,11 +119,9 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 								vm.marketGopAddress = data.data.marketGopAddress; //果仁市场地址
 								vm.transferOutType = 'GOP_MARKET';
 								vm.gopAddress = vm.marketGopAddress;
-								var nowData = {};
-								nowData.address = vm.marketGopAddress;
-								nowData.name = '果仁市场';
-								nowData.isMarket = true;
-								$.extend(transferTarget, nowData);
+								transferTarget.address = vm.marketGopAddress;
+								transferTarget.name = '果仁市场';
+								transferTarget.isMarket = true;
 								targetInit(vm.transferOutType);
 								router.go('/view/transfer-target');
 							}
