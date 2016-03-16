@@ -93,9 +93,9 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filter
 				chartHistoryHandler(data.data.list);
 				chartHistory.highcharts({
 					chart: {
-						// type: 'areaspline'
+						// type: 'areaspline' // 带阴影的线
 					},
-					colors: ['#000'],
+					colors: ['#3d70ee'],
 					title: {
 						text: ''
 					},
@@ -122,12 +122,6 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filter
 							text: ''
 						},
 						tickInterval: (function() {
-							// var reduce = chartHistoryData.reduce(function(result, item) {
-							// 	item = parseFloat(item);
-							// 	if (!result.max || result.max < item) { result.max = item; }
-							// 	if (!result.min || result.min > item) { result.min = item; }
-							// 	return result;
-							// }, {});
 							return avalon.filters.fix(Math.round(Math.max.apply(Math, chartHistoryData) * 1.1) / 4);
 						})(),
 						labels: {
@@ -139,7 +133,7 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filter
 					plotOptions: {
 						series: {
 							marker: {
-								enabled: false
+								enabled: false // 去掉线上的点
 							}
 						},
 						area: {
@@ -190,6 +184,7 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filter
 		gopToken: gopToken
 	}, function(data) {
 		if (data.status == 200) {
+			console.log(data.data.totalIncome);
 			vm.total = historyVM.total = data.data.totalIncome;
 			vm.yesterday = data.data.yesterdayIncome;
 		} else {
