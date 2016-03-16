@@ -105,7 +105,8 @@ define('check', function() {
 			return $.isNumeric(value);
 		},
 		gopBuyValidate: function(value, gopPrice) { // 买入校验
-			return parseFloat(value) / parseFloat(gopPrice) >= 0.01;
+			return (parseFloat(value)>=1&&parseFloat(value)<=3000);
+			//return parseFloat(value) / parseFloat(gopPrice) >= 0.01;
 		},
 		// 有oninput校验条件
 		card: function(value) { // 银行卡校验

@@ -2,7 +2,7 @@
 <div class="screen-a">
 	<div class="purchase" ms-controller="purchase">
 		<div class="purchase-main">
-			<div class="purchase-main-number font-money">{{price|fix}}</div>
+			<div class="purchase-main-number font-money">{{price|floorFix}}</div>
 			<div class="purchase-main-number-tip">果仁现价（¥）</div>
 			<div class="purchase-main-box">
 				<div class="purchase-main-item font-label">买入金额</div>
@@ -13,11 +13,11 @@
 							<input
 								id="purchase-main-money"
 								name="purchase-main-money"
-								type="number"
+								type="tel"
 								class="text-input"
 								autocomplete="off"
-								placeholder="请输入买入金额"
-								maxlength="6"
+								placeholder="请输入买入金额1-3000"
+								maxlength="4"
 								data-text="close|two"
 								ms-attr-value="money"
 								ms-on-input="gopBuyValidate"
