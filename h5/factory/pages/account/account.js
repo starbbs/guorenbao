@@ -79,7 +79,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 
 	var now = new Date(); // 当前时间
 	var nowMonth = now.getMonth(); // 当前月份
-	var dataAdd = function(kind, bills, item) { // 添加数据    dataAdd('all', bills, item);
+	var dataAdd = function(kind, bills, item) { // 添加效果的数据    dataAdd('all', bills, item);
 //dataAdd('all',[],{ 	_date:Wed Mar 16 2016 13:24:11 GMT+0800 (中国标准时间),
 //						_dateTime:1458105851732,
 //						businessDesc:"买果仁",
@@ -100,7 +100,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			img: '', // 头像
 			name: '', // 姓名
 			desc: item.businessDesc,
-			status: H5bill.statusBusiness[item.status],
+			status: H5bill.statusBusiness[item.status], //交易状态中文  进行中  交易成功/失败。。。
 			type: type,
 			originType: item.type,
 			iconClass: '',
@@ -158,7 +158,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			bills.push(bill);
 		}
 	};
-	var dataHandler = function(data) {
+	var dataHandler = function(data) { //时间处理同时获取交易的信息
 		//data 列表所有的数据条目
 		return data.map(function(item) { // 确定时间
 			item._date = mydate.parseDate(item.status === 'SUCCESS' ? item.businessTime : item.createTime);
@@ -187,7 +187,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			//item是data里面的每一条数据
 			switch (type) { // 账单类型
 				case 'phone': // 消费果仁, 果仁+人民币
-					dataAdd('all', bills, item);
+					dataAdd('all', bills, item);          //dataAdd主要是给bills添加交易的信息
 					break;
 				case 'buy': // 买果仁, 人民币
 					dataAdd('money', bills, item);
@@ -198,7 +198,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 				default:
 					console.log(item);
 			}
-			var compare = mydate.timeCompare(now, item._date);
+			var compare = mydate.timeCompare(now, item._date); //返回 今天 昨天 前天
 			var day = {
 				id: item.businessId,
 				day: compare ? compare : ('周' + time.day2),
@@ -224,7 +224,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 	};
 	// 处理 getList 的工具方法 -- 结束
 
-	// 账单列表
+	// 账单列表  vm
 	var vm = avalon.define({
 		$id: 'account',
 		loading: false,

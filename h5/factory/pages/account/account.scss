@@ -84,6 +84,9 @@ body {
 		margin-top: 17px;
 		border-radius: 50%;
 		overflow: hidden;
+		.img-w {
+			border-radius: 50%;
+		}
 	}
 	&-icon {
 		&.transfer {

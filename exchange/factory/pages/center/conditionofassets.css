@@ -320,6 +320,12 @@
     border-bottom: 2px solid #e6e6e6;
     padding-bottom: 12px;
 }
+/* 账户明细 查看更多 */
+.moreCheck{
+    color:#44C0FD;
+    text-decoration: none;
+}
+
 .rmbxh{
     color: #333333;
     font-size: 1.4rem;
@@ -421,4 +427,18 @@
 }
 .usable_nutlet img{
     margin: 22px 0px 22px 30px;
+}
+
+/*表格样式*/
+.aside-table td{
+    font-size: 12px; 
+    padding: 15px;
+    vertical-align: middle; 
+}
+.aside-table-thead td {
+    background-color: #FAFAFA;
+    border-bottom: 1px solid #ccc; 
+}
+.aside-table-tbody tr:hover {
+    background: #FAFAFA; 
 }

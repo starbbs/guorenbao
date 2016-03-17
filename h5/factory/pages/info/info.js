@@ -5,7 +5,7 @@
 
 require(['api', 'router', 'get', 'h5-view-bill', 'h5-weixin'], function(api, router, get, billView) {
 
-	router.init(true);
+	router.init();
 
 	var gopToken = $.cookie('gopToken');
 
@@ -20,7 +20,9 @@ require(['api', 'router', 'get', 'h5-view-bill', 'h5-weixin'], function(api, rou
 	// info.html?from=wx_info&type=BUYIN_ORDER&id=1111
 	// info.html?from=wx_info&type=TRANSFER_IN&id=1111
 	// info.html?from=wx_info&type=TRANSFER_OUT&id=1111
-	var type = get.data.type.toUpperCase();
+	var type = get.data.type.toUpperCase();   //get方法中有url.js  主要是得到地址栏的相应数据
+	//get方法返回一个json｛data:'',parse:'',stringify:'',add:''｝
+	//get.data = {from:wx_info,type:BUYIN_ORDER,id:1111}
 	switch(get.data.from) {
 		case 'wx_info': // 来自微信消息
 			switch(type) {

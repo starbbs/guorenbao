@@ -135,6 +135,7 @@
 		&-icon {
 			@include sprite(null, 34px);
 			display: block;
+			border-radius: 50%;
 			&.address { // 钱包地址
 				@include sprite($img + '/7.png')
 			}

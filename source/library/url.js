@@ -24,7 +24,7 @@ define('url', function() {
 	var arr = pathname.split('/');
 	var filename = json.filename = arr[arr.length - 1] || ''; // account.html
 	var dirname = json.dirname = arr[arr.length - 2] || ''; // build
-	var url = json.url = origin + pathname;
+	var url = json.url = origin + pathname;                 //http://localhost/h5/build/account.html
 
 	var log = function(name, isURL) {
 		console.log('%c' + name + ': %c' + json[name], 'color:blue;', isURL ? 'color:red;text-decoration:underline;' : 'color:black;');
