@@ -10,6 +10,9 @@
     <link rel="stylesheet" type="text/css" href="./css/cnydepositswithdrawal.css">
     <script type="text/javascript" src="./js/jquery-1.12.1.min.js"></script>
     <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="./js/require.js"></script>
+    <script type="text/javascript" src="./js/config.js"></script>
+    <script type="text/javascript" src="./js/cnydepositswithdrawal.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -27,7 +30,7 @@
                     <div class="rmbxh bottomon">人民币充值</div>
                     <div class="rmbtx">人民币提现</div>
                 </div>
-                <div class="recharge" style="display: none;">
+                <div class="recharge">
                     <div class="intro">
                         <p>
                             <em>充值须知：</em>填好以下充值信息后,需要您自主登录网银向汇款账户进行<em>手动打款</em><br>
@@ -87,11 +90,68 @@
                             </div>
                             <div class="tipscontent">
                                 为了响应国家政策号召，保证您的资金安全， 果仁买卖中心实行实名充值流程。请务必确保银行充值账户开户姓名与果仁买卖中心实名认证证件姓名一致，非实名充值资金被退回充值银行卡。
-                                </div>
+                            </div>
+                        </div>
+                        <div class="aside-table-div">
+                            <div class="renMinBiInput">
+                                <span>人民币充值历史</span>
+                                <span>
+                                    <a href="javascript:;" class="moreCheck">查看更多</a>
+                                </span>
+                            </div>
+                            <table class="aside-table" border="1" width="100%">
+                                <thead class="aside-table-thead">
+                                    <tr>
+                                        <td>时间</td>
+                                        <td>充值方式</td>
+                                        <td>充值金额(¥)</td>
+                                        <td>当前状态</td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody class="aside-table-tbody">
+                                    <!-- 载入前五条,如下为临时填充数据 -->
+                                    <tr>
+                                        <td >2016-03-16<br/><br/>11:02</td>
+                                        <td >建设银行网银</td>
+                                        <td >3200.00</td>
+                                        <td class="status">进行中</td>
+                                        <td class="checkDeal">查看此笔充值单</td>
+                                    </tr>
+                                    <tr>
+                                        <td >2016-03-16<br/><br/>11:02</td>
+                                        <td >建设银行网银</td>
+                                        <td >3200.00</td>
+                                        <td class="status">已关闭</td>
+                                        <td class="checkDeal">查看此笔充值单</td>
+                                    </tr>
+                                    <tr>
+                                        <td >2016-03-16<br/><br/>11:02</td>
+                                        <td >建设银行网银</td>
+                                        <td >3200.00</td>
+                                        <td class="status">已完成</td>
+                                        <td class="checkDeal">查看此笔充值单</td>
+                                    </tr>
+                                    <tr>
+                                        <td >2016-03-16<br/><br/>11:02</td>
+                                        <td >建设银行网银</td>
+                                        <td >3200.00</td>
+                                        <td class="status">已完成</td>
+                                        <td class="checkDeal">查看此笔充值单</td>
+                                    </tr>
+                                    <tr>
+                                        <td >2016-03-16<br/><br/>11:02</td>
+                                        <td >建设银行网银</td>
+                                        <td >3200.00</td>
+                                        <td class="status">已完成</td>
+                                        <td class="checkDeal">查看此笔充值单</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <div class="withdraw_deposit" style="display: block;">
+                <div class="withdraw_deposit" style="display:none;">
                     <div class="intro">
                         <p>
                             <em>提现须知：</em>果仁市场人民币提现单笔最高限额为<em>200000元,</em>单笔提现金额不低于<em>10元,</em><br>
@@ -144,6 +204,69 @@
                                 <span>请输入支付密码</span>
                             </div>
                             <div class="build_remit_btn">提现</div>
+                            <div class="aside-table-div">
+                                <div class="renMinBiInput">
+                                    <span>人民币提现历史</span>
+                                    <span>
+                                        <a href="javascript:;" class="moreCheck">查看更多</a>
+                                    </span>
+                                </div>
+                                <table class="aside-table" border="1" width="100%">
+                                    <thead class="aside-table-thead">
+                                        <tr>
+                                            <td>时间</td>
+                                            <td>操作类型</td>
+                                            <td>人民币数量(¥)</td>
+                                            <td>人民币数余额(¥)</td>
+                                            <td>果仁数量(G)</td>
+                                            <td>果仁余额(G)</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="aside-table-tbody">
+                                        <!-- 载入前五条,如下为临时填充数据 -->
+                                        <tr>
+                                            <td >2016-03-16<br/><br/>11:02</td>
+                                            <td class="operType">买入</td>
+                                            <td >3200.00</td>
+                                            <td >3200.00</td>
+                                            <td >321.11</td>
+                                            <td >321.11</td>
+                                        </tr>
+                                        <tr>
+                                            <td >2016-03-16<br/><br/>11:02</td>
+                                            <td class="operType">卖出</td>
+                                            <td >3200.00</td>
+                                            <td >3200.00</td>
+                                            <td >321.11</td>
+                                            <td >321.11</td>
+                                        </tr>
+                                        <tr>
+                                            <td >2016-03-16<br/><br/>11:02</td>
+                                            <td class="operType">果仁充值</td>
+                                            <td >3200.00</td>
+                                            <td >3200.00</td>
+                                            <td >321.11</td>
+                                            <td >321.11</td>
+                                        </tr>
+                                        <tr>
+                                            <td >2016-03-16<br/><br/>11:02</td>
+                                            <td class="operType">果仁提现</td>
+                                            <td >3200.00</td>
+                                            <td >3200.00</td>
+                                            <td >321.11</td>
+                                            <td >321.11</td>
+                                        </tr>
+                                        <tr>
+                                            <td >2016-03-16<br/><br/>11:02</td>
+                                            <td class="operType">人民币充值</td>
+                                            <td >3200.00</td>
+                                            <td >3200.00</td>
+                                            <td >321.11</td>
+                                            <td >321.11</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
