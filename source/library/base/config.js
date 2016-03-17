@@ -92,6 +92,7 @@
 			//交易所项目
 			'api_mkt':                      MKT_SOURCE + '/js/api_market',
 			'mkt_info':                     MKT_SOURCE + '/js/info',
+			'mkt_trade':                    MKT_SOURCE + '/js/trade'
 		},
 		shim: {
 			jquery: {
