@@ -483,6 +483,9 @@
     cursor: pointer;
     background: #EEE;
 }
+.regist_rg_input-btn:hover{
+    border: 1px solid #bbb;
+}
 .regist_rg_input-VerificationCode{
     height: 32px;
     width: 115px;
@@ -507,7 +510,7 @@
     border-radius: 4px;
     width: 240px;
     position: absolute;
-    top: 305px;
+    top: 275px;
     color: #ffffff;
     cursor: pointer;
     text-align: center;

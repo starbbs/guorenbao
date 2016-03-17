@@ -436,6 +436,67 @@
     height:58px;
     position:relative;
 }
+.regist_rg_input-select{
+    height: 32px;
+    width: 240px;
+    border: 1px solid #d6d6d6;
+    padding-left: 14px;
+    box-sizing: border-box;
+    float:left;
+    margin-right:10px;
+}
+.regist_rg_input-ad{
+    height: 32px;
+    width: 100px;
+    border: none;
+    color: #0CBEEE;
+    padding-left: 10px;
+    box-sizing: border-box;
+    float:left;
+    outline: none;
+    cursor: pointer;
+    background: none;
+}
+.regist_rg_input-btn{
+    height: 32px;
+    width: 115px;
+    border: 1px solid #d6d6d6;
+    box-sizing: border-box;
+    text-align: center;
+    float:left;
+    outline: none;
+    cursor: pointer;
+    background: #EEE;
+}
+.regist_rg_input-cost{
+    width:200px;
+    height:30px;
+    position: absolute;
+    left:260px;
+    top:10px;
+    color:#999;
+}
+.regist_rg_input-btn:hover{
+    border: 1px solid #bbb;
+}
+.regist_rg_input-VerificationCode{
+    height: 32px;
+    width: 115px;
+    border: 1px solid #d6d6d6;
+    padding-left: 14px;
+    box-sizing: border-box;
+    float:left;
+    margin-right:10px;
+}
+.regist_rg_input-longAddress{
+    height: 32px;
+    width: 315px;
+    border:none;
+    outline: none;
+    box-sizing: border-box;
+    float:left;
+    margin-right:10px;
+}
 .regist_input_div span{
     display: block;
     float: left;

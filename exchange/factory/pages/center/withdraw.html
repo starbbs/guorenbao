@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="./css/withdraw.css">
     <script type="text/javascript" src="./js/jquery-1.12.1.min.js"></script>
     <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/withdraw.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -27,7 +28,7 @@
                     <div class="rmbxh bottomon">人民币提现管理</div>
                     <div class="rmbtx">果仁提现管理</div>
                 </div>
-                <div class="recharge" style="display: none;">
+                <div class="recharge">
                     <div class="intro">
                         <em>您将添加人民币提现账户</em>
                     </div>
@@ -75,7 +76,7 @@
                             <div class="regist_input_div">
                                 <input class="regist_rg_input-VerificationCode" type="text" placeholder="" id="idcard"/>
                                 <input class="regist_rg_input-btn" type="button" value="获取验证码" id="idcard"/>
-                                <span>请输入验证码</span>
+                                <!-- <span>请输入验证码</span> -->
                             </div>
                             <div class="build_remit_btn">确认添加</div>
                         </div>
@@ -86,7 +87,7 @@
                         <img src="copy.png" alt="">
                     </div> -->
                 </div>
-                <div class="withdraw_deposit" style="display: block;">
+                <div class="withdraw_deposit" style="display: none;">
                     <div class="intro">
                         <em>您将添加果仁提现地址</em>
                     </div>
@@ -123,7 +124,7 @@
                             <div class="regist_input_div">
                                 <input class="regist_rg_input-VerificationCode" type="text" placeholder="" id="idcard"/>
                                 <input class="regist_rg_input-btn" type="button" value="获取验证码" id="idcard"/>
-                                <span>请输入验证码</span>
+                                <!-- <span>请输入验证码</span> -->
                             </div>
                             <div class="build_remit_btn">确认添加</div>
                         </div>
@@ -133,21 +134,5 @@
         </div>
         @@include('../../includes/bottom/bottom.html')
     </div>
-    <script type="text/javascript">
-        $(function(){
-            $('.rmbxh').on('click',function(){
-                $(this).addClass('bottomon');
-                $('.rmbtx').removeClass('bottomon');
-                $('.recharge').show();
-                $('.withdraw_deposit').hide();
-            });
-            $('.rmbtx').on('click',function(){
-                $(this).addClass('bottomon');
-                $('.rmbxh').removeClass('bottomon');
-                $('.recharge').hide();
-                $('.withdraw_deposit').show();
-            });
-        });
-    </script>
 </body>
 </html>
