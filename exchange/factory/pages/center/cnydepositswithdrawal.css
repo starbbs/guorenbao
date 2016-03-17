@@ -431,9 +431,10 @@
 
 /* 添加 查看更多 */
 .aside-table-div{
+    width:100%;
    position: absolute;
    top: 380px;
-   left:0;
+   left:-10px;
 }
 .renMinBiInput{
     border-bottom: 2px solid #e6e6e6;

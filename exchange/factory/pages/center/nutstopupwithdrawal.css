@@ -508,10 +508,10 @@
     margin-top:40px;
 }
 .aside-table-div-1{
-   width:800px;
+   width:100%;
    position: absolute;
    top: 380px;
-   left:0;
+   left:-10px;
 }
 .renMinBiInput{
     border-bottom: 2px solid #e6e6e6;

@@ -29,15 +29,62 @@
                 </div>
                 <div class="recharge" style="display: none;">
                     <div class="intro">
-                        <p>
-                            <em>提示：</em>您的果仁转出至该地址后，需要整个goopal网络节点的确认后方可到账。具体情况视当时的网络节点状态而定 
-                        </p>
+                        <em>您将添加人民币提现账户</em>
                     </div>
-                    <div class="goopaladdress">
-                        <span>您的账户地址</span>
+                    <div class="right_reg_side_content" style="display: flex;">
+                        <div class="rg_lf_label">
+                            <div class="label_div">
+                                <label for="username">银行账户</label>
+                            </div>
+                            <div class="label_div">
+                                <label for="idcard">开户支行</label>
+                            </div>
+                            <div class="label_div">
+                                <label for="username">支付密码</label>
+                            </div>
+                            <div class="label_div">
+                                <label for="idcard">验证码</label>
+                            </div>
+                        </div>
+                        <div class="rg_rg_input">
+                            <div class="regist_input_div">
+                                <input class="regist_rg_input" type="text" placeholder="请输入银行账号" id="idcard"/>
+                                <span>请输入正确的银行账号</span>
+                            </div>
+
+                            <div class="regist_input_div">
+                                <select class="regist_rg_input-select">
+                                    <option selected="selected">北京市</option>
+                                    <option>上海市</option>
+                                    <option>广州市</option>
+                                    <option>深圳市</option>
+                                </select>
+                                <select class="regist_rg_input-select">
+                                    <option selected="selected">海淀区</option>
+                                    <option>东城区</option>
+                                    <option>西城区</option>
+                                    <option>朝阳区</option>
+                                </select>
+                                <input class="regist_rg_input" type="text" placeholder="" id="idcard"/>
+                                <span>请输入正确的开户支行地址</span>
+                            </div>
+                            <div class="regist_input_div">
+                                <input class="regist_rg_input" type="text" placeholder="" id="idcard"/>
+                                <span>请输入正确的支付密码</span>
+                            </div>
+                            <div class="regist_input_div">
+                                <input class="regist_rg_input-VerificationCode" type="text" placeholder="" id="idcard"/>
+                                <input class="regist_rg_input-btn" type="button" value="获取验证码" id="idcard"/>
+                                <span>请输入验证码</span>
+                            </div>
+                            <div class="build_remit_btn">确认添加</div>
+                        </div>
+                    </div>
+                    <!-- <div class="goopaladdress">
+                        <span>银行账户</span>
                         <span class="gpal_address">1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</span>
                         <img src="copy.png" alt="">
-                    </div>
+                    </div> -->
                 </div>
                 <div class="withdraw_deposit" style="display: block;">
                     <div class="intro">
@@ -60,21 +107,23 @@
                         </div>
                         <div class="rg_rg_input">
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入银行账号" id="idcard"/>
-                                <span>请输入正确的银行账号</span>
+                                <input class="regist_rg_input" type="text" placeholder="" id="idcard"/>
+                                <input class="regist_rg_input-addressWord" type="text" value="长度：最多20英文或常用标点符号/10汉字，可以为空。" id="idcard"/>
+                                <span>果仁市场内互转即时极速到账</span>
                             </div>
 
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入银行账号" id="idcard"/>
-                                <span>请输入正确的银行账号</span>
+                                <input class="regist_rg_input-address" type="text" placeholder="" id="idcard"/>
+                                <!-- <span>请输入正确地址</span> -->
                             </div>
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入银行账号" id="idcard"/>
-                                <span>请输入正确的银行账号</span>
+                                <input class="regist_rg_input" type="text" placeholder="" id="idcard"/>
+                                <!-- <span>请输入正确的支付密码</span> -->
                             </div>
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="支付密码" id="idcard"/>
-                                <span>请输入所属银行</span>
+                                <input class="regist_rg_input-VerificationCode" type="text" placeholder="" id="idcard"/>
+                                <input class="regist_rg_input-btn" type="button" value="获取验证码" id="idcard"/>
+                                <span>请输入验证码</span>
                             </div>
                             <div class="build_remit_btn">确认添加</div>
                         </div>

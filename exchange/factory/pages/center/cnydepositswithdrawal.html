@@ -12,7 +12,7 @@
     <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="./js/require.js"></script>
     <script type="text/javascript" src="./js/config.js"></script>
-    <script type="text/javascript" src="./js/cnydepositswithdrawal.js"></script>
+    <script type="text/javascript" src="js/cnydepositswithdrawal.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -109,7 +109,7 @@
                                         <td></td>
                                     </tr>
                                 </thead>
-                                <tbody class="aside-table-tbody">
+                                <tbody class="aside-table-tbody cnyInput">
                                     <!-- 载入前五条,如下为临时填充数据 -->
                                     <tr>
                                         <td >2016-03-16<br/><br/>11:02</td>
@@ -215,54 +215,48 @@
                                     <thead class="aside-table-thead">
                                         <tr>
                                             <td>时间</td>
-                                            <td>操作类型</td>
-                                            <td>人民币数量(¥)</td>
-                                            <td>人民币数余额(¥)</td>
-                                            <td>果仁数量(G)</td>
-                                            <td>果仁余额(G)</td>
+                                            <td>银行</td>
+                                            <td>提现金额(¥)</td>
+                                            <td>手续费(¥)</td>
+                                            <td>进程</td>
                                         </tr>
                                     </thead>
-                                    <tbody class="aside-table-tbody">
+                                    <tbody class="aside-table-tbody cnyOutput">
                                         <!-- 载入前五条,如下为临时填充数据 -->
                                         <tr>
                                             <td >2016-03-16<br/><br/>11:02</td>
-                                            <td class="operType">买入</td>
+                                            <td>中国工商银行</td>
                                             <td >3200.00</td>
-                                            <td >3200.00</td>
-                                            <td >321.11</td>
-                                            <td >321.11</td>
+                                            <td >1.00</td>
+                                            <td class="cnyWithdrawals">进行中</td>
                                         </tr>
                                         <tr>
                                             <td >2016-03-16<br/><br/>11:02</td>
-                                            <td class="operType">卖出</td>
+                                            <td>中国建设银行</td>
                                             <td >3200.00</td>
-                                            <td >3200.00</td>
-                                            <td >321.11</td>
-                                            <td >321.11</td>
+                                            <td >2.00</td>
+                                            <td class="cnyWithdrawals">成功提现</td>
                                         </tr>
                                         <tr>
                                             <td >2016-03-16<br/><br/>11:02</td>
-                                            <td class="operType">果仁充值</td>
+                                            <td>中国工商银行</td>
                                             <td >3200.00</td>
-                                            <td >3200.00</td>
-                                            <td >321.11</td>
-                                            <td >321.11</td>
+                                            <td >1.00</td>
+                                            <td class="cnyWithdrawals">进行中</td>
                                         </tr>
                                         <tr>
                                             <td >2016-03-16<br/><br/>11:02</td>
-                                            <td class="operType">果仁提现</td>
+                                            <td>中国建设银行</td>
                                             <td >3200.00</td>
-                                            <td >3200.00</td>
-                                            <td >321.11</td>
-                                            <td >321.11</td>
+                                            <td >2.00</td>
+                                            <td class="cnyWithdrawals">成功提现</td>
                                         </tr>
                                         <tr>
                                             <td >2016-03-16<br/><br/>11:02</td>
-                                            <td class="operType">人民币充值</td>
+                                            <td>中国建设银行</td>
                                             <td >3200.00</td>
-                                            <td >3200.00</td>
-                                            <td >321.11</td>
-                                            <td >321.11</td>
+                                            <td >2.00</td>
+                                            <td class="cnyWithdrawals">成功提现</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -274,21 +268,5 @@
         </div>
         @@include('../../includes/bottom/bottom.html')
     </div>
-    <script type="text/javascript">
-        $(function(){
-            $('.rmbxh').on('click',function(){
-                $(this).addClass('bottomon');
-                $('.rmbtx').removeClass('bottomon');
-                $('.recharge').show();
-                $('.withdraw_deposit').hide();
-            });
-            $('.rmbtx').on('click',function(){
-                $(this).addClass('bottomon');
-                $('.rmbxh').removeClass('bottomon');
-                $('.recharge').hide();
-                $('.withdraw_deposit').show();
-            });
-        });
-    </script>
 </body>
 </html>
