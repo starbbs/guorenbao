@@ -2,9 +2,9 @@
 // H5微信端 --- 账单
 
 
-require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5-view-bill','mydate',
+require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5-view-bill', 'mydate',
 	'h5-weixin'
-], function(router, api, get, filters, H5bill, iScroll, billView,mydate) {
+], function(router, api, get, filters, H5bill, iScroll, billView, mydate) {
 
 	router.init();
 	var gopToken = $.cookie('gopToken');
@@ -96,7 +96,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		// 	userId: 21
 		// })
 		var type = H5bill.typeClass[item.type];
-		var bill = {
+		var bill = { // 账单
 			id: item.businessId,
 			img: '', // 头像
 			name: '', // 姓名
@@ -106,15 +106,15 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			originType: item.type,
 			iconClass: '',
 		};
-		var types = {
+		var types = { // 类型
 			money: 'money',
 			gop: 'gopNumber'
 		};
-		var coins = {
+		var coins = { // 货币
 			money: '¥',
 			gop: 'G'
 		};
-		var filter = {
+		var filter = { // 过滤器
 			money: 'fix',
 			gop: 'floorFix'
 		};
@@ -256,6 +256,9 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			getList();
 		}
 	});
+	billView.onClose = function() {
+		
+	};
 
 	init();
 });

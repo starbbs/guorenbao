@@ -129,6 +129,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 							if (data.status == 200) {
 								$.alert('关闭成功');
 								consumeHandler(vm.type, vm.id, 'PAY');
+								bill.onClose();
 							}
 						});
 						break;
@@ -349,5 +350,6 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 		onFinish: $.noop, // 点击完成时(可 return false 取消默认)
 		onGotoPay: $.noop, // 点击支付时(可 return false 取消默认)
 		onSetNickname: $.noop, // 点击设置备注名时
+		onClose: $.noop, // 关闭订单时
 	});
 });
