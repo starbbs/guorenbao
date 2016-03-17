@@ -30,9 +30,13 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		vScrollbar: false,
 		preventDefault: true,
 		click: true,
-		// useTransition: true,
-		onScrollMove: function() {},
+		//useTransition: false,
+		onScrollMove: function() {
+			console.log('move');
+		},
 		onScrollEnd: function() {
+			console.log(this.maxScrollY+'====='+this.y);
+			//this.y 卷上去的
 			if (this.y - bottomHeight < this.maxScrollY) {
 				getList();
 			}
@@ -237,13 +241,14 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			}, 200);
 		},
 		showAccount: function(ev) { // 显示账单详情(事件代理)
-			var target = $(ev.target).closest('.account-item');
+			var target=listTarget= $(ev.target).closest('.account-item');
 			if (target.length) {
 				var data = target.get(0).dataset;
 				var options = {};
 				data.name && (options.transferName = data.name);
 				data.img && (options.transferImg = data.img);
 				billView.set(data.type, data.id, options);
+				//           "BUY_IN",  "215"     {}
 				router.go('/view/bill');
 			}
 		}

@@ -14,7 +14,8 @@ require(['router', 'api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h
 		userImage: '', // 微信头像
 	});
 	avalon.scan(select.native, selectVM);
-	$.cookie('gopToken','1f12d62f3e344e1ca654fd61533303b1');
+	$.cookie('gopToken','1f12d62f3e344e1ca654fd61533303b1');// 有钱的帐号
+	//$.cookie('gopToken','cb51f72310fa4d22a1c7142e8d48b214');// 杨娟的帐号
 	var gotoAuthorization = function() { // 跳转授权页, 未授权
 		// return;
 		setTimeout(function() {

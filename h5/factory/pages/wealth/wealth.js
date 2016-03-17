@@ -36,7 +36,7 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filter
 				api.totalIncomeList({
 					gopToken: gopToken,
 					pageNo:1,
-					pageSize:10,
+					pageSize:100,
 				}, function(data) {
 					if (data.status == 200) {						
 						console.log(data.data.list);

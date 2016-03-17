@@ -118,6 +118,12 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 							if (data.status == 200) {
 								$.alert('关闭成功');
 								buyInHandler(vm.type, vm.id, 'BUY_IN');
+
+								
+
+
+
+
 							}
 						});
 						break;
@@ -134,6 +140,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 						});
 						break;
 				}
+				//点击关闭定单后做一下跳转 bug要改
 			};
 			dialogConfirm.show();
 		},
@@ -150,7 +157,9 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 	 * @param    {[function]}     		options.onRequest		[后台请求回调,参数data]
 	 * @param    {[function]}     		options.onRendered		[vm渲染回调,参数vm]
 	 */
-	var set = function(type, id, options) { // 设置账单, 分流 -- 不做view显示
+	//          TRANSFER_IN  235  {onRendered:function(){router.to('/view/bill')}}
+	//                "BUY_IN", "215" {}
+	var set = function(type, id, options) { // 设置账单, 分流 -- 不做view显示  根据用户ID和消费类型做AJAX
 		type = (type + '').toUpperCase();
 		options = options || {};
 		switch (type) {
@@ -172,12 +181,15 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 				$.alert('未知类型的账单' + type);
 		}
 	};
+	//	204行的orderHandler方法的数据	{onRendered:function(){router.to('/view/bill')}}
 	var setVM = function(settings, options) { // 设置账单vm -- 清空原VM
 		for (var i in options) {
 			if (initSettings.hasOwnProperty(i)) {
 				settings[i] = options[i];
 			}
 		}
+		console.log(initSettings);
+		console.log(settings);
 		$.extend(vm, initSettings, settings);
 		options.onRendered && options.onRendered(vm);
 	};
@@ -224,7 +236,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			ifPayButton: waitForPay, // 是否显示"前往支付"按钮
 			ifClose: waitForPay, // 是否显示"关闭"
 		};
-	};
+	};						//"BUY_IN", "215" {}
 	var buyInHandler = function(type, id, options) { // 买入
 		api.queryBuyinOrder({
 			gopToken: gopToken,
@@ -232,14 +244,36 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			payType: 'WEIXIN_MP_PAY'
 		}, function(data) {
 			console.log(nowData = data);
+			/*data{
+				WEIXIN_MP_PAY:{
+					appId: "wx55923db8dfb94e44"
+					nonceStr: "6915849303a3fe93657587cb9c469f00"
+					package: "prepay_id=wx201603171517460bde727a820242308187"
+					paySign: "D1AC71767EC96CEC19FFA291F2108436"
+					signType: "MD5"
+					timeStamp: "1458199067"	
+				}
+				buyinOrder: {
+					createTime: "2016-03-17 15:07:51"
+					id: 215
+					orderCode: "1603171900000002128"
+					orderMoney: 3
+					payType: "WEIXIN_MP_PAY"
+					status: "PROCESSING"
+					updateTime: "2016-03-17 15:17:46"
+					userId: 21	
+				｝
+			}
+			*/
 			options.onRequest && options.onRequest(data);
 			if (!data.data || !data.data.buyinOrder || data.status != 200) {
 				data.msg && $.alert(data.msg);
 				return;
 			}
-			var order = data.data.buyinOrder; // 订单
+			var order = data.data.buyinOrder; // 订单 
 			var list = data.data.recordList; // 支付
 			var waitForPay = (order.status = options.forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
+			//waitForPay  true         "BUY_IN", "215" order  true   undefined
 			setVM($.extend(orderHandler(type, id, order, waitForPay, list), {
 				gopNum: order.gopNum, // 买果仁--果仁数
 				gopPrice: order.price, // 买果仁--成交价
@@ -306,6 +340,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			ifTip: order.status === 'FAILURE', // 是否显示底部提示
 		};
 	};
+	//TRANSFER_IN  235  {onRendered:function(){router.to('/view/bill')}}
 	var transferInHandler = function(type, id, options) { // 转入
 		api.transferInQuery({
 			gopToken: gopToken,
@@ -318,6 +353,18 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 				return;
 			}
 			var order = data.data.transferIn;
+			//order = {
+			//			gopNum: 0.7,
+			//			id: 235
+			//			personId: 59
+			//			serialNum: "1603154800000002230"
+			//			status: "SUCCESS"
+			//			transContent: "11111111111111111111"
+			//			transferTime: "2016-03-15 15:38:29"
+			//			transferUserId: 21
+			//			type: "GOP_CONTACT"
+			//			userId: 22
+			//			}
 			setVM($.extend(transferHandler(type, id, order), {
 				transferSign: '+',
 			}), options);
