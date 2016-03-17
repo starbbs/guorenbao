@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="./css/nutstopupwithdrawal.css">
     <script type="text/javascript" src="./js/jquery-1.12.1.min.js"></script>
     <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/nutstopupwithdrawal_new.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -24,79 +25,191 @@
             </div>
             <div class="rightside">
                 <div class="topline">
-                    <div class="rmbxh bottomon">果仁充值</div>
-                    <div class="rmbtx">果仁提现</div>
+                    <div class="rmbxh bottomon">果仁充值历史</div>
+                    <div class="rmbtx">果仁提现历史</div>
+                    <span><b>
+                        <a href="nutstopupwithdrawal.html" class="moreCheck">< 返回</a>
+                    </b></span>
                 </div>
-                <div class="recharge" style="display: none;">
-                    <div class="intro">
-                        <p>
-                            <em>提示：</em>您的果仁转出至该地址后，需要整个goopal网络节点的确认后方可到账。具体情况视当时的网络节点状态而定 
-                        </p>
-                    </div>
-                    <div class="goopaladdress">
-                        <span>您的账户地址</span>
-                        <span class="gpal_address">1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</span>
-                        <img src="copy.png" alt="">
+                <div class="recharge">
+                    <table class="aside-table" width="100%">
+                        <thead class="aside-table-thead guorenInput-history">
+                            <tr>
+                                <td>时间</td>
+                                <td>地址</td>
+                                <td>数量(G)</td>
+                                <td>当前状态</td>
+                            </tr>
+                        </thead>
+                        <tbody class="aside-table-tbody guorenInput">
+                            <!-- 载入前五条,如下为临时填充数据 -->
+                            <tr>
+                                <td >2016-03-16<br/><br/>11:02</td>
+                                <td >1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</td>
+                                <td >3200.00</td>
+                                <td class="status-guorenInput">进行中</td>
+                            </tr>
+                            <tr>
+                                <td >2016-03-16<br/><br/>11:02</td>
+                                <td >1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</td>
+                                <td >3200.00</td>
+                                <td class="status-guorenInput">已到账</td>
+                            </tr>
+                            <tr>
+                                <td >2016-03-16<br/><br/>11:02</td>
+                                <td >1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</td>
+                                <td >3200.00</td>
+                                <td class="status-guorenInput">已到账</td>
+                            </tr>
+                            <tr>
+                                <td >2016-03-16<br/><br/>11:02</td>
+                                <td >1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</td>
+                                <td >3200.00</td>
+                                <td class="status-guorenInput">进行中</td>
+                            </tr>
+                            <tr>
+                                <td >2016-03-16<br/><br/>11:02</td>
+                                <td >1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</td>
+                                <td >3200.00</td>
+                                <td class="status-guorenInput">已到账</td>
+                            </tr>
+                            <tr>
+                                <td >2016-03-16<br/><br/>11:02</td>
+                                <td >1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</td>
+                                <td >3200.00</td>
+                                <td class="status-guorenInput">进行中</td>
+                            </tr>
+                            <tr>
+                                <td >2016-03-16<br/><br/>11:02</td>
+                                <td >1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</td>
+                                <td >3200.00</td>
+                                <td class="status-guorenInput">已到账</td>
+                            </tr>
+                            <tr>
+                                <td >2016-03-16<br/><br/>11:02</td>
+                                <td >1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</td>
+                                <td >3200.00</td>
+                                <td class="status-guorenInput">已到账</td>
+                            </tr>
+                            <tr>
+                                <td >2016-03-16<br/><br/>11:02</td>
+                                <td >1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</td>
+                                <td >3200.00</td>
+                                <td class="status-guorenInput">进行中</td>
+                            </tr>
+                            <tr>
+                                <td >2016-03-16<br/><br/>11:02</td>
+                                <td >1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</td>
+                                <td >3200.00</td>
+                                <td class="status-guorenInput">已到账</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- 分页 --> 
+                    <div  class="PageCode">
+                        <span id="div1">
+                            <a href="#3">上一页</a>
+                            <a href="#2">2</a>
+                            <a href="#3">3</a>
+                            <a href="#4" style="color:blue;">4</a>
+                            <a href="#5">5</a>
+                            <a href="#6">6</a>
+                            <a href="#5">下一页</a>
+                        </span>
+                        <input type="text" class="inputNum"/> / 
+                        <span class="allNum"></span>
+                        <span class="btn-fenye">确定【备注：页码分页效果 已完成，暂时没有显示】</span>
                     </div>
                 </div>
-                <div class="withdraw_deposit" style="display: block;">
-                    <div class="intro">
-                        <p>
-                            <em>提示：</em>您的果仁转出至该地址后，需要整个goopal网络节点的确认后方可到账。具体情况视当时的网络节点状态而定 
-                        </p>
-                    </div>
-                    <div class="right_reg_side_content" style="display: flex;">
-                        <div class="rg_lf_label">
-                            <div class="label_div">
-                                <label for="username">从账户</label>
-                            </div>
-                            <div class="label_div">
-                                <label for="idcard">转出至</label>
-                            </div>
-                            <div class="label_div">
-                                <label for="username">转出数量</label>
-                            </div>
-                            <div class="label_div">
-                                <label for="idcard">支付密码</label>
-                            </div>
-                            <div class="label_div">
-                                <label for="idcard">验证码</label>
-                            </div>
-                        </div>
 
-                        <div class="rg_rg_input">
-                            <div class="regist_input_div">
-                                <div>1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf...</div>
-                            </div>
-
-                            <div class="regist_input_div">
-                                <div>
-                                    <select name="" id="">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                    </select>
-                                </div>
-                                <div style="color:#0088cc;">
-                                    添加新地址
-                                </div>
-                            </div>
-                            <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入银行账号" id="idcard"/>
-                                <span>请输入正确的银行账号</span>
-                                <div>Goopal区块连转账费用<em id="">0.01</em>GOP</div>
-                            </div>
-                            <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="支付密码" id="idcard"/>
-                                <span>请输入所属银行</span>
-                            </div>
-                            <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入验证码" id="idcard"/>
-                                <input type="button" value="获取短信验证码">
-                            </div>
-                            <div class="build_remit_btn">转出</div>
-                        </div>
+                <div class="withdraw_deposit" style="display: none;">
+                    <table class="aside-table" border="1" width="100%">
+                        <thead class="aside-table-thead">
+                            <tr>
+                                <td>时间</td>
+                                <td>地址</td>
+                                <td>数量(G)</td>
+                                <td>当前状态</td>
+                            </tr>
+                        </thead>
+                        <tbody class="aside-table-tbody guorenOutput">
+                            <!-- 载入前五条,如下为临时填充数据 -->
+                            <tr>
+                                <td >2016-03-16<br/><br/>11:02</td>
+                                <td >1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</td>
+                                <td >3200.00</td>
+                                <td class="status-guorenOutput">进行中</td>
+                            </tr>
+                            <tr>
+                                <td >2016-03-16<br/><br/>11:02</td>
+                                <td >1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</td>
+                                <td >3200.00</td>
+                                <td class="status-guorenOutput">已到账</td>
+                            </tr>
+                            <tr>
+                                <td >2016-03-16<br/><br/>11:02</td>
+                                <td >1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</td>
+                                <td >3200.00</td>
+                                <td class="status-guorenOutput">进行中</td>
+                            </tr>
+                            <tr>
+                                <td >2016-03-16<br/><br/>11:02</td>
+                                <td >1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</td>
+                                <td >3200.00</td>
+                                <td class="status-guorenOutput">已到账</td>
+                            </tr>
+                            <tr>
+                                <td >2016-03-16<br/><br/>11:02</td>
+                                <td >1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</td>
+                                <td >3200.00</td>
+                                <td class="status-guorenOutput">已到账</td>
+                            </tr>
+                            <tr>
+                                <td >2016-03-16<br/><br/>11:02</td>
+                                <td >1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</td>
+                                <td >3200.00</td>
+                                <td class="status-guorenOutput">进行中</td>
+                            </tr>
+                            <tr>
+                                <td >2016-03-16<br/><br/>11:02</td>
+                                <td >1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</td>
+                                <td >3200.00</td>
+                                <td class="status-guorenOutput">已到账</td>
+                            </tr>
+                            <tr>
+                                <td >2016-03-16<br/><br/>11:02</td>
+                                <td >1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</td>
+                                <td >3200.00</td>
+                                <td class="status-guorenOutput">进行中</td>
+                            </tr>
+                            <tr>
+                                <td >2016-03-16<br/><br/>11:02</td>
+                                <td >1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</td>
+                                <td >3200.00</td>
+                                <td class="status-guorenOutput">已到账</td>
+                            </tr>
+                            <tr>
+                                <td >2016-03-16<br/><br/>11:02</td>
+                                <td >1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</td>
+                                <td >3200.00</td>
+                                <td class="status-guorenOutput">已到账</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- 分页 --> 
+                    <div  class="PageCode">
+                        <span id="div1">
+                            <a href="#3">上一页</a>
+                            <a href="#2">2</a>
+                            <a href="#3">3</a>
+                            <a href="#4" style="color:blue;">4</a>
+                            <a href="#5">5</a>
+                            <a href="#6">6</a>
+                            <a href="#5">下一页</a>
+                        </span>
+                        <input type="text" class="inputNum"/> / 
+                        <span class="allNum"></span>
+                        <span class="btn-fenye">确定【备注：页码分页效果 已完成，暂时没有显示】</span>
                     </div>
                 </div>
             </div>
@@ -104,21 +217,5 @@
 
         @@include('../../includes/bottom/bottom.html')
     </div>
-    <script type="text/javascript">
-        $(function(){
-            $('.rmbxh').on('click',function(){
-                $(this).addClass('bottomon');
-                $('.rmbtx').removeClass('bottomon');
-                $('.recharge').show();
-                $('.withdraw_deposit').hide();
-            });
-            $('.rmbtx').on('click',function(){
-                $(this).addClass('bottomon');
-                $('.rmbxh').removeClass('bottomon');
-                $('.recharge').hide();
-                $('.withdraw_deposit').show();
-            });
-        });
-    </script>
 </body>
 </html>
