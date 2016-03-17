@@ -112,7 +112,11 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		var coins = {
 			money: '¥',
 			gop: 'G'
-		}
+		};
+		var filter = {
+			money: 'fix',
+			gop: 'floorFix'
+		};
 		if (type === 'transfer' && item.extra) {
 			bill.img = item.extra.photo || ''; // 转账头像
 			if (item.extra.name) { // 转账目标
@@ -139,10 +143,10 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 				item.extra.recordList.forEach(function(item) {
 					switch(item.payType) {
 						case 'GOP_PAY':
-							bill.change = numHandler(-filters.floorFix(item.payGop), coins['gop']);
+							bill.change = numHandler(-item.payGop, coins['gop'], filter[kind]);
 							break;
 						case 'UNION_PAY':
-							bill.change = numHandler(-item.payMoney, coins['money']);
+							bill.change = numHandler(-item.payMoney, coins['money'], filter[kind]);
 							break;
 						default:
 							console.log('err:', item);
@@ -150,11 +154,11 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 					bills.push($.extend({}, bill));
 				});
 			} else {
-				bill.change = numHandler(item.money, coins['money']);
+				bill.change = numHandler(item.money, coins['money'], filter[kind]);
 				bills.push(bill);
 			}
 		} else {
-			bill.change = numHandler(item[types[kind]], coins[kind]);
+			bill.change = numHandler(item[types[kind]], coins[kind], filter[kind]);
 			bills.push(bill);
 		}
 	};
@@ -219,8 +223,8 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			return result;
 		}, []);
 	};
-	var numHandler = function(number, unit) { // 数值处理
-		return (number > 0 ? '+' : '-') + ' ' + unit + ' ' + filters.fix(Math.abs(number));
+	var numHandler = function(number, unit, filter) { // 数值处理
+		return (number > 0 ? '+' : '-') + ' ' + unit + ' ' + filters[filter](Math.abs(number));
 	};
 	// 处理 getList 的工具方法 -- 结束
 

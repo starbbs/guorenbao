@@ -41,7 +41,7 @@
 		<div class="text-tip-top">最近</div>
 		<div class="block" ms-click="transferClick($event)">
 			<div class="transfer-item" ms-repeat-item="list" ms-data-index="$index">
-				<div class="transfer-item-img" ms-if-loop="item.type!=='ME_WALLET'"><img ms-attr-src="item.photo||'./images/picture.png'" alt="" class="img-w"></div>
+				<div class="transfer-item-img" ms-if-loop="item.type!=='ME_WALLET'"><img ms-attr-src="item.photo||'./images/picture.png'" alt="" class="img-w img-r"></div>
 				<div class="transfer-icon-2-middle" ms-if-loop="item.type==='ME_WALLET'"></div>
 				<div class="transfer-item-line">
 					<div class="block-label">{{item.name||'未命名用户'}}</div>

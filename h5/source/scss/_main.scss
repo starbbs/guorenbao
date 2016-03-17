@@ -43,6 +43,7 @@
 	&-w { @extend .img; width: 100%; }
 	&-h { @extend .img; height: 100%; }
 	&-f { @extend .img; width: 100%; height: 100%; }
+	&-r { border-radius: 50%; }
 }
 
 .a-blue {
