@@ -1,5 +1,5 @@
 define('api_mkt', ['cookie'], function() {
-	var basePath = 'http://172.16.33.4/';
+	var basePath = 'http://localhost/';
 	var api = {};
 	var goIndex = function(useURL) {		//返回首页
 		if (useURL) {
@@ -107,7 +107,7 @@ define('api_mkt', ['cookie'], function() {
 		);
 	};
 
-	add('pollinfo','/info');
+	add('pollinfo','info');
 	//asyn
 	
 	

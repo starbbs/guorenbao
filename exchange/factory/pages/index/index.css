@@ -790,7 +790,7 @@ progress::-webkit-progress-value {
     width: 8px;
     background-size: 100% 100%;
     position: absolute;
-    top: 2px;
+    top: 56px;
     height: 18px;
     right: 37px;
 }
