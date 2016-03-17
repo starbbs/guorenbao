@@ -80,20 +80,21 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 	var now = new Date(); // 当前时间
 	var nowMonth = now.getMonth(); // 当前月份
 	var dataAdd = function(kind, bills, item) { // 添加效果的数据    dataAdd('all', bills, item);
-//dataAdd('all',[],{ 	_date:Wed Mar 16 2016 13:24:11 GMT+0800 (中国标准时间),
-//						_dateTime:1458105851732,
-//						businessDesc:"买果仁",
-//						businessId: 198,
-//						businessTime: "2016-03-16 13:56:00",
-//						createTime: "2016-03-16 13:24:11",
-//						extra: Object,
-//						gopPrice: 3,
-//						id: 769,
-//						money: -1, 
-//						status: "CLOSE", 
-//						type: "BUY_IN",
-//						userId: 21
-//					})
+		// dataAdd('all', [], {
+		// 	_date: Wed Mar 16 2016 13: 24: 11 GMT + 0800(中国标准时间),
+		// 	_dateTime: 1458105851732,
+		// 	businessDesc: "买果仁",
+		// 	businessId: 198,
+		// 	businessTime: "2016-03-16 13:56:00",
+		// 	createTime: "2016-03-16 13:24:11",
+		// 	extra: Object,
+		// 	gopPrice: 3,
+		// 	id: 769,
+		// 	money: -1,
+		// 	status: "CLOSE",
+		// 	type: "BUY_IN",
+		// 	userId: 21
+		// })
 		var type = H5bill.typeClass[item.type];
 		var bill = {
 			id: item.businessId,
@@ -120,8 +121,8 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		if (type === 'transfer' && item.extra) {
 			bill.img = item.extra.photo || ''; // 转账头像
 			if (item.extra.name) { // 转账目标
-				bill.desc += ' - ' + filters.omit(item.extra.name); //转出-L
-				bill.name = filters.omit(item.extra.name);          //L
+				bill.desc += ' - ' + filters.omit(item.extra.name); // 转出-L
+				bill.name = filters.omit(item.extra.name);          // L
 			}
 			if (item.extra.transferOutType === 'ME_WALLET' || item.extra.transferInType === 'ME_WALLET') {
 				bill.desc += ' - 我的钱包';
@@ -129,10 +130,6 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			}
 		}
 		if (type === 'phone') {
-			// if (kind === 'gop') { // 修改money数据, 使其变为人民币支付金额
-			// 	item.money = item.gopNumber * item.gopPrice - item.money;
-			// 	Math.abs(item.money) < 0.01 && (item.money = 0);
-			// }
 			if (item.extra && item.extra.phoneInfo) {
 				item.extra.phoneInfo.carrier && (bill.desc += ' - ' + item.extra.phoneInfo.carrier); // 运营商
 			}
@@ -143,10 +140,10 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 				item.extra.recordList.forEach(function(item) {
 					switch(item.payType) {
 						case 'GOP_PAY':
-							bill.change = numHandler(-item.payGop, coins['gop'], filter[kind]);
+							bill.change = numHandler(-item.payGop, coins['gop'], filter['gop']);
 							break;
 						case 'UNION_PAY':
-							bill.change = numHandler(-item.payMoney, coins['money'], filter[kind]);
+							bill.change = numHandler(-item.payMoney, coins['money'], filter['money']);
 							break;
 						default:
 							console.log('err:', item);
@@ -154,7 +151,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 					bills.push($.extend({}, bill));
 				});
 			} else {
-				bill.change = numHandler(item.money, coins['money'], filter[kind]);
+				bill.change = numHandler(item.money, coins['money'], filter['money']);
 				bills.push(bill);
 			}
 		} else {
