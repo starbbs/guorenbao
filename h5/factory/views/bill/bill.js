@@ -117,13 +117,8 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 						}, function(data) {
 							if (data.status == 200) {
 								$.alert('关闭成功');
-								buyInHandler(vm.type, vm.id, 'BUY_IN');
-
-								
-
-
-
-
+								buyInHandler(vm.type, vm.id, 'BUY_IN');//关闭订单后再刷新一下bill页面
+								bill.onClose(vm.id); //在account 的最下面hide绑定方法里面
 							}
 						});
 						break;
@@ -134,7 +129,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 						}, function(data) {
 							if (data.status == 200) {
 								$.alert('关闭成功');
-								consumeHandler(vm.type, vm.id, 'PAY');
+								consumeHandler(vm.type, vm.id, 'PAY');//关闭订单后再刷新一下bill页面
 								bill.onClose();
 							}
 						});
@@ -188,8 +183,6 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 				settings[i] = options[i];
 			}
 		}
-		console.log(initSettings);
-		console.log(settings);
 		$.extend(vm, initSettings, settings);
 		options.onRendered && options.onRendered(vm);
 	};

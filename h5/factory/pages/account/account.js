@@ -261,9 +261,36 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			getList();
 		}
 	});
-	billView.onClose = function() {
-		
+	billView.onClose = function(vmid) {
+		console.log(vmid);
+		for(var i=0; i<vm.list.length; i++){
+			for(var j=0; j<vm.list[i].days.length; j++){
+				if(vm.list[i].days[j].id == vmid){
+					for(var x=0; x<vm.list[i].days[j].bills.length; x++ ){
+						vm.list[i].days[j].bills[x].status = '已关闭';
+					}
+				}
+			}
+		}		
+		setTimeout(function(){
+			window.history.go(-1);
+		},1000);
 	};
 
+	/*
+	vm.list.every(function(month) {
+		console.log(month);
+		return month.days.every(function(day) {
+			if (day.id === 225) {
+				data = day;
+				return false;
+			}
+			return true;
+		});
+	});
+	data.bills.forEach(function(item) {
+		item.status = 'yiguanbi'
+	})
+	*/
 	init();
 });
