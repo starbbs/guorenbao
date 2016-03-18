@@ -9,6 +9,42 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 	var gopToken = $.cookie('gopToken');
 	var paypass = $('.paypass-page');
 
+	var finish = function() { // 最终
+		switch(get.data.from) {
+			case 'dialog':
+				window.location.href = './transfer.html';
+				break;
+			default:
+				window.location.href = './security.html';
+				break;
+		}
+	};
+	var dialogShow = function() { // 显示浮层
+		var timer = null;
+		var second = 3;
+		dialogSuccess.on('show', function() {
+			timer = setInterval(function() {
+				second--;
+				if (second <= 0) {
+					finish();
+					dialogSuccess.hide();
+					clearInterval(timer);
+				} else {
+					dialogSuccess.button.html('支付密码修改成功，请牢记，' + second + 's后自动跳转');
+				}
+			}, 1000);
+		});
+		dialogSuccess.set('支付密码修改成功，请牢记，3S后自动跳转');
+		dialogSuccess.show();
+	};
+
+	setTimeout(function() {
+		paypass.addClass('on');
+		if (get.data.from === 'dialog') {
+			router.to('/view/paypass-choose');
+		}
+	}, 100);
+
 	var paypass_choose = new View('paypass-choose');
 	var paypass_protection_1 = new View('paypass-protection-1');
 	var paypass_protection_2 = new View('paypass-protection-2');
@@ -73,7 +109,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 				$.alert('请输入验证码');
 			}
 		},
-		quesiotn1Click: function() {
+		quesiotn1Click: function() { // 第一个密保问题
 			api.checkQuestion({
 				gopToken: gopToken,
 				qtNumber: 1,
@@ -90,17 +126,15 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 							router.go('view/paypass-protection-2');
 						} else {
 							console.log(data);
-
 						}
 					});
-
 				} else {
 					console.log(data);
 					$.alert('验证问题错误');
 				}
 			});
 		},
-		quesiotn2Click: function() {
+		quesiotn2Click: function() { // 第二个密保问题
 			api.checkQuestion({
 				gopToken: gopToken,
 				qtNumber: 2,
@@ -117,7 +151,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 		},
 		ident: function(view) {
 			vm.chooseUrl = view;
-			//身份证认证				
+			//身份证认证
 			api.info({
 				gopToken: gopToken
 			}, function(data) {
@@ -134,7 +168,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 				}
 			});
 		},
-		authentication_click: function(e) {
+		authentication_click: function() {
 			if (vm.Idcard.length == 18) {
 				api.checkIDcard({
 					gopToken: gopToken,
@@ -151,7 +185,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 				$.alert('身份证号码格式错误');
 			}
 		},
-		paypass_click_1: function(e) {
+		paypass_click_1: function() {
 			if (vm.paypass1.length == 6) {
 				//验证支付密码
 				api.checkPayPwd({
@@ -167,12 +201,12 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 				});
 			}
 		},
-		paypass_click_2: function(e) {
+		paypass_click_2: function() {
 			if (vm.paypass2.length == 6) {
 				router.go('view/paypass-view-3');
 			}
 		},
-		paypass_click_3: function(e) {
+		paypass_click_3: function() {
 			if (vm.paypass2 == vm.paypass3 && vm.paypass3.length == 6) {
 				api.setPayPassword({
 					gopToken: gopToken,
@@ -184,22 +218,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 						vm.paypass3 = '';
 						vm.Idcard = '';
 						vm.identifyingCode = '';
-						var successTimer = null;
-						var s = 3;
-						dialogSuccess.on('show', function() {
-							successTimer = setInterval(function() {
-								s--;
-								if (s == 0) {
-									clearInterval(successTimer);
-									window.location.href = 'security.html';
-									dialogSuccess.hide();
-								} else {
-									dialogSuccess.button.html('支付密码修改成功，请牢记，' + s + 's后自动跳转');
-								}
-							}, 1000);
-						});
-						dialogSuccess.set('支付密码修改成功，请牢记，3S后自动跳转');
-						dialogSuccess.show();
+						dialogShow();
 					} else {
 						console.log(data);
 						$.alert(data.msg);
@@ -208,7 +227,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 			} else {
 				$.alert('两次输入不一致');
 			}
-		}
+		},
 	});
 
 	avalon.scan();
@@ -230,11 +249,4 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 			$.alert(data.msg);
 		}
 	});
-
-	setTimeout(function() {
-		paypass.addClass('on');
-		if (get.data.from === 'dialog') {
-			router.to('/view/paypass-choose');
-		}
-	}, 100);
 });
