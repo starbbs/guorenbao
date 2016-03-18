@@ -10,6 +10,10 @@
     <link rel="stylesheet" type="text/css" href="./css/tradingfloor.css">
     <script type="text/javascript" src="./js/jquery-1.12.1.min.js"></script>
     <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
+
+    <script type="text/javascript" src="./js/require.js"></script>
+    <script type="text/javascript" src="./js/config.js"></script>
+    <script type="text/javascript" src="./js/tradingfloor.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -20,27 +24,27 @@
                 <div class="quoted_price_top_wrapper">
                     <div class="quoted_price_first quot_price">
                         <div>最新成交价</div>
-                        <div>¥<em id="thelatestprice">3.00</em><i></i></div>
+                        <div>¥<em id="thelatestprice_floor"></em><i></i></div>
                     </div>
                     <div class="quoted_price_second quot_price">
                         <div>买一价</div>
-                        <div>¥<em id="buyonece_price">3.10</em></div>
+                        <div>¥<em id="buyonece_price_floor"></em></div>
                     </div>
                     <div class="quoted_price_third quot_price">
                         <div>卖一价</div>
-                        <div>¥<em id="sellonece_price">3.01</em></div>
+                        <div>¥<em id="sellonece_price_floor"></em></div>
                     </div>
                     <div class="quoted_price_fourth quot_price">
                         <div>最高价</div>
-                        <div>¥<em id="thehighest_price">3.23</em></div>
+                        <div>¥<em id="thehighest_price_floor"></em></div>
                     </div>
                     <div class="quoted_price_fivth quot_price">
                         <div>最低价</div>
-                        <div>¥<em id="thehighest_price">3.01</em></div>
+                        <div>¥<em id="thelowest_price_floor"></em></div>
                     </div>
                     <div class="quoted_price_sixth quot_price">
                         <div>累计成交量</div>
-                        <div>11200.00</div>
+                        <div id="thecumulativevolume_floor"></div>
                     </div>
                 </div>
                 <!-- <div class="quoted_price_seventh quot_price">
@@ -329,7 +333,7 @@
     <script type="text/javascript" src="./js/exporting.js"></script>
     <script type="text/javascript">
     $(function() {
-        $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=aapl-ohlcv.json&callback=?', function(data) {
+        /*$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=aapl-ohlcv.json&callback=?', function(data) {
             // split the data set into ohlc and volume
             var ohlc = [],
                 volume = [],
@@ -406,7 +410,7 @@
                     }
                 }]
             });
-        });
+        });*/
 
         $("#slider_limited_price").slider({
             value: 0,

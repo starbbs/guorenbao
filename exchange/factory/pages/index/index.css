@@ -314,6 +314,22 @@ progress::-webkit-progress-value {
     font-weight: 600;
 }
 
+/* .quot_price_sixth div:nth-of-type(3) {
+    top: 40px;
+    font-size: 2.0rem;
+    position: relative;
+    color: #333333;
+    font-weight: 600;
+} */
+#cumulativevolume{
+    top: 40px;
+    font-size: 2.0rem;
+    position: relative;
+    color: #333333;
+    font-weight: 600;
+
+}
+
 .quoted_price_fourth div:last-child {
     color: #dd0900;
 }
@@ -453,6 +469,19 @@ progress::-webkit-progress-value {
 }
 .sell_color{
     color:#00951c;
+}
+#pricechangeratio{
+    color:#00951c;
+}
+.goopal_logo{
+        background: url('../images/goopal_logo.png') no-repeat 0 0;
+    position: absolute;
+    /* top: 51px; */
+    left: 0;
+    width: 13px;
+    height: 18px;
+    /* float: left; */
+    left: 12px;
 }
 
 .table_con {
