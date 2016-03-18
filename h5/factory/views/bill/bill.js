@@ -117,8 +117,12 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 						}, function(data) {
 							if (data.status == 200) {
 								$.alert('关闭成功');
-								buyInHandler(vm.type, vm.id, 'BUY_IN');//关闭订单后再刷新一下bill页面
-								bill.onClose(vm.id); //在account 的最下面hide绑定方法里面
+								//buyInHandler(vm.type, vm.id, 'BUY_IN'); // 关闭订单后再刷新一下bill页面更新交易状态
+								buyInHandler(vm.type, vm.id, { onRequest : function(data){
+									console.log(data.data.buyinOrder.updateTime);
+									bill.onClose(data.data.buyinOrder.id , data.data.buyinOrder.updateTime);
+								}});
+								 // 在account 的最下面hide绑定方法里面
 							}
 						});
 						break;
@@ -271,7 +275,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 				gopNum: order.gopNum, // 买果仁--果仁数
 				gopPrice: order.price, // 买果仁--成交价
 				buyMoney: order.payMoney, // 买果仁--支付金额
-				productDesc: order.businessDesc, // 商品信息
+				productDesc: order.businessDesc || '买果仁', // 商品信息
 			}), options);
 		});
 	};

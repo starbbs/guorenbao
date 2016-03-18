@@ -264,24 +264,24 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 	});
 	//此函数为oncfirm事件时候的回调函数
 	console.log(vm.list);
-	billView.onClose = function(vmid) {
-
+	billView.onClose = function(vmid , vmtime) {
 		for(var i=0; i<vm.list.length; i++){
 			for(var j=0; j<vm.list[i].days.length; j++){
-				if(vm.list[i].days[j].id == vmid){//先查找ID所在的days数组  再保存ID所在数组  再删除  再从头添加
-					vm.list[i].days[j].time = mydate.getCurHourMinu(new Date());
+				if(vm.list[i].days[j].id == vmid){//先查找ID所在的days数组  再保存ID所在数组到本月第一条  再删除前数组  再从days头添加id所在的数组  2016-03-18 15:48:49
+					vm.list[i].days[j].time = vmtime.substr(vmtime.indexOf(' ')+1,5);
 					for(var x=0; x<vm.list[i].days[j].bills.length; x++ ){
-						vm.list[i].days[j].bills[x].status = '已关闭1111';
+						vm.list[i].days[j].bills[x].status = '已关闭';
 					}
 					var closeArrDay = vm.list[i].days[j];
 					vm.list[i].days.splice(j,1);
-					vm.list[i].days.unshift(closeArrDay);
+					vm.list[0].days.unshift(closeArrDay);
+					break;
 				}
 			}
 		}		
 		setTimeout(function(){
 			window.history.go(-1);
-		},1000);
+		},1500);
 	};
 
 	/*
