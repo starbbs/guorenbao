@@ -32,11 +32,11 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		click: true,
 		//useTransition: false,
 		onScrollMove: function() {
-			console.log('move');
+			// console.log('move');
 		},
 		onScrollEnd: function() {
-			console.log(this.maxScrollY+'====='+this.y);
-			//this.y 卷上去的
+			// console.log(this.maxScrollY+'====='+this.y);
+			// this.y 卷上去的
 			if (this.y - bottomHeight < this.maxScrollY) {
 				getList();
 			}
@@ -167,7 +167,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		return data.map(function(item) { // 确定时间
 			return $.extend(item, {
 				// _date: mydate.parseDate(item.status === 'SUCCESS' ? item.businessTime : item.createTime),
-				_date: mydate.parseDate(item.businessTime || item.createTime),
+				_date: mydate.parseDate(item.businessTime),
 			});
 		}).sort(function(item1, item2) { // 排序
 			return item2._date.getTime() - item1._date.getTime();
