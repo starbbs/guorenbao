@@ -26,71 +26,56 @@ define('h5-view-password', ['api', 'router', 'check', 'h5-view', 'h5-ident', 'h5
 		dialogSuccess.show();
 	};
 
-	var viewPassword = {
-		forget: (function() {
-			var forget = new View('password-forget');
-			var phoneInput = $('#password-forget-mobile');
-			var identInput = $('#password-forget-identify');
-			var vm = avalon.define({
-				$id: 'password-forget',
-				ifNext: false,
-				identInput: function() { // 验证码输入
-					vm.ifNext = false;
-					ident.input(phoneInput, identInput, function() {
-						vm.ifNext = true;
-					});
-				},
-				next: function() {
-					if (vm.ifNext) {
-						router.go('/view/password-set');
-					}
-				}
+	var viewPassword = {};
+
+	var forget = viewPassword.forget = new View('password-forget');
+	var forgetPhone = $('#password-forget-mobile');
+	var forgetIdent = $('#password-forget-identify');
+	var forgetViewModel = avalon.define({
+		$id: 'password-forget',
+		ifNext: false,
+		phone: '', // 双向绑定
+		ident: '', // 双向绑定
+		identInput: function() { // 验证码输入
+			forgetViewModel.ifNext = false;
+			ident.input(forgetPhone, forgetIdent, function() {
+				forgetViewModel.ifNext = true;
 			});
-			avalon.scan(forget.native, vm);
-			return forget;
-		})(),
-		set: (function() {
-			var set = new View('password-set');
-			var passwordInput = $('#password-set-mobile');
-			var vm = set.vm = avalon.define({
-				$id: 'password-set',
-				pwdOld: null,
-				identifyingCode: null,
-				newPass: '',
-				identifyingCode: '',
-				ifNext: false,
-				input: function() {
-					vm.ifNext = check.password(passwordInput.val()).result;
-					console.log(111);
-				},
-				next: function() {
-					if (vm.ifNext) {
-						var gopToken = $.cookie('gopToken');
-						var openId = $.cookie('openId');
-						api.setLoginPassword({
-							gopToken: gopToken,
-							openId: openId,
-							password: vm.newPass,
-							pwdOld: vm.pwdOld,
-							identifyingCode: vm.identifyingCode
-						}, function(data) {
-							if (data.status == 200) {
-								dialogShow();
-							} else {
-								$.alert(data.status + ': ' + data.msg);
-							}
-						});
+		},
+		next: function() {
+			if (forgetViewModel.ifNext) {
+				router.go('/view/password-set');
+			}
+		}
+	});
+	avalon.scan(forget.native, forgetViewModel);
+
+	var set = viewPassword.set = new View('password-set');
+	var setViewModel = avalon.define({
+		$id: 'password-set',
+		password: '', // 双向绑定
+		ifNext: false,
+		input: function() {
+			setViewModel.ifNext = check.password(this.value).result;
+		},
+		next: function() {
+			if (setViewModel.ifNext) {
+				console.log(forgetViewModel.phone, forgetViewModel.ident, setViewModel.password);
+				api.resetLoginPassword({
+					phone: forgetViewModel.phone,
+					identifyingCode: forgetViewModel.ident,
+					password: setViewModel.password,
+				}, function(data) {
+					if (data.status == 200) {
+						dialogShow();
+					} else {
+						$.alert(data.status + ': ' + data.msg);
 					}
-				}
-			});
-			avalon.scan(set.native, vm);
-			return set;
-		})(),
-		success: (function() {
-			var success = new View('password-success');
-			return success;
-		})(),
-	};
+				});
+			}
+		}
+	});
+	avalon.scan(set.native, setViewModel);
 
 	return viewPassword;
 });

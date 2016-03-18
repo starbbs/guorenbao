@@ -28,8 +28,6 @@
 	&-style {
 
 		@extend %afull;
-		overflow-x: hidden;
-		overflow-y: auto;
 		@include t3d(0);
 		background-color: $g-background;
 
@@ -45,6 +43,11 @@
 		}
 		&:after {
 			bottom: - $height;
+		}
+
+		&.scroll {
+			overflow-x: hidden;
+			overflow-y: auto;
 		}
 
 		&.show {
