@@ -32,12 +32,13 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		click: true,
 		//useTransition: false,
 		onScrollMove: function() {
-			// console.log('move');
+			console.log(this.y>=70);
 		},
 		onScrollEnd: function() {
-			// console.log(this.maxScrollY+'====='+this.y);
 			// this.y 卷上去的
-			if (this.y - bottomHeight < this.maxScrollY) {
+			console.log((this.y - bottomHeight < this.maxScrollY) || this.y>=70);
+			if ((this.y - bottomHeight < this.maxScrollY) || this.y>=70) {
+				alert(11);
 				getList();
 			}
 		},
