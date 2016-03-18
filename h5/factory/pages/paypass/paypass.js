@@ -15,7 +15,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 				window.location.href = './transfer.html';
 				break;
 			default:
-				window.location.href = './security.html';
+				window.location.href = './mine.html';
 				break;
 		}
 	};

@@ -3,9 +3,12 @@
 
 
 require(['router', 'api', 'h5-view', 'h5-view-password', 'h5-weixin'], function(router, api, View, viewPassword) {
+
 	router.init(true);
+
 	var gopToken = $.cookie('gopToken');
 	var password = $('.password');
+
 	var vm = avalon.define({
 		$id: 'password',
 		pass: '',
