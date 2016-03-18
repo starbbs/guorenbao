@@ -104,4 +104,36 @@ $(function(){
                 console.log('财务中心-人民币提现历史表格，加载失败。');
             }
         });
+
+        //实名认证用户充值-显示/隐藏-提示文本内容
+        $(".accountholder_tip").hover(function(){
+            $(".tipscontent").toggle();
+        });
+
+        //打开弹出层-生成汇款单
+        $(".build-remit-layer").click(function(){
+            $(".mydiv").css("display","block");
+            $(".bg").css("display","block");
+        });
+        //关闭弹出层 -生成汇款单
+        $(".span-text").click(function(){
+            $(".mydiv").css("display","none");
+            $(".bg").css("display","none");
+        });
+
+        //生成汇款单里的填充文本
+        $(".build_remit_btn").click(function(){
+            $(".remittance-id").text(Math.random()*10E16);
+
+            if($("#bank-idcard").val())
+            return $(".bank-card").text($("#bank-idcard").val());
+            if($("#bank-username").val())
+            return $(".bank-name").text($("#bank-username").val());
+            if($("#username").val())
+            return $(".account-name").text($("#username").val());
+            if($("#bank-money").val())
+            return $(".money").text($("#bank-money").val());
+            /*$(".remittance-note-number").text();*/
+        });
+        
     });

@@ -26,7 +26,7 @@
         //暂无真实接口-为出现效果,暂时放这里,有接口时,删除 -结束
         
         $.ajax({
-            url: "http://127.0.0.1/1.json",
+            url: "http://IP:PORT/bill/billList",
             type:"post",
             dataType: "json",
             cache: false,

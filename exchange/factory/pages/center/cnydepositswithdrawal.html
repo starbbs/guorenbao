@@ -62,16 +62,16 @@
                         </div>
                         <div class="rg_rg_input">
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入开户人姓名" id="username"/>
+                                <input class="regist_rg_input" type="text" placeholder="请输入开户人姓名" id="bank-username"/>
                                 <span>请输入正确开户人姓名</span>
                             </div>
 
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入您想充值的整数金额" id="idcard"/>
+                                <input class="regist_rg_input" type="text" placeholder="请输入您想充值的整数金额" id="bank-money"/>
                                 <span>请输入正确的整数金额</span>
                             </div>
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入银行账号" id="idcard"/>
+                                <input class="regist_rg_input" type="text" placeholder="请输入银行账号" id="bank-idcard"/>
                                 <span>请输入正确的银行账号</span>
                             </div>
                             <div class="regist_input_div">
@@ -82,13 +82,13 @@
                                 <input class="regist_rg_input" type="text" placeholder="请输入与银行卡对应的手机号" id="idcard"/>
                                 <span>请输入手机号码</span>
                             </div>
-                            <div class="build_remit_btn">生成汇款单</div>
+                            <div class="build_remit_btn build-remit-layer">生成汇款单</div>
                         </div>
                         <div class="accountholder_tip">注意：只接受实名认证用户进行充值
                             <div class="accountholder_tipafter">
                                 
                             </div>
-                            <div class="tipscontent">
+                            <div class="tipscontent" style="display:none;">
                                 为了响应国家政策号召，保证您的资金安全， 果仁买卖中心实行实名充值流程。请务必确保银行充值账户开户姓名与果仁买卖中心实名认证证件姓名一致，非实名充值资金被退回充值银行卡。
                             </div>
                         </div>
@@ -192,7 +192,7 @@
                                 <span>请输入正确的整数金额</span>
                             </div>
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="CNY" id="idcard"/>
+                                <input class="regist_rg_input" type="text" placeholder="CNY" id="bank-idCardNumber"/>
                                 <span>请输入正确的银行账号</span>
                             </div>
                             <div class="regist_input_div">
@@ -266,6 +266,31 @@
                 </div>
             </div>
         </div>
+        <!-- 弹出框内容 -->
+        <div class="mydiv" style="display:none;">
+            <ul class="mydiv-ul-1">
+                <li>您的汇款单</li>
+                <li>汇款单号：<span class="remittance-id">1234567891234567</span></li>
+                <li>银行账号</li>
+                <li class="bank-card">1111 1111 1111 1111</li>
+                <li>开户银行</li>
+                <li class="bank-name">中国XX银行</li>
+                <li>开户姓名</li>
+                <li class="account-name">北京果汇科技信息有限公司</li>
+                <li>本次充值金额</li>
+                <li class="money">¥5000.00</li>
+                <li>汇款备注编号</li>
+                <li class="remittance-note-number">461235</li>
+            </ul>
+            <p>请使用<span>招商银行网</span>银对上述账户进行转账（或前往柜台进行汇款）</p>
+            <div>
+                <span class="span-btn">前往招商银行网银进行汇款</span>
+                <span class="span-text">我知道了</span>
+            </div>
+        </div>
+        <!-- 遮罩全屏的背景层 -->
+        <div class="bg" style="display:none;"></div>
+        <!-- 弹出框内容 end -->
         @@include('../../includes/bottom/bottom.html')
     </div>
 </body>
