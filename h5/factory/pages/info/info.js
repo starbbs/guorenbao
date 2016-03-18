@@ -5,7 +5,7 @@
 
 require(['api', 'router', 'get', 'h5-view-bill', 'h5-weixin'], function(api, router, get, billView) {
 
-	router.init();
+	router.init(true);
 
 	var gopToken = $.cookie('gopToken');
 
