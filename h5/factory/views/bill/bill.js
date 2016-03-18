@@ -119,7 +119,6 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 								$.alert('关闭成功');
 								//buyInHandler(vm.type, vm.id, 'BUY_IN'); // 关闭订单后再刷新一下bill页面更新交易状态
 								buyInHandler(vm.type, vm.id, { onRequest : function(data){
-									console.log(data.data.buyinOrder.updateTime);
 									bill.onClose(data.data.buyinOrder.id , data.data.buyinOrder.updateTime);
 								}});
 								 // 在account 的最下面hide绑定方法里面
@@ -387,6 +386,9 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 		});
 	};
 
+	bill.on('hide',function(){
+		dialogConfirm.hide();
+	});
 	return $.extend(bill, {
 		set: set, // 设置账单
 		// vm: vm, // 账单vm(不建议暴露)

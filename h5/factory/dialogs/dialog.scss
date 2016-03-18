@@ -71,10 +71,11 @@
 		padding: 25px 30px 20px;
 	}
 	&-button { // alert, confirm的按钮部分
+		overflow: hidden;
 		border-top: 1px solid #999;
 		font-size: $g-font-input;
 		line-height: 44px;
-		display: flex;
+		// display: flex;
 	}
 	&-bottom { // bankcard, paypass的主体
 		@include ablw;
