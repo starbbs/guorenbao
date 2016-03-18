@@ -275,7 +275,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 				gopNum: order.gopNum, // 买果仁--果仁数
 				gopPrice: order.price, // 买果仁--成交价
 				buyMoney: order.payMoney, // 买果仁--支付金额
-				productDesc: order.businessDesc || '买果仁', // 商品信息
+				productDesc: order.businessDesc || '果仁', // 商品信息
 			}), options);
 		});
 	};
