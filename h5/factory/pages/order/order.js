@@ -219,8 +219,7 @@ require(['api', 'get', 'router',
 		document.title = {
 			phonecharge: '订单-手机充值', // 来自手机充值
 			loverelay: '订单-爱心接力', // 来自爱心接力
-			undefined: '订单', // 无来源
-		}[get.data.from];
+		}[get.data.from] || '果仁宝-订单'; // 未知来源
 
 		avalon.scan();
 	});

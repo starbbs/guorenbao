@@ -62,7 +62,6 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		}, function(data) {
 			if (data.status == 200) {
 				vm.loading = false;
-				console.log(dataHandler(originList.concat(data.data.list)));
 				vm.list = dataHandler(originList = originList.concat(data.data.list));
 				// vm.list.pushArray(dataHandler(data.data.list));
 				page = data.data.list.length < size ? 0 : page + 1; // 是否停止请求
@@ -164,35 +163,37 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		}
 	};
 	var dataHandler = function(data) { //时间处理同时获取交易的信息
-		//data 列表所有的数据条目
+		// data 列表所有的数据条目
 		return data.map(function(item) { // 确定时间
-			item._date = mydate.parseDate(item.status === 'SUCCESS' ? item.businessTime : item.createTime);
-			item._dateTime = item._date.getTime();
-			return item;
+			return $.extend(item, {
+				// _date: mydate.parseDate(item.status === 'SUCCESS' ? item.businessTime : item.createTime),
+				_date: mydate.parseDate(item.businessTime || item.createTime),
+			});
 		}).sort(function(item1, item2) { // 排序
-			return item2._dateTime - item1._dateTime;
+			return item2._date.getTime() - item1._date.getTime();
 		}).reduce(function(result, item) { // 提取
 			var time = mydate.timeHandler(item._date); 	//time格式如下
-			//item._date ==> Wed Mar 16 2016 13:24:11 GMT+0800 (中国标准时间)
-			//把 date格式的数据 转化成
-			//{	year:'2016',
-			//	month:'2',
-			//	month2:'3',
-			//	month3:'三',
-			//	date:16,
+			// item._date ==> Wed Mar 16 2016 13:24:11 GMT+0800 (中国标准时间)
+			// 把 date格式的数据 转化成
+			// {
+			// 	year: '2016',
+			//	month: '2',
+			//	month2: '3',
+			//	month3: '三',
+			//	date: 16,
 			//	day: 3,
 			//	day2:'三',
-			//	hour:  13,
-			//	hour2:'13',
-			//	minute:24,
-			//	minute2:'24'
-			//}
+			//	hour: 13,
+			//	hour2: '13',
+			//	minute: 24,
+			//	minute2: '24'
+			// }
 			var type = H5bill.typeClass[item.type];
 			var bills = [];
-			//item是data里面的每一条数据
+			// item是data里面的每一条数据
 			switch (type) { // 账单类型
 				case 'phone': // 消费果仁, 果仁+人民币
-					dataAdd('all', bills, item);          //dataAdd主要是给bills添加交易的信息
+					dataAdd('all', bills, item); // dataAdd主要是给bills添加交易的信息
 					break;
 				case 'buy': // 买果仁, 人民币
 					dataAdd('money', bills, item);

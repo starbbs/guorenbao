@@ -73,7 +73,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 				$.alert('请输入验证码');
 			}
 		},
-		quesiotn1_click: function() {
+		quesiotn1Click: function() {
 			api.checkQuestion({
 				gopToken: gopToken,
 				qtNumber: 1,
@@ -100,7 +100,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 				}
 			});
 		},
-		quesiotn2_click: function() {
+		quesiotn2Click: function() {
 			api.checkQuestion({
 				gopToken: gopToken,
 				qtNumber: 2,
