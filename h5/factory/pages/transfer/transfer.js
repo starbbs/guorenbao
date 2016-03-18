@@ -370,7 +370,11 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 					var transferOutType = vm.transferOutType;
 					if (vm.transferOutType.indexOf('NEW') > 0) {
 						transferOutType = 'NEW';
-						transferTarget.serviceFee = 0;
+						if(vm.transferOutType=="GOP_NEW"){
+							transferTarget.serviceFee = 0.00;
+						}else{
+							transferTarget.serviceFee = 0.01;
+						}
 					}
 					api.transfer({
 						gopToken: gopToken,
