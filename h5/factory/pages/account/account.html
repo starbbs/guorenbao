@@ -35,6 +35,10 @@
 	<div class="alert"></div>
 	<div class="view">
 		@@include('../../views/bill/bill.html')
+		@@include('../../views/nickname/nickname.html', {
+			"label": "备注名",
+			"placeholder": "请输入备注名"
+		})
 	</div>
 	<div class="dialog">
 		@@include('../../dialogs/confirm/confirm.html')

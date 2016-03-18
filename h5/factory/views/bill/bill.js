@@ -3,11 +3,15 @@
 
 
 define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-component-bill', 'h5-view-nickname', 'h5-dialog-confirm'], function(View, api, router, weixin, filters, H5bill, nicknameView, dialogConfirm) {
+
 	var gopToken = $.cookie('gopToken');
+
 	var bill = new View('bill');
 	var main = $('.bill');
+
 	var nowData = null; // 当前使用的后台原始数据
 	var phoneRepayData = null; // 手机重新支付数据
+
 	var initSettings = { // 初始化
 		id: '', // 账单ID
 		type: '', // 类型
@@ -144,6 +148,11 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 		},
 	}, initSettings));
 	avalon.scan(main.get(0), vm);
+
+	nicknameView.vm.callback = function() { // 这是备注名回调, 更新详情备注名, (尚未更新列表备注名)
+		vm.transferName = nicknameView.vm.bickname;
+	};
+
 	/**
 	 * [set 设置账单详情]
 	 * @Author   张树垚
@@ -202,7 +211,10 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 				setOne('transferName', data.data.remark || data.data.nick || '未命名地址');
 				setOne('transferImg', data.data.photo || '');
 				setOne('transferAddress', filters.phone(data.data.phone) || filters.address(data.data.address) || '');
-				!data.data.remark && vm.type === 'TRANSFER_OUT' && vm.status === 'SUCCESS' && setOne('ifSetNickname', true); // 显示"设置备注名"的判断, 没有备注名且转账成功
+				if (!data.data.remark && vm.type === 'TRANSFER_OUT' && vm.status === 'SUCCESS') { // 显示"设置备注名"的判断, 没有备注名且转账成功
+					setOne('ifSetNickname', true);
+					nicknameView.vm.id = personId;
+				}
 			}
 		});
 	};
@@ -349,18 +361,6 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 				return;
 			}
 			var order = data.data.transferIn;
-			//order = {
-			//			gopNum: 0.7,
-			//			id: 235
-			//			personId: 59
-			//			serialNum: "1603154800000002230"
-			//			status: "SUCCESS"
-			//			transContent: "11111111111111111111"
-			//			transferTime: "2016-03-15 15:38:29"
-			//			transferUserId: 21
-			//			type: "GOP_CONTACT"
-			//			userId: 22
-			//			}
 			setVM($.extend(transferHandler(type, id, order), {
 				transferSign: '+',
 			}), options);
