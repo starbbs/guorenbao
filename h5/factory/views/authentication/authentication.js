@@ -71,5 +71,8 @@ define('h5-view-authentication', ['h5-view', 'api','h5-dialog-alert', 'h5-text',
 	});
 
 	avalon.scan(view.native, vm);
+	view.on('hide',function(){
+		dialogAlert.hide();
+	});
 	return view;
 });

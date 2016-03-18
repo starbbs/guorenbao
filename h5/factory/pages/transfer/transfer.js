@@ -4,11 +4,11 @@
 
 require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 	'h5-view-nickname', 'h5-view-address-mine', 'h5-view-address-wallet', 'h5-view-bill',
-	'h5-dialog-paypass', 'h5-view-authentication',
+	'h5-dialog-paypass','h5-dialog-alert', 'h5-view-authentication',
 	'h5-text', 'h5-weixin'
 ], function(router, api, View, price, get, filters,
 	nickname, address_mine, address_wallet, billView,
-	dialogPaypass, viewAuthentication) {
+	dialogPaypass,dialogAlert, viewAuthentication) {
 
 	router.init();
 
@@ -155,6 +155,10 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 			targetInit(vm.transferOutType);
 			router.go('/view/transfer-target');
 		},
+		showAuthenDes:function(){
+			dialogAlert.set('为保证您的账户资金安全，请您输入真实姓名，实名信息校验正确后不可更改');
+			dialogAlert.show();
+		}
 	});
 
 
