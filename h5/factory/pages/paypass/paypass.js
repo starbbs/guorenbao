@@ -45,14 +45,14 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 		}
 	}, 100);
 
-	var paypass_choose = new View('paypass-choose');
-	var paypass_protection_1 = new View('paypass-protection-1');
-	var paypass_protection_2 = new View('paypass-protection-2');
-	var paypass_authentication = new View('paypass-authentication');
-	var paypass_ident = new View('paypass-ident');
-	var paypass_view_1 = new View('paypass-view-1');
-	var paypass_view_2 = new View('paypass-view-2');
-	var paypass_view_3 = new View('paypass-view-3');
+	new View('paypass-choose');
+	new View('paypass-protection-1');
+	new View('paypass-protection-2');
+	new View('paypass-authentication');
+	new View('paypass-ident');
+	new View('paypass-view-1');
+	new View('paypass-view-2');
+	new View('paypass-view-3');
 
 	var vm = avalon.define({
 		$id: 'paypass',
@@ -70,7 +70,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 		hasProtected: true,
 		hasRealName: true,
 		chooseUrl: '',
-		checkCode_click: function() {
+		checkCodeClick: function() {
 			if (vm.identifyingCode) {
 				api.phoneIdentifyingCode({
 					gopToken: gopToken,
@@ -168,7 +168,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 				}
 			});
 		},
-		authentication_click: function() {
+		authenticationClick: function() {
 			if (vm.Idcard.length == 18) {
 				api.checkIDcard({
 					gopToken: gopToken,
@@ -185,7 +185,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 				$.alert('身份证号码格式错误');
 			}
 		},
-		paypass_click_1: function() {
+		paypass1Click: function() {
 			if (vm.paypass1.length == 6) {
 				//验证支付密码
 				api.checkPayPwd({
@@ -201,12 +201,12 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 				});
 			}
 		},
-		paypass_click_2: function() {
+		paypass2Click: function() {
 			if (vm.paypass2.length == 6) {
 				router.go('view/paypass-view-3');
 			}
 		},
-		paypass_click_3: function() {
+		paypass3Click: function() {
 			if (vm.paypass2 == vm.paypass3 && vm.paypass3.length == 6) {
 				api.setPayPassword({
 					gopToken: gopToken,
