@@ -89,6 +89,9 @@ define('mydate', function() {
 		date2String:function(date){      //日期转成字符串  Sun Mar 13 2016 00:00:00 GMT+0800 (中国标准时间) ==> 2016-3-10
 			return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
 			//return date.toLocaleString().split(' ')[0].replace(/\//g,'-');
+		},
+		getCurHourMinu:function(date){
+			return date.getHours()+':'+date.getMinutes();
 		}
 	});
 

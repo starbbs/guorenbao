@@ -262,14 +262,20 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			getList();
 		}
 	});
+	//此函数为oncfirm事件时候的回调函数
+	console.log(vm.list);
 	billView.onClose = function(vmid) {
-		console.log(vmid);
+
 		for(var i=0; i<vm.list.length; i++){
 			for(var j=0; j<vm.list[i].days.length; j++){
-				if(vm.list[i].days[j].id == vmid){
+				if(vm.list[i].days[j].id == vmid){//先查找ID所在的days数组  再保存ID所在数组  再删除  再从头添加
+					vm.list[i].days[j].time = mydate.getCurHourMinu(new Date());
 					for(var x=0; x<vm.list[i].days[j].bills.length; x++ ){
-						vm.list[i].days[j].bills[x].status = '已关闭';
+						vm.list[i].days[j].bills[x].status = '已关闭1111';
 					}
+					var closeArrDay = vm.list[i].days[j];
+					vm.list[i].days.splice(j,1);
+					vm.list[i].days.unshift(closeArrDay);
 				}
 			}
 		}		

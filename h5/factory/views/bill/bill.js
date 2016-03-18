@@ -130,7 +130,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 							if (data.status == 200) {
 								$.alert('关闭成功');
 								consumeHandler(vm.type, vm.id, 'PAY');//关闭订单后再刷新一下bill页面
-								bill.onClose();
+								bill.onClose(vm.id);
 							}
 						});
 						break;
