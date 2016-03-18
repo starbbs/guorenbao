@@ -1,4 +1,4 @@
-define('mkt_info', ['api_mkt'], function(api_mkt) {
+﻿define('mkt_info', ['api_mkt'], function(api_mkt) {
 	var price = {
 		interval: 1000,
 		timer: null,
@@ -28,11 +28,19 @@ define('mkt_info', ['api_mkt'], function(api_mkt) {
         var minute = now.getMinutes();
         var second = now.getSeconds();
         //return year + "-" + month + "-" + date + "   ";
-        return hour + ":" + minute + ":" + second;
-        //return year + "-" + month + "-" + date + "   " + hour + ":" + minute + ":" + second;
+        
+        if(hour<10){
+        	hour = "0"+hour;
+        }
+        if(minute<10){
+        	minute = "0"+minute;
+        }
+        if(second<10){
+        	second = "0"+second;
+        }
+        //return hour + ":" + minute + ":" + second;
+        return year + "-" + month + "-" + date + "   " + hour + ":" + minute + ":" + second;
     }
-    //var d = new Date(1230999938);
-    //alert(formatDate(d));
 
 	var updateprice = function(haha){
 		var thelatestprice = JSON.parse(haha['order'][0]).price;
@@ -47,59 +55,35 @@ define('mkt_info', ['api_mkt'], function(api_mkt) {
 		
 		var total = Number(haha['total']);
 		var unknow = Number((thelatestprice/24)-1);
-		$('#cumulativevolume').html(total.toFixed(2));
+		$('#cumulativevolumeem').html(total.toFixed(2));
 		$('#pricechangeratio').html(unknow.toFixed(2)+"%");
-
-		//table_three
-		/*<div class="table_row">
-            <div class="table_con">12:08:09</div>
-            <div class="table_con sell_color"></div>
-            <div class="table_con">3.12</div>
-            <div class="table_con">3200.00</div>
-        </div>*/
-        
-        //console.log(haha);
-        //console.log("hi")
-
         var bid_history_list_html = "";
-
         var orderlist = haha['order'];
-        //console.log(orderlist.length)
         for (var i = 0; i < orderlist.length; i++) {
-        	//console.log(orderlist[i]);
-        	//var timestr = orderlist[i]['time'];
-        	var timestr = JSON.parse(orderlist[i]);
-        	
-        	console.log(timestr);
+        	var orderliststr = JSON.parse(orderlist[i]);
+        	var d = new Date(orderliststr.time);
+        	var timestr = formatDate(d);
+        	var buyorsell = orderliststr.type;
+        	if(buyorsell=="BUY"){
+        		buyorsell = "买入";
+        		sell_color = "buy_color";
+        	}
+        	if(buyorsell=="SELL"){
+        		buyorsell = "卖出";
+        		sell_color = "sell_color";
+        	}
         	bid_history_list_html +="<div class='table_row'>"+
-        	"<div class='table_con'></div><div class='table_con sell_color'></div>"+
-        	"<div class='table_con'>3.12</div><div class='table_con'>3.12</div>"+
+        	"<div class='table_con'>"+timestr+"</div><div class='table_con "+sell_color+"'>"+buyorsell+"</div>"+
+        	"<div class='table_con'>"+orderliststr.price+"</div><div class='table_con'>"+orderliststr.num+"</div>"+
         	"</div>";
-			formatDate(new Date(timestr));
         }
+        $("#table_three").html(bid_history_list_html);
 	}
-
-
-
-
 	var get = price.get = function() {
 		once(function(next){
 			updateprice(next);
 			price.timer = setTimeout(price.get, price.interval);
 		});
-		// once(function(next) {
-		// 	var now = price.now;
-		// 	var change = next - now;
-		// 	if (now === false) {
-		// 		price.onFirstChange(next);
-		// 	}
-		// 	price.onUpdate(next, now);
-		// 	if (change && now !== false) {
-		// 		price.onChange(next, now, change);
-		// 	}
-		// 	price.now = next;
-		// 	price.timer = setTimeout(price.get, price.interval);
-		// });
 	};
 	return price;
 });

@@ -13,44 +13,23 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 		});
 	};
 	var updatebuy_sell = function(haha){
-		// var thelatestprice = JSON.parse(haha['order'][0]).price;
-		// $('#thelatestprice').html(thelatestprice);      //最新成交价赋值
-		// var turnover = Number(haha['24Total']).toFixed(2);
-		// $('#turnover').html(turnover);  		        //24小时成交量
-		// var low24 = Number(haha['24low']);
-		// var high24 = Number(haha['24high']);
-		// $('#thehighest_price').html(low24.toFixed(2));  //
-		// $('#thelowest_price').html(high24.toFixed(2));  //
-		// var high24 = Number(haha['24high']);
-		
-		// var total = Number(haha['total']);
-		// var unknow = Number((thelatestprice/24)-1);
-		// $('#cumulativevolume').html(total.toFixed(2));
-		// $('#pricechangeratio').html(unknow.toFixed(2)+"%");
-
-		//table_three
-		/*<div class="table_row">
-            <div class="table_con">12:08:09</div>
-            <div class="table_con sell_color">卖出</div>
-            <div class="table_con">3.12</div>
-            <div class="table_con">3200.00</div>
-        </div>*/
-        //console.log(haha);
-        //console.log(haha['sell']);
-        //console.log(JSON.parse(haha['sell']));
-
+		//console.log(haha);
         var list_sell = JSON.parse(haha['sell']);
         var list_buy = JSON.parse(haha['buy']);
-
-        // var sell_list_html = "";
-        // for (var i = 0; i < list_sell.length; i++) {
-        // 	console.log(list_sell[i]);
-        // 	//$("<div class='table_row'></div>")
-			
-			        	
-        // }
-
-
+        var sell_list_html = "";
+        var buy_list_html = "";
+        for (var i = 0; i < list_sell.length; i++) {
+        	sell_list_html += "<div class='table_row'>"+
+        	"<div class='table_con'>卖"+(i+1)+"</div><div class='table_con'>"+list_sell[i][0]+"</div>"+
+        	"<div class='table_con'>"+list_sell[i][1]+"</div><progress value='"+list_sell[i][1]+"' max='100'></progress></div></div>";
+        }
+        for (var i = 0; i < list_buy.length; i++) {
+        	buy_list_html += "<div class='table_row'>"+
+        	"<div class='table_con'>买"+(i+1)+"</div><div class='table_con'>"+list_buy[i][0]+"</div>"+
+        	"<div class='table_con'>"+list_buy[i][1]+"</div><progress value='"+list_buy[i][1]+"' max='100'></progress></div></div>";
+        }
+        $("#table_one").html(buy_list_html);
+        $("#table_two").html(sell_list_html);
 	}
 	var get = trade.get = function() {
 		once(function(next){
