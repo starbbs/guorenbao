@@ -2,5 +2,5 @@ require(['api_mkt','mkt_info','mkt_trade','cookie'], function(api_mkt,mkt_info,m
 	//console.log(api_mkt);
 	//console.log(mkt_info);
 	mkt_info.get();
-	mkt_trade.get();
+	mkt_trade.getfloor();
 });
