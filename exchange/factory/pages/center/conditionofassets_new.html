@@ -23,41 +23,11 @@
                 <a class="ls_tab" href="nutstopupwithdrawal.html">果仁充值/提现</a>
                 <a class="ls_tab" href="withdraw.html">提现管理</a>
             </div>
-            <div class="rightside">
-                <div class="topline">
-                    <span class="rmbxh">人民币现货账户</span>
-                    <b><span>总资产（¥）：</span><span id="total_assets">5000.00</span></b>
-                </div>
-                <div class="usable_cny">
-                    <img src="./images/center_useable_nutlet.png" alt="">
-                    <div>
-                        <span>可用人民币：</span><span class="bigsize">0.00</span>
-                    </div>
-                    <div>
-                        <span>冻结：</span><span class="bigsize">0.00</span>  
-                    </div>
-                    <div>
-                        <a href="cnydepositswithdrawal.html?whichtab='recharget'">充值</a>
-                        <a href="cnydepositswithdrawal.html?whichtab='withdraw'">提现</a>
-                    </div>
-                </div>
-                <div class="usable_nutlet">
-                    <img src="./images/center_useable_cny.png" alt="">
-                    <div>
-                        <span>可用果仁：</span><span class="bigsize">0.00</span>
-                    </div>
-                    <div>
-                        <span>冻结：</span><span class="bigsize">0.00</span>
-                    </div>
-                    <div>
-                        <a href="javascript:void(0);"></a>
-                        <a href="javascript:void(0);">转账</a>
-                    </div>
-                </div>
+            <div class="rightside">                
                 <div class="topline">
                     <span class="rmbxh">账户明细</span>
                     <b><span>
-                        <a href="javascript:;" class="moreCheck">查看更多</a>
+                        <a href="conditionofassets.html" class="moreCheck">< 返回</a>
                     </span></b>
                 </div>
                 <table class="aside-table" border="1" width="100%">
@@ -113,8 +83,63 @@
                             <td >321.11</td>
                             <td >321.11</td>
                         </tr>
+                        <tr>
+                            <td >2016-03-16<br/><br/>11:02</td>
+                            <td class="operType">买入</td>
+                            <td >3200.00</td>
+                            <td >3200.00</td>
+                            <td >321.11</td>
+                            <td >321.11</td>
+                        </tr>
+                        <tr>
+                            <td >2016-03-16<br/><br/>11:02</td>
+                            <td class="operType">卖出</td>
+                            <td >3200.00</td>
+                            <td >3200.00</td>
+                            <td >321.11</td>
+                            <td >321.11</td>
+                        </tr>
+                        <tr>
+                            <td >2016-03-16<br/><br/>11:02</td>
+                            <td class="operType">果仁充值</td>
+                            <td >3200.00</td>
+                            <td >3200.00</td>
+                            <td >321.11</td>
+                            <td >321.11</td>
+                        </tr>
+                        <tr>
+                            <td >2016-03-16<br/><br/>11:02</td>
+                            <td class="operType">果仁提现</td>
+                            <td >3200.00</td>
+                            <td >3200.00</td>
+                            <td >321.11</td>
+                            <td >321.11</td>
+                        </tr>
+                        <tr>
+                            <td >2016-03-16<br/><br/>11:02</td>
+                            <td class="operType">人民币充值</td>
+                            <td >3200.00</td>
+                            <td >3200.00</td>
+                            <td >321.11</td>
+                            <td >321.11</td>
+                        </tr>
                     </tbody>
                 </table>
+                <!-- 分页 --> 
+                    <div  class="PageCode">
+                        <span id="div1">
+                            <a href="#3">上一页</a>
+                            <a href="#2">2</a>
+                            <a href="#3">3</a>
+                            <a href="#4" style="color:blue;">4</a>
+                            <a href="#5">5</a>
+                            <a href="#6">6</a>
+                            <a href="#5">下一页</a>
+                        </span>
+                        <input type="text" class="inputNum"/> / 
+                        <span class="allNum"></span>
+                        <span class="btn-fenye">确定【备注：页码分页效果 已完成，暂时没有显示】</span>
+                    </div>
             </div>
         </div>
         @@include('../../includes/bottom/bottom.html')
