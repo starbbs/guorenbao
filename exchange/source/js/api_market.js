@@ -108,8 +108,10 @@ define('api_mkt', ['cookie'], function() {
 	};
 
 	add('pollinfo','info');
-	//asyn
 	add('polltrade','trade');
+	add('homepagekline','kline');
+	
+
 	
 	
 	/*
