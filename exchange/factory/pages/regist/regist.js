@@ -1,5 +1,9 @@
 require(['api_mkt','cookie'], function(apimkt) {
-	alert(1);
+	
+
+
+
+	
 	/*
 	if ($.cookie('gopToken')) {			// 有token
 		api.getGopNum({

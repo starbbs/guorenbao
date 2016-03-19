@@ -2,7 +2,6 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-
 }
 
 .topbar {
@@ -92,14 +91,14 @@
 }
 
 .bottom_down_down {
-        height: 60px;
+    height: 60px;
     position: relative;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .bottom_down_down p {
-        color: #999999;
+    color: #999999;
     position: relative;
     top: 26px;
     text-align: center;
@@ -126,7 +125,7 @@
 .centercontent {
     background: url("../images/regist_input_bg.png") no-repeat 0 0;
     width: 100%;
-    background-size:100% 100%;
+    background-size: 100% 100%;
     height: 588px;
 }
 
@@ -159,22 +158,25 @@
     flex: 0.684;
     text-align: center;
     margin: 0 auto;
-    font-size:1.2rem;
+    font-size: 1.2rem;
 }
+
 .right_reg_side p {
     margin-top: 20px;
     font-size: 1.2rem;
 }
+
 .right_reg_side b {
     margin-top: 10px;
     display: block;
     font-size: 1.2rem;
     color: #ff8042;
 }
+
 .regist_step_1,
 .regist_step_2,
 .regist_step_3 {
-        color: #ffffff;
+    color: #ffffff;
     text-align: center;
     position: absolute;
     top: 163px;
@@ -186,11 +188,15 @@
     z-index: 10;
     font-size: 1.4rem;
 }
+
 .regist_step_1 {}
+
 .regist_step_2 {}
+
 .regist_step_3 {
     left: 142px;
 }
+
 .indicate_step_1,
 .indicate_step_2,
 .indicate_step_3,
@@ -206,34 +212,43 @@
     font-size: 1.8rem;
     display: block;
 }
+
 .indicate_step_1 {
     background: url('../images/regist_register_1.png') no-repeat 0 0;
 }
+
 .indicate_step_2 {
     background: url('../images/regist_register_2.png') no-repeat 0 0;
 }
+
 .indicate_step_3 {
     background: url('../images/regist_register_3.png') no-repeat 0 0;
 }
+
 .indicate_step_4 {
     background: url('../images/regist_register_4.png') no-repeat 0 0;
 }
+
 .right_reg_side_content {
     height: 460px;
     display: flex;
 }
+
 .rg_lf_label {
     flex: 0.36;
     position: relative;
 }
+
 .rg_rg_input {
     flex: 0.64;
 }
+
 .label_username,
 .label_idcard {
     width: 100px;
     height: 20px;
 }
+
 .label_idcard {
     width: 100px;
     height: 20px;
@@ -241,6 +256,7 @@
     top: 224px;
     position: relative;
 }
+
 .label_username {
     width: 100px;
     height: 20px;
@@ -249,32 +265,41 @@
     right: 0px;
     position: absolute;
 }
+
 .label_username label,
 .label_idcard label {
     float: right;
     margin-right: 20px;
     display: inline-block;
-    cursor:pointer;
+    cursor: pointer;
 }
-.regist_input_username,.regist_input_idcard{
+
+.regist_input_username,
+.regist_input_idcard {
     height: 32px;
     width: 240px;
     border: 1px solid #0bbeee;
     padding-left: 14px;
     box-sizing: border-box;
 }
-.regist_input_u_div,.regist_input_i_div{
+
+.regist_input_u_div,
+.regist_input_i_div {
     position: absolute;
     height: 32px;
     box-sizing: border-box;
 }
-.regist_input_u_div{
+
+.regist_input_u_div {
     top: 160px;
 }
-.regist_input_i_div{
-    top:215px;
+
+.regist_input_i_div {
+    top: 215px;
 }
-.regist_input_u_div span,.regist_input_i_div span{
+
+.regist_input_u_div span,
+.regist_input_i_div span {
     display: block;
     height: 18px;
     line-height: 18px;
@@ -283,8 +308,8 @@
     margin-top: 2px;
 }
 
-.submitbtn{
-        color: #ffffff;
+.submitbtn {
+    color: #ffffff;
     position: absolute;
     top: 280px;
     width: 240px;
@@ -292,10 +317,11 @@
     height: 32px;
     line-height: 32px;
     border-radius: 5px;
-    cursor:pointer;
+    cursor: pointer;
 }
-.rg_rg_skip{
-        text-decoration: none;
+
+.rg_rg_skip {
+    text-decoration: none;
     color: #0bbeee;
     position: relative;
     top: 336px;
@@ -305,8 +331,10 @@
     line-height: 32px;
 }
 
+
 /*rg_lf_label  第二个表单*/
-.rg_lf_label .label_div{
+
+.rg_lf_label .label_div {
     height: 32px;
     line-height: 32px;
     margin-bottom: 26px;
@@ -314,19 +342,21 @@
     padding-right: 20px;
     color: #424242;
 }
+
 .rg_lf_label div:first-child {
-    margin-top:126px;
+    margin-top: 126px;
 }
 
 .rg_rg_input div:first-child {
-    margin-top:126px;
+    margin-top: 126px;
 }
 
-.regist_input_div{
-    height:58px;
-    position:relative;
+.regist_input_div {
+    height: 58px;
+    position: relative;
 }
-.regist_input_div span{
+
+.regist_input_div span {
     display: block;
     float: left;
     position: absolute;
@@ -334,15 +364,17 @@
     margin-top: 5px;
     color: #ff6600;
 }
-.regist_rg_input{
-        height: 32px;
+
+.regist_rg_input {
+    height: 32px;
     width: 240px;
     border: 1px solid #d6d6d6;
     padding-left: 14px;
     box-sizing: border-box;
-    float:left;
+    float: left;
 }
-.next_step_btn{
+
+.next_step_btn {
     height: 32px;
     line-height: 32px;
     background-color: #0bbeee;
@@ -351,8 +383,152 @@
     position: absolute;
     top: 260px;
     color: #ffffff;
-    cursor:pointer;
+    cursor: pointer;
 }
-.next_step_sure{
+
+.next_step_sure {
     top: 388px;
+}
+
+
+/* CSS for customized radio buttons and check boxes */
+
+
+/* page styles */
+
+body {
+    font-size: 62.5%;
+}
+
+fieldset {
+    padding: 0 15px 3em;
+    border: 0;
+}
+
+legend {
+    font-size: 1.4em;
+    font-weight: bold;
+    padding: .2em 5px;
+}
+
+
+/* wrapper divs */
+
+.custom-checkbox,
+.custom-radio {
+    position: relative;
+}
+
+
+/* input, label positioning */
+
+.custom-checkbox input,
+.custom-radio input {
+    position: absolute;
+    left: 2px;
+    top: 3px;
+    margin: 0;
+    z-index: 0;
+}
+
+.custom-checkbox label,
+.custom-radio label {
+    display: block;
+    position: relative;
+    z-index: 1;
+    font-size: 1.3em;
+    padding-right: 1em;
+    line-height: 1;
+    padding: .5em 0 .5em 30px;
+    margin: 0 0 .3em;
+    cursor: pointer;
+}
+
+
+/* states */
+
+.custom-checkbox label {
+    background: url(http://www.w3cplus.com/sites/default/files/checkbox.gif) no-repeat;
+}
+
+.custom-radio label {
+    background: url(http://www.w3cplus.com/sites/default/files/radiobutton.gif) no-repeat;
+}
+
+.custom-checkbox label,
+.custom-radio label {
+    background-position: -10px -14px;
+}
+
+.custom-checkbox label.hover,
+.custom-checkbox label.focus,
+.custom-radio label.hover,
+.custom-radio label.focus {
+    background-position: -10px -114px;
+}
+
+.custom-checkbox label.checked,
+.custom-radio label.checked {
+    background-position: -10px -214px;
+}
+
+.custom-checkbox label.checkedHover,
+.custom-checkbox label.checkedFocus {
+    background-position: -10px -314px;
+}
+
+.custom-checkbox label.focus,
+.custom-radio label.focus {
+    outline: 1px dotted #ccc;
+}
+
+
+
+.regular-checkbox {
+    display: none;
+    cursor: pointer;
+    border: 1px solid #0bbeee;
+}
+.regular-checkbox + label {
+        background-color: #0bbeee;
+    border: 1px solid #0bbeee;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    padding: 0px;
+    border-radius: 0px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    width: 12px;
+    height: 12px;
+    top: 1px;
+    margin-right: 8px;
+}
+.regular-checkbox + label:active,
+.regular-checkbox:checked + label:active {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+.regular-checkbox:checked + label {
+    background-color: #0bbeee;
+    border: 1px solid #adb8c0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05), inset 15px 10px -12px rgba(255, 255, 255, 0.1);
+    color: #99a1a7;
+}
+.regular-checkbox:checked + label:after {
+    content: '\2714';
+    font-size: 12px;
+    position: absolute;
+    top: -2px;
+    left: 0px;
+    color: #ffffff;
+    height: 12px;
+    width: 12px;
+}
+
+.markasread{
+    color:#0bbeee;
+    margin-left:4px;
+}
+.regist_checkbox_box{
+    float:left;
+    color:#999999;
 }
