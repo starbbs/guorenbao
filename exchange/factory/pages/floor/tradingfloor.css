@@ -1225,3 +1225,40 @@
     top: 23px;
     border-left: none;
 }
+
+/*委托表格*/
+.entrust-table-title{
+    width:1200px;height:25px;background:#F6F6F6;
+}
+.history-entrust-table-title{
+    width:1200px;height:40px;line-height:40px;background:#F6F6F6;
+}
+.entrust-table-title span:nth-child(1), .history-entrust-table-title span:nth-child(1){
+    float: left;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+.entrust-table-title span:nth-child(2), .history-entrust-table-title span:nth-child(2){
+    float: right;
+}
+.entrust-table-title span:nth-child(2) a, .history-entrust-table-title span:nth-child(2) a{
+    text-decoration: none;
+    color:#44C0FD;
+    padding-right: 10px;
+}
+/*表格样式*/
+.entrust-table{
+    width:1200px;padding:20px;background:#fff;
+    margin-bottom: 20px;
+}
+.aside-table td{
+    font-size: 12px; 
+    padding: 15px;
+    vertical-align: middle; 
+}
+.aside-table-thead td {
+    border-bottom: 1px solid #ccc; 
+}
+.aside-table-tbody tr:hover {
+    background: #FAFAFA; 
+}
