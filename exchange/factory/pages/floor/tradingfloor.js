@@ -217,7 +217,14 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         klineapply(data);
     });
 
-
+    $("#buyin_limitedpricebtn").on("click",function(){
+        //限价
+        alert("xianjia")
+    });
+    $("#buyin_marketpricebtn").on("click",function(){
+        //市价
+        alert("shijia")
+    });
 
 
     $("#slider_limited_price").slider({
