@@ -1,5 +1,7 @@
 define('api_mkt', ['cookie'], function() {
 	var basePath = 'http://localhost/';
+	//http://ip:port/login/registerBefore
+	//var basePath = 'http://ip:port/login/registerBefore';
 	var api = {};
 	var goIndex = function(useURL) {		//返回首页
 		if (useURL) {

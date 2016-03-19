@@ -476,21 +476,17 @@ legend {
 .custom-checkbox label.checkedFocus {
     background-position: -10px -314px;
 }
-
 .custom-checkbox label.focus,
 .custom-radio label.focus {
     outline: 1px dotted #ccc;
 }
-
-
-
 .regular-checkbox {
     display: none;
     cursor: pointer;
     border: 1px solid #0bbeee;
 }
 .regular-checkbox + label {
-        background-color: #0bbeee;
+    background-color: #0bbeee;
     border: 1px solid #0bbeee;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
     padding: 0px;
