@@ -282,8 +282,16 @@
 .list_report_wraper {
     max-width: 1200px;
     margin: 0 auto;
-    display: flex;
     height: 470px;
+    display: flex;
+    background-color: #ffffff;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.list_report_wraper-history {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 950px;
     background-color: #ffffff;
     margin-top: 30px;
     margin-bottom: 30px;
@@ -555,7 +563,7 @@
 }
 .table_row_line{
     display: inline-block;
-    border: 1px solid red;
+    border: 1px solid #eee;
     width: 100%;
 }
 .dotted_input{
@@ -719,6 +727,10 @@
 
 .sell_order_list .table_row .table_con:last-child {
     max-width: 192px;
+}
+
+.table_con{
+    width:90px;
 }
 
 .quoted_price_first {
@@ -1258,6 +1270,7 @@
 }
 .aside-table-thead td {
     border-bottom: 1px solid #ccc; 
+    background: #FAFAFA;
 }
 .aside-table-tbody tr:hover {
     background: #FAFAFA; 
@@ -1267,6 +1280,9 @@
 .no-record-td{
     height:350px;vertical-align:middle;text-align:center;
 }
+.no-record-td:hover{
+    background: #fff;
+}
 .no-record-picture{
     background: url(../images/no-record.png) no-repeat left center;
     padding-left:30px;
@@ -1275,3 +1291,77 @@
     line-height: 50px;
     margin-left:500px;
 }
+
+
+/*当前委托 历史委托 new*/
+.topline{
+    width:100%;
+    height: 56px;
+    border-bottom: 2px solid #e6e6e6;
+}
+.tab-li{
+    margin: 28px 0 0 28px;
+    margin-bottom: 0px;
+    color: #333333;
+    font-size: 1.4rem;
+    display: inline-block;
+    height: 28px;
+    cursor:pointer;
+}
+.bottomon{
+    border-bottom: 2px solid #bababa;
+}
+.moreCheck{
+    color:#44C0FD;
+    text-decoration: none;
+    float: right;
+    margin:30px 26px 0 0;
+}
+.entrust-side-table{
+    margin:30px;
+}
+/* 当前委托 历史委托 历史-分页样式 页码样式 */
+.PageCode {
+  padding: 15px 20px;
+  color: #000;
+  text-align: right;
+  font-size: 13px; }
+
+.PageCode a {
+  display: inline-block;
+  color: #000000;
+  height: 25px;
+  line-height: 25px;
+  padding: 0 10px;
+  margin: 0 2px;
+  border-radius: 4px; }
+
+.PageCode a:hover {
+  text-decoration: none;
+  background-color: #eee;
+  color: #000; }
+
+a {
+  text-decoration: none; }
+
+.inputNum {
+  width: 20px;
+  text-align: center;
+  font-size: 7px; }
+
+.btn-fenye {
+  cursor: pointer;
+  padding: 2px 7px; }
+
+/*撒单*/
+.saDan{
+    width:60px;
+    height:30px;
+    line-height: 30px;
+    background: #44C0FD;
+    color:#fff;
+    text-align: center;
+    cursor: pointer;
+}
+
+

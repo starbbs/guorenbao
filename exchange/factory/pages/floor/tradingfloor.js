@@ -280,4 +280,16 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             $(".msg_num").css("color", "#333333");
         }
     });
+
+    /*当前委托-历史委托 new 页面 tab*/
+    $(function(){
+        $(".entrust-side-table:gt(0)").hide();
+        var liA = $(".tab-li");
+        liA.click(function(){
+            $(this).addClass("bottomon").siblings(".tab-li").removeClass("bottomon");
+            var liA_index = liA.index(this);
+            $(".entrust-side-table").eq(liA.index(this)).show().siblings(".entrust-side-table").hide();
+        });
+    });
+    
 });
