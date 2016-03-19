@@ -105,10 +105,10 @@
                     <div class="list_header">买入</div>
                     <section class="buyin_sec">
                         <div class="header_top">
-                            <div><span class="" id="buyin_limitedpricebtn">限价</span></div>
-                            <div><span class="border_bottom_on" id="buyin_marketpricebtn">市价</span></div>
+                            <div><span class="">限价</span></div>
+                            <div><span class="border_bottom_on">市价</span></div>
                         </div>
-                        <section class="buyin_limitprices" style="display: block;">
+                        <section class="buyin_limitprices" style="display: none;">
                             <div class="w_b">
                                 <div class="w_b_l"><em>账户余额</em><em id="wbl_m">300.00</em><em>CNY</em></div>
                                 <div class="w_b_r"><em>最佳买价</em><em id="wbr_m">3.00</em><em>CNY/GOP</em></div>
@@ -150,7 +150,7 @@
                             </div>
                             <div class="buying_btn">买入</div>
                         </section>
-                        <section class="buyin_marketprices" style="display: none;">
+                        <section class="buyin_marketprices" style="display: block;">
                             <div>
                                 <p class="buyin_marketprices_p">在市价剧烈波动的情况下，成交价格可能大幅偏离你买入时 的市价，请务必谨慎使用市价交易功能。</p>
                             </div>
@@ -331,18 +331,5 @@
     <script type="text/javascript" src="./js/highstock.js"></script>
     <script type="text/javascript" src="./js/highcharts-more.js"></script>
     <script type="text/javascript" src="./js/exporting.js"></script>
-
-    <script type="text/javascript">
-        $(function(){
-            $("#buyin_limitedpricebtn").on("click",function(){
-                //限价
-                alert("xianjia")
-            });
-            $("#buyin_marketpricebtn").on("click",function(){
-                //市价
-                alert("shijia")
-            });
-        })
-    </script>
 </body>
 </html>
