@@ -217,6 +217,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         klineapply(data);
     });
 
+
+
+
     $("#slider_limited_price").slider({
         value: 0,
         min: 0,
