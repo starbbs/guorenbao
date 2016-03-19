@@ -1262,3 +1262,16 @@
 .aside-table-tbody tr:hover {
     background: #FAFAFA; 
 }
+
+/*暂无记录*/
+.no-record-td{
+    height:350px;vertical-align:middle;text-align:center;
+}
+.no-record-picture{
+    background: url(../images/no-record.png) no-repeat left center;
+    padding-left:30px;
+    width:80px;
+    height:50px;
+    line-height: 50px;
+    margin-left:500px;
+}
