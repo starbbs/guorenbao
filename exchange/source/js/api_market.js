@@ -86,7 +86,6 @@ define('api_mkt', ['cookie'], function() {
 			});
 		};
 	};
-
 	/** 打印一条醒目的信息
 	 * @Author   张树垚
 	 * @DateTime 2015-10-29
@@ -108,14 +107,9 @@ define('api_mkt', ['cookie'], function() {
 			''
 		);
 	};
-
 	add('pollinfo','info');
 	add('polltrade','trade');
-	add('homepagekline','kline');
-	
-
-	
-	
+	add('homepage_tradingfloor_kline','kline');
 	/*
 	// 1.手机号注册
 	add('register', '/login/register');

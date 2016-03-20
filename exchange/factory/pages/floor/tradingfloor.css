@@ -351,12 +351,15 @@
     width: 70px;
     height: 45px;
     line-height: 45px;
-    border-bottom: 2px solid #ccc;
     text-align: center;
     cursor:pointer;
 }
 .leftchart{
     margin-left: 20px;
+}
+
+.leftright_bottomon{
+    border-bottom: 2px solid #ccc;
 }
 
 .buy_order {
@@ -695,10 +698,6 @@
     margin: 0 auto;
     display: flex;
     background-color:#ffffff;
-}
-
-.rightchart{
-    border:none;
 }
 
 .sell_order_list {
@@ -1365,3 +1364,78 @@ a {
 }
 
 
+.popDiv {
+    width: 0;
+    height: 0;
+    background-color: red;
+    position: fixed;
+    left: 50%;
+    right: 50%;
+    top: 50%;
+    bottom: 50%;
+    z-index: 2;
+}
+.bg {
+    background-color: #333333;
+    opacity: 0.8;
+    z-index: 1;
+    position: absolute;
+    top:0;
+}
+
+.note_div {
+    width: 320px;
+    height: 230px;
+    margin-left: -160px;
+    margin-top: -115px;
+    background-color: #ffffff;
+    border-radius: 6px;
+    padding: 0 43px;
+    position: relative;
+}
+#slider_limited_price span,#sale_scale_limited span,#slider_marketprice span,#slider_marketprice_sale span{
+    z-index:0;
+}
+.note_div h3{
+    top: 38px;
+    position: absolute;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+#sel_div_password{
+    width: 240px;
+    height: 28px;
+}
+.payment_error{
+    color: #ff6600;
+    display: block;
+    top: 8px;
+    position: relative;
+}
+.note_div img{
+    position: absolute;
+    top: 42px;
+    right: 36px;
+    cursor: pointer;
+}
+.sure_btn{
+        width: 240px;
+    height: 36px;
+    color: white;
+    position: absolute;
+    top: 140px;
+    background: #0bbeee;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    text-align: center;
+    line-height: 36px;
+    cursor: pointer;
+}
+.sel_div{
+        position: absolute;
+    top: 75px;
+}
+.sel_div select{
+    width: 240px;
+    height: 28px;
+}

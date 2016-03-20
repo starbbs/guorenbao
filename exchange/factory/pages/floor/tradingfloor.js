@@ -1,11 +1,20 @@
 require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_info, mkt_trade) {
     //console.log(api_mkt);
     //console.log(mkt_info);
+    
+    $(".bg").width($(document).width());
+    $('.bg').height($(document).height());
+    $('.bg').css('left', 0);
+    $('.bg').css('top', 0);
+    
+
     mkt_info.get();
     mkt_trade.getfloor();
 
     var klineapply = function(data) {
+        console.log("````````");
         console.log(data);
+        console.log("````````");
         var ohlc = [];
         volume = [];
         dataLength = data.length;
@@ -280,18 +289,84 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         });
 
     }
-    api_mkt.homepagekline(function(data) {
+    api_mkt.homepage_tradingfloor_kline(function(data) {
         klineapply(data);
     });
 
     $("#buyin_limitedpricebtn").on("click",function(){
-        //限价
-        alert("xianjia")
+        //买入限价
+        $(".buyin_limitprices_section").show();
+        $(".buyin_marketprices_section").hide();
+        $(this).addClass("border_bottom_on");
+        $("#buyin_marketpricebtn").removeClass("border_bottom_on");
     });
     $("#buyin_marketpricebtn").on("click",function(){
-        //市价
-        alert("shijia")
+        //买入市价
+        $(".buyin_limitprices_section").hide();
+        $(".buyin_marketprices_section").show();
+        $(this).addClass("border_bottom_on");
+        $("#buyin_limitedpricebtn").removeClass("border_bottom_on");
     });
+
+    $("#sale_limitedpricebtn").on("click",function(){
+        //卖出限价
+        $(".sale_limitprices").show();
+        $(".sale_marketprices").hide();
+        $(this).addClass("border_bottom_on");
+        $("#sale_marketpricebtn").removeClass("border_bottom_on");
+    });
+    $("#sale_marketpricebtn").on("click",function(){
+        //卖出市价
+        $(".sale_limitprices").hide();
+        $(".sale_marketprices").show();
+        $(this).addClass("border_bottom_on");
+        $("#sale_limitedpricebtn").removeClass("border_bottom_on");
+    });
+
+    $(".leftchart").on("click",function(){
+        //分时图
+        $("#timeshare_container").show();
+        $("#deepmap_container").hide();
+        $(this).addClass("leftright_bottomon");
+        $(".rightchart").removeClass("leftright_bottomon");
+    });
+
+    $(".rightchart").on("click",function(){
+        //深度图
+        $("#timeshare_container").hide();
+        $("#deepmap_container").show();
+        $(this).addClass("leftright_bottomon");
+        $(".leftchart").removeClass("leftright_bottomon");
+    });
+
+    $(".buying_btn").on("click",function(){              //买入中的限价买入按钮
+        $("#bg").show();
+        $("#popDiv").fadeIn(500);
+    });
+    $(".market_price_buying_btn").on("click",function(){ //买入中的市价买入按钮
+        $("#bg").show();
+        $("#popDiv").fadeIn(500);
+    });
+    $(".sale_btn").on("click",function(){               //卖出中的限价买入按钮
+        $("#bg").show();
+        $("#popDiv").fadeIn(500);
+    });
+    $(".market_price_sale_btn").on("click",function(){  //卖出中的市价买入按钮
+        $("#bg").show();
+        $("#popDiv").fadeIn(500);
+    });
+
+
+    $(".sure_btn").on("click",function(){
+        $("#popDiv").hide();
+        $("#bg").hide();
+    });
+
+    $(".close_btn").on("click",function(){  //买入卖出 关闭按钮
+        $("#popDiv").hide();
+        $("#bg").hide();
+    });
+
 
 
     $("#slider_limited_price").slider({

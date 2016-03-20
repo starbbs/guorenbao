@@ -53,7 +53,7 @@
                 </div> -->
             </div>
             <div class="tabhover">
-                <div class="leftchart">
+                <div class="leftchart leftright_bottomon">
                     分时图
                 </div>
                 <div class="rightchart">
@@ -63,8 +63,8 @@
             <div class="report_forms">
                 <div class="containerwraper">
                     <div class="containerinnerwrapper">
-                        <div id="timeshare_container" style="display:none;min-width: 310px; height: 400px;"></div>
-                        <div id="deepmap_container" style="display:block;min-width: 310px; height: 400px;"></div>
+                        <div id="timeshare_container" style="display:block;min-width: 310px; height: 400px;"></div>
+                        <div id="deepmap_container" style="display:none;height: 400px;"></div>
                     </div>
                 </div>
                 <div class="myassets">
@@ -106,10 +106,10 @@
                     <div class="list_header">买入</div>
                     <section class="buyin_sec">
                         <div class="header_top">
-                            <div><span class="" id="buyin_limitedpricebtn">限价</span></div>
-                            <div><span class="border_bottom_on" id="buyin_marketpricebtn">市价</span></div>
+                            <div><span class="border_bottom_on" id="buyin_limitedpricebtn">限价</span></div>
+                            <div><span class="" id="buyin_marketpricebtn">市价</span></div>
                         </div>
-                        <section class="buyin_limitprices" style="display: block;">
+                        <section class="buyin_limitprices buyin_limitprices_section" style="display: block;">
                             <div class="w_b">
                                 <div class="w_b_l"><em>账户余额</em><em id="wbl_m">300.00</em><em>CNY</em></div>
                                 <div class="w_b_r"><em>最佳买价</em><em id="wbr_m">3.00</em><em>CNY/GOP</em></div>
@@ -151,7 +151,7 @@
                             </div>
                             <div class="buying_btn">买入</div>
                         </section>
-                        <section class="buyin_marketprices" style="display: none;">
+                        <section class="buyin_marketprices buyin_marketprices_section" style="display: none;">
                             <div>
                                 <p class="buyin_marketprices_p">在市价剧烈波动的情况下，成交价格可能大幅偏离你买入时 的市价，请务必谨慎使用市价交易功能。</p>
                             </div>
@@ -177,15 +177,14 @@
                     <div class="list_header">卖出</div>
                     <section class="soldout_sec">
                         <div class="header_top">
-                            <div><span class="border_bottom_on">限价</span></div>
-                            <div><span>市价</span></div>
+                            <div><span class="border_bottom_on" id="sale_limitedpricebtn">限价</span></div>
+                            <div><span id="sale_marketpricebtn">市价</span></div>
                         </div>
                         <!-- <section class="soldout_limitprices">
                         </section>
                         <section class="soldout_marketprices">
                         </section> -->
-
-                        <section class="buyin_limitprices" style="display: none;">
+                        <section class="buyin_limitprices sale_limitprices" style="display: block;">
                             <div class="w_b">
                                 <div class="w_b_l"><em>账户余额</em><em id="wbl_m">300.00</em><em>CNY</em></div>
                                 <div class="w_b_r"><em>最佳买价</em><em id="wbr_m">3.00</em><em>CNY/GOP</em></div>
@@ -228,7 +227,7 @@
                             </div>
                             <div class="sale_btn">卖出</div>
                         </section>
-                        <section class="buyin_marketprices" style="display: block;">
+                        <section class="buyin_marketprices sale_marketprices" style="display: none;">
                             <div>
                                 <p class="buyin_marketprices_p">在市价剧烈波动的情况下，成交价格可能大幅偏离你买入时 的市价，请务必谨慎使用市价交易功能。</p>
                             </div>
@@ -476,6 +475,18 @@
         </div>
         </center>
     </div>
+    <div id="popDiv" class="popDiv" style="display:none;">
+        <div id='orgNote' class="note_div">
+            <h3>请输入支付密码</h3>
+            <img src="./images/close_btn.png" alt="" class="close_btn">
+            <div class="sel_div">
+                <input type="text" placeholder="请输入支付密码" id="sel_div_password"/>
+                <span class="payment_error">支付密码错误</span>
+            </div>
+            <div class="sure_btn">确认</div>
+        </div>
+    </div>
+    <div id="bg" class="bg" style="display:none;">这里是遮罩层</div>
     @@include('../../includes/bottom/bottom.html')
     <script type="text/javascript" src="./js/highstock.js"></script>
     <script type="text/javascript" src="./js/highcharts.js"></script>
