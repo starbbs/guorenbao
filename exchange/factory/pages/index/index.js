@@ -1,188 +1,138 @@
 require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_info, mkt_trade) {
-    //console.log(api_mkt);
-    //console.log(mkt_info);
     mkt_info.get();
     mkt_trade.get();
     var swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
         paginationClickable: true
     });
-    var klineapply = function(data) {
-        console.log(data);
-        var ohlc = [];
-        volume = [];
-        dataLength = data.length;
-        // set the allowed units for data grouping
-        groupingUnits = [
-            [
-                '周', // unit name
-                [1] // allowed multiples
-            ],
-            [
-                '月', [1, 2, 3, 4, 6]
-            ]
+    var ohlc = [];
+    var volume = [];
+    // set the allowed units for data grouping
+    var groupingUnits = [
+        [
+            '周', // unit name
+            [1] // allowed multiples
+        ],
+        [
+            '月', [1, 2, 3, 4, 6]
         ]
-        var onem = data['1m'];
-        var fivem = data['5m'];
-        var fifteenm = data['15m'];
-        var thirtym = data['30m'];
-        var sixtym = data['60m'];
-        var oned = data['1d'];
-        // console.log(onem);
-        // console.log(fivem);
-        // console.log(fifteenm);
-        // console.log(thirtym);
-        // console.log(sixtym);
-        // console.log(oned);
-        var onemjson = JSON.parse(onem);
-        var fivemjson = JSON.parse(fivem);
-        var fifteenmjson = JSON.parse(fifteenm);
-        var thirtymjson = JSON.parse(thirtym);
-        var sixtymjson = JSON.parse(sixtym);
-        var oned = JSON.parse(oned);
-        // console.log(onemjson[0]);
-        // console.log(fivemjson[0]);
-        // console.log(fifteenmjson[0]);
-        // console.log(thirtymjson[0]);
-        // console.log(sixtymjson[0]);
-        // console.log(oned[0]);
-        var arraylist = [];
-        //arraylist.push(onemjson[0]);
-        //arraylist.push(fivemjson[0]);
-        arraylist.push(fifteenmjson[0]);
-        arraylist.push(thirtymjson[0]);
-        arraylist.push(sixtymjson[0]);
-        arraylist.push(oned[0]);
-        console.log(arraylist);
-        for (var i = 0; i < arraylist.length; i++) {
-            ohlc.push(arraylist[i]);
-            volume.push(arraylist[i][3]);
+    ];
+    var on_page_load = false;
+    var onem;
+    var fivem;
+    var fifteenm;
+    var thirtym;
+    var sixtym;
+    var oned;
+    var klineapply = function(data) {
+        console.log("..........")
+        console.log(data);
+        onem = JSON.parse(data['1m']);
+        fivem = JSON.parse(data['5m']);
+        fifteenm = JSON.parse(data['15m']);
+        thirtym = JSON.parse(data['30m']);
+        sixtym = JSON.parse(data['60m']);
+        oned = JSON.parse(data['1d']);
+        if(!on_page_load){
+            $(".fivteenminute").click();
+            on_page_load = true;
         }
-        console.log(ohlc);
-        console.log(volume);
-        // for(var i=0;i<data.length;i++){
-        //     ohlc.push([
-        //         data[i][0], // the date
-        //         data[i][1], // open
-        //         data[i][2], // high
-        //         data[i][3], // low
-        //         data[i][4] // close
-        //     ]);
-        //     volume.push([
-        //         data[i][0], // the date
-        //         data[i][5] // the volume
-        //     ]);
-        // };
+    }
+    var highcharts_Rendering = function(whichday, groupingUnits) {
+        Highcharts.theme = {
+            colors: ["#ee6259", "#bee8d0", "#ED561B", "#DDDF00", "#24CBE5", "#64E572", "#FF9655", "#FFF263", "#6AF9C4"],
+            chart: { borderColor: "#DDD", plotShadow: !0, plotBorderWidth: 1 },
+            title: { style: { color: "#000", font: 'bold 16px "Trebuchet MS", Verdana, sans-serif' } },
+            subtitle: { style: { color: "#666666", font: 'bold 12px "Trebuchet MS", Verdana, sans-serif' } },
+            legend: { itemStyle: { font: "9pt Trebuchet MS, Verdana, sans-serif", color: "black" }, itemHoverStyle: { color: "#039" }, itemHiddenStyle: { color: "gray" } },
+            labels: { style: { color: "#99b" } },
+            navigation: { buttonOptions: { theme: { stroke: "#CCCCCC" } } }
+        };
+        //图表设置
+        Highcharts.setOptions({
+            colors: ['#DD1111', '#FF0000', '#DDDF0D', '#7798BF', '#55BF3B', '#DF5353', '#aaeeee', '#ff0066', '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
+            lang: {
+                loading: 'Loading...',
+                months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+                shortMonths: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+                weekdays: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+                decimalPoint: '.',
+                numericSymbols: ['k', 'M', 'G', 'T', 'P', 'E'],
+                resetZoom: 'Reset zoom',
+                resetZoomTitle: 'Reset zoom level 1:1',
+                thousandsSep: ','
+            },
+            credits: { enabled: false }
+        });
+        ohlc = [];
+        volume = [];
+        if (whichday == "one") {
+            for (var i = 0; i < onem.length; i++) {
+                ohlc.push([onem[i][0], onem[i][2], onem[i][3], onem[i][4], onem[i][5]]);
+                //volume.push([onem[i][0], onem[i][1]]);
+            }
+        } else if (whichday == "five") {
+            for (var i = 0; i < fivem.length; i++) {
+                ohlc.push([fivem[i][0], fivem[i][2], fivem[i][3], fivem[i][4], fivem[i][5]]);
+                //volume.push([fivem[i][0], fivem[i][1]]);
+            }
+        } else if (whichday == "fivteen") {
+            for (var i = 0; i < fifteenm.length; i++) {
+                ohlc.push([fifteenm[i][0], fifteenm[i][2], fifteenm[i][3], fifteenm[i][4], fifteenm[i][5]]);
+                //volume.push([fifteenm[i][0], fifteenm[i][1]]);
+            }
+        } else if (whichday == "thirty") {
+            for (var i = 0; i < thirtym.length; i++) {
+                ohlc.push([thirtym[i][0], thirtym[i][2], thirtym[i][3], thirtym[i][4], thirtym[i][5]]);
+                //volume.push([thirtym[i][0], thirtym[i][1]]);
+            }
+        } else if (whichday == "sixty") {
+            for (var i = 0; i < sixtym.length; i++) {
+                ohlc.push([sixtym[i][0], sixtym[i][2], sixtym[i][3], sixtym[i][4], sixtym[i][5]]);
+                console.log(sixtym[i][1]);
+                //volume.push([sixtym[i][0], sixtym[i][1]]);
+            }
+        } else if (whichday == "oneday") {
+            for (var i = 0; i < oned.length; i++) {
+                ohlc.push([oned[i][0], oned[i][2], oned[i][3], oned[i][4], oned[i][5]]);
+                //volume.push([oned[i][0], oned[i][1]]);
+            }
+        }
         //console.log(ohlc);
         //console.log(volume);
         $('#container').highcharts('StockChart', {
-            rangeSelector: {
-                selected: 1,
-                buttons: [{
-                    type: 'minute',
-                    count: 1,
-                    text: '1分',
-                    dataGrouping: {
-                        forced: true,
-                        units: [
-                            ['minute', [1]]
-                        ]
-                    }
-                }, {
-                    type: 'minute',
-                    count: 5,
-                    text: '5分',
-                    dataGrouping: {
-                        forced: true,
-                        units: [
-                            ['minute', [1]]
-                        ]
-                    }
-                }, {
-                    type: 'minute',
-                    count: 15,
-                    text: '15分',
-                    dataGrouping: {
-                        forced: true,
-                        units: [
-                            ['minute', [1]]
-                        ]
-                    }
-                }, {
-                    type: 'minute',
-                    count: 30,
-                    text: '30分',
-                    dataGrouping: {
-                        forced: true,
-                        units: [
-                            ['minute', [1]]
-                        ]
-                    }
-                }, {
-                    type: 'minute',
-                    count: 1,
-                    text: '60分',
-                    dataGrouping: {
-                        forced: true,
-                        units: [
-                            ['minute', [1]]
-                        ]
-                    }
-                }, {
-                    type: 'day',
-                    count: 1,
-                    text: '天',
-                    dataGrouping: {
-                        forced: true,
-                        units: [
-                            ['day', [1]]
-                        ]
-                    }
-                }],
-                buttonTheme: {
-                    width: 60
-                }
+            rangeSelector: {buttons: [{type: 'minute', count: 60, text: '1h'},{type: 'minute', count: 120, text: '2h'},{type: 'minute', count: 360, text: '6h'},{type: 'minute', count: 720, text: '12h'},{type: 'day', count: 1, text: '1d'},{type: 'week', count: 1, text: '1w'},{type: 'all', text: '所有'}],selected:2, inputEnabled:false},
+            global: {
+                useUTC: true
+            },
+            lang: {
+                rangeSelectorZoom: '',
+                months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+                shortMonths: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                weekdays: ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
             },
             credits: { enabled: false },
-            exporting: {
-                enabled: false
-            },
             colors: ['#000000', '#0000ff', '#ff00ff', '#f7a35c', '#8085e9'],
             title: {
                 text: '果仁市场K线图'
             },
-            yAxis: [{
-                labels: {
-                    align: 'right',
-                    x: -3
-                        // ,
-                        // y: 0,
-                        // formatter:function(){
-                        // 	return this.value.toFixed(0);
-                        // }
-                },
-                opposite: false,
-                title: {
-                    text: 'OHLCx'
-                },
-                height: '60%',
-                lineWidth: 2
-            }, {
-                labels: {
-                    align: 'right',
-                    x: -3
-                },
-                title: {
-                    text: 'Volumex'
-                },
-                top: '65%',
-                height: '35%',
-                offset: 0,
-                lineWidth: 2
-            }],
+            xAxis: {
+                type: 'dataTime'
+            },
+            exporting: { enabled: false, buttons: { exportButton: { enabled: false }, printButton: { enabled: true } } },
+            tooltip: { xDateFormat: '%Y-%m-%d %H:%M %A', color: '#f0f', changeDecimals: 4, borderColor: '#058dc7' },
+            plotOptions: { candlestick: { color: '#e55600', upColor: '#669900' } },
+            yAxis: [
+                { labels: { style: { color: '#e55600' } }, title: { text: '价格 [RMB]', style: { color: '#e55600' } }, height: 160, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true },
+                { labels: { style: { color: '#4572A7' } }, title: { text: '成交量 [GOP]', style: { color: '#4572A7' } }, offset: 0, top: 280, height: 34, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true }
+            ],
+            /*tooltip: { xDateFormat: '%Y-%m-%d %H:%M %A', color: '#f0f', changeDecimals: 4, borderColor: '#058dc7' },*/
             tooltip: {
                 formatter: function() {
+                    // console.log(this.points[0]);
+                    // console.log(this.points[0].point)
                     var s = Highcharts.dateFormat('<span> %Y-%m-%d %H:%M:%S</span>', this.x);
+                    s += "成交数量"+this.points[0].total;
                     s += '<br />开盘:<b>' + this.points[0].point.open + '</b><br />最高:<b>' + this.points[0].point.high + '</b><br />最低:<b>' + this.points[0].point.low + '</b><br />收盘:<b>' + this.points[0].point.close + '</b>';
                     return s;
                 },
@@ -198,60 +148,35 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             scrollbar: {
                 enabled: true
             },
-            series: [{
-                type: 'candlestick',
-                name: 'AAPL',
-                data: ohlc,
-                dataGrouping: {
-                    units: groupingUnits
-                }
-            }, {
-                type: 'column',
-                name: 'Volume',
-                data: volume,
-                yAxis: 1,
-                dataGrouping: {
-                    units: groupingUnits
-                }
-            }]
+            series: [
+                { animation: false, name: '成交量 [GOP]', type: 'column', color: '#4572A7', dataGrouping: { units: groupingUnits, enabled: false }, yAxis: 1, data: volume },
+                { animation: false, name: '价格 [RMB]', type: 'candlestick', dataGrouping: { units: groupingUnits, enabled: false }, data: ohlc }
+            ]
         });
     }
+
+    $(".timebar").on("click", function() {
+        console.log("timebar");
+        $(this).addClass("btn_choosed");
+        $(this).siblings().removeClass("btn_choosed");
+        if ($(this).hasClass("oneminute")) {
+            highcharts_Rendering("one", groupingUnits);
+        } else if ($(this).hasClass("fiveminute")) {
+            highcharts_Rendering("five", groupingUnits);
+        } else if ($(this).hasClass("fivteenminute")) {
+            highcharts_Rendering("fivteen", groupingUnits);
+        } else if ($(this).hasClass("thirtyminute")) {
+            highcharts_Rendering("thirty", groupingUnits);
+        } else if ($(this).hasClass("sixtyminute")) {
+            highcharts_Rendering("sixty", groupingUnits);
+        } else if ($(this).hasClass("onedayminute")) {
+            highcharts_Rendering("oneday", groupingUnits);
+        }
+    });
+    
     api_mkt.homepagekline(function(data) {
         klineapply(data);
     });
-
-    // split the data set into ohlc and volume
-    /*var ohlc = [],
-        volume = [],
-        dataLength = data.length,
-        // set the allowed units for data grouping
-        groupingUnits = [
-            [
-                '周', // unit name
-                [1] // allowed multiples
-            ],
-            [
-                '月', [1, 2, 3, 4, 6]
-            ]
-        ],
-        i = 0;
-    for (i; i < dataLength; i += 1) {
-        ohlc.push([
-            data[i][0], // the date
-            data[i][1], // open
-            data[i][2], // high
-            data[i][3], // low
-            data[i][4] // close
-        ]);
-        volume.push([
-            data[i][0], // the date
-            data[i][5] // the volume
-        ]);
-    };
-    console.log(ohlc);
-    console.log(volume);*/
-    // create the chart
-
     var flag = true;
     $('.messagenum_area').on("click", function() {
         if (flag) {

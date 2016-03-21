@@ -110,6 +110,9 @@ define('api_mkt', ['cookie'], function() {
 	add('pollinfo','info');
 	add('polltrade','trade');
 	add('homepage_tradingfloor_kline','kline');
+	add('depthchart','depth');
+	add('homepagekline','kline');
+
 	/*
 	// 1.手机号注册
 	add('register', '/login/register');

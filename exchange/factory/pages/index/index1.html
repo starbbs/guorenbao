@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>果仁交易,果仁价格,果仁行情,gop交易 - 果仁宝网,最大的山寨币交易平台</title>
+    <meta name="keywords" content="果仁交易平台,果仁价格,果仁行情,gop交易,果仁,gop"/>
+    <meta name="description" content="最大的果仁(gop)交易平台,提供果仁(gop)价格、果仁gop行情,矿池,钱包等信息,为果仁爱好者提供一个在线交易和交流平台">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="/css/style.css?v=1.59" rel="stylesheet" />
+    <link href="/css/gr.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/icon/css/font-awesome.min.css"/>
+    <script src="/js/script.js?v=1.61"></script>
+    <script src="/js/jquery/jquery-ui.js" type="text/javascript"></script>
+    <style>
+        .klineArea{padding:15px;padding-top: 37px; height:424px;box-sizing:border-box;   padding-right: 40px;}
+        #kline{padding:15px;box-sizing: border-box;}
+        .h120{height:120px!important;}
+        /*.nav li a{font-size:14px;color:#fff;}*/
+        /*.nav li{width:auto!important;height:auto!important;line-height:32px;margin-right:25px;}*/
+        /*.nav li.active{border:none!important;}*/
+        .trade_list{width:1000px;margin:0 auto;height:auto;overflow:hidden;}
+        .trade_list .item{width:33.33%;float:left;display:inline;}
+        .trade_list .item table{border:#d5d5d5 solid 1px;width:318px;}
+        .trade_list .item caption{margin:15px 0 16px 0;font-size:16px;text-align:left;padding-left:7px;border-left:3px solid #44c0fd;}
+        .trade_list .item th{background:#f8f8f8;border-bottom:#d5d5d5 solid 1px;}
+        .trade_list .item th,.trade_list .item td{padding:0px 15px;height:32px;}
+        .trade_list .item th{border-bottom:none!important;}
+        .trade_list .item .wrap table{border:none;width:100%;}
+        .trade_list .item td{font-size:12px;}
+        .trade_list .item th,.trade_list .item td{padding:0px 15px;}
+        .trade_list .item .progress_green .bar{background-color:rgb(190, 232, 208)!important;}
+        .progress{width:100%;height:20px;position:relative;margin-top:2px;-webkit-box-shadow:none;box-shadow:none;}
+        .trade_list .item .progress .bar{height:20px;background:#f88080;display:block;}
+        .trade_list .item .wrap{height:480px;overflow-y:scroll;overflow-x:hidden;border:1px solid #D5D5D5;border-top:none;width:316px;}
+        .trade_list .item td.color_red{color:#da1102;}
+        .trade_list .item td.color_green{color:#039426;}
+    </style>
+</head>
+<body>
+<div class="header bg_w">
+    <div class="hearder_top">
+        <div class="autobox po_re zin100" id="header">
+            <div style="float:left;color:#fff;font-size:12px;"><span class="a-price" style="font-weight:bold;">最新成交价</span><span id="gop-last">-</span></div>
+            <div class="right orange" id="login"></div>
+        </div>
+    </div>
+    <div class="autobox">
+        <div class="logo"><a href="/"><img src="/images/jubi/logo.png" height="40" alt="果仁宝" /></a></div>
+    </div>
+</div>
+<!--头部结束-->
+<div class="autobox mt20 clear" id="Kline-change" style="padding-top: 20px;">
+    <div class="left" style="position:relative;">
+        <!--行情图-->
+        <ul style="margin:20px 0;margin-bottom:18px;" class="nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#klinearea" aria-controls="klinearea" role="tab" data-toggle="tab"><span>K线</span></a></li>
+            <li role="presentation" class=""><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><span>深度</span></a></li>
+        </ul>
+        <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="klinearea">
+                <div id="kline">
+                    <div id="graphbox" style="height:342px"></div>
+                    <div id="chart-control" data="gop" class="btn-group" style="width:98%;height:50px;text-align:center">
+                        <button data-time='5m' class="btn">5分钟线</button>
+                        <button data-time="15m" class="btn">15分钟线</button>
+                        <button data-time="30m" class="btn">30分钟线</button>
+                        <button data-time="1h" class="btn">1小时线</button>
+                        <button data-time="8h" class="btn  btn-success">8小时线</button>
+                        <button data-time="1d" class="btn">日线</button>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="profile">
+                 <div class="klineArea">
+                     <div id="graphbox2" style="height:342px"></div>
+                     <div id="chart-control2" data="gop" class="btn-group" style="width:98%;height:50px;text-align:center">
+                     </div>
+                 </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="messages">...</div>
+            <div role="tabpanel" class="tab-pane fade" id="settings">...</div>
+        </div>
+        <script>
+        document.write('<s'+'cript src="/coin/gop/k.js?t='+Math.random()+'"></scr'+'ipt>');
+        document.write('<s'+'cript src="/js/highstock.js?t=1412011414"></scr'+'ipt>');
+        </script>
+        <script>
+            $('#chart-control2').hide();$('.arato').hide();$('#graphbox2').css({height:'350px',width:'935px'});
+            document.write('<s'+'cript src="/js/depth.js?t='+Math.random()+'"></scr'+'ipt>');
+        </script>
+    </div>
+</div>
+<script type="text/javascript">
+    AJAX.alltrade = function () {
+        $.get('/coin/'+CONF.coin+'/trades?t='+AJAX.rd(), function(d){
+            var trades = {sell:'', buy: ''};
+            var maxnum = 0;
+            for(var i in d){
+                for(var j in d[i]){
+                    if(parseFloat(d[i][j][1])>maxnum) maxnum = parseFloat(d[i][j][1]);
+                    trades[i] += '<tr> <td width="40" style="padding-right:0;">' + (i == 'buy' ? '买' : '卖') + '(' + (parseInt(j) + 1) + ')</td><td style="padding-right:10px;padding-left: 10px;width: 50px">￥<span class="oprice">' + d[i][j][0] + '</span></td><td width="40" style="padding-left: 10px;padding-right: 10px;width:50px;">' + d[i][j][1] + '</td><td style="padding-left: 10px;padding-right: 10px;"><div class="progress progress_' + (i == 'buy' ? 'red' : 'green') + '"><div class="bar" data="' + d[i][j][1] + '"></div></div></td> </tr>';
+                }
+                $('#trades-'+i).html(trades[i]);
+            }
+            $('.bar').each(function(){
+                $(this).css('width', (parseFloat($(this).attr('data')) * 100 / maxnum)+'%');
+            });
+            if(typeof d.buy[0] != 'undefined') {$('#market-buy').html(d.buy[0][0]);$('#sell-nice').html(d.buy[0][0])}
+            if(typeof d.sell[0] != 'undefined') {$('#market-sell').html(d.sell[0][0]);$('#buy-nice').html(d.sell[0][0])}
+        },'json');
+    };
+    AJAX.allorder = function () {
+        $.get('/coin/'+CONF.coin+'/order?t='+AJAX.rd(), function(d){
+            var orders = '';
+            for(var i=0;i<d.d.length;i++){
+                orders += '<tr><td  width="73">' + d.d[i][0] + '</td><td style="padding-left:0px;"  width="89" class="'+(d.d[i][3] == 'buy' ? 'color_red' : 'color_green')+'">' + (d.d[i][3] == 'buy' ? '买入' : '卖出') + '</td><td  width="68" class="buy">￥' + d.d[i][1] + '</td><td width="86">' + d.d[i][2] + '</td></tr>';
+            }
+            $('#orderlist').html(orders);
+            var marketprice = 'undefined'==typeof d.d[0]? 0: d.d[0][1];
+            $('#market-price').html(marketprice);
+            $('#market-max').html(d.max);$('#market-min').html(d.min);$('#market-sum').html(d.sum);
+            setTimeout('AJAX.allorder()', 5000);
+        },'json');
+    };
+    function maxbuy(i){}
+    function buytotal(){}
+    $(function(){
+        NavMenu(['nav_po_1','','',2]);
+        AJAX.alltrade(); AJAX.allorder();
+        AJAX.allcoin()
+    });
+</script>
+
+</body>
+</html>

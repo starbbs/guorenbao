@@ -1439,3 +1439,31 @@ a {
     width: 240px;
     height: 28px;
 }
+
+.bottom_em_wraper:after {
+    content: '';
+    border: 1px solid #ffffff;
+    margin-left: 16px;
+    border-left: none;
+}
+.timeshareblock .btn_choosed{
+    background-color: #44c0fd;
+}
+
+.timeshareblock{
+    text-align:center;
+}
+.timeshareblock a{
+    text-decoration: none;
+    height: 28px;
+    line-height: 28px;
+    background-color: #999999;
+    color: white;
+    display: inline-block;
+    text-align: center;
+    margin-right: 20px;
+    padding: 0 12px;
+}
+.timeshareblock a:hover{
+
+}

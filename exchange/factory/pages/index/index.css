@@ -812,23 +812,22 @@ progress::-webkit-progress-value {
     left: 32px;
     cursor: pointer;
 }
-
 .bottom_em_wraper:after {
     content: '';
     border: 1px solid #ffffff;
     margin-left: 16px;
     border-left: none;
 }
-
+.timeshareblock .btn_choosed{
+    background-color: #44c0fd;
+}
 .recharge {
     background-color: #ffffff;
     color: black;
 }
-
 .withdraw {
     background-color: #0bbeee;
 }
-
 .quoted_price_first i {
     background: url('../images/index_arrow_rise.png') no-repeat 0 0;
     width: 10px;
@@ -838,7 +837,6 @@ progress::-webkit-progress-value {
     height: 22px;
     right: 32px;
 }
-
 .quoted_price_seventh i {
     background: url('../images/index_arrow_down.png') no-repeat 0 0;
     width: 8px;
@@ -847,4 +845,21 @@ progress::-webkit-progress-value {
     top: 56px;
     height: 18px;
     right: 37px;
+}
+.timeshareblock{
+    text-align:center;
+}
+.timeshareblock a{
+    text-decoration: none;
+    height: 28px;
+    line-height: 28px;
+    background-color: #999999;
+    color: white;
+    display: inline-block;
+    text-align: center;
+    margin-right: 20px;
+    padding: 0 12px;
+}
+.timeshareblock a:hover{
+
 }
