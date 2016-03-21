@@ -119,29 +119,29 @@
                         </div>
                         <section class="buyin_limitprices buyin_limitprices_section" style="display: block;">
                             <div class="w_b">
-                                <div class="w_b_l"><em>账户余额</em><em id="wbl_m">300.00</em><em>CNY</em></div>
-                                <div class="w_b_r"><em>最佳买价</em><em id="wbr_m">3.00</em><em>CNY/GOP</em></div>
+                                <div class="w_b_l"><em>账户余额</em><em id="wbl_m_buy_balance">300.00</em><em>CNY</em></div>
+                                <div class="w_b_r"><em>最佳买价</em><em id="wbr_m_best_buy"></em><em>CNY/GOP</em></div>
                             </div>
                             <div>
                                 <div>
                                     <div>
-                                        <label for="">买入价格</label>
+                                        <label for="buyin_price">买入价格</label>
                                     </div>
                                     <div>
-                                        <input type="text" placeholder="输入希望买入的价格" />
-                                    </div>
-                                </div>
-                                <div>
-                                    <div>
-                                        <label for="">买入数量</label>
-                                    </div>
-                                    <div>
-                                        <input type="text" placeholder="最大数量" />
+                                        <input type="text" placeholder="输入希望买入的价格" id="buyin_price"/>
                                     </div>
                                 </div>
                                 <div>
                                     <div>
-                                        <label for="">比例</label>
+                                        <label for="buyin_number">买入数量</label>
+                                    </div>
+                                    <div>
+                                        <input type="text" placeholder="最大数量" id="buyin_number"/>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <label for="buyin_slider_value">比例</label>
                                     </div>
                                     <div class="slider_container">
                                         <div id="slider_limited_price"></div><span id="buyin_slider_value"></span>
@@ -149,13 +149,12 @@
                                 </div>
                                 <div>
                                     <div>
-                                        <label for="">交易额</label>
+                                        <label for="dotted_input">交易额</label>
                                     </div>
                                     <div>
-                                        <input type="text" placeholder="¥" class="dotted_input">
+                                        <input type="text" placeholder="¥" class="dotted_input" id="dotted_input">
                                     </div>
                                 </div>
-                                
                             </div>
                             <div class="buying_btn">买入</div>
                         </section>
@@ -194,24 +193,24 @@
                         </section> -->
                         <section class="buyin_limitprices sale_limitprices" style="display: block;">
                             <div class="w_b">
-                                <div class="w_b_l"><em>账户余额</em><em id="wbl_m">300.00</em><em>CNY</em></div>
-                                <div class="w_b_r"><em>最佳买价</em><em id="wbr_m">3.00</em><em>CNY/GOP</em></div>
+                                <div class="w_b_l"><em>账户余额</em><em id="wbl_m_balance">300.00</em><em>CNY</em></div>
+                                <div class="w_b_r"><em>最佳卖价</em><em id="wbr_m_best_sell"></em><em>CNY/GOP</em></div>
                             </div>
                             <div>
                                 <div>
                                     <div>
-                                        <label for="">买入价格</label>
+                                        <label for="sale_buyingprice">买入价格</label>
                                     </div>
                                     <div>
-                                        <input type="text" placeholder="输入希望买入的价格" />
+                                        <input type="text" placeholder="输入希望买入的价格" id="sale_buyingprice"/>
                                     </div>
                                 </div>
                                 <div>
                                     <div>
-                                        <label for="">买入数量</label>
+                                        <label for="sale_quantitytobuy">买入数量</label>
                                     </div>
                                     <div>
-                                        <input type="text" placeholder="最大数量" />
+                                        <input type="text" placeholder="最大数量" id="sale_quantitytobuy"/>
                                     </div>
                                 </div>
                                 <div>
@@ -225,10 +224,10 @@
                                 </div>
                                 <div>
                                     <div>
-                                        <label for="">交易额</label>
+                                        <label for="sell_contractsize">交易额</label>
                                     </div>
                                     <div>
-                                        <input type="text" placeholder="¥" class="dotted_input">
+                                        <input type="text" placeholder="¥" class="dotted_input" id="sell_contractsize">
                                     </div>
                                 </div>
                                 
@@ -261,76 +260,30 @@
             </div>
             <div class="order_record orderlist">
                 <!-- <div class="list_header">成交记录</div> -->
-                <section class="order_record_list">
+                <section class="order_record_list sellsec">
                     <header class="table_header">
                         <div class="header_con">买&nbsp;/&nbsp;卖家</div>
                         <div class="header_con">出价</div>
                         <div class="header_con">数量</div>
                         <div class="header_con">折合人民币</div>
                     </header>
-                    <div class="table_row">
-                        <div class="table_con saleprice">卖5</div>
-                        <div class="table_con">¥3.40</div>
-                        <div class="table_con">125.00</div>
-                        <div class="table_con">¥3.50</div>
-                    </div>
-                    <div class="table_row">
-                        <div class="table_con saleprice">卖4</div>
-                        <div class="table_con">¥3.40</div>
-                        <div class="table_con">125.00</div>
-                        <div class="table_con">¥3.50</div>
-                    </div>
-                    <div class="table_row">
-                        <div class="table_con saleprice">卖3</div>
-                        <div class="table_con">¥3.40</div>
-                        <div class="table_con">125.00</div>
-                        <div class="table_con">¥3.50</div>
-                    </div>
-                    <div class="table_row">
-                        <div class="table_con saleprice">卖2</div>
-                        <div class="table_con">¥3.40</div>
-                        <div class="table_con">125.00</div>
-                        <div class="table_con">¥3.50</div>
-                    </div>
-                    <div class="table_row">
-                        <div class="table_con saleprice">卖1</div>
-                        <div class="table_con">¥3.40</div>
-                        <div class="table_con">125.00</div>
-                        <div class="table_con">¥3.50</div>
+                    <div class="sellseccon">
+                        <!-- <div class="table_row">
+                            <div class="table_con saleprice">卖5</div>
+                            <div class="table_con">¥3.40</div>
+                            <div class="table_con">125.00</div>
+                            <div class="table_con">¥3.50</div>
+                        </div> -->
                     </div>
                 </section>
-                <div class="table_row_line"></div>
-                <section class="order_record_list">
-                    <div class="table_row">
+                <div class="table_row_line" style="display: none;"></div>
+                <section class="order_record_list buysec">
+                    <!-- <div class="table_row">
                         <div class="table_con buyprice">买5</div>
                         <div class="table_con">¥3.40</div>
                         <div class="table_con">125.00</div>
                         <div class="table_con">¥3.50</div>
-                    </div>
-                    <div class="table_row">
-                        <div class="table_con buyprice">买4</div>
-                        <div class="table_con">¥3.40</div>
-                        <div class="table_con">125.00</div>
-                        <div class="table_con">¥3.50</div>
-                    </div>
-                    <div class="table_row">
-                        <div class="table_con buyprice">买3</div>
-                        <div class="table_con">¥3.40</div>
-                        <div class="table_con">125.00</div>
-                        <div class="table_con">¥3.50</div>
-                    </div>
-                    <div class="table_row">
-                        <div class="table_con buyprice">买2</div>
-                        <div class="table_con">¥3.40</div>
-                        <div class="table_con">125.00</div>
-                        <div class="table_con">¥3.50</div>
-                    </div>
-                    <div class="table_row">
-                        <div class="table_con buyprice">买1</div>
-                        <div class="table_con">¥3.40</div>
-                        <div class="table_con">125.00</div>
-                        <div class="table_con">¥3.50</div>
-                    </div>
+                    </div> -->
                 </section>
             </div>
         </div>

@@ -1467,3 +1467,7 @@ a {
 .timeshareblock a:hover{
 
 }
+
+.sellseccon{
+    display: table-row-group;
+}

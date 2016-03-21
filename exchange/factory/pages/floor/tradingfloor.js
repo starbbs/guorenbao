@@ -225,9 +225,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             }]
         });
     });
-
+    var buy_which_tab = "FIXED";  //买入限价和市价tab选中值 FIXED 代表限价 MARKET代表市价
+    var sell_which_tab = "FIXED"; //卖出限价和市价tab选中值 FIXED 代表限价 MARKET代表市价
     $("#buyin_limitedpricebtn").on("click",function(){
         //买入限价
+        buy_which_tab = "FIXED";
         $(".buyin_limitprices_section").show();
         $(".buyin_marketprices_section").hide();
         $(this).addClass("border_bottom_on");
@@ -235,6 +237,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     });
     $("#buyin_marketpricebtn").on("click",function(){
         //买入市价
+        buy_which_tab = "MARKET";
         $(".buyin_limitprices_section").hide();
         $(".buyin_marketprices_section").show();
         $(this).addClass("border_bottom_on");
@@ -242,6 +245,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     });
     $("#sale_limitedpricebtn").on("click",function(){
         //卖出限价
+        sell_which_tab = "FIXED";
         $(".sale_limitprices").show();
         $(".sale_marketprices").hide();
         $(this).addClass("border_bottom_on");
@@ -249,6 +253,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     });
     $("#sale_marketpricebtn").on("click",function(){
         //卖出市价
+        sell_which_tab = "MARKET";
         $(".sale_limitprices").hide();
         $(".sale_marketprices").show();
         $(this).addClass("border_bottom_on");
@@ -275,6 +280,31 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     $(".buying_btn").on("click",function(){              //买入中的限价买入按钮
         $("#bg").show();
         $("#popDiv").fadeIn(500);
+        var buyin_price = $("#buyin_price").val(); //买入价格
+        var buyin_number = $("#buyin_number").val();//买入数量
+        var dotted_input = $("#dotted_input").val();//交易额
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "http://172.16.33.3:8080/wealth/buy",
+            data: JSON.stringify({
+                'price':buyin_price, 
+                'Number':buyin_number,
+                'type':buy_which_tab
+            }),
+            cache: false,
+            success: function(data) {
+                if (data.msg == "true") {
+
+                } else {
+                    
+                }
+            },
+            error: function() {
+                console.log("提交失败");
+            }
+        });
+
     });
     $(".market_price_buying_btn").on("click",function(){ //买入中的市价买入按钮
         $("#bg").show();
@@ -283,6 +313,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     $(".sale_btn").on("click",function(){               //卖出中的限价买入按钮
         $("#bg").show();
         $("#popDiv").fadeIn(500);
+        
     });
     $(".market_price_sale_btn").on("click",function(){  //卖出中的市价买入按钮
         $("#bg").show();

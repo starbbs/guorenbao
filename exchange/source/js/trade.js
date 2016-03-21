@@ -56,14 +56,82 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 	var updatebuy_sell_floor = function(haha){
 		var list_sell = JSON.parse(haha['sell']);
         var list_buy = JSON.parse(haha['buy']);
-        var sell_list_html = "";
-        var buy_list_html = "";
         var buyaprice = "";
         var sellaprice = "";
     	sellaprice = list_sell[0][0];
     	buyaprice = list_buy[0][0];
 		$('#buyonece_price_floor').html(buyaprice);  //交易市场买一价
 		$('#sellonece_price_floor').html(sellaprice);//交易市场卖一价
+		//console.log(list_buy);
+		//console.log(list_sell);
+		
+		var list_sell_html = "";
+		var buy_list_html = "";
+
+		if(!list_buy){
+
+		} else {
+			if(list_buy.length<=5){
+				$("#wbr_m_best_buy").html(list_buy[0][0]);  //最佳买价
+				for(var i=0;i<list_buy.length;i++){
+		            buy_list_html += "<div class='table_row'>"
+		            +"<div class='table_con buyprice'>买"+(i+1)+"</div>"
+		            +"<div class='table_con'>¥"+list_buy[i][0]+"</div>"
+		            +"<div class='table_con'>"+list_buy[i][1]+"</div>"
+		            +"<div class='table_con'>¥"+list_buy[i][0]*list_buy[i][1]+"</div></div>";
+				}
+			} else {
+				var list_buy_five = [];
+				list_sell_five.push(list_buy[0]);
+				list_sell_five.push(list_buy[1]);
+				list_sell_five.push(list_buy[2]);
+				list_sell_five.push(list_buy[3]);
+				list_sell_five.push(list_buy[4]);
+				$("#wbr_m_best_buy").html(list_buy[0][0]);  //最佳买价
+				for(var i=0;i<list_buy_five.length;i++){
+		            buy_list_html += "<div class='table_row'>"
+		            +"<div class='table_con buyprice'>买"+(i+1)+"</div>"
+		            +"<div class='table_con'>¥"+list_buy_five[i][0]+"</div>"
+		            +"<div class='table_con'>"+list_buy_five[i][1]+"</div>"
+		            +"<div class='table_con'>¥"+list_buy_five[i][0]*list_buy_five[i][1]+"</div></div>";
+				}
+			}
+			$(".table_row_line").show();
+			$(".buysec").html(buy_list_html);
+		}
+
+
+		if(!list_sell){
+		} else {
+			if(list_sell.length<=5){
+				$("#wbr_m_best_sell").html(list_sell[0][0]);  //最佳卖价
+				for(var i=0;i<list_sell.length;i++){
+		            list_sell_html += "<div class='table_row'>"
+		            +"<div class='table_con saleprice'>卖"+(list_sell.length-i)+"</div>"
+		            +"<div class='table_con'>¥"+list_sell[i][0]+"</div>"
+		            +"<div class='table_con'>"+list_sell[i][1]+"</div>"
+		            +"<div class='table_con'>¥"+list_sell[i][0]*list_sell[i][1]+"</div>";
+				}
+			} else {
+				var list_sell_five = [];
+				list_sell_five.push(list_sell[0]);
+				list_sell_five.push(list_sell[1]);
+				list_sell_five.push(list_sell[2]);
+				list_sell_five.push(list_sell[3]);
+				list_sell_five.push(list_sell[4]);
+				$("#wbr_m_best_sell").html(list_sell_five[0][0]);  //最佳卖价
+				for(var i=0;i<list_sell_five.length;i++){
+		            list_sell_html += "<div class='table_row'>"
+		            +"<div class='table_con saleprice'>卖"+(list_sell_five.length-i)+"</div>"
+		            +"<div class='table_con'>¥"+list_sell_five[i][0]+"</div>"
+		            +"<div class='table_con'>"+list_sell_five[i][1]+"</div>"
+		            +"<div class='table_con'>¥"+list_sell_five[i][0]*list_sell_five[i][1]+"</div>";
+				}
+			}
+			$(".table_row_line").show();
+			$(".sellseccon").html(list_sell_html);
+		}
+		
 	}
 
 	//首页的轮询
