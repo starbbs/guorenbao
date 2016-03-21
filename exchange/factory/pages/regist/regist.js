@@ -187,7 +187,7 @@ require(['api_mkt','cookie'], function(apimkt) {
             cache: false,
             success: function(data) {
             	console.log(data);
-                if (data.status == 400) {
+                if (data.msg == "手机号码已经注册") {
                 	$('.msg-phone').show().html('手机号已注册，请<a class="markasread" href="index.html">直接登录</a>');
                 } else {
                     //注册果仁市场 点击-进入设置支付密码
