@@ -102,17 +102,33 @@ require(['api_mkt','cookie'], function(apimkt) {
 		$(".three").css('display','flex')
 		$(".two").css('display','none');
 	});
+	
 	//实名验证-按钮点击注册成功
 	$(".threeStep").click(function(){
 		$(".four").css('display','flex')
 		$(".three").css('display','none');
+		toIndex();
 	});
 	//跳过实名验证-按钮点击注册成功
 	$(".SkipThreeStep").click(function(){
 		$(".four").css('display','flex')
 		$(".three").css('display','none');
+		toIndex();		
 	});
-	
+
+	//3s后 自动跳转到首页
+	function toIndex(){
+		var count = 3;
+		var timer = setInterval(function(){
+			count--;
+			if(count > 0){
+				$(".toIndex").text(count+'s后自动跳转进入首页');
+			}else{
+				clearInterval(timer);
+				location.href="http://localhost/exchange/build/index.html";
+			}
+		},1000);
+	}
 	
 	//测试
 	//获取验证码
@@ -159,7 +175,7 @@ require(['api_mkt','cookie'], function(apimkt) {
     	$.ajax({
             type: "POST",
             dataType: "json",
-            url: "http://172.16.33.3:8080/login/login",
+            url: "http://172.16.33.3:8080/login/registerBefore",
             data: JSON.stringify({
                 'phone':$('.checkPhone').val(), 
 		   		'identifyingCode':$('.checkCode').val(),
