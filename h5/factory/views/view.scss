@@ -31,23 +31,24 @@
 		@include t3d(0);
 		background-color: $g-background;
 
-		&:before, &:after {
-			content: '';
-			display: block;
-			@include absolute('lw');
-			background-color: $g-background;
-			height: $height;
-		}
-		&:before {
-			top: - $height;
-		}
-		&:after {
-			bottom: - $height;
-		}
-
-		&.scroll {
+		&.scroll { // 滚动
 			overflow-x: hidden;
 			overflow-y: auto;
+		}
+		&.cover { // 覆盖--解决失焦露底问题
+			&:before, &:after {
+				content: '';
+				display: block;
+				@include absolute('lw');
+				background-color: $g-background;
+				height: $height;
+			}
+			&:before {
+				top: - $height;
+			}
+			&:after {
+				bottom: - $height;
+			}
 		}
 
 		&.show {
