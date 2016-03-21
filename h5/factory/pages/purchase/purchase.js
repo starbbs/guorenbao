@@ -39,7 +39,7 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 					forceStatus: 'SUCCESS',
 					ifFinishButton: true
 				});
-				router.to('/view/bill');
+				router.to('/bill');
 			};
 			weixin.pay.onCreate = function(data) {
 				vm.money = '';
@@ -48,7 +48,7 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 				vmOrder.id = order.id;
 				setOrderNum();
 				setTimeout(function() {
-					router.go('/view/purchase-order');
+					router.go('/purchase-order');
 				}, 100);
 			};
 			weixin.pay.create($('#purchase-main-money').val());

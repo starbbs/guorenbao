@@ -41,7 +41,7 @@ require(['api', 'check', 'router', 'h5-view', 'h5-check', 'h5-ident', 'h5-text',
 		},
 		next: function() { // 下一步
 			if (vm.ifNext) {
-				router.go('/view/regist-password');
+				router.go('/regist-password');
 			}
 		},
 		ifPasswordNext: false,
@@ -65,7 +65,7 @@ require(['api', 'check', 'router', 'h5-view', 'h5-check', 'h5-ident', 'h5-text',
 						confirmData.identifyingCode = code;
 						confirmData.gopToken = gopToken;
 						$.cookie('gopToken', gopToken);
-						router.go('/view/regist-paypass-1');
+						router.go('/regist-paypass-1');
 						// 绑定微信
 						var openId = $.cookie('openId');
 						if (openId) {
@@ -98,7 +98,7 @@ require(['api', 'check', 'router', 'h5-view', 'h5-check', 'h5-ident', 'h5-text',
 		paypass1Next: function() {
 			var value = _paypass.input1.val();
 			if (vm.ifPaypass1Next && check.paypassCondition(value)) {
-				router.go('/view/regist-paypass-2');
+				router.go('/regist-paypass-2');
 				confirmData.paypass1 = value;
 			}
 		},

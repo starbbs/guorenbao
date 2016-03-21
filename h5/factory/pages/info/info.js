@@ -33,7 +33,7 @@ require(['api', 'router', 'get', 'h5-view-bill', 'h5-weixin'], function(api, rou
 					// window.location.href = 'transfer.html?from=wx_info&id=' + get.data.id;
 					billView.set(type, get.data.id, {
 						onRendered: function() {
-							router.to('/view/bill');
+							router.to('/bill');
 						},
 					});
 					break;

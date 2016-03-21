@@ -21,7 +21,7 @@ define('h5-dialog-bankcard', ['h5-dialog', 'api', 'router', 'h5-bank'], function
 		add: function() { // 添加银行卡
 			// window.location.href = 'bankcard.html';
 			bankcard.hide();
-			router.go('/view/bankcard-append');
+			router.go('/bankcard-append');
 		}
 	});
 	avalon.scan(bankcard.native, vm);

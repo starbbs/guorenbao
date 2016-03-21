@@ -105,7 +105,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			if (bill.onGotoPay() === false) {
 
 			} else {
-				router.go('/view/nickname');
+				router.go('/nickname');
 			}
 		},
 		showMore: function() { // 更多
@@ -164,7 +164,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 	 * @param    {[function]}     		options.onRequest		[后台请求回调,参数data]
 	 * @param    {[function]}     		options.onRendered		[vm渲染回调,参数vm]
 	 */
-	//          TRANSFER_IN  235  {onRendered:function(){router.to('/view/bill')}}
+	//          TRANSFER_IN  235  {onRendered:function(){router.to('/bill')}}
 	//                "BUY_IN", "215" {}
 	var set = function(type, id, options) { // 设置账单, 分流 -- 不做view显示  根据用户ID和消费类型做AJAX
 		type = (type + '').toUpperCase();
@@ -188,7 +188,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 				$.alert('未知类型的账单' + type);
 		}
 	};
-	//	204行的orderHandler方法的数据	{onRendered:function(){router.to('/view/bill')}}
+	//	204行的orderHandler方法的数据	{onRendered:function(){router.to('/bill')}}
 	var setVM = function(settings, options) { // 设置账单vm -- 清空原VM
 		for (var i in options) {
 			if (initSettings.hasOwnProperty(i)) {
@@ -348,7 +348,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			ifTip: order.status === 'FAILURE', // 是否显示底部提示
 		};
 	};
-	//TRANSFER_IN  235  {onRendered:function(){router.to('/view/bill')}}
+	//TRANSFER_IN  235  {onRendered:function(){router.to('/bill')}}
 	var transferInHandler = function(type, id, options) { // 转入
 		api.transferInQuery({
 			gopToken: gopToken,

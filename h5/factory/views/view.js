@@ -29,7 +29,7 @@ define('h5-view', ['router', 'h5-alert'], function(router) {
 		});
 	};
 	router.get('/', ['all'], router.onRoot);
-	router.get('/view/:name', [_list], function(name) {
+	router.get('/:name', [_list], function(name) {
 		if (name in router.view) {
 			router.view[name].show();
 		}

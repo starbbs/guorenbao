@@ -16,7 +16,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		switch (get.data.from) {
 			case 'wx_info': // 来自微信消息
 				billView.set(get.data.type, get.data.id);
-				router.to('/view/bill');
+				router.to('/bill');
 				break;
 			default:
 				router.to('/');
@@ -266,7 +266,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 				data.img && (options.transferImg = data.img);
 				billView.set(data.type, data.id, options);
 				//           "BUY_IN",  "215"     {}
-				router.go('/view/bill');
+				router.go('/bill');
 			}
 		}
 	});

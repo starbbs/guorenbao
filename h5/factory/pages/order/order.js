@@ -81,11 +81,11 @@ require(['api', 'get', 'router',
 						// window.history.go(-2);
 					};
 					if (data.status == 200) {
-						router.go('/view/bankcard-append');
+						router.go('/bankcard-append');
 					} else if (data.status == 400) {
 						$.alert('请先实名认证');
 						viewAuthentication.vm.callback=function(){							
-							router.go('/view/bankcard-append');
+							router.go('/bankcard-append');
 							return true;
 						}		
 						viewAuthentication.vm.callbackFlag=true;
@@ -121,7 +121,7 @@ require(['api', 'get', 'router',
 						payPassword: value, // 支付密码
 					}, function(data) {
 						if (data.status == 200) {
-							router.to('/view/bill');
+							router.to('/bill');
 							billView.set('PAY', get.data.id, {
 								forceStatus: 'PROCESSING',
 								ifFinishButton: true
@@ -205,7 +205,7 @@ require(['api', 'get', 'router',
 							};
 							price.get();
 						} else { // 失败, 成功, 进行中(已付款)
-							router.to('/view/bill');
+							router.to('/bill');
 						}
 					} else {
 						$.alert(data.msg);

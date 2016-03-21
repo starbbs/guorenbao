@@ -44,7 +44,7 @@ define('h5-view-password', ['api', 'router', 'check', 'h5-view', 'h5-ident', 'h5
 		},
 		next: function() {
 			if (forgetViewModel.ifNext) {
-				router.go('/view/password-set');
+				router.go('/password-set');
 			}
 		}
 	});

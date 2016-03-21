@@ -70,7 +70,7 @@ require(['router', 'api', 'h5-view', 'hashMap',
 						bankcardInit();
 						window.history.go(-2);
 					};
-					router.go('/view/bankcard-append');
+					router.go('/bankcard-append');
 				} else if (data.status == 400) {
 					$.alert('请先进行实名认证');
 					viewAuthentication.vm.callback=function(){
@@ -78,7 +78,7 @@ require(['router', 'api', 'h5-view', 'hashMap',
 							bankcardInit();
 							window.history.go(-2);
 						};
-						router.go('/view/bankcard-append');
+						router.go('/bankcard-append');
 						return true;
 					}		
 					viewAuthentication.vm.callbackFlag=true;
@@ -108,7 +108,7 @@ require(['router', 'api', 'h5-view', 'hashMap',
 				},
 			});
 			setTimeout(function() {
-				router.go('/view/bankcard-detail');
+				router.go('/bankcard-detail');
 			}, 100);
 		}
 	});

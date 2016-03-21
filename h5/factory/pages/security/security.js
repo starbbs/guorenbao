@@ -11,7 +11,7 @@ require(['router', 'api', 'h5-view', 'h5-view-password', 'h5-view-authentication
 		setProtected: false,
 		setProtectedStr: '未设置',
 		authentication_click: function() {
-			router.go('/view/authentication');
+			router.go('/authentication');
 		},
 		protect_click: function(e) {
 			if (!vm.setProtected) {

@@ -63,7 +63,7 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 		textNum:'0/140',//可输入的文字个数上线
 		nick_click: function() {
 			nick.nickname = vm.nickname;
-			router.go('/view/nickname');
+			router.go('/nickname');
 		},
 		address_mine_click: function() { //果仁市场跳转
 			var nowData = {};
@@ -77,7 +77,7 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 				address_mine.vm.setMarketAddress = false;
 			}
 			$.extend(address_mine.vm, nowData);
-			router.go('/view/address-mine');
+			router.go('/address-mine');
 		},
 		walletAddress_click: function() { //钱包地址跳转
 			var nowData = {};
@@ -95,7 +95,7 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 						}
 					}
 					$.extend(address_wallet.vm, nowData);
-					router.go('/view/address-wallet');
+					router.go('/address-wallet');
 				} else {
 					console.log(data);
 				}

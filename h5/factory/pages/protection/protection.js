@@ -24,7 +24,7 @@ require(['router', 'h5-view', 'api','h5-dialog-alert', 'h5-paypass', 'h5-text', 
                     payPwd: vm.payPwd
                 }, function(data) {
                     if (data.status == 200) {
-                        router.go('view/protection-view-1');
+                        router.go('/protection-view-1');
                     } else {
                         $.alert(data.msg);
                     }
@@ -54,7 +54,7 @@ require(['router', 'h5-view', 'api','h5-dialog-alert', 'h5-paypass', 'h5-text', 
             obj2.options.add(new Option("我的初中班主任叫什么？", "我的初中班主任叫什么？"));
             obj2.options.add(new Option("我最好的朋友叫什么名字？", "我最好的朋友叫什么名字？"));
             obj2.options.remove(index);
-            router.go('view/protection-view-2');
+            router.go('/protection-view-2');
         },
         selection_2_click: function(e) {
 

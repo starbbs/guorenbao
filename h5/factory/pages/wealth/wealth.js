@@ -64,7 +64,7 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filter
 					}
 				});
 			}
-			router.go('/view/wealth-history');
+			router.go('/wealth-history');
 		}
 	});
 	avalon.scan(main.get(0), vm);

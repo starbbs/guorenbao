@@ -114,7 +114,7 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 							},
 						});
 						vm.checked = false;
-						router.go('/view/bankcard-ident');
+						router.go('/bankcard-ident');
 					} else {
 						$.alert('手机号预留不正确，请重新输入');
 					}

@@ -41,7 +41,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 	setTimeout(function() {
 		paypass.addClass('on');
 		if (get.data.from === 'dialog') {
-			router.to('/view/paypass-choose');
+			router.to('/paypass-choose');
 		}
 	}, 100);
 
@@ -84,7 +84,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 							}, function(data) {
 								if (data.status == 200) {
 									vm.question1 = data.data.question;
-									router.go('view/paypass-protection-1');
+									router.go('/paypass-protection-1');
 								} else {
 									$.alert('验证码错误');
 								}
@@ -93,7 +93,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 							//身份证认证				
 							if (vm.realName && vm.realName != '') {
 								//vm.realName = '*' + vm.realName.substr(1, vm.realName.length - 1);
-								router.go('view/paypass-authentication');
+								router.go('/paypass-authentication');
 							} else {
 								$.alert('未实名认证,请先实名认证');
 							}
@@ -120,7 +120,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 					}, function(data) {
 						if (data.status == 200) {
 							vm.question2 = data.data.question;
-							router.go('view/paypass-protection-2');
+							router.go('/paypass-protection-2');
 						} else {
 							console.log(data);
 						}
@@ -138,7 +138,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 				answer: vm.answer2
 			}, function(data) {
 				if (data.status == 200) {
-					router.go('view/paypass-view-2');
+					router.go('/paypass-view-2');
 				} else {
 					$.alert('验证问题错误');
 				}
@@ -156,7 +156,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 					}
 					vm.phone = data.data.phone;
 					vm.identifyingCode = '';
-					router.go('view/paypass-ident');
+					router.go('/paypass-ident');
 				} else {
 					$.alert(data.msg);
 				}
@@ -169,7 +169,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 					IDcard: vm.Idcard
 				}, function(data) {
 					if (data.status == 200) {
-						router.go('view/paypass-view-2');
+						router.go('/paypass-view-2');
 					} else {
 						$.alert(data.msg);
 					}
@@ -186,7 +186,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 					payPwd: vm.paypass1
 				}, function(data) {
 					if (data.status == 200) {
-						router.go('view/paypass-view-2');
+						router.go('/paypass-view-2');
 					} else {
 						$.alert(data.msg);
 					}
@@ -195,7 +195,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 		},
 		paypass2Click: function() {
 			if (vm.paypass2.length == 6) {
-				router.go('view/paypass-view-3');
+				router.go('/paypass-view-3');
 			}
 		},
 		paypass3Click: function() {

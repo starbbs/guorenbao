@@ -175,7 +175,7 @@ require(['router', 'api', 'h5-view', 'h5-view-nickname', 'h5-weixin', 'h5-compon
             var arr = item.get(0).dataset.path.split('/'); 
             nowData = contacts.list[arr[0]].list[arr[1]];   
             $.extend(people, nowData.$model);
-            router.go('/view/contacts-people');
+            router.go('/contacts-people');
         },
     });
     var people = avalon.define({
@@ -205,7 +205,7 @@ require(['router', 'api', 'h5-view', 'h5-view-nickname', 'h5-weixin', 'h5-compon
         click: function() {
             nickname.vm.id = people.id;
             nickname.vm.name = people.name;
-            router.go('/view/nickname');
+            router.go('/nickname');
         },
     });
     nickname.onFinish = function() {

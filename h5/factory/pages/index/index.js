@@ -26,7 +26,7 @@ require(['router', 'api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h
 	};
 	var gotoSelect = function() { // 跳转select分页, 已授权, 未绑定账号
 		setTimeout(function() {
-			router.go('/view/index-select');
+			router.go('/index-select');
 		}, 100);
 	};
 	var gotoHome = function() { // 跳转home页面, 已授权, 已绑定账号

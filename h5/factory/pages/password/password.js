@@ -36,7 +36,7 @@ require(['router', 'api', 'h5-view', 'h5-view-password', 'h5-weixin','h5-compone
 			}, function(data) {
 				if (data.status == 200) {
 					viewPassword.set.vm = vm.pass;
-					router.go('/view/password-set');
+					router.go('/password-set');
 				} else {
 					$.alert("密码错误");
 					console.log(data);
