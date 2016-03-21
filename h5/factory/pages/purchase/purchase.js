@@ -53,7 +53,7 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		},
 		gopBuyValidate: function() {
 			if(this.value){
-				if(this.value.constructor === NaN){
+				if(this.value.constructor === NaN){//输入框是非数字时
 					this.value = '';
 				}else{
 					this.value = parseInt(this.value);
