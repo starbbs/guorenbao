@@ -31,14 +31,13 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		preventDefault: true,
 		click: true,
 		//useTransition: false,
-		onScrollMove: function() {
-			console.log(this.y>=70);
-		},
+		// onScrollMove: function() {
+		// 	console.log(this.y>=70);
+		// },
 		onScrollEnd: function() {
 			// this.y 卷上去的
 			console.log((this.y - bottomHeight < this.maxScrollY) || this.y>=70);
 			if ((this.y - bottomHeight < this.maxScrollY) || this.y>=70) {
-				alert(11);
 				getList();
 			}
 		},
@@ -56,6 +55,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			return;
 		}
 		vm.loading = true;
+		vm.loadingWord = '加载中...';
 		api.billList({
 			gopToken: gopToken,
 			billListPage: page,
