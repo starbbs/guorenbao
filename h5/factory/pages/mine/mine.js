@@ -1,7 +1,7 @@
 // 余效俭 2016-01-07 17:26:56 创建
 // H5微信端 --- 我的
 
-require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-address-wallet','h5-view-about-us','h5-view-agreement','h5-alert', 'h5-text', 'h5-weixin',], function(router, api, View, check, address_mine, address_wallet) {
+require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-address-wallet','h5-view-nickname','h5-view-about-us','h5-view-agreement','h5-alert', 'h5-text', 'h5-weixin'], function(router, api, View, check, address_mine, address_wallet,nicknameView) {
 
 	router.init(true);
 
@@ -9,7 +9,6 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 	var mine = $('.mine');
 	var setting_address = new View('setting-address');
 	var setting = new View('setting');
-	var nicknameView = new View('nickname');
 	var setting_about = new View('setting-about');
 	var setting_us = new View('setting-us');
 	var setting_feedback = new View('setting-feedback');
@@ -62,7 +61,19 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 		dbclickOrLongpress:dbclickOrLongpress,
 		textNum:'0/140',//可输入的文字个数上线
 		nick_click: function() {
-			nick.nickname = vm.nickname;
+			//nicknameView.nickname = vm.nickname;
+			console.log(nicknameView);
+			$.extend(nicknameView.vm,{
+				nickname:vm.nickname,
+				id:'',
+				callback:function(){
+					$.alert('设置成功!');
+					//setTimeout(function(){
+					//	router.go('/');	
+					//},1000);						
+				}
+			});
+			console.log(nicknameView);
 			router.go('/nickname');
 		},
 		address_mine_click: function() { //果仁市场跳转
@@ -134,6 +145,7 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 		}
 	})
 
+	/*
 	var nick = avalon.define({
 		$id: 'nickname',
 		nickname: '',
@@ -162,6 +174,7 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 			}
 		}
 	});
+	*/
 
 	//初始加载用户信息
 	api.info({
