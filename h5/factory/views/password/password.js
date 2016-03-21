@@ -41,41 +41,6 @@ define('h5-view-password', ['api', 'router', 'check', 'h5-view', 'h5-ident', 'h5
 			ident.input(forgetPhone, forgetIdent, function() {
 				forgetViewModel.ifNext = true;
 			});
-<<<<<<< HEAD
-			avalon.scan(forget.native, vm);
-			return forget;
-		})(),
-		set: (function() {
-			var set = new View('password-set');
-			var passwordInput = $('#password-set-mobile');
-			var vm = set.vm = avalon.define({
-				$id: 'password-set',
-				pwdOld: null,
-				identifyingCode: null,
-				newPass: '',
-				identifyingCode: '',
-				ifNext: false,
-				input: function() {
-					vm.ifNext = check.password(passwordInput.val()).result;
-				},
-				next: function() {
-					if (vm.ifNext) {
-						var gopToken = $.cookie('gopToken');
-						var openId = $.cookie('openId');
-						api.setLoginPassword({
-							gopToken: gopToken,
-							openId: openId,
-							password: vm.newPass,
-							pwdOld: vm.pwdOld,
-							identifyingCode: vm.identifyingCode
-						}, function(data) {
-							if (data.status == 200) {
-								dialogShow();
-							} else {
-								$.alert(data.status + ': ' + data.msg);
-							}
-						});
-=======
 		},
 		next: function() {
 			if (forgetViewModel.ifNext) {
@@ -105,7 +70,6 @@ define('h5-view-password', ['api', 'router', 'check', 'h5-view', 'h5-ident', 'h5
 						dialogShow();
 					} else {
 						$.alert(data.status + ': ' + data.msg);
->>>>>>> origin/master
 					}
 				});
 			}
