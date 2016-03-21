@@ -8,26 +8,12 @@
 .view {
 
 	$time: .5s; // 动画时间, 暂时全部弃用
+	$height: 400px; // 补充露底
 
 	@include fixed(0, 100%);
 	z-index: $g-index-view;
 	@include square(100%);
 	@include t3d(0);
-
-	$height: 400px;
-	&:before, &:after {
-		content: '';
-		display: block;
-		@include absolute('lw');
-		background-color: $g-background;
-		height: $height;
-	}
-	&:before {
-		top: - $height;
-	}
-	&:after {
-		bottom: - $height;
-	}
 
 	&.on { // 页面制作时使用, 不作为js标记
 		left: 0;
@@ -42,10 +28,27 @@
 	&-style {
 
 		@extend %afull;
-		overflow-x: hidden;
-		overflow-y: auto;
 		@include t3d(0);
 		background-color: $g-background;
+
+		&:before, &:after {
+			content: '';
+			display: block;
+			@include absolute('lw');
+			background-color: $g-background;
+			height: $height;
+		}
+		&:before {
+			top: - $height;
+		}
+		&:after {
+			bottom: - $height;
+		}
+
+		&.scroll {
+			overflow-x: hidden;
+			overflow-y: auto;
+		}
 
 		&.show {
 			// transition: $time;

@@ -10,7 +10,8 @@ define('h5-view-nickname', ['h5-view', 'api', 'h5-text'], function(View, api) {
 		nickname: '',
 		id: '',
 		callback: $.noop,
-		nickname_click: function() {
+		nicknameClick: function() {
+			console.log(vm.nickname, vm.id);
 			api.updateRemark({
 				gopToken: gopToken,
 				remark: vm.nickname,
@@ -29,6 +30,7 @@ define('h5-view-nickname', ['h5-view', 'api', 'h5-text'], function(View, api) {
 			});
 		}
 	});
+	avalon.scan(nicknameView.self.get(0), vm);
 	return $.extend(nicknameView, {
 		onFinish: $.noop, // return false 时, 取消默认后退
 		vm: vm

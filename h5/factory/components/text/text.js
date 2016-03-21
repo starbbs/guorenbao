@@ -42,7 +42,6 @@ define('h5-text', ['check'], function(check) {
 		safe: function(input) { // 安全等级
 			input = $(input).on('input', function() {
 				checkSafe(input, safe);
-				console.log(safe);
 			});
 			var safe = input.closest('.text').find('.text-safe');
 			checkSafe(input, safe);

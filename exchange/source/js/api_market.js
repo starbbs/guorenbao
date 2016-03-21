@@ -1,5 +1,7 @@
 define('api_mkt', ['cookie'], function() {
 	var basePath = 'http://localhost/';
+	//http://ip:port/login/registerBefore
+	//var basePath = 'http://ip:port/login/registerBefore';
 	var api = {};
 	var goIndex = function(useURL) {		//返回首页
 		if (useURL) {
@@ -84,7 +86,6 @@ define('api_mkt', ['cookie'], function() {
 			});
 		};
 	};
-
 	/** 打印一条醒目的信息
 	 * @Author   张树垚
 	 * @DateTime 2015-10-29
@@ -106,12 +107,9 @@ define('api_mkt', ['cookie'], function() {
 			''
 		);
 	};
-
 	add('pollinfo','info');
-	//asyn
 	add('polltrade','trade');
-	
-	
+	add('homepage_tradingfloor_kline','kline');
 	/*
 	// 1.手机号注册
 	add('register', '/login/register');

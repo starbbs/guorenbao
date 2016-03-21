@@ -282,8 +282,16 @@
 .list_report_wraper {
     max-width: 1200px;
     margin: 0 auto;
-    display: flex;
     height: 470px;
+    display: flex;
+    background-color: #ffffff;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.list_report_wraper-history {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 950px;
     background-color: #ffffff;
     margin-top: 30px;
     margin-bottom: 30px;
@@ -343,12 +351,15 @@
     width: 70px;
     height: 45px;
     line-height: 45px;
-    border-bottom: 2px solid #ccc;
     text-align: center;
     cursor:pointer;
 }
 .leftchart{
     margin-left: 20px;
+}
+
+.leftright_bottomon{
+    border-bottom: 2px solid #ccc;
 }
 
 .buy_order {
@@ -555,7 +566,7 @@
 }
 .table_row_line{
     display: inline-block;
-    border: 1px solid red;
+    border: 1px solid #eee;
     width: 100%;
 }
 .dotted_input{
@@ -689,10 +700,6 @@
     background-color:#ffffff;
 }
 
-.rightchart{
-    border:none;
-}
-
 .sell_order_list {
     display: table;
     width: 100%;
@@ -719,6 +726,10 @@
 
 .sell_order_list .table_row .table_con:last-child {
     max-width: 192px;
+}
+
+.table_con{
+    width:90px;
 }
 
 .quoted_price_first {
@@ -1224,4 +1235,207 @@
     right: -10px;
     top: 23px;
     border-left: none;
+}
+
+/*委托表格*/
+.entrust-table-title{
+    width:1200px;height:25px;background:#F6F6F6;
+}
+.history-entrust-table-title{
+    width:1200px;height:40px;line-height:40px;background:#F6F6F6;
+}
+.entrust-table-title span:nth-child(1), .history-entrust-table-title span:nth-child(1){
+    float: left;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+.entrust-table-title span:nth-child(2), .history-entrust-table-title span:nth-child(2){
+    float: right;
+}
+.entrust-table-title span:nth-child(2) a, .history-entrust-table-title span:nth-child(2) a{
+    text-decoration: none;
+    color:#44C0FD;
+    padding-right: 10px;
+}
+/*表格样式*/
+.entrust-table{
+    width:1200px;padding:20px;background:#fff;
+    margin-bottom: 20px;
+}
+.aside-table td{
+    font-size: 12px; 
+    padding: 15px;
+    vertical-align: middle; 
+}
+.aside-table-thead td {
+    border-bottom: 1px solid #ccc; 
+    background: #FAFAFA;
+}
+.aside-table-tbody tr:hover {
+    background: #FAFAFA; 
+}
+
+/*暂无记录*/
+.no-record-td{
+    height:350px;vertical-align:middle;text-align:center;
+}
+.no-record-td:hover{
+    background: #fff;
+}
+.no-record-picture{
+    background: url(../images/no-record.png) no-repeat left center;
+    padding-left:30px;
+    width:80px;
+    height:50px;
+    line-height: 50px;
+    margin-left:500px;
+}
+
+
+/*当前委托 历史委托 new*/
+.topline{
+    width:100%;
+    height: 56px;
+    border-bottom: 2px solid #e6e6e6;
+}
+.tab-li{
+    margin: 28px 0 0 28px;
+    margin-bottom: 0px;
+    color: #333333;
+    font-size: 1.4rem;
+    display: inline-block;
+    height: 28px;
+    cursor:pointer;
+}
+.bottomon{
+    border-bottom: 2px solid #bababa;
+}
+.moreCheck{
+    color:#44C0FD;
+    text-decoration: none;
+    float: right;
+    margin:30px 26px 0 0;
+}
+.entrust-side-table{
+    margin:30px;
+}
+/* 当前委托 历史委托 历史-分页样式 页码样式 */
+.PageCode {
+  padding: 15px 20px;
+  color: #000;
+  text-align: right;
+  font-size: 13px; }
+
+.PageCode a {
+  display: inline-block;
+  color: #000000;
+  height: 25px;
+  line-height: 25px;
+  padding: 0 10px;
+  margin: 0 2px;
+  border-radius: 4px; }
+
+.PageCode a:hover {
+  text-decoration: none;
+  background-color: #eee;
+  color: #000; }
+
+a {
+  text-decoration: none; }
+
+.inputNum {
+  width: 20px;
+  text-align: center;
+  font-size: 7px; }
+
+.btn-fenye {
+  cursor: pointer;
+  padding: 2px 7px; }
+
+/*撒单*/
+.saDan{
+    width:60px;
+    height:30px;
+    line-height: 30px;
+    background: #44C0FD;
+    color:#fff;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+.popDiv {
+    width: 0;
+    height: 0;
+    background-color: red;
+    position: fixed;
+    left: 50%;
+    right: 50%;
+    top: 50%;
+    bottom: 50%;
+    z-index: 2;
+}
+.bg {
+    background-color: #333333;
+    opacity: 0.8;
+    z-index: 1;
+    position: absolute;
+    top:0;
+}
+
+.note_div {
+    width: 320px;
+    height: 230px;
+    margin-left: -160px;
+    margin-top: -115px;
+    background-color: #ffffff;
+    border-radius: 6px;
+    padding: 0 43px;
+    position: relative;
+}
+#slider_limited_price span,#sale_scale_limited span,#slider_marketprice span,#slider_marketprice_sale span{
+    z-index:0;
+}
+.note_div h3{
+    top: 38px;
+    position: absolute;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+#sel_div_password{
+    width: 240px;
+    height: 28px;
+}
+.payment_error{
+    color: #ff6600;
+    display: block;
+    top: 8px;
+    position: relative;
+}
+.note_div img{
+    position: absolute;
+    top: 42px;
+    right: 36px;
+    cursor: pointer;
+}
+.sure_btn{
+        width: 240px;
+    height: 36px;
+    color: white;
+    position: absolute;
+    top: 140px;
+    background: #0bbeee;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    text-align: center;
+    line-height: 36px;
+    cursor: pointer;
+}
+.sel_div{
+        position: absolute;
+    top: 75px;
+}
+.sel_div select{
+    width: 240px;
+    height: 28px;
 }

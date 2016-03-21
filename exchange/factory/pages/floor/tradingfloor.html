@@ -53,7 +53,7 @@
                 </div> -->
             </div>
             <div class="tabhover">
-                <div class="leftchart">
+                <div class="leftchart leftright_bottomon">
                     分时图
                 </div>
                 <div class="rightchart">
@@ -63,7 +63,8 @@
             <div class="report_forms">
                 <div class="containerwraper">
                     <div class="containerinnerwrapper">
-                        <div id="container" style="min-width: 310px; height: 400px;"></div>
+                        <div id="timeshare_container" style="display:block;min-width: 310px; height: 400px;"></div>
+                        <div id="deepmap_container" style="display:none;height: 400px;"></div>
                     </div>
                 </div>
                 <div class="myassets">
@@ -105,10 +106,10 @@
                     <div class="list_header">买入</div>
                     <section class="buyin_sec">
                         <div class="header_top">
-                            <div><span class="">限价</span></div>
-                            <div><span class="border_bottom_on">市价</span></div>
+                            <div><span class="border_bottom_on" id="buyin_limitedpricebtn">限价</span></div>
+                            <div><span class="" id="buyin_marketpricebtn">市价</span></div>
                         </div>
-                        <section class="buyin_limitprices" style="display: none;">
+                        <section class="buyin_limitprices buyin_limitprices_section" style="display: block;">
                             <div class="w_b">
                                 <div class="w_b_l"><em>账户余额</em><em id="wbl_m">300.00</em><em>CNY</em></div>
                                 <div class="w_b_r"><em>最佳买价</em><em id="wbr_m">3.00</em><em>CNY/GOP</em></div>
@@ -150,7 +151,7 @@
                             </div>
                             <div class="buying_btn">买入</div>
                         </section>
-                        <section class="buyin_marketprices" style="display: block;">
+                        <section class="buyin_marketprices buyin_marketprices_section" style="display: none;">
                             <div>
                                 <p class="buyin_marketprices_p">在市价剧烈波动的情况下，成交价格可能大幅偏离你买入时 的市价，请务必谨慎使用市价交易功能。</p>
                             </div>
@@ -176,15 +177,14 @@
                     <div class="list_header">卖出</div>
                     <section class="soldout_sec">
                         <div class="header_top">
-                            <div><span class="border_bottom_on">限价</span></div>
-                            <div><span>市价</span></div>
+                            <div><span class="border_bottom_on" id="sale_limitedpricebtn">限价</span></div>
+                            <div><span id="sale_marketpricebtn">市价</span></div>
                         </div>
                         <!-- <section class="soldout_limitprices">
                         </section>
                         <section class="soldout_marketprices">
                         </section> -->
-
-                        <section class="buyin_limitprices" style="display: none;">
+                        <section class="buyin_limitprices sale_limitprices" style="display: block;">
                             <div class="w_b">
                                 <div class="w_b_l"><em>账户余额</em><em id="wbl_m">300.00</em><em>CNY</em></div>
                                 <div class="w_b_r"><em>最佳买价</em><em id="wbr_m">3.00</em><em>CNY/GOP</em></div>
@@ -227,7 +227,7 @@
                             </div>
                             <div class="sale_btn">卖出</div>
                         </section>
-                        <section class="buyin_marketprices" style="display: block;">
+                        <section class="buyin_marketprices sale_marketprices" style="display: none;">
                             <div>
                                 <p class="buyin_marketprices_p">在市价剧烈波动的情况下，成交价格可能大幅偏离你买入时 的市价，请务必谨慎使用市价交易功能。</p>
                             </div>
@@ -326,151 +326,171 @@
                 </section>
             </div>
         </div>
+        <!-- 表格 -->
+        <center>
+        <div class="entrust-table-title">
+            <span>当前委托</span>
+            <span><a href="tradingfloor_new.html">查看更多</a></span>
+        </div>
+        <div class="entrust-table">
+            <table class="aside-table" border="1" width="100%">
+                <thead class="aside-table-thead">
+                    <tr>
+                        <td>操作时间</td>
+                        <td>类型</td>
+                        <td>委托价格</td>
+                        <td>委托数量</td>
+                        <td>成交数量</td>
+                        <td>剩余数量</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody class="aside-table-tbody">
+                    <tr>
+                        <td colspan="7" class="no-record-td">
+                            <section class="no-record-picture">暂无记录</section>
+                        </td>
+                    </tr>
+                    <!-- 载入前五条,如下为临时填充数据 -->
+                    <!-- <tr>
+                        <td >2016-03-16<br/><br/>11:02</td>
+                        <td class="operType">买入</td>
+                        <td >3200.00</td>
+                        <td >3200.00</td>
+                        <td >321.11</td>
+                        <td >321.11</td>
+                        <td >321.11</td>
+                    </tr>
+                    <tr>
+                        <td >2016-03-16<br/><br/>11:02</td>
+                        <td class="operType">卖出</td>
+                        <td >3200.00</td>
+                        <td >3200.00</td>
+                        <td >321.11</td>
+                        <td >321.11</td>
+                        <td >321.11</td>
+                    </tr>
+                    <tr>
+                        <td >2016-03-16<br/><br/>11:02</td>
+                        <td class="operType">果仁充值</td>
+                        <td >3200.00</td>
+                        <td >3200.00</td>
+                        <td >321.11</td>
+                        <td >321.11</td>
+                        <td >321.11</td>
+                    </tr>
+                    <tr>
+                        <td >2016-03-16<br/><br/>11:02</td>
+                        <td class="operType">果仁提现</td>
+                        <td >3200.00</td>
+                        <td >3200.00</td>
+                        <td >321.11</td>
+                        <td >321.11</td>
+                        <td >321.11</td>
+                    </tr>
+                    <tr>
+                        <td >2016-03-16<br/><br/>11:02</td>
+                        <td class="operType">人民币充值</td>
+                        <td >3200.00</td>
+                        <td >3200.00</td>
+                        <td >321.11</td>
+                        <td >321.11</td>
+                        <td >321.11</td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+        <div class="history-entrust-table-title">
+            <span>历史委托</span>
+            <span><a href="tradingfloor_new.html">查看更多</a></span>
+        </div>
+        <div class="entrust-table">
+            <table class="aside-table" border="1" width="100%">
+                <thead class="aside-table-thead">
+                    <tr>
+                        <td>操作时间</td>
+                        <td>类型</td>
+                        <td>委托价格</td>
+                        <td>委托数量</td>
+                        <td>平均成交价</td>
+                        <td>剩余数量</td>
+                        <td>成交额</td>
+                        <td>状态</td>
+                    </tr>
+                </thead>
+                <tbody class="aside-table-tbody">
+                    <!-- 载入前五条,如下为临时填充数据 -->
+                    <tr>
+                        <td >2016-03-16<br/><br/>11:02</td>
+                        <td class="operType">买入</td>
+                        <td >¥3200.00</td>
+                        <td >¥3200.00</td>
+                        <td >¥321.11</td>
+                        <td >¥321.11</td>
+                        <td >¥321.11</td>
+                        <td >已成交</td>
+                    </tr>
+                    <tr>
+                        <td >2016-03-16<br/><br/>11:02</td>
+                        <td class="operType">卖出</td>
+                        <td >¥3200.00</td>
+                        <td >¥3200.00</td>
+                        <td >¥321.11</td>
+                        <td >¥321.11</td>
+                        <td >¥321.11</td>
+                        <td >已成交</td>
+                    </tr>
+                    <tr>
+                        <td >2016-03-16<br/><br/>11:02</td>
+                        <td class="operType">买入</td>
+                        <td >¥3200.00</td>
+                        <td >¥3200.00</td>
+                        <td >¥321.11</td>
+                        <td >¥321.11</td>
+                        <td >¥321.11</td>
+                        <td >已成交</td>
+                    </tr>
+                    <tr>
+                        <td >2016-03-16<br/><br/>11:02</td>
+                        <td class="operType">买入</td>
+                        <td >¥3200.00</td>
+                        <td >¥3200.00</td>
+                        <td >¥321.11</td>
+                        <td >¥321.11</td>
+                        <td >¥321.11</td>
+                        <td >已撤销</td>
+                    </tr>
+                    <tr>
+                        <td >2016-03-16<br/><br/>11:02</td>
+                        <td class="operType">买入</td>
+                        <td >¥3200.00</td>
+                        <td >¥3200.00</td>
+                        <td >¥321.11</td>
+                        <td >¥321.11</td>
+                        <td >¥321.11</td>
+                        <td >已撤销</td>
+                    </tr>
+                </tbody>
+            </table>            
+        </div>
+        </center>
     </div>
+    <div id="popDiv" class="popDiv" style="display:none;">
+        <div id='orgNote' class="note_div">
+            <h3>请输入支付密码</h3>
+            <img src="./images/close_btn.png" alt="" class="close_btn">
+            <div class="sel_div">
+                <input type="text" placeholder="请输入支付密码" id="sel_div_password"/>
+                <span class="payment_error">支付密码错误</span>
+            </div>
+            <div class="sure_btn">确认</div>
+        </div>
+    </div>
+    <div id="bg" class="bg" style="display:none;">这里是遮罩层</div>
     @@include('../../includes/bottom/bottom.html')
     <script type="text/javascript" src="./js/highstock.js"></script>
+    <script type="text/javascript" src="./js/highcharts.js"></script>
     <script type="text/javascript" src="./js/highcharts-more.js"></script>
     <script type="text/javascript" src="./js/exporting.js"></script>
-    <script type="text/javascript">
-    $(function() {
-        /*$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=aapl-ohlcv.json&callback=?', function(data) {
-            // split the data set into ohlc and volume
-            var ohlc = [],
-                volume = [],
-                dataLength = data.length,
-                // set the allowed units for data grouping
-                groupingUnits = [
-                    [
-                        'week', // unit name
-                        [1] // allowed multiples
-                    ],
-                    [
-                        'month', [1, 2, 3, 4, 6]
-                    ]
-                ],
-                i = 0;
-            for (i; i < dataLength; i += 1) {
-                ohlc.push([
-                    data[i][0], // the date
-                    data[i][1], // open
-                    data[i][2], // high
-                    data[i][3], // low
-                    data[i][4] // close
-                ]);
-                volume.push([
-                    data[i][0], // the date
-                    data[i][5] // the volume
-                ]);
-            }
-            // create the chart
-            $('#container').highcharts('StockChart', {
-                rangeSelector: {
-                    selected: 1
-                },
-                title: {
-                    text: 'AAPL Historical'
-                },
-                yAxis: [{
-                    labels: {
-                        align: 'right',
-                        x: -3
-                    },
-                    title: {
-                        text: 'OHLC'
-                    },
-                    height: '60%',
-                    lineWidth: 2
-                }, {
-                    labels: {
-                        align: 'right',
-                        x: -3
-                    },
-                    title: {
-                        text: 'Volume'
-                    },
-                    top: '65%',
-                    height: '35%',
-                    offset: 0,
-                    lineWidth: 2
-                }],
-                series: [{
-                    type: 'candlestick',
-                    name: 'AAPL',
-                    data: ohlc,
-                    dataGrouping: {
-                        units: groupingUnits
-                    }
-                }, {
-                    type: 'column',
-                    name: 'Volume',
-                    data: volume,
-                    yAxis: 1,
-                    dataGrouping: {
-                        units: groupingUnits
-                    }
-                }]
-            });
-        });*/
-
-        $("#slider_limited_price").slider({
-            value: 0,
-            min: 0,
-            max: 100,
-            step: 1,
-            slide: function(event, ui) {
-                $("#buyin_slider_value").text(ui.value+"%");
-            }
-        });
-
-        $("#slider_marketprice").slider({
-            value: 0,
-            min: 0,
-            max: 100,
-            step: 1,
-            slide: function(event, ui) {
-                $("#slider_marketprice_value").text(ui.value+"%");
-            }
-        });
-
-        $("#sale_scale_limited").slider({
-            value: 0,
-            min: 0,
-            max: 100,
-            step: 1,
-            slide: function(event, ui) {
-                $("#sale_slider_value").text(ui.value+"%");
-            }
-        });
-
-        $("#slider_marketprice_sale").slider({
-            value: 0,
-            min: 0,
-            max: 100,
-            step: 1,
-            slide: function(event, ui) {
-                $("#sale_slider_marketprice_value").text(ui.value+"%");
-            }
-        });
-        //("#buyin_slider_value").val("$" + $("#slider").slider("value"));
-        
-        var flag = true;
-        $('.messagenum_area').on("click",function(){
-            if(flag){
-                flag = false;
-                $(this).css("background-color","#ffffff");
-                $(".popup_message_box").show("100");
-                $(".messagenum_area em").css("color","#333333");
-                $(".msg_num").css("color","#cccccc");
-            } else {
-                flag = true;
-                $(this).css("background-color","#282828");
-                $(".popup_message_box").hide("100");
-                $(".messagenum_area em").css("color","#cccccc");
-                $(".msg_num").css("color","#333333");
-            }
-        });
-    });
-    </script>
 </body>
-
 </html>

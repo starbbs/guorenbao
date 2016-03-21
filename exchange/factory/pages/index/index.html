@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,15 +10,14 @@
     <link rel="stylesheet" type="text/css" href="./css/swiper.min.css">
     <script type="text/javascript" src="./js/swiper.min.js"></script>
     <script type="text/javascript" src="./js/jquery-1.12.1.min.js"></script>
-
     <script type="text/javascript" src="./js/require.js"></script>
     <script type="text/javascript" src="./js/config.js"></script>
     <script type="text/javascript" src="./js/index.js"></script>
 </head>
+
 <body>
     <div class="wrapper">
-        @@include('../../includes/top/topbar.html')
-        @@include('../../includes/top/topnav.html',{"feature_on":"index"})
+        @@include('../../includes/top/topbar.html') @@include('../../includes/top/topnav.html',{"feature_on":"index"})
         <div class="topbanner">
             <div class="swiper-container">
                 <div class="swiper-wrapper">
@@ -59,31 +59,35 @@
                 </div>
             </div>
             <div class="afterlogin" style="display: none;">
-            	<div class="logineduser">
-            		<div class="usertop">
-            			<em class="top_em">135****8686</em><i class="eye_i"></i>
-            		</div>
-            		<div class="userbottom">
-            			<em>UID:</em><em class="bottom_em" id="bottom_em">2231422314</em>
-            			<div></div>
-            			<em id="whether_auth"><!-- 未认证 -->姚总</em><i class="bottom_em_i"></i>
-            		</div>
-            	</div>
-            	<div class="myfinancial">
-            		<div class="totalassets">
-            			<div class="leftassets">
-            				<div class="lf_asset_top">总资产</div>
-            				<div class="lf_asset_center">500<!-- --- --></div>
-            				<div class="lf_asset_bottom recharge">充值</div>
-            			</div>
-            			<div class="rightassets">
-            				<div class="rg_asset_top">果仁<i class="rightassets_i"></i></div>
-            				<div class="rg_asset_center">800<!-- --- --></div>
-            				<div class="rg_asset_bottom withdraw">提现</div>
-            			</div>
-            		</div>
-            	</div>
-            	<div class="loginout">退出登录</div>
+                <div class="logineduser">
+                    <div class="usertop">
+                        <em class="top_em">135****8686</em><i class="eye_i"></i>
+                    </div>
+                    <div class="userbottom">
+                        <em>UID:</em><em class="bottom_em" id="bottom_em">2231422314</em>
+                        <div></div>
+                        <em id="whether_auth"><!-- 未认证 -->姚总</em><i class="bottom_em_i"></i>
+                    </div>
+                </div>
+                <div class="myfinancial">
+                    <div class="totalassets">
+                        <div class="leftassets">
+                            <div class="lf_asset_top">总资产</div>
+                            <div class="lf_asset_center">500
+                                <!-- --- -->
+                            </div>
+                            <div class="lf_asset_bottom recharge">充值</div>
+                        </div>
+                        <div class="rightassets">
+                            <div class="rg_asset_top">果仁<i class="rightassets_i"></i></div>
+                            <div class="rg_asset_center">800
+                                <!-- --- -->
+                            </div>
+                            <div class="rg_asset_bottom withdraw">提现</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="loginout">退出登录</div>
             </div>
         </div>
         <div class="quoted_price">
@@ -128,19 +132,13 @@
                 <div class="buy_order orderlist">
                     <div class="buy_order_list">
                         <div class="list_header">买入委托</div>
-                            <header class="table_header">
-                                <div class="header_con tbone20">类型</div>
-                                <div class="header_con tbone20">价格（¥）</div>
-                                <div class="header_con tbone20">数量</div>
-                                <div class="header_con tbone1"></div>
-                            </header>
+                        <header class="table_header">
+                            <div class="header_con tbone20">类型</div>
+                            <div class="header_con tbone20">价格（¥）</div>
+                            <div class="header_con tbone20">数量</div>
+                            <div class="header_con tbone1"></div>
+                        </header>
                         <div class="tbone" id="table_one">
-                            <!-- <div class="table_row">
-                                <div class="table_con">买1</div>
-                                <div class="table_con">3.12</div>
-                                <div class="table_con">3200.00</div>
-                                <div class="table_con"><progress value="22" max="100"></progress></div>
-                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -153,13 +151,7 @@
                             <div class="header_con tbone20">数量</div>
                             <div class="header_con tbone1"></div>
                         </header>
-                        <div class="tbone" id="table_two">   
-                            <!-- <div class="table_row">
-                                <div class="table_con">卖1</div>
-                                <div class="table_con">3.12</div>
-                                <div class="table_con">3200.00</div>
-                                <div class="table_con"><progress value="78" max="100"></progress></div>
-                            </div> -->
+                        <div class="tbone" id="table_two">
                         </div>
                     </div>
                 </div>
@@ -173,18 +165,6 @@
                             <div class="header_con tbone1 bidhistory">数量</div>
                         </header>
                         <div class="tbone" id="table_three">
-                            <!-- <div class="table_row">
-                                <div class="table_con">12:08:09</div>
-                                <div class="table_con buy_color">买入</div>
-                                <div class="table_con">3.12</div>
-                                <div class="table_con">3200.00</div>
-                            </div>
-                            <div class="table_row">
-                                <div class="table_con">12:08:09</div>
-                                <div class="table_con sell_color">卖出</div>
-                                <div class="table_con">3.12</div>
-                                <div class="table_con">3200.00</div>
-                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -195,176 +175,5 @@
     <script src="./js/highstock.js"></script>
     <script src="./js/highcharts-more.js"></script>
     <script src="./js/exporting.js"></script>
-    <script type="text/javascript">
-	    var swiper = new Swiper('.swiper-container', {
-	        pagination: '.swiper-pagination',
-	        paginationClickable: true
-	    });
-	    $(function() {
-	        $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=aapl-ohlcv.json&callback=?', function(data) {
-	            // split the data set into ohlc and volume
-	            var ohlc = [],
-	                volume = [],
-	                dataLength = data.length,
-	                // set the allowed units for data grouping
-	                groupingUnits = [
-	                    [
-	                        'week', // unit name
-	                        [1] // allowed multiples
-	                    ],
-	                    [
-	                        'month', [1, 2, 3, 4, 6]
-	                    ]
-	                ],
-	                i = 0;
-	            for (i; i < dataLength; i += 1) {
-	                ohlc.push([
-	                    data[i][0], // the date
-	                    data[i][1], // open
-	                    data[i][2], // high
-	                    data[i][3], // low
-	                    data[i][4] // close
-	                ]);
-	                volume.push([
-	                    data[i][0], // the date
-	                    data[i][5] // the volume
-	                ]);
-	            }
-	            // create the chart
-	            $('#container').highcharts('StockChart', {
-	                rangeSelector: {
-	                    selected: 1
-	                },
-	                title: {
-	                    text: 'AAPL Historical'
-	                },
-	                yAxis: [{
-	                    labels: {
-	                        align: 'right',
-	                        x: -3
-	                    },
-	                    title: {
-	                        text: 'OHLC'
-	                    },
-	                    height: '60%',
-	                    lineWidth: 2
-	                }, {
-	                    labels: {
-	                        align: 'right',
-	                        x: -3
-	                    },
-	                    title: {
-	                        text: 'Volume'
-	                    },
-	                    top: '65%',
-	                    height: '35%',
-	                    offset: 0,
-	                    lineWidth: 2
-	                }],
-	                series: [{
-	                    type: 'candlestick',
-	                    name: 'AAPL',
-	                    data: ohlc,
-	                    dataGrouping: {
-	                        units: groupingUnits
-	                    }
-	                }, {
-	                    type: 'column',
-	                    name: 'Volume',
-	                    data: volume,
-	                    yAxis: 1,
-	                    dataGrouping: {
-	                        units: groupingUnits
-	                    }
-	                }]
-	            });
-	        });
-            var flag = true;
-            $('.messagenum_area').on("click",function(){
-                if(flag){
-                    flag = false;
-                    $(this).css("background-color","#ffffff");
-                    $(".popup_message_box").show("100");
-                    $(".messagenum_area em").css("color","#333333");
-                    $(".msg_num").css("color","#333333");
-                } else {
-                    flag = true;
-                    $(this).css("background-color","#282828");
-                    $(".popup_message_box").hide("100");
-                    $(".messagenum_area em").css("color","#cccccc");
-                    $(".msg_num").css("color","#cccccc");
-                }
-            });
-
-
-            var isSubmit = function() {
-                var objArr = $(".main input");
-                var obj = "";
-                var verEnd = "";
-                for (var i = 0, l = objArr.length; i < l; i++) {
-                    obj = $(objArr[i]);
-                    if (obj.val() || i === l - 1) {
-                        //薪资字段为选填字段
-                        if (i === l - 1 && !obj.val()) {
-                            return true;
-                        }
-                        verEnd = verify(obj.val(), obj.attr("id"));
-                        if (verEnd === true) {
-                            if (i === l - 1) {
-                                return true;
-                            }
-                        } else {
-                            showWarnWin(verEnd, 1000);
-                            return false;
-                        }
-
-                    } else {
-                        showWarnWin("请输入" + obj.attr("placeholder"), 1000);
-                        return false;
-                    }
-                }
-            };
-            /**
-             * 输入字段校验
-             * [verify description]
-             * @param  {[String]} inputData [输入数据]
-             * @param  {[String]} dataType  [数据类型]
-             * @return {[boolean or String]}[验证结果]
-            */
-            var verify = function(inputData, dataType) {
-                var reg = "";
-                var varMes = '';
-                if (dataType === "name") {
-                    reg = /^[\u4E00-\u9FA5]{2,5}$/;
-                    varMes = "姓名请输入2~5个汉字";
-                } else if (dataType === "tel") {
-                    reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
-                    varMes = "请输入正确的手机号码";
-                } else if (dataType === "salary") {
-                    reg = /^[1-9]\d{1,4}$/;
-                    varMes = "薪资请输入3~5位数字";
-                } else if (dataType === "verCode") {
-                    reg = /^\d{6}$/;
-                    varMes = "验证码不正确";
-                } else {
-                    reg = /^.*$/;
-                }
-                //如果输入数据不为空则去掉收尾空格
-                if (inputData) {
-                    inputData = inputData.trim();
-                }
-                return reg.test(inputData) ? reg.test(inputData) : varMes;
-            };
-            /**
-             * 去掉字符串前后的空格
-             * [trim description]
-             * @return {[type]} [description]
-            */
-            String.prototype.trim = function() {
-                return this.replace(/(^\s*)|(\s*$)/g, '');
-            };
-	    });
-    </script>
 </body>
-
 </html>
