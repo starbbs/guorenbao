@@ -18,7 +18,6 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		money: '', // 买入金额
 		ifBuy: false, // 是否可购买
 		expect: '', // 预计购买
-		BuyGoNum:'',
 		moneyClear: function() {
 			vm.money = '';
 			vm.expect = '';
@@ -54,7 +53,7 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 			weixin.pay.create($('#purchase-main-money').val());
 		},
 		gopBuyValidate: function() {
-			if((/\d|\d{1-2}/).test(vm.BuyGoNum)){
+			if((/^\d|(\d\d)$/).test(this.value)){
 				console.log('成功');
 			}
 			/*
@@ -69,9 +68,10 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 			if(this.value.indexOf('#')!=-1){
 				this.value = this.value.substring(0,this.value.indexOf('#'));
 			}
-			*/						
+									
 			vm.ifBuy = check.gopBuyValidate(this.value, vm.price);
 			vm.expect = this.value ? 'G ' + filters.floorFix(this.value / vm.price) : '';
+			*/
 		},
 	});
 	var vmOrder = avalon.define({ // 订单页面
