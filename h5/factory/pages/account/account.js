@@ -1,11 +1,10 @@
 // 张树垚 2016-01-10 00:31:49 创建
 // H5微信端 --- 账单
 
-
 require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5-view-bill', 'mydate',
 	'h5-weixin'
 ], function(router, api, get, filters, H5bill, iScroll, billView, mydate) {
-
+	
 	router.init();
 	var gopToken = $.cookie('gopToken');
 	var page = 1; // 账单页数, 当返回列表长度小于当前列表长度时, 置零, 不再请求
@@ -54,6 +53,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			}
 		},
 	});
+
 	var getList = function(callback) { // 获取列表
 		if (vm.loading) {
 			return;
