@@ -11,9 +11,6 @@ require(['api_mkt','cookie'], function(apimkt) {
 			var reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
 			if(!reg.test(phone)){
 				$('.msg-phone').show();
-				$('.checkCode-send').attr('disabled',true).css('cursor','not-allowed');
-			}else if(!phone){
-				$('.checkCode-send').attr('disabled',true).css('cursor','not-allowed');
 			}else{
 				$('.msg-phone').hide();
 			}
