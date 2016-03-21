@@ -387,7 +387,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 						transferNum: parseFloat(transferTarget.transferNum),
 						payPassword: value
 					}, function(data) { // 转账成功
-						console.log(data);
+						//console.log(data);
 						if (data.status == 200) {
 							var nowData = {};
 							nowData.successFlag = true;
@@ -407,7 +407,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 							});
 							init();
 						} else {
-							console.log(data);
+							//console.log(data);
 							$.alert(data.msg);
 						}
 					});

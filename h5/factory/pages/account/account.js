@@ -9,7 +9,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 	router.init();
 	var gopToken = $.cookie('gopToken');
 	var page = 1; // 账单页数, 当返回列表长度小于当前列表长度时, 置零, 不再请求
-	var size = 20; // 账单列表
+	var size = 8; // 账单列表
 
 	var main = $('.account'); // 主容器
 	var init = function() { // 初始化
@@ -23,22 +23,26 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 				getList();
 		}
 	};
-
+	var timerGetList = null;
 	var originList = [];
 	var bottomHeight = 20; // 下拉加载的高度
-	var accountScroll = new iScroll('account', {
+	window.accountScroll = new iScroll('account', {
 		vScrollbar: false,
 		preventDefault: true,
+		fixedScrollbar:true,
+		useTransition:true,
 		click: true,
-		//useTransition: false,
 		onScrollMove: function() {
-			console.log(this.y>=70);
+		},
+		onBeforeScrollEnd:function(){
+			if(this.y>=70){
+				page = 1;
+				getList();	
+			}
 		},
 		onScrollEnd: function() {
 			// this.y 卷上去的
-			console.log((this.y - bottomHeight < this.maxScrollY) || this.y>=70);
-			if ((this.y - bottomHeight < this.maxScrollY) || this.y>=70) {
-				alert(11);
+			if (this.y - bottomHeight < this.maxScrollY) {
 				getList();
 			}
 		},
@@ -62,7 +66,6 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			billListPageSize: size
 		}, function(data) {
 			if (data.status == 200) {
-				vm.loading = false;
 				vm.list = dataHandler(originList = originList.concat(data.data.list));
 				// vm.list.pushArray(dataHandler(data.data.list));
 				page = data.data.list.length < size ? 0 : page + 1; // 是否停止请求
@@ -70,9 +73,11 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 				!main.hasClass('on') && setTimeout(function() {
 					main.addClass('on');
 				}, 200);
+				setTimeout(function(){
+					vm.loading = false;
+				},100);
 			} else {
 				$.alert(data.msg);
-				console.log(data);
 			}
 		});
 	};
@@ -264,7 +269,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		}
 	});
 	//此函数为oncfirm事件时候的回调函数
-	console.log(vm.list);
+	//console.log(vm.list);
 	billView.onClose = function(vmid , vmtime) {
 		for(var i=0; i<vm.list.length; i++){
 			for(var j=0; j<vm.list[i].days.length; j++){

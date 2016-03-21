@@ -58,9 +58,9 @@ var m = Math,
 
 		// Default options
 		that.options = {
-			hScroll: true,
-			vScroll: true,
-			bounce: true,
+			hScroll: true,	//false 禁止横向滚动 true横向滚动 默认为true
+			vScroll: true,	//false 精致垂直滚动 true垂直滚动 默认为true
+			bounce: true, //限制能否上拉
 			bounceLock: false,
 			momentum: true,
 			lockDirection: true,

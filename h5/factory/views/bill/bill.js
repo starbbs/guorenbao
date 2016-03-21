@@ -197,7 +197,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			gopToken: gopToken,
 			personId: personId
 		}, function(data) {
-			console.log(data)
+			//console.log(data)
 			if (data.status == 200) {
 				setOne('transferName', data.data.remark || data.data.nick || '未命名地址');
 				setOne('transferImg', data.data.photo || '');
@@ -239,7 +239,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			buyinOrderId: id,
 			payType: 'WEIXIN_MP_PAY'
 		}, function(data) {
-			console.log(nowData = data);
+			//console.log(nowData = data);
 			/*data{
 				WEIXIN_MP_PAY:{
 					appId: "wx55923db8dfb94e44"
@@ -283,7 +283,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			gopToken: gopToken,
 			consumeOrderId: id
 		}, function(data) {
-			console.log(nowData = data);
+			//console.log(nowData = data);
 			options.onRequest && options.onRequest(data);
 			if (!data.data || !data.data.consumeOrder || data.status != 200) {
 				data.msg && $.alert(data.msg);
@@ -342,7 +342,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			gopToken: gopToken,
 			transferInId: id
 		}, function(data) {
-			console.log(nowData = data);
+			//console.log(nowData = data);
 			options.onRequest && options.onRequest(data);
 			if (!data.data || !data.data.transferIn || data.status != 200) {
 				data.msg && $.alert(data.msg);
@@ -372,7 +372,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			gopToken: gopToken,
 			transferOutId: id
 		}, function(data) {
-			console.log(nowData = data);
+			//console.log(nowData = data);
 			options.onRequest && options.onRequest(data);
 			if (!data.data || !data.data.transferOut || data.status != 200) {
 				data.msg && $.alert(data.msg);

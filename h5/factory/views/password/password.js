@@ -61,7 +61,6 @@ define('h5-view-password', ['api', 'router', 'check', 'h5-view', 'h5-ident', 'h5
 				ifNext: false,
 				input: function() {
 					vm.ifNext = check.password(passwordInput.val()).result;
-					console.log(111);
 				},
 				next: function() {
 					if (vm.ifNext) {

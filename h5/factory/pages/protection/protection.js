@@ -26,7 +26,6 @@ require(['router', 'h5-view', 'api','h5-dialog-alert', 'h5-paypass', 'h5-text', 
                     if (data.status == 200) {
                         router.go('view/protection-view-1');
                     } else {
-                        console.log(data);
                         $.alert(data.msg);
                     }
                 });
