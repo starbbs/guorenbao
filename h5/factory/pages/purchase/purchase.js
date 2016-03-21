@@ -18,20 +18,18 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		money: '', // 买入金额
 		ifBuy: false, // 是否可购买
 		expect: '', // 预计购买
-		buyGopNum:'',
+		//buyGopNum:'',
 		moneyClear: function() {
 			vm.money = '';
 			vm.expect = '';
 			vm.ifBuy = false;
 		},
 		buy: function() { // 买入
-			/*
 			if (!vm.ifBuy) {
 				return;
 			}
 
 			vm.ifBuy = false;
-			}*/
 			
 			weixin.pay.onSuccess = function(res) {
 				price.stop();
@@ -54,31 +52,15 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 			weixin.pay.create($('#purchase-main-money').val());
 		},
 		gopBuyValidate: function() {
-			if(vm.buyGopNum>=1 && vm.buyGopNum <=3000){
-				var num = ''+vm.buyGopNum;
-				if(num.indexOf('.')!=-1){
-					vm.buyGopNum = num.substring(0,num.indexOf('.'));
-				}
-				vm.ifBuy = check.gopBuyValidate(this.value, vm.price);
-				vm.expect = this.value ? 'G ' + filters.floorFix(this.value / vm.price) : '';
+			if(this.value){
+				if(this.value.constructor === NaN){
+					this.value = '';
+				}else{
+					this.value = parseInt(this.value);
+					vm.ifBuy = check.gopBuyValidate(this.value, vm.price);
+					vm.expect = this.value ? 'G ' + filters.floorFix(this.value / vm.price) : '';
+				}	
 			}
-			/*
-			if((/^\d|(\d\d)$/).test(this.value)){
-				console.log('成功');
-			}
-			
-			this.value.replace(/[1-3][0-9]/,function(str,index){
-
-			});
-			
-			if(this.value.test(/\d{1-4}/g)){
-				this.value = this.value.substring(0,this.value.indexOf('*'));
-			}
-			
-			if(this.value.indexOf('#')!=-1){
-				this.value = this.value.substring(0,this.value.indexOf('#'));
-			}
-			*/
 		},
 	});
 	var vmOrder = avalon.define({ // 订单页面
