@@ -74,7 +74,6 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		}, function(data) {
 			if (data.status == 200) {
 				vm.list = dataHandler(originList = originList.concat(data.data.list));
-				console.log(originList);
 				//console.log(dataHandler(originList = originList.concat(data.data.list)));
 				// vm.list.pushArray(dataHandler(data.data.list));
 				page = data.data.list.length < size ? 0 : page + 1; // 是否停止请求
@@ -264,8 +263,8 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 				var options = {};
 				data.name && (options.transferName = data.name);
 				data.img && (options.transferImg = data.img);
-				billView.set(data.type, data.id, options);
-				//           "BUY_IN",  "215"     {}
+				billView.set(data.type, data.id, {options});
+				//           "BUY_IN",  "215"  {data.name:'',data.img:''}
 				router.go('/bill');
 			}
 		}

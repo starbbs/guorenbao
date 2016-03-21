@@ -171,6 +171,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 		options = options || {};
 		switch (type) {
 			case 'TRANSFER_OUT': // 转账, 转出
+								//  "TRANSFER_OUT",  "215"  {data.name:'',data.img:''}
 				transferOutHandler('TRANSFER_OUT', id, options);
 				break;
 			case 'TRANSFER_IN': // 转账, 转入
@@ -211,8 +212,9 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 				setOne('transferName', data.data.remark || data.data.nick || '未命名地址');
 				setOne('transferImg', data.data.photo || '');
 				setOne('transferAddress', filters.phone(data.data.phone) || filters.address(data.data.address) || '');
-				if (!data.data.remark && vm.type === 'TRANSFER_OUT' && vm.status === 'SUCCESS') { // 显示"设置备注名"的判断, 没有备注名且转账成功
-					setOne('ifSetNickname', true);
+				if (!data.data.remark && vm.type === 'TRANSFER_OUT' && vm.status === 'SUCCESS') { 
+				// 显示"设置备注名"的判断, 没有备注名且转账成功
+					setOne('ifSetNickname', false);
 					nicknameView.vm.id = personId;
 				}
 			}
@@ -366,7 +368,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			}), options);
 			order.personId && setUser(order.personId);
 		});
-	};
+	};								//"TRANSFER_OUT",  "215"  {data.name:'',data.img:''}
 	var transferOutHandler = function(type, id, options) { // 传出
 		api.transferQuery({
 			gopToken: gopToken,
