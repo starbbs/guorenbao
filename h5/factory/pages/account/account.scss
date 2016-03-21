@@ -35,13 +35,24 @@ body {
 		padding-bottom: 300px;
 	}
 	&-loading {
+		position: absolute;
 		text-align: center;
-		margin-top: 10px;
-		span {
-			padding: 4px 8px;
-			background-color: $g-silver;
-			color: $g-white;
-			border-radius: $g-radius;
+		transition: height 2s;
+		//transition: height 2s, width 1s;
+		text-align: center;
+		width: 100%;
+		top: -70px;
+		height: 70px;
+		line-height: 70px;
+		&-show {
+			position: relative;
+			top: 0px;
+			span {
+				padding: 4px 8px;
+				background-color: $g-silver;
+				color: $g-white;
+				border-radius: $g-radius;
+			}
 		}
 	}
 

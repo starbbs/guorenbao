@@ -86,7 +86,6 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 									vm.question1 = data.data.question;
 									router.go('view/paypass-protection-1');
 								} else {
-									console.log(data);
 									$.alert('验证码错误');
 								}
 							});
@@ -96,12 +95,10 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 								//vm.realName = '*' + vm.realName.substr(1, vm.realName.length - 1);
 								router.go('view/paypass-authentication');
 							} else {
-								console.log(data);
 								$.alert('未实名认证,请先实名认证');
 							}
 						}
 					} else {
-						console.log(data);
 						$.alert('验证码错误');
 					}
 				});
@@ -129,7 +126,6 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 						}
 					});
 				} else {
-					console.log(data);
 					$.alert('验证问题错误');
 				}
 			});
@@ -144,7 +140,6 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 				if (data.status == 200) {
 					router.go('view/paypass-view-2');
 				} else {
-					console.log(data);
 					$.alert('验证问题错误');
 				}
 			});
@@ -163,7 +158,6 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 					vm.identifyingCode = '';
 					router.go('view/paypass-ident');
 				} else {
-					console.log(data);
 					$.alert(data.msg);
 				}
 			});
@@ -177,7 +171,6 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 					if (data.status == 200) {
 						router.go('view/paypass-view-2');
 					} else {
-						console.log(data);
 						$.alert(data.msg);
 					}
 				});
@@ -195,7 +188,6 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 					if (data.status == 200) {
 						router.go('view/paypass-view-2');
 					} else {
-						console.log(data);
 						$.alert(data.msg);
 					}
 				});
@@ -220,7 +212,6 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 						vm.identifyingCode = '';
 						dialogShow();
 					} else {
-						console.log(data);
 						$.alert(data.msg);
 					}
 				});
@@ -245,7 +236,6 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 		if (data.status == 200) {
 			vm.hasRealName = data.data.realname && data.data.realname != '';
 		} else {
-			console.log(data);
 			$.alert(data.msg);
 		}
 	});

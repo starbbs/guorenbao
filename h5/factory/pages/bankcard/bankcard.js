@@ -112,7 +112,6 @@ require(['router', 'api', 'h5-view', 'hashMap',
 			}, 100);
 		}
 	});
-	console.log(View);
 	var bankcard_detail = new View('bankcard-detail');
 	var bankcardDetailViewModel = avalon.define({
 		$id: 'bankcard-detail',
@@ -141,7 +140,6 @@ require(['router', 'api', 'h5-view', 'hashMap',
 				gopToken: gopToken,
 				cardId: bankcardDetailViewModel.cardId
 			}, function(data) {
-				console.log(data.status);
 				if (data.status == 200) {
 					$.alert('解绑成功');
 					bankcardDetailViewModel.callback();
@@ -160,7 +158,6 @@ require(['router', 'api', 'h5-view', 'hashMap',
 		}, function(data) {
 			if (data.status == 200) {
 				for (var i = 0; i < data.data.list.length; i++) {
-					console.log(data.data.list);
 					var item = data.data.list[i];
 					item.typeName = item.cardType == 'SAVINGS_DEPOSIT_CARD' ? '储蓄卡' : '信用卡';
 					item.bankDataDic = hashMap.get(item.bankName);
