@@ -35,17 +35,18 @@ body {
 		padding-bottom: 300px;
 	}
 	&-loading {
-		position: relative;
+		position: absolute;
 		text-align: center;
-		transition: height 1s;
-		//margin-top: 10px;
-		opacity: 0;
-		height: 0px;
-		line-height: 0px;
+		transition: height 2s;
+		//transition: height 2s, width 1s;
+		text-align: center;
+		width: 100%;
+		top: -70px;
+		height: 70px;
+		line-height: 70px;
 		&-show {
-			opacity: 1;
-			height: 130px;
-			line-height: 180px;
+			position: relative;
+			top: 0px;
 			span {
 				padding: 4px 8px;
 				background-color: $g-silver;
