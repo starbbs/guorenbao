@@ -9,7 +9,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 	router.init();
 	var gopToken = $.cookie('gopToken');
 	var page = 1; // 账单页数, 当返回列表长度小于当前列表长度时, 置零, 不再请求
-	var size = 3; // 账单列表
+	var size = 10; // 账单列表
 
 	var main = $('.account'); // 主容器
 	var init = function() { // 初始化
