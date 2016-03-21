@@ -92,38 +92,85 @@ require(['api_mkt','cookie'], function(apimkt) {
 		}
 	});
 
-	//下一步按钮 one two three
+	//注册果仁市场 点击-进入设置支付密码
 	$(".oneStep").click(function(){
 		$(".two").css('display','flex')
 		$(".one").css('display','none');
 	});
+	//设置支付密码 点击-进入 实名验证
 	$(".twoStep").click(function(){
 		$(".three").css('display','flex')
 		$(".two").css('display','none');
 	});
+	//实名验证-按钮点击注册成功
 	$(".threeStep").click(function(){
 		$(".four").css('display','flex')
 		$(".three").css('display','none');
 	});
-
+	//跳过实名验证-按钮点击注册成功
+	$(".SkipThreeStep").click(function(){
+		$(".four").css('display','flex')
+		$(".three").css('display','none');
+	});
+	
 	
 	//测试
-    $('.next_step_sure').click(function(){
+	//获取验证码
+	$('.checkCode-send').click(function(){
+    	alert(' 验证码success');
+    	$.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "http://172.16.33.3:8080/common/sendCode",
+            data: JSON.stringify({
+		   		'phone':$('.checkPhone').val()
+            }),
+            cache: false,
+            success: function(data) {
+            	console.log(data);
 
+                if (data.msg == "true") {
+                	
+                } else {
+                    
+                }
+            },
+            error: function() {
+                console.log("提交失败");
+            }
+       });
+    	//60秒后重新发送
+    	var count = 10;
+    	var resend = setInterval(function(){
+    		count--;
+    		if(count > 0){
+    			$('.checkCode-send').val(count+'s后重新发送');
+    			$('.checkCode-send').attr('disabled',true).css('cursor','not-allowed');
+    		}else{
+    			clearInterval(resend);
+    			$('.checkCode-send').attr('disabled',false).css('cursor','pointer').val('获取验证码');
+    		}
+    	},1000); 
+    });
+
+	//第一步注册 按钮点击
+    $('.oneStep').click(function(){
+    	alert('手机注册success');
     	$.ajax({
             type: "POST",
             dataType: "json",
             url: "http://172.16.33.3:8080/login/login",
             data: JSON.stringify({
-                'phone':$('.regist-username').val(), 
-		   		'identifyingCode':$('.regist-idcard').val(),
-		   		'password':$('.regist-pwd').val(),
-		   		'confirmPwd':$('.regist-confirmPwd').val()	
+                'phone':$('.checkPhone').val(), 
+		   		'identifyingCode':$('.checkCode').val(),
+		   		'password':$('.checkpwd').val(),
+		   		'confirmPwd':$('.checkConfirmPwd').val()	
             }),
             cache: false,
             success: function(data) {
+            	console.log(data);
                 if (data.msg == "true") {
-
+                	
                 } else {
                     
                 }
@@ -133,6 +180,62 @@ require(['api_mkt','cookie'], function(apimkt) {
             }
         });
 
+    	//设置支付密码  下一步
+		$('.twoStep').click(function(){
+	    	alert('twoStep设置支付密码');
+	    	$.ajax({
+	            type: "POST",
+	            dataType: "json",
+	            url: "http://172.16.33.3:8080/login/register",
+	            data: JSON.stringify({
+	            	'phone':$('.checkPhone').val(), 
+			   		'identifyingCode':$('.checkCode').val(),
+			   		'password':$('.checkpwd').val(),
+			   		'confirmPwd':$('.checkConfirmPwd').val(),
+			   		'payPwd':$('.payPwd').val(),
+			   		'comfirmPayPwd':$('.payConfirmPwd').val()
+	            }),
+	            cache: false,
+	            success: function(data) {
+	            	console.log(data);
+	                if (data.msg == "true") {
+	                	
+	                } else {
+	                    
+	                }
+	            },
+	            error: function() {
+	                console.log("提交失败");
+	            }
+	        });
+
+	    });
+		//设置实名认证  下一步
+		$('.threeStep').click(function(){
+	    	alert('threeStep设置支付密码');
+	    	$.ajax({
+	            type: "POST",
+	            dataType: "json",
+	            url: "http://172.16.33.3:8080/security/realNameAuth",
+	            data: JSON.stringify({
+			   		'realName':$('.personName').val(),
+			   		'idNumber':$('.personId').val()
+	            }),
+	            cache: false,
+	            success: function(data) {
+	            	console.log(data);
+	                if (data.msg == "true") {
+	                	
+	                } else {
+	                    
+	                }
+	            },
+	            error: function() {
+	                console.log("提交失败");
+	            }
+	        });
+
+	    });
 
     	/*apimkt.registerLogin({			
 	   		'phone':$('.regist-username').val(), 
@@ -152,7 +255,7 @@ require(['api_mkt','cookie'], function(apimkt) {
     	});*/
 
     });
-     
+
     /*陈 - 添加  end*/
 
 	
