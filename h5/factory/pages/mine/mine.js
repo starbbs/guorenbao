@@ -61,8 +61,6 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 		dbclickOrLongpress:dbclickOrLongpress,
 		textNum:'0/140',//可输入的文字个数上线
 		nick_click: function() {
-			//nicknameView.nickname = vm.nickname;
-			console.log(nicknameView);
 			$.extend(nicknameView.vm,{
 				nickname:vm.nickname,
 				id:'',
@@ -73,7 +71,6 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 					//},1000);						
 				}
 			});
-			console.log(nicknameView);
 			router.go('/nickname');
 		},
 		address_mine_click: function() { //果仁市场跳转
