@@ -9,7 +9,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 	router.init();
 	var gopToken = $.cookie('gopToken');
 	var page = 1; // 账单页数, 当返回列表长度小于当前列表长度时, 置零, 不再请求
-	var size = 8; // 账单列表
+	var size = 3; // 账单列表
 
 	var main = $('.account'); // 主容器
 	var init = function() { // 初始化
@@ -42,7 +42,9 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 				vm.loadingWord = '加载中...';
 				page = 1;
 				originList = [];
-				getList();	
+				setTimeout(function(){
+					getList();
+				},100);	
 			}
 		},
 		onScrollEnd: function() {
@@ -72,6 +74,8 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		}, function(data) {
 			if (data.status == 200) {
 				vm.list = dataHandler(originList = originList.concat(data.data.list));
+				console.log(originList);
+				//console.log(dataHandler(originList = originList.concat(data.data.list)));
 				// vm.list.pushArray(dataHandler(data.data.list));
 				page = data.data.list.length < size ? 0 : page + 1; // 是否停止请求
 				callback && callback(data);
@@ -215,6 +219,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 				default:
 					console.log(item);
 			}
+			now = new Date();
 			var compare = mydate.timeCompare(now, item._date); //返回 今天 昨天 前天
 			var day = {
 				id: item.businessId,
