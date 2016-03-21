@@ -66,6 +66,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			billListPageSize: size
 		}, function(data) {
 			if (data.status == 200) {
+				originList = [];
 				vm.list = dataHandler(originList = originList.concat(data.data.list));
 				// vm.list.pushArray(dataHandler(data.data.list));
 				page = data.data.list.length < size ? 0 : page + 1; // 是否停止请求
