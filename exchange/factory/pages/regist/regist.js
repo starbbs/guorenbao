@@ -175,7 +175,7 @@ require(['api_mkt','cookie'], function(apimkt) {
     	$.ajax({
             type: "POST",
             dataType: "json",
-            url: "http://172.16.33.3:8080/login/login",
+            url: "http://172.16.33.3:8080/login/registerBefore",
             data: JSON.stringify({
                 'phone':$('.checkPhone').val(), 
 		   		'identifyingCode':$('.checkCode').val(),
