@@ -11,6 +11,9 @@ require(['api_mkt','cookie'], function(apimkt) {
 			var reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
 			if(!reg.test(phone)){
 				$('.msg-phone').show();
+				$('.checkCode-send').attr('disabled',true).css('cursor','not-allowed');
+			}else if(!phone){
+				$('.checkCode-send').attr('disabled',true).css('cursor','not-allowed');
 			}else{
 				$('.msg-phone').hide();
 			}
@@ -132,6 +135,7 @@ require(['api_mkt','cookie'], function(apimkt) {
 	
 	//测试
 	//获取验证码
+	var CodeA;
 	$('.checkCode-send').click(function(){
     	alert(' 验证码success');
     	$.ajax({
@@ -144,9 +148,10 @@ require(['api_mkt','cookie'], function(apimkt) {
             cache: false,
             success: function(data) {
             	console.log(data);
-
-                if (data.msg == "true") {
-                	
+            	CodeA = data.msg;
+            	var code = data.status;
+                if (code !== 200) {
+                	alert('获取验证码失败！');
                 } else {
                     
                 }
