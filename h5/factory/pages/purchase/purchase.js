@@ -18,16 +18,21 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		money: '', // 买入金额
 		ifBuy: false, // 是否可购买
 		expect: '', // 预计购买
+		BuyGoNum:'',
 		moneyClear: function() {
 			vm.money = '';
 			vm.expect = '';
 			vm.ifBuy = false;
 		},
 		buy: function() { // 买入
+			/*
 			if (!vm.ifBuy) {
 				return;
 			}
+
 			vm.ifBuy = false;
+			}*/
+			
 			weixin.pay.onSuccess = function(res) {
 				price.stop();
 				billView.set('BUY_IN', vmOrder.id, {
@@ -49,12 +54,22 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 			weixin.pay.create($('#purchase-main-money').val());
 		},
 		gopBuyValidate: function() {
-			if(this.value.indexOf('*')!=-1){
+			if((/\d|\d{1-2}/).test(vm.BuyGoNum)){
+				console.log('成功');
+			}
+			/*
+			this.value.replace(/[1-3][0-9]/,function(str,index){
+
+			});
+			
+			if(this.value.test(/\d{1-4}/g)){
 				this.value = this.value.substring(0,this.value.indexOf('*'));
 			}
+			
 			if(this.value.indexOf('#')!=-1){
 				this.value = this.value.substring(0,this.value.indexOf('#'));
-			}						
+			}
+			*/						
 			vm.ifBuy = check.gopBuyValidate(this.value, vm.price);
 			vm.expect = this.value ? 'G ' + filters.floorFix(this.value / vm.price) : '';
 		},
