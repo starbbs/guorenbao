@@ -92,19 +92,27 @@ require(['api_mkt','cookie'], function(apimkt) {
 		}
 	});
 
-	//下一步按钮 one two three
+	//注册果仁市场 点击-进入设置支付密码
 	$(".oneStep").click(function(){
 		$(".two").css('display','flex')
 		$(".one").css('display','none');
 	});
+	//设置支付密码 点击-进入 实名验证
 	$(".twoStep").click(function(){
 		$(".three").css('display','flex')
 		$(".two").css('display','none');
 	});
+	//实名验证-按钮点击注册成功
 	$(".threeStep").click(function(){
 		$(".four").css('display','flex')
 		$(".three").css('display','none');
 	});
+	//跳过实名验证-按钮点击注册成功
+	$(".SkipThreeStep").click(function(){
+		$(".four").css('display','flex')
+		$(".three").css('display','none');
+	});
+	
 	
 	//测试
 	//获取验证码
@@ -132,7 +140,7 @@ require(['api_mkt','cookie'], function(apimkt) {
             }
        });
     	//60秒后重新发送
-    	var count = 5;
+    	var count = 10;
     	var resend = setInterval(function(){
     		count--;
     		if(count > 0){
