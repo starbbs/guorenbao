@@ -374,6 +374,27 @@
     float: left;
 }
 
+.checkCode, .checkCode-send{
+    height: 32px;
+    width: 115px;
+    border: 1px solid #d6d6d6;
+    box-sizing: border-box;
+    float: left;
+}
+.checkCode{
+    margin-right: 10px;
+    padding-left: 14px;
+}
+.checkCode-send{
+    color:#999;    
+    padding-left: 4px;
+    outline: none;
+    cursor: pointer;
+}
+.checkCode-send:hover{
+    border:1px solid #bbb;
+}
+
 .next_step_btn {
     height: 32px;
     line-height: 32px;
@@ -384,6 +405,14 @@
     top: 260px;
     color: #ffffff;
     cursor: pointer;
+}
+
+
+.SkipThreeStep{
+    color:#0bbeee;
+    position: absolute;
+    top: 320px;
+    background: #fff;
 }
 
 .next_step_sure {
@@ -523,8 +552,41 @@ legend {
 .markasread{
     color:#0bbeee;
     margin-left:4px;
+    text-decoration: none;
 }
 .regist_checkbox_box{
     float:left;
     color:#999999;
+}
+.four-img{
+    width:126px;
+    height:100px;
+    float: right;
+    background: url("../images/regist.png") no-repeat;
+    position: absolute;
+    top:145px;
+    right:430px;
+}
+.regist-complete{
+    font-size: 2.5rem;
+    position: absolute;
+    top:145px;
+    right:280px;
+    color:#0bbeee;
+}
+.toIndex{
+    float: left;
+    position: absolute;
+    top:185px;
+    right:285px;
+    color:#999;
+}
+.toIndexBtn{
+    width:100px;
+    position: absolute;
+    top:210px;
+    right:305px;
+}
+.toIndexBtn a{
+    color:#fff;
 }
