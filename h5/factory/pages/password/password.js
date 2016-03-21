@@ -13,7 +13,7 @@ require(['router', 'api', 'h5-view', 'h5-view-password', 'h5-weixin','h5-compone
 		$id: 'password',
 		pass: '',
 		errorTime: 0,
-		check_password_click: function() {
+		check_password_click: function() {//输入原密码 第一步
 			if (!vm.pass) {
 				$.alert("原密码不能为空");
 				return;
@@ -43,7 +43,6 @@ require(['router', 'api', 'h5-view', 'h5-view-password', 'h5-weixin','h5-compone
 					vm.errorTime++;
 				}
 			});
-
 		}
 	});
 

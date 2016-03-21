@@ -50,6 +50,8 @@ define('h5-view-password', ['api', 'router', 'check', 'h5-view', 'h5-ident', 'h5
 	});
 	avalon.scan(forget.native, forgetViewModel);
 
+
+
 	var set = viewPassword.set = new View('password-set');
 	var setViewModel = avalon.define({
 		$id: 'password-set',
@@ -58,9 +60,9 @@ define('h5-view-password', ['api', 'router', 'check', 'h5-view', 'h5-ident', 'h5
 		input: function() {
 			setViewModel.ifNext = check.password(this.value).result;
 		},
-		next: function() {
+		next: function() {//新入新密码的下一步
 			if (setViewModel.ifNext) {
-				console.log(forgetViewModel.phone, forgetViewModel.ident, setViewModel.password);
+				console.log(forgetViewModel.phone)//, forgetViewModel.ident, setViewModel.password);
 				api.resetLoginPassword({
 					phone: forgetViewModel.phone,
 					identifyingCode: forgetViewModel.ident,
