@@ -93,10 +93,10 @@ require(['api_mkt','cookie'], function(apimkt) {
 	});
 
 	//注册果仁市场 点击-进入设置支付密码
-	$(".oneStep").click(function(){
+	/*$(".oneStep").click(function(){
 		$(".two").css('display','flex')
 		$(".one").css('display','none');
-	});
+	});*/
 	//设置支付密码 点击-进入 实名验证
 	$(".twoStep").click(function(){
 		$(".three").css('display','flex')
@@ -148,7 +148,7 @@ require(['api_mkt','cookie'], function(apimkt) {
             	CodeA = data.msg;
             	var code = data.status;
                 if (code !== 200) {
-                	alert('获取验证码失败！');
+                	//alert('获取验证码失败！');
                 } else {
                     
                 }
@@ -187,10 +187,14 @@ require(['api_mkt','cookie'], function(apimkt) {
             cache: false,
             success: function(data) {
             	console.log(data);
-                if (data.msg == "true") {
-                	
+                if (data.status == 400) {
+                	$('.msg-phone').show().html('手机号已注册，请<a class="markasread" href="index.html">直接登录</a>');
                 } else {
-                    
+                    //注册果仁市场 点击-进入设置支付密码
+					$(".oneStep").click(function(){
+						$(".two").css('display','flex')
+						$(".one").css('display','none');
+					});
                 }
             },
             error: function() {
