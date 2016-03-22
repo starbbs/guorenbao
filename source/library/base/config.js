@@ -64,7 +64,7 @@
 			'h5-component-bill':		H5_COMPONENTS + '/bill/bill',
 			'h5-component-keyboard':	H5_COMPONENTS + '/keyboard/keyboard',
 			'h5-dialog':				H5_DIALOGS + '/dialog',
-			
+
 			//添加对话
 			'h5-dialog-alert':			H5_DIALOGS + '/alert/alert',   
 			'h5-dialog-success':		H5_DIALOGS + '/success/success',
