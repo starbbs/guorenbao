@@ -131,32 +131,19 @@ require(['api_mkt','cookie'], function(apimkt) {
 	}
 	
 	//测试
-	//获取验证码
-	var CodeA;
+	//接口1-获取验证码
+
 	$('.checkCode-send').click(function(){
-    	alert(' 验证码success');
-    	$.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "http://172.16.33.3:8080/common/sendCode",
-            data: JSON.stringify({
-		   		'phone':$('.checkPhone').val()
-            }),
-            cache: false,
-            success: function(data) {
-            	console.log(data);
-            	CodeA = data.msg;
-            	var code = data.status;
-                if (code !== 200) {
-                	//alert('获取验证码失败！');
-                } else {
-                    
-                }
-            },
-            error: function() {
-                console.log("提交失败");
-            }
-       });
+	    api_mkt.sendCode({			
+	   		'phone':$('.checkPhone').val()	   
+		}, function(data) {
+			if (data.status == 200) {
+				console.log(data.phone);
+			} else {
+				//console.log(data);
+			}
+		});
+	  	
     	//60秒后重新发送
     	var count = 10;
     	var resend = setInterval(function(){
@@ -258,23 +245,7 @@ require(['api_mkt','cookie'], function(apimkt) {
 	        });
 
 	    });
-
-    	/*apimkt.registerLogin({			
-	   		'phone':$('.regist-username').val(), 
-	   		'identifyingCode':$('.regist-idcard').val(),
-	   		'password':$('.regist-pwd').val(),
-	   		'confirmPwd':$('.regist-confirmPwd').val()		   
-		}, function(data) {
-			if (data.status == 200) {
-				console.log(data.name);
-			} else {
-				//console.log(data);
-			}
-		});
-
-    	apimkt.registerLogin(function(data) {
-        	registerLoginFn(data);
-    	});*/
+  	
 
     });
 
