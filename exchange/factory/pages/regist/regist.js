@@ -12,6 +12,10 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
 		}	
 	});
+	//果仁协议
+	$(".markasread").click(function(){
+		$(".bottom_tip").toggle();
+	});
 		
 	//给所有regist_rg_input类+blur
 	$(".regist_rg_input").blur(function(){
