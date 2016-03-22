@@ -1471,3 +1471,10 @@ a {
 .sellseccon{
     display: table-row-group;
 }
+
+.close_btn{
+        position: absolute;
+    top: 42px;
+    right: 36px;
+    cursor: pointer;
+}

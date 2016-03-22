@@ -1,5 +1,6 @@
 define('api_mkt', ['cookie'], function() {
-	var basePath = 'http://localhost/';
+	//var basePath = 'http://localhost/';
+	var basePath = "http://172.16.33.3:8080/";
 	//http://ip:port/login/registerBefore
 	//var basePath = 'http://ip:port/login/registerBefore';
 	var api = {};
@@ -112,6 +113,9 @@ define('api_mkt', ['cookie'], function() {
 	add('homepage_tradingfloor_kline','kline');
 	add('depthchart','depth');
 	add('homepagekline','kline');
+
+
+	add('login','login/login');
 
 	/*
 	// 1.手机号注册

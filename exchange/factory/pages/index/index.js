@@ -1,6 +1,10 @@
 require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_info, mkt_trade) {
     mkt_info.get();
     mkt_trade.get();
+    $(".bg").width($(document).width());
+    $('.bg').height($(document).height());
+    $('.bg').css('left', 0);
+    $('.bg').css('top', 0);
     var swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
         paginationClickable: true
@@ -155,6 +159,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         });
     }
 
+    $(".close_btn").on("click",function(){
+        $(".popDiv").hide();
+        $(".bg").hide();
+    });
+
     $(".timebar").on("click", function() {
         console.log("timebar");
         $(this).addClass("btn_choosed");
@@ -260,4 +269,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     String.prototype.trim = function() {
         return this.replace(/(^\s*)|(\s*$)/g, '');
     };
+
+    // api_mkt.pollinfo(function(data) {
+    //     callback && callback(data);
+    // });
+    
+    
 });

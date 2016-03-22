@@ -313,7 +313,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     $(".sale_btn").on("click",function(){               //卖出中的限价买入按钮
         $("#bg").show();
         $("#popDiv").fadeIn(500);
-        
     });
     $(".market_price_sale_btn").on("click",function(){  //卖出中的市价买入按钮
         $("#bg").show();
