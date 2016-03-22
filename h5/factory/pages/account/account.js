@@ -4,7 +4,7 @@
 require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5-view-bill', 'mydate',
 	'h5-weixin'
 ], function(router, api, get, filters, H5bill, iScroll, billView, mydate) {
-	
+
 	router.init();
 	var gopToken = $.cookie('gopToken');
 	var page = 1; // 账单页数, 当返回列表长度小于当前列表长度时, 置零, 不再请求
@@ -28,27 +28,27 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 	var accountScroll = new iScroll('account', {
 		vScrollbar: false,
 		preventDefault: true,
-		fixedScrollbar:true,
-		useTransition:true,
+		fixedScrollbar: true,
+		useTransition: true,
 		click: true,
 		onScrollMove: function() {
-			if(this.y>=0){
+			if (this.y >= 0) {
 				vm.loadingWord = '松开刷新';
 				vm.uploading = true;
 			}
 		},
-		onBeforeScrollEnd:function(){
-			if(this.y>=100){
+		onBeforeScrollEnd: function() {
+			if (this.y >= 100) {
 				vm.loadingWord = '加载中...';
 				page = 1;
 				originList = [];
-				setTimeout(function(){
+				setTimeout(function() {
 					getList();
-				},100);	
-			}else{
-				setTimeout(function(){
+				}, 100);
+			} else {
+				setTimeout(function() {
 					vm.uploading = false;
-				},100);
+				}, 100);
 			}
 		},
 		onScrollEnd: function() {
@@ -86,17 +86,15 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 				!main.hasClass('on') && setTimeout(function() {
 					main.addClass('on');
 				}, 200);
-				setTimeout(function(){
+				setTimeout(function() {
 					vm.loading = false;
 					vm.uploading = false;
-				},100);
+				}, 100);
 			} else {
 				$.alert(data.msg);
 			}
 		});
 	};
-
-
 
 
 
@@ -122,7 +120,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		// 	type: "BUY_IN",       还有可能是TRANSFER_IN
 		// 	userId: 21
 		// })
-		var type = H5bill.typeClass[item.type];  //BUY_IN ==> buy 
+		var type = H5bill.typeClass[item.type]; //BUY_IN ==> buy 
 		var bill = { // 账单
 			id: item.businessId,
 			img: '', // 头像
@@ -146,13 +144,13 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			gop: 'floorFix'
 		};
 
-		if (type === 'transfer' && item.extra) {//转帐类型 并有extra字段
+		if (type === 'transfer' && item.extra) { //转帐类型 并有extra字段
 			bill.img = item.extra.photo || ''; // 转账头像
 			if (item.extra.name) { // 有名字的用户
 				bill.desc += ' - ' + filters.omit(item.extra.name); // "转出-L"  展示用    omit限制长度
-				bill.name = filters.omit(item.extra.name);          // L  绑定到 data-name="L"
-			}else{
-				if(item.extra.transferOutType === 'GOP_MARKET' || item.extra.transferInType === 'GOP_MARKET' ){
+				bill.name = filters.omit(item.extra.name); // L  绑定到 data-name="L"
+			} else {
+				if (item.extra.transferOutType === 'GOP_MARKET' || item.extra.transferInType === 'GOP_MARKET') {
 					bill.desc += ' - 果仁市场';
 					bill.iconClass = 'market';
 				}
@@ -173,12 +171,12 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 				item.extra.phoneInfo.carrier && (bill.desc += ' - ' + item.extra.phoneInfo.carrier); // 运营商
 			}
 		}
-		
+
 		if (kind === 'all') {
 			// console.log(item.extra);
 			if (item.extra.recordList.length) {
 				item.extra.recordList.forEach(function(item) {
-					switch(item.payType) {
+					switch (item.payType) {
 						case 'GOP_PAY':
 							bill.change = numHandler(-item.payGop, coins['gop'], filter['gop']);
 							break;
@@ -209,7 +207,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		}).sort(function(item1, item2) { // 排序
 			return item2._date.getTime() - item1._date.getTime();
 		}).reduce(function(result, item) { // 提取
-			var time = mydate.timeHandler(item._date); 	//time格式如下
+			var time = mydate.timeHandler(item._date); //time格式如下
 			// item._date ==> Wed Mar 16 2016 13:24:11 GMT+0800 (中国标准时间)
 			// 把 date格式的数据 转化成
 			// {
@@ -272,7 +270,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 	var vm = avalon.define({
 		$id: 'account',
 		loading: false,
-		uploading:false,
+		uploading: false,
 		loadingWord: '加载中...',
 		list: [],
 		listRepeatCallback: function() { // 循环结束回调
@@ -281,7 +279,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			}, 200);
 		},
 		showAccount: function(ev) { // 显示账单详情(事件代理)
-			var target=listTarget= $(ev.target).closest('.account-item');
+			var target = listTarget = $(ev.target).closest('.account-item');
 			if (target.length) {
 				var data = target.get(0).dataset;
 				var options = {};
@@ -303,24 +301,24 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 	});
 	//此函数为oncfirm事件时候的回调函数
 	//console.log(vm.list);
-	billView.onClose = function(vmid , vmtime) {
-		for(var i=0; i<vm.list.length; i++){
-			for(var j=0; j<vm.list[i].days.length; j++){
-				if(vm.list[i].days[j].id == vmid){//先查找ID所在的days数组  再保存ID所在数组到本月第一条  再删除前数组  再从days头添加id所在的数组  2016-03-18 15:48:49
-					vm.list[i].days[j].time = vmtime.substr(vmtime.indexOf(' ')+1,5);
-					for(var x=0; x<vm.list[i].days[j].bills.length; x++ ){
+	billView.onClose = function(vmid, vmtime) {
+		for (var i = 0; i < vm.list.length; i++) {
+			for (var j = 0; j < vm.list[i].days.length; j++) {
+				if (vm.list[i].days[j].id == vmid) { //先查找ID所在的days数组  再保存ID所在数组到本月第一条  再删除前数组  再从days头添加id所在的数组  2016-03-18 15:48:49
+					vm.list[i].days[j].time = vmtime.substr(vmtime.indexOf(' ') + 1, 5);
+					for (var x = 0; x < vm.list[i].days[j].bills.length; x++) {
 						vm.list[i].days[j].bills[x].status = '已关闭';
 					}
 					var closeArrDay = vm.list[i].days[j];
-					vm.list[i].days.splice(j,1);
+					vm.list[i].days.splice(j, 1);
 					vm.list[0].days.unshift(closeArrDay);
 					break;
 				}
 			}
-		}		
-		setTimeout(function(){
+		}
+		setTimeout(function() {
 			window.history.go(-1);
-		},1500);
+		}, 1500);
 	};
 
 	/*
