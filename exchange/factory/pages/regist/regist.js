@@ -213,7 +213,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
     	$(".four").css('display','flex');
 		$(".three").css('display','none');
 		toIndex();
-				//进入注册完成页，3秒后跳转首页
+		//进入注册完成页，3秒后跳转首页
 		function toIndex(){
 			var count = 3;
 				var timer = setInterval(function(){
