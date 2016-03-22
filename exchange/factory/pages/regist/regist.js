@@ -187,18 +187,6 @@ require(['api_mkt','cookie'], function(api_mkt) {
 				$(".three").css('display','none');
 				toIndex();
 				//进入注册完成页，3秒后跳转首页
-				function toIndex(){
-					var count = 3;
-						var timer = setInterval(function(){
-						count--;
-						if(count > 0){
-							$(".toIndex").text(count+'s后自动跳转进入首页');
-						}else{
-							clearInterval(timer);
-							location.href="http://localhost/exchange/build/index.html";
-						}
-					},1000);		
-				}
 							
 			} else {
 				console.log(data.status);
@@ -214,7 +202,9 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		$(".three").css('display','none');
 		toIndex();
 		//进入注册完成页，3秒后跳转首页
-		function toIndex(){
+		
+    })
+    function toIndex(){
 			var count = 3;
 				var timer = setInterval(function(){
 				count--;
@@ -225,8 +215,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 					location.href="http://localhost/exchange/build/index.html";
 				}
 			},1000);		
-		}
-    })
+	}
   	/*陈 - 添加  end*/
 
 });
