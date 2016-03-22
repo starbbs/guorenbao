@@ -47,12 +47,12 @@ body {
 		&-show {
 			position: relative;
 			top: 0px;
-			span {
+		}
+		span {
 				padding: 4px 8px;
 				background-color: $g-silver;
 				color: $g-white;
 				border-radius: $g-radius;
-			}
 		}
 	}
 
