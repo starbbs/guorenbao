@@ -542,12 +542,11 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 	init();
 
 	setTimeout(function() {
-		if (get.data.from === 'contacts') {
+		if (get.data.from === 'contacts') { // 来自联系人, 后期分离出公用页面
 			api.contactInfo({
 				gopToken: gopToken,
 				personId: get.data.id,
 			}, function(data) {
-				console.log(data)
 				if (data.status == 200) {
 					var person = data.data;
 					$.extend(transferTarget, {
@@ -562,27 +561,9 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 				} else {
 					$.alert(data.msg);
 					console.log(data);
-					transfer.addClass('on');
 				}
+				transfer.addClass('on');
 			});
-			// if (data) {
-			// 	data = JSON.parse(data); //联系人数据
-			// 	transferTarget.address = data.address;
-			// 	transferTarget.name = data.name;
-			// 	transferTarget.personId = data.id;
-			// 	transferTarget.photo = data.picture;
-			// 	transferTarget.phone = data.phone;
-			// 	if (data.type === "guoren") {
-			// 		vm.transferOutType = "GOP_CONTACT";
-			// 	}
-			// 	if (data.type === "wallet") {
-			// 		vm.transferOutType = "GOP_MARKET";
-			// 	}
-			// 	targetInit(vm.transferOutType);
-			// 	router.to('/transfer-target');
-			// } else {
-			// 	api.log('cookie中并没有联系人数据');
-			// }
 		} else {
 			transfer.addClass('on');
 		}
