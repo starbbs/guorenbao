@@ -1,4 +1,4 @@
-<div class="wealth-history scroll" ms-controller="wealth-history">
+<div class="wealth-history scroll" id="wealth-history" ms-controller="wealth-history">
 	<div class="wealth-history-scroll">
 		<div class="wealth-history-head">
 			累计收益（¥）
@@ -24,5 +24,6 @@
 			</div>
 			-->
 		</div>
+		<div class="wealth-history-scroll-loading" ms-visible="loading"><span>{{loadingWord}}</span></div>
 	</div>
 </div>

@@ -25,7 +25,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 	var timerGetList = null;
 	var originList = [];
 	var bottomHeight = 20; // 下拉加载的高度
-	window.accountScroll = new iScroll('account', {
+	var accountScroll = new iScroll('account', {
 		vScrollbar: false,
 		preventDefault: true,
 		fixedScrollbar:true,
@@ -263,7 +263,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 				var options = {};
 				data.name && (options.transferName = data.name);
 				data.img && (options.transferImg = data.img);
-				billView.set(data.type, data.id, {options});
+				billView.set(data.type, data.id, options);
 				//           "BUY_IN",  "215"  {data.name:'',data.img:''}
 				router.go('/bill');
 			}

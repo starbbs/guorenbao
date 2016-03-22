@@ -1,4 +1,4 @@
-require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_info, mkt_trade) {
+require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_info, mkt_trade,cookie) {
 	var popup_login_times = 0;
     $(".popup_login_btn").on("click",function(){
         popup_login_times++;
