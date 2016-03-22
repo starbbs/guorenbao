@@ -592,18 +592,3 @@ legend {
 .toIndexBtn a{
     color:#fff;
 }
-
-.bottom_tip{
-    position: absolute;
-    right:30px;
-    top:220px;
-    width:300px;
-    line-height: 20px;
-    background: #fff;
-    border:1px solid #ccc;
-    padding:15px;
-    text-indent:2em;
-}
-.bottom_tip p:nth-child(2){
-    color:red;
-}
