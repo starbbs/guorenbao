@@ -157,7 +157,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
     	},1000); 
     });
 
-	//接口2 手机号注册-1 
+	//接口2 注册第一步 手机号注册 
     $('.oneStep').click(function(){
     	api_mkt.registerBefore({			
 	   		'phone':$('.checkPhone').val(), 
@@ -179,36 +179,25 @@ require(['api_mkt','cookie'], function(api_mkt) {
 
     });
 
-    	//设置支付密码  下一步
-		$('.twoStep').click(function(){
-	    	alert('twoStep设置支付密码');
-	    	$.ajax({
-	            type: "POST",
-	            dataType: "json",
-	            url: "http://172.16.33.3:8080/login/register",
-	            data: JSON.stringify({
-	            	'phone':$('.checkPhone').val(), 
-			   		'identifyingCode':$('.checkCode').val(),
-			   		'password':$('.checkpwd').val(),
-			   		'confirmPwd':$('.checkConfirmPwd').val(),
-			   		'payPwd':$('.payPwd').val(),
-			   		'comfirmPayPwd':$('.payConfirmPwd').val()
-	            }),
-	            cache: false,
-	            success: function(data) {
-	            	console.log(data);
-	                if (data.msg == "true") {
-	                	
-	                } else {
-	                    
-	                }
-	            },
-	            error: function() {
-	                console.log("提交失败");
-	            }
-	        });
+	//接口3 注册第二步 设置支付密码 
+	$('.twoStep').click(function(){
+		alert('twoStep设置支付密码');
+		api_mkt.sendCode({			
+	   		'phone':$('.checkPhone').val(), 
+	   		'identifyingCode':$('.checkCode').val(),
+	   		'password':$('.checkpwd').val(),
+	   		'confirmPwd':$('.checkConfirmPwd').val(),
+	   		'payPwd':$('.payPwd').val(),
+	   		'comfirmPayPwd':$('.payConfirmPwd').val()	   
+		}, function(data) {
+			if (data.status == 200) {
+				console.log(data.phone);
+			} else {
+				//console.log(data);
+			}
+		});
 
-	    });
+    });
 		//设置实名认证  下一步
 		$('.threeStep').click(function(){
 	    	alert('threeStep设置支付密码');
@@ -279,4 +268,3 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	}
 	*/
 	//apimkt
-});
