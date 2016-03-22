@@ -32,14 +32,13 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		useTransition:true,
 		click: true,
 		onScrollMove: function() {
-			console.log(this.y);
-			if(this.y>0){
+			if(this.y>25){
 				vm.loadingWord = '松开刷新';
 				vm.uploading = true;
 			}
 		},
 		onBeforeScrollEnd:function(){
-			if(this.y>=40){
+			if(this.y>=50){
 				vm.loadingWord = '加载中...';
 				page = 1;
 				originList = [];

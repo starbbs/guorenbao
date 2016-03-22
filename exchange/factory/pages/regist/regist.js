@@ -2,9 +2,9 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	
 	/*陈 - 添加 start*/   
 	//表单校验
-	$(".msg").hide();		
-	//给所有regist_rg_input类+blur
-	$(".regist_rg_input").blur(function(){
+	$(".msg").hide();			
+	//给所有regist_rg_input类+keyup
+	$(".regist_rg_input").keyup(function(){
 		//手机号
 		if ($(this).is(".checkPhone")){
 			var phone = $.trim($(this).val());
@@ -45,11 +45,11 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		}
 		//复选框
 		if ($(this).is(".regular-checkbox")){
-			$(".regular-checkbox").attr("checked","true");
-			if($(this).attr("checked")==false){
-				$(".regular-checkbox").attr("checked","true");
+			//$(".regular-checkbox").attr("checked","true");
+			if($(this).attr("checked") == false){
+				$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
 			}else{
-				return false;
+				$('.oneStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
 			}
 		}
 		//下一步--支付密码
@@ -57,7 +57,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			var payPwd = $.trim($(".payPwd").val());
 			var reg = /^[0-9a-zA-Z]{8,20}$/;
 			if(!reg.test(payPwd)){
-				$('.msg-payPwd').show().text('密码设置不符合规则');
+				$('.msg-payPwd').show().text('8~20位非纯数字字符');
 			}else{
 				$('.msg-payPwd').hide();
 			}
@@ -130,12 +130,11 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			console.log(data);
             if (data.msg == "手机号码已经注册") {
             	$('.msg-phone').show().html('手机号已注册，请<a class="markasread" href="index.html">直接登录</a>');
-            } else {
-                //注册果仁市场 点击-进入设置支付密码
-				$(".oneStep").click(function(){
-					$(".two").css('display','flex')
-					$(".one").css('display','none');
-				});
+            }else if(data.status == 200){
+                $(".two").css('display','flex');
+				$(".one").css('display','none');                 
+            }else{
+            	$('.oneStep').css('backgroundColor','#eee'); 
             }
 		});
 
@@ -152,15 +151,14 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	   		'comfirmPayPwd':$('.payConfirmPwd').val()	   
 		}, function(data) {
 			if (data.status == 200) {
-				console.log(data);
+				console.log(data.status);
 				//设置支付密码 点击-进入 实名验证
-				$(".twoStep").click(function(){
-					$(".three").css('display','flex')
-					$(".two").css('display','none');
-				});
-			} else {
-				console.log(err);
-			}
+				$(".three").css('display','flex')
+				$(".two").css('display','none');				
+			}else{
+            	$('.twoStep').css('backgroundColor','#eee');
+            	console.log(data.status);
+            }
 		});
 
     });
@@ -172,22 +170,17 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		}, function(data) {
 			if (data.status == 200) {
 				console.log(data);
-				//实名验证-按钮点击注册成功
-				$(".threeStep").click(function(){
-					$(".four").css('display','flex')
-					$(".three").css('display','none');
-					toIndex();
-				});
+				//进入注册完成页
+				$(".four").css('display','flex');
+				$(".three").css('display','none');
+				//进入注册完成页，3秒后跳转首页
+				toIndex();
 			} else {
-				//跳过实名验证-按钮点击注册成功
-				$(".SkipThreeStep").click(function(){
-					$(".four").css('display','flex')
-					$(".three").css('display','none');
-					toIndex();		
-				});
+				console.log(data.status);
+				$('.threeStep').css('backgroundColor','#eee');
 			}
 		});
-			//3s后 自动跳转到首页
+		//3s后 自动跳转到首页
 		function toIndex(){
 			var count = 3;
 			var timer = setInterval(function(){
@@ -205,10 +198,6 @@ require(['api_mkt','cookie'], function(api_mkt) {
   	/*陈 - 添加  end*/
 
 });
-
-    
-
-	
 	/*
 	if ($.cookie('gopToken')) {			// 有token
 		api.getGopNum({

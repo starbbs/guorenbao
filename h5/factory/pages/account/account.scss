@@ -32,22 +32,22 @@ body {
 
 	&-scroll {
 		@extend %rw;
+		display: table;
 		padding-bottom: 300px;
 	}
-	&-loading {
-		position: absolute;
+	&-empty {
 		text-align: center;
-		//transition: height 2s;
-		//transition: height 2s, width 1s;
+		font-size: 14px;
+		white-space: nowrap;
+		margin-top: 100px;
+	}
+	&-loading {
 		text-align: center;
 		width: 100%;
-		top: -25px;
-		height: 25px;
-		line-height: 25px;
+		height: 20px;
+		line-height: 20px;
 		display: none;
 		&-show {
-			position: relative;
-			top: 0px;
 			display: block;
 		}
 		span {
