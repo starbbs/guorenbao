@@ -11,16 +11,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		}else{
 			$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
 		}	
-	});
-	//果仁协议
-	$(".markasread").click(function(e){
-		$(".bottom_tip").toggle();       
-        e.stopPropagation(); 
-	});
-	//点击其他位置，收起
-    $('body').bind('click', function(event) {  
-        $('.bottom_tip').hide();
-    });
+	});	
 		
 	//给所有regist_rg_input类+blur
 	$(".regist_rg_input").blur(function(){
