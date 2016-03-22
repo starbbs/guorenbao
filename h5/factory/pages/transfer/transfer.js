@@ -521,7 +521,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 			gopToken: gopToken
 		}, function(data) {
 			if (data.status == 200) {
-				console.log(data.data.transferOutList);
 				data.data.transferOutList.forEach(function(item, index) {
 					if (!item.name && item.type === 'GOP_CONTACT') {
 						item.name = '未命名用户';
