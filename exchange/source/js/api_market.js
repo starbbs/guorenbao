@@ -128,6 +128,8 @@ define('api_mkt', ['cookie'], function() {
 
 	//接口9 账户明细（不传参数查询最近5条）
 	add('billList','bill/billList');
+	//接口10 账户明细（带分页）
+	add('billList-page','bill/billList');
 
 	/*
 	// 1.手机号注册
