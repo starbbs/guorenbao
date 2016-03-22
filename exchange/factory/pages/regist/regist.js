@@ -28,7 +28,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 					});
 				  	
 			    	//60秒后重新发送
-			    	var count = 10;
+			    	var count = 60;
 			    	var resend = setInterval(function(){
 				    		count--;
 				    		if(count > 0){
