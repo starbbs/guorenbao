@@ -196,6 +196,12 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		}   	
 
     });
+
+    //调过实名验证
+    $('.SkipThreeStep').click(function(){
+    	$(".four").css('display','flex');
+		$(".three").css('display','none');
+    })
   	/*陈 - 添加  end*/
 
 });
