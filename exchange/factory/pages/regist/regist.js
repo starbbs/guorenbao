@@ -143,7 +143,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 
 	//接口3 注册第二步 设置支付密码 
 	$('.twoStep').click(function(){
-		api_mkt.sendCode({			
+		api_mkt.identifyingCode({			
 	   		'phone':$('.checkPhone').val(), 
 	   		'identifyingCode':$('.checkCode').val(),
 	   		'password':$('.checkpwd').val(),
