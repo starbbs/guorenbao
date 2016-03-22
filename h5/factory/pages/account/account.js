@@ -263,7 +263,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 				var options = {};
 				data.name && (options.transferName = data.name);
 				data.img && (options.transferImg = data.img);
-				billView.set(data.type, data.id, {options});
+				billView.set(data.type, data.id, options);
 				//           "BUY_IN",  "215"  {data.name:'',data.img:''}
 				router.go('/bill');
 			}
