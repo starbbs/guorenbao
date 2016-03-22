@@ -1,4 +1,4 @@
-require(['api_mkt','cookie'], function(apimkt) {
+require(['api_mkt','cookie'], function(api_mkt) {
 	
 	/*陈 - 添加 start*/   
 	//表单校验
@@ -92,71 +92,19 @@ require(['api_mkt','cookie'], function(apimkt) {
 		}
 	});
 
-	//注册果仁市场 点击-进入设置支付密码
-	/*$(".oneStep").click(function(){
-		$(".two").css('display','flex')
-		$(".one").css('display','none');
-	});*/
-	//设置支付密码 点击-进入 实名验证
-	$(".twoStep").click(function(){
-		$(".three").css('display','flex')
-		$(".two").css('display','none');
-	});
-	
-	//实名验证-按钮点击注册成功
-	$(".threeStep").click(function(){
-		$(".four").css('display','flex')
-		$(".three").css('display','none');
-		toIndex();
-	});
-	//跳过实名验证-按钮点击注册成功
-	$(".SkipThreeStep").click(function(){
-		$(".four").css('display','flex')
-		$(".three").css('display','none');
-		toIndex();		
-	});
-
-	//3s后 自动跳转到首页
-	function toIndex(){
-		var count = 3;
-		var timer = setInterval(function(){
-			count--;
-			if(count > 0){
-				$(".toIndex").text(count+'s后自动跳转进入首页');
-			}else{
-				clearInterval(timer);
-				location.href="http://localhost/exchange/build/index.html";
-			}
-		},1000);
-	}
-	
 	//测试
-	//获取验证码
-	var CodeA;
+	//接口1-获取验证码
 	$('.checkCode-send').click(function(){
-    	alert(' 验证码success');
-    	$.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "http://172.16.33.3:8080/common/sendCode",
-            data: JSON.stringify({
-		   		'phone':$('.checkPhone').val()
-            }),
-            cache: false,
-            success: function(data) {
-            	console.log(data);
-            	CodeA = data.msg;
-            	var code = data.status;
-                if (code !== 200) {
-                	//alert('获取验证码失败！');
-                } else {
-                    
-                }
-            },
-            error: function() {
-                console.log("提交失败");
-            }
-       });
+	    api_mkt.sendCode({			
+	   		'phone':$('.checkPhone').val()	   
+		}, function(data) {
+			if (data.status == 200) {
+				console.log(data.phone);
+			} else {
+				//console.log(data);
+			}
+		});
+	  	
     	//60秒后重新发送
     	var count = 10;
     	var resend = setInterval(function(){
@@ -171,114 +119,94 @@ require(['api_mkt','cookie'], function(apimkt) {
     	},1000); 
     });
 
-	//第一步注册 按钮点击
+	//接口2 注册第一步 手机号注册 
     $('.oneStep').click(function(){
-    	alert('手机注册success');
-    	$.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "http://172.16.33.3:8080/login/registerBefore",
-            data: JSON.stringify({
-                'phone':$('.checkPhone').val(), 
-		   		'identifyingCode':$('.checkCode').val(),
-		   		'password':$('.checkpwd').val(),
-		   		'confirmPwd':$('.checkConfirmPwd').val()	
-            }),
-            cache: false,
-            success: function(data) {
-            	console.log(data);
-                if (data.msg == "手机号码已经注册") {
-                	$('.msg-phone').show().html('手机号已注册，请<a class="markasread" href="index.html">直接登录</a>');
-                } else {
-                    //注册果仁市场 点击-进入设置支付密码
-					$(".oneStep").click(function(){
-						$(".two").css('display','flex')
-						$(".one").css('display','none');
-					});
-                }
-            },
-            error: function() {
-                console.log("提交失败");
-            }
-        });
-
-    	//设置支付密码  下一步
-		$('.twoStep').click(function(){
-	    	alert('twoStep设置支付密码');
-	    	$.ajax({
-	            type: "POST",
-	            dataType: "json",
-	            url: "http://172.16.33.3:8080/login/register",
-	            data: JSON.stringify({
-	            	'phone':$('.checkPhone').val(), 
-			   		'identifyingCode':$('.checkCode').val(),
-			   		'password':$('.checkpwd').val(),
-			   		'confirmPwd':$('.checkConfirmPwd').val(),
-			   		'payPwd':$('.payPwd').val(),
-			   		'comfirmPayPwd':$('.payConfirmPwd').val()
-	            }),
-	            cache: false,
-	            success: function(data) {
-	            	console.log(data);
-	                if (data.msg == "true") {
-	                	
-	                } else {
-	                    
-	                }
-	            },
-	            error: function() {
-	                console.log("提交失败");
-	            }
-	        });
-
-	    });
-		//设置实名认证  下一步
-		$('.threeStep').click(function(){
-	    	alert('threeStep设置支付密码');
-	    	$.ajax({
-	            type: "POST",
-	            dataType: "json",
-	            url: "http://172.16.33.3:8080/security/realNameAuth",
-	            data: JSON.stringify({
-			   		'realName':$('.personName').val(),
-			   		'idNumber':$('.personId').val()
-	            }),
-	            cache: false,
-	            success: function(data) {
-	            	console.log(data);
-	                if (data.msg == "true") {
-	                	
-	                } else {
-	                    
-	                }
-	            },
-	            error: function() {
-	                console.log("提交失败");
-	            }
-	        });
-
-	    });
-
-    	/*apimkt.registerLogin({			
-	   		'phone':$('.regist-username').val(), 
-	   		'identifyingCode':$('.regist-idcard').val(),
-	   		'password':$('.regist-pwd').val(),
-	   		'confirmPwd':$('.regist-confirmPwd').val()		   
+    	api_mkt.registerBefore({			
+	   		'phone':$('.checkPhone').val(), 
+	   		'identifyingCode':$('.checkCode').val(),
+	   		'password':$('.checkpwd').val(),
+	   		'confirmPwd':$('.checkConfirmPwd').val()	   
 		}, function(data) {
-			if (data.status == 200) {
-				console.log(data.name);
-			} else {
-				//console.log(data);
-			}
+			console.log(data);
+            if (data.msg == "手机号码已经注册") {
+            	$('.msg-phone').show().html('手机号已注册，请<a class="markasread" href="index.html">直接登录</a>');
+            } else {
+                //注册果仁市场 点击-进入设置支付密码
+				$(".oneStep").click(function(){
+					$(".two").css('display','flex')
+					$(".one").css('display','none');
+				});
+            }
 		});
-
-    	apimkt.registerLogin(function(data) {
-        	registerLoginFn(data);
-    	});*/
 
     });
 
-    /*陈 - 添加  end*/
+	//接口3 注册第二步 设置支付密码 
+	$('.twoStep').click(function(){
+		api_mkt.sendCode({			
+	   		'phone':$('.checkPhone').val(), 
+	   		'identifyingCode':$('.checkCode').val(),
+	   		'password':$('.checkpwd').val(),
+	   		'confirmPwd':$('.checkConfirmPwd').val(),
+	   		'payPwd':$('.payPwd').val(),
+	   		'comfirmPayPwd':$('.payConfirmPwd').val()	   
+		}, function(data) {
+			if (data.status == 200) {
+				console.log(data);
+				//设置支付密码 点击-进入 实名验证
+				$(".twoStep").click(function(){
+					$(".three").css('display','flex')
+					$(".two").css('display','none');
+				});
+			} else {
+				console.log(err);
+			}
+		});
+
+    });
+	//接口4 注册第三步 设置实名验证
+	$('.threeStep').click(function(){		
+		api_mkt.realNameAuth({			
+	   		'realName':$('.personName').val(),
+		   	'idNumber':$('.personId').val()	   
+		}, function(data) {
+			if (data.status == 200) {
+				console.log(data);
+				//实名验证-按钮点击注册成功
+				$(".threeStep").click(function(){
+					$(".four").css('display','flex')
+					$(".three").css('display','none');
+					toIndex();
+				});
+			} else {
+				//跳过实名验证-按钮点击注册成功
+				$(".SkipThreeStep").click(function(){
+					$(".four").css('display','flex')
+					$(".three").css('display','none');
+					toIndex();		
+				});
+			}
+		});
+			//3s后 自动跳转到首页
+		function toIndex(){
+			var count = 3;
+			var timer = setInterval(function(){
+				count--;
+				if(count > 0){
+					$(".toIndex").text(count+'s后自动跳转进入首页');
+				}else{
+					clearInterval(timer);
+					location.href="http://localhost/exchange/build/index.html";
+				}
+			},1000);
+		}   	
+
+    });
+  	/*陈 - 添加  end*/
+
+});
+
+    
 
 	
 	/*
@@ -318,4 +246,3 @@ require(['api_mkt','cookie'], function(apimkt) {
 	}
 	*/
 	//apimkt
-});

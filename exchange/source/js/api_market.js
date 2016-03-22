@@ -1,5 +1,6 @@
 define('api_mkt', ['cookie'], function() {
-	var basePath = 'http://localhost/';
+	//var basePath = 'http://localhost/';
+	var basePath = "http://172.16.33.3:8080/";
 	//http://ip:port/login/registerBefore
 	//var basePath = 'http://ip:port/login/registerBefore';
 	var api = {};
@@ -112,6 +113,21 @@ define('api_mkt', ['cookie'], function() {
 	add('homepage_tradingfloor_kline','kline');
 	add('depthchart','depth');
 	add('homepagekline','kline');
+
+
+	add('login','login/login');
+
+	//接口1 发送验证码 
+	add('sendCode','common/sendCode');
+	//接口2 注册第一步 手机号注册
+	add('registerBefore','login/registerBefore');	
+	//接口3 注册第二步 设置支付密码 
+	add('identifyingCode','common/identifyingCode');
+	//接口4 注册第三步 设置实名验证 
+	add('realNameAuth','security/realNameAuth');
+
+	//接口9 账户明细（不传参数查询最近5条）
+	add('billList','bill/billList');
 
 	/*
 	// 1.手机号注册

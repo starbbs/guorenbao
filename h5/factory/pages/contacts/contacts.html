@@ -6,8 +6,8 @@
 			<input type="search" id="contacts-search-input" class="contacts-search-input" ms-duplex="search">
 		</form>
 		<div class="contacts-tabs">
-			<div class="contacts-tabs-item" ms-class="on:now==='guoren'" ms-click="tab('guoren')">果仁宝联系人</div>
-			<div class="contacts-tabs-item" ms-class="on:now==='wallet'" ms-click="tab('wallet')">钱包联系人</div>
+			<div class="contacts-tabs-item" ms-class="on:now==='GOP_CONTACT'" ms-click="tab('GOP_CONTACT')">果仁宝联系人</div>
+			<div class="contacts-tabs-item" ms-class="on:now==='WALLET_CONTACT'" ms-click="tab('WALLET_CONTACT')">钱包联系人</div>
 		</div>
 		<div class="contacts-list" ms-click="listClick($event)">
 			<div class="contacts-empty" ms-visible="!list.length">T﹏T 没有联系人哦,快添加吧! (≧▽≦)/</div>
@@ -16,11 +16,11 @@
 				<div class="contacts-content">
 					<div class="contacts-item" ms-repeat-item="group.list" ms-data-path="$outer.$index+'/'+$index">
 						<div class="contacts-item-left">
-							<div class="contacts-item-img"><img ms-attr-src="item.picture||'./images/picture.png'" alt="" class="img-w"></div>
+							<div class="contacts-item-img"><img ms-attr-src="item.picture" alt="" class="img-f"></div>
 						</div>
 						<div class="contacts-item-right">
-							<div class="contacts-item-name">{{item.name?item.name:'未命名用户'|omit}}</div>
-							<div class="contacts-item-phone">{{item.phone?item.phone:item.address.substr(0,8)+'**********'}}</div>
+							<div class="contacts-item-name">{{item.name}}</div>
+							<div class="contacts-item-phone">{{item.phone}}</div>
 						</div>
 					</div>
 				</div>
