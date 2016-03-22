@@ -53,7 +53,7 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		},
 		gopBuyValidate: function() {
 			if(this.value){
-				if(isNaN(this.value)){//输入框是非数字时
+				if(isNaN(this.value)){//输入框是非数字时 NaN === NaN -> false所以只能用isNaN判断类型
 					this.value = '';
 				}else{
 					this.value = parseInt(this.value);

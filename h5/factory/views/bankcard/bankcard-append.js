@@ -15,9 +15,6 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 		}
 	});
 
-	setTimeout(function(){
-		console.log(_validBankList);
-	},2000);
 
 	var checkValidBankList = function(val) {
 		for (var i = 0; i < _validBankList.length; i++) {
@@ -48,7 +45,6 @@ define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-
 						bankCard: _thisVal
 					}, function(data) {
 						if (data.status == 200) {
-							console.log('进行一次银行卡API校验');
 							vm.bankName = data.data.bankName;
 							vm.cardType = data.data.cardType;
 							if (data.data.cardType == 'SAVINGS_DEPOSIT_CARD') { //储蓄 || 信用卡
