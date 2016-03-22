@@ -1,4 +1,4 @@
-//require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
+require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 	//console.log(api_mkt);
 	//console.log(mkt_info);
 	//mkt_info.get();
@@ -25,12 +25,10 @@
         $(".operType").filter(":contains('卖出')").css("color","green");
         //暂无真实接口-为出现效果,暂时放这里,有接口时,删除 -结束
         
-        $.ajax({
-            url: "http://172.16.33.3:8080/bill/billList",
-            type:"post",
-            dataType: "json",
-            cache: false,
-            success:function(data){
+        //接口9 账户明细（不传参数查询最近5条）
+        api_mkt.sendCode(function(data) {
+            if (data.status == 200) {
+                console.log(data);
                 var PageNum = 0; //0当前为第一页
                 var html = [];
                 for(var i=0; i<5;i++){
@@ -49,12 +47,14 @@
                     $(".operType").filter(":contains('买入')").css("color","red");
                     $(".operType").filter(":contains('卖出')").css("color","green"); 
                 }
-            },
-            error:function(err){
+            } else {
                 console.log('财务中心-资产状况-账户明细表格，加载失败。');
             }
         });
+        
+        
+
     });
 
 	
-//});
+});

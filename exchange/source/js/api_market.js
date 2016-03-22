@@ -126,6 +126,9 @@ define('api_mkt', ['cookie'], function() {
 	//接口4 注册第三步 设置实名验证 
 	add('realNameAuth','security/realNameAuth');
 
+	//接口9 账户明细（不传参数查询最近5条）
+	add('billList','bill/billList');
+
 	/*
 	// 1.手机号注册
 	add('register', '/login/register');
