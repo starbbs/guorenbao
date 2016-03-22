@@ -73,7 +73,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		//复选框
 		if ($(this).is(".regular-checkbox")){
 			//$(".regular-checkbox").attr("checked","true");
-			if($(this).attr("checked") == false){
+			if(!$(".regular-checkbox").attr("checked")){
 				$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
 			}else{
 				$('.oneStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
@@ -184,7 +184,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 						clearInterval(timer);
 						location.href="http://localhost/exchange/build/index.html";
 					}
-				},1000);
+				},1000);					
 			} else {
 				console.log(data.status);
 				$('.threeStep').css('backgroundColor','#eee');
