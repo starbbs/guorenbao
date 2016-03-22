@@ -9,10 +9,37 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		if ($(this).is(".checkPhone")){
 			var phone = $.trim($(this).val());
 			var reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
-			if(!reg.test(phone)){
+			if(!reg.test(phone) || !phone){
 				$('.msg-phone').show();
+				$('.checkCode-send').val('获取验证码');			
 			}else{
 				$('.msg-phone').hide();
+				//接口1-获取验证码
+				$('.checkCode-send').click(function(){
+				    api_mkt.sendCode({			
+				   		'phone':$('.checkPhone').val()	   
+					}, function(data) {
+						if (data.status !== 200) {
+							console.log(data.phone);
+							$('.checkCode-send').attr('disabled',true).css('cursor','not-allowed');
+						} else {
+							
+						}
+					});
+				  	
+			    	//60秒后重新发送
+			    	var count = 10;
+			    	var resend = setInterval(function(){
+				    		count--;
+				    		if(count > 0){
+				    			$('.checkCode-send').val(count+'s后重新发送');
+				    			$('.checkCode-send').attr('disabled',true).css('cursor','not-allowed');
+				    		}else{
+				    			clearInterval(resend);
+				    			$('.checkCode-send').attr('disabled',false).css('cursor','pointer').val('获取验证码');
+				    		}
+				    	},1000); 
+				});
 			}
 		}
 		//验证码
@@ -93,32 +120,6 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	});
 
 	//测试
-	//接口1-获取验证码
-	$('.checkCode-send').click(function(){
-	    api_mkt.sendCode({			
-	   		'phone':$('.checkPhone').val()	   
-		}, function(data) {
-			if (data.status == 200) {
-				console.log(data.phone);
-			} else {
-				//console.log(data);
-			}
-		});
-	  	
-    	//60秒后重新发送
-    	var count = 10;
-    	var resend = setInterval(function(){
-    		count--;
-    		if(count > 0){
-    			$('.checkCode-send').val(count+'s后重新发送');
-    			$('.checkCode-send').attr('disabled',true).css('cursor','not-allowed');
-    		}else{
-    			clearInterval(resend);
-    			$('.checkCode-send').attr('disabled',false).css('cursor','pointer').val('获取验证码');
-    		}
-    	},1000); 
-    });
-
 	//接口2 注册第一步 手机号注册 
     $('.oneStep').click(function(){
     	api_mkt.registerBefore({			
