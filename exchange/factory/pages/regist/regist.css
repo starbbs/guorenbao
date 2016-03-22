@@ -604,3 +604,6 @@ legend {
     padding:15px;
     text-indent:2em;
 }
+.bottom_tip p:nth-child(2){
+    color:red;
+}
