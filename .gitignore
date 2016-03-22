@@ -3,6 +3,7 @@
 **/node_modules
 **/.zip
 **/.psd
+**/npm-debug.log
 h5/build
 h5/public
 pc/build
