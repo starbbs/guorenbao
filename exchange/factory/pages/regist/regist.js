@@ -154,7 +154,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 
 	//接口3 注册第二步 设置支付密码 
 	$('.twoStep').click(function(){
-		api_mkt.identifyingCode({			
+		api_mkt.register({			
 	   		'phone':$('.checkPhone').val(), 
 	   		'identifyingCode':$('.checkCode').val(),
 	   		'password':$('.checkpwd').val(),
@@ -185,17 +185,21 @@ require(['api_mkt','cookie'], function(api_mkt) {
 				//进入注册完成页
 				$(".four").css('display','flex');
 				$(".three").css('display','none');
+				toIndex();
 				//进入注册完成页，3秒后跳转首页
-				var count = 3;
-				var timer = setInterval(function(){
-					count--;
-					if(count > 0){
-						$(".toIndex").text(count+'s后自动跳转进入首页');
-					}else{
-						clearInterval(timer);
-						location.href="http://localhost/exchange/build/index.html";
-					}
-				},1000);					
+				function toIndex(){
+					var count = 3;
+						var timer = setInterval(function(){
+						count--;
+						if(count > 0){
+							$(".toIndex").text(count+'s后自动跳转进入首页');
+						}else{
+							clearInterval(timer);
+							location.href="http://localhost/exchange/build/index.html";
+						}
+					},1000);		
+				}
+							
 			} else {
 				console.log(data.status);
 				$('.threeStep').css('backgroundColor','#eee');
@@ -208,6 +212,20 @@ require(['api_mkt','cookie'], function(api_mkt) {
     $('.SkipThreeStep').click(function(){
     	$(".four").css('display','flex');
 		$(".three").css('display','none');
+		toIndex();
+				//进入注册完成页，3秒后跳转首页
+		function toIndex(){
+			var count = 3;
+				var timer = setInterval(function(){
+				count--;
+				if(count > 0){
+					$(".toIndex").text(count+'s后自动跳转进入首页');
+				}else{
+					clearInterval(timer);
+					location.href="http://localhost/exchange/build/index.html";
+				}
+			},1000);		
+		}
     })
   	/*陈 - 添加  end*/
 
