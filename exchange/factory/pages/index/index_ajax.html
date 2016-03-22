@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <script type="text/javascript" src="http://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
+</head>
+
+<body>
+	
+	<div id="loginbtn">登录</div>
+	<div id="totalassets">总资产</div>
+
+    <script type="text/javascript">
+    $(function() {
+        $("#loginbtn").on("click",function(){
+        	console.log("loginbtn")
+        	var data = {
+	        	'phone':'15652933593',
+	        	'password':'654321'
+	        }
+	        // JSON.stringify({
+         //                phone: phonenum,
+         //            }),
+
+	        $.ajax({
+	            type: 'POST',
+	            url: 'http://172.16.33.3:8080/login/login',
+	            data: JSON.stringify(data),
+	            success: function(data){
+	            	console.log(data);
+	            },
+	            dataType: function(data){
+	            	console.log(data);
+	            }
+	        });
+        });
+
+        $("#totalassets").on("click",function(){
+        	var data = {
+        		'pageNo':'1',
+        		'pageSize':'10'
+	        };
+	        $.ajax({
+	            type: 'POST',
+	            url: 'http://172.16.33.3:8080/bill/billList',
+	            data: JSON.stringify(data),
+	            success: function(data){
+	            	console.log(data);
+	            },
+	            dataType: function(data){
+	            	console.log(data);
+	            }
+	        });
+        });
+    })
+    </script>
+</body>
+
+</html>

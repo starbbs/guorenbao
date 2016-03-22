@@ -2,13 +2,16 @@ require(['api_mkt','cookie'], function(api_mkt) {
     var popup_login_times = 0;
     var exchangeToken = $.cookie('exchangeToken');
     console.log(exchangeToken);
-    var global_loginusername = "";
     $("#bg").width($(document).width());
     $('#bg').height($(document).height());
     $('#floor_bg').css('left', 0);
     $('#floor_bg').css('top', 0);
     $('.bg').css('left', 0);
     $('.bg').css('top', 0);
+
+
+
+
     /**
      * 输入字段校验
      * [verify description]
@@ -40,13 +43,20 @@ require(['api_mkt','cookie'], function(api_mkt) {
         }
         return reg.test(inputData) ? reg.test(inputData) : varMes;
     };
-
     if (!exchangeToken) {
     	$(".login_regist").show();
     } else {
     	$(".login_regist").hide();
         $(".login_header").show();
-        $("#logined_username").html(global_loginusername);
+        var global_loginuserphone = $.cookie("global_loginuserphone");
+	    var global_loginusername = $.cookie("global_loginusername");
+	    console.log("-------------"+global_loginuserphone);
+	    console.log("-------------"+global_loginusername);
+	    if(global_loginusername!=""&&global_loginusername){
+	    	$("#logined_username").html(global_loginusername);
+	    } else {
+	    	$("#logined_username").html(global_loginuserphone);
+	    }
         $(".popDiv").hide();
         $(".bg").hide();
     }
@@ -76,13 +86,18 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	        }, function(data) {
 	            if (data.status == 200) {
 	                $.cookie('exchangeToken', 'logined');
-	                alert(data.msg);
+	                console.log(data.msg);
 	                $(".login_regist").hide();
 	                $(".login_header").show();
 	                $(".popDiv").hide();
 	                $(".bg").hide();
 	                //data.data.phone;  data.data.name
-	                global_loginusername = data.data.phone;
+	                global_loginuserphone = data.data.phone;
+	                global_loginusername = data.data.username;
+	                console.log(global_loginuserphone);
+	                console.log(global_loginusername);
+	                $.cookie("global_loginuserphone",global_loginuserphone);
+	                $.cookie("global_loginusername",global_loginusername);
 	                $("#logined_username").html(data.data.phone);
 	            } else if (data.status == 305) {
 	                alert(data.msg);
@@ -114,5 +129,17 @@ require(['api_mkt','cookie'], function(api_mkt) {
     	console.log("haha");
     	console.log($.cookie('exchangeToken'));
         location.reload(true);
+
+        //退出登录
+        api_mkt.userlogout({
+        }, function(data) {
+            if (data.status == 200) {
+                alert(data.msg);
+            } else if (data.status == 305) {
+                alert(data.msg);
+            } else {
+            	//$(".error_tips").show().html(data.msg);
+            }
+        });
     });
 });
