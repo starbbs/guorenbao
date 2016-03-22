@@ -1,10 +1,24 @@
 require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_info, mkt_trade) {
     //console.log(api_mkt);
     //console.log(mkt_info);
-    $(".bg").width($(document).width());
-    $('.bg').height($(document).height());
-    $('.bg').css('left', 0);
-    $('.bg').css('top', 0);
+    //$("#floor_popDiv").width($(document).width());
+    //$('#floor_popDiv').height($(document).height());
+    $('#floor_bg').css('left', 0);
+    $('#floor_bg').css('top', 0);
+
+    var exchangeToken = $.cookie('exchangeToken');
+    console.log(exchangeToken);
+    var global_loginusername = "";
+    if (!exchangeToken) {
+        $(".login_regist").show();
+    } else {
+        $(".login_regist").hide();
+        $(".login_header").show();
+        $("#logined_username").html(global_loginusername);
+        $(".popDiv").hide();
+        $(".bg").hide();
+    }
+
     mkt_info.get();
     mkt_trade.getfloor();
     //console.log(mkt_depthchart);

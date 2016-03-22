@@ -3,6 +3,44 @@ require(['api_mkt','cookie'], function(api_mkt) {
     var exchangeToken = $.cookie('exchangeToken');
     console.log(exchangeToken);
     var global_loginusername = "";
+    $("#bg").width($(document).width());
+    $('#bg').height($(document).height());
+    $('#floor_bg').css('left', 0);
+    $('#floor_bg').css('top', 0);
+    $('.bg').css('left', 0);
+    $('.bg').css('top', 0);
+    /**
+     * 输入字段校验
+     * [verify description]
+     * @param  {[String]} inputData [输入数据]
+     * @param  {[String]} dataType  [数据类型]
+     * @return {[boolean or String]}[验证结果]
+     */
+    var verify = function(inputData, dataType) {
+        var reg = "";
+        var varMes = '';
+        if (dataType === "name") {
+            reg = /^[\u4E00-\u9FA5]{2,5}$/;
+            varMes = "姓名请输入2~5个汉字";
+        } else if (dataType === "tel") {
+            reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
+            varMes = "请输入正确的手机号码";
+        } else if (dataType === "salary") {
+            reg = /^[1-9]\d{1,4}$/;
+            varMes = "薪资请输入3~5位数字";
+        } else if (dataType === "verCode") {
+            reg = /^\d{6}$/;
+            varMes = "验证码不正确";
+        } else {
+            reg = /^.*$/;
+        }
+        //如果输入数据不为空则去掉收尾空格
+        if (inputData) {
+            inputData = inputData.trim();
+        }
+        return reg.test(inputData) ? reg.test(inputData) : varMes;
+    };
+
     if (!exchangeToken) {
     	$(".login_regist").show();
     } else {
@@ -17,24 +55,42 @@ require(['api_mkt','cookie'], function(api_mkt) {
         popup_login_times++;
         var phone = $(".phone").val();
         var password = $(".password").val();
-        api_mkt.login({
-            phone: phone,
-            password: password
-        }, function(data) {
-            if (data.status == 200) {
-                $.cookie('exchangeToken', 'logined');
-                alert(data.msg);
-                $(".login_regist").hide();
-                $(".login_header").show();
-                $(".popDiv").hide();
-                $(".bg").hide();
-                //data.data.phone;  data.data.name
-                global_loginusername = data.data.phone;
-                $("#logined_username").html(data.data.phone);
-            } else if (data.status == 305) {
-                alert(data.msg);
-            }
-        });
+        var flag = verify(phone, "tel");
+        console.log(flag);
+        if(flag=="请输入正确的手机号码"){
+        	$(".error_tips").show().html("请输入正确的手机号码");
+        	return;
+        }
+        if(password==""){
+        	$(".error_tips").show().html("请输入密码");
+        	return;
+        } else if(password.length>12||password.length<6){
+        	$(".error_tips").show().html("请输入6~12位密码");
+        	return;
+        }
+        if(flag==true&&password!=""&&password.length>=6&&password.length<12){
+        	$(".error_tips").hide();
+        	api_mkt.login({
+	            phone: phone,
+	            password: password
+	        }, function(data) {
+	            if (data.status == 200) {
+	                $.cookie('exchangeToken', 'logined');
+	                alert(data.msg);
+	                $(".login_regist").hide();
+	                $(".login_header").show();
+	                $(".popDiv").hide();
+	                $(".bg").hide();
+	                //data.data.phone;  data.data.name
+	                global_loginusername = data.data.phone;
+	                $("#logined_username").html(data.data.phone);
+	            } else if (data.status == 305) {
+	                alert(data.msg);
+	            } else {
+	            	$(".error_tips").show().html(data.msg);
+	            }
+	        });
+        }
         if (popup_login_times > 3) {
             $("#authcode").show();
             $(".popup_login_btn").css("top", "250px");
@@ -51,7 +107,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
     $(".close_btn").on("click",function(){
     	$(".popDiv").hide();
         $(".bg").hide();
-    })
+    });
     $("#logoutbtn").on("click", function() {
         console.log("xuletian");
     	$.cookie('exchangeToken','');
