@@ -1,4 +1,4 @@
-require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_info, mkt_trade) {
+require(['api_mkt','cookie'], function(api_mkt) {
     var popup_login_times = 0;
     var exchangeToken = $.cookie('exchangeToken');
     console.log(exchangeToken);
