@@ -112,6 +112,9 @@ body {
 		}
 		&.wallet {
 			@include sprite($img + '/4.png', 36px);
+		}		
+		&.market {
+			@include sprite($img + '/5.png', 36px);
 		}
 	}
 	&-main {

@@ -209,7 +209,9 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 		}, function(data) {
 			//console.log(data)
 			if (data.status == 200) {
-				setOne('transferName', data.data.remark || data.data.nick || '未命名地址');
+				console.log(data.data);
+				//setOne('transferName', data.data.remark || data.data.nick || '未命名地址');
+				setOne('transferName', data.data.remark || data.data.nick || (data.data.contactType === 'WALLET_CONTACT' ? '未命名地址' : '未命名用户'));
 				setOne('transferImg', data.data.photo || '');
 				setOne('transferAddress', filters.phone(data.data.phone) || filters.address(data.data.address) || '');
 				if (!data.data.remark && vm.type === 'TRANSFER_OUT' && vm.status === 'SUCCESS') { 
