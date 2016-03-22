@@ -123,6 +123,8 @@ define('api_mkt', ['cookie'], function() {
 	add('registerBefore','login/registerBefore');	
 	//接口3 注册第二步 设置支付密码 
 	add('identifyingCode','common/identifyingCode');
+	//接口4 注册第三步 设置实名验证 
+	add('realNameAuth','security/realNameAuth');
 
 	/*
 	// 1.手机号注册

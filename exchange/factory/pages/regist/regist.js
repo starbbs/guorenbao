@@ -92,44 +92,6 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		}
 	});
 
-	//注册果仁市场 点击-进入设置支付密码
-	/*$(".oneStep").click(function(){
-		$(".two").css('display','flex')
-		$(".one").css('display','none');
-	});*/
-	//设置支付密码 点击-进入 实名验证
-	$(".twoStep").click(function(){
-		$(".three").css('display','flex')
-		$(".two").css('display','none');
-	});
-	
-	//实名验证-按钮点击注册成功
-	$(".threeStep").click(function(){
-		$(".four").css('display','flex')
-		$(".three").css('display','none');
-		toIndex();
-	});
-	//跳过实名验证-按钮点击注册成功
-	$(".SkipThreeStep").click(function(){
-		$(".four").css('display','flex')
-		$(".three").css('display','none');
-		toIndex();		
-	});
-
-	//3s后 自动跳转到首页
-	function toIndex(){
-		var count = 3;
-		var timer = setInterval(function(){
-			count--;
-			if(count > 0){
-				$(".toIndex").text(count+'s后自动跳转进入首页');
-			}else{
-				clearInterval(timer);
-				location.href="http://localhost/exchange/build/index.html";
-			}
-		},1000);
-	}
-	
 	//测试
 	//接口1-获取验证码
 	$('.checkCode-send').click(function(){
@@ -181,7 +143,6 @@ require(['api_mkt','cookie'], function(api_mkt) {
 
 	//接口3 注册第二步 设置支付密码 
 	$('.twoStep').click(function(){
-		alert('twoStep设置支付密码');
 		api_mkt.sendCode({			
 	   		'phone':$('.checkPhone').val(), 
 	   		'identifyingCode':$('.checkCode').val(),
@@ -191,44 +152,61 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	   		'comfirmPayPwd':$('.payConfirmPwd').val()	   
 		}, function(data) {
 			if (data.status == 200) {
-				console.log(data.phone);
+				console.log(data);
+				//设置支付密码 点击-进入 实名验证
+				$(".twoStep").click(function(){
+					$(".three").css('display','flex')
+					$(".two").css('display','none');
+				});
 			} else {
-				//console.log(data);
+				console.log(err);
 			}
 		});
 
     });
-		//设置实名认证  下一步
-		$('.threeStep').click(function(){
-	    	alert('threeStep设置支付密码');
-	    	$.ajax({
-	            type: "POST",
-	            dataType: "json",
-	            url: "http://172.16.33.3:8080/security/realNameAuth",
-	            data: JSON.stringify({
-			   		'realName':$('.personName').val(),
-			   		'idNumber':$('.personId').val()
-	            }),
-	            cache: false,
-	            success: function(data) {
-	            	console.log(data);
-	                if (data.msg == "true") {
-	                	
-	                } else {
-	                    
-	                }
-	            },
-	            error: function() {
-	                console.log("提交失败");
-	            }
-	        });
-
-	    });
-  	
+	//接口4 注册第三步 设置实名验证
+	$('.threeStep').click(function(){		
+		api_mkt.realNameAuth({			
+	   		'realName':$('.personName').val(),
+		   	'idNumber':$('.personId').val()	   
+		}, function(data) {
+			if (data.status == 200) {
+				console.log(data);
+				//实名验证-按钮点击注册成功
+				$(".threeStep").click(function(){
+					$(".four").css('display','flex')
+					$(".three").css('display','none');
+					toIndex();
+				});
+			} else {
+				//跳过实名验证-按钮点击注册成功
+				$(".SkipThreeStep").click(function(){
+					$(".four").css('display','flex')
+					$(".three").css('display','none');
+					toIndex();		
+				});
+			}
+		});
+			//3s后 自动跳转到首页
+		function toIndex(){
+			var count = 3;
+			var timer = setInterval(function(){
+				count--;
+				if(count > 0){
+					$(".toIndex").text(count+'s后自动跳转进入首页');
+				}else{
+					clearInterval(timer);
+					location.href="http://localhost/exchange/build/index.html";
+				}
+			},1000);
+		}   	
 
     });
+  	/*陈 - 添加  end*/
 
-    /*陈 - 添加  end*/
+});
+
+    
 
 	
 	/*
