@@ -449,7 +449,6 @@
     height: 60px;
     line-height: 60px;
     text-align: center;
-    width:700px;
 }
 
 .w_b_l, .w_b_r, .w_b_l em, .w_b_r em{
@@ -478,11 +477,6 @@
     margin-left:5px;
     margin-right:0px;
     color: #777777;
-}
-
-.w_b-left{
-    width:400px;
-    height:240px;
 }
 
 .buyin_limitprices div:nth-child(2) div{
