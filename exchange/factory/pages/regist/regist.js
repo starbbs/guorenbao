@@ -1,4 +1,4 @@
-require(['api_mkt','cookie'], function(apimkt) {
+require(['api_mkt','cookie'], function(api_mkt) {
 	
 	/*陈 - 添加 start*/   
 	//表单校验
