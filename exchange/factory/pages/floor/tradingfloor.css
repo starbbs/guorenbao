@@ -1367,7 +1367,6 @@ a {
 #floor_popDiv {
     width: 0;
     height: 0;
-    background-color: red;
     position: fixed;
     left: 50%;
     right: 50%;
