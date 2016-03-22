@@ -53,9 +53,12 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		},
 		gopBuyValidate: function() {
 			if(this.value){
-				if(this.value.constructor === NaN){//输入框是非数字时
+				if(this.value.constructor === NaN){//输入框是非数字时  num==>false
 					this.value = '';
 				}else{
+					if(parseInt(this.value) === NaN){
+						this.value = '';
+					}
 					this.value = parseInt(this.value);
 					vm.ifBuy = check.gopBuyValidate(this.value, vm.price);
 					vm.expect = this.value ? 'G ' + filters.floorFix(this.value / vm.price) : '';
