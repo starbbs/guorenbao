@@ -26,7 +26,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         //暂无真实接口-为出现效果,暂时放这里,有接口时,删除 -结束
         
         //接口9 账户明细（不传参数查询最近5条）
-        api_mkt.sendCode(function(data) {
+        api_mkt.billList(function(data) {
+            alert(data.msg);
             if (data.status == 200) {
                 console.log(data);
                 var html = [];
