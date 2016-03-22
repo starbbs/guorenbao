@@ -2,7 +2,7 @@
 // H5微信端 --- 个人首页
 
 
-require(['router', 'api', 'h5-view', 'filters', 'h5-view-nickname', 'h5-weixin', 'h5-component-keyboard'], function(router, api, View, filters, nickname) {
+require(['router', 'api', 'h5-view', 'filters', 'h5-component-bill', 'h5-view-nickname', 'h5-weixin', 'h5-component-keyboard'], function(router, api, View, filters, H5bill, nickname) {
 
 	router.init(true);
 
@@ -13,10 +13,6 @@ require(['router', 'api', 'h5-view', 'filters', 'h5-view-nickname', 'h5-weixin',
 	var tabs = { // 切换列表的内存
 		GOP_CONTACT: [],
 		WALLET_CONTACT: [],
-	};
-	var noNames = {
-		GOP_CONTACT: '未命名用户',
-		WALLET_CONTACT: '未命名地址',
 	};
 
 	var dataHandler = function(data) { // 后台数据转显示数据
@@ -32,7 +28,7 @@ require(['router', 'api', 'h5-view', 'filters', 'h5-view-nickname', 'h5-weixin',
 						return {
 							id: item.id,
 							picture: item.picture || './images/picture.png',
-							name: item.name || noNames[contacts.now],
+							name: item.name || H5bill.transferNoNames[contacts.now],
 							phone: item.phone ? filters.phone(item.phone) : filters.address(item.address),
 						};
 					})

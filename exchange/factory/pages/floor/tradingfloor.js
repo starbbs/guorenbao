@@ -273,31 +273,31 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     });
 
     $(".buying_btn").on("click",function(){              //买入中的限价买入按钮
-        $("#bg").show();
-        $("#popDiv").fadeIn(500);
+        $("#floor_bg").show();
+        $("#floor_popDiv").fadeIn(500);
     });
     $(".market_price_buying_btn").on("click",function(){ //买入中的市价买入按钮
-        $("#bg").show();
-        $("#popDiv").fadeIn(500);
+        $("#floor_bg").show();
+        $("#floor_popDiv").fadeIn(500);
     });
     $(".sale_btn").on("click",function(){               //卖出中的限价买入按钮
-        $("#bg").show();
-        $("#popDiv").fadeIn(500);
+        $("#floor_bg").show();
+        $("#floor_popDiv").fadeIn(500);
     });
     $(".market_price_sale_btn").on("click",function(){  //卖出中的市价买入按钮
-        $("#bg").show();
-        $("#popDiv").fadeIn(500);
+        $("#floor_bg").show();
+        $("#floor_popDiv").fadeIn(500);
     });
 
 
     $(".sure_btn").on("click",function(){
-        $("#popDiv").hide();
-        $("#bg").hide();
+        $("#floor_popDiv").hide();
+        $("#floor_bg").hide();
     });
 
     $(".close_btn").on("click",function(){  //买入卖出 关闭按钮
-        $("#popDiv").hide();
-        $("#bg").hide();
+        $("#floor_popDiv").hide();
+        $("#floor_bg").hide();
     });
 
 

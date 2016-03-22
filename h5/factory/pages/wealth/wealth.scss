@@ -126,7 +126,7 @@ body {
 		border-bottom: $border;
 		background-color: $g-white;
 		position: relative;
-		height: 162px;
+		height: 210px;
 		width: 100%;
 		&-box {
 			@extend %afull;
@@ -186,21 +186,7 @@ body {
 			}
 		}
 	}
-	&-tits {
-		@include ablw(9px);
-		text-align: center;
-		line-height: 0;
-		&-item {
-			display: inline-block;
-			@include square(6px);
-			// margin: 0 2px;
-			border-radius: 50%;
-			background-color: $g-light;
-			&.on {
-				background-color: $g-blue;
-			}
-		}
-	}
+
 	&-history { // 历史收益
 		@extend .view-style;
 		&-scroll {

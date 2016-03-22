@@ -65,7 +65,11 @@ define('h5-component-bill', function() {
 			SUCCESS: 'finish',
 			FAILURE: '',
 			CLOSE: '',
-		}
+		},
+		transferNoNames: { // 未命名联系人
+			GOP_CONTACT: '未命名用户',
+			WALLET_CONTACT: '未命名地址',
+		},
 	};
 	return bill;
 });

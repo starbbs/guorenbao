@@ -2,12 +2,12 @@
 // H5微信端 --- 转果仁
 
 
-require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
+require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component-bill',
 	'h5-view-nickname', 'h5-view-address-mine', 'h5-view-address-wallet', 'h5-view-bill',
 	'h5-dialog-paypass','h5-dialog-alert', 'h5-view-authentication',
 	'h5-text', 'h5-weixin'
-], function(router, api, View, price, get, filters,
-	nickname, address_mine, address_wallet, billView,
+], function(router, api, View, price, get, filters, H5bill,
+	nickname, viewAddressMine, viewAddressWallet, billView,
 	dialogPaypass,dialogAlert, viewAuthentication) {
 
 	router.init();
@@ -61,8 +61,8 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 				});
 			} else {
 				//跳转到钱包地址
-				address_wallet.vm.hasStepNext = true;
-				address_wallet.vm.callback = function() {
+				viewAddressWallet.vm.hasStepNext = true;
+				viewAddressWallet.vm.callback = function() {
 					init();
 					vm.transferOutType = 'ME_WALLET';
 					api.walletList({
@@ -109,8 +109,8 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 				router.go('/transfer-target');
 			} else {
 				//跳转到设置果仁市场
-				address_mine.vm.hasStepNext = true;
-				address_mine.vm.callback = function() {
+				viewAddressMine.vm.hasStepNext = true;
+				viewAddressMine.vm.callback = function() {
 					api.info({
 						gopToken: gopToken
 					}, function(data) {
@@ -542,27 +542,30 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters',
 	init();
 
 	setTimeout(function() {
-		transfer.addClass('on');
-		if (get.data.from === 'contact') {
-			var data = $.cookie('gop_contact');
-			if (data) {
-				data = JSON.parse(data); //联系人数据
-				transferTarget.address = data.address;
-				transferTarget.name = data.name;
-				transferTarget.personId = data.id;
-				transferTarget.photo = data.picture;
-				transferTarget.phone = data.phone;
-				if (data.type === "guoren") {
-					vm.transferOutType = "GOP_CONTACT";
+		if (get.data.from === 'contacts') { // 来自联系人, 后期分离出公用页面
+			api.contactInfo({
+				gopToken: gopToken,
+				personId: get.data.id,
+			}, function(data) {
+				if (data.status == 200) {
+					var person = data.data;
+					$.extend(transferTarget, {
+						address: person.address,
+						name: person.remark || person.nick || H5bill.transferNoNames[person.contactType],
+						personId: person.id,
+						photo: person.photo || './images/picture.png',
+						phone: person.phone,
+					});
+					targetInit(vm.transferOutType = person.contactType);
+					router.to('/transfer-target');
+				} else {
+					$.alert(data.msg);
+					console.log(data);
 				}
-				if (data.type === "wallet") {
-					vm.transferOutType = "GOP_MARKET";
-				}
-				targetInit(vm.transferOutType);
-				router.to('/transfer-target');
-			} else {
-				api.log('cookie中并没有联系人数据');
-			}
+				transfer.addClass('on');
+			});
+		} else {
+			transfer.addClass('on');
 		}
 	}, 100);
 });
