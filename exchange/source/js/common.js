@@ -2,13 +2,15 @@ require(['api_mkt','cookie'], function(api_mkt) {
     var popup_login_times = 0;
     var exchangeToken = $.cookie('exchangeToken');
     console.log(exchangeToken);
-    if (exchangeToken) {
-        $(".login_regist").hide();
+    var global_loginusername = "";
+    if (!exchangeToken) {
+    	$(".login_regist").show();
+    } else {
+    	$(".login_regist").hide();
         $(".login_header").show();
+        $("#logined_username").html(global_loginusername);
         $(".popDiv").hide();
         $(".bg").hide();
-    } else {
-
     }
     //右上角登录按钮点击之后出发的事件
     $(".popup_login_btn").on("click", function() {
@@ -27,6 +29,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
                 $(".popDiv").hide();
                 $(".bg").hide();
                 //data.data.phone;  data.data.name
+                global_loginusername = data.data.phone;
                 $("#logined_username").html(data.data.phone);
             } else if (data.status == 305) {
                 alert(data.msg);
@@ -45,6 +48,10 @@ require(['api_mkt','cookie'], function(api_mkt) {
         $(".popDiv").show();
         $(".bg").show();
     });
+    $(".close_btn").on("click",function(){
+    	$(".popDiv").hide();
+        $(".bg").hide();
+    })
     $("#logoutbtn").on("click", function() {
         console.log("xuletian");
     	$.cookie('exchangeToken','');

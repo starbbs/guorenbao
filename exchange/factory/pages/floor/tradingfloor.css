@@ -93,7 +93,7 @@
 }
 .login_regist a{
     text-decoration:none;
-    color:#999999;
+    color: #cccccc;
 }
 .login_regist div{
     display:inline;
@@ -1364,7 +1364,7 @@ a {
 }
 
 
-.popDiv {
+#floor_popDiv {
     width: 0;
     height: 0;
     background-color: red;
@@ -1375,7 +1375,7 @@ a {
     bottom: 50%;
     z-index: 2;
 }
-.bg {
+#floor_bg {
     background-color: #333333;
     opacity: 0.8;
     z-index: 1;
