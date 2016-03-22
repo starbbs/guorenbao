@@ -133,12 +133,13 @@ require(['api_mkt','cookie'], function(apimkt) {
 	//测试
 	//获取验证码
 	var CodeA;
+	var pathUrl = 'http://172.16.33.3:8080';
 	$('.checkCode-send').click(function(){
     	alert(' 验证码success');
     	$.ajax({
             type: "POST",
             dataType: "json",
-            url: "http://172.16.33.3:8080/common/sendCode",
+            url: "pathUrl+'/common/sendCode'",
             data: JSON.stringify({
 		   		'phone':$('.checkPhone').val()
             }),
