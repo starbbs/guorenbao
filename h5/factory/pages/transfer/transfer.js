@@ -4,11 +4,11 @@
 
 require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component-bill',
 	'h5-view-nickname', 'h5-view-address-mine', 'h5-view-address-wallet', 'h5-view-bill',
-	'h5-dialog-paypass','h5-dialog-alert', 'h5-view-authentication',
+	'h5-dialog-paypass', 'h5-dialog-alert', 'h5-view-authentication',
 	'h5-text', 'h5-weixin'
 ], function(router, api, View, price, get, filters, H5bill,
 	nickname, viewAddressMine, viewAddressWallet, billView,
-	dialogPaypass,dialogAlert, viewAuthentication) {
+	dialogPaypass, dialogAlert, viewAuthentication) {
 
 	router.init();
 
@@ -155,7 +155,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 			targetInit(vm.transferOutType);
 			router.go('/transfer-target');
 		},
-		showAuthenDes:function(){
+		showAuthenDes: function() {
 			dialogAlert.set('为保证您的账户资金安全，请您输入真实姓名，实名信息校验正确后不可更改');
 			dialogAlert.show();
 		}
@@ -363,16 +363,16 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 		transferCommitClick: function() {
 			if (transferTarget.transferNum > 0 && transferTarget.transferNum <= transferTarget.gopNum) {
 				//密码输入框显示 AJAX密码确认后 设置回调函数
-				setTimeout(function(){
+				setTimeout(function() {
 					dialogPaypass.show();
-				},700)
+				}, 700)
 				dialogPaypass.vm.callback = function(value) {
 					var transferOutType = vm.transferOutType;
 					if (vm.transferOutType.indexOf('NEW') > 0) {
 						transferOutType = 'NEW';
-						if(vm.transferOutType=="GOP_NEW"){
+						if (vm.transferOutType == "GOP_NEW") {
 							transferTarget.serviceFee = 0.00;
-						}else{
+						} else {
 							transferTarget.serviceFee = 0.01;
 						}
 					}
@@ -521,6 +521,15 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 			gopToken: gopToken
 		}, function(data) {
 			if (data.status == 200) {
+				console.log(data.data.transferOutList);
+				data.data.transferOutList.forEach(function(item, index) {
+					if (!item.name && item.type === 'GOP_CONTACT') {
+						item.name = '未命名用户';
+					};
+					if (!item.name && item.type === 'WALLET_CONTACT') {
+						item.name = '未命名地址';
+					}
+				});
 				vm.list = data.data.transferOutList;
 			} else {
 				console.log(data);

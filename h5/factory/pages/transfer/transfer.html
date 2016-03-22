@@ -44,7 +44,7 @@
 				<div class="transfer-item-img" ms-if-loop="item.type!=='ME_WALLET'"><img ms-attr-src="item.photo||'./images/picture.png'" alt="" class="img-w img-r"></div>
 				<div class="transfer-icon-2-middle" ms-if-loop="item.type==='ME_WALLET'"></div>
 				<div class="transfer-item-line">
-					<div class="block-label">{{item.name||'未命名用户'}}</div>
+					<div class="block-label">{{item.name}}</div>
 					<div class="transfer-item-address" ms-if-loop="item.phone">{{item.phone|phone}}</div>
 					<div class="transfer-item-address" ms-if-loop="!item.phone">{{item.address|address}}</div>
 				</div>
