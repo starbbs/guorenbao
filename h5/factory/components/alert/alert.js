@@ -18,7 +18,7 @@ define('h5-alert', function() {
 	handler[$.fx.transitionEnd] = callback;
 	return $.alert = function(message, onHide, onHideTime) {
 		onHideTime === 'half' && (onHideTime = 16);
-		dom.html(message).show();
+		dom.css('top', window.innerHeight * 0.4).html(message).show();
 		clearTimeout(timer);
 		setTimeout(function() {
 			dom.addClass('show');
