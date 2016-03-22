@@ -119,6 +119,8 @@ define('api_mkt', ['cookie'], function() {
 
 	//接口1 发送验证码 
 	add('sendCode','common/sendCode');
+	//接口2 手机号注册-1 
+	add('registerBefore','login/registerBefore');
 
 	/*
 	// 1.手机号注册
