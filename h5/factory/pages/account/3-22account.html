@@ -1,8 +1,9 @@
 @@include('../../../source/include/top.html', {"name": "account"})
 <div class="screen-a">
-	<div class="account" ms-click="showAccount($event)" id="account">
-		<div class="account-scroll">
-			<div class="account-loading" ms-class="account-loading-show:loading||uploading"><span>{{loadingWord}}</span></div>
+	<div class="account" ms-click="showAccount($event)">
+		<div class="account-loading" ms-class="account-loading-show:loading"><span>{{loadingWord}}</span></div>
+		<div id="account">
+		<div class="account-scroll">		
 			<div ms-repeat-group="list" data-repeat-rendered="listRepeatCallback">
 				<div class="account-month">{{group.month}}</div>
 				<div class="account-day" ms-repeat-day="group.days" ms-data-type="day.type">
@@ -31,7 +32,9 @@
 				</div>
 			</div>
 			<div class="account-loading" ms-class="account-loading-show:loading"><span>{{loadingWord}}</span></div>
-		</div>	
+		</div>			
+		</div>
+
 	</div>
 	<div class="alert"></div>
 	<div class="view">

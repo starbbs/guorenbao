@@ -37,16 +37,18 @@ body {
 	&-loading {
 		position: absolute;
 		text-align: center;
-		transition: height 2s;
+		//transition: height 2s;
 		//transition: height 2s, width 1s;
 		text-align: center;
 		width: 100%;
-		top: -70px;
-		height: 70px;
-		line-height: 90px;
+		top: -25px;
+		height: 25px;
+		line-height: 25px;
+		display: none;
 		&-show {
 			position: relative;
 			top: 0px;
+			display: block;
 		}
 		span {
 				padding: 4px 8px;

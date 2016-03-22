@@ -32,18 +32,22 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		useTransition:true,
 		click: true,
 		onScrollMove: function() {
-			if(this.y>=10){
-				vm.loadingWord = '松开刷新';	
+			console.log(this.y);
+			if(this.y>0){
+				vm.loadingWord = '松开刷新';
+				vm.uploading = true;
 			}
 		},
 		onBeforeScrollEnd:function(){
-			if(this.y>=70){
+			if(this.y>=40){
 				vm.loadingWord = '加载中...';
 				page = 1;
 				originList = [];
 				setTimeout(function(){
 					getList();
 				},100);	
+			}else{
+				vm.uploading = false;
 			}
 		},
 		onScrollEnd: function() {
@@ -83,6 +87,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 				}, 200);
 				setTimeout(function(){
 					vm.loading = false;
+					vm.uploading = false;
 				},100);
 			} else {
 				$.alert(data.msg);
@@ -266,6 +271,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 	var vm = avalon.define({
 		$id: 'account',
 		loading: false,
+		uploading:false,
 		loadingWord: '加载中...',
 		list: [],
 		listRepeatCallback: function() { // 循环结束回调
