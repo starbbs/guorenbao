@@ -175,26 +175,22 @@ require(['api_mkt','cookie'], function(api_mkt) {
 				$(".four").css('display','flex');
 				$(".three").css('display','none');
 				//进入注册完成页，3秒后跳转首页
-				toIndex();
+				var count = 3;
+				var timer = setInterval(function(){
+					count--;
+					if(count > 0){
+						$(".toIndex").text(count+'s后自动跳转进入首页');
+					}else{
+						clearInterval(timer);
+						location.href="http://localhost/exchange/build/index.html";
+					}
+				},1000);
 			} else {
 				console.log(data.status);
 				$('.threeStep').css('backgroundColor','#eee');
 			}
 		});
-		//3s后 自动跳转到首页
-		function toIndex(){
-			var count = 3;
-			var timer = setInterval(function(){
-				count--;
-				if(count > 0){
-					$(".toIndex").text(count+'s后自动跳转进入首页');
-				}else{
-					clearInterval(timer);
-					location.href="http://localhost/exchange/build/index.html";
-				}
-			},1000);
-		}   	
-
+		
     });
 
     //跳过实名验证
