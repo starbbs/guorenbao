@@ -2,7 +2,17 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	
 	/*陈 - 添加 start*/   
 	//表单校验
-	$(".msg").hide();			
+	$(".msg").hide();
+	$(".regular-checkbox").attr("checked","true");	
+	//复选框
+	$(".regular-checkbox").click(function(){
+		if($(".regular-checkbox").is(':checked')){
+			$('.oneStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
+		}else{
+			$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
+		}	
+	});
+		
 	//给所有regist_rg_input类+blur
 	$(".regist_rg_input").blur(function(){
 		//手机号
@@ -70,15 +80,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 				$('.msg-ConfirmPwd').hide();
 			}
 		}
-		//复选框
-		if ($(this).is(".regular-checkbox")){
-			//$(".regular-checkbox").attr("checked","true");
-			if(!$(".regular-checkbox").attr("checked")){
-				$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
-			}else{
-				$('.oneStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
-			}
-		}
+		
 		//下一步--支付密码
 		if ($(this).is(".payPwd")){
 			var payPwd = $.trim($(".payPwd").val());
