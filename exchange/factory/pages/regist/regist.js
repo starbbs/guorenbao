@@ -1,5 +1,6 @@
 require(['api_mkt','cookie'], function(api_mkt) {
 	
+	var btnConfirm = true;
 	/*陈 - 添加 start*/   
 	//表单校验
 	$(".msg").hide();
@@ -7,8 +8,10 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	//复选框
 	$(".regular-checkbox").click(function(){
 		if($(".regular-checkbox").is(':checked')){
+			btnConfirm = true;
 			$('.oneStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
 		}else{
+			btnConfirm = false;
 			$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
 		}	
 	});	
@@ -56,6 +59,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		if ($(this).is(".checkCode")){
 			if(!$(this).val()){
 				$('.msg-code').show().text('请输入正确的验证码');
+				btnConfirm = false;
 			}else{
 				$('.msg-code').hide();
 			}
@@ -123,23 +127,27 @@ require(['api_mkt','cookie'], function(api_mkt) {
 
 	//测试
 	//接口2 注册第一步 手机号注册 
-    $('.oneStep').click(function(){
-    	api_mkt.registerBefore({			
-	   		'phone':$('.checkPhone').val(), 
-	   		'identifyingCode':$('.checkCode').val(),
-	   		'password':$('.checkpwd').val(),
-	   		'confirmPwd':$('.checkConfirmPwd').val()	   
-		}, function(data) {
-			console.log(data);
-            if (data.msg == "手机号码已经注册") {
-            	$('.msg-phone').show().html('手机号已注册，请<a class="markasread" href="index.html">直接登录</a>');
-            }else if(data.status == 200){
-                $(".two").css('display','flex');
-				$(".one").css('display','none');                 
-            }else{
-            	$('.oneStep').css('backgroundColor','#eee'); 
-            }
-		});
+    $('.oneStep').on('click',function(){
+    	if(btnConfirm == false){
+
+    	}else{
+    		api_mkt.registerBefore({			
+		   		'phone':$('.checkPhone').val(), 
+		   		'identifyingCode':$('.checkCode').val(),
+		   		'password':$('.checkpwd').val(),
+		   		'confirmPwd':$('.checkConfirmPwd').val()	   
+			}, function(data) {
+				console.log(data);
+	            if (data.msg == "手机号码已经注册") {
+	            	$('.msg-phone').show().html('手机号已注册，请<a class="markasread" href="index.html">直接登录</a>');
+	            }else if(data.status == 200){
+	                $(".two").css('display','flex');
+					$(".one").css('display','none');                 
+	            }else{
+	            	btnConfirm = false;
+	            }
+			});
+    	}   	
 
     });
 
