@@ -3,14 +3,14 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	/*陈 - 添加 start*/   
 	//表单校验
 	$(".msg").hide();			
-	//给所有regist_rg_input类+keyup
-	$(".regist_rg_input").keyup(function(){
+	//给所有regist_rg_input类+blur
+	$(".regist_rg_input").blur(function(){
 		//手机号
 		if ($(this).is(".checkPhone")){
 			var phone = $.trim($(this).val());
 			var reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
 			if(!reg.test(phone) || !phone){
-				$('.msg-phone').show();
+				$('.msg-phone').show().text('请输入正确的手机号');;
 				$('.checkCode-send').val('获取验证码');			
 			}else{
 				$('.msg-phone').hide();
@@ -45,7 +45,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		//验证码
 		if ($(this).is(".checkCode")){
 			if(!$(this).val()){
-				$('.msg-code').show();
+				$('.msg-code').show().text('请输入正确的验证码');
 			}else{
 				$('.msg-code').hide();
 			}
@@ -103,7 +103,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		if ($(this).is(".personName")){
 			var personName = $.trim($(".personName").val());
 			if(!personName){
-				$('.msg-personName').show();
+				$('.msg-personName').show().text('请输入正确的姓名');
 			}else{payPwd
 				$('.msg-personName').hide();
 			}
@@ -112,7 +112,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		if ($(this).is(".personId")){
 			var personId = $.trim($(".personId").val());
 			if(!personId){
-				$('.msg-personId').show();
+				$('.msg-personId').show().text('请输入正确的身份证号');
 			}else{payPwd
 				$('.msg-personId').hide();
 			}
