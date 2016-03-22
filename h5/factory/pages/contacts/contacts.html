@@ -6,8 +6,8 @@
 			<input type="search" id="contacts-search-input" class="contacts-search-input" ms-duplex="search">
 		</form>
 		<div class="contacts-tabs">
-			<div class="contacts-tabs-item on" ms-click="tab('guoren')">果仁宝联系人</div>
-			<div class="contacts-tabs-item" ms-click="tab('wallet')">钱包联系人</div>
+			<div class="contacts-tabs-item" ms-class="on:now==='guoren'" ms-click="tab('guoren')">果仁宝联系人</div>
+			<div class="contacts-tabs-item" ms-class="on:now==='wallet'" ms-click="tab('wallet')">钱包联系人</div>
 		</div>
 		<div class="contacts-list" ms-click="listClick($event)">
 			<div class="contacts-empty" ms-visible="!list.length">T﹏T 没有联系人哦,快添加吧! (≧▽≦)/</div>
