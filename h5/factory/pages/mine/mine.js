@@ -66,9 +66,9 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 				id:'',
 				callback:function(){
 					$.alert('设置成功!');
-					//setTimeout(function(){
-					//	router.go('/');	
-					//},1000);						
+					setTimeout(function(){
+						router.go('/');	
+					},1000);						
 				}
 			});
 			router.go('/nickname');

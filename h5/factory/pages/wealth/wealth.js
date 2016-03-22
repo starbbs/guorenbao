@@ -2,21 +2,95 @@
 // H5微信端 --- 个人首页
 
 
-require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filters', 'hchart', 'h5-weixin'], function(router, api, price, View, TouchSlide,mydate) {
+require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'iScroll4','filters', 'hchart', 'h5-weixin'], function(router, api, price, View, TouchSlide, mydate, iScroll4) {
 
 	router.init(true);
 
 	var gopToken = $.cookie('gopToken');
 	var main = $('.wealth');
+	var pageNum = 1;
+	var bottomHeight = 20;
+	var pageSize = 15;
+	var historyListArr = [];
 	var history = new View('wealth-history');
 	var historyVM = history.vm = avalon.define({
 		$id: 'wealth-history',
 		total: 0,
+		loading: false,
+		loadingWord: '加载中...',
 		list: []
 	});
 	avalon.scan(history.native, historyVM);
 
+	//下拉刷新
+	var accountScroll = new iScroll4('wealth-history', {
+		vScrollbar: true,
+		preventDefault: true,
+		fixedScrollbar:true,
+		useTransition:true,
+		click: true,
+		//上拉刷新部分
+		onScrollMove: function() {
+		},
+		onScrollEnd: function() {
+			// this.y 卷上去的
+			if (this.y - bottomHeight < this.maxScrollY) {
+				getList(pageNum);
+			}
+		},
+	});
 
+	var getList = function(){
+		console.log(' 开始获取'+pageNum);
+		if(historyVM.loading){
+			return;
+		}
+		if(!pageNum){
+			historyVM.loading = true;
+			historyVM.loadingWord = '大大, 已经没有了...';
+			setTimeout(function(){
+				historyVM.loading = false;
+				historyVM.loadingWord = '加载中...';
+			},300);
+			return;
+		}
+		historyVM.loading = true;
+		api.totalIncomeList({
+			gopToken: gopToken,
+			pageNo:pageNum,
+			pageSize:pageSize,
+		}, function(data) {
+			if (data.status == 200) {
+				if(data.data.list.length){
+					pageNum = data.data.list.length < pageSize ? 0 : pageNum+1;
+					//此处不用再计算累计收益 因为页面刷新时180行已经计算过了
+					//生成今日（期）
+					var timerA = new Date();
+					for(var i=0; i<data.data.list.length; i++){
+						//转成date对象
+						var timerB = mydate.parseDate(data.data.list[i]['createTime']);
+						//向前错一天  今日是昨日的收益  昨日是前天的收益 
+						timerB.setDate(timerB.getDate()-1);
+						//转化成今日昨日前日的表示
+						if(mydate.timeCompare(timerA , timerB)){
+							data.data.list[i]['createTime'] = mydate.timeCompare(timerA , timerB);
+						}else{
+							data.data.list[i]['createTime'] = mydate.date2String(timerB); //日期转字符串
+						}
+					}
+					setTimeout(function(){
+						historyVM.loading = false;
+						accountScroll.refresh();
+					},300);	
+					historyListArr = historyListArr.concat(data.data.list);
+					historyVM.list = historyListArr;						
+				}									
+
+			} else {
+				$.alert(data.msg);
+			}
+		});
+	};
 
 	var listCache = {};
 	var vm = avalon.define({
@@ -31,8 +105,10 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filter
 			chartHistorySet();
 		},
 		showHistory: function() {  //展示历史财富
-			console.log(historyVM.total);
+			//console.log(historyVM.total);
 			if (!historyVM.list.length) {
+				getList(pageNum);
+				/*
 				api.totalIncomeList({
 					gopToken: gopToken,
 					pageNo:1,
@@ -63,6 +139,7 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filter
 						$.alert(data.msg);
 					}
 				});
+				*/
 			}
 			router.go('/wealth-history');
 		}
@@ -192,7 +269,6 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'filter
 		gopToken: gopToken
 	}, function(data) {
 		if (data.status == 200) {
-			console.log(data.data.totalIncome);
 			vm.total = historyVM.total = data.data.totalIncome;
 			vm.yesterday = data.data.yesterdayIncome;
 		} else {
