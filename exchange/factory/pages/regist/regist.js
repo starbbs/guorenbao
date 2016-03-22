@@ -197,7 +197,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 
     });
 
-    //调过实名验证
+    //跳过实名验证
     $('.SkipThreeStep').click(function(){
     	$(".four").css('display','flex');
 		$(".three").css('display','none');
