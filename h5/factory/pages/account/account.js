@@ -127,7 +127,6 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			originType: item.type,
 			iconClass: '',
 		};
-		console.log(bill);
 		var types = { // 类型
 			money: 'money',
 			gop: 'gopNumber'
@@ -140,36 +139,6 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			money: 'fix',
 			gop: 'floorFix'
 		};
-		/*
-		if (type === 'transfer' && item.extra) {//转帐类型 并有extra字段
-			if(item.extra.transferOutType == 'GOP_MARKET'){ //果仁市场
-				bill.img = item.extra.photo ? item.extra.photo : '';
-				if (item.extra.name){
-					bill.desc += ' -'+item.extra.name;
-				}else{
-					bill.desc += ' - 果仁市场';
-					bill.iconClass = 'market';					
-				}
-			}
-			if(item.extra.transferOutType == 'GOP_CONTACT'){ //转到手机号
-				bill.img = item.extra.photo ? item.extra.photo : '';
-				if (item.extra.name){
-					bill.desc += ' -'+item.extra.name;
-				}else{
-					bill.desc += ' - 未命名用户';
-					bill.iconClass = 'market';					
-				}
-			}
-		}
-
-		if (type === 'phone') {
-			if (item.extra && item.extra.phoneInfo) {
-				item.extra.phoneInfo.carrier && (bill.desc += ' - ' + item.extra.phoneInfo.carrier); // 运营商
-			}
-		}
-		*/
-
-
 
 		if (type === 'transfer' && item.extra) {//转帐类型 并有extra字段
 			bill.img = item.extra.photo || ''; // 转账头像

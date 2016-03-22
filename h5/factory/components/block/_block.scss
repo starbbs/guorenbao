@@ -36,6 +36,7 @@
 	&-text {
 		display: flex;
 		padding: 0 $g-padding;
+		align-items:center;
 	}
 	&-out {
 		@extend .block-item;
