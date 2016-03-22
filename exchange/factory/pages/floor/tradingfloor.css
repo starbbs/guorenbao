@@ -446,37 +446,43 @@
     width: 100%;
 }
 .w_b{
-        display: flex;
     height: 60px;
     line-height: 60px;
     text-align: center;
+    width:700px;
 }
 
-.w_b_l{
-    flex:0.5;
+.w_b_l, .w_b_r, .w_b_l em, .w_b_r em{
+    box-sizing:border-box;
+    -moz-box-sizing:border-box; /* Firefox */
+    -webkit-box-sizing:border-box; /* Safari */
+    float: left;
+    margin-left:12px;
 }
 .w_b_l em{
-    margin-right:10px;
+    margin-right:4px;
     color: #333333;
 }
 .w_b_l em:nth-child(1){
     float:left;
-    margin-left:10px;
+    margin-left:5px;
     margin-right:0px;
     color: #777777;
 }
-.w_b_r{
-   flex:0.5; 
-}
 .w_b_r em{
-    margin-right:10px;
+    margin-right:4px;
     color: #dd0900;
 }
 .w_b_r em:nth-child(1){
     float:left;
-    margin-left:10px;
+    margin-left:5px;
     margin-right:0px;
     color: #777777;
+}
+
+.w_b-left{
+    width:400px;
+    height:240px;
 }
 
 .buyin_limitprices div:nth-child(2) div{
@@ -641,13 +647,16 @@
     overflow:hidden;
 }
 .form_wrapper_leftdiv,.form_wrapper_rightdiv{
+    box-sizing:border-box;
+    -moz-box-sizing:border-box; 
+    -webkit-box-sizing:border-box; 
     float:left;
 }
 .form_wrapper_leftdiv{
-    width:30%;
+    width:110px;
 }
 .form_wrapper_rightdiv{
-    width:70%;
+    width:200px;
 }
 .form_wrapper_rightdiv div input{
     padding-left:14px;
@@ -667,13 +676,10 @@
     padding-right: 20px;
     margin: 12px 0;
 }
-.slider_container{
-    margin-left:8px;
-    position:relative;
-}
+
 
 #sale_slider_marketprice_value{
-        position: absolute;
+    position: absolute;
     top: 0px;
     right: 0px;
     left: 170px;
@@ -1467,3 +1473,87 @@ a {
 .timeshareblock a:hover{
 
 }
+
+/*滑块*/
+.slider_container{
+    position:relative;
+    width:220px;
+    height:50px;
+}
+#red, #green {
+    width:150px;
+    flex: none;
+    height: 8px;
+    position: absolute;
+    top:15px;
+    left:-23px;
+}
+#red .ui-slider-range, #green .ui-slider-range { 
+    background: #ef2929; 
+    flex: none;
+    position: absolute;
+    left:-30px; 
+    height:8px;
+}
+#red .ui-slider-handle , #green .ui-slider-handle { 
+    border-color: #ef2929;border:1px solid #999;
+}
+#green .ui-slider-range{
+    background: #00951c; 
+}
+
+/*买入 卖出-限价 滑块数值*/
+#amount, #amount2{
+    position: absolute;
+    top:12px;
+    left:165px;
+}
+/*买入 卖出-市价 滑块数值*/
+#amount1, #amount3{
+    position: absolute;
+    top:9px;
+    left:165px;
+}
+
+/*选项卡另一面的滑块*/
+#red1, #green1 {
+    width:150px;
+    flex: none;
+    height: 8px;
+    position: absolute;
+    top:11px;
+    left:6px;
+}
+#red1 .ui-slider-range, #green1 .ui-slider-range { 
+    background: #ef2929; 
+    flex: none;
+    position: absolute;
+    height:8px;
+    top:-2px;
+    left:-8px;
+}
+#green1 .ui-slider-range{
+    background: #00951c; 
+}
+#red1 .ui-slider-handle , #green1 .ui-slider-handle { 
+    border-color: #ef2929;border:1px solid #999;
+    position: absolute;
+    top:-6px;
+    left:6px;
+}
+.slider_container-pos{
+    position: absolute;
+    width:220px;
+    height:50px;
+    top:262px;
+    left:122px;
+}
+.slider_container-pos1{
+    position: absolute;
+    width:220px;
+    height:50px;
+    top:262px;
+    left:114px;
+}
+
+
