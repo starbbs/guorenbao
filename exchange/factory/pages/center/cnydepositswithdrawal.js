@@ -6,7 +6,7 @@
 });*/
 
 $(function(){
-
+        
 		$(function(){
             $('.rmbxh').on('click',function(){
                 $(this).addClass('bottomon');
@@ -47,8 +47,8 @@ $(function(){
         //暂无真实接口-为出现效果,暂时放这里,有接口时,删除 -结束
         
         //人民币充值
-        $.ajax({
-            url: "http://127.0.0.1/1.json",
+       /* $.ajax({
+            url: "",
             type:"post",
             dataType: "json",
             cache: false,
@@ -78,7 +78,7 @@ $(function(){
 
         //人民币提现
         $.ajax({
-            url: "http://127.0.0.1/1.json",
+            url: "",
             type:"post",
             dataType: "json",
             cache: false,
@@ -103,37 +103,96 @@ $(function(){
             error:function(err){
                 console.log('财务中心-人民币提现历史表格，加载失败。');
             }
-        });
+        });*/
 
         //实名认证用户充值-显示/隐藏-提示文本内容
         $(".accountholder_tip").hover(function(){
             $(".tipscontent").toggle();
         });
 
-        //打开弹出层-生成汇款单
-        $(".build-remit-layer").click(function(){
-            $(".mydiv").css("display","block");
-            $(".bg").css("display","block");
+        //生成汇款单校验
+        //开户人姓名校验
+        $("#bank-username").blur(function(){
+            var username = $("#bank-username").val();
+            if(!username){
+                btnConfrim = false;
+                $('.msg-bank-username').show().text('请输入正确开户人姓名');
+            }else{
+                $('.msg-bank-username').hide();
+                btnConfrim = true;
+            }
         });
-        //关闭弹出层 -生成汇款单
-        $(".span-text").click(function(){
-            $(".mydiv").css("display","none");
-            $(".bg").css("display","none");
+        //充值金额校验
+        $("#bank-money").blur(function(){
+            var bankmoney = $("#bank-money").val();
+            if(!bankmoney || isNaN(bankmoney)){
+                btnConfrim = false;
+                $('.msg-bank-money').show().text('请输入正确的整数金额');
+            }else{
+                $('.msg-bank-money').hide();
+                btnConfrim = true;
+            }
+        });
+        //银行账号校验
+        $("#bank-idcard").blur(function(){
+            var bankIdcard = $("#bank-idcard").val();
+            if(!bankIdcard || isNaN(bankIdcard)){
+                btnConfrim = false;
+                $('.msg-bank-idcard').show().text('请输入正确的银行账号');
+            }else{
+                $('.msg-bank-idcard').hide();
+                btnConfrim = true;
+            }
+        });
+        //银行账号校验
+        $("#bank").blur(function(){
+            var bank = $("#bank").val();
+            var reg = /^[\u4E00-\u9FA5]+$/;   
+            if(!bank || !reg.exec(bank)){
+                btnConfrim = false;
+                $('.msg-bank').show().text('请输入所属银行');
+            }else{
+                $('.msg-bank').hide();
+                btnConfrim = true;
+            }
+        });
+        //手机号校验
+        $("#phone").blur(function(){
+            var phone = $("#phone").val();
+            var reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
+            if(!reg.test(phone) || !phone){  
+                btnConfrim = false;
+                $('.msg-phone').show().text('请输入手机号码');
+            }else{
+                $('.msg-phone').hide();
+                btnConfrim = true;
+            }
         });
 
-        //生成汇款单里的填充文本
+        //生成汇款单里的填充文本        
         $(".build_remit_btn").click(function(){
-            $(".remittance-id").text(Math.random()*10E16);
+            if(btnConfrim == false || typeof(btnConfrim) == 'undefined'){
+                alert('请完成填写相关信息！');
+            }else{
+                //打开弹出层-生成汇款单
+                $(".mydiv").css("display","block");
+                $(".bg").css("display","block");               
+                
+                $(".remittance-id").text(Math.random()*10E16);
+                $(".bank-card-new").text($("#bank-idcard").val());
+                $(".bank-name-new").text($("#bank").val());
+                $(".account-name-new").text($("#username").val());
+                $(".money-new").text($("#bank-money").val());
 
-            if($("#bank-idcard").val())
-            return $(".bank-card").text($("#bank-idcard").val());
-            if($("#bank-username").val())
-            return $(".bank-name").text($("#bank-username").val());
-            if($("#username").val())
-            return $(".account-name").text($("#username").val());
-            if($("#bank-money").val())
-            return $(".money").text($("#bank-money").val());
-            /*$(".remittance-note-number").text();*/
+                //关闭弹出层 -生成汇款单
+                $(".span-text").click(function(){
+                    $(".mydiv").css("display","none");
+                    $(".bg").css("display","none");
+                });  
+                /*$(".remittance-note-number").text();*/           
+            }           
+            
+            
         });
         
-    });
+});

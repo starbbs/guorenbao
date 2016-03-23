@@ -37,33 +37,27 @@
         <div class="loginarea_maxwidth">
             <div class="loginarea" style="display: block;">
                 <h3>登录果仁市场</h3>
-                <!-- div.loginarea_m -->
                 <div>
-                    <input type="tel" placeholder="手机号"></input>
+                    <input type="tel" placeholder="手机号" class="phone"></input>
                 </div>
                 <div>
-                    <input type="password" placeholder="请输入密码"></input>
-                    <b>用户名或密码错误，请重新登录</b>
+                    <input type="password" placeholder="请输入密码" class="password"></input>
+                    <span class="error_tips">用户名或密码错误，请重新登录</span>
                 </div>
-                <div id="authcode_page">
+                <div id="authcode_page" style="display: none;">
                     <input placeholder="请输入验证码"></input><span>FABA</span>
-                    <b>验证码错误</b>
-                </div>
-                <div>
-                    登录
-                </div>
-                <div>
+                    <span class="autocode_tips">验证码错误</span>
+                </div>popup_login_btn
+                <div class="indexpage_loginarea_btn">登录</div>
+                <div class="index_bottom_btna">
                     <a href="regist.html" title="免费注册">免费注册</a>
-                    <a href="resetloginpwd.html" title="忘记密码">忘记密码</a>
+                    <a href="resetloginpwd.html" title="忘记密码">忘记密码?</a>
                 </div>
             </div>
             <div class="afterlogin" style="display: none;">
                 <div class="logineduser">
                     <div class="usertop">
-                        <em class="top_em">135****8686</em><i class="eye_i"></i>
-                    </div>
-                    <div class="userbottom">
-                        <em>UID:</em><em class="bottom_em" id="bottom_em">2231422314</em>
+                        <em class="top_em">135****8686</em><i class=popup_login_btn231422314</em>
                         <div></div>
                         <em id="whether_auth"><!-- 未认证 -->姚总</em><i class="bottom_em_i"></i>
                     </div>
