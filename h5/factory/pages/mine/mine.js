@@ -1,7 +1,7 @@
 // 余效俭 2016-01-07 17:26:56 创建
 // H5微信端 --- 我的
 
-require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-address-wallet','h5-view-nickname','h5-view-about-us','h5-view-agreement','h5-alert', 'h5-text', 'h5-weixin'], function(router, api, View, check, address_mine, address_wallet,nicknameView) {
+require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-address-wallet', 'h5-view-nickname', 'h5-view-about-us', 'h5-view-agreement', 'h5-alert', 'h5-text', 'h5-weixin'], function(router, api, View, check, address_mine, address_wallet, nicknameView) {
 
 	router.init(true);
 
@@ -14,10 +14,10 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 	var setting_feedback = new View('setting-feedback');
 	var setting_agreement = new View('setting-agreement');
 
-	var dbclickOrLongpress = '';   //安卓为长按, ios为双击, 在zepto的$.os对象中可判断浏览器
-	if($.os.ios){
+	var dbclickOrLongpress = ''; //安卓为长按, ios为双击, 在zepto的$.os对象中可判断浏览器
+	if ($.os.ios) {
 		dbclickOrLongpress = '双击';
-	}else if($.os.android){
+	} else if ($.os.android) {
 		dbclickOrLongpress = '长按';
 	}
 
@@ -33,7 +33,7 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 		vm.marketGopAddress = address_mine.vm.marketGopAddress;
 	};
 
-	address_wallet.vm.callback = function(){
+	address_wallet.vm.callback = function() {
 		router.go('/');
 	}
 
@@ -58,17 +58,17 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 		setMarketAddress: false, //正在设置果仁市场地址标志
 		marketGopAddress: '', //果仁市场地址
 		internalGopAddress: '',
-		dbclickOrLongpress:dbclickOrLongpress,
-		textNum:'0/140',//可输入的文字个数上线
+		dbclickOrLongpress: dbclickOrLongpress,
+		textNum: '0/140', //可输入的文字个数上线
 		nick_click: function() {
-			$.extend(nicknameView.vm,{
-				nickname:vm.nickname,
-				id:'',
-				callback:function(){
+			$.extend(nicknameView.vm, {
+				nickname: vm.nickname,
+				id: '',
+				callback: function() {
 					$.alert('设置成功!');
-					setTimeout(function(){
-						router.go('/');	
-					},1000);						
+					setTimeout(function() {
+						router.go('/');
+					}, 1000);
 				}
 			});
 			router.go('/nickname');
@@ -133,12 +133,12 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 				}
 			});
 		},
-		input:function(){
-			if(this.value.length>=140){
-				this.value = this.value.substring(0,140);
+		input: function() {
+			if (this.value.length >= 140) {
+				this.value = this.value.substring(0, 140);
 				console.log(this.value.length);
 			}
-			vm.textNum = this.value.length +'/'+(140);
+			vm.textNum = this.value.length + '/' + (140);
 		}
 	})
 
@@ -177,6 +177,7 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 	api.info({
 		gopToken: gopToken
 	}, function(data) {
+		console.log(data);
 		if (data.status == 200) {
 			vm.phone = data.data.phone;
 			if (data.data.photo) {
