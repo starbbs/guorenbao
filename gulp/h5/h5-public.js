@@ -45,6 +45,11 @@ gulp.task('h5-sprite', function() {
 	})
 });
 
+gulp.task('h5-font', function() {
+	return gulp.src(paths.build + '/font/**')
+		.pipe(gulp.dest(paths.public + '/font'));
+});
 
-gulp.task('h5-public', ['h5-rjs', 'h5-html', 'h5-img', 'h5-sprite']);
+
+gulp.task('h5-public', ['h5-rjs', 'h5-html', 'h5-img', 'h5-sprite', 'h5-font']);
 

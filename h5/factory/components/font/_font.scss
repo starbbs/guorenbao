@@ -5,6 +5,9 @@
 // H5微信端 --- 各种特殊字体
 
 
+@include font('iconfont', '../font');
+
+
 .font {
 	&-num {
 		font-family: $g-font-num;

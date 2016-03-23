@@ -106,6 +106,17 @@ gulp.task('h5-js-move', function() {
 
 
 // font部分
+gulp.task('h5-font-build', function() {
+	return gulp.src(path.join(paths.font, '/**'), function() {
+		arguments[1].forEach(function(input, index, array) {
+			if (input.replace(array[0], '').lastIndexOf(path.sep) === 0 && path.extname(input)) {
+				gulp.src(input)
+					.pipe(gulp.dest(path.join(paths.build, '/font')))
+					.pipe(notify('h5-font-build', input))
+			}
+		});
+	});
+});
 
 
 // template部分 -- 慎用, name不清会覆盖原文档
@@ -120,7 +131,7 @@ gulp.task('h5-template', function() {
 });
 
 
-gulp.task('h5-build', ['h5-include', 'h5-sass', 'h5-img-move', 'h5-js-move']);
+gulp.task('h5-build', ['h5-include', 'h5-sass', 'h5-img-move', 'h5-js-move', 'h5-font-build']);
 
 
 

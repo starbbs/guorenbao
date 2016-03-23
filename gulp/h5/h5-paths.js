@@ -29,6 +29,7 @@ module.exports = {
 	views: PATH_H5 + '/factory/views',
 	dialogs: PATH_H5 + '/factory/dialogs',
 	source: PATH_H5 + '/source',
+	font: PATH_H5 + '/source/font',
 	server: '../../GOPServer/WebContent',
 	common: '../source',
 	rjs: {

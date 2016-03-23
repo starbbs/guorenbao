@@ -16,3 +16,14 @@
 	}
 }
 
+
+@mixin font($name, $url) {
+	@font-face {font-family: $name;
+		src: url($url + '/' + $name + '.eot'); // IE9
+		src: url($url + '/' + $name + '.eot?#iefix') format('embedded-opentype'), // IE6-IE8
+		url($url + '/' + $name + '.woff') format('woff'), // chrome、firefox
+		url($url + '/' + $name + '.ttf') format('truetype'), // chrome、firefox、opera、Safari, Android, iOS 4.2+
+		url($url + '/' + $name + '.svg#' + $name) format('svg'); // iOS 4.1-
+	}
+}
+
