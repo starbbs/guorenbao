@@ -522,12 +522,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 		}, function(data) {
 			if (data.status == 200) {
 				data.data.transferOutList.forEach(function(item, index) {
-					if (!item.name && item.type === 'GOP_CONTACT') {
-						item.name = '未命名用户';
-					};
-					if (!item.name && item.type === 'WALLET_CONTACT') {
-						item.name = '未命名地址';
-					}
+					item.name = !item.name ? H5bill.transferNoNames[item.type] : item.name
 				});
 				vm.list = data.data.transferOutList;
 			} else {
