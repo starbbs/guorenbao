@@ -1,4 +1,5 @@
 <div class="transfer-target cover" ms-controller="transfer-target">
+    <!--头部-->
     <div class="transfer-target-head my-wallet">
 		<div class="transfer-icon-2-big"></div>
 		<div class="transfer-target-head-name">我的钱包</div>
@@ -14,13 +15,13 @@
 		<div class="transfer-target-head-name">{{name}}</div>
 		<div class="transfer-target-head-address">{{phone|phone}}</div>
 	</div>
-	<!--钱包地址-->
 	<div class="transfer-target-head wallet-address">
 		<div class="transfer-icon-5-big"></div>
 		<div class="transfer-target-head-name">{{name}}</div>
 		<div class="transfer-target-head-address">{{address|address}}</div>
 	</div>
 	
+	<!--数量转帐金额-->
 	<div class="transfer-target-box wallet">
 		<div class="transfer-target-box-title">转出数量
 			<div class="transfer-target-box-fee">手续费 G 0.01</div>
@@ -49,6 +50,7 @@
 		</div>
 		<div class="transfer-target-box-tip">约合RMB {{cnyMoney|fix}}</div>
 	</div>
+	<!--转帐说明-->
 	<div class="transfer-target-detail">
 		<div class="text">
 			<div class="text-label">转账说明</div>
