@@ -115,25 +115,25 @@ define('api_mkt', ['cookie'], function() {
 	add('homepagekline','trade/kline');
 
 
-	add('login','login/login');
+	add('login','exchangeApi/login/login');
 
 	//接口1 发送验证码 
-	add('sendCode','common/sendCode');
+	add('sendCode','exchangeApi/common/sendCode');
 	//接口2 注册第一步 手机号注册
-	add('registerBefore','login/registerBefore');	
+	add('registerBefore','exchangeApi/login/registerBefore');	
 	//接口3 注册第二步 设置支付密码 
-	add('register','login/register');
+	add('register','exchangeApi/login/register');
 	//接口4 注册第三步 设置实名验证 
-	add('realNameAuth','security/realNameAuth');
+	add('realNameAuth','exchangeApi/security/realNameAuth');
 
 	//接口9 账户明细（不传参数查询最近5条）
-	add('billList','bill/billList');
+	add('billList','exchangeApi/bill/billList');
 	//接口10 账户明细（带分页）
-	add('billList-page','bill/billList');
+	add('billList-page','exchangeApi/bill/billList');
 
 
 
-	add('userlogout','logout');
+	add('userlogout','exchangeApi/logout');
 
 	/*
 	// 1.手机号注册
