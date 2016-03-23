@@ -26,7 +26,7 @@ body {
 
 
 .transfer {
-	$img: $g-pages + '/transfer/images';
+	$img: $g-pages + '/transfer/images'; //$g-pages是config.js里配置的路径
 	background-color: $g-background;
 	@extend %fade-in;
 	&-icon {

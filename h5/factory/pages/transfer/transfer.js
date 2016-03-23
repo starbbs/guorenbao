@@ -38,6 +38,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 					gopToken: gopToken
 				}, function(data) {
 					if (data.status == 200) {
+						console.log(data.data);
 						var nowData = {};
 						nowData.name = '我的钱包';
 						for (var i = 0; i < data.data.walletList.length; i++) {
@@ -346,7 +347,8 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 		isMarket: false, // 是否是果仁市场
 		addressToPhone: '',
 		getCnyMoney: function() {
-			if (this.value > 0 && this.value <= transferTarget.gopNum) {
+			console.log(typeof this.value);
+			if (parseFloat(this.value) > 0 && parseFloat(this.value) <= parseFloat(transferTarget.gopNum)) {
 				transferTarget.notchecked = false;
 			} else {
 				transferTarget.notchecked = true;
