@@ -26,7 +26,10 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         //暂无真实接口-为出现效果,暂时放这里,有接口时,删除 -结束
         
         //接口9 账户明细（不传参数查询最近5条）
-        api_mkt.billList(function(data) {
+        api_mkt.billList({
+            'pageNo':1,
+            'pageSize':5
+        },function(data) {
             alert(data.msg);
             if (data.status == 200) {
                 console.log(data);
@@ -34,7 +37,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 for(var i=0; i<5;i++){
                     html.push("<tr>");                                        
                     html.push("<td>"+ data.data.list[i].createDate +"</td>");
-                    html.push("<td class='operType'>"+ data.data.list[PageNum+i].operType +"</td>");
+                    html.push("<td class='operType'>"+ data.data.list[i].operType +"</td>");
                     html.push("<td>"+ data.data.list[i].cnyNumber +"</td>");
                     html.push("<td>"+ data.data.list[i].cnyBalance +"</td>");
                     html.push("<td>"+ data.data.list[i].gopNumber +"</td>");
@@ -55,34 +58,34 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         //接口10 账户明细（带分页）
         $(".moreCheck").click(function(){
             api_mkt.sendCode({
-                'page':1,
-                'pageSize':10
-            },function(data) {
-            if (data.status == 200) {
-                console.log(data);
-                var PageNum = 0; //0当前为第一页
-                var num = now*10 < data.data.list.length ? 10 : data.data.list.length - (now-1)*10;
-                var html = [];
-                for(var i=0; i<num;i++){
-                    html.push("<tr>");                                        
-                    html.push("<td>"+ data.data.list[PageNum+i].createDate +"</td>");
-                    html.push("<td class='operType'>"+ data.data.list[PageNum+i].operType +"</td>");
-                    html.push("<td>"+ data.data.list[PageNum+i].cnyNumber +"</td>");
-                    html.push("<td>"+ data.data.list[PageNum+i].cnyBalance +"</td>");
-                    html.push("<td>"+ data.data.list[PageNum+i].gopNumber +"</td>");
-                    html.push("<td>"+ data.data.list[PageNum+i].gopBalance +"</td>");
-                    html.push("</tr>");
-                    $(".aside-table-tbody").html("");  //添加前清空 
-                    $(".aside-table-tbody").append(html.join(""));
+                    'page':1,
+                    'pageSize':num
+                },function(data) {
+                if (data.status == 200) {
+                    console.log(data);
+                    var PageNum = 0; //0当前为第一页
+                    var num = now*10 < data.data.list.length ? 10 : data.data.list.length - (now-1)*10;
+                    var html = [];
+                    for(var i=0; i<num;i++){
+                        html.push("<tr>");                                        
+                        html.push("<td>"+ data.data.list[PageNum+i].createDate +"</td>");
+                        html.push("<td class='operType'>"+ data.data.list[PageNum+i].operType +"</td>");
+                        html.push("<td>"+ data.data.list[PageNum+i].cnyNumber +"</td>");
+                        html.push("<td>"+ data.data.list[PageNum+i].cnyBalance +"</td>");
+                        html.push("<td>"+ data.data.list[PageNum+i].gopNumber +"</td>");
+                        html.push("<td>"+ data.data.list[PageNum+i].gopBalance +"</td>");
+                        html.push("</tr>");
+                        $(".aside-table-tbody").html("");  //添加前清空 
+                        $(".aside-table-tbody").append(html.join(""));
 
-                    //过滤内容显示不同颜色
-                    $(".operType").filter(":contains('买入')").css("color","red");
-                    $(".operType").filter(":contains('卖出')").css("color","green"); 
+                        //过滤内容显示不同颜色
+                        $(".operType").filter(":contains('买入')").css("color","red");
+                        $(".operType").filter(":contains('卖出')").css("color","green"); 
+                    }
+                } else {
+                    console.log('财务中心-资产状况-账户明细表格(带分页)，加载失败。');
                 }
-            } else {
-                console.log('财务中心-资产状况-账户明细表格(带分页)，加载失败。');
-            }
-        });
+            });
         });
 
     });

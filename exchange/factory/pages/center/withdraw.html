@@ -11,6 +11,7 @@
     <script type="text/javascript" src="./js/jquery-1.12.1.min.js"></script>
     <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="js/withdraw.js"></script>
+    <script type="text/javascript" src="js/withdraw-city.js"></script>
     <script type="text/javascript" src="./js/require.js"></script>
     <script type="text/javascript" src="./js/config.js"></script>
     <script type="text/javascript" src="./js/common.js"></script>
@@ -35,10 +36,17 @@
                     <div class="intro">
                         <em>您将添加人民币提现账户</em>
                     </div>
-                    <div class="right_reg_side_content" style="display: flex;">
+                    <!-- 1 添加银行卡按钮 -->
+                    <div class="bankIdCard bankIdCard-addCard">
+                        <section class="bankIdCard-add">
+                        <p>+</p>添加银行卡
+                        </section>
+                    </div>
+                    <!-- 2 添加银行卡表单 -->
+                    <div class="right_reg_side_content addCardForm" style="display: none;">
                         <div class="rg_lf_label">
                             <div class="label_div">
-                                <label for="username">银行账户</label>
+                                <label for="bankAccount">银行账户</label>
                             </div>
                             <div class="label_div">
                                 <label for="idcard">开户支行</label>
@@ -52,24 +60,20 @@
                         </div>
                         <div class="rg_rg_input">
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入银行账号" id="idcard"/>
-                                <span>请输入正确的银行账号</span>
+                                <input class="regist_rg_input bankAccount" type="text" placeholder="请输入银行账号" id="bankAccount"/>
+                                <span class="msg-bankAccount"></span>
                             </div>
 
                             <div class="regist_input_div">
-                                <select class="regist_rg_input-select">
-                                    <option selected="selected">北京市</option>
-                                    <option>上海市</option>
-                                    <option>广州市</option>
-                                    <option>深圳市</option>
-                                </select>
-                                <select class="regist_rg_input-select">
-                                    <option selected="selected">海淀区</option>
-                                    <option>东城区</option>
-                                    <option>西城区</option>
-                                    <option>朝阳区</option>
-                                </select>
-                                <input class="regist_rg_input" type="text" placeholder="" id="idcard"/>
+                                <form action="" method=post name=form1>
+                                    <select class="regist_rg_input-select" name="selectp" onChange="selectcityarea('selectp','selectc','form1');">
+                                        <option value="0" selected>选择省份</option>
+                                    </select>
+                                    <select class="regist_rg_input-select" name="selectc">
+                                        <option value="0" selected>选择城市</option>
+                                    </select>
+                                </form>
+                                <input class="regist_rg_input inputPos-select" type="text" placeholder="" id="idcard"/>
                                 <span>请输入正确的开户支行地址</span>
                             </div>
                             <div class="regist_input_div">
@@ -84,6 +88,34 @@
                             <div class="build_remit_btn">确认添加</div>
                         </div>
                     </div>
+
+                    <!-- 添加银行卡 -->
+                    <div class="bankIdCard" style="display:none;">
+                      <section class="bankIdCard-bankLogoName ICBC">中国工商银行</section>
+                      <section class="bankIdCard-Code">尾号：4318</section>                      
+                      <section class="bankIdCard-CardAndBg">储蓄卡</section>
+                      <hr />
+                      <section class="bankIdCard-Name">
+                           持卡人姓名：<span>*怀宇</span>
+                      </section>
+                      <section class="bankIdCard-del">删除</section>
+                      <section class="bankIdCard-address">
+                            内蒙古自治区鄂尔多斯市康巴什新区中国工商银行王府井支行
+                      </section>  
+                   </div>
+                   <!-- <div class="bankIdCard bankIdCard-end">
+                      <section class="bankIdCard-bankLogoName">中国工商银行</section>
+                      <section class="bankIdCard-Code">尾号：4318</section>                      
+                      <section class="bankIdCard-CardAndBg">储蓄卡</section>
+                      <hr />
+                      <section class="bankIdCard-Name">
+                           持卡人姓名：<span>*怀宇</span>
+                      </section>
+                      <section class="bankIdCard-del">删除</section>
+                      <section class="bankIdCard-address">
+                            内蒙古自治区鄂尔多斯市康巴什新区中国工商银行王府井支行
+                      </section>  
+                   </div> -->
                     <!-- <div class="goopaladdress">
                         <span>银行账户</span>
                         <span class="gpal_address">1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf</span>

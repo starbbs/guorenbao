@@ -472,6 +472,10 @@
     float:left;
     margin-right:10px;
 }
+.inputPos-select{
+    position: absolute;
+    left:250px;
+}
 .regist_rg_input-btn{
     height: 32px;
     width: 115px;
