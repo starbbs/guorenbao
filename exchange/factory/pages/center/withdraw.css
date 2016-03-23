@@ -472,7 +472,7 @@
     float:left;
     margin-right:10px;
 }
-.inputPos-select{
+.bankIp-select{
     position: absolute;
     left:250px;
 }
@@ -598,9 +598,11 @@
     padding-top:4px;
     color:#fff;
 }
-.bankIdCard hr{
-    margin-top:20px;
-    width:287px;
+.bankIdCard-hr{
+    width:275px;
+    position: absolute;
+    top:47px;
+    left:6px;
     border:1px dashed #ccc;
 }
 .bankIdCard-Name{
@@ -634,6 +636,7 @@
     margin-top:30px;
     font-size:1.5rem;
     cursor: pointer;
+    width:300px;
 }
 .bankIdCard-addCard{
     border:none;

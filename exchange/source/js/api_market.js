@@ -134,6 +134,8 @@ define('api_mkt', ['cookie'], function() {
 	add('rmbRechargeHistory','exchangeApi/wealth/rmbRechargeHistory');
 	//接口 人民币提现历史（查询最近5条）
 	add('rmbWithdrawalsHistory','exchangeApi/wealth/rmbWithdrawalsHistory');
+	//接口 银行卡识别
+	add('checkBankCard','exchangeApi/common/checkBankCard');
 
 
 

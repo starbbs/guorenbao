@@ -190,26 +190,49 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         //银行账号校验
         $("#bank-idcard").blur(function(){
             var bankIdcard = $("#bank-idcard").val();
-            if(!bankIdcard || isNaN(bankIdcard)){
+            var reg = /^(\d{16}|\d{19})$/;
+            if(!bankIdcard || !reg.exec(bankIdcard)){
                 btnConfrim = false;
                 $('.msg-bank-idcard').show().text('请输入正确的银行账号');
             }else{
                 $('.msg-bank-idcard').hide();
                 btnConfrim = true;
+                //接口 银行卡识别
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "http://116.213.142.89:8080/common/checkBankCard",
+                    data: JSON.stringify({
+                        'bankCard':$("#bank-idcard").val()
+                    }),
+                    cache: false,
+                    success: function(data) {
+                        console.log(data.data.bankName);
+                        //所属银行自动添加
+                        $("#bank").val(data.data.bankName);
+                    },
+                    error: function() {
+                        console.log("提交失败");
+                    }
+                });
+
+                /*api_mkt.checkBankCard({          
+                        'bankCard':$("#bank-idcard").val()     
+                    }, function(data) {
+                        if (data.status == 200) {
+                            console.log(data.bankName);
+                            //所属银行自动添加
+                            $("#bank").blur(function(){
+                                var bank = $("#bank").val();
+                                bank = data.bankName;
+                            });
+                        } else {
+                            alert('银行卡号有误'); 
+                        }
+                });*/
             }
         });
-        //银行账号校验
-        $("#bank").blur(function(){
-            var bank = $("#bank").val();
-            var reg = /^[\u4E00-\u9FA5]+$/;   
-            if(!bank || !reg.exec(bank)){
-                btnConfrim = false;
-                $('.msg-bank').show().text('请输入所属银行');
-            }else{
-                $('.msg-bank').hide();
-                btnConfrim = true;
-            }
-        });
+        
         //手机号校验
         $("#phone").blur(function(){
             var phone = $("#phone").val();
