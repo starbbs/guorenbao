@@ -3,6 +3,7 @@
 
 
 define('h5-view-password', ['api', 'router', 'check', 'h5-view', 'h5-ident', 'h5-dialog-success', 'h5-text'], function(api, router, check, View, ident, dialogSuccess) {
+	var gopToken = $.cookie('gopToken');
 
 	var finish = function() {
 		window.location.href = './mine.html';
@@ -63,10 +64,34 @@ define('h5-view-password', ['api', 'router', 'check', 'h5-view', 'h5-ident', 'h5
 		next: function() {//新入新密码的下一步
 			if (setViewModel.ifNext) {
 				console.log(forgetViewModel.phone)//, forgetViewModel.ident, setViewModel.password);
-				api.resetLoginPassword({
-					phone: forgetViewModel.phone,
-					identifyingCode: forgetViewModel.ident,
-					password: setViewModel.password,
+				if(forgetViewModel.ident && setViewModel.password){ //忘记原密码
+					api.resetLoginPassword({
+						phone: forgetViewModel.phone,
+						identifyingCode: forgetViewModel.ident,
+						password: setViewModel.password,
+						}, function(data) {
+						if (data.status == 200) {
+							dialogShow();
+						} else {
+							$.alert(data.status + ': ' + data.msg);
+						}
+					});
+				}else{
+					api.setLoginPassword({
+						gopToken: gopToken,
+						password: setViewModel.password
+					}, function(data) {
+						if (data.status == 200) {
+							dialogShow();
+						} else {
+							$.alert(data.status + ': ' + data.msg);
+						}
+					});
+				}
+				/*
+				api.setLoginPassword({
+					gopToken: gopToken,
+					password: setViewModel.password
 				}, function(data) {
 					if (data.status == 200) {
 						dialogShow();
@@ -74,6 +99,7 @@ define('h5-view-password', ['api', 'router', 'check', 'h5-view', 'h5-ident', 'h5
 						$.alert(data.status + ': ' + data.msg);
 					}
 				});
+				*/
 			}
 		}
 	});
