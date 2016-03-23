@@ -21,7 +21,7 @@ require(['router', 'api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h
 	var gotoAuthorization = function() { // 跳转授权页, 未授权
 		// return;
 		setTimeout(function() {
-			window.location.href = authorization.default;
+			window.location.href = authorization.default; //跳转威信授权的地址
 		}, 100);
 	};
 	var gotoSelect = function() { // 跳转select分页, 已授权, 未绑定账号
@@ -34,7 +34,8 @@ require(['router', 'api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h
 			window.location.href = 'home.html';
 		}, 100);
 	};
-
+	$.cookie('userUrl',window.href);
+	console.log($.cookie('userUrl'));
 	if ($.cookie('gopToken')) { // 有token
 		api.getGopNum({
 			gopToken: $.cookie('gopToken')

@@ -343,7 +343,8 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			transferStage: H5bill.transferStage[order.status], // 转果仁--阶段
 			transferTime: order.transferTime, // 转果仁--到账时间
 			transferStart: order.createTime || order.updateTime || order.transferTime, // 转果仁--创建时间
-			transferOver: order.transferTime || (order.updateTime === order.createTime ? order.status === 'PROCESSING' ? avalon.filters.date(new Date().setHours(new Date().getHours() + 2), 'yyyy-MM-dd HH:mm:ss') : order.updateTime : order.updateTime), // 转果仁--完成或预计时间
+			//            transferTime到帐时间
+			transferOver: order.transferTime || (order.updateTime === order.createTime ? order.status === 'PROCESSING' ? '预计 ' + avalon.filters.date(new Date().setHours(new Date().getHours() + 2), 'yyyy-MM-dd HH:mm:ss') + ' 前' : order.updateTime : order.updateTime), // 转果仁--完成或预计时间
 			transferFailReason: order.failureMsg, // 转果仁--失败原因
 			poundage: order.serviceFee, // 转果仁--手续费
 			submitTime: order.status === 'FAILURE' ? order.createTime : '', // 提交时间
