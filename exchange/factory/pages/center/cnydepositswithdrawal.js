@@ -1,13 +1,9 @@
-/*require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
+require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 	//console.log(api_mkt);
 	//console.log(mkt_info);
-	mkt_info.get();
 	
-});*/
-
-$(function(){
         
-		$(function(){
+	
             $('.rmbxh').on('click',function(){
                 $(this).addClass('bottomon');
                 $('.rmbtx').removeClass('bottomon');
@@ -20,7 +16,6 @@ $(function(){
                 $('.recharge').hide();
                 $('.withdraw_deposit').show();
             });
-        });
 
         var flag = true;
         $('.messagenum_area').on("click",function(){
@@ -46,14 +41,14 @@ $(function(){
         $(".cnyWithdrawals").filter(":contains('进行中')").css("color","orange");        
         //暂无真实接口-为出现效果,暂时放这里,有接口时,删除 -结束
         
-        //人民币充值
-       /* $.ajax({
-            url: "",
-            type:"post",
-            dataType: "json",
-            cache: false,
-            success:function(data){
-                var PageNum = 0; //0当前为第一页
+        //接口 人民币充值历史（查询最近5条）
+        api_mkt.rmbRechargeHistory({
+            'pageNo':1,
+            'pageSize':5
+        },function(data) {
+            alert(data.msg);
+            if (data.status == 200) {
+                console.log(data);
                 var html = [];
                 for(var i=0; i<5;i++){
                     html.push("<tr>");                                        
@@ -68,22 +63,51 @@ $(function(){
 
                     //过滤内容显示不同颜色
                     $(".status").filter(":contains('进行中')").css("color","orange");
-        			$(".status").filter(":contains('已完成')").css("color","#ccc");
+                    $(".status").filter(":contains('已完成')").css("color","#ccc");
                 }
-            },
-            error:function(err){
+            }else{
                 console.log('财务中心-人民币充值历史表格，加载失败。');
             }
         });
 
-        //人民币提现
-        $.ajax({
-            url: "",
-            type:"post",
-            dataType: "json",
-            cache: false,
-            success:function(data){
-                var PageNum = 0; //0当前为第一页
+        //接口 人民币充值历史（带分页）
+        $(".moreCheck").click(function(){
+            api_mkt.rmbRechargeHistory({
+                'pageNo':1,
+                'pageSize':10
+            },function(data) {
+                alert(data.msg);
+                if (data.status == 200) {
+                    console.log(data);
+                    var html = [];
+                    for(var i=0; i<10;i++){
+                        html.push("<tr>");                                        
+                        html.push("<td>"+ data.data.list[PageNum+i].updateDate +"</td>");
+                        html.push("<td>"+ data.data.list[PageNum+i].bank +"</td>");
+                        html.push("<td>"+ data.data.list[PageNum+i].money +"</td>");
+                        html.push("<td class='status'>"+ data.data.list[PageNum+i].status +"</td>");
+                        html.push("<td class='checkDeal'>查看此笔充值单</td>");
+                        html.push("</tr>");
+                        $(".cnyInput").html("");  //添加前清空 
+                        $(".cnyInput").append(html.join(""));
+
+                        //过滤内容显示不同颜色
+                        $(".status").filter(":contains('进行中')").css("color","orange");
+                        $(".status").filter(":contains('已完成')").css("color","#ccc");
+                    }
+                }else{
+                    console.log('财务中心-人民币充值历史表格，加载失败。');
+                }
+            });
+        });
+        //接口 人民币充提现（查询最近5条）
+        api_mkt.rmbWithdrawalsHistory({
+            'pageNo':1,
+            'pageSize':5
+        },function(data) {
+            alert(data.msg);
+            if (data.status == 200) {
+                console.log(data);
                 var html = [];
                 for(var i=0; i<5;i++){
                     html.push("<tr>");                                        
@@ -99,11 +123,40 @@ $(function(){
                     //过滤内容显示不同颜色
                     $(".cnyWithdrawals").filter(":contains('进行中')").css("color","orange"); 
                 }
-            },
-            error:function(err){
-                console.log('财务中心-人民币提现历史表格，加载失败。');
+            }else {
+                console.log('财务中心-人民币提现历史表格带分页，加载失败。');
             }
-        });*/
+        });
+
+        //接口 人民币充提现（带分页）
+        $(".moreCheck").click(function(){
+            api_mkt.rmbWithdrawalsHistory({
+                'pageNo':1,
+                'pageSize':5
+            },function(data) {
+                alert(data.msg);
+                if (data.status == 200) {
+                    console.log(data);
+                    var html = [];
+                    for(var i=0; i<10;i++){
+                        html.push("<tr>");                                        
+                        html.push("<td>"+ data.data.list[PageNum+i].updateDate +"</td>");
+                        html.push("<td>"+ data.data.list[PageNum+i].bank +"</td>");
+                        html.push("<td>"+ data.data.list[PageNum+i].pay +"</td>");
+                        html.push("<td>"+ data.data.list[PageNum+i].money-pay +"</td>");
+                        html.push("<td class='cnyWithdrawals'>"+ data.data.list[PageNum+i].status+ "</td>");
+                        html.push("</tr>");
+                        $(".cnyOutput").html("");  //添加前清空 
+                        $(".cnyOutput").append(html.join(""));
+
+                        //过滤内容显示不同颜色
+                        $(".cnyWithdrawals").filter(":contains('进行中')").css("color","orange"); 
+                    }
+                }else {
+                    console.log('财务中心-人民币提现历史表格带分页，加载失败。');
+                }
+            });
+        });
 
         //实名认证用户充值-显示/隐藏-提示文本内容
         $(".accountholder_tip").hover(function(){
@@ -112,6 +165,7 @@ $(function(){
 
         //生成汇款单校验
         //开户人姓名校验
+        var btnConfrim;
         $("#bank-username").blur(function(){
             var username = $("#bank-username").val();
             if(!username){
@@ -136,26 +190,49 @@ $(function(){
         //银行账号校验
         $("#bank-idcard").blur(function(){
             var bankIdcard = $("#bank-idcard").val();
-            if(!bankIdcard || isNaN(bankIdcard)){
+            var reg = /^(\d{16}|\d{19})$/;
+            if(!bankIdcard || !reg.exec(bankIdcard)){
                 btnConfrim = false;
                 $('.msg-bank-idcard').show().text('请输入正确的银行账号');
             }else{
                 $('.msg-bank-idcard').hide();
                 btnConfrim = true;
+                //接口 银行卡识别
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "http://116.213.142.89:8080/common/checkBankCard",
+                    data: JSON.stringify({
+                        'bankCard':$("#bank-idcard").val()
+                    }),
+                    cache: false,
+                    success: function(data) {
+                        console.log(data.data.bankName);
+                        //所属银行自动添加
+                        $("#bank").val(data.data.bankName);
+                    },
+                    error: function() {
+                        console.log("提交失败");
+                    }
+                });
+
+                /*api_mkt.checkBankCard({          
+                        'bankCard':$("#bank-idcard").val()     
+                    }, function(data) {
+                        if (data.status == 200) {
+                            console.log(data.bankName);
+                            //所属银行自动添加
+                            $("#bank").blur(function(){
+                                var bank = $("#bank").val();
+                                bank = data.bankName;
+                            });
+                        } else {
+                            alert('银行卡号有误'); 
+                        }
+                });*/
             }
         });
-        //银行账号校验
-        $("#bank").blur(function(){
-            var bank = $("#bank").val();
-            var reg = /^[\u4E00-\u9FA5]+$/;   
-            if(!bank || !reg.exec(bank)){
-                btnConfrim = false;
-                $('.msg-bank').show().text('请输入所属银行');
-            }else{
-                $('.msg-bank').hide();
-                btnConfrim = true;
-            }
-        });
+        
         //手机号校验
         $("#phone").blur(function(){
             var phone = $("#phone").val();

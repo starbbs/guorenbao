@@ -76,11 +76,15 @@
                                 <span class="msg-bank-idcard"></span>
                             </div>
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="所属银行" id="bank"/>
+                                <input class="regist_rg_input" type="text" placeholder="根据卡号返回所属银行" id="bank" readonly="true"/>
                                 <span class="msg-bank"></span>
                             </div>
                             <div class="regist_input_div">
                                 <input class="regist_rg_input" type="text" placeholder="请输入与银行卡对应的手机号" id="phone"/>
+                                <span class="phonePos">
+                                    <input type="checkbox" id="phonePos"/>
+                                    <label for="phonePos">使用绑定手机</label>
+                                </span>
                                 <span class="msg-phone"></span>
                             </div>
                             <div class="build_remit_btn build-remit-layer">生成汇款单</div>
@@ -112,41 +116,6 @@
                                 </thead>
                                 <tbody class="aside-table-tbody cnyInput">
                                     <!-- 载入前五条,如下为临时填充数据 -->
-                                    <tr>
-                                        <td >2016-03-16<br/><br/>11:02</td>
-                                        <td >建设银行网银</td>
-                                        <td >3200.00</td>
-                                        <td class="status">进行中</td>
-                                        <td class="checkDeal">查看此笔充值单</td>
-                                    </tr>
-                                    <tr>
-                                        <td >2016-03-16<br/><br/>11:02</td>
-                                        <td >建设银行网银</td>
-                                        <td >3200.00</td>
-                                        <td class="status">已关闭</td>
-                                        <td class="checkDeal">查看此笔充值单</td>
-                                    </tr>
-                                    <tr>
-                                        <td >2016-03-16<br/><br/>11:02</td>
-                                        <td >建设银行网银</td>
-                                        <td >3200.00</td>
-                                        <td class="status">已完成</td>
-                                        <td class="checkDeal">查看此笔充值单</td>
-                                    </tr>
-                                    <tr>
-                                        <td >2016-03-16<br/><br/>11:02</td>
-                                        <td >建设银行网银</td>
-                                        <td >3200.00</td>
-                                        <td class="status">已完成</td>
-                                        <td class="checkDeal">查看此笔充值单</td>
-                                    </tr>
-                                    <tr>
-                                        <td >2016-03-16<br/><br/>11:02</td>
-                                        <td >建设银行网银</td>
-                                        <td >3200.00</td>
-                                        <td class="status">已完成</td>
-                                        <td class="checkDeal">查看此笔充值单</td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -224,41 +193,6 @@
                                     </thead>
                                     <tbody class="aside-table-tbody cnyOutput">
                                         <!-- 载入前五条,如下为临时填充数据 -->
-                                        <tr>
-                                            <td >2016-03-16<br/><br/>11:02</td>
-                                            <td>中国工商银行</td>
-                                            <td >3200.00</td>
-                                            <td >1.00</td>
-                                            <td class="cnyWithdrawals">进行中</td>
-                                        </tr>
-                                        <tr>
-                                            <td >2016-03-16<br/><br/>11:02</td>
-                                            <td>中国建设银行</td>
-                                            <td >3200.00</td>
-                                            <td >2.00</td>
-                                            <td class="cnyWithdrawals">成功提现</td>
-                                        </tr>
-                                        <tr>
-                                            <td >2016-03-16<br/><br/>11:02</td>
-                                            <td>中国工商银行</td>
-                                            <td >3200.00</td>
-                                            <td >1.00</td>
-                                            <td class="cnyWithdrawals">进行中</td>
-                                        </tr>
-                                        <tr>
-                                            <td >2016-03-16<br/><br/>11:02</td>
-                                            <td>中国建设银行</td>
-                                            <td >3200.00</td>
-                                            <td >2.00</td>
-                                            <td class="cnyWithdrawals">成功提现</td>
-                                        </tr>
-                                        <tr>
-                                            <td >2016-03-16<br/><br/>11:02</td>
-                                            <td>中国建设银行</td>
-                                            <td >3200.00</td>
-                                            <td >2.00</td>
-                                            <td class="cnyWithdrawals">成功提现</td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

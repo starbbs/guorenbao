@@ -494,6 +494,8 @@
     background-color: #f6f6f6;
     padding: 10px 10px;
     border-radius:2px;
+    line-height: 20px;
+    text-indent: 2rem;
 }
 
 .bankcard,.handlingcharget{
@@ -649,3 +651,16 @@ a {
     cursor: pointer;
     color:#0bbeee;
 }
+.phonePos input{
+    position: absolute;
+    left:252px;
+    top: -30px;
+}
+.phonePos label{
+    position: absolute;
+    left:280px;
+    top: -28px;
+    width:100px;
+    color:#999;
+}
+
