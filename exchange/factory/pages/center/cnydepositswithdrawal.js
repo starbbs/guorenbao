@@ -2,20 +2,18 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 	//console.log(api_mkt);
 	//console.log(mkt_info);
 	
-        
-	
-            $('.rmbxh').on('click',function(){
-                $(this).addClass('bottomon');
-                $('.rmbtx').removeClass('bottomon');
-                $('.recharge').show();
-                $('.withdraw_deposit').hide();
-            });
-            $('.rmbtx').on('click',function(){
-                $(this).addClass('bottomon');
-                $('.rmbxh').removeClass('bottomon');
-                $('.recharge').hide();
-                $('.withdraw_deposit').show();
-            });
+        $('.rmbxh').on('click',function(){
+            $(this).addClass('bottomon');
+            $('.rmbtx').removeClass('bottomon');
+            $('.recharge').show();
+            $('.withdraw_deposit').hide();
+        });
+        $('.rmbtx').on('click',function(){
+            $(this).addClass('bottomon');
+            $('.rmbxh').removeClass('bottomon');
+            $('.recharge').hide();
+            $('.withdraw_deposit').show();
+        });
 
         var flag = true;
         $('.messagenum_area').on("click",function(){
@@ -100,6 +98,51 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 }
             });
         });
+
+        //人民币提现表单校验
+        $('#WithdrawalsAmount').blur(function(){
+            var WithdrawalsAmount = $(this).val();
+            if(!WithdrawalsAmount || isNaN(WithdrawalsAmount)){
+                $('.msg-WithdrawalsAmount').text('请输入提现金额');
+                flag = false;
+            }else if(WithdrawalsAmount > 50000){
+                $('.msg-WithdrawalsAmount').text('最大提现金额不能超过50000');
+                flag = false;
+            }else{
+                flag = true;
+                $('.msg-WithdrawalsAmount').text('');
+                //手续费校验
+                var Fee =$('.WithdrawalsFee');
+                if(WithdrawalsAmount >= 400 ){
+                    Fee.text(WithdrawalsAmount*0.005+' CNY');                    
+                }else{
+                    Fee.text('2 CNY');
+                }
+            }
+        });
+        //支付密码
+        $('#WithdrawalsPayPwd').blur(function(){
+            var pwd = $(this).val();
+            if(!pwd){
+                $('.msg-WithdrawalsPayPwd').text('请输入支付密码');
+                flag = false;
+            }else{
+                flag = true;
+                $('.msg-WithdrawalsPayPwd').text('');
+            }
+        });
+        //验证码
+        $('#VerificationCode').blur(function(){
+            var pwd = $(this).val();
+            if(!pwd){
+                $('.msg-VerificationCode').text('请输入验证码');
+                flag = false;
+            }else{
+                flag = true;
+                $('.msg-VerificationCode').text('');
+            }
+        });
+
         //接口 人民币充提现（查询最近5条）
         api_mkt.rmbWithdrawalsHistory({
             'pageNo':1,

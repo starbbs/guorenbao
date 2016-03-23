@@ -130,6 +130,8 @@ define('api_mkt', ['cookie'], function() {
 	add('billList','exchangeApi/bill/billList');
 	//接口 账户明细（带分页）
 	add('billList-page','exchangeApi/bill/billList');
+	//接口 人民币充值
+	add('rmbRecharge','exchangeApi//wealth/rmbRecharge');
 	//接口 人民币充值历史（查询最近5条）
 	add('rmbRechargeHistory','exchangeApi/wealth/rmbRechargeHistory');
 	//接口 人民币提现历史（查询最近5条）

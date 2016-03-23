@@ -3,20 +3,18 @@
 	//console.log(mkt_info);
 	//mkt_info.get();
     $(function(){
-        $(function(){
-            $('.rmbxh').on('click',function(){
-                $(this).addClass('bottomon');
-                $('.rmbtx').removeClass('bottomon');
-                $('.recharge').show();
-                $('.withdraw_deposit').hide();
-            });
-            $('.rmbtx').on('click',function(){
-                $(this).addClass('bottomon');
-                $('.rmbxh').removeClass('bottomon');
-                $('.recharge').hide();
-                $('.withdraw_deposit').show();
-            });
+        $('.rmbxh').on('click',function(){
+            $(this).addClass('bottomon');
+            $('.rmbtx').removeClass('bottomon');
+            $('.recharge').show();
+            $('.withdraw_deposit').hide();
         });
+        $('.rmbtx').on('click',function(){
+            $(this).addClass('bottomon');
+            $('.rmbxh').removeClass('bottomon');
+            $('.recharge').hide();
+            $('.withdraw_deposit').show();
+        });        
 
         //暂无真实接口-为出现效果,暂时放这里,有接口时,删除 -开始
         $(".status-guorenInput").filter(":contains('进行中')").css("color","orange");

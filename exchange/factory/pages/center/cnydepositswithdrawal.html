@@ -134,22 +134,22 @@
                     <div class="right_reg_side_content" style="display: flex;">
                         <div class="rg_lf_label">
                             <div class="label_div">
-                                <label for="username">提现方式</label>
+                                <label for="WithdrawalsMode">提现方式</label>
                             </div>
                             <div class="label_div">
-                                <label for="idcard">提现账户</label>
+                                <label for="WithdrawalsAccount">提现账户</label>
                             </div>
                             <div class="label_div">
-                                <label for="username">提现金额</label>
+                                <label for="WithdrawalsAmount">提现金额</label>
                             </div>
                             <div class="label_div">
-                                <label for="idcard">手续费</label>
+                                <label for="WithdrawalsFee">手续费</label>
                             </div>
                             <div class="label_div">
-                                <label for="idcard">支付密码</label>
+                                <label for="WithdrawalsPayPwd">支付密码</label>
                             </div>
                             <div class="label_div">
-                                <label for="idcard">手机验证</label>
+                                <label for="VerificationCode">手机验证</label>
                             </div>
                         </div>
                         <div class="rg_rg_input">
@@ -158,23 +158,31 @@
                             </div>
 
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入您想充值的整数金额" id="idcard"/>
-                                <span>请输入正确的整数金额</span>
+                                <div class="regist_rg_input bankcard">
+                                    <a href="withdraw.html" class="addBankCard">
+                                        + 添加银行卡
+                                    </a>
+                                </div>
                             </div>
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="CNY" id="bank-idCardNumber"/>
-                                <span>请输入正确的银行账号</span>
+                                <input class="regist_rg_input" type="text" placeholder="CNY" id="WithdrawalsAmount"/>
+                                <span class="msg-WithdrawalsAmount"></span>
                             </div>
                             <div class="regist_input_div">
-                                <!-- <input class="regist_rg_input" type="text" placeholder="所属银行" id="idcard"/> -->
-                                <div class="regist_rg_input handlingcharget"><em>0</em>CNY</div>
+                                <div class="regist_rg_input handlingcharget WithdrawalsFee">0 CNY
+                                </div>
                             </div>
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入支付密码" id="idcard"/>
-                                <span>请输入支付密码</span>
+                                <input class="regist_rg_input" type="text" placeholder="请输入支付密码" id="WithdrawalsPayPwd"/>
+                                <span class="msg-WithdrawalsPayPwd"></span>
                             </div>
-                            <div class="build_remit_btn">提现</div>
-                            <div class="aside-table-div">
+                            <div class="regist_input_div">
+                                <input class="regist_rg_input-VerificationCode" type="text" placeholder="" id="VerificationCode"/>
+                                <input class="regist_rg_input-btn" type="button" value="获取验证码" id="VerificationCodeBtn"/>
+                                <span class="msg-VerificationCode"></span>
+                            </div>
+                            <div class="build_remit_btn Withdrawalsbtn">提现</div>
+                            <div class="aside-table-div Withdrawalstable">
                                 <div class="renMinBiInput">
                                     <span>人民币提现历史</span>
                                     <span>
