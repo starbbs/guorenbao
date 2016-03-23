@@ -16,6 +16,7 @@
 
 	&-2 {
 		$p2: & + '';
+		overflow: hidden;
 	}
 
 	&-title {
@@ -26,18 +27,13 @@
 		margin-bottom: 20px;
 	}
 	&-input {
-		@include square(100%);
-		position: relative;
+		@include atlwh(0, -10%, 120%, 100%); // ios光标浮现
 		z-index: 100;
 		opacity: 0; // ios光标浮现
 		font-size: 0; // ios光标浮现
 		color: transparent; // ios光标浮现
 		line-height: 50px; // ios光标浮现
 		text-indent: -20px; // ios光标浮现
-		overflow: hidden;
-		// box-sizing: border-box;
-		// padding-left: $width + 10px;
-		// overflow: hidden;
 	}
 	&-box {
 		@extend %afull;
