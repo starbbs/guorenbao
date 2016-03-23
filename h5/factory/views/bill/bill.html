@@ -2,19 +2,25 @@
 	<div class="view-box">
 		<div class="bill-scroll">
 			<div class="bill-box">
-				<div class="bill-head" ms-class="{{headClass}}" ms-class-1="no-border:(type==='TRANSFER_IN'||type==='TRANSFER_OUT')">{{headContent}}</div>
+				<!--交易状态 转帐进行中 转帐成功 关闭-->
+				<div class="bill-head" ms-class="{{headClass}}" ms-class-1="no-border:(type==='TRANSFER_IN'||type==='TRANSFER_OUT')">
+					{{headContent}}
+				</div>
 				<div class="bill-wait" ms-visible="waitForPay">
 					<div class="bill-wait-left">等待支付(¥)</div>
 					<div class="bill-wait-right">-{{orderMoney|fix}}</div>
 				</div>
+				<!--买果仁成功-->
 				<div class="bill-get" ms-visible="gopNum">
 					<div class="bill-get-number">+{{gopNum|floorFix}}</div>
 					<div class="bill-get-label">获得果仁(G)</div>
 				</div>
+				<!--转入转出果仁-->
 				<div class="bill-get" ms-visible="transferNum">
 					<div class="bill-get-number">{{transferSign}}{{transferNum|floorFix}}</div>
 					<div class="bill-get-label ash" ms-visible="type==='TRANSFER_OUT'">手续费 {{poundage|fix}}</div>
 				</div>
+				<!--用户信息-->
 				<div class="bill-target" ms-visible="type==='TRANSFER_IN'||type==='TRANSFER_OUT'">
 					<div class="bill-target-left">
 						<div class="bill-target-img">
@@ -28,9 +34,11 @@
 					</div>
 					<div class="bill-target-bottom"></div>
 				</div>
+				<!--进度条-->
 				<div class="bill-stage" ms-visible="type==='TRANSFER_OUT'&&transferStage" ms-class="{{transferStage}}">
 					<div class="bill-stage-line"></div>
 				</div>
+				<!--转帐时间-->
 				<div class="bill-desc" ms-visible="type==='TRANSFER_OUT'&&transferStage&&(transferStart||transferOver)">
 					<div class="bill-desc-left">
 						<div class="bill-desc-name green">提交成功</div>
@@ -49,12 +57,13 @@
 					<div class="fl">关闭原因</div>
 					<div class="fr red">{{closeReason|html}}</div>
 				</div> -->
-				<div class="bill-pay" ms-visible="orderMoney&&!buyMoney">
+				<!--金额相关-->
+				<div class="bill-pay" ms-visible="orderMoney&&!buyMoney"><!--买果仁-->
 					<div class="bill-label" ms-class-1="ash:status==='FAILURE'" ms-class-2="dark:status!=='FAILURE'">订单金额(¥)</div>
 					<div class="bill-num dark">-{{orderMoney|abs|fix}}</div>
 					<div class="bill-pay-box" ms-visible="status==='SUCCESS'&&(payMoney||payGop)">
 						<div class="bill-pay-item" ms-visible="payMoney">
-							<div class="bill-label">支付金额</div>
+							<div class="bill-label">支付金额11</div>
 							<div class="bill-num">-{{payMoney|fix}}</div>
 						</div>
 						<div class="bill-pay-item" ms-visible="payGop">
@@ -63,6 +72,7 @@
 						</div>
 					</div>
 				</div>
+				
 				<div class="bill-pay" ms-visible="status==='SUCCESS'&&buyMoney">
 					<div class="bill-label ash">支付金额(¥)</div>
 					<div class="bill-num dark">-{{buyMoney|fix}}</div>
@@ -71,6 +81,7 @@
 					<div class="bill-label dark">获得返利(G)</div>
 					<div class="bill-num blue">+{{rebate|floorFix}}</div>
 				</div>
+				<!--帐单相关信息-->
 				<div class="bill-detail">
 					<div class="bill-detail-item" ms-visible="transferFailReason">
 						<div class="bill-detail-left">失败原因</div>
