@@ -1,24 +1,18 @@
 require(['api_mkt','cookie'], function(api_mkt) {
     var popup_login_times = 0;
     var exchangeToken = $.cookie('exchangeToken');
-    console.log(exchangeToken);
+    // alert(exchangeToken)
+    // console.log(exchangeToken);
+    
+    var whether_auth = false;
+
     $("#bg").width($(document).width());
     $('#bg').height($(document).height());
     $('#floor_bg').css('left', 0);
     $('#floor_bg').css('top', 0);
     $('.bg').css('left', 0);
     $('.bg').css('top', 0);
-
-
-
-
-    /**
-     * 输入字段校验
-     * [verify description]
-     * @param  {[String]} inputData [输入数据]
-     * @param  {[String]} dataType  [数据类型]
-     * @return {[boolean or String]}[验证结果]
-     */
+    //wealth/getTotalAssets
     var verify = function(inputData, dataType) {
         var reg = "";
         var varMes = '';
@@ -44,10 +38,16 @@ require(['api_mkt','cookie'], function(api_mkt) {
         return reg.test(inputData) ? reg.test(inputData) : varMes;
     };
     if (!exchangeToken) {
+    	//alert("hi_le")
     	$(".login_regist").show();
+    	$(".loginarea").show();
+    	$(".afterlogin").hide();
     } else {
     	$(".login_regist").hide();
         $(".login_header").show();
+
+        $(".loginarea").hide();
+    	$(".afterlogin").show();
         var global_loginuserphone = $.cookie("global_loginuserphone");
 	    var global_loginusername = $.cookie("global_loginusername");
 	    console.log("-------------"+global_loginuserphone);
@@ -91,14 +91,50 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	                $(".login_header").show();
 	                $(".popDiv").hide();
 	                $(".bg").hide();
+
+	                $(".loginarea").hide();
+    				$(".afterlogin").show();
 	                //data.data.phone;  data.data.name
 	                global_loginuserphone = data.data.phone;
 	                global_loginusername = data.data.username;
+	                global_loginuseruid = data.data.uid;
 	                console.log(global_loginuserphone);
 	                console.log(global_loginusername);
+	                console.log(global_loginuseruid);
 	                $.cookie("global_loginuserphone",global_loginuserphone);
 	                $.cookie("global_loginusername",global_loginusername);
-	                $("#logined_username").html(data.data.phone);
+	                $.cookie("global_loginuseruid",global_loginuseruid);
+	                $("#logined_username").html(global_loginuserphone);
+	                $("#uidval").html(global_loginuseruid);
+	                //$(".top_em").html(global_loginuserphone);
+	                $(".top_em").html(global_loginuserphone.substr(0,3)+'****'+global_loginuserphone.substr(7,4));
+	            	
+	                var whether_auth_val = "";
+                    if(whether_auth){
+                        whether_auth_val = global_loginusername;
+                        $(".bottom_em_i")[0].style.background = "url(./images/index_already_authentication.png)";
+                    } else {
+                        whether_auth_val = '未认证';
+                        $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
+                    }
+                    $("#whether_auth").html(whether_auth_val); //是否实名认证的标识
+
+                    api_mkt.totalAssets({
+                    }, function(data) {
+                        if (data.status == 200) {
+                        	var totalAssets = data.data.gopBalance + data.data.gopLock;
+                            var totalNuts = data.data.cnyBalance + data.data.cnyLock;
+                            $('.lf_asset_center').html(totalAssets);//总资产
+                            $('.rg_asset_center').html(totalNuts);//总果仁
+                        } else if (data.status == 305) {
+                            
+                        } else if(data.status == 400){
+                            
+                        } else {
+                            
+                        }
+                    });
+
 	            } else if (data.status == 305) {
 	                alert(data.msg);
 	            } else {
@@ -124,22 +160,32 @@ require(['api_mkt','cookie'], function(api_mkt) {
         $(".bg").hide();
     });
     $("#logoutbtn").on("click", function() {
-        console.log("xuletian");
-    	$.cookie('exchangeToken','');
-    	console.log("haha");
-    	console.log($.cookie('exchangeToken'));
-        location.reload(true);
-
+        //console.log("xuletian");
+    	//$.cookie('exchangeToken','');
+    	//console.log("haha");
+    	//console.log($.cookie('exchangeToken'));
+        
+        $.cookie('exchangeToken', '');
+        $.cookie("global_loginuserphone",'');
+        $.cookie("global_loginusername",'');
+        $.cookie("global_loginuseruid",'');
+        
         //退出登录
         api_mkt.userlogout({
+
         }, function(data) {
             if (data.status == 200) {
                 alert(data.msg);
             } else if (data.status == 305) {
                 alert(data.msg);
             } else {
+            	alert("dengluerror");
+            	alert(data.msg);
             	//$(".error_tips").show().html(data.msg);
             }
         });
+        setTimeout(function(){
+        	location.reload(true);
+        },100);
     });
 });

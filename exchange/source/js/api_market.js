@@ -139,7 +139,9 @@ define('api_mkt', ['cookie'], function() {
 
 
 
-	add('userlogout','exchangeApi/logout');
+	add('userlogout','exchangeApi/user/logout');
+	add('realAuth','exchangeApi/user/realAuth');
+	add('totalAssets','exchangeApi/wealth/getTotalAssets');
 
 	/*
 	// 1.手机号注册

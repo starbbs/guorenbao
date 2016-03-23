@@ -1,6 +1,58 @@
 require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_info, mkt_trade) {
-    mkt_info.get();
-    mkt_trade.get();
+    // mkt_info.get();
+    // mkt_trade.get();
+    var exchangeToken = $.cookie('exchangeToken');
+    console.log(exchangeToken);
+    var global_loginuserphone = $.cookie("global_loginuserphone");
+    var global_loginusername = $.cookie("global_loginusername");
+    var global_loginuseruid = $.cookie("global_loginuseruid");
+    var whether_auth = false;
+    if (!exchangeToken) {
+        $(".login_regist").show(); //显示登录注册按钮
+        $('.loginarea').show();
+    } else {
+        $(".login_regist").hide();
+        $(".login_header").show();
+        $(".loginarea").hide();
+        $(".afterlogin").show();
+        $(".top_em").html(global_loginuserphone.substr(0,3)+'****'+global_loginuserphone.substr(7,4));
+
+        console.log("------index-------"+global_loginuserphone);
+        console.log("------index-------"+global_loginusername);
+        console.log("------index-------"+global_loginuseruid);
+        api_mkt.realAuth({
+        }, function(data) {
+            if (data.status == 200) {
+                //alert(data.msg);
+                whether_auth = true;
+            } else if (data.status == 305) {
+                //alert(data.msg);
+            } else if(data.status == 400){
+                //alert(data.msg);
+                whether_auth = false;
+            } else {
+                //alert(data.msg);
+            }
+        });
+        if(global_loginusername!=""&&global_loginusername){
+            $("#logined_username").html(global_loginusername);
+        } else {
+            $("#logined_username").html(global_loginuserphone);
+        }
+        $("#uidval").html(global_loginuseruid);
+        var whether_auth_val = "";
+        if(whether_auth){
+            whether_auth_val = global_loginusername;
+            $(".bottom_em_i")[0].style.background = "url(./images/index_already_authentication.png)";
+        } else {
+            whether_auth_val = '未认证';
+            $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
+        }
+        $("#whether_auth").html(whether_auth_val); //是否实名认证的标识
+        $(".popDiv").hide();
+        $(".bg").hide();
+    }
+
     $(".bg").width($(document).width());
     $('.bg').height($(document).height());
     $('.bg').css('left', 0);
@@ -230,13 +282,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             }
         }
     };
-    /**
-     * 输入字段校验
-     * [verify description]
-     * @param  {[String]} inputData [输入数据]
-     * @param  {[String]} dataType  [数据类型]
-     * @return {[boolean or String]}[验证结果]
-     */
     var verify = function(inputData, dataType) {
         var reg = "";
         var varMes = '';
@@ -261,39 +306,28 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         }
         return reg.test(inputData) ? reg.test(inputData) : varMes;
     };
-    /**
-     * 去掉字符串前后的空格
-     * [trim description]
-     * @return {[type]} [description]
-     */
     String.prototype.trim = function() {
         return this.replace(/(^\s*)|(\s*$)/g, '');
     };
-
-    // api_mkt.pollinfo(function(data) {
-    //     callback && callback(data);
-    // });
-
     var login_area_times = 0;
     $(".indexpage_loginarea_btn").on("click", function() {
-        login_area_times++;
-        var phone = $(".phone").val();
-        var password = $(".password").val();
+        var phone = $(".phone_loginarea").val();
+        var password = $(".password_loginarea").val();
         var flag = verify(phone, "tel");
-        console.log(flag);
         if(flag=="请输入正确的手机号码"){
-            $(".error_tips").show().html("请输入正确的手机号码");
+            $(".error_tips_index").show().html("请输入正确的手机号码");
             return;
         }
         if(password==""){
-            $(".error_tips").show().html("请输入密码");
+            $(".error_tips_index").show().html("请输入密码");
             return;
         } else if(password.length>12||password.length<6){
-            $(".error_tips").show().html("请输入6~12位密码");
+            $(".error_tips_index").show().html("请输入6~12位密码");
             return;
         }
-        if(flag==true&&password!=""&&password.length>=6&&password.length<12){
-            $(".error_tips").hide();
+        if(flag==true&&password!=""&&password.length>=6&&password.length<=12){
+            $(".error_tips_index").hide();
+            console.log("error_tips_index...");
             api_mkt.login({
                 phone: phone,
                 password: password
@@ -305,29 +339,84 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     $(".login_header").show();
                     $(".popDiv").hide();
                     $(".bg").hide();
-                    //data.data.phone;  data.data.name
                     global_loginuserphone = data.data.phone;
                     global_loginusername = data.data.username;
+                    global_loginuseruid = data.data.uid;
                     console.log(global_loginuserphone);
                     console.log(global_loginusername);
                     $.cookie("global_loginuserphone",global_loginuserphone);
                     $.cookie("global_loginusername",global_loginusername);
+                    $.cookie("global_loginuseruid",global_loginuseruid);
                     $("#logined_username").html(data.data.phone);
+                    $(".top_em").html(data.data.phone.substr(0,3)+'****'+data.data.phone.substr(7,4));
+                    $("#uidval").html(global_loginuseruid);  //首页uid赋值
+
+                    api_mkt.totalAssets({
+                    }, function(data) {
+                        if (data.status == 200) {
+                            var totalAssets = data.data.gopBalance + data.data.gopLock;
+                            var totalNuts = data.data.cnyBalance + data.data.cnyLock;
+                            $('.lf_asset_center').html(totalAssets);//总资产
+                            $('.rg_asset_center').html(totalNuts);//总果仁
+                        } else if (data.status == 305) {
+                            
+                        } else if(data.status == 400){
+                            
+                        } else {
+                            
+                        }
+                    });
+                    var whether_auth_val = "";
+                    if(whether_auth){
+                        whether_auth_val = global_loginusername;
+                        $(".bottom_em_i")[0].style.background = "url(./images/index_already_authentication.png)";
+                    } else {
+                        whether_auth_val = '未认证';
+                        $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
+                    }
+                    $("#whether_auth").html(whether_auth_val); //是否实名认证的标识
+
+                    $(".loginarea").hide();
+                    $(".afterlogin").show();
                 } else if (data.status == 305) {
                     alert(data.msg);
+                    login_area_times++;
                 } else {
-                    $(".error_tips").show().html(data.msg);
+                    login_area_times++;
+                    $(".error_tips_index").show().html(data.msg);
                 }
             });
         }
         if (login_area_times > 3) {
-            $("#authcode").show();
+            $("#authcode_page").show();
             $(".indexpage_loginarea_btn").css("top", "244px");
-            $(".index_bottom_btna").css("top", "284px");
+            $(".index_bottom_btna").css("top", "280px");
         } else {
-            $(".indexpage_loginarea_btn").css("top", "190px");
-            $(".index_bottom_btna").css("top", "226px");
+            $(".indexpage_loginarea_btn").css("top", "180px");
+            $(".index_bottom_btna").css("top", "216px");
         }
     });
+
+
+    $(".recharge").on("click",function(){
+        alert("充值")
+        location.href = "./cnydepositswithdrawal.html";
+    });
+
+    $(".withdraw").on("click",function(){
+        alert("提现");
+        //location.href = "";
+    });
     
+    var fflat = true;
+    $(".eye_i").on("click",function(){
+        if(fflat){
+            $(this)[0].style.background = "url(./images/index_no_eye.png)";
+            fflat = false;
+        } else {
+            $(this)[0].style.background = "url(./images/index_eye_visible.png)";
+            fflat = true;
+        }
+    });
+
 });
