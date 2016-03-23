@@ -1,6 +1,6 @@
 define('api_mkt', ['cookie'], function() {
-	//var basePath = 'http://localhost/';
-	var basePath = "http://172.16.33.3:8080/";
+	var basePath = 'http://localhost/';
+	//var basePath = "http://172.16.33.3:8080/";
 	//http://ip:port/login/registerBefore
 	//var basePath = 'http://ip:port/login/registerBefore';
 	var api = {};
@@ -108,11 +108,11 @@ define('api_mkt', ['cookie'], function() {
 			''
 		);
 	};
-	add('pollinfo','info');
-	add('polltrade','trade');
-	add('homepage_tradingfloor_kline','kline');
-	add('depthchart','depth');
-	add('homepagekline','kline');
+	add('pollinfo','trade/info');
+	add('polltrade','trade/trade');
+	add('homepage_tradingfloor_kline','trade/kline');
+	add('depthchart','trade/depth');
+	add('homepagekline','trade/kline');
 
 
 	add('login','login/login');

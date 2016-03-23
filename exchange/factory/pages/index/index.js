@@ -273,6 +273,61 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     // api_mkt.pollinfo(function(data) {
     //     callback && callback(data);
     // });
-    
+
+    var login_area_times = 0;
+    $(".indexpage_loginarea_btn").on("click", function() {
+        login_area_times++;
+        var phone = $(".phone").val();
+        var password = $(".password").val();
+        var flag = verify(phone, "tel");
+        console.log(flag);
+        if(flag=="请输入正确的手机号码"){
+            $(".error_tips").show().html("请输入正确的手机号码");
+            return;
+        }
+        if(password==""){
+            $(".error_tips").show().html("请输入密码");
+            return;
+        } else if(password.length>12||password.length<6){
+            $(".error_tips").show().html("请输入6~12位密码");
+            return;
+        }
+        if(flag==true&&password!=""&&password.length>=6&&password.length<12){
+            $(".error_tips").hide();
+            api_mkt.login({
+                phone: phone,
+                password: password
+            }, function(data) {
+                if (data.status == 200) {
+                    $.cookie('exchangeToken', 'logined');
+                    console.log(data.msg);
+                    $(".login_regist").hide();
+                    $(".login_header").show();
+                    $(".popDiv").hide();
+                    $(".bg").hide();
+                    //data.data.phone;  data.data.name
+                    global_loginuserphone = data.data.phone;
+                    global_loginusername = data.data.username;
+                    console.log(global_loginuserphone);
+                    console.log(global_loginusername);
+                    $.cookie("global_loginuserphone",global_loginuserphone);
+                    $.cookie("global_loginusername",global_loginusername);
+                    $("#logined_username").html(data.data.phone);
+                } else if (data.status == 305) {
+                    alert(data.msg);
+                } else {
+                    $(".error_tips").show().html(data.msg);
+                }
+            });
+        }
+        if (login_area_times > 3) {
+            $("#authcode").show();
+            $(".indexpage_loginarea_btn").css("top", "244px");
+            $(".index_bottom_btna").css("top", "284px");
+        } else {
+            $(".indexpage_loginarea_btn").css("top", "190px");
+            $(".index_bottom_btna").css("top", "226px");
+        }
+    });
     
 });

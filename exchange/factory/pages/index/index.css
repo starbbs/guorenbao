@@ -597,8 +597,8 @@ progress::-webkit-progress-value {
     background-color: #fff;
 }
 
-.loginarea div:nth-child(5) {
-    top: 244px;
+.indexpage_loginarea_btn {
+    top: 190px;
     margin: 0;
     height: 38px;
     border-radius: 6px;
@@ -612,8 +612,8 @@ progress::-webkit-progress-value {
     line-height: 38px;
 }
 
-.loginarea div:nth-child(6) {
-    bottom: 0px;
+.index_bottom_btna {
+    top:224px;
     font-size: 1.2rem;
 }
 
