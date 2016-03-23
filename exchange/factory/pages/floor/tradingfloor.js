@@ -6,18 +6,18 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     $('#floor_bg').css('left', 0);
     $('#floor_bg').css('top', 0);
 
-    var exchangeToken = $.cookie('exchangeToken');
-    console.log(exchangeToken);
-    var global_loginusername = "";
-    if (!exchangeToken) {
-        $(".login_regist").show();
-    } else {
-        $(".login_regist").hide();
-        $(".login_header").show();
-        $("#logined_username").html(global_loginusername);
-        $(".popDiv").hide();
-        $(".bg").hide();
-    }
+    // var exchangeToken = $.cookie('exchangeToken');
+    // console.log(exchangeToken);
+    // var global_loginusername = "";
+    // if (!exchangeToken) {
+    //     $(".login_regist").show();
+    // } else {
+    //     $(".login_regist").hide();
+    //     $(".login_header").show();
+    //     $("#logined_username").html(global_loginusername);
+    //     $(".popDiv").hide();
+    //     $(".bg").hide();
+    // }
 
     mkt_info.get();
     mkt_trade.getfloor();

@@ -592,3 +592,20 @@ legend {
 .toIndexBtn a{
     color:#fff;
 }
+.nut-text{
+    position: absolute;
+    right:130px;
+    bottom:28px;
+    width:560px;
+    line-height: 23px;
+    padding:10px;
+    text-align: left;
+}
+.nut-text p{
+    font-size:1.3rem;
+   display: block;
+   color:red;
+}
+.nut-text span{
+    color:#999;
+}
