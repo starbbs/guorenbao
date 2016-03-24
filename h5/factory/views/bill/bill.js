@@ -3,11 +3,11 @@
 
 
 define('h5-view-bill', [
-	'api', 'router', 'filters', // 公用功能
+	'api', 'router', 'filters', 'mydate', // 公用功能
 	'h5-view', 'h5-weixin', 'h5-component-bill', // H5功能
 	'h5-view-nickname', 'h5-dialog-confirm' // H5组件
 ], function(
-	api, router, filters,
+	api, router, filters, mydate,
 	View, weixin, H5bill,
 	nicknameView, dialogConfirm
 ) {
@@ -176,14 +176,11 @@ define('h5-view-bill', [
 	 * @param    {[function]}     		options.onRequest		[后台请求回调,参数data]
 	 * @param    {[function]}     		options.onRendered		[vm渲染回调,参数vm]
 	 */
-	//          TRANSFER_IN  235  {onRendered:function(){router.to('/bill')}}
-	//                "BUY_IN", "215" {}
 	var set = function(type, id, options) { // 设置账单, 分流 -- 不做view显示  根据用户ID和消费类型做AJAX
 		type = (type + '').toUpperCase();
 		options = options || {};
 		switch (type) {
 			case 'TRANSFER_OUT': // 转账, 转出
-								//  "TRANSFER_OUT",  "215"  {data.name:'',data.img:''}
 				transferOutHandler('TRANSFER_OUT', id, options);
 				break;
 			case 'TRANSFER_IN': // 转账, 转入
@@ -201,7 +198,6 @@ define('h5-view-bill', [
 				$.alert('未知类型的账单' + type);
 		}
 	};
-	//	204行的orderHandler方法的数据	{onRendered:function(){router.to('/bill')}}
 	var setVM = function(settings, options) { // 设置账单vm -- 清空原VM
 		for (var i in options) {
 			if (initSettings.hasOwnProperty(i)) {
@@ -343,8 +339,14 @@ define('h5-view-bill', [
 		});
 	};
 	var transferHandler = function(type, id, order) { // 统一处理的转账数据
-		var startTime = order.createTime || order.updateTime || order.transferTime;
-		var finishTime = order.transferTime || (order.updateTime === order.createTime ? order.status === 'PROCESSING' ? '预计 ' + avalon.filters.date(new Date().setHours(new Date().getHours() + 2), 'yyyy-MM-dd HH:mm:ss') + ' 前' : order.updateTime : order.updateTime)
+		var startTime = order.createTime;
+		var finishTime = order.transferTime || order.updateTime;
+		if (order.status === 'PROCESSING') {
+			finishTime = mydate.parseDate(startTime);
+			finishTime.setHours(finishTime.getHours() + 2);
+			finishTime = '预计' + mydate.date2String3(finishTime) + '前';
+		}
+		// var finishTime = order.transferTime || (order.updateTime === order.createTime ? order.status === 'PROCESSING' ? '预计 ' + avalon.filters.date(new Date().setHours(new Date().getHours() + 2), 'yyyy-MM-dd HH:mm:ss') + ' 前' : order.updateTime : order.updateTime)
 		return {
 			id: id, // 账单ID
 			type: type, // 类型
@@ -367,7 +369,6 @@ define('h5-view-bill', [
 			ifTip: order.status === 'FAILURE', // 是否显示底部提示
 		};
 	};
-	//TRANSFER_IN  235  {onRendered:function(){router.to('/bill')}}
 	var transferInHandler = function(type, id, options) { // 转入
 		api.transferInQuery({
 			gopToken: gopToken,

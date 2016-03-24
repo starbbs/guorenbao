@@ -7,6 +7,13 @@ define('mydate', function() {
 	var mydate = {};
 
 	$.extend(mydate, {
+		add22: function(number) {
+			number = parseInt(number);
+			if (isNaN(number)) {
+				return '00';
+			}
+			return 0 <= number && number <= 10 ? '0' + number : '' + number;
+		},
 		parseDate: function(time) { // 把字符串时间转为对应Date实例
 			// 2016-01-14 02:33:44
 			var match = time.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2})\:(\d{2})\:(\d{2})/);
@@ -80,9 +87,14 @@ define('mydate', function() {
 				}
 			}
 		},
-		date2String: function(date) { //日期转成字符串 Sun Mar 13 2016 00:00:00 GMT+0800 (中国标准时间) ==> 2016-3-10
+		date2String: function(date) { // 日期转成字符串(2016-3-10)
 			return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-			//return date.toLocaleString().split(' ')[0].replace(/\//g,'-');
+		},
+		date2String2: function(date) { // 日期转成字符串2(14:25:55)
+			return mydate.add22(date.getHours()) + ':' + mydate.add22(date.getMinutes()) + ':' + mydate.add22(date.getSeconds());
+		},
+		date2String3: function(date) {
+			return mydate.date2String(date) + ' ' + mydate.date2String2(date);
 		},
 		getCurHourMinu: function(date) {
 			return date.getHours() + ':' + date.getMinutes();
