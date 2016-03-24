@@ -3,16 +3,13 @@ require(['api_mkt','cookie'], function(api_mkt) {
     var exchangeToken = $.cookie('exchangeToken');
     // alert(exchangeToken)
     // console.log(exchangeToken);
-    
     var whether_auth = false;
-
     $("#bg").width($(document).width());
     $('#bg').height($(document).height());
     $('#floor_bg').css('left', 0);
     $('#floor_bg').css('top', 0);
     $('.bg').css('left', 0);
     $('.bg').css('top', 0);
-    //wealth/getTotalAssets
     var verify = function(inputData, dataType) {
         var reg = "";
         var varMes = '';
@@ -38,14 +35,12 @@ require(['api_mkt','cookie'], function(api_mkt) {
         return reg.test(inputData) ? reg.test(inputData) : varMes;
     };
     if (!exchangeToken) {
-    	//alert("hi_le")
     	$(".login_regist").show();
     	$(".loginarea").show();
     	$(".afterlogin").hide();
     } else {
     	$(".login_regist").hide();
         $(".login_header").show();
-
         $(".loginarea").hide();
     	$(".afterlogin").show();
         var global_loginuserphone = $.cookie("global_loginuserphone");
@@ -98,6 +93,8 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	                global_loginuserphone = data.data.phone;
 	                global_loginusername = data.data.username;
 	                global_loginuseruid = data.data.uid;
+	                console.log(data.data);
+	                alert(global_loginuseruid);
 	                console.log(global_loginuserphone);
 	                console.log(global_loginusername);
 	                console.log(global_loginuseruid);
@@ -124,6 +121,8 @@ require(['api_mkt','cookie'], function(api_mkt) {
                         if (data.status == 200) {
                         	var totalAssets = data.data.gopBalance + data.data.gopLock;
                             var totalNuts = data.data.cnyBalance + data.data.cnyLock;
+                            $.cookie("totalAssets",totalAssets);
+                            $.cookie("totalNuts",totalNuts);
                             $('.lf_asset_center').html(totalAssets);//总资产
                             $('.rg_asset_center').html(totalNuts);//总果仁
                         } else if (data.status == 305) {
@@ -169,6 +168,15 @@ require(['api_mkt','cookie'], function(api_mkt) {
         $.cookie("global_loginuserphone",'');
         $.cookie("global_loginusername",'');
         $.cookie("global_loginuseruid",'');
+
+
+        $.cookie("totalAssets","");
+	    $.cookie("totalNuts","");
+
+	    $.cookie("mine_one","");
+	    $.cookie("mine_two","");
+	    $.cookie("mine_three","");
+	    $.cookie("mine_four","");
         
         //退出登录
         api_mkt.userlogout({
