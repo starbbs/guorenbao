@@ -10,7 +10,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 	nickname, viewAddressMine, viewAddressWallet, billView,
 	dialogPaypass, dialogAlert, viewAuthentication) {
 
-	router.init();
+	router.init(true);
 
 	var gopToken = $.cookie('gopToken');
 	var transfer = $('.transfer');
@@ -298,24 +298,28 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 				gopToken: gopToken
 			}, function(data) {
 				if (data.status == 200) {
-					console.log(data.data);//联系人列表
 					transferContacts.list = dataHandler(data.data);
+					//console.log(dataHandler(data.data));//联系人列表
 				} else {
 					console.log(data);
 				}
 			});
 		},
-		listClick: function(ev) { //果仁宝联系人转帐
+		listClick: function(ev) { //果仁宝、钱包=联系人转帐
 			var item = $(ev.target).closest('.contacts-item');
 			if (!item.length) {
 				return;
 			}
 			var arr = item.get(0).dataset.path.split('/');
 			var models = transferContacts.list[arr[0]].list[arr[1]];
-			console.log(models);
 			var nowData = {};
 			nowData.personId = models.$model.id;
 			if (models.$model.address) {
+				if(models.$model.address.indexOf('GOP')!=-1){
+					nowData.serviceFee = '0.01';
+				}else{
+					nowData.serviceFee = '0.00';
+				}
 				nowData.address = models.$model.address;
 				nowData.addressToPhone = models.$model.address.substr(0, 8) + '**********';
 			};
@@ -325,11 +329,16 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 			};
 			if (models.$model.picture) {
 				nowData.photo = models.$model.picture;
-			};
+			}else{
+				nowData.photo = './images/picture.png';
+			}
 			if (models.$model.name) {
 				nowData.name = models.$model.name;
+			}else{
+				nowData.name = '未命名用户';
 			};
-			$.extend(transferTarget, nowData);
+			console.log(nowData);
+			$.extend(transferTarget,nowData);
 			targetInit(vm.transferOutType);
 			router.go('/transfer-target');
 		},
