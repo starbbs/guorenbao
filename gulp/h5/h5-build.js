@@ -98,16 +98,38 @@ gulp.task('h5-js-move', function() {
 			.pipe(gulp.dest(path.join(paths.build, '/js')))
 			.pipe(notify('h5-js-move', url))
 	};
-	todo(js);
 	gulp.watch(js, function(event) {
 		return todo(event.path);
 	});
+	return todo(js);
+	// var inputs = [
+	// 	path.join(paths.pages, '/**/**'), // 页面对应js
+	// 	path.join(paths.common, '/library/base/**') // 页面引入js
+	// ];
+	// return gulp.src(inputs, function() {
+	// 	arguments[1].forEach(function(input, index, array) {
+	// 		console.log(input);
+	// 	});
+	// });
+	// var todo = function(url) {
+	// 	return gulp.src(url)
+	// 		.pipe(tools.removeDirname())
+	// 		.pipe(gulp.dest(path.join(paths.build, '/js')))
+	// 		.pipe(notify('h5-js-move', url))
+	// };
+	// todo(js);
+	// gulp.watch(js, function(event) {
+	// 	return todo(event.path);
+	// });
 });
 
 
 // font部分
 gulp.task('h5-font-build', function() {
-	return gulp.src(path.join(paths.font, '/**'), function() {
+	var inputs = [
+		path.join(paths.font, '/**')
+	];
+	return gulp.src(inputs, function() {
 		arguments[1].forEach(function(input, index, array) {
 			if (input.replace(array[0], '').lastIndexOf(path.sep) === 0 && path.extname(input)) {
 				gulp.src(input)
