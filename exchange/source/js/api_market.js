@@ -143,6 +143,8 @@ define('api_mkt', ['cookie'], function() {
 	add('rmbWithdrawalsManageAdd','exchangeApi/wealth/rmbWithdrawalsManageAdd');
 	// 接口 发送手机号验证码(登录后不需要手机号参数)
 	add('sendCodeByLoginAfter','exchangeApi/common/sendCodeByLoginAfter');
+	// 接口 果仁提现地址管理添加
+	add('gopAddressManAdd','exchangeApi/wealth/gopAddressManAdd');
 
 
 

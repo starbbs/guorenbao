@@ -31,11 +31,9 @@
                 <div class="topline">
                     <div class="rmbxh bottomon">人民币提现管理</div>
                     <div class="rmbtx">果仁提现管理</div>
+                    <span class="moreCheck two twoBackOne" style="display: none;">< 返回</span>
                 </div>
                 <div class="recharge">
-                    <div class="intro">
-                        <em>您将添加人民币提现账户</em>
-                    </div>
                     <!-- 1 添加银行卡按钮 -->
                     <div class="bankIdCard bankIdCard-addCard one">
                         <section class="bankIdCard-add">
@@ -43,6 +41,12 @@
                         </section>
                     </div>
                     <!-- 2 添加银行卡表单 -->
+                    <div class="intro two" style="display: none;">
+                        <p>
+                            您将添加<em>人民币提现账户</em>（目前支持的提现银行：<em>中国工商银行，中国建设银行，中国农业银行，中国交通银行，中国邮政储蓄银行</em>） 
+                        </p>
+                    </div>                    
+                    
                     <div class="right_reg_side_content addCardForm two" style="display: none;">
                         <div class="rg_lf_label">
                             <div class="label_div">
@@ -67,7 +71,7 @@
                                 <span class="msg-bank-idcard"></span>
                             </div>
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="根据卡号返回所属银行" id="bank" readonly="true"/>
+                                <input class="regist_rg_input" type="text" placeholder="根据卡号返回所属银行" id="bank" style="border:none;" readonly="true"/>
                                 <span class="msg-bank"></span>
                             </div>
                             <div class="regist_input_div">
@@ -133,46 +137,46 @@
                         <img src="copy.png" alt="">
                     </div> -->
                 </div>
-                <div class="withdraw_deposit new" style="display: none;">
+                <div class="withdraw_deposit" style="display: none;">
                     <div class="intro">
                         <em>您将添加果仁提现地址</em>
                     </div>
                     <div class="right_reg_side_content" style="display: flex;">
                         <div class="rg_lf_label">
                             <div class="label_div">
-                                <label for="username">地址备注</label>
+                                <label for="nut-name">地址备注</label>
                             </div>
                             <div class="label_div">
-                                <label for="idcard">地址</label>
+                                <label for="nut-address">地址</label>
                             </div>
                             <div class="label_div">
-                                <label for="username">支付密码</label>
+                                <label for="nut-paypwd">支付密码</label>
                             </div>
                             <div class="label_div">
-                                <label for="idcard">验证码</label>
+                                <label for="nut-identifyingCode">验证码</label>
                             </div>
                         </div>
                         <div class="rg_rg_input">
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="" id="idcard"/>
-                                <input class="regist_rg_input-addressWord" type="text" value="长度：最多20英文或常用标点符号/10汉字，可以为空。" id="idcard"/>
-                                <span>果仁市场内互转即时极速到账</span>
+                                <input class="regist_rg_input" type="text" placeholder="" id="nut-name"/>
+                                <input class="regist_rg_input-addressWord" type="text" value="长度：最多20英文或常用标点符号/10汉字，可以为空。" id=""/>
+                                <span class="msg-nut-name"></span>
                             </div>
 
                             <div class="regist_input_div">
-                                <input class="regist_rg_input-address" type="text" placeholder="" id="idcard"/>
-                                <!-- <span>请输入正确地址</span> -->
+                                <input class="regist_rg_input-address" type="text" placeholder="" id="nut-address"/>
+                                <span class="msg-nut-address"></span>
                             </div>
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="" id="idcard"/>
-                                <!-- <span>请输入正确的支付密码</span> -->
+                                <input class="regist_rg_input" type="text" placeholder="" id="nut-paypwd"/>
+                                <span class="msg-nut-paypwd">请输入正确的支付密码</span>
                             </div>
                             <div class="regist_input_div">
-                                <input class="regist_rg_input-VerificationCode" type="text" placeholder="" id="idcard"/>
-                                <input class="regist_rg_input-btn" type="button" value="获取验证码" id="idcard"/>
-                                <!-- <span>请输入验证码</span> -->
+                                <input class="regist_rg_input-VerificationCode" type="text" placeholder="" id="nut-identifyingCode"/>
+                                <input class="regist_rg_input-btn VerificationCodeBtn" type="button" value="获取验证码" id="nut-identifyingCodeBtn"/>
+                                <span class="msg-nut-identifyingCode"></span>
                             </div>
-                            <div class="build_remit_btn">确认添加</div>
+                            <div class="build_remit_btn gopAddressManAdd">确认添加</div>
                         </div>
                     </div>
                 </div>

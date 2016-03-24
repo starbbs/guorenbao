@@ -350,9 +350,12 @@
 .bottomon{
     border-bottom: 2px solid #bababa;
 }
+.intro {
+    width:100%;
+    background-color: #fafafa;
+}
 .intro p{
     padding-left: 20px;
-    background-color: #fafafa;
     color: #b4b4b4;
     height: 50px;
     line-height: 50px;
@@ -395,7 +398,14 @@
     top: 34px;
     cursor:pointer;
 }
-
+.topline{
+    position: relative;
+}
+.back{
+    position: absolute;
+    top:10px;
+    right:10px;
+}
 .topline b{
     float: right;
     bottom: 2px;
@@ -646,7 +656,11 @@
     font-weight: bold;
     color:#0BBEEE;
 }
-
+.moreCheck{
+    color:blue;
+    float:right;
+    cursor: pointer;
+}
 /*果仁提现管理*/
 .nutOutputManager{
     width:100%;

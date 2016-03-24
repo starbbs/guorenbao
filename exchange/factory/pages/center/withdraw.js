@@ -15,6 +15,13 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             $('.withdraw_deposit').show();
         });
 
+        //twoBackOne  返回
+        $('.twoBackOne').click(function(){
+            $('.one').css('display','flex');
+            $('.two').css('display','none');
+            $(this).css('display','none');
+        });
+
         //点击-银行卡表单
         $('.bankIdCard').click(function(){
             $('.one').css('display','none');
@@ -94,18 +101,20 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         });
 
         //校验验证码-人民币提现管理
-        $('#sendCodeByLoginAfter').blur(function(){
+        $('#sendCodeByLoginAfter, #nut-identifyingCode').blur(function(){
             var code = $.trim($(this).val());
             if(isNaN(code)){
                 btnConfirm = false;
                 $('.msg-sendCodeByLoginAfter').show().text('请输入正确的验证码');
+                $('.msg-nut-identifyingCode').show().text('请输入正确的验证码');
             }else{
                 btnConfirm = true;
+                $('.msg-sendCodeByLoginAfter').hide();
                 $('.msg-sendCodeByLoginAfter').hide();
             }
         });
         //获取验证码-人民币提现管理
-        $('#sendCodeByLoginAfterBtn').click(function(){
+        $('#sendCodeByLoginAfterBtn, #nut-identifyingCodeBtn').click(function(){
             if(btnConfirm == false){
                 alert('请完善填写信息！');
             }
@@ -114,8 +123,10 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     if (data.status == 200) {
                         console.log(data);
                         $('.msg-sendCodeByLoginAfter').text('');
+                        $('.msg-nut-identifyingCode').text('');
                     } else {
-                        $('.msg-sendCodeByLoginAfter').text('请输入正确的验证码');
+                        $('.msg-sendCodeByLoginAfter').text('请输入正确的验证码');                        
+                        $('.msg-nut-identifyingCode').text('请输入正确的验证码');
                     }
                 });
                 
@@ -124,11 +135,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 var resend = setInterval(function(){
                         count--;
                         if(count > 0){
-                            $('#sendCodeByLoginAfterBtn').val(count+'s后重新发送');
-                            $('#sendCodeByLoginAfterBtn').attr('disabled',true).css('cursor','not-allowed');
+                            $('#sendCodeByLoginAfterBtn, #nut-identifyingCodeBtn').val(count+'s后重新发送');
+                            $('#sendCodeByLoginAfterBtn, #nut-identifyingCodeBtn').attr('disabled',true).css('cursor','not-allowed');
                         }else{
                             clearInterval(resend);
-                            $('#sendCodeByLoginAfterBtn').attr('disabled',false).css('cursor','pointer').val('获取验证码');
+                            $('#sendCodeByLoginAfterBtn, #nut-identifyingCodeBtn').attr('disabled',false).css('cursor','pointer').val('获取验证码');
                         }
                     },1000); 
             }
@@ -172,7 +183,57 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             $('.two').css('display','flex');
         });
 
+        //果仁提现地址备注-校验
+        $('.msg-nut-name').show().html('<p style="color:#999;">果仁市场内互转即时极速到账</p>');
+        $('#nut-name').blur(function(){
+            var name = $(this).val();
+            if(!name){
+                btnConfirm = false;
+                $('.msg-nut-name').show().text('请输入地址备注');
+            }else{
+                btnConfirm = true;
+                $('.msg-nut-name').show().html('<p style="color:#999;">地址备注完成：果仁市场内互转即时极速到账</p>');
+            }
+        });
+        //果仁提现地址-校验
+        $('#nut-address').blur(function(){
+            var address = $(this).val();
+            if(!address){
+                btnConfirm = false;
+                $('.msg-nut-address').show().text('请输入正确地址');
+            }else{
+                btnConfirm = true;
+                $('.msg-nut-address').hide();
+            }
+        });
+
         
+        //果仁提现地址管理添加
+        $('.gopAddressManAdd').click(function(){
+            if(btnConfirm == false || $('#nut-identifyingCode').val() ==''){
+                alert('请填写完整信息');
+            }else{
+                api_mkt.gopAddressManAdd({          
+                    'name':$('#nut-name').val(),
+                    'paypwd': $('#nut-paypwd').val(),
+                    'address':$('#nut-address').val(),
+                    'identifyingCode':$('#nut-identifyingCode').val()
+                }, function(data) {
+                    if (data.status == 200) {
+                        console.log(data);/*
+                        $('.two').css('display','none');
+                        $('.three').css('display','flex');*/
+                        //填写表单-生成银行卡 
+                        
+                    } else {
+                        
+                    }
+                });
+
+                
+            }            
+        });
+
         
         //接受跳转参数
         $(function(){
@@ -206,10 +267,12 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             };
 
             var b = getQueryString("a");
-            console.log(b);
+            //console.log(b);
             if(b){
-                $('.new).css('display','flex');
-                $('.recharge').css('display','none');
+                $('.rmbtx').addClass('bottomon');
+                $('.rmbxh').removeClass('bottomon');
+                $('.recharge').hide();
+                $('.withdraw_deposit').show();
             }
             
         })
