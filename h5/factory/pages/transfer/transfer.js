@@ -244,9 +244,12 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 					address: transferNew.newTarget
 				}, function(data) {
 					if (data.status == 200) {
+						console.log(data.data.photo);
 						if (data.data) {
 							if (data.data.photo) {
 								nowData.photo = data.data.photo;
+							}else{
+								nowData.photo =  './images/picture.png';
 							}
 							if (data.data.phone) { //果仁宝联系人
 								nowData.addressToPhone = data.data.phone;
@@ -375,20 +378,20 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 		isMarket: false, // 是否是果仁市场
 		addressToPhone: '',
 		getCnyMoney: function() {//输入果仁数量监听
+			console.log(parseFloat(transferTarget.gopNum - transferTarget.serviceFee));
 			if (parseFloat(this.value) == 0){
 				$.alert('请输入正确的数量');
+				transferTarget.notchecked = true;
 				return;
 			}			
 			if (parseFloat(this.value) > parseFloat(transferTarget.gopNum - transferTarget.serviceFee)){
 				$.alert('您的果仁数不足');
+				transferTarget.notchecked = true;
 				return;
 			}
 
-			if (parseFloat(this.value) > 0 && parseFloat(this.value) <= parseFloat(transferTarget.gopNum - transferTarget.serviceFee)) {
-				transferTarget.notchecked = false;
-			} else {
-				transferTarget.notchecked = true;
-			}
+			transferTarget.notchecked = false;
+
 			var whether_include_numrice = this.value.indexOf(".");
 			if (whether_include_numrice != -1) {
 				if (this.value.substring(whether_include_numrice + 1, whether_include_numrice + 4).length > 2) {
