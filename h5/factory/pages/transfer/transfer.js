@@ -347,7 +347,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 			}else{
 				nowData.name = '未命名用户';
 			};
-			console.log(nowData);
 			$.extend(transferTarget,nowData);
 			targetInit(vm.transferOutType);
 			router.go('/transfer-target');
@@ -376,7 +375,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 		isMarket: false, // 是否是果仁市场
 		addressToPhone: '',
 		getCnyMoney: function() {//输入果仁数量监听
-			console.log(transferTarget.serviceFee);
 			if (parseFloat(this.value) == 0){
 				$.alert('请输入正确的数量');
 				return;
