@@ -2,7 +2,15 @@
 // H5微信端 --- view-bill 账单详情分页
 
 
-define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-component-bill', 'h5-view-nickname', 'h5-dialog-confirm'], function(View, api, router, weixin, filters, H5bill, nicknameView, dialogConfirm) {
+define('h5-view-bill', [
+	'api', 'router', 'filters', 'mydate', // 公用功能
+	'h5-view', 'h5-weixin', 'h5-component-bill', // H5功能
+	'h5-view-nickname', 'h5-dialog-confirm' // H5组件
+], function(
+	api, router, filters, mydate,
+	View, weixin, H5bill,
+	nicknameView, dialogConfirm
+) {
 
 	var gopToken = $.cookie('gopToken');
 
@@ -11,6 +19,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 
 	var nowData = null; // 当前使用的后台原始数据
 	var phoneRepayData = null; // 手机重新支付数据
+	var weixinPayData = null; // 微信重新支付数据
 
 	var initSettings = { // 初始化
 		id: '', // 账单ID
@@ -81,16 +90,19 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 
 			} else {
 				if (vm.payType === '微信支付') {
-					var id = null;
+					console.log(weixinPayData)
 					weixin.pay.onSuccess = function(res) {
-						buyInHandler('BUY_IN', id, {
+						buyInHandler('BUY_IN', vm.id, {
+							forceStatus: 'SUCCESS',
 							ifFinishButton: true
 						});
 					};
-					weixin.pay.create(vm.orderMoney, function(data) {
-						id = data.data.buyinOrder.id;
-						weixin.pay.work();
-					});
+					weixin.pay.set(weixinPayData);
+					weixin.pay.work();
+					// weixin.pay.create(vm.orderMoney, function(data) { // 不用创建新订单
+					// 	id = data.data.buyinOrder.id;
+					// 	weixin.pay.work();
+					// });
 				} else {
 					window.location.href = './order.html?from=bill&id=' + vm.id;
 				}
@@ -164,14 +176,11 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 	 * @param    {[function]}     		options.onRequest		[后台请求回调,参数data]
 	 * @param    {[function]}     		options.onRendered		[vm渲染回调,参数vm]
 	 */
-	//          TRANSFER_IN  235  {onRendered:function(){router.to('/bill')}}
-	//                "BUY_IN", "215" {}
 	var set = function(type, id, options) { // 设置账单, 分流 -- 不做view显示  根据用户ID和消费类型做AJAX
 		type = (type + '').toUpperCase();
 		options = options || {};
 		switch (type) {
 			case 'TRANSFER_OUT': // 转账, 转出
-								//  "TRANSFER_OUT",  "215"  {data.name:'',data.img:''}
 				transferOutHandler('TRANSFER_OUT', id, options);
 				break;
 			case 'TRANSFER_IN': // 转账, 转入
@@ -189,7 +198,6 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 				$.alert('未知类型的账单' + type);
 		}
 	};
-	//	204行的orderHandler方法的数据	{onRendered:function(){router.to('/bill')}}
 	var setVM = function(settings, options) { // 设置账单vm -- 清空原VM
 		for (var i in options) {
 			if (initSettings.hasOwnProperty(i)) {
@@ -248,7 +256,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			ifPayButton: waitForPay, // 是否显示"前往支付"按钮
 			ifClose: waitForPay, // 是否显示"关闭"
 		};
-	};						//"BUY_IN", "215" {}
+	};
 	var buyInHandler = function(type, id, options) { // 买入
 		api.queryBuyinOrder({
 			gopToken: gopToken,
@@ -278,6 +286,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			}
 			*/
 			options.onRequest && options.onRequest(data);
+			data.data.WEIXIN_MP_PAY && (weixinPayData = data.data.WEIXIN_MP_PAY);
 			if (!data.data || !data.data.buyinOrder || data.status != 200) {
 				data.msg && $.alert(data.msg);
 				return;
@@ -330,6 +339,14 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 		});
 	};
 	var transferHandler = function(type, id, order) { // 统一处理的转账数据
+		var startTime = order.createTime;
+		var finishTime = order.transferTime || order.updateTime;
+		if (order.status === 'PROCESSING') {
+			finishTime = mydate.parseDate(startTime);
+			finishTime.setHours(finishTime.getHours() + 2);
+			finishTime = '预计' + mydate.date2String3(finishTime) + '前';
+		}
+		// var finishTime = order.transferTime || (order.updateTime === order.createTime ? order.status === 'PROCESSING' ? '预计 ' + avalon.filters.date(new Date().setHours(new Date().getHours() + 2), 'yyyy-MM-dd HH:mm:ss') + ' 前' : order.updateTime : order.updateTime)
 		return {
 			id: id, // 账单ID
 			type: type, // 类型
@@ -342,9 +359,8 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			transferAddress: order.address ? filters.address(order.address) : '', // 转果仁--地址
 			transferStage: H5bill.transferStage[order.status], // 转果仁--阶段
 			transferTime: order.transferTime, // 转果仁--到账时间
-			transferStart: order.createTime || order.updateTime || order.transferTime, // 转果仁--创建时间
-			//            transferTime到帐时间
-			transferOver: order.transferTime || (order.updateTime === order.createTime ? order.status === 'PROCESSING' ? '预计 ' + avalon.filters.date(new Date().setHours(new Date().getHours() + 2), 'yyyy-MM-dd HH:mm:ss') + ' 前' : order.updateTime : order.updateTime), // 转果仁--完成或预计时间
+			transferStart: startTime, // 转果仁--创建时间
+			transferOver: finishTime, // 转果仁--完成或预计时间
 			transferFailReason: order.failureMsg, // 转果仁--失败原因
 			poundage: order.serviceFee, // 转果仁--手续费
 			submitTime: order.status === 'FAILURE' ? order.createTime : '', // 提交时间
@@ -353,7 +369,6 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			ifTip: order.status === 'FAILURE', // 是否显示底部提示
 		};
 	};
-	//TRANSFER_IN  235  {onRendered:function(){router.to('/bill')}}
 	var transferInHandler = function(type, id, options) { // 转入
 		api.transferInQuery({
 			gopToken: gopToken,

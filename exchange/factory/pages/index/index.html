@@ -35,19 +35,19 @@
             </div>
         </div>
         <div class="loginarea_maxwidth">
-            <div class="loginarea" style="display: block;">
+            <div class="loginarea" style="display: none;">
                 <h3>登录果仁市场</h3>
                 <div>
-                    <input type="tel" placeholder="手机号" class="phone"></input>
+                    <input type="tel" placeholder="手机号" class="phone_loginarea"></input>
                 </div>
                 <div>
-                    <input type="password" placeholder="请输入密码" class="password"></input>
-                    <span class="error_tips">用户名或密码错误，请重新登录</span>
+                    <input type="password" placeholder="请输入密码" class="password_loginarea"></input>
+                    <span class="error_tips_index"></span>
                 </div>
                 <div id="authcode_page" style="display: none;">
                     <input placeholder="请输入验证码"></input><span>FABA</span>
-                    <span class="autocode_tips">验证码错误</span>
-                </div>popup_login_btn
+                    <span class="autocode_tips"></span>
+                </div>
                 <div class="indexpage_loginarea_btn">登录</div>
                 <div class="index_bottom_btna">
                     <a href="regist.html" title="免费注册">免费注册</a>
@@ -57,25 +57,31 @@
             <div class="afterlogin" style="display: none;">
                 <div class="logineduser">
                     <div class="usertop">
-                        <em class="top_em">135****8686</em><i class=popup_login_btn231422314</em>
-                        <div></div>
-                        <em id="whether_auth"><!-- 未认证 -->姚总</em><i class="bottom_em_i"></i>
+                        <em class="top_em"></em><i class=""></i>
+                        <div class="login_regist_vertical">
+                            <div>UID:<em id="uidval"></em></div>
+                            <em id="whether_auth"></em><i class="bottom_em_i"></i>
+                        </div>
                     </div>
                 </div>
                 <div class="myfinancial">
                     <div class="totalassets">
                         <div class="leftassets">
                             <div class="lf_asset_top">总资产</div>
-                            <div class="lf_asset_center">500
-                                <!-- --- -->
-                            </div>
+                            <span class="lf_asset_center">
+                            </span>
+                            <span class="lf_asset_center_none" style="display: none;">
+                                ---
+                            </span>
                             <div class="lf_asset_bottom recharge">充值</div>
                         </div>
                         <div class="rightassets">
-                            <div class="rg_asset_top">果仁<i class="rightassets_i"></i></div>
-                            <div class="rg_asset_center">800
-                                <!-- --- -->
-                            </div>
+                            <div class="rg_asset_top">果仁<i class="rightassets_i"></i><i class="eye_i"></i></div>
+                            <span class="rg_asset_center">
+                            </span>
+                            <span class="rg_asset_center_none" style="display: none;">
+                                ---
+                            </span>
                             <div class="rg_asset_bottom withdraw">提现</div>
                         </div>
                     </div>

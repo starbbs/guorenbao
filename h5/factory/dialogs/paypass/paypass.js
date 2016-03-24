@@ -4,8 +4,11 @@
 
 
 define('h5-dialog-paypass', ['h5-dialog', 'check', 'api', 'h5-paypass'], function(Dialog, check, api) {
+
 	var paypass = new Dialog('paypass');
+	var input = $('#dialog-paypass-input');
 	var inputTimer = null;
+
 	var vm = paypass.vm = avalon.define({
 		$id: 'dialog-paypass',
 		close: function() {
@@ -15,7 +18,7 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'api', 'h5-paypass'], functio
 		focus: function() { // 获取焦点时
 			setTimeout(function() {
 				document.body.scrollTop = 0;
-			}, 100);
+			}, 300);
 		},
 		input: function() { // 输入时
 			var value = this.value;
@@ -31,13 +34,13 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'api', 'h5-paypass'], functio
 							vm.callback(value);
 						} else {
 							$.alert(data.msg);
+							input.get(0).paypassClear();
 						}
 					});
 				},500);
 			}
 		},
 	});
-	var input = $('#dialog-paypass-input');
 
 	paypass.on('show', function() {
 		input.get(0).focus();

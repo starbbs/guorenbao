@@ -1,5 +1,6 @@
 define('api_mkt', ['cookie'], function() {
-	var basePath = 'http://localhost/';
+	//var basePath = 'http://localhost/';
+	var basePath = 'http://10.23.1.155/';
 	//var basePath = "http://172.16.33.3:8080/";
 	//http://ip:port/login/registerBefore
 	//var basePath = 'http://ip:port/login/registerBefore';
@@ -146,7 +147,9 @@ define('api_mkt', ['cookie'], function() {
 
 
 
-	add('userlogout','exchangeApi/logout');
+	add('userlogout','exchangeApi/user/logout');
+	add('realAuth','exchangeApi/user/realAuth');
+	add('totalAssets','exchangeApi/wealth/getTotalAssets');
 
 	/*
 	// 1.手机号注册

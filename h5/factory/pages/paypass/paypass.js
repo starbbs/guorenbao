@@ -145,6 +145,14 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 			});
 		},
 		ident: function(view) {
+			if(!vm.hasProtected && view.indexOf('protection')!=-1){
+				$.alert('您没有设置密保问题');
+				return;
+			}			
+			if(!vm.hasRealName && view.indexOf('authentication')!=-1){
+				$.alert('您没有通过实名信息认证');
+				return;
+			}
 			vm.chooseUrl = view;
 			//身份证认证
 			api.info({
@@ -222,11 +230,12 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 	});
 
 	avalon.scan();
-
+	//设置密保问题
 	api.isQuestion({
 		gopToken: gopToken
 	}, function(data) {
-		vm.hasProtected = data.status == 200;
+		//vm.hasProtected = data.status == 200;
+		vm.hasProtected = data.status == 200 ? true : false ;
 	});
 
 	//身份证认证				
@@ -234,7 +243,8 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 		gopToken: gopToken
 	}, function(data) {
 		if (data.status == 200) {
-			vm.hasRealName = data.data.realname && data.data.realname != '';
+			//vm.hasRealName = data.data.realname && data.data.realname != '';
+			vm.hasRealName = data.data.realname ? true : false ;
 		} else {
 			$.alert(data.msg);
 		}

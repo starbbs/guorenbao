@@ -13,10 +13,6 @@ define('h5-view-address-mine', ['router', 'api', 'h5-view', 'check', 'h5-alert',
         setSuccess: $.noop,
         setDelSuccess: $.noop,
         address_mine_next: function() { //返回
-            console.log("~~~xxx~~~~")
-            console.log(vm);
-            console.log(vm.callback);
-            console.log("~~~~xxx~~~")
             if (vm.callback) {
                 vm.callback();
             }

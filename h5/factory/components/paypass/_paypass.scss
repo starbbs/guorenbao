@@ -27,7 +27,7 @@
 		margin-bottom: 20px;
 	}
 	&-input {
-		@include atlwh(0, -10%, 120%, 100%); // ios光标浮现
+		@include atlwh(0, -100%, 200%, 100%); // ios光标浮现
 		z-index: 100;
 		opacity: 0; // ios光标浮现
 		font-size: 0; // ios光标浮现

@@ -2,13 +2,14 @@
 <div class="setting-feedback cover">
 	<div class="setting-feedback-box">
 		<div class="setting-feedback-main">
-			<textarea class="setting-feedback-text" placeholder="＃果仁宝意见反馈＃" ms-on-input="input" ms-duplex="feedback">＃果仁宝意见反馈＃</textarea>
+			<textarea class="setting-feedback-text" placeholder="＃果仁宝意见反馈＃" ms-on-input="input" ms-duplex="feedback" maxlength="140"></textarea>
 		</div>
 		<div class="setting-feedback-tips">
 			{{textNum}}
 		</div>
 		<div class="setting-feedback-button">
-			<span class="button" ms-click="feedback_click">发送</span>
+			<span class="button" ms-click="feedbackClick" ms-visible="!feedbackSending">发送</span>
+			<span class="button disabled" ms-visible="feedbackSending">发送中...</span>
 		</div>
 	</div>
 </div>

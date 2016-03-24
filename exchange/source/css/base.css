@@ -127,13 +127,13 @@ table {
 .login_regist div{
     display:inline;
 }
-.login_regist_vertical:after{
+/* .login_regist_vertical:after{
     content: '|';
     color: #838383;
     width: 2px;
     position: relative;
     bottom: 1px;
-}
+} */
 
 .topnav {
         width: 100%;
@@ -453,11 +453,11 @@ table {
 }
 .error_tips{
     position: absolute;
-    top: 46px;
+    top: 48px;
     height: 20px;
     color: #ff6600;
     line-height: 20px;
-    display:none;
+    display: none;
 }
 .autocode_tips{
         color: #ff6600;

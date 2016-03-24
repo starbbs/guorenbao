@@ -329,7 +329,7 @@ define('api', ['cookie', 'filters', 'h5-alert', 'h5-wait'], function() {
 	add('totalIncomeList', '/myWealth/totalIncomeList');
 
 	// 77.用户反馈信息
-	add('fankui', '/fankui/send');
+	add('feedback', '/fankui/send');
 
 	//78.验证银行预留手机号的接口
 	add('checkBankPhone', '/bankcard/checkBankPhone');
