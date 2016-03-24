@@ -8,7 +8,8 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 	router.init();
 	var gopToken = $.cookie('gopToken');
 	var page = 1; // 账单页数, 当返回列表长度小于当前列表长度时, 置零, 不再请求
-	var size = 10; // 账单列表
+	var size = 8; // 账单列表
+	var ifGetUpList = false;
 
 	var main = $('.account'); // 主容器
 	var init = function() { // 初始化
@@ -19,47 +20,42 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 				break;
 			default:
 				router.to('/');
-				getList();
+				getListDown();
 		}
 	};
 	var timerGetList = null;
 	var originList = [];
 	var bottomHeight = 20; // 下拉加载的高度
-	var accountScroll = new iScroll('account', {
-		vScrollbar: false,
-		preventDefault: true,
-		fixedScrollbar: true,
-		useTransition: true,
-		click: true,
-		onScrollMove: function() {
-			if (this.y >= 0) {
-				vm.loadingWord = '松开刷新';
-				vm.uploading = true;
-			}
-		},
-		onBeforeScrollEnd: function() {
-			if (this.y >= 100) {
-				vm.loadingWord = '加载中...';
-				page = 1;
-				originList = [];
-				setTimeout(function() {
-					getList();
-				}, 100);
-			} else {
+
+	var getListUp = function(callback) { // 获取上拉列表
+		if (vm.uploading) {
+			return;
+		}
+		vm.loadingWord = '正在加载';
+		vm.uploading = true;
+		api.billList({
+			gopToken: gopToken,
+			billListPage: 1,
+			billListPageSize: size
+		}, function(data) {
+			if (data.status == 200) {
+				vm.list = dataHandler(originList = originList.concat(data.data.list));
+				page = 2;
+				callback && callback(data);
+				!main.hasClass('on') && setTimeout(function() {
+					main.addClass('on');
+				}, 200);
 				setTimeout(function() {
 					vm.uploading = false;
 				}, 100);
+			} else {
+				$.alert(data.msg);
 			}
-		},
-		onScrollEnd: function() {
-			// this.y 卷上去的
-			if (this.y - bottomHeight < this.maxScrollY) {
-				getList();
-			}
-		},
-	});
+		});
+	};
 
-	var getList = function(callback) { // 获取列表
+	
+	var getListDown = function(callback) { // 获取列表
 		if (vm.loading) {
 			return;
 		}
@@ -79,8 +75,6 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 		}, function(data) {
 			if (data.status == 200) {
 				vm.list = dataHandler(originList = originList.concat(data.data.list));
-				//console.log(dataHandler(originList = originList.concat(data.data.list)));
-				// vm.list.pushArray(dataHandler(data.data.list));
 				page = data.data.list.length < size ? 0 : page + 1; // 是否停止请求
 				callback && callback(data);
 				!main.hasClass('on') && setTimeout(function() {
@@ -88,13 +82,59 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 				}, 200);
 				setTimeout(function() {
 					vm.loading = false;
-					vm.uploading = false;
 				}, 100);
 			} else {
 				$.alert(data.msg);
 			}
 		});
 	};
+	
+
+	var accountScroll = new iScroll('account', {
+		vScrollbar: false,
+		preventDefault: true,
+		fixedScrollbar: true,
+		useTransition: true,
+		click: true,
+		onBeforeScrollStart:function(){
+		},
+		onScrollMove: function() {
+			if (this.y >= 0) {
+				vm.loadingWord = '松开刷新';
+				vm.uploading = true;
+			}
+		},
+		onBeforeScrollEnd: function() {//松手那时
+			if(this.y >= 100){
+				//ifGetUpList = true;
+				originList = [];
+				vm.uploading = false;
+				getListUp();	
+
+				console.log('向上刷新');			
+			}else{
+				setTimeout(function(){
+					vm.uploading = false;
+				},200);
+			}
+		},
+		onScrollEnd: function() {
+			//长帐单
+			if(this.y < 0 && (this.y - bottomHeight < this.maxScrollY)){
+				console.log('向下刷新');
+				if(originList.length < size){
+					vm.loading = true;
+					vm.loadingWord = '大大, 已经没有了...';
+					setTimeout(function() {
+						vm.loading = false;
+					}, 1000);
+				}else{
+					vm.loadingWord  = '正在加载';
+					getListDown();
+				}
+			}		
+		},
+	});
 
 
 

@@ -344,7 +344,7 @@ define('h5-view-bill', [
 		if (order.status === 'PROCESSING') {
 			finishTime = mydate.parseDate(startTime);
 			finishTime.setHours(finishTime.getHours() + 2);
-			finishTime = '预计' + mydate.date2String3(finishTime) + '前';
+			finishTime = '预计' + mydate.date2String3(finishTime) + '前到账';
 		}
 		// var finishTime = order.transferTime || (order.updateTime === order.createTime ? order.status === 'PROCESSING' ? '预计 ' + avalon.filters.date(new Date().setHours(new Date().getHours() + 2), 'yyyy-MM-dd HH:mm:ss') + ' 前' : order.updateTime : order.updateTime)
 		return {

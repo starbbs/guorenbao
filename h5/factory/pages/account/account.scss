@@ -44,7 +44,7 @@ body {
 		&-img{
 			@include atl(-50px , 50%);
 			transform:translateX(-50%);
-			@include sprite($img +'/nopeople.png' , 42px); 
+			@include sprite($img +'/nopeople.png' , 36px , 40px); 
 		}
 		&-world{
 			line-height: 30px;
