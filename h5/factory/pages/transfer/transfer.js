@@ -136,17 +136,25 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 		},
 		gopContactClick: function() { // 果仁宝联系人
 			vm.transferOutType = 'GOP_CONTACT';
+			transferTarget.serviceFee = 0.01;
 			router.go('/transfer-contacts');
 			transferContacts.query();
 		},
 		walletContactClick: function() { // 钱包联系人
 			vm.transferOutType = 'WALLET_CONTACT';
+			transferTarget.serviceFee = 0.01;
 			router.go('/transfer-contacts');
 			transferContacts.query();
 		},
 		transferClick: function(event) { // 最近联系人
 			var item = vm.list.$model[$(event.target).closest('.transfer-item').get(0).dataset.index];
 			vm.transferOutType = item.type;
+			if(vm.transferOutType === 'WALLET_CONTACT' || vm.transferOutType === 'WALLET_CONTACT' || vm.transferOutType ==='GOP_MARKET'){
+				transferTarget.serviceFee = 0.01;
+			}
+			if(vm.transferOutType === 'WALLET_CONTACT'){
+				transferTarget.serviceFee = 0.00;
+			}
 			transferTarget.walletId = item.walletId;
 			transferTarget.address = vm.gopAddress = item.phone || item.address;
 			transferTarget.name = item.name;
@@ -290,19 +298,21 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 				gopToken: gopToken
 			}, function(data) {
 				if (data.status == 200) {
+					console.log(data.data);//联系人列表
 					transferContacts.list = dataHandler(data.data);
 				} else {
 					console.log(data);
 				}
 			});
 		},
-		listClick: function(ev) {
+		listClick: function(ev) { //果仁宝联系人转帐
 			var item = $(ev.target).closest('.contacts-item');
 			if (!item.length) {
 				return;
 			}
 			var arr = item.get(0).dataset.path.split('/');
 			var models = transferContacts.list[arr[0]].list[arr[1]];
+			console.log(models);
 			var nowData = {};
 			nowData.personId = models.$model.id;
 			if (models.$model.address) {
@@ -346,7 +356,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 		notchecked: true, // 是否没有检验通过
 		isMarket: false, // 是否是果仁市场
 		addressToPhone: '',
-		getCnyMoney: function() {
+		getCnyMoney: function() {//输入果仁数量监听
 			console.log(typeof this.value);
 			if (parseFloat(this.value) > 0 && parseFloat(this.value) <= parseFloat(transferTarget.gopNum)) {
 				transferTarget.notchecked = false;
