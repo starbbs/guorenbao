@@ -96,10 +96,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         //校验验证码-人民币提现管理
         $('#sendCodeByLoginAfter').blur(function(){
             var code = $.trim($(this).val());
-            if(!code){
+            if(isNaN(code)){
                 btnConfirm = false;
                 $('.msg-sendCodeByLoginAfter').show().text('请输入正确的验证码');
             }else{
+                btnConfirm = true;
                 $('.msg-sendCodeByLoginAfter').hide();
             }
         });
@@ -136,7 +137,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 
         //人民币提现管理添加 点击-确认添加银行卡
         $('.confirmAdd').click(function(){
-            if(btnConfirm == false){
+            if(btnConfirm == false || $('#sendCodeByLoginAfter').val() ==''){
                 alert('请填写完整信息');
             }else{
                 api_mkt.rmbWithdrawalsManageAdd({          
@@ -153,15 +154,16 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         console.log(data);
                         $('.two').css('display','none');
                         $('.three').css('display','flex');
+                        //填写表单-生成银行卡 
+                        $('.bankName').text('中国工商银行');
+                        var bankAccount = $('.bankAccount').val();
+                        $('.bankIdCard-Code').text('尾号:'+bankAccount.substr(bankAccount.length-4));
                     } else {
                         
                     }
                 });
 
-                //填写表单-生成银行卡 
-                $('.bankName').text('中国工商银行');
-                var bankAccount = $('.bankAccount').val();
-                $('.bankIdCard-Code').text('尾号:'+bankAccount.substr(bankAccount.length-4));
+                
             }            
         });
         //再次添加银行卡
@@ -172,9 +174,44 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 
         
         
-        //
-        
+        //接受跳转参数
+        $(function(){
+            function getQueryString(name) {
+                href = decodeURIComponent(location.href);
+                // 如果链接没有参数，或者链接中不存在我们要获取的参数，直接返回空
+                if (href.indexOf("?") == -1
+                        || href.indexOf(name + '=') == -1) {
+                    return '';
+                }
+                // 获取链接中参数部分
+                var queryString = href.substring(href.indexOf("?") + 1);
+                // 分离参数对 ?key=value&key2=value2
+                var parameters = queryString.split("&");
+                var pos, paraName, paraValue;
+                for ( var i = 0; i < parameters.length; i++) {
+                    // 获取等号位置
+                    pos = parameters[i].indexOf('=');
+                    if (pos == -1) {
+                        continue;
+                    }
+                    // 获取name 和 value
+                    paraName = parameters[i].substring(0, pos);
+                    paraValue = parameters[i].substring(pos + 1);
+                    // 如果查询的name等于当前name，就返回当前值，同时，将链接中的+号还原成空格
+                    if (paraName == name) {
+                        return unescape(paraValue.replace(/\+/g, " "));
+                    }
+                }
+                return '';
+            };
 
-
+            var b = getQueryString("a");
+            console.log(b);
+            if(b){
+                $('.new).css('display','flex');
+                $('.recharge').css('display','none');
+            }
+            
+        })
 	
 });
