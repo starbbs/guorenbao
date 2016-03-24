@@ -49,4 +49,35 @@
 	&-content { // 列表块内容
 		background-color: $g-white;
 	}
+	&-item { // 列表块元素
+		@include height(55px);
+		display: flex;
+		font-size: 16px;
+		&:last-child {
+			.contacts-item-right {
+				border-bottom: none;
+			}
+		}
+		&-left {
+			margin: 0 $g-padding;
+			@extend %flex-center;
+		}
+		&-img {
+			@include square(40px);
+			overflow: hidden;
+			border-radius: 50%;
+		}
+		&-right {
+			flex: 1;
+			border-bottom: $g-border;
+		}
+		&-name {
+			float: left;
+		}
+		&-phone {
+			float: right;
+			color: #999;
+			margin-right: $g-padding;
+		}
+	}
 }

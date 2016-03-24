@@ -36,7 +36,7 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'api', 'h5-paypass'], functio
 							vm.callback(value);
 						} else {
 							$.alert(data.msg, {
-								top: document.body.scrollTop + box.get(0).getBoundingClientRect().top - 80
+								top: document.body.scrollTop + box.get(0).getBoundingClientRect().top - 60
 							});
 							input.get(0).paypassClear();
 						}
