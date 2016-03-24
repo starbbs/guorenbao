@@ -1,0 +1,52 @@
+@charset 'utf-8';
+
+// 张树垚 2016-03-24 15:51:53 创建
+// H5微信端 --- 提取transfer.html和contacts.html的联系人公共样式
+
+
+.contacts {
+
+	$img: $g-components + '/contacts/images';
+
+	&-search { // 搜索
+		margin: 8px 10px 0;
+		background-color: $g-white;
+		border: $g-border;
+		overflow: hidden;
+		border-radius: $g-radius;
+		font-size: 14px;
+		text-align: center;
+		color: #8c8c8c;
+		@include height(34px);
+		position: relative;
+		&-icon {
+			&:before {
+				content: '';
+				display: inline-block;
+				@include sprite($img + '/search.png', 13px);
+				@include relative(1px);
+				margin-right: 8px;
+			}
+		}
+		&-input {
+			@extend %afull;
+			line-height: 34px;
+			box-sizing: border-box;
+			padding: 0 $g-padding;
+		}
+	}
+	&-list { // 列表
+		margin-top: 20px;
+	}
+	&-block { // 列表中每个块
+		border-bottom: $g-border;
+	}
+	&-title { // 列表块标题
+		@include height(22px);
+		color: #8c8c8c;
+		padding-left: $g-padding;
+	}
+	&-content { // 列表块内容
+		background-color: $g-white;
+	}
+}

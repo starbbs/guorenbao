@@ -8,6 +8,7 @@
 @import '../../../source/scss/main';
 
 @import '../../components/nav/nav';
+@import '../../components/contacts/contacts';
 
 @import '../../views/view';
 @import '../../views/nickname/nickname';
@@ -25,7 +26,6 @@ body {
 .contacts {
 
 	$img: $g-pages + '/contacts/images';
-	$border: 1px solid $g-line;
 
 	@extend %rw;
 	@extend %fade-in;
@@ -33,33 +33,6 @@ body {
 	background-color: $g-background;
 	padding-bottom: $g-padding-bottom;
 
-	&-search { // 搜索
-		margin: 8px 10px 0;
-		background-color: $g-white;
-		border: $border;
-		overflow: hidden;
-		border-radius: $g-radius;
-		font-size: 14px;
-		text-align: center;
-		color: #8c8c8c;
-		@include height(34px);
-		position: relative;
-		&-icon {
-			&:before {
-				content: '';
-				display: inline-block;
-				@include sprite($img + '/search.png', 13px);
-				@include relative(1px);
-				margin-right: 8px;
-			}
-		}
-		&-input {
-			@extend %afull;
-			line-height: 34px;
-			box-sizing: border-box;
-			padding: 0 $g-padding;
-		}
-	}
 	&-tabs { // 切换
 		border: 1px solid $g-blue;
 		margin: 8px $g-padding 0;
@@ -78,10 +51,6 @@ body {
 			}
 		}
 	}
-	&-list { // 列表
-		margin-top: 20px;
-
-	}
 	&-empty { // 列表为空时的提示文字
 		text-align: center;
 		font-size: 14px;
@@ -95,48 +64,6 @@ body {
 		}
 		&-world{
 			line-height: 30px;
-		}
-	}
-	&-block { // 列表中每个块
-		border-bottom: $border;
-	}
-	&-title { // 列表块标题
-		@include height(22px);
-		color: #8c8c8c;
-		padding-left: $g-padding;
-	}
-	&-content { // 列表块内容
-		background-color: $g-white;
-	}
-	&-item { // 列表块元素
-		@include height(55px);
-		display: flex;
-		font-size: 16px;
-		&:last-child {
-			.contacts-item-right {
-				border-bottom: none;
-			}
-		}
-		&-left {
-			margin: 0 $g-padding;
-			@extend %flex-center;
-		}
-		&-img {
-			@include square(40px);
-			overflow: hidden;
-			border-radius: 50%;
-		}
-		&-right {
-			flex: 1;
-			border-bottom: $border;
-		}
-		&-name {
-			float: left;
-		}
-		&-phone {
-			float: right;
-			color: #999;
-			margin-right: $g-padding;
 		}
 	}
 

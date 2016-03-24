@@ -6,7 +6,8 @@
 define('h5-dialog-paypass', ['h5-dialog', 'check', 'api', 'h5-paypass'], function(Dialog, check, api) {
 
 	var paypass = new Dialog('paypass');
-	var input = $('#dialog-paypass-input');
+
+	var input = paypass.input = $('#dialog-paypass-input');
 	var inputTimer = null;
 
 	var vm = paypass.vm = avalon.define({
@@ -43,7 +44,9 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'api', 'h5-paypass'], functio
 	});
 
 	paypass.on('show', function() {
-		input.get(0).focus();
+		setTimeout(function() {
+			input.get(0).focus();
+		}, 10);
 	});
 	paypass.on('hide', function() {
 		// 清除input的value并失焦

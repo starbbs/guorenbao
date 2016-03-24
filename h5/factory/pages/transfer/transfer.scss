@@ -7,6 +7,8 @@
 
 @import '../../../source/scss/main';
 
+@import '../../components/contacts/contacts';
+
 @import '../../views/view';
 @import '../../views/nickname/nickname';
 @import '../../views/authentication/authentication';
@@ -16,8 +18,6 @@
 @import '../../dialogs/dialog';
 @import '../../dialogs/paypass/paypass';
 @import '../../dialogs/alert/alert';
-
-@import '../contacts/contacts';
 
 
 body {
