@@ -326,5 +326,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 });         
             }
         });
+
+        /*//控制自动添加银行卡处div的高
+        $(".heightauto").height($('.bankIdCard').length*120 );*/
         
 });

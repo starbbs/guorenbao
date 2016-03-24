@@ -196,7 +196,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             $(this).parent().remove();
         });
         //再次添加银行卡
-        $('.bankIdCard-add').click(function(){
+        $('.bankIdCard-addCard').click(function(){
             $('.three').css('display','none');
             $('.two').css('display','flex');
         });
@@ -244,6 +244,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 //果仁市场添加
                 $('.nut-one').hide();
                 $('.nut-two').show();
+                //创建节点
                 var Node1 = $('<div class="nutOutputManager"></div>');
                 var Node2 = $('<p class="nutIdName"></p>').appendTo(Node1); 
                 var Node3 = $('<p class="nutIdAddress"></p>').appendTo(Node1); 
@@ -251,7 +252,14 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 var Node5 = $('<span class="nutOutputManager-del"></span>').appendTo(Node1);
                 Node2.append('地址：'+$('#nut-name').val());
                 Node3.append($('#nut-address').val());
-                $('.nut-two').append(Node1);
+                //$('.nut-two').appendBefore(Node1);
+                Node1.insertBefore($('.nutOutputManager-add'));
+
+                //删除 添加的果仁市场
+                $('.nutOutputManager-del').click(function(){
+                    $(this).parent().remove();
+                });
+
                 /*api_mkt.gopAddressManAdd({          
                     'name':$('#nut-name').val(),
                     'paypwd': $('#nut-paypwd').val(),

@@ -399,6 +399,12 @@
 .regist_input_div{
     height:58px;
     position:relative;
+    z-index: 1;
+}
+.heightauto{
+    height: auto;
+    min-height: 58px;
+    color: #424242;
 }
 .regist_input_div span{
     display: block;
@@ -423,19 +429,52 @@
     border-radius: 4px;
     width: 240px;
     position: absolute;
-    top: 305px;
+    /*top: 305px;*/
     color: #ffffff;
     cursor: pointer;
     text-align: center;
 }
-.Withdrawalsbtn{
+/*.Withdrawalsbtn{
     top:355px;
+}*/
+.handlingcharget{
+    height:48px;
+    line-height: 30px;
+}
+.heightA1{
+    height: 52px;
+    line-height: 62px;
+    text-align: right;
+    margin-right: 20px;
+    color: #424242;
+}
+.heightA2{
+    height: 42px;
+    line-height: 42px;
+    text-align: right;
+    margin-right: 20px;
+    color: #424242;
+}
+.heightA3{
+    height: 32px;
+    line-height: 32px;
+    text-align: right;
+    margin-right: 20px;
+    color: #424242;
+}
+.heightA4{
+    height: 75px;
+    line-height: 75px;
+    text-align: right;
+    margin-right: 20px;
+    color: #424242;
 }
 
 /* 添加 查看更多 */
 .aside-table-div{
     width:100%;
    position: absolute;
+   margin-bottom:10px;
    top: 380px;
    left:-10px;
 }
@@ -511,6 +550,7 @@
 }
 .addBankCard{
     color:#0bbeee;
+    z-index:2;
 }
 
 .handlingcharget em{
@@ -693,4 +733,92 @@ a {
     box-sizing: border-box;
     float:left;
     margin-right:10px;
+}
+
+/*人民币提现管理 果仁提现管理*/
+.bankIdCard{
+    width:288px;
+    height:130px;
+    border:1px solid #ccc;
+    border-radius: 6px;
+    position: relative;
+}
+.bankIdCard-end{
+    margin-right:0px;
+}
+.bankIdCard-bankLogoName{
+    margin:16px;
+    height:20px;
+    line-height: 20px;
+    padding-left:25px;
+}
+.ICBC{
+    background: url(../images/ICBC-logo.png) no-repeat top left;
+}
+.CBC{
+    background: url(../images/CBC-logo.png) no-repeat top left;
+}
+.bankIdCard-Code{
+    position: absolute;
+    left:130px;
+    top:20px;
+}
+.bankIdCard-CardAndBg{
+    position: absolute;
+    left:213px;
+    top:16px;
+    width:56px;
+    height:20px;
+    background-image: url(../images/withdraw-bankBg.png);
+    padding-left:13px;
+    padding-top:4px;
+    color:#fff;
+}
+.bankIdCard-hr{
+    width:275px;
+    position: absolute;
+    top:47px;
+    left:6px;
+    border:1px dashed #ccc;
+}
+.bankIdCard-Name{
+    position: absolute;
+    left:18px;
+    top:70px;
+    width:156px;
+    height:20px;
+    color:#999;
+}
+.bankIdCard-address{
+    position: absolute;
+    left:18px;
+    top:92px;
+    width:255px;
+    line-height:19px;
+    color:#999;
+}
+.bankIdCard-add{
+    text-align: center;
+    line-height: 50px;
+    margin-top:30px;
+    font-size:1.5rem;
+    cursor: pointer;
+    width:300px;
+}
+.bankIdCard-addCard{
+    border:none;
+    margin-right: 0px;
+}
+.bankIdCard-add p{
+    font-size:5rem;
+    font-weight: bold;
+    color:#0BBEEE;
+}
+
+.Withdrawal td{
+    padding:8px;
+    vertical-align: middle;
+}
+.td-top{
+    vertical-align:top;
 }
