@@ -106,7 +106,7 @@
                       <section class="bankIdCard-CardAndBg">储蓄卡</section>
                       <section class="bankIdCard-hr"></section>
                       <section class="bankIdCard-Name">
-                           持卡人姓名：<span>*怀宇</span>
+                           持卡人姓名：*怀宇
                       </section>
                       <section class="bankIdCard-del">删除</section>
                       <section class="bankIdCard-address">
@@ -138,10 +138,13 @@
                     </div> -->
                 </div>
                 <div class="withdraw_deposit" style="display: none;">
-                    <div class="intro">
-                        <em>您将添加果仁提现地址</em>
+                    <!-- 添加果仁地址 -->
+                    <div class="intro nut-one">
+                        <p>
+                            您将添加<em>果仁提现地址</em>
+                        </p>
                     </div>
-                    <div class="right_reg_side_content" style="display: flex;">
+                    <div class="right_reg_side_content nut-one">
                         <div class="rg_lf_label">
                             <div class="label_div">
                                 <label for="nut-name">地址备注</label>
@@ -169,7 +172,7 @@
                             </div>
                             <div class="regist_input_div">
                                 <input class="regist_rg_input" type="text" placeholder="" id="nut-paypwd"/>
-                                <span class="msg-nut-paypwd">请输入正确的支付密码</span>
+                                <span class="msg-nut-paypwd"></span>
                             </div>
                             <div class="regist_input_div">
                                 <input class="regist_rg_input-VerificationCode" type="text" placeholder="" id="nut-identifyingCode"/>
@@ -179,6 +182,25 @@
                             <div class="build_remit_btn gopAddressManAdd">确认添加</div>
                         </div>
                     </div>
+                    <!-- 生成果仁地址 -->
+                    <div class="withdraw_deposit nut-two">
+                        <!-- <div class="nutOutputManager">
+                            <p class="nutIdName">地址：我的果仁市场</p>
+                            <p class="nutIdAddress">1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf1Db1M21TiX1jk5aJgFUFRNs</p>
+                            <span class="nutOutputManager-modify"></span>
+                            <span class="nutOutputManager-del"></span>
+                        </div> -->
+                        <!-- <div class="nutOutputManager nutOutputManager-even">
+                            <p>地址：<span>我的钱包</span></p>
+                            <p>1Db1M21TiX1jk5aJgFUFRNseZMb2Djg9nf1Db1M21TiX1jk5aJgFUFRNs</p>
+                            <span class="nutOutputManager-modify"></span>
+                            <span class="nutOutputManager-del"></span>
+                        </div>  -->                       
+                        <div class="nutOutputManager-add">
+                            + 添加新地址                    
+                        </div>
+                    </div>
+                    <!-- end -->
                 </div>
             </div>
         </div>

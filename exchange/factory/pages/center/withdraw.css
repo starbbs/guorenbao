@@ -673,6 +673,15 @@
     background: none;
     border-bottom: 1px solid #FAFAFA;
 }
+.nutOutputManager-add{
+    width:100%;
+    height:30px;
+    color:#0BBEEE;
+    margin-top:20px;
+    text-align: right;
+    padding-right:30px;
+    cursor: pointer;
+}
 .nutOutputManager p:nth-child(1){
     color:#999;
     padding:20px 0 0 20px;
@@ -683,7 +692,7 @@
 .nutOutputManager-modify{
     position: absolute;
     top:30px;
-    right:110px;
+    right:80px;
     background: url(../images/modify.png) no-repeat center center;
     width:20px;
     height: 20px;
@@ -692,7 +701,7 @@
 .nutOutputManager-del{
     position: absolute;
     top:30px;
-    right:50px;
+    right:30px;
     background: url(../images/del.png) no-repeat center center;
     width:20px;
     height: 20px;

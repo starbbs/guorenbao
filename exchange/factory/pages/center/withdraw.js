@@ -13,6 +13,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             $('.rmbxh').removeClass('bottomon');
             $('.recharge').hide();
             $('.withdraw_deposit').show();
+            $('.nut-two').hide();
         });
 
         //twoBackOne  返回
@@ -110,7 +111,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             }else{
                 btnConfirm = true;
                 $('.msg-sendCodeByLoginAfter').hide();
-                $('.msg-sendCodeByLoginAfter').hide();
+                $('.msg-nut-identifyingCode').hide();
             }
         });
         //获取验证码-人民币提现管理
@@ -151,7 +152,18 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             if(btnConfirm == false || $('#sendCodeByLoginAfter').val() ==''){
                 alert('请填写完整信息');
             }else{
-                api_mkt.rmbWithdrawalsManageAdd({          
+                $('.two').css('display','none');
+                $('.three').css('display','flex');
+                //填写表单-生成银行卡 
+                $('.bankName').text($('#bank').val());
+                var bankAccount = $('#bank-idcard').val();
+                $('.bankIdCard-Code').text('尾号:'+bankAccount.substr(bankAccount.length-4));
+                $('.bankIdCard-Name').text('持卡人姓名：aa');
+                var bankProvince = $('.select-area').find('option:selected').text();
+                var bankCity = $('.select-city').find('option:selected').text();
+                var subbank = $('#subbank').val();
+                $('.bankIdCard-address').html(bankProvince+bankCity+subbank);
+                /*api_mkt.rmbWithdrawalsManageAdd({          
                     'name':'测试' ,//这个位置应取值为实名认证的真实姓名， 
                     'bank': $('#bank').val(),
                     'bankId':$('#bank-idcard').val(),
@@ -169,16 +181,22 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $('.bankName').text('中国工商银行');
                         var bankAccount = $('.bankAccount').val();
                         $('.bankIdCard-Code').text('尾号:'+bankAccount.substr(bankAccount.length-4));
+                        $('.bankIdCard-Name').text('持卡人姓名：'+data.name);
                     } else {
                         
                     }
-                });
+                });*/
 
                 
             }            
         });
+
+        //点击删除银行卡
+        $('.bankIdCard-del').click(function(){
+            $(this).parent().remove();
+        });
         //再次添加银行卡
-        $('.bankIdCard').click(function(){
+        $('.bankIdCard-add').click(function(){
             $('.three').css('display','none');
             $('.two').css('display','flex');
         });
@@ -206,14 +224,35 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 $('.msg-nut-address').hide();
             }
         });
-
+        //校验支付宝密码
+        $('.nut-paypwd').blur(function(){
+            var nutPayPwd = $(this).val();
+            if(!nutPayPwd){
+                btnConfirm = false;
+                $('.msg-nut-paypwd').show().text('请输入支付宝密码');
+            }else{
+                btnConfirm = true;
+                $('.msg-nut-paypwd').hide();
+            }
+        });
         
         //果仁提现地址管理添加
         $('.gopAddressManAdd').click(function(){
             if(btnConfirm == false || $('#nut-identifyingCode').val() ==''){
                 alert('请填写完整信息');
             }else{
-                api_mkt.gopAddressManAdd({          
+                //果仁市场添加
+                $('.nut-one').hide();
+                $('.nut-two').show();
+                var Node1 = $('<div class="nutOutputManager"></div>');
+                var Node2 = $('<p class="nutIdName"></p>').appendTo(Node1); 
+                var Node3 = $('<p class="nutIdAddress"></p>').appendTo(Node1); 
+                var Node4 = $('<span class="nutOutputManager-modify"></span>').appendTo(Node1); 
+                var Node5 = $('<span class="nutOutputManager-del"></span>').appendTo(Node1);
+                Node2.append('地址：'+$('#nut-name').val());
+                Node3.append($('#nut-address').val());
+                $('.nut-two').append(Node1);
+                /*api_mkt.gopAddressManAdd({          
                     'name':$('#nut-name').val(),
                     'paypwd': $('#nut-paypwd').val(),
                     'address':$('#nut-address').val(),
@@ -222,13 +261,13 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     if (data.status == 200) {
                         console.log(data);/*
                         $('.two').css('display','none');
-                        $('.three').css('display','flex');*/
+                        $('.three').css('display','flex');
                         //填写表单-生成银行卡 
                         
                     } else {
                         
                     }
-                });
+                });*/
 
                 
             }            
@@ -273,6 +312,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 $('.rmbxh').removeClass('bottomon');
                 $('.recharge').hide();
                 $('.withdraw_deposit').show();
+                $('.nut-two').hide();
             }
             
         })
