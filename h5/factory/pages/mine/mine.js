@@ -11,7 +11,7 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 	var setting = new View('setting');
 	var setting_about = new View('setting-about');
 	var setting_us = new View('setting-us');
-	var setting_feedback = new View('setting-feedback');
+	new View('setting-feedback');
 	var setting_agreement = new View('setting-agreement');
 
 	var dbclickOrLongpress = ''; //安卓为长按, ios为双击, 在zepto的$.os对象中可判断浏览器
@@ -113,20 +113,25 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 		address_back_click: function() { //返回
 			router.go('/');
 		},
-		feedback_click: function() { //问题反馈
-			if (check.empty(vm.feedback) || vm.feedback == '＃果仁宝意见反馈＃' || vm.feedback.length < 10 || vm.feedback.length > 140) {
-				$.alert("用户可输入10-140个汉字");
+		feedbackSending: false, // 反馈发送中
+		feedbackClick: function() { //问题反馈
+			if (vm.feedbackSending) {
+				return $.alert('正在发送中, 请稍后');
 			}
-			api.fankui({
+			if (check.empty(vm.feedback) || vm.feedback === '＃果仁宝意见反馈＃' || vm.feedback.length < 10 || vm.feedback.length > 140) {
+				return $.alert('用户可输入10-140个汉字');
+			}
+			vm.feedbackSending = true;
+			api.feedback({
 				gopToken: gopToken,
 				fankuiContext: vm.feedback
 			}, function(data) {
+				vm.feedbackSending = false;
 				if (data.status == 200) {
 					$.alert('谢谢您的意见反馈!');
 					//router.go('/');
 					vm.feedback = "";
 					window.history.back();
-
 				} else {
 					console.log(data);
 					$.alert(data.msg);
@@ -141,37 +146,6 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 			vm.textNum = this.value.length + '/' + (140);
 		}
 	})
-
-	/*
-	var nick = avalon.define({
-		$id: 'nickname',
-		nickname: '',
-		nickname_click: function() {
-			if (!check.empty(nick.nickname)) {
-				api.updateNick({
-					gopToken: gopToken,
-					nick: nick.nickname
-				}, function(data) {
-					if (data.status == 200) {
-						$.alert('设置成功!');
-						if (!vm.setRealName) {
-							vm.name = nick.nickname;
-						}
-						if (vm.setnick == '未设置') {
-							vm.setnick == '修改';
-						}
-						vm.nickname = nick.nickname;
-						router.go('/');
-					} else {
-						console.log(data);
-					}
-				});
-			} else {
-				$.alert('请输入昵称!');
-			}
-		}
-	});
-	*/
 
 	//初始加载用户信息
 	api.info({

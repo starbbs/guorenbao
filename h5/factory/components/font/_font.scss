@@ -8,8 +8,8 @@
 // 淘宝icon-font
 @include font('iconfont', '../font');
 .iconfont{
-	font-family:"iconfont" !important;
-	font-style:normal;
+	font-family: "iconfont" !important;
+	font-style: normal;
 }
 .icon-g:before {
 	content: "\e601";
