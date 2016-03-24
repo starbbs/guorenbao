@@ -377,12 +377,11 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 		isMarket: false, // 是否是果仁市场
 		addressToPhone: '',
 		getCnyMoney: function() {//输入果仁数量监听
-			console.log(parseFloat(transferTarget.gopNum - transferTarget.serviceFee));
 			if (parseFloat(this.value) === 0){
 				$.alert('请输入正确的数量');
 				transferTarget.notchecked = true;
 				return;
-			}			
+			}
 			if (parseFloat(this.value) > parseFloat(transferTarget.gopNum - transferTarget.serviceFee)){
 				$.alert('您的果仁数不足');
 				transferTarget.notchecked = true;

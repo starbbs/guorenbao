@@ -40,6 +40,15 @@ body {
 		font-size: 14px;
 		white-space: nowrap;
 		margin-top: 100px;
+		position: relative;
+		&-img{
+			@include atl(-50px , 50%);
+			transform:translateX(-50%);
+			@include sprite($img +'/nopeople.png' , 42px); 
+		}
+		&-world{
+			line-height: 30px;
+		}
 	}
 	&-loading {
 		text-align: center;
