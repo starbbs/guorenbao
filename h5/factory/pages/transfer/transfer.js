@@ -166,7 +166,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 			transferTarget.photo = item.photo || './images/picture.png';
 			transferTarget.phone = item.phone;
 			targetInit(vm.transferOutType);
-			console.log(vm.transferOutType);
 			router.go('/transfer-target');
 		},
 		showAuthenDes: function() {
@@ -379,7 +378,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 		addressToPhone: '',
 		getCnyMoney: function() {//输入果仁数量监听
 			console.log(parseFloat(transferTarget.gopNum - transferTarget.serviceFee));
-			if (parseFloat(this.value) == 0){
+			if (parseFloat(this.value) === 0){
 				$.alert('请输入正确的数量');
 				transferTarget.notchecked = true;
 				return;
@@ -399,14 +398,15 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 				}
 			}
 			transferTarget.cnyMoney = transferTarget.price * this.value;
+			console.log(transferTarget.notchecked);
 		},
 		//确定转帐按钮
 		transferCommitClick: function() {
-			if (transferTarget.transferNum > 0 && transferTarget.transferNum <= transferTarget.gopNum) {
+			if (parseFloat(transferTarget.transferNum) > 0 && parseFloat(transferTarget.gopNum - transferTarget.serviceFee)) {
 				//密码输入框显示 AJAX密码确认后 设置回调函数
 				setTimeout(function() {
 					dialogPaypass.show();
-				}, 700)
+				}, 300)
 				dialogPaypass.vm.callback = function(value) {
 					var transferOutType = vm.transferOutType;
 					if (vm.transferOutType.indexOf('NEW') > 0) {
