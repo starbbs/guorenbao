@@ -1,6 +1,6 @@
 <div class="transfer-contacts scroll" ms-controller="transfer-contacts">
     	<form class="contacts-search" action="javascript:;" ms-on-submit="submit">
-			<div class="contacts-search-icon" ms-visible="!search" >搜索</div>
+			<div class="contacts-search-icon" ms-visible="!search">搜索</div>
 			<input type="search" class="contacts-search-input" ms-duplex="search">
 		</form>
 		<div class="contacts-list" ms-click="listClick($event)">
@@ -9,7 +9,9 @@
 				<div class="contacts-content">
 					<div class="contacts-item" ms-repeat-item="group.list" ms-data-path="$outer.$index+'/'+$index">
 						<div class="contacts-item-left">
-							<div class="contacts-item-img"><img ms-attr-src="item.picture||'./images/picture.png'" alt="" class="img-w"></div>
+							<div class="contacts-item-img">
+								<img ms-attr-src="item.picture||'./images/picture.png'" alt="" class="img-f">
+							</div>
 						</div>
 						<div class="contacts-item-right">
 							<div class="contacts-item-name">{{item.name?item.name:'未命名用户'}}</div>

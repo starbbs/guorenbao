@@ -19,7 +19,7 @@ require(['router', 'api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h
 	// $.cookie('gopToken','cb51f72310fa4d22a1c7142e8d48b214'); // 杨娟的帐号
 	// $.cookie('gopToken','1b0e7048be0e4d5290d2f0219a5f64a7'); //自己
 	// $.cookie('gopToken','4b35b6239f8b465cb126cae77177f2d7'); //自己133
-	//  $.cookie('gopToken','60371545982b401d9cba6eea72402f01');                     //13833298624
+	// $.cookie('gopToken','60371545982b401d9cba6eea72402f01');                     //13833298624
 	var gotoAuthorization = function() { // 跳转授权页, 未授权
 		// return;
 		setTimeout(function() {
