@@ -6,11 +6,22 @@ define('mydate', function() {
 
 	var mydate = {};
 
-	$.extend(mydate,{
+	$.extend(mydate, {
+		parseDate: function(time) { // 把字符串时间转为对应Date实例
+			// 2016-01-14 02:33:44
+			var match = time.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2})\:(\d{2})\:(\d{2})/);
+			return 'setFullYear,setMonth,setDate,setHours,setMinutes,setSeconds'.split(',').reduce(function(date, item, index) {
+				if (item === 'setMonth') {
+					match[index + 1] -= 1;
+				}
+				date[item](parseInt(match[index + 1]));
+				return date;
+			}, new Date());
+			// return new Date(time);
+		},
 		timeHandler: function(time) { // 时间处理
-			//time Wed Mar 16 2016 13:24:11 GMT+0800 (中国标准时间)
+			// 输入: "2016-01-08 05:30:16"
 			// if (typeof time === 'string') {
-			// 	// 输入: "2016-01-08 05:30:16"
 			// 	var match = time.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2})\:(\d{2})\:(\d{2})/);
 			// 	return 'year,month,day,hour,minute,second'.split(',').reduce(function(result, item, index) {
 			// 		result[item] = parseInt(match[index + 1]);
@@ -20,15 +31,15 @@ define('mydate', function() {
 			if (time.constructor === Date) {
 				return 'year:getFullYear,month:getMonth,date:getDate,day:getDay,hour:getHours,minute:getMinutes,second:getSeconds'.split(',').reduce(function(result, item) {
 					item = item.split(':'); //[year,getFullYear]
-					item[1] = time[item[1]]();	//getFullYear = time[getFullYear]()
-					result[item[0]] = item[1];  //result.year = '2016'
+					item[1] = time[item[1]](); //getFullYear = time[getFullYear]()
+					result[item[0]] = item[1]; //result.year = '2016'
 					switch (item[0]) { // 个别特殊处理
 						case 'month':
 							result.month2 = item[1] + 1; // 月份(阿拉伯数字)
 							result.month3 = item[1] >= 10 ? item[1] === 10 ? '十一' : '十二' : '一二三四五六七八九十' [item[1]]; // 月份(中文数字)															'一二三四五六七八九十'[2]	
 							break;
 						case 'day':
-							result.day2 = '日一二三四五六'[item[1]]; // 周(中文数字)
+							result.day2 = '日一二三四五六' [item[1]]; // 周(中文数字)
 							break;
 						case 'hour':
 							result.hour2 = item[1] < 10 ? ('0' + item[1]) : ('' + item[1]);
@@ -38,10 +49,10 @@ define('mydate', function() {
 							break;
 					}
 					return result;
-				}, {});//reduce 传的累加器的基础值｛｝空
+				}, {});
 			}
 		},
-		timeClearHour:function(time) { // 干掉小时, 分钟, 秒, 毫秒
+		timeClearHour: function(time) { // 干掉小时, 分钟, 秒, 毫秒
 			if (time.constructor === Date) {
 				var tmp = new Date(time.getTime());
 				tmp.setHours(0);
@@ -51,48 +62,31 @@ define('mydate', function() {
 				return tmp;
 			}
 		},
-		timeDayDiffer:function(timeA, timeB) { // 两个时间的日期差
+		timeDayDiffer: function(timeA, timeB) { // 两个时间的日期差
 			if (timeA.constructor === Date && timeB.constructor === Date) {
 				return Math.round((this.timeClearHour(timeA).getTime() - this.timeClearHour(timeB).getTime()) / 1000 / 60 / 60 / 24);
 			}
 		},
-		timeCompare:function(timeA, timeB) { // 已A为准, 返回B是A的今天, 昨天, 前天
+		timeCompare: function(timeA, timeB) { // 已A为准, 返回B是A的今天, 昨天, 前天
 			if (timeA.constructor === Date && timeB.constructor === Date) {
 				if (timeA.getTime() >= timeB.getTime()) {
-					if(this.timeDayDiffer(timeA, timeB) > 2){//if(this.timeDayDiffer(timeA, timeB) > 2){
+					if (this.timeDayDiffer(timeA, timeB) > 2) { //if(this.timeDayDiffer(timeA, timeB) > 2){
 						return false;
-					}else{
+					} else {
 						//3-16前代码
 						return ['今天', '昨日', '前天'][this.timeDayDiffer(timeA, timeB)];
 						//return ['昨日', '前天'][this.timeDayDiffer(timeA, timeB)];
-					}	
+					}
 				}
 			}
 		},
-		parseDate:function(time) { // 把字符串时间转为对应Date实例
-			// 2016-01-14 02:33:44
-			var match = time.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2})\:(\d{2})\:(\d{2})/);
-			//[2016-01-14 02:33:44 , 2016 , 01, 14, 02 , 33 , 44];
-			//console.log('match===>'+ match);
-			return 'setFullYear,setMonth,setDate,setHours,setMinutes,setSeconds'.split(',').reduce(function(date, item, index) {
-				if (item === 'setMonth') {
-					match[index + 1] -= 1;
-				}
-				date[item](parseInt(match[index + 1]));
-				//new Date[item](match[index+1]);
-				//new Date[setFullYear](match[0+1])
-				//new Date.setFullYear.(2016)				
-				return date;
-			}, new Date());
-			// return new Date(time);
-		},
-		date2String:function(date){      //日期转成字符串  Sun Mar 13 2016 00:00:00 GMT+0800 (中国标准时间) ==> 2016-3-10
-			return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+		date2String: function(date) { //日期转成字符串 Sun Mar 13 2016 00:00:00 GMT+0800 (中国标准时间) ==> 2016-3-10
+			return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 			//return date.toLocaleString().split(' ')[0].replace(/\//g,'-');
 		},
-		getCurHourMinu:function(date){
-			return date.getHours()+':'+date.getMinutes();
-		}
+		getCurHourMinu: function(date) {
+			return date.getHours() + ':' + date.getMinutes();
+		},
 	});
 
 	return mydate;

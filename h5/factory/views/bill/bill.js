@@ -2,7 +2,15 @@
 // H5微信端 --- view-bill 账单详情分页
 
 
-define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-component-bill', 'h5-view-nickname', 'h5-dialog-confirm'], function(View, api, router, weixin, filters, H5bill, nicknameView, dialogConfirm) {
+define('h5-view-bill', [
+	'api', 'router', 'filters', // 公用功能
+	'h5-view', 'h5-weixin', 'h5-component-bill', // H5功能
+	'h5-view-nickname', 'h5-dialog-confirm' // H5组件
+], function(
+	api, router, filters,
+	View, weixin, H5bill,
+	nicknameView, dialogConfirm
+) {
 
 	var gopToken = $.cookie('gopToken');
 
