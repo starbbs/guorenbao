@@ -11,6 +11,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 
 	var nowData = null; // 当前使用的后台原始数据
 	var phoneRepayData = null; // 手机重新支付数据
+	var weixinPayData = null; // 微信重新支付数据
 
 	var initSettings = { // 初始化
 		id: '', // 账单ID
@@ -81,16 +82,19 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 
 			} else {
 				if (vm.payType === '微信支付') {
-					var id = null;
+					console.log(weixinPayData)
 					weixin.pay.onSuccess = function(res) {
-						buyInHandler('BUY_IN', id, {
+						buyInHandler('BUY_IN', vm.id, {
+							forceStatus: 'SUCCESS',
 							ifFinishButton: true
 						});
 					};
-					weixin.pay.create(vm.orderMoney, function(data) {
-						id = data.data.buyinOrder.id;
-						weixin.pay.work();
-					});
+					weixin.pay.set(weixinPayData);
+					weixin.pay.work();
+					// weixin.pay.create(vm.orderMoney, function(data) { // 不用创建新订单
+					// 	id = data.data.buyinOrder.id;
+					// 	weixin.pay.work();
+					// });
 				} else {
 					window.location.href = './order.html?from=bill&id=' + vm.id;
 				}
@@ -248,7 +252,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			ifPayButton: waitForPay, // 是否显示"前往支付"按钮
 			ifClose: waitForPay, // 是否显示"关闭"
 		};
-	};						//"BUY_IN", "215" {}
+	};
 	var buyInHandler = function(type, id, options) { // 买入
 		api.queryBuyinOrder({
 			gopToken: gopToken,
@@ -278,6 +282,7 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			}
 			*/
 			options.onRequest && options.onRequest(data);
+			data.data.WEIXIN_MP_PAY && (weixinPayData = data.data.WEIXIN_MP_PAY);
 			if (!data.data || !data.data.buyinOrder || data.status != 200) {
 				data.msg && $.alert(data.msg);
 				return;
