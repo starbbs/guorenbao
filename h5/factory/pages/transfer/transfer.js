@@ -53,6 +53,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 								break;
 							}
 						}
+						nowData.serviceFee = '0.01';
 						$.extend(transferTarget, nowData);
 						targetInit(vm.transferOutType);
 						router.go('/transfer-target');
@@ -84,6 +85,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 									break;
 								}
 							}
+							nowData.serviceFee = '0.01';
 							$.extend(transferTarget, nowData);
 							//targetInit(vm.transferOutType);
 							targetInit('new_walletaddress_nextstep');
@@ -106,6 +108,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 				transferTarget.address = vm.marketGopAddress;
 				transferTarget.name = '果仁市场';
 				transferTarget.isMarket = true;
+				transferTarget.serviceFee = '0.01';
 				targetInit(vm.transferOutType);
 				router.go('/transfer-target');
 			} else {
@@ -123,6 +126,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 								transferTarget.address = vm.marketGopAddress;
 								transferTarget.name = '果仁市场';
 								transferTarget.isMarket = true;
+								transferTarget.serviceFee = '0.01';
 								targetInit(vm.transferOutType);
 								router.go('/transfer-target');
 							}
@@ -136,32 +140,33 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 		},
 		gopContactClick: function() { // 果仁宝联系人
 			vm.transferOutType = 'GOP_CONTACT';
-			transferTarget.serviceFee = 0.01;
+			transferTarget.serviceFee = '0.00';
 			router.go('/transfer-contacts');
 			transferContacts.query();
 		},
 		walletContactClick: function() { // 钱包联系人
 			vm.transferOutType = 'WALLET_CONTACT';
-			transferTarget.serviceFee = 0.01;
+			transferTarget.serviceFee = '0.01';
 			router.go('/transfer-contacts');
 			transferContacts.query();
 		},
 		transferClick: function(event) { // 最近联系人
 			var item = vm.list.$model[$(event.target).closest('.transfer-item').get(0).dataset.index];
 			vm.transferOutType = item.type;
-			if(vm.transferOutType === 'WALLET_CONTACT' || vm.transferOutType === 'WALLET_CONTACT' || vm.transferOutType ==='GOP_MARKET'){
-				transferTarget.serviceFee = 0.01;
+			if(vm.transferOutType === 'WALLET_CONTACT' || vm.transferOutType ==='GOP_MARKET'){
+				transferTarget.serviceFee = '0.01';
 			}
-			if(vm.transferOutType === 'WALLET_CONTACT'){
-				transferTarget.serviceFee = 0.00;
+			if(vm.transferOutType === 'GOP_CONTACT' ){
+				transferTarget.serviceFee = '0.00';
 			}
 			transferTarget.walletId = item.walletId;
 			transferTarget.address = vm.gopAddress = item.phone || item.address;
 			transferTarget.name = item.name;
 			transferTarget.personId = item.personId;
-			transferTarget.photo = item.photo;
+			transferTarget.photo = item.photo || './images/picture.png';
 			transferTarget.phone = item.phone;
 			targetInit(vm.transferOutType);
+			console.log(vm.transferOutType);
 			router.go('/transfer-target');
 		},
 		showAuthenDes: function() {
@@ -247,6 +252,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 								nowData.addressToPhone = data.data.phone;
 								nowData.phone = data.data.phone;
 								vm.transferOutType = 'GOP_NEW';
+								nowData.serviceFee = '0.00';
 							}
 							if (re.test(transferNew.newTarget)) { //如果目标是手机号
 								if (data.data.nick) {
@@ -254,11 +260,14 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 								} else {
 									nowData.name = '未命名用户';
 								}
+								nowData.serviceFee = '0.00';
 							} else if (transferNew.newTarget.indexOf('GOP') >= 0) { //如果目标是钱包地址
 								nowData.name = data.data.nick || '未命名用户';
+								nowData.serviceFee = '0.01';
 							}
 						} else {
 							nowData.name = "未命名地址";
+							nowData.serviceFee = '0.01';
 						}
 						$.extend(transferTarget, nowData);
 						targetInit(vm.transferOutType);
@@ -270,6 +279,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 							$.alert('该手机号未注册');
 						} else {
 							nowData.name = "未命名地址";
+							nowData.serviceFee = '0.01';
 							$.extend(transferTarget, nowData);
 							targetInit(vm.transferOutType);
 							router.go('/transfer-target');
@@ -366,8 +376,17 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 		isMarket: false, // 是否是果仁市场
 		addressToPhone: '',
 		getCnyMoney: function() {//输入果仁数量监听
-			console.log(typeof this.value);
-			if (parseFloat(this.value) > 0 && parseFloat(this.value) <= parseFloat(transferTarget.gopNum)) {
+			console.log(transferTarget.serviceFee);
+			if (parseFloat(this.value) == 0){
+				$.alert('请输入正确的数量');
+				return;
+			}			
+			if (parseFloat(this.value) > parseFloat(transferTarget.gopNum - transferTarget.serviceFee)){
+				$.alert('您的果仁数不足');
+				return;
+			}
+
+			if (parseFloat(this.value) > 0 && parseFloat(this.value) <= parseFloat(transferTarget.gopNum - transferTarget.serviceFee)) {
 				transferTarget.notchecked = false;
 			} else {
 				transferTarget.notchecked = true;
@@ -392,9 +411,9 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 					if (vm.transferOutType.indexOf('NEW') > 0) {
 						transferOutType = 'NEW';
 						if (vm.transferOutType == "GOP_NEW") {
-							transferTarget.serviceFee = 0.00;
+							transferTarget.serviceFee = '0.00';
 						} else {
-							transferTarget.serviceFee = 0.01;
+							transferTarget.serviceFee = '0.01';
 						}
 					}
 					api.transfer({
