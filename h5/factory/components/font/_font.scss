@@ -6,7 +6,7 @@
 
 
 @include font('iconfont', '../font');
-
+// font($name, $url)
 .iconfont{
 	font-family:"iconfont" !important;
 	font-size:16px;
@@ -16,10 +16,6 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 .icon-g:before { content: "\e601"; }
-
-
-
-
 
 .font {
 	&-num {
