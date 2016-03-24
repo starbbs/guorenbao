@@ -301,7 +301,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 $(".remittance-id").text(Math.random()*10E16);
                 $(".bank-card-new").text($("#bank-idcard").val());
                 $(".bank-name-new").text($("#bank").val());
-                $(".account-name-new").text($("#username").val());
+                $(".account-name-new").text($("#bank-username").val());
                 $(".money-new").text($("#bank-money").val());
 
                 //关闭弹出层 -生成汇款单
@@ -309,10 +309,22 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     $(".mydiv").css("display","none");
                     $(".bg").css("display","none");
                 });  
-                /*$(".remittance-note-number").text();*/           
-            }           
-            
-            
+                /*$(".remittance-note-number").text();*/  
+
+                //接口：人民币充值
+                api_mkt.rmbRecharge({          
+                    'bankId':$('#bank-idcard').val(),
+                    'rechargeMoney':$('#bank-money').val(),
+                    'phone':$('#phone').val(),
+                    "bankName":$("#bank").val()     
+                }, function(data) {
+                    if (data.status == 200) {
+                        console.log(data);
+                    } else {
+                        console.log('err');
+                    }
+                });         
+            }
         });
         
 });

@@ -131,13 +131,18 @@ define('api_mkt', ['cookie'], function() {
 	//接口 账户明细（带分页）
 	add('billList-page','exchangeApi/bill/billList');
 	//接口 人民币充值
-	add('rmbRecharge','exchangeApi//wealth/rmbRecharge');
+	add('rmbRecharge','exchangeApi/wealth/rmbRecharge');
 	//接口 人民币充值历史（查询最近5条）
 	add('rmbRechargeHistory','exchangeApi/wealth/rmbRechargeHistory');
 	//接口 人民币提现历史（查询最近5条）
 	add('rmbWithdrawalsHistory','exchangeApi/wealth/rmbWithdrawalsHistory');
 	//接口 银行卡识别
 	add('checkBankCard','exchangeApi/common/checkBankCard');
+	// 接口 人民币提现管理添加 添加银行卡
+	add('rmbWithdrawalsManageAdd','exchangeApi/wealth/rmbWithdrawalsManageAdd');
+	// 接口 发送手机号验证码(登录后不需要手机号参数)
+	add('sendCodeByLoginAfter','exchangeApi/common/sendCodeByLoginAfter');
+
 
 
 
