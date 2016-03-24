@@ -335,6 +335,8 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 		});
 	};
 	var transferHandler = function(type, id, order) { // 统一处理的转账数据
+		var startTime = order.createTime || order.updateTime || order.transferTime;
+		var finishTime = order.transferTime || (order.updateTime === order.createTime ? order.status === 'PROCESSING' ? '预计 ' + avalon.filters.date(new Date().setHours(new Date().getHours() + 2), 'yyyy-MM-dd HH:mm:ss') + ' 前' : order.updateTime : order.updateTime)
 		return {
 			id: id, // 账单ID
 			type: type, // 类型
@@ -347,9 +349,8 @@ define('h5-view-bill', ['h5-view', 'api', 'router', 'h5-weixin', 'filters', 'h5-
 			transferAddress: order.address ? filters.address(order.address) : '', // 转果仁--地址
 			transferStage: H5bill.transferStage[order.status], // 转果仁--阶段
 			transferTime: order.transferTime, // 转果仁--到账时间
-			transferStart: order.createTime || order.updateTime || order.transferTime, // 转果仁--创建时间
-			//            transferTime到帐时间
-			transferOver: order.transferTime || (order.updateTime === order.createTime ? order.status === 'PROCESSING' ? '预计 ' + avalon.filters.date(new Date().setHours(new Date().getHours() + 2), 'yyyy-MM-dd HH:mm:ss') + ' 前' : order.updateTime : order.updateTime), // 转果仁--完成或预计时间
+			transferStart: startTime, // 转果仁--创建时间
+			transferOver: finishTime, // 转果仁--完成或预计时间
 			transferFailReason: order.failureMsg, // 转果仁--失败原因
 			poundage: order.serviceFee, // 转果仁--手续费
 			submitTime: order.status === 'FAILURE' ? order.createTime : '', // 提交时间
