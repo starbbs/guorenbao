@@ -363,7 +363,20 @@ progress::-webkit-progress-value {
     color:#ffffff;
 }
 
-.login_regist_vertical div:after{
+.login_regist_vertical_loginarea div{
+    display: inline;
+    color: #ffffff;
+}
+.login_regist_vertical_loginarea div:first-child:after{
+    content: '|';
+    color: #ffffff;
+    width: 2px;
+    position: relative;
+    bottom: 1px;
+    margin: 0 4px;
+}
+
+.login_regist_vertical div:first-child:after{
     content: '|';
     color: #ffffff;
     width: 2px;

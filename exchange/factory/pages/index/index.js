@@ -30,7 +30,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         }
     });
 
-    var whether_auth = false;
     if (!exchangeToken) {          //没有token 即未登录
         $(".login_regist").show(); //显示登录注册按钮
         $('.loginarea').show();    //显示页面中的登录区块（非弹出）
@@ -45,31 +44,20 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         console.log("------index-------"+global_loginuseruid);
         $(".lf_asset_center").html(totalAssets);  //总资产
         $(".rg_asset_center").html(totalNuts);    //总果仁
-        api_mkt.realAuth({
-        }, function(data) {
-            if (data.status == 200) {
-                whether_auth = true;  //已经实名认证
-            } else if (data.status == 305) {
-            } else if(data.status == 400){
-                whether_auth = false;
-            } else {
-            }
-        });
+        
         if(global_loginusername!=""&&global_loginusername){
             $("#logined_username").html(global_loginusername);
         } else {
             $("#logined_username").html(global_loginuserphone);
         }
         $("#uidval").html(global_loginuseruid);
-        var whether_auth_val = "";
-        if(whether_auth){
-            whether_auth_val = global_loginusername;
+        if(global_loginusername){
+            $("#whether_auth").html(global_loginusername);
             $(".bottom_em_i")[0].style.background = "url(./images/index_already_authentication.png)";
         } else {
-            whether_auth_val = '未认证';
+            $("#whether_auth").html("未认证");
             $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
         }
-        $("#whether_auth").html(whether_auth_val); //是否实名认证的标识
         $(".popDiv").hide();
         $(".bg").hide();
     }
@@ -243,12 +231,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     });
     var gethomepagekline = function(){
         api_mkt.homepagekline(function(data) {
-            console.log(data);
             klineapply(data);
         });
     }
     gethomepagekline();
-    window.setInterval(gethomepagekline, 10000);
+    window.setInterval(gethomepagekline, 10000);  //轮询首页的k线图
 
     var flag = true;
     $('.messagenum_area').on("click", function() {
@@ -411,15 +398,25 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                             
                         }
                     });
-                    var whether_auth_val = "";
-                    if(whether_auth){
-                        whether_auth_val = global_loginusername;
+
+                    api_mkt.realAuth({
+                    }, function(data) {
+                        if (data.status == 200) {
+                            whether_auth = true;  //已经实名认证
+                        } else if (data.status == 305) {
+                        } else if(data.status == 400){
+                            whether_auth = false;
+                        } else {
+                        }
+                    });
+
+                    if(global_loginusername){
+                        $("#whether_auth").html(global_loginusername);
                         $(".bottom_em_i")[0].style.background = "url(./images/index_already_authentication.png)";
                     } else {
-                        whether_auth_val = '未认证';
+                        $("#whether_auth").html("未认证");
                         $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
                     }
-                    $("#whether_auth").html(whether_auth_val); //是否实名认证的标识
 
                     $(".loginarea").hide();
                     $(".afterlogin").show();
@@ -445,12 +442,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         // }
     });
     $(".recharge").on("click",function(){
-        alert("充值")
         location.href = "./cnydepositswithdrawal.html";
     });
     $(".withdraw").on("click",function(){
-        alert("提现");
-        //location.href = "";
+        location.href = "./nutstopupwithdrawal.html?formindex='index'";
     });
     var fflat = true;
     $(".eye_i").on("click",function(){
@@ -475,14 +470,12 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         $.cookie("global_loginuserphone",'');
         $.cookie("global_loginusername",'');
         $.cookie("global_loginuseruid",'');
-
         $.cookie("totalAssets","");
         $.cookie("totalNuts","");
         $.cookie("mine_one","");
         $.cookie("mine_two","");
         $.cookie("mine_three","");
         $.cookie("mine_four","");
-
         //退出登录
         api_mkt.userlogout({
         }, function(data) {
@@ -498,8 +491,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             location.reload(true);
         },100);
     });
-
-
 });
 
 
