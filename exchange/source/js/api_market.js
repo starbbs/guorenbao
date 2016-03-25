@@ -153,6 +153,10 @@ define('api_mkt', ['cookie'], function() {
 	add('realAuth','exchangeApi/user/realAuth');
 	add('totalAssets','exchangeApi/wealth/getTotalAssets');
 
+
+
+	add('userbasic','exchangeApi/user/basic');
+
 	/*
 	// 1.手机号注册
 	add('register', '/login/register');
