@@ -1,14 +1,15 @@
 // 张树垚 2016-01-10 00:31:49 创建
 // H5微信端 --- 账单
 
-require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iscrollLoading', 'h5-view-bill', 'mydate',
+require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5-view-bill', 'mydate',
 	'h5-weixin'
-], function(router, api, get, filters, H5bill, iscrollLoading, billView, mydate) {
+], function(router, api, get, filters, H5bill, iScroll, billView, mydate) {
 
 	router.init();
 	var gopToken = $.cookie('gopToken');
 	var page = 1; // 账单页数, 当返回列表长度小于当前列表长度时, 置零, 不再请求
 	var size = 8; // 账单列表
+	var ifGetUpList = false;
 
 	var main = $('.account'); // 主容器
 	var init = function() { // 初始化
@@ -19,14 +20,14 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iscrollLoading
 				break;
 			default:
 				router.to('/');
-				iscrollLoading.getListDown();
+				getListDown();
 		}
 	};
 	var timerGetList = null;
 	var originList = [];
 	var bottomHeight = 20; // 下拉加载的高度
-	
-	iscrollLoading.getListUp = function(callback) { // 获取上拉列表
+
+	var getListUp = function(callback) { // 获取上拉列表
 		if (vm.uploading) {
 			return;
 		}
@@ -52,7 +53,9 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iscrollLoading
 			}
 		});
 	};
-	iscrollLoading.getListDown = function(callback) { // 获取列表
+
+	
+	var getListDown = function(callback) { // 获取列表
 		if (vm.loading) {
 			return;
 		}
@@ -84,9 +87,15 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iscrollLoading
 				$.alert(data.msg);
 			}
 		});
-	};	
+	};
+	
 
-	var accountScroll = iscrollLoading.set('account', {
+	var accountScroll = new iScroll('account', {
+		vScrollbar: false,
+		preventDefault: true,
+		fixedScrollbar: true,
+		useTransition: true,
+		click: true,
 		onBeforeScrollStart:function(){
 		},
 		onScrollMove: function() {
@@ -97,9 +106,10 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iscrollLoading
 		},
 		onBeforeScrollEnd: function() {//松手那时
 			if(this.y >= 100){
+				//ifGetUpList = true;
 				originList = [];
 				vm.uploading = false;
-				iscrollLoading.getListUp();	
+				getListUp();	
 
 				console.log('向上刷新');			
 			}else{
@@ -120,11 +130,13 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iscrollLoading
 					}, 1000);
 				}else{
 					vm.loadingWord  = '正在加载';
-					iscrollLoading.getListDown();
+					getListDown();
 				}
 			}		
 		},
 	});
+
+
 
 	var now = new Date(); // 当前时间
 	var nowMonth = now.getMonth(); // 当前月份

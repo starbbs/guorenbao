@@ -39,6 +39,7 @@
 			'module':			PATH_LIBRARY + '/api',
 			'router':			PATH_LIBRARY + '/router',
 			'hashMap':			PATH_LIBRARY + '/hashMap',
+			'iscrollLoading':	PATH_LIBRARY + '/iscrollLoading',
 			'touch-slide':		PATH_LIBRARY + '/src/TouchSlide.1.1.source',
 			// PC端部分
 			'bank':				PATH_COMPONENTS + '/bank/bank',
