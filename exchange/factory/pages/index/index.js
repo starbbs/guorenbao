@@ -11,24 +11,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     var mine_two = $.cookie("mine_two");
     var mine_three = $.cookie("mine_three");
     var mine_four = $.cookie("mine_four");
-    $(".pagetwo,.pagethree,.pagefour").on("click",function(data){
-        if (!exchangeToken) {
-            $(".popDiv").show();
-            $(".bg").show();
-            console.log($(this).html());
-            var ff = $(this).html();
-            if(ff=="交易大厅"){
-                $.cookie("loginfromwhichpage","two");
-            } else if(ff=="财务中心"){
-                $.cookie("loginfromwhichpage","three");
-            } else if(ff=="我的账户"){
-                $.cookie("loginfromwhichpage","four");
-            }
-        } else {
-            $(".popDiv").hide();
-            $(".bg").hide();
-        }
-    });
+
 
     if (!exchangeToken) {          //没有token 即未登录
         $(".login_regist").show(); //显示登录注册按钮
@@ -362,20 +345,15 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     $("#uidval").html(global_loginuseruid);  //首页uid赋值
 
                     var whichpage = $.cookie("loginfromwhichpage");
-                    if(whichpage=="two"){
+                    if(whichpage=="one"){
+                        location.href="./index.html";
+                    } else if(whichpage=="two"){
                         location.href="./tradingfloor.html";
                     } else if(whichpage=="three"){
                         location.href="./conditionofassets.html";
                     } else if(whichpage=="four"){
                         location.href="./basicinfo.html";
                     }
-                    // if(ff=="交易大厅"){
-                    //     $.cookie("loginfromwhichpage","two");
-                    // } else if(ff=="财务中心"){
-                    //     $.cookie("loginfromwhichpage","three");
-                    // } else if(ff=="我的账户"){
-                    //     $.cookie("loginfromwhichpage","four");
-                    // }
                     api_mkt.totalAssets({
                     }, function(data) {
                         if (data.status == 200) {
@@ -398,7 +376,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                             
                         }
                     });
-
                     api_mkt.realAuth({
                     }, function(data) {
                         if (data.status == 200) {
@@ -409,7 +386,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                         } else {
                         }
                     });
-
                     if(global_loginusername){
                         $("#whether_auth").html(global_loginusername);
                         $(".bottom_em_i")[0].style.background = "url(./images/index_already_authentication.png)";
@@ -417,7 +393,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                         $("#whether_auth").html("未认证");
                         $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
                     }
-
                     $(".loginarea").hide();
                     $(".afterlogin").show();
                 } else if (data.status == 305) {
@@ -476,6 +451,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         $.cookie("mine_two","");
         $.cookie("mine_three","");
         $.cookie("mine_four","");
+
+        $.cookie("loginfromwhichpage","");
         //退出登录
         api_mkt.userlogout({
         }, function(data) {

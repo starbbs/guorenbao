@@ -8,6 +8,54 @@ require(['api_mkt','cookie'], function(api_mkt) {
     $('#floor_bg').css('top', 0);
     $('.bg').css('left', 0);
     $('.bg').css('top', 0);
+
+    $(".pagetwo,.pagethree,.pagefour").on("click",function(){
+        var exchangeToken = $.cookie('exchangeToken');
+        var ff = $(this).html();
+        if (!exchangeToken) {
+            alert("没有token")
+            $(".popDiv").show();
+            $(".bg").show();
+            if(ff=="首页"){
+                $.cookie("loginfromwhichpage","one");
+            } else if(ff=="交易大厅"){
+                $.cookie("loginfromwhichpage","two");
+            } else if(ff=="财务中心"){
+                $.cookie("loginfromwhichpage","three");
+            } else if(ff=="我的账户"){
+                $.cookie("loginfromwhichpage","four");
+            }
+        } else {
+            alert("有tokne");
+            $(".popDiv").hide();
+            $(".bg").hide();
+            // var whichpage = $.cookie("loginfromwhichpage");
+            // if(whichpage=="one"){
+            //     $.cookie("loginfromwhichpage","");
+            //     location.href="./index.html";
+            // } else if(whichpage=="two"){
+            //     $.cookie("loginfromwhichpage","");
+            //     location.href="./tradingfloor.html";
+            // } else if(whichpage=="three"){
+            //     $.cookie("loginfromwhichpage","");
+            //     location.href="./conditionofassets.html";
+            // } else if(whichpage=="four"){
+            //     $.cookie("loginfromwhichpage","");
+            //     location.href="./basicinfo.html";
+            // }
+
+            if(ff=="首页"){
+                location.href="./index.html";
+            } else if(ff=="交易大厅"){
+                location.href="./tradingfloor.html";
+            } else if(ff=="财务中心"){
+                location.href="./conditionofassets.html";
+            } else if(ff=="我的账户"){
+                location.href="./basicinfo.html";
+            }
+        }
+    });
+
     var verify = function(inputData, dataType) {
         var reg = "";
         var varMes = '';
@@ -58,7 +106,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
         popup_login_times++;
         var phone = $(".phone").val();
         var password = $(".password").val();
-        var authcode_common = $(".authcode_common").val();
+        //var authcode_common = $(".authcode_common").val();
         var flag = verify(phone, "tel");
         console.log(flag);
         if(flag=="请输入正确的手机号码"){
@@ -72,16 +120,18 @@ require(['api_mkt','cookie'], function(api_mkt) {
         	$(".error_tips").show().html("请输入6~12位密码");
         	return;
         }
-        if(authcode_common==""){
-            $(".autocode_tips").show().html("请输入验证码");
-            return;
-        }
-        if(flag==true&&password!=""&&password.length>=6&&password.length<12&&authcode_common!=""){
+        // if(authcode_common==""){
+        //     $(".autocode_tips").show().html("请输入验证码");
+        //     return;
+        // }
+        //if(flag==true&&password!=""&&password.length>=6&&password.length<12&&authcode_common!=""){
+        if(flag==true&&password!=""&&password.length>=6&&password.length<12){
         	$(".error_tips").hide();
         	api_mkt.login({
 	            phone: phone,
-	            password: password,
-                code:authcode_common
+	            password: password
+                //,
+                //code:authcode_common
 	        }, function(data) {
 	            if (data.status == 200) {
 	                $.cookie('exchangeToken', 'logined');
@@ -90,10 +140,8 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	                $(".login_header").show();
 	                $(".popDiv").hide();
 	                $(".bg").hide();
-
 	                $(".loginarea").hide();
     				$(".afterlogin").show();
-	                //data.data.phone;  data.data.name
 	                global_loginuserphone = data.data.phone;
 	                global_loginusername = data.data.name;
 	                global_loginuseruid = data.data.uid;
@@ -109,7 +157,6 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	                $("#uidval").html(global_loginuseruid);
 	                //$(".top_em").html(global_loginuserphone);
 	                $(".top_em").html(global_loginuserphone.substr(0,3)+'****'+global_loginuserphone.substr(7,4));
-	            	
 	                var whether_auth_val = "";
                     if(whether_auth){
                         whether_auth_val = global_loginusername;
@@ -119,7 +166,16 @@ require(['api_mkt','cookie'], function(api_mkt) {
                         $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
                     }
                     $("#whether_auth").html(whether_auth_val); //是否实名认证的标识
-
+                    var whichpage = $.cookie("loginfromwhichpage");
+                    if(whichpage=="one"){
+                        location.href="./index.html";
+                    } else if(whichpage=="two"){
+                        location.href="./tradingfloor.html";
+                    } else if(whichpage=="three"){
+                        location.href="./conditionofassets.html";
+                    } else if(whichpage=="four"){
+                        location.href="./basicinfo.html";
+                    }
                     api_mkt.totalAssets({
                     }, function(data) {
                         if (data.status == 200) {
@@ -130,14 +186,10 @@ require(['api_mkt','cookie'], function(api_mkt) {
                             $('.lf_asset_center').html(totalAssets);//总资产
                             $('.rg_asset_center').html(totalNuts);//总果仁
                         } else if (data.status == 305) {
-                            
                         } else if(data.status == 400){
-                            
                         } else {
-                            
                         }
                     });
-
 	            } else if (data.status == 305) {
 	                alert(data.msg);
 	            } else if (data.status==400) {
@@ -175,6 +227,8 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	    $.cookie("mine_two","");
 	    $.cookie("mine_three","");
 	    $.cookie("mine_four","");
+
+        $.cookie("loginfromwhichpage","");
         //退出登录
         api_mkt.userlogout({
         }, function(data) {

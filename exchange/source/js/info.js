@@ -17,8 +17,8 @@
 		//console.log(JSON.parse(haha['order'][0]));
 		//console.log(JSON.parse(haha['order'][0]).price);
 		
-		//var thelatestprice = JSON.parse(haha['order'][0]).price;
-		//$('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
+		var thelatestprice = JSON.parse(haha['order'][0]).price;
+		$('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
 		
 		var turnover = Number(haha['24Total']).toFixed(2);
 		$('#turnover').html(turnover);  //页面顶部 24小时成交量
