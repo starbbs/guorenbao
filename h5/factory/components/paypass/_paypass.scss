@@ -13,6 +13,7 @@
 	@include square($width, 46px);
 	margin: 0 auto;
 	position: relative;
+	overflow: hidden;
 
 	&-2 {
 		$p2: & + '';
