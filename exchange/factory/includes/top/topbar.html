@@ -34,11 +34,11 @@
                 </div>
                 <div class="popup_divblock  second_input_div">
                     <input type="password" placeholder="请输入密码" class="popup_input password"></input>
-                    <span class="error_tips">用户名或密码错误，请重新登录</span>
+                    <span class="error_tips"></span>
                 </div>
-                <div id="authcode" style="display: none;">
-                    <input placeholder="请输入验证码" class="authcodecls"></input><span>FABA</span>
-                    <span class="autocode_tips">验证码错误</span>
+                <div id="authcode" style="display: block;">
+                    <input placeholder="请输入验证码" class="authcodecls authcode_common"></input><a href="javascript:location=location" class="loc_img_popup"><img src="http://172.16.33.3:8080/exchangeApi/code/code"></a>
+                    <span class="autocode_tips"></span>
                 </div>
                 <div class="popup_login_btn">
                     登录

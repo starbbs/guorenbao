@@ -15,26 +15,59 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     var mine_three = $.cookie("mine_three");
     var mine_four = $.cookie("mine_four");
 
+    var exchangeToken = $.cookie('exchangeToken');
+    if (!exchangeToken) {
+        // $(".wrapper").on("click",function(){
+        //     $(".popDiv").show();
+        //     $(".bg").show();
+        // });
+        // $(".close_btn").on("click",function(e){
+        //     $(".popDiv").hide();
+        //     $(".bg").hide();
+        //     return false;
+        // });
+    } else {
+        // $(".login_regist").hide();
+        // $(".login_header").show();
+        // $("#logined_username").html(global_loginusername);
+        // $(".popDiv").hide();
+        // $(".bg").hide();
+        //alert("bg");
+    }
+    $(".pagetwo,.pagethree,.pagefour").on("click",function(data){
+        if (!exchangeToken) {
+            $(".popDiv").show();
+            $(".bg").show();
+            console.log($(this).html());
+            var ff = $(this).html();
+            if(ff=="交易大厅"){
+                $.cookie("loginfromwhichpage","two");
+            } else if(ff=="财务中心"){
+                $.cookie("loginfromwhichpage","three");
+            } else if(ff=="我的账户"){
+                $.cookie("loginfromwhichpage","four");
+            }
+        } else {
+            $(".popDiv").hide();
+            $(".bg").hide();
+        }
+    });
 
     var whether_auth = false;
     if (!exchangeToken) {
         $(".login_regist").show(); //显示登录注册按钮
         $('.loginarea').show();
-        
     } else {
         $(".login_regist").hide();
         $(".login_header").show();
         $(".loginarea").hide();
         $(".afterlogin").show();
         $(".top_em").html(global_loginuserphone.substr(0,3)+'****'+global_loginuserphone.substr(7,4));
-
         console.log("------index-------"+global_loginuserphone);
         console.log("------index-------"+global_loginusername);
         console.log("------index-------"+global_loginuseruid);
-
         $(".lf_asset_center").html(totalAssets);  //总资产
         $(".rg_asset_center").html(totalNuts);    //总果仁
-
         api_mkt.realAuth({
         }, function(data) {
             if (data.status == 200) {
@@ -140,36 +173,32 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         if (whichday == "one") {
             for (var i = 0; i < onem.length; i++) {
                 ohlc.push([onem[i][0], onem[i][2], onem[i][3], onem[i][4], onem[i][5]]);
-                //volume.push([onem[i][0], onem[i][1]]);
+                volume.push([onem[i][0], onem[i][1]]);
             }
         } else if (whichday == "five") {
             for (var i = 0; i < fivem.length; i++) {
                 ohlc.push([fivem[i][0], fivem[i][2], fivem[i][3], fivem[i][4], fivem[i][5]]);
-                //volume.push([fivem[i][0], fivem[i][1]]);
+                volume.push([fivem[i][0], fivem[i][1]]);
             }
         } else if (whichday == "fivteen") {
             for (var i = 0; i < fifteenm.length; i++) {
-                //ohlc.push([fifteenm[i][0], fifteenm[i][2], fifteenm[i][3], fifteenm[i][4], fifteenm[i][5]]);
-                //volume.push([fifteenm[i][0], fifteenm[i][1]]);
-                //
-                ohlc.push([1458511800000, 5,6,7,8,10]);
-                volume.push([1458511800000, 80]);
+                ohlc.push([fifteenm[i][0], fifteenm[i][2], fifteenm[i][3], fifteenm[i][4], fifteenm[i][5]]);
+                volume.push([fifteenm[i][0], fifteenm[i][1]]);
             }
         } else if (whichday == "thirty") {
             for (var i = 0; i < thirtym.length; i++) {
                 ohlc.push([thirtym[i][0], thirtym[i][2], thirtym[i][3], thirtym[i][4], thirtym[i][5]]);
-                //volume.push([thirtym[i][0], thirtym[i][1]]);
+                volume.push([thirtym[i][0], thirtym[i][1]]);
             }
         } else if (whichday == "sixty") {
             for (var i = 0; i < sixtym.length; i++) {
                 ohlc.push([sixtym[i][0], sixtym[i][2], sixtym[i][3], sixtym[i][4], sixtym[i][5]]);
-                console.log(sixtym[i][1]);
-                //volume.push([sixtym[i][0], sixtym[i][1]]);
+                volume.push([sixtym[i][0], sixtym[i][1]]);
             }
         } else if (whichday == "oneday") {
             for (var i = 0; i < oned.length; i++) {
                 ohlc.push([oned[i][0], oned[i][2], oned[i][3], oned[i][4], oned[i][5]]);
-                //volume.push([oned[i][0], oned[i][1]]);
+                volume.push([oned[i][0], oned[i][1]]);
             }
         }
         //console.log(ohlc);
@@ -191,16 +220,13 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             tooltip: { xDateFormat: '%Y-%m-%d %H:%M %A', color: '#f0f', changeDecimals: 4, borderColor: '#058dc7' },
             plotOptions: { candlestick: { color: '#e55600', upColor: '#669900' } },
             yAxis: [
-                { labels: { style: { color: '#e55600' } }, title: { text: '价格 [RMB]', style: { color: '#e55600' } }, height: 160, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true },
-                { labels: { style: { color: '#4572A7' } }, title: { text: '成交量 [GOP]', style: { color: '#4572A7' } }, offset: 0, top: 280, height: 34, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true }
+                { labels: { style: { color: '#4572A7' } }, title: { text: '成交量 [GOP]', style: { color: '#4572A7' } }, offset: 0, top: 280, height: 34, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true },
+                { labels: { style: { color: '#e55600' } }, title: { text: '价格 [RMB]', style: { color: '#e55600' } }, height: 160, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true }
             ],
-            /*tooltip: { xDateFormat: '%Y-%m-%d %H:%M %A', color: '#f0f', changeDecimals: 4, borderColor: '#058dc7' },*/
             tooltip: {
                 formatter: function() {
-                    // console.log(this.points[0]);
-                    console.log("points:------------"+this.points[0].point)
                     var s = Highcharts.dateFormat('<span> %Y-%m-%d %H:%M:%S</span>', this.x);
-                    s += "成交数量"+this.points[0].total;
+                    s += "成交数量"+this.points[1].y;
                     s += '<br />开盘:<b>' + this.points[0].point.open + '</b><br />最高:<b>' + this.points[0].point.high + '</b><br />最低:<b>' + this.points[0].point.low + '</b><br />收盘:<b>' + this.points[0].point.close + '</b>';
                     return s;
                 },
@@ -217,17 +243,15 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 enabled: true
             },
             series: [
-                { animation: false, name: '成交量 [GOP]', type: 'column', color: '#4572A7', dataGrouping: { units: groupingUnits, enabled: false }, yAxis: 1, data: volume },
-                { animation: false, name: '价格 [RMB]', type: 'candlestick', dataGrouping: { units: groupingUnits, enabled: false }, data: ohlc }
+                { animation: false, name: '价格 [RMB]', type: 'candlestick', dataGrouping: { units: groupingUnits, enabled: false }, data: ohlc },
+                { animation: false, name: '成交量 [GOP]', type: 'column', color: '#4572A7', dataGrouping: { units: groupingUnits, enabled: false }, yAxis: 1, data: volume }
             ]
         });
     }
-
     $(".close_btn").on("click",function(){
         $(".popDiv").hide();
         $(".bg").hide();
     });
-
     $(".timebar").on("click", function() {
         console.log("timebar");
         $(this).addClass("btn_choosed");
@@ -246,7 +270,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             highcharts_Rendering("oneday", groupingUnits);
         }
     });
-    
     api_mkt.homepagekline(function(data) {
         klineapply(data);
     });
@@ -266,7 +289,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             $(".msg_num").css("color", "#cccccc");
         }
     });
-
     var isSubmit = function() {
         var objArr = $(".main input");
         var obj = "";
@@ -326,6 +348,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         var phone = $(".phone_loginarea").val();
         var password = $(".password_loginarea").val();
         var flag = verify(phone, "tel");
+        var authcode_index = $(".authcode_index").val();
+
         if(flag=="请输入正确的手机号码"){
             $(".error_tips_index").show().html("请输入正确的手机号码");
             return;
@@ -337,12 +361,18 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             $(".error_tips_index").show().html("请输入6~12位密码");
             return;
         }
-        if(flag==true&&password!=""&&password.length>=6&&password.length<=12){
+        if(authcode_index==""){
+            $(".autocode_tips").show().html("请输入验证码");
+            return;
+        }
+        if(flag==true&&password!=""&&password.length>=6&&password.length<=12&&authcode_index!=""){
             $(".error_tips_index").hide();
+            $(".autocode_tips").hide();
             console.log("error_tips_index...");
             api_mkt.login({
                 phone: phone,
-                password: password
+                password: password,
+                code: authcode_index
             }, function(data) {
                 if (data.status == 200) {
                     $.cookie('exchangeToken', 'logined');
@@ -365,6 +395,21 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     $(".top_em").html(data.data.phone.substr(0,3)+'****'+data.data.phone.substr(7,4));
                     $("#uidval").html(global_loginuseruid);  //首页uid赋值
 
+                    var whichpage = $.cookie("loginfromwhichpage");
+                    if(whichpage=="two"){
+                        location.href="./tradingfloor.html";
+                    } else if(whichpage=="three"){
+                        location.href="./conditionofassets.html";
+                    } else if(whichpage=="four"){
+                        location.href="./basicinfo.html";
+                    }
+                    // if(ff=="交易大厅"){
+                    //     $.cookie("loginfromwhichpage","two");
+                    // } else if(ff=="财务中心"){
+                    //     $.cookie("loginfromwhichpage","three");
+                    // } else if(ff=="我的账户"){
+                    //     $.cookie("loginfromwhichpage","four");
+                    // }
                     api_mkt.totalAssets({
                     }, function(data) {
                         if (data.status == 200) {
@@ -402,33 +447,31 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 } else if (data.status == 305) {
                     alert(data.msg);
                     login_area_times++;
+                } else if(data.status==400){
+                    alert(data.msg);
                 } else {
                     login_area_times++;
                     $(".error_tips_index").show().html(data.msg);
                 }
             });
         }
-        if (login_area_times > 3) {
-            $("#authcode_page").show();
-            $(".indexpage_loginarea_btn").css("top", "244px");
-            $(".index_bottom_btna").css("top", "280px");
-        } else {
-            $(".indexpage_loginarea_btn").css("top", "180px");
-            $(".index_bottom_btna").css("top", "216px");
-        }
+        // if (login_area_times > 3) {
+        //     $("#authcode_page").show();
+        //     $(".indexpage_loginarea_btn").css("top", "244px");
+        //     $(".index_bottom_btna").css("top", "280px");
+        // } else {
+        //     $(".indexpage_loginarea_btn").css("top", "180px");
+        //     $(".index_bottom_btna").css("top", "216px");
+        // }
     });
-
-
     $(".recharge").on("click",function(){
         alert("充值")
         location.href = "./cnydepositswithdrawal.html";
     });
-
     $(".withdraw").on("click",function(){
         alert("提现");
         //location.href = "";
     });
-    
     var fflat = true;
     $(".eye_i").on("click",function(){
         if(fflat){
@@ -447,7 +490,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             $(".rg_asset_center_none").hide();
         }
     });
-
     $(".loginout").on("click", function() {
         $.cookie('exchangeToken', '');
         $.cookie("global_loginuserphone",'');
@@ -476,5 +518,4 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             location.reload(true);
         },100);
     });
-
 });

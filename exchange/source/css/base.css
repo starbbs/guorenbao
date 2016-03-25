@@ -97,7 +97,7 @@ table {
 .topbar .content {
     max-width: 1200px;
     margin: 0 auto;
-    color: #999999;
+    color: #cccccc;
     height: 100%;
     line-height: 28px;
     font-size:1.2rem;
@@ -146,6 +146,14 @@ table {
     height: 440px;
     width: 100%;
     position: relative;
+}
+
+.login_regist_vertical:after {
+    content: '|';
+    color: #838383;
+    width: 2px;
+    position: relative;
+    bottom: 1px;
 }
 
 .feature {
@@ -426,8 +434,8 @@ table {
     width: 240px;
 }
 .popup_input{
-    height: 28px;
-    line-height: 28px;
+    height: 32px;
+    line-height: 32px;
     width: 220px;
     padding-left: 15px;
 }
@@ -446,10 +454,11 @@ table {
     width: 240px;
 }
 .authcodecls{
-    width: 100px;
-    height: 28px;
-    line-height: 28px;
-    padding-left: 15px;
+    height: 32px;
+    line-height: 32px;
+    width: 51%;
+    float: left;
+    padding-left: 5%;
 }
 .error_tips{
     position: absolute;
@@ -466,23 +475,23 @@ table {
     top: 32px;
 }
 .popup_login_btn{
-        width: 240px;
+    width: 240px;
     height: 36px;
     color: white;
     position: absolute;
-    top: 190px;
+    top: 252px;
     background: #0bbeee;
     border-radius: 5px;
     font-size: 1.4rem;
     text-align: center;
     line-height: 36px;
     cursor: pointer;
-    letter-spacing:6px;
+    letter-spacing: 6px;
 }
 
 .bottom_div{
     position: absolute;
-    top: 226px;
+    top: 290px;
 }
 .freesignup{
     color: #0bbeee;

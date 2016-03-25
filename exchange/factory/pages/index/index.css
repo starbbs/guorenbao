@@ -547,6 +547,7 @@ progress::-webkit-progress-value {
     top: -377px;
     right: 0;
     opacity: 1;
+    font-size:1.2rem;
 }
 
 .loginarea_maxwidth {
@@ -618,13 +619,20 @@ progress::-webkit-progress-value {
 }
 
 .autocode_tips{
-    top: 43px;
+    top: 40px;
     height: 20px;
     line-height: 20px;
+    display:none;
+}
+.loc_img_popup{
+        width: 36%;
+    float: left;
+    margin-left: 4%;
+    padding-top: 0px;
 }
 
 .indexpage_loginarea_btn {
-    top: 180px;
+    top: 244px;
     margin: 0;
     height: 38px;
     border-radius: 6px;
@@ -639,13 +647,12 @@ progress::-webkit-progress-value {
 }
 
 .index_bottom_btna {
-    top: 216px;
+    top: 280px;
     font-size: 1.2rem;
 }
 
 .loginarea a {
     text-decoration: none;
-    padding-top: 10px;
 }
 
 .loginarea b {
@@ -664,6 +671,15 @@ progress::-webkit-progress-value {
     border-left: none;
 }
 
+.loc_img{
+    display: block;
+    padding-top: 0px;
+    width: 38%;
+    float: left;
+    margin-left: 6%;
+    padding-top:0px;
+}
+
 .quoted_price_seventh:after {
     content: none;
 }
@@ -672,11 +688,13 @@ progress::-webkit-progress-value {
     text-decoration: underline;
     float: left;
     color: #0ab6e5;
+    margin-top: 9px;
 }
 
 .loginarea div:nth-child(6) a:nth-child(2) {
     float: right;
     color: #ffffff;
+    margin-top:9px;
 }
 
 .logineduser {

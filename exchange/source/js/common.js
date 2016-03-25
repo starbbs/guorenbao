@@ -60,6 +60,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
         popup_login_times++;
         var phone = $(".phone").val();
         var password = $(".password").val();
+        var authcode_common = $(".authcode_common").val();
         var flag = verify(phone, "tel");
         console.log(flag);
         if(flag=="请输入正确的手机号码"){
@@ -73,11 +74,16 @@ require(['api_mkt','cookie'], function(api_mkt) {
         	$(".error_tips").show().html("请输入6~12位密码");
         	return;
         }
-        if(flag==true&&password!=""&&password.length>=6&&password.length<12){
+        if(authcode_common==""){
+            $(".autocode_tips").show().html("请输入验证码");
+            return;
+        }
+        if(flag==true&&password!=""&&password.length>=6&&password.length<12&&authcode_common!=""){
         	$(".error_tips").hide();
         	api_mkt.login({
 	            phone: phone,
-	            password: password
+	            password: password,
+                code:authcode_common
 	        }, function(data) {
 	            if (data.status == 200) {
 	                $.cookie('exchangeToken', 'logined');
@@ -136,19 +142,21 @@ require(['api_mkt','cookie'], function(api_mkt) {
 
 	            } else if (data.status == 305) {
 	                alert(data.msg);
-	            } else {
+	            } else if (data.status==400) {
+                    $(".autocode_tips").show().html(data.msg);
+                } else {
 	            	$(".error_tips").show().html(data.msg);
 	            }
 	        });
         }
-        if (popup_login_times > 3) {
-            $("#authcode").show();
-            $(".popup_login_btn").css("top", "250px");
-            $(".bottom_div").css("top", "284px");
-        } else {
-            $(".popup_login_btn").css("top", "190px");
-            $(".bottom_div").css("top", "226px");
-        }
+        // if (popup_login_times > 3) {
+        //     $("#authcode").show();
+        //     $(".popup_login_btn").css("top", "250px");
+        //     $(".bottom_div").css("top", "284px");
+        // } else {
+        //     $(".popup_login_btn").css("top", "190px");
+        //     $(".bottom_div").css("top", "226px");
+        // }
     });
     $(".global_loginbtn").on('click', function() {
         $(".popDiv").show();

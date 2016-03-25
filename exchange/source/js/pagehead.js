@@ -1,4 +1,6 @@
 define('mkt_pagehead', ['api_mkt'], function(api_mkt) {
+
+
 	var price = {
 		interval: 1000,
 		timer: null,

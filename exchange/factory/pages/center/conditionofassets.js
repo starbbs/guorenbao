@@ -1,7 +1,8 @@
-require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
+require(['api_mkt','mkt_info','mkt_pagehead','cookie'], function(api_mkt,mkt_info,mkt_pagehead) {
 	//console.log(api_mkt);
 	//console.log(mkt_info);
-	//mkt_info.get();
+	mkt_info.get();
+    mkt_pagehead.get();
     $(function(){
         var flag = true;
         $('.messagenum_area').on("click",function(){

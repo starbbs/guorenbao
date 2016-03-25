@@ -117,33 +117,33 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         if (whichday == "one") {
             for (var i = 0; i < onem.length; i++) {
                 ohlc.push([onem[i][0], onem[i][2], onem[i][3], onem[i][4], onem[i][5]]);
-                //volume.push([onem[i][0], onem[i][1]]);
+                volume.push([onem[i][0], onem[i][1]]);
             }
         } else if (whichday == "five") {
             for (var i = 0; i < fivem.length; i++) {
                 ohlc.push([fivem[i][0], fivem[i][2], fivem[i][3], fivem[i][4], fivem[i][5]]);
-                //volume.push([fivem[i][0], fivem[i][1]]);
+                volume.push([fivem[i][0], fivem[i][1]]);
             }
         } else if (whichday == "fivteen") {
             for (var i = 0; i < fifteenm.length; i++) {
                 ohlc.push([fifteenm[i][0], fifteenm[i][2], fifteenm[i][3], fifteenm[i][4], fifteenm[i][5]]);
-                //volume.push([fifteenm[i][0], fifteenm[i][1]]);
+                volume.push([fifteenm[i][0], fifteenm[i][1]]);
             }
         } else if (whichday == "thirty") {
             for (var i = 0; i < thirtym.length; i++) {
                 ohlc.push([thirtym[i][0], thirtym[i][2], thirtym[i][3], thirtym[i][4], thirtym[i][5]]);
-                //volume.push([thirtym[i][0], thirtym[i][1]]);
+                volume.push([thirtym[i][0], thirtym[i][1]]);
             }
         } else if (whichday == "sixty") {
             for (var i = 0; i < sixtym.length; i++) {
                 ohlc.push([sixtym[i][0], sixtym[i][2], sixtym[i][3], sixtym[i][4], sixtym[i][5]]);
                 console.log(sixtym[i][1]);
-                //volume.push([sixtym[i][0], sixtym[i][1]]);
+                volume.push([sixtym[i][0], sixtym[i][1]]);
             }
         } else if (whichday == "oneday") {
             for (var i = 0; i < oned.length; i++) {
                 ohlc.push([oned[i][0], oned[i][2], oned[i][3], oned[i][4], oned[i][5]]);
-                //volume.push([oned[i][0], oned[i][1]]);
+                volume.push([oned[i][0], oned[i][1]]);
             }
         }
         //console.log(ohlc);
@@ -171,8 +171,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             tooltip: { xDateFormat: '%Y-%m-%d %H:%M %A', color: '#f0f', changeDecimals: 4, borderColor: '#058dc7' },
             plotOptions: { candlestick: { color: '#e55600', upColor: '#669900' } },
             yAxis: [
-                { labels: { style: { color: '#e55600' } }, title: { text: '价格 [RMB]', style: { color: '#e55600' } }, height: 160, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true },
-                { labels: { style: { color: '#4572A7' } }, title: { text: '成交量 [GOP]', style: { color: '#4572A7' } }, offset: 0, top: 280, height: 34, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true }
+                 { labels: { style: { color: '#4572A7' } }, title: { text: '成交量 [GOP]', style: { color: '#4572A7' } }, offset: 0, top: 280, height: 34, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true },
+                 { labels: { style: { color: '#e55600' } }, title: { text: '价格 [RMB]', style: { color: '#e55600' } }, height: 160, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true }
             ],
             /*tooltip: { xDateFormat: '%Y-%m-%d %H:%M %A', color: '#f0f', changeDecimals: 4, borderColor: '#058dc7' },*/
             tooltip: {
@@ -180,7 +180,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     // console.log(this.points[0]);
                     // console.log(this.points[0].point)
                     var s = Highcharts.dateFormat('<span> %Y-%m-%d %H:%M:%S</span>', this.x);
-                    s += "成交数量"+this.points[0].total;
+                    s += "成交数量"+this.points[1].y;
                     s += '<br />开盘:<b>' + this.points[0].point.open + '</b><br />最高:<b>' + this.points[0].point.high + '</b><br />最低:<b>' + this.points[0].point.low + '</b><br />收盘:<b>' + this.points[0].point.close + '</b>';
                     return s;
                 },
