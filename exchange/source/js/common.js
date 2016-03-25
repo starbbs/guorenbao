@@ -1,8 +1,6 @@
 require(['api_mkt','cookie'], function(api_mkt) {
     var popup_login_times = 0;
     var exchangeToken = $.cookie('exchangeToken');
-    // alert(exchangeToken)
-    // console.log(exchangeToken);
     var whether_auth = false;
     $("#bg").width($(document).width());
     $('#bg').height($(document).height());
@@ -167,37 +165,25 @@ require(['api_mkt','cookie'], function(api_mkt) {
         $(".bg").hide();
     });
     $("#logoutbtn").on("click", function() {
-        //console.log("xuletian");
-    	//$.cookie('exchangeToken','');
-    	//console.log("haha");
-    	//console.log($.cookie('exchangeToken'));
-        
         $.cookie('exchangeToken', '');
         $.cookie("global_loginuserphone",'');
         $.cookie("global_loginusername",'');
         $.cookie("global_loginuseruid",'');
-
-
         $.cookie("totalAssets","");
 	    $.cookie("totalNuts","");
-
 	    $.cookie("mine_one","");
 	    $.cookie("mine_two","");
 	    $.cookie("mine_three","");
 	    $.cookie("mine_four","");
-        
         //退出登录
         api_mkt.userlogout({
-
         }, function(data) {
             if (data.status == 200) {
                 alert(data.msg);
             } else if (data.status == 305) {
                 alert(data.msg);
             } else {
-            	alert("dengluerror");
             	alert(data.msg);
-            	//$(".error_tips").show().html(data.msg);
             }
         });
         setTimeout(function(){

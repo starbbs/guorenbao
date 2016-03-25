@@ -31,14 +31,14 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     });
 
     var whether_auth = false;
-    if (!exchangeToken) {
+    if (!exchangeToken) {          //没有token 即未登录
         $(".login_regist").show(); //显示登录注册按钮
-        $('.loginarea').show();
-    } else {
-        $(".login_regist").hide();
-        $(".login_header").show();
-        $(".loginarea").hide();
-        $(".afterlogin").show();
+        $('.loginarea').show();    //显示页面中的登录区块（非弹出）
+    } else {                       //已经登录
+        $(".login_regist").hide(); //隐藏登录注册按钮
+        $(".login_header").show(); //顶部右上角的轮询信息
+        $(".loginarea").hide();    //隐藏页面中的登录区块
+        $(".afterlogin").show();   //首页的总资产区块显示
         $(".top_em").html(global_loginuserphone.substr(0,3)+'****'+global_loginuserphone.substr(7,4));
         console.log("------index-------"+global_loginuserphone);
         console.log("------index-------"+global_loginusername);
@@ -48,15 +48,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         api_mkt.realAuth({
         }, function(data) {
             if (data.status == 200) {
-                //alert(data.msg);
-                whether_auth = true;
+                whether_auth = true;  //已经实名认证
             } else if (data.status == 305) {
-                //alert(data.msg);
             } else if(data.status == 400){
-                //alert(data.msg);
                 whether_auth = false;
             } else {
-                //alert(data.msg);
             }
         });
         if(global_loginusername!=""&&global_loginusername){
@@ -106,8 +102,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     var sixtym;
     var oned;
     var klineapply = function(data) {
-        console.log(".....klineapply.....")
-        console.log(data);
         onem = JSON.parse(data['1m']);
         fivem = JSON.parse(data['5m']);
         fifteenm = JSON.parse(data['15m']);
@@ -249,7 +243,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     });
     var gethomepagekline = function(){
         api_mkt.homepagekline(function(data) {
-            console.log(data)
+            console.log(data);
             klineapply(data);
         });
     }
@@ -332,7 +326,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         var password = $(".password_loginarea").val();
         var flag = verify(phone, "tel");
         //var authcode_index = $(".authcode_index").val();
-
         if(flag=="请输入正确的手机号码"){
             $(".error_tips_index").show().html("请输入正确的手机号码");
             return;
