@@ -17,8 +17,9 @@
 		//console.log(JSON.parse(haha['order'][0]));
 		//console.log(JSON.parse(haha['order'][0]).price);
 		
-		var thelatestprice = JSON.parse(haha['order'][0]).price;
-		$('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
+		//var thelatestprice = JSON.parse(haha['order'][0]).price;
+		//$('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
+		
 		var turnover = Number(haha['24Total']).toFixed(2);
 		$('#turnover').html(turnover);  //页面顶部 24小时成交量
 
@@ -41,22 +42,24 @@
 		$('#pricechangeratio').html(unknow.toFixed(2)+"%");  //涨跌幅
         var bid_history_list_html = "";
         var orderlist = haha['order'];
-        for (var i = 0; i < orderlist.length; i++) {
-        	var orderliststr = JSON.parse(orderlist[i]);
-        	var timestr = orderliststr.time;
-        	var buyorsell = orderliststr.type;
-        	if(buyorsell=="BUY"){
-        		buyorsell = "买入";
-        		sell_color = "buy_color";
-        	}
-        	if(buyorsell=="SELL"){
-        		buyorsell = "卖出";
-        		sell_color = "sell_color";
-        	}
-        	bid_history_list_html +="<div class='table_row'>"+
-        	"<div class='table_con'>"+timestr+"</div><div class='table_con "+sell_color+"'>"+buyorsell+"</div>"+
-        	"<div class='table_con'>"+orderliststr.price+"</div><div class='table_con'>"+orderliststr.num+"</div>"+
-        	"</div>";
+        if(orderlist.length!=0){
+        	for (var i = 0; i < orderlist.length; i++) {
+	        	var orderliststr = JSON.parse(orderlist[i]);
+	        	var timestr = orderliststr.time;
+	        	var buyorsell = orderliststr.type;
+	        	if(buyorsell=="BUY"){
+	        		buyorsell = "买入";
+	        		sell_color = "buy_color";
+	        	}
+	        	if(buyorsell=="SELL"){
+	        		buyorsell = "卖出";
+	        		sell_color = "sell_color";
+	        	}
+	        	bid_history_list_html +="<div class='table_row'>"+
+	        	"<div class='table_con'>"+timestr+"</div><div class='table_con "+sell_color+"'>"+buyorsell+"</div>"+
+	        	"<div class='table_con'>"+orderliststr.price+"</div><div class='table_con'>"+orderliststr.num+"</div>"+
+	        	"</div>";
+	        }
         }
         $("#table_three").html(bid_history_list_html);
 	}

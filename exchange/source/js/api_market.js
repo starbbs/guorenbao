@@ -1,6 +1,6 @@
 define('api_mkt', ['cookie'], function() {
 	//var basePath = 'http://localhost/';
-	var basePath = 'http://10.23.1.155/';
+	var basePath = 'http://localhost/';
 	//var basePath = "http://172.16.33.3:8080/";
 	//http://ip:port/login/registerBefore
 	//var basePath = 'http://ip:port/login/registerBefore';

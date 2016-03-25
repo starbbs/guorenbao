@@ -270,9 +270,15 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             highcharts_Rendering("oneday", groupingUnits);
         }
     });
-    api_mkt.homepagekline(function(data) {
-        klineapply(data);
-    });
+    var gethomepagekline = function(){
+        api_mkt.homepagekline(function(data) {
+            console.log(data)
+            klineapply(data);
+        });
+    }
+    gethomepagekline();
+    window.setInterval(gethomepagekline, 10000);
+
     var flag = true;
     $('.messagenum_area').on("click", function() {
         if (flag) {
@@ -522,4 +528,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             location.reload(true);
         },100);
     });
+
+
 });
+
+
+    

@@ -36,9 +36,9 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
         for (var i = 0; i < list_buy.length; i++) {
         	listbuy_arry.push(list_buy[i][1]);
         }
-        console.log(listsell_array); //
-        console.log(Math.max.apply(null, listbuy_arry));     //求买入最大值
-        console.log(Math.max.apply(null, listsell_array));   //求卖出最大值
+        //console.log(listsell_array); //
+        //console.log(Math.max.apply(null, listbuy_arry));     //求买入最大值
+        //console.log(Math.max.apply(null, listsell_array));   //求卖出最大值
         for (var i = 0; i < list_buy.length; i++) {
         	buyaprice = list_buy[0][0];
         	buy_list_html += "<div class='table_row'>"+
