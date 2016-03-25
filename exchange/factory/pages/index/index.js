@@ -345,7 +345,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     };
     var login_area_times = 0;
     $(".indexpage_loginarea_btn").on("click", function() {
-        alert("asdfjkl")
         var phone = $(".phone_loginarea").val();
         var password = $(".password_loginarea").val();
         var flag = verify(phone, "tel");

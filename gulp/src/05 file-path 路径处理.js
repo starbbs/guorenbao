@@ -25,7 +25,7 @@ var path = require('path');
 module.exports = function(url) {
 	url = path.normalize(url).replace(/\\/g, '/');
   	if (/\.\w+$/.test(url)) { // 所有文件
-		var filename = url.match(/\/([\*\w\-\.]+)$/)[1]; // 文件名(带后缀)
+		var filename = url.match(/\/([\*\w\-\.\s]+)$/)[1]; // 文件名(带后缀)
 		var pathname = url.replace('/' + filename, ''); // 路径名
 		var extname = filename.match(/\.(\w+)$/)[1]; // 后缀名
 		var dirname = pathname.match(/\/([\w\-]+)$/)[1]; // 文件夹名
