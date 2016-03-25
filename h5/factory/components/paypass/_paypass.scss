@@ -7,18 +7,12 @@
 
 .paypass {
 
+	$height: 46px;
 	$width: 290px;
-	$p2: ''; // 第二种效果
 
-	@include square($width, 46px);
+	@include square($width, $height);
 	margin: 0 auto;
 	position: relative;
-	overflow: hidden;
-
-	&-2 {
-		$p2: & + '';
-		overflow: hidden;
-	}
 
 	&-title {
 		text-align: center;
@@ -27,15 +21,6 @@
 		margin-top: 70px;
 		margin-bottom: 20px;
 	}
-	&-input {
-		@include atlwh(0, -100%, 200%, 100%); // ios光标浮现
-		z-index: 100;
-		opacity: 0; // ios光标浮现
-		font-size: 0; // ios光标浮现
-		color: transparent; // ios光标浮现
-		line-height: 50px; // ios光标浮现
-		text-indent: -20px; // ios光标浮现
-	}
 	&-box {
 		@extend %afull;
 		display: flex;
@@ -43,7 +28,8 @@
 		box-sizing: border-box;
 		border-radius: $g-radius;
 		background-color: $g-white;
-		#{$p2} & {
+		overflow: hidden;
+		&.for-dialog {
 			border-radius: 0;
 			border-color: #8c8c8c;
 		}
@@ -68,8 +54,18 @@
 			}
 		}
 	}
+	&-input {
+		@include atlwh(0, -100%, 200%, 100%); // ios光标浮现
+		z-index: 100;
+		opacity: 0; // ios光标浮现
+		font-size: 0; // ios光标浮现
+		color: transparent; // ios光标浮现
+		line-height: $height; // ios光标浮现
+		text-indent: -20px; // ios光标浮现
+	}
 	&-button {
-		margin-top: $g-margin-top-button;
+		@extend %atlwh;
+		margin-top: $g-margin-top-button + $height;
 	}
 }
 

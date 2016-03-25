@@ -9,7 +9,8 @@ define('h5-paypass', ['check'], function(check) {
 			var input = $(native);
 			if (native._hasBindPaypassInput) { return; }
 			native._hasBindPaypassInput = true;
-			var items = input.next().children();
+			// var items = input.next().children();
+			var items = input.siblings();
 			native.paypassClear = function() {
 				native.value = '';
 				items.removeClass('on');
