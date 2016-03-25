@@ -50,10 +50,10 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 var html = [];
                 for(var i=0; i<5;i++){
                     html.push("<tr>");                                        
-                    html.push("<td>"+ data.data.list[PageNum+i].updateDate +"</td>");
-                    html.push("<td>"+ data.data.list[PageNum+i].bank +"</td>");
-                    html.push("<td>"+ data.data.list[PageNum+i].money +"</td>");
-                    html.push("<td class='status'>"+ data.data.list[PageNum+i].status +"</td>");
+                    html.push("<td>"+ data.data.list[i].updateDate +"</td>");
+                    html.push("<td>"+ data.data.list[i].bank +"</td>");
+                    html.push("<td>"+ data.data.list[i].money +"</td>");
+                    html.push("<td class='status'>"+ data.data.list[i].status +"</td>");
                     html.push("<td class='checkDeal'>查看此笔充值单</td>");
                     html.push("</tr>");
                     $(".cnyInput").html("");  //添加前清空 
@@ -80,10 +80,10 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     var html = [];
                     for(var i=0; i<10;i++){
                         html.push("<tr>");                                        
-                        html.push("<td>"+ data.data.list[PageNum+i].updateDate +"</td>");
-                        html.push("<td>"+ data.data.list[PageNum+i].bank +"</td>");
-                        html.push("<td>"+ data.data.list[PageNum+i].money +"</td>");
-                        html.push("<td class='status'>"+ data.data.list[PageNum+i].status +"</td>");
+                        html.push("<td>"+ data.data.list[i].updateDate +"</td>");
+                        html.push("<td>"+ data.data.list[i].bank +"</td>");
+                        html.push("<td>"+ data.data.list[i].money +"</td>");
+                        html.push("<td class='status'>"+ data.data.list[i].status +"</td>");
                         html.push("<td class='checkDeal'>查看此笔充值单</td>");
                         html.push("</tr>");
                         $(".cnyInput").html("");  //添加前清空 
@@ -154,11 +154,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 var html = [];
                 for(var i=0; i<5;i++){
                     html.push("<tr>");                                        
-                    html.push("<td>"+ data.data.list[PageNum+i].updateDate +"</td>");
-                    html.push("<td>"+ data.data.list[PageNum+i].bank +"</td>");
-                    html.push("<td>"+ data.data.list[PageNum+i].pay +"</td>");
-                    html.push("<td>"+ data.data.list[PageNum+i].money-pay +"</td>");
-                    html.push("<td class='cnyWithdrawals'>"+ data.data.list[PageNum+i].status+ "</td>");
+                    html.push("<td>"+ data.data.list[i].updateDate +"</td>");
+                    html.push("<td>"+ data.data.list[i].bank +"</td>");
+                    html.push("<td>"+ data.data.list[i].pay +"</td>");
+                    html.push("<td>"+ data.data.list[i].money-pay +"</td>");
+                    html.push("<td class='cnyWithdrawals'>"+ data.data.list[i].status+ "</td>");
                     html.push("</tr>");
                     $(".cnyOutput").html("");  //添加前清空 
                     $(".cnyOutput").append(html.join(""));
@@ -183,11 +183,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     var html = [];
                     for(var i=0; i<10;i++){
                         html.push("<tr>");                                        
-                        html.push("<td>"+ data.data.list[PageNum+i].updateDate +"</td>");
-                        html.push("<td>"+ data.data.list[PageNum+i].bank +"</td>");
-                        html.push("<td>"+ data.data.list[PageNum+i].pay +"</td>");
-                        html.push("<td>"+ data.data.list[PageNum+i].money-pay +"</td>");
-                        html.push("<td class='cnyWithdrawals'>"+ data.data.list[PageNum+i].status+ "</td>");
+                        html.push("<td>"+ data.data.list[i].updateDate +"</td>");
+                        html.push("<td>"+ data.data.list[i].bank +"</td>");
+                        html.push("<td>"+ data.data.list[i].pay +"</td>");
+                        html.push("<td>"+ data.data.list[i].money-pay +"</td>");
+                        html.push("<td class='cnyWithdrawals'>"+ data.data.list[i].status+ "</td>");
                         html.push("</tr>");
                         $(".cnyOutput").html("");  //添加前清空 
                         $(".cnyOutput").append(html.join(""));

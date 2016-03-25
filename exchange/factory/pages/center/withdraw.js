@@ -2,6 +2,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 	//console.log(api_mkt);
 	//console.log(mkt_info);
 	//mkt_info.get();
+    $('.three').hide();
         $('.rmbxh').on('click',function(){
             $(this).addClass('bottomon');
             $('.rmbtx').removeClass('bottomon');
@@ -189,7 +190,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             $('.bankName').addClass('CMB');
                         }else if(bankName == '中国邮政储蓄银行'){
                             $('.bankName').addClass('PSBC');
-                        }else(bankName == '中国农业银行'){
+                        }else if(bankName == '中国农业银行'){
                             $('.bankName').addClass('ABC');
                         }
                     } else {
@@ -341,8 +342,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
     }, function(data) {
         if (data.status == 200) {
             console.log(data);
-            $('.two').css('display','none');
-            $('.three').css('display','flex');
+            $('.one').css('display','none');
+            var auth_name = $.cookie("global_loginusername");
             //填写表单-生成银行卡 
             $('.bankName').text(''); //添加对应银行的logo图片
             var bankAccount = $('#bank-idcard').val();
@@ -353,20 +354,26 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             var subbank = $('#subbank').val();
             $('.bankIdCard-address').html(bankProvince+bankCity+subbank);
 
+            var num = new String(data.data.list[0].acnumber);
+            var node = $('<div></div>');
+            var nodeList ='<input type="radio" name="checkBankCard" class="checkBankCard" />'+'<div class="bankIdCard"></div>';
+            node.html(nodeList);
+            node.insertBefore($('.addBankCard'));
+            $('.bankIdCard').text('尾号：'+num.substr(num.length-4));
             //判断显示银行logo
-            var bankName = $('#bank').val();
+            var bankName = new String(data.data.list[0].bank);
             if(bankName == '中国工商银行'){
-                $('.bankName').addClass('ICBC');
+                $('.bankIdCard').addClass('ICBC');
             }else if(bankName == '中国建设银行'){
-                $('.bankName').addClass('CBC');
+                $('.bankIdCard').addClass('CBC');
             }else if(bankName == '交通银行'){
-                $('.bankName').addClass('BC');
+                $('.bankIdCard').addClass('BC');
             }else if(bankName == '招商银行'){
-                $('.bankName').addClass('CMB');
+                $('.bankIdCard').addClass('CMB');
             }else if(bankName == '中国邮政储蓄银行'){
-                $('.bankName').addClass('PSBC');
-            }else(bankName == '中国农业银行'){
-                $('.bankName').addClass('ABC');
+                $('.bankIdCard').addClass('PSBC');
+            }else if(bankName == '中国农业银行'){
+                $('.bankIdCard').addClass('ABC');
             }
         } else {
             console.log(err);
