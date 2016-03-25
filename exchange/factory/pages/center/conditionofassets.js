@@ -1,9 +1,8 @@
-require(['api_mkt','mkt_info','mkt_pagehead','cookie'], function(api_mkt,mkt_info,mkt_pagehead) {
+require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info,mkt_pagehead) {
 	//console.log(api_mkt);
 	//console.log(mkt_info);
 	mkt_info.get();
-    mkt_pagehead.get();
-    $(function(){
+    
         var flag = true;
         $('.messagenum_area').on("click",function(){
             if(flag){
@@ -54,27 +53,26 @@ require(['api_mkt','mkt_info','mkt_pagehead','cookie'], function(api_mkt,mkt_inf
         });
 
         //接口10 账户明细（带分页）
-        $(".moreCheck").click(function(){
-            api_mkt.sendCode({
-                    'page':1,
-                    'pageSize':num
+        $('.moreCheck').click(function(){
+            api_mkt.billList-page({
+                    'pageNo':1,
+                    'pageSize':10
                 },function(data) {
                 if (data.status == 200) {
                     console.log(data);
-                    var PageNum = 0; //0当前为第一页
-                    var num = now*10 < data.data.list.length ? 10 : data.data.list.length - (now-1)*10;
+                    var PageNum = 0; //0当前为第一页                    
                     var html = [];
-                    for(var i=0; i<num;i++){
+                    for(var i=0; i<10;i++){
                         html.push("<tr>");                                        
-                        html.push("<td>"+ data.data.list[PageNum+i].createDate +"</td>");
-                        html.push("<td class='operType'>"+ data.data.list[PageNum+i].operType +"</td>");
-                        html.push("<td>"+ data.data.list[PageNum+i].cnyNumber +"</td>");
-                        html.push("<td>"+ data.data.list[PageNum+i].cnyBalance +"</td>");
-                        html.push("<td>"+ data.data.list[PageNum+i].gopNumber +"</td>");
-                        html.push("<td>"+ data.data.list[PageNum+i].gopBalance +"</td>");
+                        html.push("<td>"+ data.data.list[i].createDate +"</td>");
+                        html.push("<td class='operType'>"+ data.data.list[i].operType +"</td>");
+                        html.push("<td>"+ data.data.list[i].cnyNumber +"</td>");
+                        html.push("<td>"+ data.data.list[i].cnyBalance +"</td>");
+                        html.push("<td>"+ data.data.list[i].gopNumber +"</td>");
+                        html.push("<td>"+ data.data.list[i].gopBalance +"</td>");
                         html.push("</tr>");
-                        $(".aside-table-tbody").html("");  //添加前清空 
-                        $(".aside-table-tbody").append(html.join(""));
+                        $(".new").html("");  //添加前清空 
+                        $(".new").append(html.join(""));
 
                         //过滤内容显示不同颜色
                         $(".operType").filter(":contains('买入')").css("color","red");
@@ -85,8 +83,6 @@ require(['api_mkt','mkt_info','mkt_pagehead','cookie'], function(api_mkt,mkt_inf
                 }
             });
         });
-
-    });
 
 	
 });

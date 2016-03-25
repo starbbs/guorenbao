@@ -38,8 +38,13 @@ require(['api_mkt','cookie'], function(api_mkt) {
 				'idNumber':$('#realAuthId').val()
 			},function(data) {
 				console.log(data);
-		        if(data.status == 200){
-		        	alert('success');               
+		        if(data.status == 200 || data.status == 304){
+		        	$('.authenticated').show();
+			    	$('.unautherized').hide();
+			    	$('#username_value').text($('#realAuthName').val()); 
+			    	var num = $('#realAuthId').val();
+					var numId = num.replace(num.slice(6,14),'********');		        	
+			    	$('#identificode_value').text(numId);   
 		        }else{
 		        	alert('err');
 		        }
