@@ -1,7 +1,7 @@
-require(['api_mkt','mkt_info','mkt_pagehead','cookie'], function(api_mkt,mkt_info) {
+require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 	//console.log(api_mkt);
 	//console.log(mkt_info);
-	mkt_pagehead.get();
+	//mkt_pagehead.get();
         $('.rmbxh').on('click',function(){
             $(this).addClass('bottomon');
             $('.rmbtx').removeClass('bottomon');

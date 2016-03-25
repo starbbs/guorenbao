@@ -552,7 +552,9 @@
 }
 .addBankCard{
     color:#0bbeee;
-    z-index:2;
+    height: 50px;
+    line-height: 50px;
+    padding-left:20px;
 }
 
 .handlingcharget em{
@@ -739,20 +741,12 @@ a {
 
 /*人民币提现管理 果仁提现管理*/
 .bankIdCard{
-    width:288px;
-    height:130px;
+    width:230px;
+    height:50px;
+    line-height: 50px;
     border:1px solid #ccc;
-    border-radius: 6px;
-    position: relative;
-}
-.bankIdCard-end{
-    margin-right:0px;
-}
-.bankIdCard-bankLogoName{
-    margin:16px;
-    height:20px;
-    line-height: 20px;
-    padding-left:25px;
+    float: left;
+    padding-left:133px;
 }
 .ICBC{
     background: url(../images/ICBC.png) no-repeat top left;
@@ -772,68 +766,12 @@ a {
 .PSBC{
     background: url(../images/PSBC.png) no-repeat top left;
 }
-.bankIdCard-Code{
-    position: absolute;
-    left:130px;
-    top:20px;
-}
-.bankIdCard-CardAndBg{
-    position: absolute;
-    left:213px;
-    top:16px;
-    width:56px;
-    height:20px;
-    background-image: url(../images/withdraw-bankBg.png);
-    padding-left:13px;
-    padding-top:4px;
-    color:#fff;
-}
-.bankIdCard-hr{
-    width:275px;
-    position: absolute;
-    top:47px;
-    left:6px;
-    border:1px dashed #ccc;
-}
-.bankIdCard-Name{
-    position: absolute;
-    left:18px;
-    top:70px;
-    width:156px;
-    height:20px;
-    color:#999;
-}
-.bankIdCard-address{
-    position: absolute;
-    left:18px;
-    top:92px;
-    width:255px;
-    line-height:19px;
-    color:#999;
-}
-.bankIdCard-add{
-    text-align: center;
-    line-height: 50px;
-    margin-top:30px;
-    font-size:1.5rem;
-    cursor: pointer;
-    width:300px;
-}
-.bankIdCard-addCard{
-    border:none;
-    margin-right: 0px;
-}
-.bankIdCard-add p{
-    font-size:5rem;
-    font-weight: bold;
-    color:#0BBEEE;
-}
 .Withdrawal{
     width:100%;
 }
 
 .Withdrawal td{
-    padding:8px;
+    height:50px;
     vertical-align: middle;
 }
 .td-top{

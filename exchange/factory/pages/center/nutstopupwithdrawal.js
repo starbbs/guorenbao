@@ -2,7 +2,7 @@ require(['api_mkt','mkt_info','mkt_pagehead','cookie'], function(api_mkt,mkt_inf
 	//console.log(api_mkt);
 	//console.log(mkt_info);
 	//mkt_info.get();
-    mkt_pagehead.get();
+    //mkt_pagehead.get();
     $('.rmbxh').on('click',function(){
         $(this).addClass('bottomon');
         $('.rmbtx').removeClass('bottomon');
@@ -27,7 +27,7 @@ require(['api_mkt','mkt_info','mkt_pagehead','cookie'], function(api_mkt,mkt_inf
     //暂无真实接口-为出现效果,暂时放这里,有接口时,删除 -结束
     
     //果仁充值 
-    $.ajax({
+    /*$.ajax({
         url: "http://127.0.0.1/1.json",
         type:"post",
         dataType: "json",
@@ -108,7 +108,7 @@ require(['api_mkt','mkt_info','mkt_pagehead','cookie'], function(api_mkt,mkt_inf
         error:function(err){
             console.log('财务中心-果仁提现表格，加载失败。');
         }
-    });
+    });*/
 
 	
 });
