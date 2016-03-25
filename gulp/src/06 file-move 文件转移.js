@@ -44,6 +44,7 @@ module.exports = function(input, output, options) {
 		var baseFile = filePath(filePaths[0]);
 		var baseUrl = baseFile.type === 'dir' ? baseFile.origin : baseFile.path; // 根路径
 		var files = filePaths.filter(function(path) { // 文件筛选
+			// console.log(path)
 			path = filePath(path);
 			// 指定文件类型
 			if (options.type === path.type) { return options.fileReg ? options.fileReg.test(path.filename) : true; }

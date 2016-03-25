@@ -345,10 +345,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     };
     var login_area_times = 0;
     $(".indexpage_loginarea_btn").on("click", function() {
+        alert("asdfjkl")
         var phone = $(".phone_loginarea").val();
         var password = $(".password_loginarea").val();
         var flag = verify(phone, "tel");
-        var authcode_index = $(".authcode_index").val();
+        //var authcode_index = $(".authcode_index").val();
 
         if(flag=="请输入正确的手机号码"){
             $(".error_tips_index").show().html("请输入正确的手机号码");
@@ -361,18 +362,21 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             $(".error_tips_index").show().html("请输入6~12位密码");
             return;
         }
-        if(authcode_index==""){
-            $(".autocode_tips").show().html("请输入验证码");
-            return;
-        }
-        if(flag==true&&password!=""&&password.length>=6&&password.length<=12&&authcode_index!=""){
+        // if(authcode_index==""){
+        //     $(".autocode_tips").show().html("请输入验证码");
+        //     return;
+        // }
+        
+        //if(flag==true&&password!=""&&password.length>=6&&password.length<=12&&authcode_index!=""){
+        if(flag==true&&password!=""&&password.length>=6&&password.length<=12){
             $(".error_tips_index").hide();
             $(".autocode_tips").hide();
             console.log("error_tips_index...");
             api_mkt.login({
                 phone: phone,
-                password: password,
-                code: authcode_index
+                password: password
+                // ,
+                // code: authcode_index
             }, function(data) {
                 if (data.status == 200) {
                     $.cookie('exchangeToken', 'logined');
@@ -451,6 +455,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     alert(data.msg);
                 } else {
                     login_area_times++;
+                    alert("asfasffads")
                     $(".error_tips_index").show().html(data.msg);
                 }
             });
