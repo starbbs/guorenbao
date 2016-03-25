@@ -24,8 +24,8 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iscrollLoading
 	};
 	var timerGetList = null;
 	var originList = [];
-	
-	
+
+
 	iscrollLoading.upLoadingData = function(callback) { // 获取上拉列表
 		api.billList({
 			gopToken: gopToken,
@@ -47,6 +47,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iscrollLoading
 			}
 		});
 	};
+	//上拉 下拉的函数
 	iscrollLoading.downLoadingData = function(callback) { // 获取列表
 		api.billList({
 			gopToken: gopToken,
@@ -67,38 +68,37 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iscrollLoading
 				$.alert(data.msg);
 			}
 		});
-	};	
-	iscrollLoading.scrollMove = function(){//滑动时候
+	};
+	iscrollLoading.scrollMove = function() { //滑动时候
 		vm.loadingWord = '松开刷新';
 		vm.uploading = true;
-	};	
-	iscrollLoading.beforeScrollEndTrue = function(){ //手指移开前 满足条件
+	};
+	iscrollLoading.beforeScrollEndTrue = function() { //手指移开前 满足条件
 		originList = [];
 		vm.uploading = false;
 		if (vm.uploading) {
 			return;
 		}
 		vm.loadingWord = '正在加载';
-		vm.uploading = true;		
-		iscrollLoading.upLoadingData();	
-		console.log('向上刷新');			
+		vm.uploading = true;
+		iscrollLoading.upLoadingData();
+		console.log('向上刷新');
 	};
-	iscrollLoading.beforeScrollEndFalse = function(){ //手指移开前 不满足条件
-		setTimeout(function(){
+	iscrollLoading.beforeScrollEndFalse = function() { //手指移开前 不满足条件
+		setTimeout(function() {
 			vm.uploading = false;
-		},200);		
+		}, 200);
 	};
-
-	iscrollLoading.scrollEnd = function(){//滑动完成后
+	iscrollLoading.scrollEnd = function() { //滑动完成后
 		console.log('向下刷新');
-		if(originList.length < size){
+		if (originList.length < size) {
 			vm.loading = true;
 			vm.loadingWord = '大大, 已经没有了...';
 			setTimeout(function() {
 				vm.loading = false;
 			}, 1000);
-		}else{
-			vm.loadingWord  = '正在加载';
+		} else {
+			vm.loadingWord = '正在加载';
 			if (vm.loading) {
 				return;
 			}
@@ -114,10 +114,12 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iscrollLoading
 
 			iscrollLoading.downLoadingData();
 		}
-	};	
+	};
 
-
-	var accountScroll = iscrollLoading.set('account', {}); //此处的{}可以替换插件里面的
+	var accountScroll = iscrollLoading.set('account', {
+		userUp: true,
+		userDown: true
+	}); //此处的{}可以替换插件里面的
 
 	var now = new Date(); // 当前时间
 	var nowMonth = now.getMonth(); // 当前月份
