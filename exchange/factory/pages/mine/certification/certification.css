@@ -247,16 +247,8 @@
     color: #424242;
 }
 
-.rg_lf_label div:first-child{
-    margin-bottom:16px;
-}
-
-.rg_rg_input > div:first-child{
-    height:48px;
-}
-
 .regist_input_div{
-    height:56px;
+    height:58px;
     position:relative;
 }
 .regist_input_div div{
@@ -272,7 +264,7 @@
     color: #ff6600;
 }
 .regist_rg_input{
-        height: 32px;
+    height: 32px;
     width: 240px;
     border: 1px solid #d6d6d6;
     padding-left: 14px;

@@ -7,7 +7,6 @@
     <link rel="stylesheet" type="text/css" href="./css/base.css">
     <link rel="stylesheet" type="text/css" href="./css/basicinfo.css">
     <script type="text/javascript" src="./js/jquery-1.12.1.min.js"></script>
-
     <script type="text/javascript" src="./js/require.js"></script>
     <script type="text/javascript" src="./js/config.js"></script>
     <script type="text/javascript" src="./js/common.js"></script>
@@ -75,48 +74,7 @@
     </div>
     <div id="bg" class="bg" style="display:none;">这里是遮罩层</div>
     <script type="text/javascript">
-        $(function() {
-            $(".bg").width($(document).width());
-            $('.bg').height($(document).height());
-
-            console.log($(document).width());
-            console.log($(document).height());
-
-            $('.bg').css('left', 0);
-            $('.bg').css('top', 0);
-
-            $(".close_btn").on("click",function(){
-                $("#popDiv").hide();
-                $("#bg").hide();
-            });
-
-            var flag = true;
-            $('.messagenum_area').on("click",function(){
-                if(flag){
-                    flag = false;
-                    $(this).css("background-color","#ffffff");
-                    $(".popup_message_box").show("100");
-                    $(".messagenum_area em").css("color","#333333");
-                    $(".msg_num").css("color","#333333");
-                } else {
-                    flag = true;
-                    $(this).css("background-color","#282828");
-                    $(".popup_message_box").hide("100");
-                    $(".messagenum_area em").css("color","#cccccc");
-                    $(".msg_num").css("color","#cccccc");
-                }
-            });
-        });
-
-        function showDiv() {
-            $("#bg").show();
-            $("#popDiv").fadeIn(500);
-        }
-
-        function closeDiv() {
-            $("#popDiv").hide();
-            $("#bg").hide();
-        }
+        
     </script>
 </body>
 
