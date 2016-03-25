@@ -103,8 +103,8 @@ gulp.task('h5-js-move', function() {
 	});
 	return todo(js);
 	// var inputs = [
-	// 	path.join(paths.pages, '/**/**'), // 页面对应js
-	// 	path.join(paths.common, '/library/base/**') // 页面引入js
+	// 	path.join(paths.pages, '/**/*.js'), // 页面对应js
+	// 	path.join(paths.common, '/library/base/*.js') // 页面引入js
 	// ];
 	// return gulp.src(inputs, function() {
 	// 	arguments[1].forEach(function(input, index, array) {
@@ -126,18 +126,8 @@ gulp.task('h5-js-move', function() {
 
 // font部分
 gulp.task('h5-font-build', function() {
-	var inputs = [
-		path.join(paths.font, '/**')
-	];
-	return gulp.src(inputs, function() {
-		arguments[1].forEach(function(input, index, array) {
-			if (input.replace(array[0], '').lastIndexOf(path.sep) === 0 && path.extname(input)) {
-				gulp.src(input)
-					.pipe(gulp.dest(path.join(paths.build, '/font')))
-					.pipe(notify('h5-font-build', input))
-			}
-		});
-	});
+	return gulp.src(path.join(paths.font, '*.*'))
+		.pipe(gulp.dest(path.join(paths.build, 'font')))
 });
 
 
