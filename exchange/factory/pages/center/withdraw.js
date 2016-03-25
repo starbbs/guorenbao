@@ -163,6 +163,15 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 var bankCity = $('.select-city').find('option:selected').text();
                 var subbank = $('#subbank').val();
                 $('.bankIdCard-address').html(bankProvince+bankCity+subbank);
+
+                //判断显示银行logo
+                var bankName = $('#bank').val();
+                if(bankName == '中国工商银行'){
+                    $('.bankName').addClass(ICBC);
+                }else if(bankName == '中国民生银行'){
+                    $('.bankName').addClass(CBC);
+                }
+                
                 /*api_mkt.rmbWithdrawalsManageAdd({          
                     'name':'测试' ,//这个位置应取值为实名认证的真实姓名， 
                     'bank': $('#bank').val(),
@@ -324,5 +333,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             }
             
         })
+
+
 	
 });

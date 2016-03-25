@@ -472,14 +472,16 @@
 
 /* 添加 查看更多 */
 .aside-table-div{
-    width:100%;
+   width:100%;
    position: absolute;
    margin-bottom:10px;
    top: 380px;
    left:-10px;
 }
 .Withdrawalstable{
-   top: 455px;
+   width:100%;
+   margin-bottom:10px;
+   margin-top:110px;
 }
 .renMinBiInput{
     border-bottom: 2px solid #e6e6e6;
@@ -753,10 +755,22 @@ a {
     padding-left:25px;
 }
 .ICBC{
-    background: url(../images/ICBC-logo.png) no-repeat top left;
+    background: url(../images/ICBC.png) no-repeat top left;
 }
 .CBC{
-    background: url(../images/CBC-logo.png) no-repeat top left;
+    background: url(../images/CBC.png) no-repeat top left;
+}
+.BC{
+    background: url(../images/BC.png) no-repeat top left;
+}
+.CMB{
+    background: url(../images/CMB.png) no-repeat top left;
+}
+.ABC{
+    background: url(../images/ABC.png) no-repeat top left;
+}
+.PSBC{
+    background: url(../images/PSBC.png) no-repeat top left;
 }
 .bankIdCard-Code{
     position: absolute;
@@ -814,6 +828,9 @@ a {
     font-weight: bold;
     color:#0BBEEE;
 }
+.Withdrawal{
+    width:100%;
+}
 
 .Withdrawal td{
     padding:8px;
@@ -821,4 +838,11 @@ a {
 }
 .td-top{
     vertical-align:top;
+}
+.Withdrawal td:nth-child(odd){
+    padding:8px;
+    vertical-align: middle;
+}
+.msg{
+    color:#ff6600;
 }

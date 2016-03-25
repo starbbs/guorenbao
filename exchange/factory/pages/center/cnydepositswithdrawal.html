@@ -165,7 +165,9 @@
                                 <td><label for="WithdrawalsAmount">提现金额</label></td>
                                 <td>
                                     <input class="regist_rg_input" type="text" placeholder="CNY" id="WithdrawalsAmount"/>
-                                    <span class="msg-WithdrawalsAmount"></span>
+                                    <div class="regist_rg_input bankcard">
+                                        <span class="msg msg-WithdrawalsAmount"></span>
+                                    </div>                                    
                                 </td>
                             </tr>
                             <tr>
@@ -186,8 +188,10 @@
                                 <td><label for="VerificationCode">手机验证</label></td>
                                 <td>
                                     <input class="regist_rg_input-VerificationCode" type="text" placeholder="" id="VerificationCode"/>
-                                <input class="regist_rg_input-btn" type="button" value="获取验证码" id="VerificationCodeBtn"/>
-                                <span class="msg-VerificationCode"></span>
+                                    <input class="regist_rg_input-btn" type="button" value="获取验证码" id="VerificationCodeBtn"/>
+                                    <div class="regist_rg_input bankcard">
+                                        <span class="msg msg-VerificationCode"></span>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -197,98 +201,27 @@
                                 </td>
                             </tr>
                         </table>
-                        <!-- <div class="rg_lf_label">
-                            <div class="label_div">
-                                <label for="WithdrawalsMode">提现方式</label>
+                        <div class="aside-table-div Withdrawalstable">
+                            <div class="renMinBiInput">
+                                <span>人民币提现历史</span>
+                                <span>
+                                    <a href="cnydepositswithdrawal_new.html" class="moreCheck">查看更多</a>
+                                </span>
                             </div>
-                            <div class="label_div heightauto">
-                                <label for="WithdrawalsAccount">提现账户</label>
-                            </div>
-                            <div class=" heightA1">
-                                <label for="WithdrawalsAmount">提现金额</label>
-                            </div>
-                            <div class=" heightA2">
-                                <label for="WithdrawalsFee">手续费</label>
-                            </div>
-                            <div class=" heightA3">
-                                <label for="WithdrawalsPayPwd">支付密码</label>
-                            </div>
-                            <div class=" heightA4">
-                                <label for="VerificationCode">手机验证</label>
-                            </div>
-                            <div class="label_div">
-                                <label for="VerificationCode"></label>
-                            </div>
-                        </div>
-                        <div class="rg_rg_input">
-                            <div class="regist_input_div">
-                                <div class="regist_rg_input bankcard">银行卡</div>
-                            </div>
-                            银行卡如果有 就自动添加
-                            <div class="regist_input_div heightauto">
-                                <div class="bankIdCard">
-                                    <section class="bankIdCard-bankLogoName CBC">中国建设银行</section>
-                                    <section class="bankIdCard-Code">尾号：4318</section>                      
-                                    <section class="bankIdCard-CardAndBg">储蓄卡</section>
-                                    <hr />
-                                    <section class="bankIdCard-Name">
-                                       持卡人姓名：*怀宇
-                                    </section>
-                                    <section class="bankIdCard-address">
-                                        预留电话：189****2374
-                                    </section>  
-                                </div>
-                                <div class="regist_rg_input bankcard">
-                                    <a href="withdraw.html" class="addBankCard">
-                                        + 添加银行卡
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="CNY" id="WithdrawalsAmount"/>
-                                <span class="msg-WithdrawalsAmount"></span>
-                            </div>
-                            <div class="regist_input_div">
-                                <div class="regist_rg_input handlingcharget WithdrawalsFee">
-                                    0 CNY
-                                </div>
-                            </div>
-                            <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入支付密码" id="WithdrawalsPayPwd"/>
-                                <span class="msg-WithdrawalsPayPwd"></span>
-                            </div>
-                            <div class="regist_input_div">
-                                <input class="regist_rg_input-VerificationCode" type="text" placeholder="" id="VerificationCode"/>
-                                <input class="regist_rg_input-btn" type="button" value="获取验证码" id="VerificationCodeBtn"/>
-                                <span class="msg-VerificationCode"></span>
-                            </div>
-                            <div class="regist_input_div">
-                                <div class="build_remit_btn Withdrawalsbtn">提现</div>
-                            </div> -->
-                            
-                            <div class="aside-table-div Withdrawalstable">
-                                <div class="renMinBiInput">
-                                    <span>人民币提现历史</span>
-                                    <span>
-                                        <a href="cnydepositswithdrawal_new.html" class="moreCheck">查看更多</a>
-                                    </span>
-                                </div>
-                                <table class="aside-table" border="1" width="100%">
-                                    <thead class="aside-table-thead">
-                                        <tr>
-                                            <td>时间</td>
-                                            <td>银行</td>
-                                            <td>提现金额(¥)</td>
-                                            <td>手续费(¥)</td>
-                                            <td>进程</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="aside-table-tbody cnyOutput">
-                                        <!-- 载入前五条,如下为临时填充数据 -->
-                                    </tbody>
-                                </table>
-                            </div>
+                            <table class="aside-table" border="1" width="100%">
+                                <thead class="aside-table-thead">
+                                    <tr>
+                                        <td>时间</td>
+                                        <td>银行</td>
+                                        <td>提现金额(¥)</td>
+                                        <td>手续费(¥)</td>
+                                        <td>进程</td>
+                                    </tr>
+                                </thead>
+                                <tbody class="aside-table-tbody cnyOutput">
+                                    <!-- 载入前五条,如下为临时填充数据 -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

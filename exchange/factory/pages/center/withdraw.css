@@ -707,3 +707,21 @@
     height: 20px;
     cursor: pointer;
 }
+.ICBC{
+    background: url(../images/ICBC.png) no-repeat top left;
+}
+.CBC{
+    background: url(../images/CBC.png) no-repeat top left;
+}
+.BC{
+    background: url(../images/BC.png) no-repeat top left;
+}
+.CMB{
+    background: url(../images/CMB.png) no-repeat top left;
+}
+.ABC{
+    background: url(../images/ABC.png) no-repeat top left;
+}
+.PSBC{
+    background: url(../images/PSBC.png) no-repeat top left;
+}

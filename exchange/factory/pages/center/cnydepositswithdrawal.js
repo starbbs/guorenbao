@@ -327,7 +327,34 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             }
         });
 
-        /*//控制自动添加银行卡处div的高
-        $(".heightauto").height($('.bankIdCard').length*120 );*/
+        //获取验证码-人民币提现
+        $('#VerificationCodeBtn').click(function(){
+            if(btnConfrim == false){
+                alert('请完善填写信息！');
+            }
+            else{
+                api_mkt.sendCodeByLoginAfter( function(data) {
+                    if (data.status == 200) {
+                        console.log(data);
+                    } else {   
+                    }
+                });
+                
+                //30秒内只能发送一次
+                var count = 30;
+                var resend = setInterval(function(){
+                        count--;
+                        if(count > 0){
+                            $('#sendCodeByLoginAfterBtn, #nut-identifyingCodeBtn').val(count+'s后重新发送');
+                            $('#sendCodeByLoginAfterBtn, #nut-identifyingCodeBtn').attr('disabled',true).css('cursor','not-allowed');
+                        }else{
+                            clearInterval(resend);
+                            $('#sendCodeByLoginAfterBtn, #nut-identifyingCodeBtn').attr('disabled',false).css('cursor','pointer').val('获取验证码');
+                        }
+                    },1000); 
+            }
+            
+        });
+
         
 });
