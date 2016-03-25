@@ -189,6 +189,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 		paypass1Click: function() {
 			if (vm.paypass1.length == 6) {
 				//验证支付密码
+				alert(111);
 				api.checkPayPwd({
 					gopToken: gopToken,
 					payPwd: vm.paypass1
@@ -203,11 +204,13 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 		},
 		paypass2Click: function() {
 			if (vm.paypass2.length == 6) {
+				alert(2);
 				router.go('/paypass-view-3');
 			}
 		},
 		paypass3Click: function() {
 			if (vm.paypass2 == vm.paypass3 && vm.paypass3.length == 6) {
+				alert(333);
 				api.setPayPassword({
 					gopToken: gopToken,
 					password: vm.paypass3

@@ -105,7 +105,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			}
 		},
 		onBeforeScrollEnd: function() {//松手那时
-			if(this.y >= 100){
+			if(this.y >= 60){
 				//ifGetUpList = true;
 				originList = [];
 				vm.uploading = false;

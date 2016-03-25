@@ -19,19 +19,14 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iscrollLoading
 				break;
 			default:
 				router.to('/');
-				iscrollLoading.getListDown();
+				iscrollLoading.downLoadingData();
 		}
 	};
 	var timerGetList = null;
 	var originList = [];
-	var bottomHeight = 20; // 下拉加载的高度
 	
-	iscrollLoading.getListUp = function(callback) { // 获取上拉列表
-		if (vm.uploading) {
-			return;
-		}
-		vm.loadingWord = '正在加载';
-		vm.uploading = true;
+	
+	iscrollLoading.upLoadingData = function(callback) { // 获取上拉列表
 		api.billList({
 			gopToken: gopToken,
 			billListPage: 1,
@@ -52,19 +47,7 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iscrollLoading
 			}
 		});
 	};
-	iscrollLoading.getListDown = function(callback) { // 获取列表
-		if (vm.loading) {
-			return;
-		}
-		if (!page) {
-			vm.loading = true;
-			vm.loadingWord = '大大, 已经没有了...';
-			setTimeout(function() {
-				vm.loading = false;
-			}, 1000);
-			return;
-		}
-		vm.loading = true;
+	iscrollLoading.downLoadingData = function(callback) { // 获取列表
 		api.billList({
 			gopToken: gopToken,
 			billListPage: page,
@@ -85,46 +68,56 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iscrollLoading
 			}
 		});
 	};	
+	iscrollLoading.scrollMove = function(){//滑动时候
+		vm.loadingWord = '松开刷新';
+		vm.uploading = true;
+	};	
+	iscrollLoading.beforeScrollEndTrue = function(){ //手指移开前 满足条件
+		originList = [];
+		vm.uploading = false;
+		if (vm.uploading) {
+			return;
+		}
+		vm.loadingWord = '正在加载';
+		vm.uploading = true;		
+		iscrollLoading.upLoadingData();	
+		console.log('向上刷新');			
+	};
+	iscrollLoading.beforeScrollEndFalse = function(){ //手指移开前 不满足条件
+		setTimeout(function(){
+			vm.uploading = false;
+		},200);		
+	};
 
-	var accountScroll = iscrollLoading.set('account', {
-		onBeforeScrollStart:function(){
-		},
-		onScrollMove: function() {
-			if (this.y >= 0) {
-				vm.loadingWord = '松开刷新';
-				vm.uploading = true;
+	iscrollLoading.scrollEnd = function(){//滑动完成后
+		console.log('向下刷新');
+		if(originList.length < size){
+			vm.loading = true;
+			vm.loadingWord = '大大, 已经没有了...';
+			setTimeout(function() {
+				vm.loading = false;
+			}, 1000);
+		}else{
+			vm.loadingWord  = '正在加载';
+			if (vm.loading) {
+				return;
 			}
-		},
-		onBeforeScrollEnd: function() {//松手那时
-			if(this.y >= 100){
-				originList = [];
-				vm.uploading = false;
-				iscrollLoading.getListUp();	
+			if (!page) {
+				vm.loading = true;
+				vm.loadingWord = '大大, 已经没有了...';
+				setTimeout(function() {
+					vm.loading = false;
+				}, 1000);
+				return;
+			}
+			vm.loading = true;
 
-				console.log('向上刷新');			
-			}else{
-				setTimeout(function(){
-					vm.uploading = false;
-				},200);
-			}
-		},
-		onScrollEnd: function() {
-			//长帐单
-			if(this.y < 0 && (this.y - bottomHeight < this.maxScrollY)){
-				console.log('向下刷新');
-				if(originList.length < size){
-					vm.loading = true;
-					vm.loadingWord = '大大, 已经没有了...';
-					setTimeout(function() {
-						vm.loading = false;
-					}, 1000);
-				}else{
-					vm.loadingWord  = '正在加载';
-					iscrollLoading.getListDown();
-				}
-			}		
-		},
-	});
+			iscrollLoading.downLoadingData();
+		}
+	};	
+
+
+	var accountScroll = iscrollLoading.set('account', {}); //此处的{}可以替换插件里面的
 
 	var now = new Date(); // 当前时间
 	var nowMonth = now.getMonth(); // 当前月份

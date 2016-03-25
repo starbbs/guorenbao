@@ -22,34 +22,28 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'iscrol
 	});
 	avalon.scan(history.native, historyVM);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	//wealthScroll用于存放iscrollLoading.set新生成的iscroll4生成的对象   iscrollLoading用于存放iscroll4相应的函数 
-	//开关控制上拉或下拉刷新
-	var wealthScroll = iscrollLoading.set('wealth-history',{
-		userUp:false,
-		userDown:true
+	//下拉刷新
+	/*
+	var accountScroll = new iScroll4('wealth-history', {
+		vScrollbar: true,
+		preventDefault: true,
+		fixedScrollbar:true,
+		useTransition:true,
+		click: true,
+		//上拉刷新部分
+		onScrollMove: function() {
+		},
+		onScrollEnd: function() {
+			// this.y 卷上去的
+			if (this.y - bottomHeight < this.maxScrollY) {
+				getList(pageNum);
+			}
+		},
 	});
-	//移动时添加附加事件 onScrollMove
-	iscrollLoading.on('onScrollMove',function(){
-		console.log('scrollMove');
-	});		
-	iscrollLoading.on('onScrollMove',function(){
-		console.log('scrollMove22');
-	});	
+	*/
+	//wealthScroll用于存放iscrollLoading.set新生成的iscroll4生成的对象   iscrollLoading用于存放iscroll4相应的函数 
+	var wealthScroll = iscrollLoading.set('wealth-history',{});
+
 
 	iscrollLoading.scrollEnd = function(pageNum){
 		console.log(' 开始获取'+pageNum);
@@ -102,26 +96,6 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide','mydate', 'iscrol
 			}
 		});
 	};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	var listCache = {};
