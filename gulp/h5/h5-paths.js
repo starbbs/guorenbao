@@ -19,6 +19,11 @@ var H5_DIALOGS = H5_FACTORY + '/dialogs';
 var H5_PAGES = H5_FACTORY + '/pages';
 
 
+var MKT_FACTORY = PATH_BATH + '/exchange/factory';
+var MKT_PAGES = MKT_FACTORY + '/pages';
+var MKT_SOURCE = PATH_BATH + '/exchange/source';
+
+
 module.exports = {
 	pc: PATH_H5,
 	factory: PATH_H5 + '/factory',
@@ -51,6 +56,7 @@ module.exports = {
 		'module': PATH_LIBRARY + '/api',
 		'router': PATH_LIBRARY + '/router',
 		'hashMap': PATH_LIBRARY + '/hashMap',
+		'iscrollLoading': PATH_LIBRARY + '/iscrollLoading',
 		'touch-slide': PATH_LIBRARY + '/src/TouchSlide.1.1.source',
 		// PC端部分
 		'bank': PATH_COMPONENTS + '/bank/bank',
@@ -100,5 +106,10 @@ module.exports = {
 		'h5-view-login': H5_VIEWS + '/login/login',
 		'h5-view-password': H5_VIEWS + '/password/password',
 		'h5-view-nickname': H5_VIEWS + '/nickname/nickname',
+
+		//交易所项目
+		'api_mkt': MKT_SOURCE + '/js/api_market',
+		'mkt_info': MKT_SOURCE + '/js/info',
+		'mkt_trade': MKT_SOURCE + '/js/trade'
 	}
 };
