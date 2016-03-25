@@ -2,38 +2,15 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     mkt_info.get();
     mkt_trade.get();
     var exchangeToken = $.cookie('exchangeToken');
-    console.log(exchangeToken);
     var global_loginuserphone = $.cookie("global_loginuserphone");
     var global_loginusername = $.cookie("global_loginusername");
     var global_loginuseruid = $.cookie("global_loginuseruid");
-
     var totalAssets = $.cookie("totalAssets");
     var totalNuts = $.cookie("totalNuts");
-
     var mine_one = $.cookie("mine_one");
     var mine_two = $.cookie("mine_two");
     var mine_three = $.cookie("mine_three");
     var mine_four = $.cookie("mine_four");
-
-    var exchangeToken = $.cookie('exchangeToken');
-    if (!exchangeToken) {
-        // $(".wrapper").on("click",function(){
-        //     $(".popDiv").show();
-        //     $(".bg").show();
-        // });
-        // $(".close_btn").on("click",function(e){
-        //     $(".popDiv").hide();
-        //     $(".bg").hide();
-        //     return false;
-        // });
-    } else {
-        // $(".login_regist").hide();
-        // $(".login_header").show();
-        // $("#logined_username").html(global_loginusername);
-        // $(".popDiv").hide();
-        // $(".bg").hide();
-        //alert("bg");
-    }
     $(".pagetwo,.pagethree,.pagefour").on("click",function(data){
         if (!exchangeToken) {
             $(".popDiv").show();
