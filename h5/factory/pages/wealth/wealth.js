@@ -28,7 +28,11 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscro
 		userUp: false,
 		userDown: true
 	});
-
+	/*
+	iscrollLoading.on('onBeforeScrollStart',function(){
+		console.log('开始移动前，绑定的附加事件');
+	});
+	*/
 	iscrollLoading.scrollEnd = function(pageNum) {
 		console.log(' 开始获取' + pageNum);
 		if (historyVM.loading) {
