@@ -151,51 +151,51 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         $('.confirmAdd').click(function(){
             if(btnConfirm == false || $('#sendCodeByLoginAfter').val() ==''){
                 alert('请填写完整信息');
-            }else{
-                $('.two').css('display','none');
-                $('.three').css('display','flex');
-                //填写表单-生成银行卡 
-                $('.bankName').text($('#bank').val());
-                var bankAccount = $('#bank-idcard').val();
-                $('.bankIdCard-Code').text('尾号:'+bankAccount.substr(bankAccount.length-4));
-                $('.bankIdCard-Name').text('持卡人姓名：aa');
-                var bankProvince = $('.select-area').find('option:selected').text();
-                var bankCity = $('.select-city').find('option:selected').text();
-                var subbank = $('#subbank').val();
-                $('.bankIdCard-address').html(bankProvince+bankCity+subbank);
-
-                //判断显示银行logo
-                var bankName = $('#bank').val();
-                if(bankName == '中国工商银行'){
-                    $('.bankName').addClass(ICBC);
-                }else if(bankName == '中国民生银行'){
-                    $('.bankName').addClass(CBC);
-                }
-                
-                /*api_mkt.rmbWithdrawalsManageAdd({          
-                    'name':'测试' ,//这个位置应取值为实名认证的真实姓名， 
+            }else{                
+                var auth_name = $.cookie("global_loginusername");
+                api_mkt.rmbWithdrawalsManageAdd({          
+                    'name':auth_name, 
                     'bank': $('#bank').val(),
                     'bankId':$('#bank-idcard').val(),
                     'bankProvince':$('.select-area').find('option:selected').text(),
                     'bankCity':$('.select-city').find('option:selected').text(),
                     'subbank':$('#subbank').val(),
-                    'payPwd':$('.pay-pwd').val(),
-                    'identifyingCode':$('#identifyingCodeRmbWithdrawals').val()
+                    'payPwd':$('#pay-pwd').val(),
+                    'identifyingCode':$('#sendCodeByLoginAfter').val()
                 }, function(data) {
                     if (data.status == 200) {
-                        console.log(data);
+                        console.log(data);                        
                         $('.two').css('display','none');
                         $('.three').css('display','flex');
                         //填写表单-生成银行卡 
-                        $('.bankName').text('中国工商银行');
-                        var bankAccount = $('.bankAccount').val();
+                        $('.bankName').text(''); //添加对应银行的logo图片
+                        var bankAccount = $('#bank-idcard').val();
                         $('.bankIdCard-Code').text('尾号:'+bankAccount.substr(bankAccount.length-4));
-                        $('.bankIdCard-Name').text('持卡人姓名：'+data.name);
-                    } else {
-                        
-                    }
-                });*/
+                        $('.bankIdCard-Name').text('持卡人姓名：'+auth_name);
+                        var bankProvince = $('.select-area').find('option:selected').text();
+                        var bankCity = $('.select-city').find('option:selected').text();
+                        var subbank = $('#subbank').val();
+                        $('.bankIdCard-address').html(bankProvince+bankCity+subbank);
 
+                        //判断显示银行logo
+                        var bankName = $('#bank').val();
+                        if(bankName == '中国工商银行'){
+                            $('.bankName').addClass('ICBC');
+                        }else if(bankName == '中国建设银行'){
+                            $('.bankName').addClass('CBC');
+                        }else if(bankName == '交通银行'){
+                            $('.bankName').addClass('BC');
+                        }else if(bankName == '招商银行'){
+                            $('.bankName').addClass('CMB');
+                        }else if(bankName == '中国邮政储蓄银行'){
+                            $('.bankName').addClass('PSBC');
+                        }else(bankName == '中国农业银行'){
+                            $('.bankName').addClass('ABC');
+                        }
+                    } else {
+                        console.log(err);
+                    }
+                });
                 
             }            
         });
@@ -333,6 +333,45 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             }
             
         })
+
+    //判断是否有银行卡
+    api_mkt.bankList({  
+        'pageNo':1,
+        'pageSize' :10  
+    }, function(data) {
+        if (data.status == 200) {
+            console.log(data);
+            $('.two').css('display','none');
+            $('.three').css('display','flex');
+            //填写表单-生成银行卡 
+            $('.bankName').text(''); //添加对应银行的logo图片
+            var bankAccount = $('#bank-idcard').val();
+            $('.bankIdCard-Code').text('尾号:'+bankAccount.substr(bankAccount.length-4));
+            $('.bankIdCard-Name').text('持卡人姓名：'+auth_name);
+            var bankProvince = $('.select-area').find('option:selected').text();
+            var bankCity = $('.select-city').find('option:selected').text();
+            var subbank = $('#subbank').val();
+            $('.bankIdCard-address').html(bankProvince+bankCity+subbank);
+
+            //判断显示银行logo
+            var bankName = $('#bank').val();
+            if(bankName == '中国工商银行'){
+                $('.bankName').addClass('ICBC');
+            }else if(bankName == '中国建设银行'){
+                $('.bankName').addClass('CBC');
+            }else if(bankName == '交通银行'){
+                $('.bankName').addClass('BC');
+            }else if(bankName == '招商银行'){
+                $('.bankName').addClass('CMB');
+            }else if(bankName == '中国邮政储蓄银行'){
+                $('.bankName').addClass('PSBC');
+            }else(bankName == '中国农业银行'){
+                $('.bankName').addClass('ABC');
+            }
+        } else {
+            console.log(err);
+        }
+    });
 
 
 	

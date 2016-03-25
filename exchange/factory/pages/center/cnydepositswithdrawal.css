@@ -481,7 +481,6 @@
 .Withdrawalstable{
    width:100%;
    margin-bottom:10px;
-   margin-top:110px;
 }
 .renMinBiInput{
     border-bottom: 2px solid #e6e6e6;
@@ -741,15 +740,15 @@ a {
 
 /*人民币提现管理 果仁提现管理*/
 .bankIdCard{
-    width:230px;
+    width:240px;
     height:50px;
     line-height: 50px;
     border:1px solid #ccc;
     float: left;
-    padding-left:133px;
+    padding-left:147px;
 }
 .ICBC{
-    background: url(../images/ICBC.png) no-repeat top left;
+    background: url(../images/ICBC.png) no-repeat 20px center;
 }
 .CBC{
     background: url(../images/CBC.png) no-repeat top left;
@@ -784,3 +783,6 @@ a {
 .msg{
     color:#ff6600;
 }
+.checkBankCard{
+    float:left;margin-top:20px;
+    }

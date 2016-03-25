@@ -145,6 +145,8 @@ define('api_mkt', ['cookie'], function() {
 	add('sendCodeByLoginAfter','exchangeApi/common/sendCodeByLoginAfter');
 	// 接口 果仁提现地址管理添加
 	add('gopAddressManAdd','exchangeApi/wealth/gopAddressManAdd');
+	// 接口 人民币提现管理【判断是否添加银行卡】
+	add('bankList','exchangeApi/wealth/bankList');
 
 
 

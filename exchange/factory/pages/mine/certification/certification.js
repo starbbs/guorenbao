@@ -33,7 +33,10 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			alert('请填写正确姓名和身份证号');
 		}else{
 			//我的账户实名认证信息
-			api_mkt.realAuth(function(data) {
+			api_mkt.realNameAuth({
+				'realName':$('#realAuthName').val(),
+				'idNumber':$('#realAuthId').val()
+			},function(data) {
 				console.log(data);
 		        if(data.status == 200){
 		        	alert('success');               

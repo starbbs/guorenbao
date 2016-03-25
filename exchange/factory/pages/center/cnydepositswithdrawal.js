@@ -356,5 +356,39 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             
         });
 
+    //判断是否添加银行卡
+    api_mkt.bankList({  
+        'pageNo':1,
+        'pageSize' :10   
+    }, function(data) {
+        if (data.status == 200) {
+            console.log(data);
+            console.log(data.data.list[0].acnumber);
+            var num = new String(data.data.list[0].acnumber);
+            var node = $('<div></div>');
+            var nodeList ='<input type="radio" name="checkBankCard" class="checkBankCard" />'+'<div class="bankIdCard"></div>';
+            node.html(nodeList);
+            node.insertBefore($('.addBankCard'));
+            $('.bankIdCard').text('尾号：'+num.substr(num.length-4));
+            //判断显示银行logo
+            var bankName = new String(data.data.list[0].bank);
+            if(bankName == '中国工商银行'){
+                $('.bankIdCard').addClass('ICBC');
+            }else if(bankName == '中国建设银行'){
+                $('.bankIdCard').addClass('CBC');
+            }else if(bankName == '交通银行'){
+                $('.bankIdCard').addClass('BC');
+            }else if(bankName == '招商银行'){
+                $('.bankIdCard').addClass('CMB');
+            }else if(bankName == '中国邮政储蓄银行'){
+                $('.bankIdCard').addClass('PSBC');
+            }else if(bankName == '中国农业银行'){
+                $('.bankIdCard').addClass('ABC');
+            }
+        } else {
+            console.log('err');
+        }
+    });
+
         
 });
