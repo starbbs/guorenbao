@@ -361,7 +361,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     $(".popDiv").hide();
                     $(".bg").hide();
                     global_loginuserphone = data.data.phone;
-                    global_loginusername = data.data.username;
+                    global_loginusername = data.data.name;
                     global_loginuseruid = data.data.uid;
                     console.log(global_loginuserphone);
                     console.log(global_loginusername);

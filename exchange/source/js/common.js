@@ -95,7 +95,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
     				$(".afterlogin").show();
 	                //data.data.phone;  data.data.name
 	                global_loginuserphone = data.data.phone;
-	                global_loginusername = data.data.username;
+	                global_loginusername = data.data.name;
 	                global_loginuseruid = data.data.uid;
 	                console.log(data.data);
 	                alert(global_loginuseruid);
