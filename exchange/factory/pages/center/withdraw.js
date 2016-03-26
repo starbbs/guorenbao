@@ -2,7 +2,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 	//console.log(api_mkt);
 	//console.log(mkt_info);
 	//mkt_info.get();
-    $('.three').hide();
+    //$('.three').hide();
         $('.rmbxh').on('click',function(){
             $(this).addClass('bottomon');
             $('.rmbtx').removeClass('bottomon');
@@ -15,6 +15,68 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             $('.recharge').hide();
             $('.withdraw_deposit').show();
             $('.nut-two').hide();
+            //果仁提现地址管理(如果有就显示)
+            api_mkt.gopAddressMan({          
+                'pageNo':1,
+                'pageSize':10
+            }, function(data) {
+                if (data.status == 200) {
+                    console.log(data);
+                    //果仁市场添加
+                    $('.nut-one').hide();
+                    $('.nut-two').show();
+                    for(var i=0;i<data.data.list.length;i++){
+                        //创建节点
+                        var Node1 = $('<div></div>');
+                        Node1.addClass('nutOutputManager');
+                        var Node2 = $('<p class="nutIdName"></p>').appendTo(Node1); 
+                        var Node3 = $('<p class="nutIdAddress"></p>').appendTo(Node1); 
+                        var Node4 = $('<span class="nutOutputManager-modify"></span>').appendTo(Node1); 
+                        var Node5 = $('<span class="nutOutputManager-del"></span>').appendTo(Node1);
+                        Node2.text('地址：'+data.data.list[i].name);
+                        Node3.text(data.data.list[i].address);
+                        //$('.nut-two').appendBefore(Node1);
+                        Node1.insertBefore($('.nutOutputManager-add'));
+                        if($('.nutOutputManager').length % 2 == 0){
+                            Node1.addClass('nutOutputManager-even');
+                        }                    
+                    } 
+                     //再次添加果仁地址
+                    $('.nutOutputManager-add').click(function(){
+                        $('.nut-one').show();
+                        $('.nut-two').hide();
+                    });
+                    //果仁提现地址管理删除
+                    $('.nutOutputManager-del').click(function(){                
+                        api_mkt.gopAddressManDel({          
+                            'wallet':$(this).parent().find('.nutIdAddress').text()
+                        }, function(data) {
+                            if (data.status == 200) {
+                                
+                            } else {
+                                consloe.log(err);
+                            }
+                        });         
+                    });
+                    //果仁提现地址修改
+                    $('.nutOutputManager-modify').click(function(){                
+                        api_mkt.gopAddressManUpdate({          
+                            'id':data.data.list[$(this).parent().index()].id,
+                            'name':$(this).parent().find('.nutIdName').text()
+                        }, function(data) {
+                            if (data.status == 200) {
+                                 
+                            } else {
+                                consloe.log(err);
+                            }
+                        });         
+                    });              
+
+                    
+                } else {
+                    consloe.log(err);
+                }
+            });
         });
 
         //twoBackOne  返回
@@ -25,9 +87,10 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         });
 
         //点击-银行卡表单
-        $('.bankIdCard').click(function(){
+        $('.bankIdCard-add').click(function(){
             $('.one').css('display','none');
             $('.two').css('display','flex');
+            $('.newCard').hide();
         });
         //校验银行账户
         var btnConfirm = false;
@@ -205,11 +268,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         $('.bankIdCard-del').click(function(){
             $(this).parent().remove();
         });
-        //再次添加银行卡
-        $('.bankIdCard-addCard').click(function(){
-            $('.three').css('display','none');
-            $('.two').css('display','flex');
-        });
 
         //果仁提现地址备注-校验
         $('.msg-nut-name').show().html('<p style="color:#999;">果仁市场内互转即时极速到账</p>');
@@ -245,52 +303,80 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 $('.msg-nut-paypwd').hide();
             }
         });
-        
+
         //果仁提现地址管理添加
         $('.gopAddressManAdd').click(function(){
             if(btnConfirm == false || $('#nut-identifyingCode').val() ==''){
                 alert('请填写完整信息');
             }else{
-                //果仁市场添加
-                $('.nut-one').hide();
-                $('.nut-two').show();
-                //创建节点
-                var Node1 = $('<div class="nutOutputManager"></div>');
-                var Node2 = $('<p class="nutIdName"></p>').appendTo(Node1); 
-                var Node3 = $('<p class="nutIdAddress"></p>').appendTo(Node1); 
-                var Node4 = $('<span class="nutOutputManager-modify"></span>').appendTo(Node1); 
-                var Node5 = $('<span class="nutOutputManager-del"></span>').appendTo(Node1);
-                Node2.append('地址：'+$('#nut-name').val());
-                Node3.append($('#nut-address').val());
-                //$('.nut-two').appendBefore(Node1);
-                Node1.insertBefore($('.nutOutputManager-add'));
-
-                //删除 添加的果仁市场
-                $('.nutOutputManager-del').click(function(){
-                    $(this).parent().remove();
-                });
-
-                /*api_mkt.gopAddressManAdd({          
+                
+                api_mkt.gopAddressManAdd({          
                     'name':$('#nut-name').val(),
                     'paypwd': $('#nut-paypwd').val(),
                     'address':$('#nut-address').val(),
                     'identifyingCode':$('#nut-identifyingCode').val()
                 }, function(data) {
                     if (data.status == 200) {
-                        console.log(data);/*
-                        $('.two').css('display','none');
-                        $('.three').css('display','flex');
-                        //填写表单-生成银行卡 
+                        console.log(data);
+                        //果仁市场添加
+                        $('.nut-one').hide();
+                        $('.nut-two').show();
+                        //创建节点
+                        var Node1 = $('<div></div>');
+                        Node1.addClass('nutOutputManager');
+                        var Node2 = $('<p class="nutIdName"></p>').appendTo(Node1); 
+                        var Node3 = $('<p class="nutIdAddress"></p>').appendTo(Node1); 
+                        var Node4 = $('<span class="nutOutputManager-modify"></span>').appendTo(Node1); 
+                        var Node5 = $('<span class="nutOutputManager-del"></span>').appendTo(Node1);
+                        Node2.text('地址：'+$('#nut-name').val());
+                        Node3.text($('#nut-address').val());
+                        //$('.nut-two').appendBefore(Node1);
+                        Node1.insertBefore($('.nutOutputManager-add'));
+                        if($('.nutOutputManager').length % 2 == 0){
+                            Node1.addClass('nutOutputManager-even');
+                        }
+                        for(var i=0, length=$('.nutOutputManager').length;i<length;i++){
+                            $('.nutOutputManager-del').addClass('i++');
+                        }
+                        //再次添加果仁地址
+                        $('.nutOutputManager-add').click(function(){
+                            $('.nut-one').show();
+                            $('.nut-two').hide();
+                        });
+                        //果仁提现地址管理删除
+                        $('.nutOutputManager-del').click(function(){                
+                            api_mkt.gopAddressManDel({          
+                                'wallet':$(this).parent().find('.nutIdAddress').text()
+                            }, function(data) {
+                                if (data.status == 200) {
+                                    
+                                } else {
+                                    consloe.log(err);
+                                }
+                            });         
+                        });
+                        //果仁提现地址修改
+                        $('.nutOutputManager-modify').click(function(){                
+                            api_mkt.gopAddressManUpdate({          
+                                'id':data.data.list[$(this).parent().index()].id,
+                                'name':$(this).parent().find('.nutIdName').text()
+                            }, function(data) {
+                                if (data.status == 200) {
+                                     
+                                } else {
+                                    consloe.log(err);
+                                }
+                            });         
+                        }); 
                         
                     } else {
-                        
+                        consloe.log(err);
                     }
-                });*/
+                });
 
                 
             }            
-        });
-
+        });        
         
         //接受跳转参数
         $(function(){
@@ -342,26 +428,25 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
     }, function(data) {
         if (data.status == 200) {
             console.log(data);
-            $('.one').css('display','none');
-            var auth_name = $.cookie("global_loginusername");
-            //填写表单-生成银行卡 
-            $('.bankName').text(''); //添加对应银行的logo图片
-            var bankAccount = $('#bank-idcard').val();
-            $('.bankIdCard-Code').text('尾号:'+bankAccount.substr(bankAccount.length-4));
-            $('.bankIdCard-Name').text('持卡人姓名：'+auth_name);
-            var bankProvince = $('.select-area').find('option:selected').text();
-            var bankCity = $('.select-city').find('option:selected').text();
-            var subbank = $('#subbank').val();
-            $('.bankIdCard-address').html(bankProvince+bankCity+subbank);
-
-            var num = new String(data.data.list[0].acnumber);
+            var name = data.data.list[0].name;
+            var num = data.data.list[0].acnumber;  //银行卡号
+            var bankName = data.data.list[0].bank;  //所属银行
+            var bankIP = data.data.list[0].province + data.data.list[0].city + data.data.list[0].subbank;  //支行
             var node = $('<div></div>');
-            var nodeList ='<input type="radio" name="checkBankCard" class="checkBankCard" />'+'<div class="bankIdCard"></div>';
+            node.addClass('bankIdCard addBankCard newCard');
+            var nodeList ='<section class="bankIdCard-bankLogoName bankName"></section>'+
+                            '<section class="bankIdCard-Code">尾号：1111</section>'+            
+                            '<section class="bankIdCard-CardAndBg">储蓄卡</section>'+
+                            '<section class="bankIdCard-hr"></section>'+
+                            '<section class="bankIdCard-Name"></section>'+
+                            '<section class="bankIdCard-del">删除</section>'+
+                            '<section class="bankIdCard-address"></section>';
             node.html(nodeList);
-            node.insertBefore($('.addBankCard'));
-            $('.bankIdCard').text('尾号：'+num.substr(num.length-4));
+            node.insertBefore($('.bankIdCard-add'));
+            $('.bankIdCard-Code').text('尾号：'+num.substr(num.length-4));
+            $('.bankIdCard-Name').text(name);
+            $('.bankIdCard-address').text(bankIP);
             //判断显示银行logo
-            var bankName = new String(data.data.list[0].bank);
             if(bankName == '中国工商银行'){
                 $('.bankIdCard').addClass('ICBC');
             }else if(bankName == '中国建设银行'){

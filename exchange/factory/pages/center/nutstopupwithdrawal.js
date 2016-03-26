@@ -25,6 +25,24 @@ require(['api_mkt','mkt_info','mkt_pagehead','cookie'], function(api_mkt,mkt_inf
 
     $(".status-guorenOutput").filter(":contains('进行中')").css("color","orange");
     //暂无真实接口-为出现效果,暂时放这里,有接口时,删除 -结束
+
+    //果仁提现地址管理(如果有就显示)
+    api_mkt.gopAddressMan({          
+        'pageNo':1,
+        'pageSize':10
+    }, function(data) {
+        if (data.status == 200) {
+            console.log(data);
+            for(var i=0;i<data.data.list.length;i++){
+                //创建节点
+                var Node1 = $('<option></option>');
+                Node1.text(data.data.list[i].address);
+                $('.regist_rg_input-select').append(Node1);                   
+            }                 
+        } else {
+            consloe.log(err);
+        }
+    });
     
     //果仁充值 
     /*$.ajax({

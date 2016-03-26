@@ -643,10 +643,19 @@
 .bankIdCard-add{
     text-align: center;
     line-height: 50px;
-    margin-top:30px;
+    margin-top:55px;
     font-size:1.5rem;
     cursor: pointer;
     width:300px;
+    float:left;
+}
+.bankIdCard-add-1{
+    text-align: center;
+    line-height: 50px;
+    margin-top:55px;
+    font-size:1.5rem;
+    width:300px;
+    float:left;
 }
 .bankIdCard-addCard{
     border:none;
@@ -709,20 +718,20 @@
     cursor: pointer;
 }
 .ICBC{
-    background: url(../images/ICBC.png) no-repeat top left;
+    background: url(../images/ICBC.png) no-repeat 10px 15px;
 }
 .CBC{
-    background: url(../images/CBC.png) no-repeat top left;
+    background: url(../images/CBC.png) no-repeat 10px 15px;
 }
 .BC{
-    background: url(../images/BC.png) no-repeat top left;
+    background: url(../images/BC.png) no-repeat 10px 15px;
 }
 .CMB{
-    background: url(../images/CMB.png) no-repeat top left;
+    background: url(../images/CMB.png) no-repeat 10px 15px;
 }
 .ABC{
-    background: url(../images/ABC.png) no-repeat top left;
+    background: url(../images/ABC.png) no-repeat 10px 15px;
 }
 .PSBC{
-    background: url(../images/PSBC.png) no-repeat top left;
+    background: url(../images/PSBC.png) no-repeat 10px 15px;
 }

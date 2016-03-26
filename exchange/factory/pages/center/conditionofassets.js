@@ -27,7 +27,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info,mkt_pagehead)
         
         //接口9 账户明细（不传参数查询最近5条）
         api_mkt.billList(function(data) {
-            alert(data.msg);
+            //alert(data.msg);
             if (data.status == 200) {
                 console.log(data);
                 var html = [];

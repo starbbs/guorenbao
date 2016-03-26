@@ -603,7 +603,7 @@ a {
   text-align: center;
   z-index: 3;
   width: 600px;
-  height: 430px;
+  height: 420px;
   left: 50%;
   top: 50%;
   border-radius: 8px;
@@ -613,17 +613,22 @@ a {
   position: fixed !important;
   position: absolute;
 }
-
-.btnClose {
-  width: 15px;
-  height: 15px;
-  font-size:1.7rem;
+  .mydiv1 {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  text-align: center;
+  z-index: 3;
+  width: 600px;
+  height: 420px;
+  left: 50%;
+  top: 50%;
+  border-radius: 8px;
+  position: relative;
+  margin-left: -300px;
+  margin-top: -215px;
+  position: fixed !important;
   position: absolute;
-  top: 10px;
-  right: 10Px;
-  cursor: pointer; 
 }
-
 .bg {
   background-color: #3A3A3A;
   width: 100%;
@@ -636,46 +641,47 @@ a {
 }
 
 /*弹出层里面的 样式*/
-.mydiv-ul-1 ul{
-    margin-top:40px;
+.mydiv-ul-1 ul, .mydiv1-ul-1 ul{
+    margin-top:50px;
 }
-.mydiv-ul-1 li{
+.mydiv-ul-1 li, .mydiv1-ul-1 li{
     width:280px;
     float: left;
     padding-top:30px;
 }
-.mydiv-ul-1 li:nth-child(odd){
+.mydiv-ul-1 li:nth-child(odd), .mydiv1-ul-1 li:nth-child(odd){
+    width:300px;
     text-align: left;
     padding-left:90px;
 }
-.mydiv-ul-1 li:nth-child(even){
+.mydiv-ul-1 li:nth-child(even), .mydiv1-ul-1 li:nth-child(even){
     text-align: right;
     padding-right:60px;
 }
-.mydiv-ul-1 li:nth-child(1){
+.mydiv-ul-1 li:nth-child(1), .mydiv1-ul-1 li:nth-child(1){
     font-weight: bold;
     text-align: left;
     padding-left:50px;
 }
-.mydiv-ul-1 li:nth-child(2){
+.mydiv-ul-1 li:nth-child(2), .mydiv1-ul-1 li:nth-child(2){
     float:right; 
     color:#999;
 }
-.mydiv-ul-1 li:last-child{
+.mydiv-ul-1 li:last-child, .mydiv1-ul-1 li:last-child{
     color:orange; 
 }
 
-.mydiv p{
+.mydiv p, .mydiv1 p{
     float: left;
     width:100%;
     text-align: center;
     margin-top:45px;
 }
-.mydiv p span{
+.mydiv p span, .mydiv1 p span{
     color:orange;
 }
 
-.mydiv div{
+.mydiv div, .mydiv1 div{
     float: left;
     width:400px;
     text-align: center;
@@ -683,7 +689,7 @@ a {
     margin-left:110px;
 }
 
-.mydiv .span-btn{
+.mydiv .span-btn, .mydiv1 .span-btn1{
     width:240px;
     height:40px;
     line-height: 40px;
@@ -693,7 +699,7 @@ a {
     float: left;
     cursor: pointer;
 }
-.mydiv .span-text{
+.mydiv .span-text, .mydiv1 .span-text1{
     width:120px;
     height:40px;
     line-height: 40px;
@@ -785,4 +791,4 @@ a {
 }
 .checkBankCard{
     float:left;margin-top:20px;
-    }
+}

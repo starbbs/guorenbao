@@ -133,6 +133,8 @@ define('api_mkt', ['cookie'], function() {
 	add('billList-page','exchangeApi/bill/billList');
 	//接口 人民币充值
 	add('rmbRecharge','exchangeApi/wealth/rmbRecharge');
+	//接口 人民币提现
+	add('rmbWithdrawals','exchangeApi/wealth/rmbWithdrawals');
 	//接口 人民币充值历史（查询最近5条）
 	add('rmbRechargeHistory','exchangeApi/wealth/rmbRechargeHistory');
 	//接口 人民币提现历史（查询最近5条）
@@ -144,7 +146,13 @@ define('api_mkt', ['cookie'], function() {
 	// 接口 发送手机号验证码(登录后不需要手机号参数)
 	add('sendCodeByLoginAfter','exchangeApi/common/sendCodeByLoginAfter');
 	// 接口 果仁提现地址管理添加
-	add('gopAddressManAdd','exchangeApi/wealth/gopAddressManAdd');
+	add('gopAddressManAdd','exchangeApi/wealth/gopAddressManAdd');	
+	// 接口 果仁提现地址管理删除
+	add('gopAddressManDel','exchangeApi/wealth/gopAddressManDel');	
+	// 接口 果仁提现地址管理
+	add('gopAddressMan','exchangeApi/wealth/gopAddressMan');
+	// 接口 果仁提现地址修改
+	add('gopAddressManUpdate','exchangeApi/wealth/gopAddressManUpdate');		
 	// 接口 人民币提现管理【判断是否添加银行卡】
 	add('bankList','exchangeApi/wealth/bankList');
 
