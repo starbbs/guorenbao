@@ -167,6 +167,10 @@ define('api_mkt', ['cookie'], function() {
 
 	add('userbasic','exchangeApi/user/basic');
 
+	add('loginpassword','exchangeApi/login/setLoginPassword');
+	add('setpaypwd','exchangeApi/security/setPayPwd');
+	
+
 	/*
 	// 1.手机号注册
 	add('register', '/login/register');

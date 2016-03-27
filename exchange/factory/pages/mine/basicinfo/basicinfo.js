@@ -4,6 +4,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
     $('.bg').css('left', 0);
     $('.bg').css('top', 0);
     var exchangeToken = $.cookie('exchangeToken');
+    
     if (!exchangeToken) {
         $(".popDiv").show();
         $(".bg").show();
@@ -33,6 +34,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
             $("#realname").html(data.data.list.name);
             $("#account_name").html(data.data.list.mobile);
             $("#account_uid").html(data.data.list.uid);
+            
             console.log("api_mkt");
         });
 

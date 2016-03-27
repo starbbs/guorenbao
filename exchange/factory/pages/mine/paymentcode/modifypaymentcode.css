@@ -278,10 +278,11 @@
     position:relative;
 }
 .regist_input_div span{
-    display: block;
+    display: none;
     float: left;
     position: absolute;
     top: 32px;
+    left:0px;
     margin-top: 5px;
     color: #ff6600;
 }
@@ -304,10 +305,30 @@
     color: #ffffff;
     cursor: pointer;
 }
+.next_step_btn_one{
+        height: 32px;
+    line-height: 32px;
+    background-color: #0bbeee;
+    border-radius: 5px;
+    width: 240px;
+    position: absolute;
+    top: 360px;
+    color: #ffffff;
+    cursor: pointer;
+}
 .cancelbtn{
         left: 110px;
     position: absolute;
     top: 310px;
+    text-decoration: none;
+    color: #6bcff2;
+    text-align: center;
+}
+
+.cancelbtn_one{
+        left: 108px;
+    position: absolute;
+    top: 400px;
     text-decoration: none;
     color: #6bcff2;
     text-align: center;

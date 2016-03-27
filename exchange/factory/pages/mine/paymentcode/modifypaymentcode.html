@@ -29,10 +29,10 @@
                     <hr></hr>
                     <p class="reset_login_password_step_1" style="display: block;">修改支付密码</p>
                     <p class="reset_login_password_step_2" style="display: none;">重置成功</p>
-                    <p class="reset_login_password_tips" style="display: block;">您正在修改账户<em id="who_account">187****7891</em>的支付密码</p>
+                    <p class="reset_login_password_tips" style="display: block;">您正在修改账户<em id="who_account"></em>的支付密码</p>
                 </div>
                 <div class="right_reg_side">
-                    <div class="right_reg_side_content" style="display: none;">
+                    <div class="right_reg_side_content one" style="display: none">
                         <div class="rg_lf_label">
                             <div class="label_div">
                                 <label for="username">原支付密码</label>
@@ -49,27 +49,27 @@
                         </div>
                         <div class="rg_rg_input">
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入登录密码" id="username"/>
-                                <span>原登录密码输入有误</span>
+                                <input class="regist_rg_input" type="text" placeholder="请输入原支付密码" id="currentPayPwd"/>
+                                <span id="error_one"></span>
                             </div>
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="6~20位非纯数字字符" id="idcard"/>
-                                <span>密码设置不符合规则</span>
+                                <input class="regist_rg_input" type="text" placeholder="请输入新支付密码" id="newPayPwd"/>
+                                <span id="error_two"></span>
                             </div>
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请再次输入登录密码" id="idcard"/>
-                                <span>两次输入不一致</span>
+                                <input class="regist_rg_input" type="text" placeholder="请输入确认密码" id="confirmPayPwd"/>
+                                <span id="error_three"></span>
                             </div>
                             <div class="regist_input_div edit_yanzhengma">
-                                <input class="regist_rg_input" type="text" placeholder="请输入验证码" id="idcard"/>
+                                <input class="regist_rg_input" type="text" placeholder="请输入验证码" id="identifyingCode"/>
                                 <div class="getauthcode">获取短信验证码</div>
+                                <span id="error_four"></span>
                             </div>
-
-                            <div class="next_step_btn">确认</div>
-                            <a href="javascript:void(0);" class="cancelbtn">返回</a>
+                            <div class="next_step_btn_one">确认</div>
+                            <a href="javascript:void(0);" class="cancelbtn_one">返回</a>
                         </div>
                     </div>
-                    <div class="right_reg_side_content" style="display: flex;">
+                    <div class="right_reg_side_content two" style="display: flex;">
                         <div class="rg_lf_label">
                             <div class="label_div">
                                 <label for="username">支付密码</label>
