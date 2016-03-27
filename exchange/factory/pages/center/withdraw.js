@@ -52,7 +52,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             'wallet':$(this).parent().find('.nutIdAddress').text()
                         }, function(data) {
                             if (data.status == 200) {
-                                
+                                $(this).parent().filter(':contains(wallet)').remove(); 
                             } else {
                                 consloe.log(err);
                             }
@@ -65,9 +65,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             'name':$(this).parent().find('.nutIdName').text()
                         }, function(data) {
                             if (data.status == 200) {
-                                 
+
                             } else {
-                                consloe.log(err);
+                                console.log(err);
                             }
                         });         
                     });              
@@ -231,6 +231,18 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         console.log(data);                        
                         $('.two').css('display','none');
                         $('.three').css('display','flex');
+
+                        <!-- 添加银行卡 -->
+                        var Node = $('<div class="bankIdCard addBankCard three"></div>');
+                        var Node1 = '<section class="bankIdCard-bankLogoName bankName"></section>'+
+                          '<section class="bankIdCard-Code"></section>'  +                    
+                          '<section class="bankIdCard-CardAndBg">储蓄卡</section>'+
+                          '<section class="bankIdCard-hr"></section>'+
+                          '<section class="bankIdCard-Name"></section>'+
+                          '<section class="bankIdCard-del">删除</section>'+
+                          '<‘section class="bankIdCard-address"></section>' ; 
+                        Node.html(Node1);
+
                         //填写表单-生成银行卡 
                         $('.bankName').text(''); //添加对应银行的logo图片
                         var bankAccount = $('#bank-idcard').val();
@@ -256,8 +268,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         }else if(bankName == '中国农业银行'){
                             $('.bankName').addClass('ABC');
                         }
+                        
                     } else {
-                        console.log(err);
+                        consloe.log(err);
                     }
                 });
                 
@@ -409,7 +422,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 return '';
             };
 
-            var b = getQueryString("a");
+            var b = getQueryString("id");
             //console.log(b);
             if(b){
                 $('.rmbtx').addClass('bottomon');
@@ -460,6 +473,20 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             }else if(bankName == '中国农业银行'){
                 $('.bankIdCard').addClass('ABC');
             }
+
+            //删除银行卡
+            $('.bankIdCard-del').click(function(){
+                api_mkt.rmbWithdrawalsManageDel({          
+                    'bankId':data.data.list[0].acnumber
+                }, function(data) {
+                    if (data.status == 200) {
+                        console.log(data);
+                        $('.bankIdCard-del').parent().remove();
+                    } else {
+                        console.log(err);
+                    }
+                });
+            });
         } else {
             console.log(err);
         }

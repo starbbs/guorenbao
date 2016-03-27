@@ -241,11 +241,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         });
 
         //接口 人民币充提现（查询最近5条）
-        api_mkt.rmbWithdrawalsHistory({
+        api_mkt.rmbWithdrawals({
             'pageNo':1,
             'pageSize':5
         },function(data) {
-            //alert(data.msg);
+            //alert('提现查询5条');
             if (data.status == 200) {
                 console.log(data);
                 var html = [];
@@ -262,8 +262,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 
                     //过滤内容显示不同颜色
                     $(".cnyWithdrawals").filter(":contains('进行中')").css("color","orange");
-
-
                 }
             }else {
                 console.log('财务中心-人民币提现历史表格带分页，加载失败。');

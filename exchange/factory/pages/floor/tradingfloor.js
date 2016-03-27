@@ -532,5 +532,24 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 $( "#amount3" ).html( ui.value +  "%" );
           }
     });
+
+    //当前委托（不传参数查询最近5条）
+    api_mkt.tradeGopCurrentList(function(data) {
+        if (data.status == 200) {
+            console.log(data);               
+        }else{
+            console.log(data);
+        }
+    });
+    //当前委托（带分页）
+    $('.tradingfloorMore').click(function(){
+        api_mkt.tradeGopCurrentList(function(data) {
+        if (data.status == 200) {
+            console.log(data);               
+        }else{
+            console.log(data);
+        }
+    });
+    });
     
 });

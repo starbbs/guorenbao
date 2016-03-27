@@ -17,14 +17,8 @@ require(['api_mkt','mkt_info','mkt_pagehead','cookie'], function(api_mkt,mkt_inf
     });    
     //点击进入tab的指定位置
     $('#addNewAd').click(function(){
-        location.href="withdraw.html?a=cws";
+        location.href="withdraw.html?id=rmbtx ";
     }); 
-
-    //暂无真实接口-为出现效果,暂时放这里,有接口时,删除 -开始
-    $(".status-guorenInput").filter(":contains('进行中')").css("color","orange");
-
-    $(".status-guorenOutput").filter(":contains('进行中')").css("color","orange");
-    //暂无真实接口-为出现效果,暂时放这里,有接口时,删除 -结束
 
     //果仁提现地址管理(如果有就显示)
     api_mkt.gopAddressMan({          
@@ -44,7 +38,134 @@ require(['api_mkt','mkt_info','mkt_pagehead','cookie'], function(api_mkt,mkt_inf
         }
     });
     
-    //果仁充值 
+    //果仁(提现)转出记录_只查询成功记录
+    api_mkt.transferOutHistory({          
+        'pageNo':1,
+        'pageSize':10
+    }, function(data) {
+        if (data.status == 200) {
+            console.log(data);
+            for(var i=0;i<data.data.list.length;i++){
+                var html = [];
+                for(var i=0; i<5;i++){
+                    html.push("<tr>");                                        
+                    html.push("<td>"+ data.data.list[i].createDate +"</td>");
+                    html.push("<td>"+ data.data.list[i].address +"</td>");
+                    html.push("<td>"+ data.data.list[i].amount +"</td>");
+                    html.push("<td class='status-guorenInput'>"+ data.data.list[i].status +"</td>");
+                    html.push("</tr>");
+                    $(".guorenInput").html("");  //添加前清空 
+                    $(".guorenInput").append(html.join(""));
+
+                    //过滤内容显示不同颜色
+                    $(".status-guorenInput").filter(":contains('进行中')").css("color","orange");
+                }                
+            }                 
+        } else {
+            consloe.log(err);
+        }
+    }); 
+    //果仁提现-校验
+    var btnConfirm;
+    //判断是否选择果仁地址
+    if($('.gopWithdrawalsSelect').find('option:selected').text() == '选择果仁地址'){
+        btnConfirm = false;
+    }else{
+        btnConfirm = true;
+        //$('.msg-gopWithdrawalsSelect').text('');
+    }
+    //输入数量校验
+    $('#gopWithdrawalsNumber').blur(function(){
+        var num = $('#gopWithdrawalsNumber').val();
+        var reg = /^[0-9]{1,}$/;
+        if(!reg.exec(num)){
+            btnConfirm = false;
+            $('.msg-gopWithdrawalsNumber').text('请输入提取数量');
+        }else{
+            btnConfirm = true;
+            $('.msg-gopWithdrawalsNumber').text('');
+        }
+    });
+    //校验支付密码
+    $('#gopWithdrawalsPayPwd').blur(function(){
+        var PayPwd = $('#gopWithdrawalsPayPwd').val();
+        if(!PayPwd){
+            btnConfirm = false;
+            $('.msg-gopWithdrawalsPayPwd').text('请输入支付密码');
+        }else{
+            btnConfirm = true;
+            $('.msg-gopWithdrawalsPayPwd').text('');
+        }
+    });
+
+    //获取验证码
+    $('#gopWithdrawalsCodeBtn').click(function(){
+        if(btnConfirm == false){
+            alert('请完善填写信息！');
+        }
+        else{
+            api_mkt.sendCodeByLoginAfter( function(data) {
+                if (data.status == 200) {
+                    console.log(data);
+                } else {   
+                }
+            });
+            
+            //30秒内只能发送一次
+            var count = 30;
+            var resend = setInterval(function(){
+                    count--;
+                    if(count > 0){
+                        $('#gopWithdrawalsCodeBtn').val(count+'s后重新发送');
+                        $('#gopWithdrawalsCodeBtn').attr('disabled',true).css('cursor','not-allowed');
+                    }else{
+                        clearInterval(resend);
+                        $('#gopWithdrawalsCodeBtn').attr('disabled',false).css('cursor','pointer').val('获取验证码');
+                    }
+                },1000); 
+        }
+        
+    });
+
+    $('.gopWithdrawalsBtn').click(function(){
+        if(btnConfirm == false){
+            alert('请完善填写信息！');
+        }
+        else{
+            //果仁提现
+            api_mkt.gopWithdrawals({          
+                'number':$('#gopWithdrawalsNumber').val(),
+                'toWallet':$('#gopWithdrawalsSelect').find('option:selected').text(),
+                'identifyingCode':$('#gopWithdrawalsCode').val(),
+                'paypwd':$('#gopWithdrawalsPayPwd').val()
+            }, function(data) {
+                if (data.status == 200) {
+                    alert('请完善填写信息！');
+                    for(var i=0;i<data.data.list.length;i++){
+                        var html = [];
+                        for(var i=0; i<5;i++){
+                            html.push("<tr>");                                        
+                            html.push("<td>"+ data.data.list[i].createDate +"</td>");
+                            html.push("<td>"+ data.data.list[i].address +"</td>");
+                            html.push("<td>"+ data.data.list[i].amount +"</td>");
+                            html.push("<td class='status-guorenInput'>"+ data.data.list[i].status +"</td>");
+                            html.push("</tr>");
+                            $(".guorenInput").html("");  //添加前清空 
+                            $(".guorenInput").append(html.join(""));
+
+                            //过滤内容显示不同颜色
+                            $(".status-guorenInput").filter(":contains('进行中')").css("color","orange");
+                        }                
+                    }                 
+                } else {
+                    console.log(err);
+                }
+            });
+        } 
+    });
+
+
+    //果仁充值历史
     /*$.ajax({
         url: "http://127.0.0.1/1.json",
         type:"post",
@@ -70,38 +191,10 @@ require(['api_mkt','mkt_info','mkt_pagehead','cookie'], function(api_mkt,mkt_inf
         error:function(err){
             console.log('财务中心-果仁充值表格，加载失败。');
         }
-    });
-
-    //果仁充值历史
-    $.ajax({
-        url: "http://127.0.0.1/1.json",
-        type:"post",
-        dataType: "json",
-        cache: false,
-        success:function(data){
-            var PageNum = 0; //0当前为第一页
-            var html = [];
-            for(var i=0; i<5;i++){
-                html.push("<tr>");                                        
-                html.push("<td>"+ data.data.list[PageNum+i].createDate +"</td>");
-                html.push("<td>"+ data.data.list[PageNum+i].address +"</td>");
-                html.push("<td>"+ data.data.list[PageNum+i].amount +"</td>");
-                html.push("<td class='status-guorenInput'>"+ data.data.list[PageNum+i].status +"</td>");
-                html.push("</tr>");
-                $(".guorenInput").html("");  //添加前清空 
-                $(".guorenInput").append(html.join(""));
-
-                //过滤内容显示不同颜色
-                $(".status-guorenInput").filter(":contains('进行中')").css("color","orange");
-            }
-        },
-        error:function(err){
-            console.log('财务中心-果仁充值表格，加载失败。');
-        }
-    });
+    });*/
 
     //果仁提现
-    $.ajax({
+    /*$.ajax({
         url: "http://127.0.0.1/1.json",
         type:"post",
         dataType: "json",
