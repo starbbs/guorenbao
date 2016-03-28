@@ -19,15 +19,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info,mkt_pagehead)
                 $(".msg_num").css("color","#cccccc");
             }
         });
-
-        //暂无真实接口-为出现效果,暂时放这里,有接口时,删除 -开始
-        $(".operType").filter(":contains('买入')").css("color","red");
-        $(".operType").filter(":contains('卖出')").css("color","green");
-        //暂无真实接口-为出现效果,暂时放这里,有接口时,删除 -结束
         
         //接口9 账户明细（不传参数查询最近5条）
         api_mkt.billList(function(data) {
-            //alert(data.msg);
             if (data.status == 200) {
                 console.log(data);
                 var html = [];
@@ -54,7 +48,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info,mkt_pagehead)
 
         //接口10 账户明细（带分页）
         $('.moreCheck').click(function(){
-            api_mkt.billList-page({
+            api_mkt.billListPage({
                     'pageNo':1,
                     'pageSize':10
                 },function(data) {
@@ -82,6 +76,19 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info,mkt_pagehead)
                     console.log('财务中心-资产状况-账户明细表格(带分页)，加载失败。');
                 }
             });
+        });
+        //总资产
+        api_mkt.getTotalAssets(function(data) {
+            if (data.status == 200) {
+                console.log(data);
+                $('#total_assets').text(data.data.cnyBalance + '.00');
+                $('.cnyBalance').text(data.data.cnyBalance + '.00');
+                $('.gopLock').text(data.data.gopLock + '.00'); 
+                $('.cnyLock').text(data.data.cnyLock + '.00'); 
+                $('.gopBalance').text(data.data.gopBalance + '.00'); 
+            } else {
+                consloe.log(data.msg);
+            }
         });
 
 	

@@ -24,10 +24,7 @@ require(['api_mkt','mkt_info','mkt_pagehead','cookie'], function(api_mkt,mkt_inf
         if (data.status == 200) {
             console.log(data);
             //创建节点
-            var Node1 = $('.gpal_address');
-            var Node2 = $('.regist_rg_input-longAddress');
-            Node1.text(data.data.list.address); 
-            Node2.val(data.data.list.address); 
+            $('.gpal_address').text(data.data.list.address);
         } else {
             consloe.log(err);
         }

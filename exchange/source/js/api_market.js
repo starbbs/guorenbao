@@ -130,7 +130,7 @@ define('api_mkt', ['cookie'], function() {
 	//接口 账户明细（查询最近5条）
 	add('billList','exchangeApi/bill/billList');
 	//接口 账户明细（带分页）
-	add('billList-page','exchangeApi/bill/billList');
+	add('billListPage','exchangeApi/bill/billList');
 	//接口 人民币充值
 	add('rmbRecharge','exchangeApi/wealth/rmbRecharge');
 	//接口 人民币提现
@@ -172,6 +172,8 @@ define('api_mkt', ['cookie'], function() {
 	add('tradeGopHistoryList','exchangeApi/wealth/tradeGopHistoryList');
 	//我的账户信息
 	add('basic','exchangeApi/user/basic');
+	//总资产
+	add('getTotalAssets','exchangeApi/wealth/getTotalAssets');
 
 
 	add('userlogout','exchangeApi/user/logout');
