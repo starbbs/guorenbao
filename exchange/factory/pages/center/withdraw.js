@@ -50,24 +50,21 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         Node1.addClass('nutOutputManager-even');
                     }                   
                 } 
-                 //再次添加果仁地址
+                //再次添加果仁地址
                 $('.nutOutputManager-add').click(function(){
                     $('.nut-one').show();
                     $('.nut-two').hide();
                 });
                 //果仁提现地址管理删除
-                $('.nutOutputManager-del').click(function(){                
+                $('.nutOutputManager-del').click(function(){
+                    $(this).parent().remove();            
                     api_mkt.gopAddressManDel({          
                         'wallet':$(this).parent().find('.nutIdAddress').text()
                     }, function(data) {
                         if (data.status == 200) {
-                            /*$(this).parent().filter(':contains(wallet)').remove();*/ 
-                            setTimeout(function(){
-                                //window.location.reload();  //重新载入页面
-
-                            },2000);
+                            //window.location.href='withdraw.html?id=rmbtx';
                         } else {
-                            console.log(err);
+                            console.log(data.msg);
                         }
                     });         
                 });
@@ -80,14 +77,12 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         if (data.status == 200) {
 
                         } else {
-                            console.log(err);
+                            console.log(data.msg);
                         }
                     });         
-                });              
-
-                
+                });
             } else {
-                console.log(err);
+                console.log(data.msg);
             }
         });
         
@@ -198,7 +193,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 alert('请完善填写信息！');
             }
             else{
-                api_mkt.sendCodeByLoginAfter( function(data) {
+                api_mkt.sendCodeByLoginAfter(function(data) {
                     if (data.status == 200) {
                         console.log(data);
                         $('.msg-sendCodeByLoginAfter').text('');
@@ -229,7 +224,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         $('.confirmAdd').click(function(){
             if(btnConfirm == false || $('#sendCodeByLoginAfter').val() ==''){
                 alert('请填写完整信息');
-            }else{                
+            }else{ 
+                window.location.reload();               
                 var auth_name = $.cookie("global_loginusername");
                 api_mkt.rmbWithdrawalsManageAdd({          
                     'name':auth_name, 
@@ -289,12 +285,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 });
                 
             }            
-        });
-
-        //点击删除银行卡
-        $('.bankIdCard-del').click(function(){
-            $(this).parent().remove();
-        });
+        });        
 
         //果仁提现地址备注-校验
         $('.msg-nut-name').show().html('<p style="color:#999;">果仁市场内互转即时极速到账</p>');
@@ -336,7 +327,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             if(btnConfirm == false || $('#nut-identifyingCode').val() ==''){
                 alert('请填写完整信息');
             }else{
-                
                 api_mkt.gopAddressManAdd({          
                     'name':$('#nut-name').val(),
                     'paypwd': $('#nut-paypwd').val(),
@@ -370,20 +360,10 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             $('.nut-one').show();
                             $('.nut-two').hide();
                         });
-                        //果仁提现地址管理删除
-                        $('.nutOutputManager-del').click(function(){                
-                            api_mkt.gopAddressManDel({          
-                                'wallet':$(this).parent().find('.nutIdAddress').text()
-                            }, function(data) {
-                                if (data.status == 200) {
-                                    
-                                } else {
-                                    consloe.log(err);
-                                }
-                            });         
-                        });
                         //果仁提现地址修改
-                        $('.nutOutputManager-modify').click(function(){                
+                        $('.nutOutputManager-modify').click(function(){
+                               
+                            $(this).parent().find('nutIdAddress').text();           
                             api_mkt.gopAddressManUpdate({          
                                 'id':data.data.list[$(this).parent().index()].id,
                                 'name':$(this).parent().find('.nutIdName').text()
@@ -391,7 +371,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                                 if (data.status == 200) {
                                      
                                 } else {
-                                    consloe.log(err);
+                                    
                                 }
                             });         
                         }); 
@@ -401,7 +381,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     }
                 });
 
-                
+               window.location.href='withdraw.html?id=rmbtx'; 
             }            
         });        
         
@@ -495,9 +475,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 }, function(data) {
                     if (data.status == 200) {
                         console.log(data);
-                        $('.bankIdCard-del').parent().remove();
+                        window.location.reload();
                     } else {
-                        console.log(err);
+                        console.log(data.msg);
                     }
                 });
             });
@@ -505,7 +485,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             console.log(err);
         }
     });
-
 
 	
 });
