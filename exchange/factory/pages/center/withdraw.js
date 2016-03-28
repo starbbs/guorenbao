@@ -38,11 +38,12 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     //创建节点
                     var Node1 = $('<div></div>');
                     Node1.addClass('nutOutputManager');
-                    var Node2 = $('<p class="nutIdName"></p>').appendTo(Node1); 
+                    var Node2 = $('<p>地址：</p>').appendTo(Node1); 
+                    var Node2_1 = $('<input type="text" class="nutIdName input" value="" />').appendTo(Node2); 
                     var Node3 = $('<p class="nutIdAddress"></p>').appendTo(Node1); 
                     var Node4 = $('<span class="nutOutputManager-modify"></span>').appendTo(Node1); 
                     var Node5 = $('<span class="nutOutputManager-del"></span>').appendTo(Node1);
-                    Node2.text('地址：'+data.data.list[i].name);
+                    Node2_1.val(data.data.list[i].name);
                     Node3.text(data.data.list[i].address);
                     //$('.nut-two').appendBefore(Node1);
                     Node1.insertBefore($('.nutOutputManager-add'));
@@ -69,15 +70,21 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     });         
                 });
                 //果仁提现地址修改
-                $('.nutOutputManager-modify').click(function(){                
+                $('.nutOutputManager-modify').click(function(){
+
+                    /*var text = $(this).parent().find('nutIdAddress').text()
+                    window.location.href='withdraw.html?id=rmbtx';*/
+                    $('.nutIdName').removeClass('input').css('disabled','false');
+                    var Node = $('<span type="button" class="del" value=" ">删除</span>')；
+                    Node.insertAfter($('.nutIdName'))
                     api_mkt.gopAddressManUpdate({          
                         'id':data.data.list[$(this).parent().index()].id,
-                        'name':$(this).parent().find('.nutIdName').text()
+                        'name':$(this).parent().find('.nutIdName').val()
                     }, function(data) {
                         if (data.status == 200) {
-
+                            
                         } else {
-                            console.log(data.msg);
+                            
                         }
                     });         
                 });
@@ -341,11 +348,12 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         //创建节点
                         var Node1 = $('<div></div>');
                         Node1.addClass('nutOutputManager');
-                        var Node2 = $('<p class="nutIdName"></p>').appendTo(Node1); 
+                        var Node2 = $('<p></p>').appendTo(Node1); 
+                        var Node2_1 = $('<input type="text" class="nutIdName" style="outline:none;border:0;background-color:#FAFAFA;" value="" disabled/>').appendTo(Node2); 
                         var Node3 = $('<p class="nutIdAddress"></p>').appendTo(Node1); 
                         var Node4 = $('<span class="nutOutputManager-modify"></span>').appendTo(Node1); 
                         var Node5 = $('<span class="nutOutputManager-del"></span>').appendTo(Node1);
-                        Node2.text('地址：'+$('#nut-name').val());
+                        Node2_1.val(data.data.list[i].name);
                         Node3.text($('#nut-address').val());
                         //$('.nut-two').appendBefore(Node1);
                         Node1.insertBefore($('.nutOutputManager-add'));
@@ -359,22 +367,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $('.nutOutputManager-add').click(function(){
                             $('.nut-one').show();
                             $('.nut-two').hide();
-                        });
-                        //果仁提现地址修改
-                        $('.nutOutputManager-modify').click(function(){
-                               
-                            $(this).parent().find('nutIdAddress').text();           
-                            api_mkt.gopAddressManUpdate({          
-                                'id':data.data.list[$(this).parent().index()].id,
-                                'name':$(this).parent().find('.nutIdName').text()
-                            }, function(data) {
-                                if (data.status == 200) {
-                                     
-                                } else {
-                                    
-                                }
-                            });         
-                        }); 
+                        });                        
                         
                     } else {
                         consloe.log(err);

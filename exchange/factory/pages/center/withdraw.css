@@ -735,3 +735,10 @@
 .PSBC{
     background: url(../images/PSBC.png) no-repeat 10px 15px;
 }
+
+/*果仁地址修改*/
+.nutOutputManager .input{
+    outline:none;
+    border:0;
+    background-color:#FAFAFA;
+}
