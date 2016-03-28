@@ -29,54 +29,54 @@
                     <hr></hr>
                     <p class="reset_login_password_step_1" style="display: block;">重置登录密码</p>
                     <p class="reset_login_password_step_2" style="display: none;">重置成功</p>
-                    <p class="reset_login_password_tips" style="display: block;">您正在重置账户<em id="who_account">187****7891</em>的登录密码</p>
+                    <p class="reset_login_password_tips" style="display: block;">您正在重置账户<em id="who_account"></em>的登录密码</p>
                 </div>
                 <div class="right_reg_side">
                     <div class="right_reg_side_content" style="">
                         <div class="rg_lf_label" style="display: block;">
                             <div class="label_div">
-                                <label for="username">手机号</label>
+                                <label for="phone">手机号</label>
                             </div>
                             <div class="label_div">
-                                <label for="idcard">验证码</label>
+                                <label for="identifyingCode">验证码</label>
                             </div>
                             <div class="label_div">
-                                <label for="username">登录密码</label>
+                                <label for="newPwd">登录密码</label>
                             </div>
                             <div class="label_div">
-                                <label for="idcard">确认密码</label>
+                                <label for="confirmNewPwd">确认密码</label>
                             </div>
                         </div>
                         <div class="rg_rg_input" style="display: block;">
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入手机号" id="username"/>
-                                <span>请输入正确的手机号</span>
+                                <input class="regist_rg_input" type="text" placeholder="请输入手机号" id="phone"/>
+                                <span id="error_one"></span>
                             </div>
                             <div class="regist_input_div edit_yanzhengma">
-                                <input class="regist_rg_input" type="text" placeholder="请输入验证码" id="idcard"/>
+                                <input class="regist_rg_input" type="text" placeholder="请输入验证码" id="identifyingCode"/>
                                 <div class="getauthcode">获取短信验证码</div>
-                                <span>请输入验证码</span>
+                                <span id="error_two"></span>
                             </div>
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="6~12位非纯数字字符" id="idcard"/>
-                                <span>请输入正确的登录密码</span>
+                                <input class="regist_rg_input" type="text" placeholder="6~12位非纯数字字符" id="newPwd"/>
+                                <span id="error_three"></span>
                             </div>
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请再次输入登录密码" id="idcard"/>
-                                <span>请输入正确的确认密码</span>
+                                <input class="regist_rg_input" type="text" placeholder="请再次输入登录密码" id="confirmNewPwd"/>
+                                <span id="error_four"></span>
                             </div>
                             <div class="next_step_btn">下一步</div>
-                            <a href="javascript:void(0);" class="cancelbtn">取消</a>
+                            <a href="./index.html" class="cancelbtn">取消</a>
                         </div>
                         <div class="correct" style="display: none;">
                             <div class="correct_left">
-                                <img src="./correct.png">
+                                <img src="images/correct.png">
                             </div>
                             <div class="correct_right">
                                 <div class="correct_right_top">
                                     <div>重置成功!</div>
-                                    <div><em id="howmanysecond">3s</em>后自动跳转进入首页</div>
-                                    <a href="javascript:void(0);">返回主页</a>
+                                    <div><em id="howmanysecond">3</em>s后自动跳转进入首页</div>
+                                    <a href="./index.html">返回主页</a>
                                 </div>
                             </div>
                         </div>

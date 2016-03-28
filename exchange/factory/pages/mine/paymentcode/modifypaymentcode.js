@@ -92,8 +92,12 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		            identifyingCode: $("#identifyingCode").val()
 		        }, function(data) {
 		            if (data.status == 200) {
-		                $(".one").hide();
-		                $(".two").show();
+		                // $(".one").hide();
+		                // $(".two").show();
+		                alert("修改支付密码成功");
+		                setTimeout(function(){
+		                	location.href = "./basicinfo.html";
+		                },1000);
 		            } else if (data.status == 305) {
 		                alert(data.msg);
 		            } else if (data.status==400) {
@@ -105,6 +109,8 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		            		$("#error_one").show().html(data.msg);
 		            	} else if(data.msg=="支付密码必须为数字"){
 		            		$("#error_four").show().html(data.msg);
+		            	} else if(data.msg=="支付密码长度错误"){
+		            		$("#error_four").show().html(data.msg);
 		            	}
 	                } else {
 		            	$("#error_three").show().html(data.msg);
@@ -112,7 +118,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		        });
 	    	}
 	    });
-
+	    
 
 	    //获取短信验证码
 		$('.getauthcode').click(function(){

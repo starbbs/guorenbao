@@ -91,8 +91,8 @@ require(['api_mkt','cookie'], function(api_mkt) {
     	$(".afterlogin").show();
         var global_loginuserphone = $.cookie("global_loginuserphone");
 	    var global_loginusername = $.cookie("global_loginusername");
-	    console.log("-------------"+global_loginuserphone);
-	    console.log("-------------"+global_loginusername);
+	    // console.log("-------------"+global_loginuserphone);
+	    // console.log("-------------"+global_loginusername);
 	    if(global_loginusername!=""&&global_loginusername){
 	    	$("#logined_username").html(global_loginusername);
 	    } else {

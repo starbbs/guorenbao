@@ -29,19 +29,19 @@
                     <hr></hr>
                     <p class="reset_login_password_step_1" style="display: block;">重置支付密码</p>
                     <p class="reset_login_password_step_2" style="display: none;">重置成功</p>
-                    <p class="reset_login_password_tips" style="display: block;">您正在重置账户<em id="who_account">187****7891</em>的登录密码</p>
+                    <p class="reset_login_password_tips" style="display: block;">您正在重置账户<em id="who_account"></em>的登录密码</p>
                 </div>
                 <div class="right_reg_side">
                     <div class="right_reg_side_content" style="">
-                        <div class="rg_lf_label" style="display: none;">
+                        <div class="rg_lf_label" style="display: block;">
                             <div class="label_div">
-                                <label for="username">身份证</label>
+                                <label for="idNumber">身份证</label>
                             </div>
                             <div class="label_div">
-                                <label for="idcard">验证码</label>
+                                <label for="identifyingCode">验证码</label>
                             </div>
                         </div>
-                        <div class="rg_lf_label" style="display: block;">
+                        <div class="two_rg_lf_label" style="display: none;">
                             <div class="label_div">
                                 <label for="username">支付密码</label>
                             </div>
@@ -49,30 +49,29 @@
                                 <label for="idcard">确认密码</label>
                             </div>
                         </div>
-                        <div class="rg_rg_input" style="display: none;">
-                            <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入身份证号" id="username"/>
-                                <span>请输入正确的身份证号</span>
-                            </div>
-                            <div class="regist_input_div edit_yanzhengma">
-                                <input class="regist_rg_input" type="text" placeholder="请输入验证码" id="idcard"/>
-                                <div class="getauthcode">获取短信验证码</div>
-                                <span>请输入正确的验证码</span>
-                            </div>
-                            <div class="next_step_btn">下一步</div>
-                            <a href="javascript:void(0);" class="cancelbtn">取消</a>
-                        </div>
                         <div class="rg_rg_input" style="display: block;">
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入身份证号" id="username"/>
-                                <span>请输入正确的身份证号</span>
+                                <input class="regist_rg_input" type="text" placeholder="请输入身份证号" id="idNumber"/>
+                                <span class="one_span1"></span>
                             </div>
                             <div class="regist_input_div edit_yanzhengma">
-                                <input class="regist_rg_input" type="text" placeholder="请输入验证码" id="idcard"/>
-                                <div class="getauthcode">获取短信验证码</div>
-                                <span>请输入正确的验证码</span>
+                                <input class="regist_rg_input" type="text" placeholder="请输入验证码" id="identifyingCode"/>
+                                <div class="getauthcode_one">获取短信验证码</div>
+                                <span class="one_span2"></span>
                             </div>
-                            <div class="next_step_btn">下一步</div>
+                            <div class="next_step_btn_one">下一步</div>
+                            <a href="./basicinfo.html" class="cancelbtn">取消</a>
+                        </div>
+                        <div class="two_rg_rg_input" style="display: none;">
+                            <div class="regist_input_div">
+                                <input class="regist_rg_input" type="text" placeholder="支付密码" id="password"/>
+                                <span class="tow_span1"></span>
+                            </div>
+                            <div class="regist_input_div edit_yanzhengma">
+                                <input class="regist_rg_input" type="text" placeholder="确认密码" id="confirmPwd"/>
+                                <span class="tow_span2"></span>
+                            </div>
+                            <div class="next_step_btn_two">下一步</div>
                             <a href="javascript:void(0);" class="cancelbtn">取消</a>
                         </div>
                         <div class="correct" style="display: none;">
@@ -82,7 +81,7 @@
                             <div class="correct_right">
                                 <div class="correct_right_top">
                                     <div>重置成功!</div>
-                                    <div><em id="howmanysecond">3s</em>后自动跳转进入首页</div>
+                                    <div><em id="howmanysecond">3</em>s后自动跳转进入首页</div>
                                     <a href="javascript:void(0);">返回主页</a>
                                 </div>
                             </div>

@@ -186,6 +186,12 @@ define('api_mkt', ['cookie'], function() {
 	add('setpaypwd','exchangeApi/security/setPayPwd');
 	
 
+	add('resetpaypwdbefore','exchangeApi/security/resetPayPwdBefore');
+
+	add('resetLoginPwd','exchangeApi/login/resetLoginPwd');
+
+	add('resetPayPwd','exchangeApi/security/resetPayPwd');
+
 	/*
 	// 1.手机号注册
 	add('register', '/login/register');

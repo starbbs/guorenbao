@@ -52,4 +52,16 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		}
 	});
 
+	api_mkt.realAuth(function(data){
+		console.log(data.data.list.name);
+		console.log(data.data.list.idNumber);
+		if(data.data.list.name&&data.data.list.name!=""){
+			$(".authenticated").show();
+			$(".unautherized").hide();
+			$("#username_value").html(data.data.list.name);
+			$("#identificode_value").html(data.data.list.idNumber);
+		} else {
+			$(".unautherized").show();
+		}
+	});
 });

@@ -22,9 +22,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         $(".loginarea").hide();    //隐藏页面中的登录区块
         $(".afterlogin").show();   //首页的总资产区块显示
         $(".top_em").html(global_loginuserphone.substr(0,3)+'****'+global_loginuserphone.substr(7,4));
-        console.log("------index-------"+global_loginuserphone);
-        console.log("------index-------"+global_loginusername);
-        console.log("------index-------"+global_loginuseruid);
+        // console.log("------index-------"+global_loginuserphone);
+        // console.log("------index-------"+global_loginusername);
+        // console.log("------index-------"+global_loginuseruid);
         $(".lf_asset_center").html(totalAssets);  //总资产
         $(".rg_asset_center").html(totalNuts);    //总果仁
         
@@ -44,7 +44,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         $(".popDiv").hide();
         $(".bg").hide();
     }
-
     $(".bg").width($(document).width());
     $('.bg').height($(document).height());
     $('.bg').css('left', 0);
@@ -55,11 +54,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     });
     var ohlc = [];
     var volume = [];
-    // set the allowed units for data grouping
     var groupingUnits = [
         [
-            '周', // unit name
-            [1] // allowed multiples
+            '周',
+            [1]
         ],
         [
             '月', [1, 2, 3, 4, 6]
@@ -167,7 +165,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             ],
             tooltip: {
                 formatter: function() {
-                    var s = Highcharts.dateFormat('<span> %Y-%m-%d %H:%M:%S</span>', this.x);
+                    var s = Highcharts.dateFormat('<span> %Y-%m-%d %H:%M:%S</span><br/>', this.x);
                     s += "成交数量"+this.points[1].y;
                     s += '<br />开盘:<b>' + this.points[0].point.open + '</b><br />最高:<b>' + this.points[0].point.high + '</b><br />最低:<b>' + this.points[0].point.low + '</b><br />收盘:<b>' + this.points[0].point.close + '</b>';
                     return s;
@@ -195,7 +193,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         $(".bg").hide();
     });
     $(".timebar").on("click", function() {
-        console.log("timebar");
         $(this).addClass("btn_choosed");
         $(this).siblings().removeClass("btn_choosed");
         if ($(this).hasClass("oneminute")) {
