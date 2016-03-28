@@ -59,12 +59,14 @@ require(['api_mkt','cookie'], function(api_mkt) {
             $(".msg_num").css("color","#cccccc");
         }
     });
-    function showDiv() {
-        $("#bg").show();
-        $("#popDiv").fadeIn(500);
-    }
-    function closeDiv() {
-        $("#popDiv").hide();
-        $("#bg").hide();
-    }
+
 });
+function showDiv() {
+    $("#bg").show();
+    //$("#popDiv").fadeIn(500);
+    $("#popDiv_role").show();
+}
+function closeDiv() {
+    $("#popDiv").hide();
+    $("#bg").hide();
+}

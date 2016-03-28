@@ -17,9 +17,11 @@
 		//console.log(JSON.parse(haha['order'][0]));
 		//console.log(JSON.parse(haha['order'][0]).price);
 		
-		var thelatestprice = JSON.parse(haha['order'][0]).price;
-		$('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
-		
+		var thelatestprice;
+		if(haha['order']){
+			var thelatestprice  = JSON.parse(haha['order'][0]).price;
+			$('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
+		}
 		var turnover = Number(haha['24Total']).toFixed(2);
 		$('#turnover').html(turnover);  //页面顶部 24小时成交量
 
@@ -42,7 +44,7 @@
 		$('#pricechangeratio').html(unknow.toFixed(2)+"%");  //涨跌幅
         var bid_history_list_html = "";
         var orderlist = haha['order'];
-        if(orderlist.length!=0){
+        if(orderlist!=null){
         	for (var i = 0; i < orderlist.length; i++) {
 	        	var orderliststr = JSON.parse(orderlist[i]);
 	        	var timestr = orderliststr.time;

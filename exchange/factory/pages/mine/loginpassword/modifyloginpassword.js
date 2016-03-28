@@ -64,6 +64,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
     	if($("#confirmNewPwd").val()==""){
     		$("#three_span").show().html("确认密码不能为空");
     		whether_sub = false;
+    		return;
     	}
     	if($("#newPwd").val()!==$("#confirmNewPwd").val()){
     		$("#three_span").show().html("两次密码不相同");
@@ -76,9 +77,12 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	            confirmNewPwd: $("#confirmNewPwd").val()
 	        }, function(data) {
 	            if (data.status == 200) {
-	                console.log("asdfjkl")
 	                $(".reset_login_password_step_1").hide();
 	                $(".reset_login_password_step_2").show();
+	                alert("修改登录密码成功");
+	                setTimeout(function(){
+	                	location.href = "./basicinfo.html";
+	                },1000);
 	            } else if (data.status == 305) {
 	                alert(data.msg);
 	            } else if (data.status==400) {

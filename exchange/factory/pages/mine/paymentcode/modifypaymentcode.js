@@ -24,26 +24,29 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	   		} else {
 	   			$("#error_two").hide().html("");
 	   		}
-	   		if($(this).val()!==""&&$(this).val()!==$("#confirmPayPwd").val()){
-	   			$("#error_two").show().html("两次密码不相同");
-	   			return;
-	   		} else {
-	   			$("#error_two").hide().html("");
-	   		}
+	   		// if($(this).val()!==""&&$(this).val()!==$("#confirmPayPwd").val()){
+	   		// 	$("#error_two").show().html("两次密码不相同");
+	   		// 	return;
+	   		// } else {
+	   		// 	$("#error_two").hide().html("");
+	   		// 	$("#error_three").hide().html("");
+	   		// }
     	});
     	$("#confirmPayPwd").on("blur",function(){
     		if($(this).val()==""){
 	   			$("#error_three").show().html("确认密码不能为空");
 	   			return;
 	   		} else {
+	   			$("#error_two").hide().html("");
 	   			$("#error_three").hide().html("");
 	   		}
-	   		if($(this).val()!==""&&$(this).val()!==$("#newPayPwd").val()){
+	   		if($(this).val()!==""&&$("#newPayPwd").val()!=""&&$(this).val()!==$("#newPayPwd").val()){
 	   			$("#error_three").show().html("两次密码不相同");
 	   			return;
 	   		} else {
 	   			$("#error_three").hide().html("");
 	   		}
+
     	});
     	$("#identifyingCode").on("blur",function(){
     		if($(this).val()==""){
@@ -72,13 +75,14 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	    		$("#error_three").show().html("确认密码不能为空");
 	    		whether_sub_one = false;
 	    	}
-	    	if($("#newPayPwd").val()!==$("#currentPayPwd").val()){
-	    		$("#error_three").show().html("两次密码不相同");
-	    		whether_sub_one = false;
-	    	}
 	    	if($("#identifyingCode").val()==""){
 	    		$("#error_four").show().html("验证码不能为空");
 	    		whether_sub_one = false;
+	    	}
+	    	if($("#newPayPwd").val()!==$("#confirmPayPwd").val()){
+	    		$("#error_three").show().html("两次密码不相同");
+	    		whether_sub_one = false;
+	    		return;
 	    	}
 	    	if(whether_sub_one){
 	    		api_mkt.setpaypwd({
@@ -99,6 +103,8 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		            		$("#error_four").show().html(data.msg);
 		            	} else if(data.msg=="原支付密码输入错误"){
 		            		$("#error_one").show().html(data.msg);
+		            	} else if(data.msg=="支付密码必须为数字"){
+		            		$("#error_four").show().html(data.msg);
 		            	}
 	                } else {
 		            	$("#error_three").show().html(data.msg);
