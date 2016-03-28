@@ -127,7 +127,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         //验证码
         $('#VerificationCode').blur(function(){
             var pwd = $(this).val();
-            if(!pwd){
+            var reg = /^\d{6}$/;
+            if(!reg.exec(pwd)){
                 $('.msg-VerificationCode').text('请输入验证码');
                 flag = false;
             }else{
@@ -220,7 +221,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         //接口：人民币提现
                         api_mkt.rmbWithdrawals({          
                             'bankId':data.data.list[0].acnumber,
-                            'amount':amount,
+                            'money':amount,
                             'identifyingCode':$('#VerificationCode').val(),
                             'fee':Fee,
                             'bankName':data.data.list[0].bank,

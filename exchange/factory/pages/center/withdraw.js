@@ -14,76 +14,90 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             $('.rmbxh').removeClass('bottomon');
             $('.recharge').hide();
             $('.withdraw_deposit').show();
-            $('.nut-two').hide();
-            //果仁提现地址管理(如果有就显示)
-            api_mkt.gopAddressMan({          
-                'pageNo':1,
-                'pageSize':10
-            }, function(data) {
-                if (data.status == 200) {
-                    console.log(data);
-                    //果仁市场添加
-                    $('.nut-one').hide();
-                    $('.nut-two').show();
-                    for(var i=0;i<data.data.list.length;i++){
-                        //创建节点
-                        var Node1 = $('<div></div>');
-                        Node1.addClass('nutOutputManager');
-                        var Node2 = $('<p class="nutIdName"></p>').appendTo(Node1); 
-                        var Node3 = $('<p class="nutIdAddress"></p>').appendTo(Node1); 
-                        var Node4 = $('<span class="nutOutputManager-modify"></span>').appendTo(Node1); 
-                        var Node5 = $('<span class="nutOutputManager-del"></span>').appendTo(Node1);
-                        Node2.text('地址：'+data.data.list[i].name);
-                        Node3.text(data.data.list[i].address);
-                        //$('.nut-two').appendBefore(Node1);
-                        Node1.insertBefore($('.nutOutputManager-add'));
-                        if($('.nutOutputManager').length % 2 == 0){
-                            Node1.addClass('nutOutputManager-even');
-                        }                    
-                    } 
-                     //再次添加果仁地址
-                    $('.nutOutputManager-add').click(function(){
-                        $('.nut-one').show();
-                        $('.nut-two').hide();
-                    });
-                    //果仁提现地址管理删除
-                    $('.nutOutputManager-del').click(function(){                
-                        api_mkt.gopAddressManDel({          
-                            'wallet':$(this).parent().find('.nutIdAddress').text()
-                        }, function(data) {
-                            if (data.status == 200) {
-                                $(this).parent().filter(':contains(wallet)').remove(); 
-                            } else {
-                                consloe.log(err);
-                            }
-                        });         
-                    });
-                    //果仁提现地址修改
-                    $('.nutOutputManager-modify').click(function(){                
-                        api_mkt.gopAddressManUpdate({          
-                            'id':data.data.list[$(this).parent().index()].id,
-                            'name':$(this).parent().find('.nutIdName').text()
-                        }, function(data) {
-                            if (data.status == 200) {
-
-                            } else {
-                                console.log(err);
-                            }
-                        });         
-                    });              
-
+            //判断有无节点
+            if($('.nutOutputManager').length >0){
+                $('.nut-one').hide();
+                $('.nut-two').show(); 
+            }else{
+                $('.nut-one').show();
+                $('.nut-two').hide(); 
+            }
                     
-                } else {
-                    consloe.log(err);
-                }
-            });
         });
+        //果仁提现地址管理(如果有就显示)            
+        api_mkt.gopAddressMan({          
+            'pageNo':1,
+            'pageSize':10
+        }, function(data) {
+            if (data.status == 200) {
+                console.log(data);
+                //果仁市场添加
+                $('.nut-one').hide();
+                $('.nut-two').show();
+                for(var i=0;i<data.data.list.length;i++){
+                    //创建节点
+                    var Node1 = $('<div></div>');
+                    Node1.addClass('nutOutputManager');
+                    var Node2 = $('<p class="nutIdName"></p>').appendTo(Node1); 
+                    var Node3 = $('<p class="nutIdAddress"></p>').appendTo(Node1); 
+                    var Node4 = $('<span class="nutOutputManager-modify"></span>').appendTo(Node1); 
+                    var Node5 = $('<span class="nutOutputManager-del"></span>').appendTo(Node1);
+                    Node2.text('地址：'+data.data.list[i].name);
+                    Node3.text(data.data.list[i].address);
+                    //$('.nut-two').appendBefore(Node1);
+                    Node1.insertBefore($('.nutOutputManager-add'));
+                    if($('.nutOutputManager').length % 2 == 0){
+                        Node1.addClass('nutOutputManager-even');
+                    }                   
+                } 
+                 //再次添加果仁地址
+                $('.nutOutputManager-add').click(function(){
+                    $('.nut-one').show();
+                    $('.nut-two').hide();
+                });
+                //果仁提现地址管理删除
+                $('.nutOutputManager-del').click(function(){                
+                    api_mkt.gopAddressManDel({          
+                        'wallet':$(this).parent().find('.nutIdAddress').text()
+                    }, function(data) {
+                        if (data.status == 200) {
+                            /*$(this).parent().filter(':contains(wallet)').remove();*/ 
+                            setTimeout(function(){
+                                //window.location.reload();  //重新载入页面
+
+                            },2000);
+                        } else {
+                            console.log(err);
+                        }
+                    });         
+                });
+                //果仁提现地址修改
+                $('.nutOutputManager-modify').click(function(){                
+                    api_mkt.gopAddressManUpdate({          
+                        'id':data.data.list[$(this).parent().index()].id,
+                        'name':$(this).parent().find('.nutIdName').text()
+                    }, function(data) {
+                        if (data.status == 200) {
+
+                        } else {
+                            console.log(err);
+                        }
+                    });         
+                });              
+
+                
+            } else {
+                console.log(err);
+            }
+        });
+        
 
         //twoBackOne  返回
         $('.twoBackOne').click(function(){
-            $('.one').css('display','flex');
+            /*$('.one').css('display','flex');
             $('.two').css('display','none');
-            $(this).css('display','none');
+            $(this).css('display','none');*/
+            window.location.reload();
         });
 
         //点击-银行卡表单

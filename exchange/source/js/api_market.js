@@ -159,6 +159,8 @@ define('api_mkt', ['cookie'], function() {
 	add('bankList','exchangeApi/wealth/bankList');	
 	// 接口 果仁(提现)转出记录_只查询成功记录
 	add('transferOutHistory','exchangeApi/wealth/transferOutHistory');
+	// 接口 果仁(充值)转出记录_只查询成功记录
+	add('transferInHistory','exchangeApi/wealth/transferInHistory');
 	// 接口 果仁充值
 	add('gopRecharge','exchangeApi/wealth/gopRecharge');
 	// 接口 果仁提现
@@ -166,7 +168,10 @@ define('api_mkt', ['cookie'], function() {
 
 	//当前委托（不传参数查询最近5条）、带分页
 	add('tradeGopCurrentList','exchangeApi/wealth/tradeGopCurrentList');
-
+	//历史委托（不传参数查询最近5条）、带分页
+	add('tradeGopHistoryList','exchangeApi/wealth/tradeGopHistoryList');
+	//我的账户信息
+	add('basic','exchangeApi/user/basic');
 
 
 	add('userlogout','exchangeApi/user/logout');

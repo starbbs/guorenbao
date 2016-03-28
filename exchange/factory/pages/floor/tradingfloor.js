@@ -536,7 +536,19 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     //当前委托（不传参数查询最近5条）
     api_mkt.tradeGopCurrentList(function(data) {
         if (data.status == 200) {
-            console.log(data);               
+            console.log(data);
+            var html = [];
+                /*for(var i=0; i<5;i++){
+                    html.push("<tr>");                                        
+                    html.push("<td>"+ data.data.list[i].updateDate +"</td>");
+                    html.push("<td>"+ data.data.list[i].bank +"</td>");
+                    html.push("<td>"+ data.data.list[i].pay +"</td>");
+                    html.push("<td>"+ data.data.list[i].money-pay +"</td>");
+                    html.push("<td class='cnyWithdrawals'>"+ data.data.list[i].status+ "</td>");
+                    html.push("</tr>");
+                    $(".cnyOutput").html("");  //添加前清空 
+                    $(".cnyOutput").append(html.join(""));
+                } */              
         }else{
             console.log(data);
         }
@@ -544,12 +556,30 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     //当前委托（带分页）
     $('.tradingfloorMore').click(function(){
         api_mkt.tradeGopCurrentList(function(data) {
+            if (data.status == 200) {
+                console.log(data);               
+            }else{
+                console.log(data);
+            }
+        });
+    });
+    //历史委托（不传参数查询最近5条）
+    api_mkt.tradeGopHistoryList(function(data) {
         if (data.status == 200) {
             console.log(data);               
         }else{
             console.log(data);
         }
     });
+    //历史委托（带分页）
+    $('.tradingfloorMore').click(function(){
+        api_mkt.tradeGopHistoryList(function(data) {
+            if (data.status == 200) {
+                console.log(data);               
+            }else{
+                console.log(data);
+            }
+        });
     });
     
 });

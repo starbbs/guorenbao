@@ -19,6 +19,19 @@ require(['api_mkt','mkt_info','mkt_pagehead','cookie'], function(api_mkt,mkt_inf
     $('#addNewAd').click(function(){
         location.href="withdraw.html?id=rmbtx ";
     }); 
+    //我的账户信息-取账户地址
+    api_mkt.basic(function(data) {
+        if (data.status == 200) {
+            console.log(data);
+            //创建节点
+            var Node1 = $('.gpal_address');
+            var Node2 = $('.regist_rg_input-longAddress');
+            Node1.text(data.data.list.address); 
+            Node2.val(data.data.list.address); 
+        } else {
+            consloe.log(err);
+        }
+    });
 
     //果仁提现地址管理(如果有就显示)
     api_mkt.gopAddressMan({          
@@ -49,16 +62,16 @@ require(['api_mkt','mkt_info','mkt_pagehead','cookie'], function(api_mkt,mkt_inf
                 var html = [];
                 for(var i=0; i<5;i++){
                     html.push("<tr>");                                        
-                    html.push("<td>"+ data.data.list[i].createDate +"</td>");
-                    html.push("<td>"+ data.data.list[i].address +"</td>");
-                    html.push("<td>"+ data.data.list[i].amount +"</td>");
-                    html.push("<td class='status-guorenInput'>"+ data.data.list[i].status +"</td>");
+                    html.push("<td>"+ data.data.list[PageNum+i].createDate +"</td>");
+                    html.push("<td>"+ data.data.list[PageNum+i].address +"</td>");
+                    html.push("<td>"+ data.data.list[PageNum+i].amount +"</td>");
+                    html.push("<td class='status-guorenOutput'>"+ data.data.list[PageNum+i].status +"</td>");
                     html.push("</tr>");
-                    $(".guorenInput").html("");  //添加前清空 
-                    $(".guorenInput").append(html.join(""));
+                    $(".guorenOutput").html("");  //添加前清空 
+                    $(".guorenOutput").append(html.join(""));
 
                     //过滤内容显示不同颜色
-                    $(".status-guorenInput").filter(":contains('进行中')").css("color","orange");
+                    $(".status-guorenOutput").filter(":contains('进行中')").css("color","orange");
                 }                
             }                 
         } else {
@@ -66,14 +79,14 @@ require(['api_mkt','mkt_info','mkt_pagehead','cookie'], function(api_mkt,mkt_inf
         }
     }); 
     //果仁提现-校验
-    var btnConfirm;
+    var btnConfirm = false;
     //判断是否选择果仁地址
-    if($('.gopWithdrawalsSelect').find('option:selected').text() == '选择果仁地址'){
+    /*if($('.gopWithdrawalsSelect').find('option:selected').text() == '选择果仁地址'){
         btnConfirm = false;
     }else{
         btnConfirm = true;
         //$('.msg-gopWithdrawalsSelect').text('');
-    }
+    }*/
     //输入数量校验
     $('#gopWithdrawalsNumber').blur(function(){
         var num = $('#gopWithdrawalsNumber').val();
@@ -126,9 +139,9 @@ require(['api_mkt','mkt_info','mkt_pagehead','cookie'], function(api_mkt,mkt_inf
         }
         
     });
-
+    //转出
     $('.gopWithdrawalsBtn').click(function(){
-        if(btnConfirm == false){
+        if(btnConfirm == false || typeof(btnConfirm) == 'undefined'){
             alert('请完善填写信息！');
         }
         else{
@@ -140,86 +153,42 @@ require(['api_mkt','mkt_info','mkt_pagehead','cookie'], function(api_mkt,mkt_inf
                 'paypwd':$('#gopWithdrawalsPayPwd').val()
             }, function(data) {
                 if (data.status == 200) {
-                    alert('请完善填写信息！');
-                    for(var i=0;i<data.data.list.length;i++){
-                        var html = [];
-                        for(var i=0; i<5;i++){
-                            html.push("<tr>");                                        
-                            html.push("<td>"+ data.data.list[i].createDate +"</td>");
-                            html.push("<td>"+ data.data.list[i].address +"</td>");
-                            html.push("<td>"+ data.data.list[i].amount +"</td>");
-                            html.push("<td class='status-guorenInput'>"+ data.data.list[i].status +"</td>");
-                            html.push("</tr>");
-                            $(".guorenInput").html("");  //添加前清空 
-                            $(".guorenInput").append(html.join(""));
-
-                            //过滤内容显示不同颜色
-                            $(".status-guorenInput").filter(":contains('进行中')").css("color","orange");
-                        }                
-                    }                 
+                     console.log(data);                
                 } else {
-                    console.log(err);
+                    console.log(data.msg);
                 }
             });
         } 
     });
 
+    //果仁(充值)转出记录_只查询成功记录
+    api_mkt.transferInHistory({          
+        'pageNo':1,
+        'pageSize':10
+    }, function(data) {
+        if (data.status == 200) {
+            console.log(data);
+            for(var i=0;i<data.data.list.length;i++){
+                var html = [];
+                for(var i=0; i<5;i++){
+                    html.push("<tr>");                                        
+                    html.push("<td>"+ data.data.list[PageNum+i].createDate +"</td>");
+                    html.push("<td>"+ data.data.list[PageNum+i].address +"</td>");
+                    html.push("<td>"+ data.data.list[PageNum+i].amount +"</td>");
+                    html.push("<td class='status-guorenInput'>"+ data.data.list[PageNum+i].status +"</td>");
+                    html.push("</tr>");
+                    $(".guorenInput").html("");  //添加前清空 
+                    $(".guorenInput").append(html.join(""));
 
-    //果仁充值历史
-    /*$.ajax({
-        url: "http://127.0.0.1/1.json",
-        type:"post",
-        dataType: "json",
-        cache: false,
-        success:function(data){
-            var PageNum = 0; //0当前为第一页
-            var html = [];
-            for(var i=0; i<5;i++){
-                html.push("<tr>");                                        
-                html.push("<td>"+ data.data.list[PageNum+i].createDate +"</td>");
-                html.push("<td>"+ data.data.list[PageNum+i].address +"</td>");
-                html.push("<td>"+ data.data.list[PageNum+i].amount +"</td>");
-                html.push("<td class='status-guorenInput'>"+ data.data.list[PageNum+i].status +"</td>");
-                html.push("</tr>");
-                $(".guorenInput").html("");  //添加前清空 
-                $(".guorenInput").append(html.join(""));
-
-                //过滤内容显示不同颜色
-                $(".status-guorenInput").filter(":contains('进行中')").css("color","orange");
-            }
-        },
-        error:function(err){
-            console.log('财务中心-果仁充值表格，加载失败。');
+                    //过滤内容显示不同颜色
+                    $(".status-guorenInput").filter(":contains('进行中')").css("color","orange");
+                }                
+            }                 
+        } else {
+            consloe.log(err);
         }
-    });*/
-
-    //果仁提现
-    /*$.ajax({
-        url: "http://127.0.0.1/1.json",
-        type:"post",
-        dataType: "json",
-        cache: false,
-        success:function(data){
-            var PageNum = 0; //0当前为第一页
-            var html = [];
-            for(var i=0; i<5;i++){
-                html.push("<tr>");                                        
-                html.push("<td>"+ data.data.list[PageNum+i].createDate +"</td>");
-                html.push("<td>"+ data.data.list[PageNum+i].address +"</td>");
-                html.push("<td>"+ data.data.list[PageNum+i].amount +"</td>");
-                html.push("<td class='status-guorenOutput'>"+ data.data.list[PageNum+i].status +"</td>");
-                html.push("</tr>");
-                $(".guorenOutput").html("");  //添加前清空 
-                $(".guorenOutput").append(html.join(""));
-
-                //过滤内容显示不同颜色
-                $(".status-guorenOutput").filter(":contains('进行中')").css("color","orange");
-            }
-        },
-        error:function(err){
-            console.log('财务中心-果仁提现表格，加载失败。');
-        }
-    });*/
+    });  
+    
     //接受跳转参数
     $(function(){
         function getQueryString(name) {
