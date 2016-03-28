@@ -26,11 +26,13 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 		transferOutType: '',
 		gopNum: 0,
 		list: [],
+		/*
 		newTargetClick: function() { // 新目标
 			vm.transferOutType = 'NEW';
 			transferNew.newTarget = '';
 			router.go('/transfer-new');
 		},
+		*/
 		myWalletClick: function() { // 我的钱包
 			if (vm.hasWallet) {
 				vm.transferOutType = 'ME_WALLET';
@@ -38,7 +40,6 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 					gopToken: gopToken
 				}, function(data) {
 					if (data.status == 200) {
-						console.log(data.data);
 						var nowData = {};
 						nowData.name = '我的钱包';
 						for (var i = 0; i < data.data.walletList.length; i++) {
@@ -138,6 +139,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 				router.go('/address-mine');
 			}
 		},
+		/*
 		gopContactClick: function() { // 果仁宝联系人
 			vm.transferOutType = 'GOP_CONTACT';
 			transferTarget.serviceFee = '0.00';
@@ -150,6 +152,8 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 			router.go('/transfer-contacts');
 			transferContacts.query();
 		},
+		*/
+		/*
 		transferClick: function(event) { // 最近联系人
 			var item = vm.list.$model[$(event.target).closest('.transfer-item').get(0).dataset.index];
 			vm.transferOutType = item.type;
@@ -167,7 +171,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 			transferTarget.phone = item.phone;
 			targetInit(vm.transferOutType);
 			router.go('/transfer-target');
-		},
+		},*/
 		showAuthenDes: function() {
 			dialogAlert.set('为保证您的账户资金安全，请您输入真实姓名，实名信息校验正确后不可更改');
 			dialogAlert.show();
@@ -377,12 +381,13 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 		isMarket: false, // 是否是果仁市场
 		addressToPhone: '',
 		getCnyMoney: function() {//输入果仁数量监听
-			if (parseFloat(this.value) === 0){
+			if (parseFloat(this.value) === 0 || this.value === ''){
 				$.alert('请输入正确的数量');
 				transferTarget.notchecked = true;
 				return;
 			}
-			if (parseFloat(this.value) > parseFloat(transferTarget.gopNum - transferTarget.serviceFee)){
+			//parseFloat(this.value) > parseFloat(transferTarget.gopNum - transferTarget.serviceFee 写入的大于总值-手续费
+			if (parseFloat(this.value) > parseFloat(transferTarget.gopNum)){
 				$.alert('您的果仁数不足');
 				transferTarget.notchecked = true;
 				return;
@@ -397,11 +402,11 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 				}
 			}
 			transferTarget.cnyMoney = transferTarget.price * this.value;
-			console.log(transferTarget.notchecked);
 		},
 		//确定转帐按钮
 		transferCommitClick: function() {
-			if (parseFloat(transferTarget.transferNum) > 0 && parseFloat(transferTarget.gopNum - transferTarget.serviceFee)) {
+			//parseFloat(transferTarget.transferNum) > 0 && parseFloat(transferTarget.gopNum - transferTarget.serviceFee)
+			if (parseFloat(transferTarget.transferNum) > 0 && parseFloat(transferTarget.gopNum)) {
 				//密码输入框显示 AJAX密码确认后 设置回调函数
 				setTimeout(function() {
 					dialogPaypass.show();

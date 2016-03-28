@@ -25,8 +25,8 @@ define('h5-price', ['api'], function(api) {
 	};
 	var get = price.get = function() {
 		once(function(next) {
-			var now = price.now;
-			var change = next - now;
+			var now = price.now;// false = false
+			var change = next - now; //  3=3-false
 			if (now === false) {
 				price.onFirstChange(next);
 			}

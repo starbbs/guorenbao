@@ -23,7 +23,7 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscro
 	avalon.scan(history.native, historyVM);
 
 	//wealthScroll用于存放iscrollLoading.set新生成的iscroll4生成的对象   iscrollLoading用于存放iscroll4相应的函数 
-	//开关控制上拉或下拉刷新
+	//开关控制上拉或下拉刷新		wealthScroll用于加载完列表进行刷新
 	var wealthScroll = iscrollLoading.set('wealth-history', {
 		userUp: false,
 		userDown: true
@@ -210,6 +210,7 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscro
 	price.onFirstChange = function(next) {
 		vm.price = next;
 	};
+	//                    当前价格 上次价格 改变大小 
 	price.onChange = function(next, now, change) {
 		vm.priceChange = change;
 		vm.price = now;
