@@ -47,8 +47,6 @@ define('get', ['url'], function(url) {
 			return href + '?' + data;
 		}
 	};
-	// http://localhost:8888/h5/build/account.html?from=aaa&id=111#%21/view/bill
-	// url.search = ?from=aaa&id=111
 	return {
 		data: parse(url.search.replace(/^\?/, '')),  //parse('from=aaa&id=111');   ==>最后data = {from:aaa,id:111}  
 		parse: parse,
