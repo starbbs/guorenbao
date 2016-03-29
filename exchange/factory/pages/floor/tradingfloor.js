@@ -538,17 +538,17 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         if (data.status == 200) {
             console.log(data);
             var html = [];
-                /*for(var i=0; i<5;i++){
+                for(var i=0; i<5;i++){
                     html.push("<tr>");                                        
-                    html.push("<td>"+ data.data.list[i].updateDate +"</td>");
-                    html.push("<td>"+ data.data.list[i].bank +"</td>");
+                    html.push("<td>"+ data.data.list[i].createDate +"</td>");
+                    html.push("<td>"+ data.data.list[i].tradeGopType +"</td>");
                     html.push("<td>"+ data.data.list[i].pay +"</td>");
                     html.push("<td>"+ data.data.list[i].money-pay +"</td>");
                     html.push("<td class='cnyWithdrawals'>"+ data.data.list[i].status+ "</td>");
                     html.push("</tr>");
-                    $(".cnyOutput").html("");  //添加前清空 
-                    $(".cnyOutput").append(html.join(""));
-                } */              
+                    $(".tradeGopCurrentListTable").html("");  //添加前清空 
+                    $(".tradeGopCurrentListTable").append(html.join(""));
+                }               
         }else{
             console.log(data);
         }

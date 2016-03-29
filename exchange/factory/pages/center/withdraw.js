@@ -71,23 +71,24 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 });
                 //果仁提现地址修改
                 $('.nutOutputManager-modify').click(function(){
+                    $(this).parent().find('.nutIdName').removeClass('input');
+                    var Node = $('<input type="button" value="确认修改" />');
+                    Node.addClass('confirmUpdate');
+                    Node.insertAfter($(this).parent().find('.nutIdName'));                    
 
-                    /*var text = $(this).parent().find('nutIdAddress').text()
-                    window.location.href='withdraw.html?id=rmbtx';*/
-                    $('.nutIdName').removeClass('input').css('disabled','false');
-                    var Node = $('<span type="button" class="del" value=" ">删除</span>')；
-                    Node.insertAfter($('.nutIdName'))
-                    api_mkt.gopAddressManUpdate({          
-                        'id':data.data.list[$(this).parent().index()].id,
-                        'name':$(this).parent().find('.nutIdName').val()
-                    }, function(data) {
-                        if (data.status == 200) {
-                            
-                        } else {
-                            
-                        }
+                    $('.confirmUpdate').click(function(){
+                        api_mkt.gopAddressManUpdate({          
+                            'id':data.data.list[$(this).parent().parent().index()].id,
+                            'name':$(this).parent().find('.nutIdName').val()
+                        }, function(data) {
+                            if (data.status == 200) {
+                                window.location.href = 'withdraw.html?id=rmbtx';
+                            } else {
+                                
+                            }
+                        });
                     });         
-                });
+                });                
             } else {
                 console.log(data.msg);
             }
@@ -330,7 +331,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         });
 
         //果仁提现地址管理添加
-        $('.gopAddressManAdd').click(function(){
+        $('.gopAddressManAdd, .del').click(function(){
             if(btnConfirm == false || $('#nut-identifyingCode').val() ==''){
                 alert('请填写完整信息');
             }else{
