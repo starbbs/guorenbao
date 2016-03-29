@@ -707,13 +707,11 @@
 .messagenum_area .msg_num{
     color:#cccccc;
 }
-
 .order_record_list {
         display: table;
     width: 100%;
     /* margin-top: 18px; */
 }
-
 .buy_order_list .table_row .table_con:first-child {
     color: #dd0900;
 }
@@ -834,6 +832,18 @@
     width: 100%;
     border: none;
     overflow: hidden;
+}
+
+#thecumulativevolume_floor {
+    background: url('../images/index_goopal_logo.png') no-repeat center left;
+    padding-left: 15px;
+    top: 25px;
+    position: re;
+    top: 18px;
+    font-size: 2.0rem;
+    position: relative;
+    color: #333333;
+    font-weight: 600;
 }
 
 .loginarea div:nth-child(2) {
