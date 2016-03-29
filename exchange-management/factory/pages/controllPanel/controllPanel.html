@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="../../css/style.css">
+    <!--上面引入公共样式、初始化样式，下面私有样式-->
+    <link rel="stylesheet" href="css/controllPanel.css">
+    <script type="text/javascript" src="../../lib/require.js"></script>
+    <!--先引入 requirejs 不要data-mian 指定文件-->
+    <script type="text/javascript" src="../../lib/config.js"></script>
+    <!--再指定配置文件，加载avalon jquery-->
+    <title>控制面板</title>
+</head>
+<body ms-controller="test">
+    <aside class="aside">
+        <h1>使用说明</h1>
+        <hr />
+        
+        <table class="aside-table" border="1" width="100%">
+            <thead class="aside-table-thead">
+                <tr>
+                    <td>具体模块</td>
+                    <td colspan="4">功能说明</td>
+                </tr>
+            </thead>
+            <tbody class="aside-table-tbody" id="tobody-json">
+              <!-- 放json数据 -->
+                <tr>
+                    <td>财务中心</td>
+                    <td colspan="4">财务中心主要做什么</td>
+                </tr>
+                <tr>
+                    <td>财务中心-人民币</td>
+                    <td colspan="4">财务中心人民币主要做什么</td>
+                </tr>
+                <tr>
+                    <td>财务中心-果仁</td>
+                    <td colspan="4">财务中心果仁主要做什么</td>
+                </tr><tr>
+                    <td>财务中心</td>
+                    <td colspan="4">财务中心主要做什么</td>
+                </tr>
+                <tr>
+                    <td>财务中心-人民币</td>
+                    <td colspan="4">财务中心人民币主要做什么</td>
+                </tr>
+                <tr>
+                    <td>财务中心-果仁</td>
+                    <td colspan="4">财务中心果仁主要做什么</td>
+                </tr>
+            </tbody>
+        </table>
+    </aside>
+<script src="controllPanel.js"></script>
+</body>
+</html>

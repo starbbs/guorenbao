@@ -1,0 +1,306 @@
+$fontSize:16px;
+@mixin widthAndHeight($widthPx, $heightPx){
+    width:$widthPx;
+    height:$heightPx;
+}
+@mixin rotate($deg){
+    transform:rotate($deg);
+    -ms-transform:rotate($deg);     
+    -moz-transform:rotate($deg);    
+    -webkit-transform:rotate($deg); 
+    -o-transform:rotate($deg); 
+} 
+@mixin transition($second, $All){
+    transition: $second $All;
+    -webkit-transition: $second $All;
+    -moz-transition: $second $All;
+    -o-transition: $second $All;
+}
+.transition{
+    transition: 0.4s all;-webkit-transition: 0.4s all;-moz-transition: 0.4s all;
+    -o-transition: 0.4s all;
+}
+
+@mixin borderRadius($radius){
+    border-radius: $radius; 
+    -moz-border-radius: $radius; 
+    -webkit-border-radius: $radius;
+}
+@mixin heightLineHeight($hlh){
+    height:$hlh;
+    line-height: $hlh;
+}  
+@mixin PosTopLeft($absolutePos, $topPx, $leftPx){
+    position: $absolutePos;
+    top:$topPx;
+    left:$leftPx;
+}
+@mixin PosTopRight($absolutePos, $topPx, $rightPx){
+    position: $absolutePos;
+    top:$topPx;
+    right:$rightPx;
+}
+
+.header{
+    z-index:2;
+    position: relative;
+    @include widthAndHeight(100%,50px);
+    background-color: #000000;
+    &-div{
+        position: relative;
+        display:flex;
+        width:50px;
+        @include heightLineHeight(50px);
+        float:left;
+        color:#ffffff;
+        font-size:$fontSize;
+        &-icon{
+            padding-top:16px;
+            @include heightLineHeight(50px);
+            cursor:pointer;
+            color:#8A8A8A;
+            &:hover{
+                color:#fff;
+            };
+        }
+        &-span{
+            width:15px;
+            @include heightLineHeight(15px);
+            @include borderRadius(50%);
+            background-color: red;
+            font-size:6px;
+            text-align:center;
+            @include PosTopLeft(absolute, 5px, 8px);
+        }
+    }
+    & .right-1{
+        height:255px;
+    }
+    & .div-1{
+        width:74%;
+        &-img{  
+            padding-left:3px;
+            @include PosTopLeft(absolute, 15px, 0px);
+        }
+        &-span{
+            color:#fff;
+            padding-left:25px;
+        }
+    }
+    & .div-2{
+        cursor: pointer;
+        &-name{
+            margin-left:13px;
+        }
+        &-btn{
+            background:none;
+            outline: none;
+            border:none;
+            @include heightLineHeight(50px);
+            color:#ffffff;
+            font-size:14px;
+            cursor: pointer;
+            margin-left:26px;
+        }
+        &-hello{
+            width:30px;
+        }
+    }
+}
+
+
+/***
+Progress Bars
+***/
+
+.progress {  
+      border:1px solid red; 
+      @include widthAndHeight(160px,5px);
+      &-bar{
+        background-color: red;
+        @include widthAndHeight(50%,5px);
+      }
+}
+
+.changeColor-2{
+    color:#05CE3E;
+}
+.changeColor-bg-2{
+    background-color:#05CE3E;
+}
+.changeColor-border-2{
+    border:1px solid #05CE3E;
+}
+
+.changeColor-3{
+    color:#069dd5;
+}
+.changeColor-bg-3{
+    background-color:#069dd5;
+}
+.changeColor-border-3{
+    border:1px solid #069dd5;
+}
+
+
+@font-face {
+    font-family: 'icomoon';
+    src:    url('fonts/icomoon.eot?ei70u9');
+    src:    url('fonts/icomoon.eot?ei70u9#iefix') format('embedded-opentype'),
+        url('fonts/icomoon.ttf?ei70u9') format('truetype'),
+        url('fonts/icomoon.woff?ei70u9') format('woff'),
+        url('fonts/icomoon.svg?ei70u9#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-cny:before {
+    content: "\e902";
+}
+.icon-bitcoin:before {
+    content: "\e901";
+}
+.icon-undo:before {
+    content: "\e909";
+}
+.icon-user-tie:before {
+    content: "\e90b";
+}
+.icon-search:before {
+    content: "\e903";
+}
+.icon-enlarge:before {
+    content: "\e905";
+}
+.icon-lock:before {
+    content: "\e907";
+}
+.icon-unlocked:before {
+    content: "\e908";
+}
+.icon-warning:before {
+    content: "\e900";
+}
+.icon-cross:before {
+    content: "\e904";
+}
+.icon-checkmark:before {
+    content: "\e90a";
+}
+.icon-exit:before {
+    content: "\e906";
+}
+
+
+
+.container{
+    width:100%;  //made height auto 
+    height:450px;
+    overflow:hidden;
+    &-section{
+        width:460px;
+        height:300px;
+        background-color: #fff;
+        border:1px solid #ccc;
+        @include borderRadius(8px);
+        position: relative;
+        left:50%;
+        top:50%;
+        margin-left:-230px;/*FF IE7  */
+        margin-top:-140px;
+        &-p{
+            font-size:18px;
+            color:#000;
+            @include PosTopLeft(absolute, 45px, 88px);
+        }
+        &-input{
+            width:240px;
+            @include heightLineHeight(40px);
+            @include borderRadius(4px);
+            border:0;
+            font-size: 16px;
+            border:1px solid #ccc;
+            padding-left:40px;
+        }
+        &-inputOne{
+            @include PosTopLeft(absolute, 80px, 88px);
+        }
+        &-errorOne{
+            font-size:14px;
+            color:red;
+        }
+        &-inputTwo{
+            @include PosTopLeft(absolute, 140px, 88px);
+        }
+        &-inputThree{
+            width:282px;
+            @include heightLineHeight(42px);
+            text-align: center;
+            font-size: 16px;
+            color:#fff;
+            @include PosTopLeft(absolute, 200px, 88px);
+            @include borderRadius(4px);
+            background:#0362FD;
+            cursor: pointer;
+            &:hover{
+                background:lighten(#0362FD, 6%) ;
+            };
+        }
+        &-spanL{
+            @include PosTopLeft(absolute, 270px, 88px);
+            cursor: pointer;
+        }
+        &-spanR{
+            @include PosTopLeft(absolute, 270px, 302px);
+            cursor: pointer;
+            color:#0362FD;
+        }
+        &-iconOne{
+            font-size: 20px;
+            @include PosTopLeft(absolute, 91px, 96px);
+            z-index:9999;
+        }
+        &-iconTwo{
+            font-size: 20px;
+            @include PosTopLeft(absolute, 151px, 99px);
+            z-index:9999;
+        }
+        &-errOne{
+            @include PosTopLeft(absolute, 97px, 280px);
+            color:red;
+            font-size: 10px;
+        }
+    }
+}
+
+
+
+.footer{
+    @include widthAndHeight(100%,40px);
+    background-color: #000;
+    position: fixed;
+    bottom:0px;
+    &-div{
+        @include heightLineHeight(40px);
+        float:left;
+        color:#ffffff;
+        font-size:12px;
+    }
+}
+
+

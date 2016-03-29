@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="../../css/style.css">
+    <!--上面引入公共样式、初始化样式，下面私有样式-->
+    <link rel="stylesheet" href="css/user-info.css">
+    <script type="text/javascript" src="../../lib/require.js"></script>
+    <!--先引入 requirejs 不要data-mian 指定文件-->
+    <script type="text/javascript" src="../../lib/config.js"></script>
+    <!--再指定配置文件，加载avalon jquery-->
+    <title>控制面板</title>
+</head>
+<body ms-controller="test">
+    <aside class="aside">
+        <h1><span>18911234294</span> <small>用户</small></h1>
+        <hr />
+        <div class="aside-div">
+            <span class="aside-div-spanLeft">主页 > 后台 > <span>18911234294</span></span>
+            <span class="aside-div-spanRight">常用<span class="icon-ctrl aside-div-spanRight-span"></span>
+                <div class="aside-div-spanRight-div">
+                    <ul>
+                        <li class="aside-div-spanRight-div-li"><a href="#">提现</a></li>
+                        <li class="aside-div-spanRight-div-li"><a href="#">提币</a></li>
+                        <li class="aside-div-spanRight-div-li"><a href="#">用户管理</a></li>
+                    </ul>
+                </div>
+            </span>
+        </div>
+        <div class="aside-tabList">
+            <ul>
+                <li class="aside-tabList-li aside-tabList-li-active">基本信息</li>
+                <li class="aside-tabList-li">资金</li>
+                <li class="aside-tabList-li">银行卡</li>
+            </ul>
+        </div>
+        <div class="aside-tabContent">
+            <span class="aside-tabContent-span">
+                <ul>
+                    <li class="aside-tabContent-span-li">
+                        <label>{{NoName}}</label>
+                        <input type="radio" ms-on-click="aa" ms-attr-checked="checkedA" />{{checkedA}}
+                    </li>
+                    <li class="aside-tabContent-span-li">
+                        <span>注册时间：2016-03-11 15:03</span><span>注册IP：192.168.12.2</span>
+                    </li>
+                </ul>
+                <table class="aside-table" border="1" width="100%">
+                    <thead class="aside-table-thead">
+                        <tr>
+                            <td>姓名</td>
+                            <td>证件类型</td>
+                            <td>号码</td>
+                            <td>时间</td>
+                            <td>ip</td>
+                        </tr>
+                    </thead>
+                    <tbody class="aside-table-tbody" id="tobody-json">
+                      <!-- 放json数据 -->
+                        <tr>
+                            <td>姓名</td>
+                            <td>身份证</td>
+                            <td>132132</td>
+                            <td>date</td>
+                            <td>192.168.0.1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </span>
+            <span class="aside-tabContent-span">
+                <h1>
+                    总资产：￥<span>104423.00</span>
+                </h1>
+                <table class="aside-table" border="1" width="100%">
+                    <thead class="aside-table-thead">
+                        <tr>
+                            <td class="tda">CNY</td>
+                            <td>
+                                <h2>人民币</h2><br/>
+                                <span>人民币余额、冻结余额</span>
+                            </td>
+                            <td>
+                                <span>余额</span><br/><br/>
+                                <h2>5123515.00</h2>
+                            </td>
+                            <td>
+                                <span>冻结</span><br/><br/>
+                                <h2>515.00</h2>
+                            </td>
+                            <td class="tda">
+                                <span>充值</span>
+                            </td>
+                            <td class="tda">
+                                <span>提现</span>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody class="aside-table-tbody" id="tobody-json">
+                      <!-- 放json数据 -->
+                        <tr>
+                            <td class="tda">GOP</td>
+                            <td>
+                                <h2>果仁</h2><br/>
+                                <span>人民币余额、冻结余额</span>
+                            </td>
+                            <td>
+                                <span>余额</span><br/><br/>
+                                <h2>5123515.00</h2>
+                            </td>
+                            <td>
+                                <span>冻结</span><br/><br/>
+                                <h2>515.00</h2>
+                            </td>
+                            <td class="tda">
+                                <span>交易费</span><br/><br/>
+                                <h2>12.00</h2>
+                            </td>
+                            <td class="tda">
+                                <span>提现</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </span>
+            <span class="aside-tabContent-span">
+                <table class="aside-table" border="1" width="100%">
+                    <thead class="aside-table-thead">
+                        <tr>
+                            <td class="tda-1">Bank</td>
+                            <td>User</td>
+                            <td class="tda-1">BankID</td>
+                            <td class="tda-1">创建时间</td>
+                        </tr>
+                    </thead>
+                    <tbody class="aside-table-tbody" id="tobody-json">
+                      <!-- 放json数据 -->
+                        <tr>
+                            <td>招商银行</td>
+                            <td>
+                                <h2>姚怀宇</h2><br/>
+                                <span>北京 / 北京</span> - 
+                                <span>北京市朝阳区芍药居北里101号1幢1层103室世奥国际中心</span>
+                            </td>
+                            <td>6214830100726412</td>
+                            <td>2016-01-19 16:35</td>
+                        </tr>
+                        <tr>
+                            <td>中国工商银行</td>
+                            <td>
+                                <h2>姚怀宇</h2><br/>
+                                <span>北京 / 北京</span> - 
+                                <span>北京市朝阳区芍药居北里101号1幢1层103室世奥国际中心</span>
+                            </td>
+                            <td>6225000000000000</td>
+                            <td>2016-01-19 16:35</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </span>
+        </div>
+    </aside>
+<script src="user-info.js"></script>
+</body>
+</html>

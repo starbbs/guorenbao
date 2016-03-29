@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="../../css/style.css">
+    <!--上面引入公共样式、初始化样式，下面私有样式-->
+    <link rel="stylesheet" href="css/cashIn.css">
+    <!--cashIn私有样式-->
+    <script type="text/javascript" src="../../lib/require.js"></script>
+    <!--先引入 requirejs 不要data-mian 指定文件-->
+    <script type="text/javascript" src="../../lib/config.js"></script>
+    <!--再指定配置文件，加载avalon jquery-->
+    <title>控制面板</title>
+</head>
+<body ms-controller="test">
+    <aside class="aside" id="aside" ms-include-src="htmlFiles">
+        <h1>财务中心<small> -> 人民币 -> 充值</small></h1>
+        <hr />
+        <div class="aside-div">
+            <span class="aside-div-spanLeft">
+                <a href="home.html">主页</a> > 
+                <a href="">后台</a> > 
+                <a href="">人民币</a>
+            </span>
+            <span class="aside-div-spanRight">
+                <input type="text" placeholder="按类别搜索信息" class="aside-div-input"/>
+                <select class="aside-div-select">
+                    <option selected="selected">用户ID</option>
+                    <option>ID</option>
+                    <option>姓名</option>
+                    <option>手机</option>
+                    <option>附言</option>
+                </select>
+                <input type="button" value="搜索" class="aside-div-searchBtn" />
+            </span>
+        </div>
+        <table class="aside-table" border="1" width="100%">
+            <thead class="aside-table-thead">
+                <tr>
+                    <td>btn</td>
+                    <td>id</td>
+                    <td>uid</td>
+                    <td>用户名</td>
+                    <td>金额</td>
+                    <td style="width:100px;">银行</td>
+                    <td>银行卡号</td>
+                    <td>真实姓名</td>
+                    <td>附言</td>
+                    <td style="width:110px;">
+                        <label for="selectStatus">状态:</label>
+                        <select class="aside-table-thead-select" name="selectStatus">
+                            <option selected="selected">等待</option>
+                            <option>成功</option>
+                            <option>已取消</option>
+                            <option>显示全部</option>
+                        </select>
+                    </td>
+                    <td>创建于</td>
+                    <td>更新于</td>
+                </tr>
+            </thead>
+            <tbody class="aside-table-tbody" id="tobody-json">
+              <!-- 放json数据 -->
+            </tbody>
+        </table>
+        <!-- 分页 -->
+        <div id="div1" class="PageCode">
+            <!--<a href="#1">首页</a>
+                <a href="#3">上一页</a>
+                <a href="#2">[2]</a>
+                <a href="#3">[3]</a>
+                <a href="#4">4</a>
+                <a href="#5">[5]</a>
+                <a href="#6">[6]</a>
+                <a href="#5">下一页</a>
+                <a href="#10">尾页</a>-->
+        </div>
+    </aside>
+<!-- 弹出框内容 -->
+<div class="mydiv" style="display:none;">
+    <dl>
+        <dt>请确认收到网银汇款且核实充值到账？</dt>
+        <dd>
+            <input class="btn-a" type="text" placeholder="请输入当前账户登录密码" /><input class="btn-b btnTrue" type="button" value="确定" />
+        </dd>
+    </dl>
+    <span class="btnClose">
+        <span class="icon-cross"></span>
+    <span>
+</div>
+<!-- 遮罩全屏的背景层 -->
+<div class="bg" style="display:none;"></div>
+<!-- 弹出框内容 end -->
+<script src="cashIn.js"></script>
+</body>
+</html>

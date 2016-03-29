@@ -1,0 +1,108 @@
+$fontSize:16px;
+@mixin widthAndHeight($widthPx, $heightPx){
+    width:$widthPx;
+    height:$heightPx;
+}
+@mixin rotate($deg){
+    transform:rotate($deg);
+    -ms-transform:rotate($deg);     
+    -moz-transform:rotate($deg);    
+    -webkit-transform:rotate($deg); 
+    -o-transform:rotate($deg); 
+} 
+@mixin transition($second, $All){
+    transition: $second $All;
+    -webkit-transition: $second $All;
+    -moz-transition: $second $All;
+    -o-transition: $second $All;
+}
+.transition{
+    transition: 0.4s all;-webkit-transition: 0.4s all;-moz-transition: 0.4s all;
+    -o-transition: 0.4s all;
+}
+
+@mixin borderRadius($radius){
+    border-radius: $radius; 
+    -moz-border-radius: $radius; 
+    -webkit-border-radius: $radius;
+}
+@mixin heightLineHeight($hlh){
+    height:$hlh;
+    line-height: $hlh;
+}  
+@mixin PosTopLeft($absolutePos, $topPx, $leftPx){
+    position: $absolutePos;
+    top:$topPx;
+    left:$leftPx;
+}
+@mixin PosTopRight($absolutePos, $topPx, $rightPx){
+    position: $absolutePos;
+    top:$topPx;
+    right:$rightPx;
+}
+
+
+@font-face {
+    font-family: 'icomoon';
+    src:    url('fonts/icomoon.eot?ei70u9');
+    src:    url('fonts/icomoon.eot?ei70u9#iefix') format('embedded-opentype'),
+        url('fonts/icomoon.ttf?ei70u9') format('truetype'),
+        url('fonts/icomoon.woff?ei70u9') format('woff'),
+        url('fonts/icomoon.svg?ei70u9#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-cny:before {
+    content: "\e902";
+}
+.icon-bitcoin:before {
+    content: "\e901";
+}
+.icon-undo:before {
+    content: "\e909";
+}
+.icon-user-tie:before {
+    content: "\e90b";
+}
+.icon-search:before {
+    content: "\e903";
+}
+.icon-enlarge:before {
+    content: "\e905";
+}
+.icon-lock:before {
+    content: "\e907";
+}
+.icon-unlocked:before {
+    content: "\e908";
+}
+.icon-warning:before {
+    content: "\e900";
+}
+.icon-cross:before {
+    content: "\e904";
+}
+.icon-checkmark:before {
+    content: "\e90a";
+}
+.icon-exit:before {
+    content: "\e906";
+}
+
+
