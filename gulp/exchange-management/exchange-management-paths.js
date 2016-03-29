@@ -1,28 +1,28 @@
 // 徐乐天 2016年3月1日20:27:07 创建
 // gulp exchange-manage 路径(相对于gulpfile.js)
-var PATH_EXCHANGE_MANAGE = '../exchange-manage';
+var PATH_EXCHANGE_MANAGEMENT = '../exchange-management';
 // 用于rjs的相对路径
 var PATH_BATH = '../../..';
 var PATH_LIBRARY = PATH_BATH + '/source/library';
 var PATH_COMPONENTS = PATH_BATH + '/factory/components';
 
-var EXCHANGE_MANAGE_FACTORY = PATH_BATH + '/exchange-manage/factory';
-var EXCHANGE_MANAGE_SOURCE = PATH_BATH + '/exchange-manage/source';
+var EXCHANGE_MANAGE_FACTORY = PATH_BATH + '/exchange-management/factory';
+var EXCHANGE_MANAGE_SOURCE = PATH_BATH + '/exchange-management/source';
 
 var EXCHANGE_MANAGE_VIEWS = EXCHANGE_MANAGE_FACTORY + '/views';
 var EXCHANGE_MANAGE_COMPONENTS = EXCHANGE_MANAGE_FACTORY + '/components';
 var EXCHANGE_MANAGE_DIALOGS = EXCHANGE_MANAGE_FACTORY + '/dialogs';
 var EXCHANGE_MANAGE_PAGES = EXCHANGE_MANAGE_FACTORY + '/pages';
 module.exports = {
-    pc: PATH_EXCHANGE_MANAGE,
-    factory: PATH_EXCHANGE_MANAGE + '/factory',
-    build: PATH_EXCHANGE_MANAGE + '/build',
-    public: PATH_EXCHANGE_MANAGE + '/public',
-    pages: PATH_EXCHANGE_MANAGE + '/factory/pages',
-    components: PATH_EXCHANGE_MANAGE + '/factory/components',
-    views: PATH_EXCHANGE_MANAGE + '/factory/views',
-    dialogs: PATH_EXCHANGE_MANAGE + '/factory/dialogs',
-    source: PATH_EXCHANGE_MANAGE + '/source',
+    pc: PATH_EXCHANGE_MANAGEMENT,
+    factory: PATH_EXCHANGE_MANAGEMENT + '/factory',
+    build: PATH_EXCHANGE_MANAGEMENT + '/build',
+    public: PATH_EXCHANGE_MANAGEMENT + '/public',
+    pages: PATH_EXCHANGE_MANAGEMENT + '/factory/pages',
+    components: PATH_EXCHANGE_MANAGEMENT + '/factory/components',
+    views: PATH_EXCHANGE_MANAGEMENT + '/factory/views',
+    dialogs: PATH_EXCHANGE_MANAGEMENT + '/factory/dialogs',
+    source: PATH_EXCHANGE_MANAGEMENT + '/source',
     server: '../../GOPServer/WebContent',
     common: '../source',
     rjs: {

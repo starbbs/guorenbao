@@ -3,7 +3,7 @@
 var gulp = require('gulp');
 var path = require('path');
 var tools = require('../tools');
-var paths = require('./exchange-manage-paths');
+var paths = require('./exchange-management-paths');
 var uglify = require('gulp-uglify');
 gulp.task('exchange-js', function() {
 	return gulp.src(path.join(paths.build, '/js/*.js'))
