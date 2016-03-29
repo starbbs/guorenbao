@@ -250,34 +250,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         });
     });
 
-    $("#buyin_limitedpricebtn").on("click",function(){
-        //买入限价
-        $(".buyin_limitprices_section").show();
-        $(".buyin_marketprices_section").hide();
-        $(this).addClass("border_bottom_on");
-        $("#buyin_marketpricebtn").removeClass("border_bottom_on");
-    });
-    $("#buyin_marketpricebtn").on("click",function(){
-        //买入市价
-        $(".buyin_limitprices_section").hide();
-        $(".buyin_marketprices_section").show();
-        $(this).addClass("border_bottom_on");
-        $("#buyin_limitedpricebtn").removeClass("border_bottom_on");
-    });
-    $("#sale_limitedpricebtn").on("click",function(){
-        //卖出限价
-        $(".sale_limitprices").show();
-        $(".sale_marketprices").hide();
-        $(this).addClass("border_bottom_on");
-        $("#sale_marketpricebtn").removeClass("border_bottom_on");
-    });
-    $("#sale_marketpricebtn").on("click",function(){
-        //卖出市价
-        $(".sale_limitprices").hide();
-        $(".sale_marketprices").show();
-        $(this).addClass("border_bottom_on");
-        $("#sale_limitedpricebtn").removeClass("border_bottom_on");
-    });
     $(".leftchart").on("click",function(){
         //分时图
         $(".timeshareblock").show();
@@ -294,34 +266,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         $("#deepmap_container").show();
         $(this).addClass("leftright_bottomon");
         $(".leftchart").removeClass("leftright_bottomon");
-    });
-
-    $(".buying_btn").on("click",function(){              //买入中的限价买入按钮
-        $("#floor_bg").show();
-        $("#floor_popDiv").fadeIn(500);
-    });
-    $(".market_price_buying_btn").on("click",function(){ //买入中的市价买入按钮
-        $("#floor_bg").show();
-        $("#floor_popDiv").fadeIn(500);
-    });
-    $(".sale_btn").on("click",function(){               //卖出中的限价买入按钮
-        $("#floor_bg").show();
-        $("#floor_popDiv").fadeIn(500);
-    });
-    $(".market_price_sale_btn").on("click",function(){  //卖出中的市价买入按钮
-        $("#floor_bg").show();
-        $("#floor_popDiv").fadeIn(500);
-    });
-
-    $(".sure_btn").on("click",function(){
-        $("#floor_popDiv").hide();
-        $("#floor_bg").hide();
-    });
-
-    $(".close_btn").on("click",function(){  //买入卖出 关闭按钮
-        $("#floor_popDiv").hide();
-        $("#floor_bg").hide();
-    });
+    }); 
 
     $(".timebar").on("click", function() {
         $(this).addClass("btn_choosed");
@@ -454,7 +399,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     function refreshSwatch() {
         var red = $( "#red" ).slider( "value" ),
             green = $( "#green" ).slider( "value" ),
-            hex = hexFromRGB( red, green, blue );
+            hex = hexFromRGB( red, green);
     }
     /*买入-限价 滑块数值*/
     $( "#red" ).slider({
@@ -517,9 +462,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     html.push("<tr>");                                        
                     html.push("<td>"+ data.data.list[i].createDate +"</td>");
                     html.push("<td>"+ data.data.list[i].tradeGopType +"</td>");
-                    html.push("<td>"+ data.data.list[i].pay +"</td>");
-                    html.push("<td>"+ data.data.list[i].money-pay +"</td>");
-                    html.push("<td class='cnyWithdrawals'>"+ data.data.list[i].status+ "</td>");
+                    html.push("<td>"+ data.data.list[i].price +"</td>");
+                    html.push("<td>"+ data.data.list[i].numTotal +"</td>");
+                    html.push("<td>"+ data.data.list[i].numTotal - data.data.list[i].numOver + "</td>");
+                    html.push("<td>"+ data.data.list[i].numOver +"</td>");
+                    html.push("<td><p class='saDan'>撒单</p></td>");
                     html.push("</tr>");
                     $(".tradeGopCurrentListTable").html("");  //添加前清空 
                     $(".tradeGopCurrentListTable").append(html.join(""));
@@ -529,10 +476,27 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         }
     });
     //当前委托（带分页）
-    $('.tradingfloorMore').click(function(){
+    $('.tradingfloorMore').click({
+        'pageNo':1,
+        'pageSize':10
+    },function(){
         api_mkt.tradeGopCurrentList(function(data) {
             if (data.status == 200) {
-                console.log(data);               
+                console.log(data); 
+                var html = [];
+                for(var i=0; i<10;i++){
+                    html.push("<tr>");                                        
+                    html.push("<td>"+ data.data.list[i].createDate +"</td>");
+                    html.push("<td>"+ data.data.list[i].tradeGopType +"</td>");
+                    html.push("<td>"+ data.data.list[i].price +"</td>");
+                    html.push("<td>"+ data.data.list[i].numTotal +"</td>");
+                    html.push("<td>"+ data.data.list[i].numTotal - data.data.list[i].numOver + "</td>");
+                    html.push("<td>"+ data.data.list[i].numOver +"</td>");
+                    html.push("<td><p class='saDan'>撒单</p></td>");
+                    html.push("</tr>");
+                    $(".tradeGopCurrentListTable").html("");  //添加前清空 
+                    $(".tradeGopCurrentListTable").append(html.join(""));
+                }                            
             }else{
                 console.log(data);
             }
@@ -541,16 +505,48 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     //历史委托（不传参数查询最近5条）
     api_mkt.tradeGopHistoryList(function(data) {
         if (data.status == 200) {
-            console.log(data);               
+            console.log(data); 
+            var html = [];
+                for(var i=0; i<5;i++){
+                    html.push("<tr>");                                        
+                    html.push("<td>"+ data.data.list[i].createDate +"</td>");
+                    html.push("<td>"+ data.data.list[i].tradeGopType +"</td>");
+                    html.push("<td>"+ data.data.list[i].price +"</td>");
+                    html.push("<td>"+ data.data.list[i].numTotal +"</td>");
+                    html.push("<td>"+ data.data.list[i].numTotal - data.data.list[i].numOver + "</td>");
+                    html.push("<td>"+ data.data.list[i].numOver +"</td>");
+                    html.push("<td>"+ data.data.list[i].tradeGopType +"</td>");
+                    html.push("<td>"+ data.data.list[i].price +"</td>");
+                    html.push("</tr>");
+                    $(".tradeGopHistoryListTable").html("");  //添加前清空 
+                    $(".tradeGopHistoryListTable").append(html.join(""));
+                }       
         }else{
             console.log(data);
         }
     });
     //历史委托（带分页）
-    $('.tradingfloorMore').click(function(){
+    $('.tradingfloorMore').click({
+        'pageNo':1,
+        'pageSize':10
+    },function(){
         api_mkt.tradeGopHistoryList(function(data) {
             if (data.status == 200) {
-                console.log(data);               
+                console.log(data);
+                var html = [];
+                for(var i=0; i<10;i++){
+                    html.push("<tr>");                                        
+                    html.push("<td>"+ data.data.list[i].createDate +"</td>");
+                    html.push("<td>"+ data.data.list[i].tradeGopType +"</td>");
+                    html.push("<td>"+ data.data.list[i].price +"</td>");
+                    html.push("<td>"+ data.data.list[i].numTotal +"</td>");
+                    html.push("<td>"+ data.data.list[i].numTotal - data.data.list[i].numOver + "</td>");
+                    html.push("<td>"+ data.data.list[i].numOver +"</td>");
+                    html.push("<td><p class='saDan'>撒单</p></td>");
+                    html.push("</tr>");
+                    $(".tradeGopHistoryListTable").html("");  //添加前清空 
+                    $(".tradeGopHistoryListTable").append(html.join(""));
+                }                      
             }else{
                 console.log(data);
             }
@@ -575,4 +571,186 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     //     }
     // });
     
+    /*$(".buying_btn").on("click",function(){              //买入中的限价买入按钮
+        $("#floor_bg").show();
+        $("#floor_popDiv").fadeIn(500);
+    });*/
+    //定义变量判断 true 为 FIXED:限价，false MARKET:市价；
+    var typeFixedOrMarket = true;
+    var typeFixedOrMarketTwo = true;
+    $("#buyin_limitedpricebtn").on("click",function(){
+        //买入限价
+        $(".buyin_limitprices_section").show();
+        $(".buyin_marketprices_section").hide();
+        $(this).addClass("border_bottom_on");
+        $("#buyin_marketpricebtn").removeClass("border_bottom_on");
+        typeFixedOrMarket = true;
+    });
+    $("#buyin_marketpricebtn").on("click",function(){
+        //买入市价
+        $(".buyin_limitprices_section").hide();
+        $(".buyin_marketprices_section").show();
+        $(this).addClass("border_bottom_on");
+        $("#buyin_limitedpricebtn").removeClass("border_bottom_on");
+        typeFixedOrMarket = false;
+    });
+    $("#sale_limitedpricebtn").on("click",function(){
+        //卖出限价
+        $(".sale_limitprices").show();
+        $(".sale_marketprices").hide();
+        $(this).addClass("border_bottom_on");
+        $("#sale_marketpricebtn").removeClass("border_bottom_on");
+        typeFixedOrMarketTwo = true;
+    });
+    $("#sale_marketpricebtn").on("click",function(){
+        //卖出市价
+        $(".sale_limitprices").hide();
+        $(".sale_marketprices").show();
+        $(this).addClass("border_bottom_on");
+        $("#sale_limitedpricebtn").removeClass("border_bottom_on");
+        typeFixedOrMarketTwo = false;
+    });
+
+    
+
+    //弹出框确认 关闭
+    /*$(".sure_btn").on("click",function(){
+        $("#floor_popDiv").hide();
+        $("#floor_bg").hide();
+    });*/
+    //买入 校验
+    var flag = false;
+    $('.buying_price').blur(function(){
+        var price = $('.buying_price').val();
+        if(isNaN(price) || !price){
+            flag = false;
+            $('.msgPrice').text('非数字');
+        }else{
+            flag = true;
+            $('.msgPrice').text('');
+        }
+    });
+    $('.buying_number').blur(function(){
+        var number = $('.buying_number').val();
+        if(isNaN(number) || !number){
+            $('.msgNumber').text('非数字');
+            flag = false;
+        }else{
+            flag = true;
+            $('.msgNumber').text(''); 
+            $('.one').val('¥：'+parseInt($('.buying_price').val()) * parseInt($('.buying_number').val()) +'.00');           
+        }
+    });
+    //卖出 校验
+    $('.sellPrice').blur(function(){
+        var price = $('.sellPrice').val();
+        if(isNaN(price) || !price){
+            $('.msgSellPrice').text('非数字');
+            flag = false;
+        }else{
+            flag = true;
+            $('.msgSellPrice').text('');
+        }
+    });
+    $('.sellNumber').blur(function(){
+        var number = $('.sellNumber').val();
+        if(isNaN(number) || !number){
+            $('.msgSellNumber').text('非数字');
+            flag = false;
+        }else{
+            flag = true;
+            $('.msgSellNumber').text(''); 
+            $('.two').val('¥：'+parseInt($('.sellPrice').val()) * parseInt($('.sellNumber').val()) +'.00');           
+        }
+    });
+    /*$('.marketBuy').blur(function(){
+        var marketBuy = $('.marketBuy').val();
+        if(isNaN(marketBuy) || !marketBuy){
+            $('.msgMarketBuy').text('非数字');
+        }else{
+            $('.msgMarketBuy').text('');
+        }
+    }); */   
+    //买入 卖出 四个按钮 点击弹出框
+    $(".buying_btn, .market_price_buying_btn, .sale_btn, .market_price_sale_btn").click(function(){  
+        if(flag == false){
+            alert('请完整填写信息');
+        }else{
+            $("#floor_bg").show();
+            $("#floor_popDiv").fadeIn(500);
+        }
+    });    
+
+    $(".close_btn").on("click",function(){  //买入卖出 关闭按钮
+        $("#floor_popDiv").hide();
+        $("#floor_bg").hide();
+    });
+    
+    //单击弹出框 确认按钮判断   买入 > 限价 市价 判断
+    $('.sure_btn').click(function(){
+
+        $("#floor_popDiv").hide();
+        $("#floor_bg").hide();
+        if(typeFixedOrMarket == true){
+            api_mkt.buy({
+                'price':$('.buying_price').val(),
+                'number':$('.buying_number').val(),
+                'type':'FIXED',
+                'paypwd':$('#sel_div_password').val()
+            },function(data) {
+                if (data.status == 200) {
+                    console.log(data);               
+                }else{
+                    console.log(data);
+                }
+            });
+        }else{
+            api_mkt.buy({
+                'price':$('.marketBuy').val(),
+                'type':'MARKET',
+                'paypwd':$('#sel_div_password').val()
+            },function(data) {
+                if (data.status == 200) {
+                    console.log(data);               
+                }else{
+                    console.log(data);
+                }
+            });
+        }    
+    });
+    
+    //单击弹出框 确认按钮判断   卖出 > 限价 市价 判断
+    $('.sure_btn').click(function(){
+        $("#floor_popDiv").hide();
+        $("#floor_bg").hide();
+        if(typeFixedOrMarketTwo == true){
+            api_mkt.sell({
+                'price':$('.sellPrice').val(),
+                'number':$('.sellNumber').val(),
+                'type':'FIXED',
+                'paypwd':$('#sel_div_password').val()
+            },function(data) {
+                if (data.status == 200) {
+                    console.log(data);               
+                }else{
+                    console.log(data);
+                }
+            });
+        }else{
+            api_mkt.sell({
+                'number':$('.sellAmount').val(),
+                'type':'MARKET',
+                'paypwd':$('#sel_div_password').val()
+            },function(data) {
+                if (data.status == 200) {
+                    console.log(data);               
+                }else{
+                    console.log(data);
+                }
+            });
+        }    
+    });
+    
+    
+
 });
