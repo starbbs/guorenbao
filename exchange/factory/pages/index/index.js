@@ -141,8 +141,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 volume.push([oned[i][0], oned[i][1]]);
             }
         }
-        //console.log(ohlc);
-        //console.log(volume);
         $('#container').highcharts('StockChart', {
             rangeSelector: {buttons: [{type: 'minute', count: 60, text: '1h'},{type: 'minute', count: 120, text: '2h'},{type: 'minute', count: 360, text: '6h'},{type: 'minute', count: 720, text: '12h'},{type: 'day', count: 1, text: '1d'},{type: 'week', count: 1, text: '1w'},{type: 'all', text: '所有'}],selected:2, inputEnabled:false},
             global: {
@@ -358,6 +356,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                             var totalNuts = data.data.cnyBalance + data.data.cnyLock;
                             $.cookie("totalAssets",totalAssets);
                             $.cookie("totalNuts",totalNuts);
+
+                            console.log(data);
+
                             $.cookie("mine_one",data.data.cnyBalance);
                             $.cookie("mine_two",data.data.gopBalance);
                             $.cookie("mine_three",data.data.cnyLock);

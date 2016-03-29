@@ -126,10 +126,10 @@
                         <section class="buyin_limitprices buyin_limitprices_section" style="display: block;">
                             <div class="w_b">
                                 <div class="w_b_l">
-                                    <em>账户余额</em><em id="wbl_m">300.00</em><em>CNY</em>
+                                    <em>账户余额</em><em id="wbl_m"></em><em>CNY</em>
                                 </div>
                                 <div class="w_b_r">
-                                    <em>最佳买价</em><em id="wbr_m">3.00</em><em>CNY/GOP</em>
+                                    <em>最佳买价</em><em id="wbr_m_best_buy"></em><em>CNY/GOP</em>
                                 </div>
                             </div>
                             <div class="w_b-left">
@@ -207,10 +207,10 @@
                         <section class="buyin_limitprices sale_limitprices" style="display: block;">
                             <div class="w_b">
                                 <div class="w_b_l">
-                                    <em>账户余额</em><em id="wbl_m">300.00</em><em>CNY</em>
+                                    <em>账户余额</em><em id="wbl_m"></em><em>CNY</em>
                                 </div>
                                 <div class="w_b_r">
-                                    <em>最佳买价</em><em id="wbr_m">3.00</em><em>CNY/GOP</em>
+                                    <em>最佳买价</em><em id="wbr_m_best_sell"></em><em>CNY/GOP</em>
                                 </div>
                             </div>
                             <div class="w_b-left">
@@ -279,16 +279,21 @@
             </div>
             <div class="order_record orderlist">
                 <!-- <div class="list_header">成交记录</div> -->
-
+                <header class="table_header">
+                    <div class="header_con">买&nbsp;/&nbsp;卖家</div>
+                    <div class="header_con">出价</div>
+                    <div class="header_con">数量</div>
+                    <div class="header_con">折合人民币</div>
+                </header>
                 <section class="order_record_list buysec">
-                    <header class="table_header">
-                        <div class="header_con">买&nbsp;/&nbsp;卖家</div>
-                        <div class="header_con">出价</div>
-                        <div class="header_con">数量</div>
-                        <div class="header_con">折合人民币</div>
-                    </header>
+                    
                     <div class="buysec">
-                        
+                        <div class="table_row">
+                            <div class="table_con saleprice">卖5</div>
+                            <div class="table_con">¥3.40</div>
+                            <div class="table_con">125.00</div>
+                            <div class="table_con">¥3.50</div>
+                        </div>
                     </div>
                     <!-- 
                     <div class="table_row">
@@ -301,7 +306,12 @@
                 <div class="table_row_line"></div>
                 <section class="order_record_list sellseccon">
                     <div class="sellseccon">
-                        
+                        <div class="table_row">
+                            <div class="table_con buyprice">买5</div>
+                            <div class="table_con">¥3.40</div>
+                            <div class="table_con">125.00</div>
+                            <div class="table_con">¥3.50</div>
+                        </div>
                     </div>
                     <!-- <div class="table_row">
                         <div class="table_con buyprice">买5</div>

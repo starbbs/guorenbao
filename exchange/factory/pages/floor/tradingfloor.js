@@ -35,8 +35,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     } else {
         
     }
-
-
     if(totalAssets&&totalNuts&&mine_one&&mine_two&&mine_three&&mine_four){
         $(".iallshow").html(totalAssets);
         $(".ioneshow").html(mine_one);
@@ -44,7 +42,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         $(".ithreeshow").html(mine_three);
         $(".ifourshow").html(mine_four);
     }
-
     mkt_info.get();
     mkt_trade.getfloor();
     //console.log(mkt_depthchart);
@@ -77,6 +74,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         thirtym = JSON.parse(data['30m']);
         sixtym = JSON.parse(data['60m']);
         oned = JSON.parse(data['1d']);
+
+        console.log(oned);
         if(!on_page_load){
             $(".fivteenminute").click();
             on_page_load = true;
@@ -137,7 +136,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         } else if (whichday == "sixty") {
             for (var i = 0; i < sixtym.length; i++) {
                 ohlc.push([sixtym[i][0], sixtym[i][2], sixtym[i][3], sixtym[i][4], sixtym[i][5]]);
-                console.log(sixtym[i][1]);
                 volume.push([sixtym[i][0], sixtym[i][1]]);
             }
         } else if (whichday == "oneday") {
@@ -146,18 +144,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 volume.push([oned[i][0], oned[i][1]]);
             }
         }
-        //console.log(ohlc);
-        //console.log(volume);
         $('#timeshare_container').highcharts('StockChart', {
             rangeSelector: {buttons: [{type: 'minute', count: 60, text: '1h'},{type: 'minute', count: 120, text: '2h'},{type: 'minute', count: 360, text: '6h'},{type: 'minute', count: 720, text: '12h'},{type: 'day', count: 1, text: '1d'},{type: 'week', count: 1, text: '1w'},{type: 'all', text: '所有'}],selected:2, inputEnabled:false},
             global: {
                 useUTC: true
-            },
-            lang: {
-                rangeSelectorZoom: '',
-                months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-                shortMonths: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-                weekdays: ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
             },
             credits: { enabled: false },
             colors: ['#000000', '#0000ff', '#ff00ff', '#f7a35c', '#8085e9'],
@@ -171,15 +161,12 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             tooltip: { xDateFormat: '%Y-%m-%d %H:%M %A', color: '#f0f', changeDecimals: 4, borderColor: '#058dc7' },
             plotOptions: { candlestick: { color: '#e55600', upColor: '#669900' } },
             yAxis: [
-                 { labels: { style: { color: '#4572A7' } }, title: { text: '成交量 [GOP]', style: { color: '#4572A7' } }, offset: 0, top: 280, height: 34, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true },
-                 { labels: { style: { color: '#e55600' } }, title: { text: '价格 [RMB]', style: { color: '#e55600' } }, height: 160, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true }
+                { labels: { style: { color: '#4572A7' } }, title: { text: '成交量 [GOP]', style: { color: '#4572A7' } }, offset: 0, top: 280, height: 34, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true },
+                { labels: { style: { color: '#e55600' } }, title: { text: '价格 [RMB]', style: { color: '#e55600' } }, height: 160, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true }
             ],
-            /*tooltip: { xDateFormat: '%Y-%m-%d %H:%M %A', color: '#f0f', changeDecimals: 4, borderColor: '#058dc7' },*/
             tooltip: {
                 formatter: function() {
-                    // console.log(this.points[0]);
-                    // console.log(this.points[0].point)
-                    var s = Highcharts.dateFormat('<span> %Y-%m-%d %H:%M:%S</span>', this.x);
+                    var s = Highcharts.dateFormat('<span> %Y-%m-%d %H:%M:%S</span><br/>', this.x);
                     s += "成交数量"+this.points[1].y;
                     s += '<br />开盘:<b>' + this.points[0].point.open + '</b><br />最高:<b>' + this.points[0].point.high + '</b><br />最低:<b>' + this.points[0].point.low + '</b><br />收盘:<b>' + this.points[0].point.close + '</b>';
                     return s;
@@ -197,17 +184,14 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 enabled: true
             },
             series: [
-                { animation: false, name: '成交量 [GOP]', type: 'column', color: '#4572A7', dataGrouping: { units: groupingUnits, enabled: false }, yAxis: 1, data: volume },
-                { animation: false, name: '价格 [RMB]', type: 'candlestick', dataGrouping: { units: groupingUnits, enabled: false }, data: ohlc }
+                { animation: false, name: '价格 [RMB]', type: 'candlestick', dataGrouping: { units: groupingUnits, enabled: false }, data: ohlc },
+                { animation: false, name: '成交量 [GOP]', type: 'column', color: '#4572A7', dataGrouping: { units: groupingUnits, enabled: false }, yAxis: 1, data: volume }
             ]
         });
     }
 
+
     api_mkt.depthchart(function(data){
-        console.log(data);
-        // console.log(data[0]);
-        // console.log(data[1]);
-        // console.log(data[2]);
         var obj1 = data[0].sort(function(t,a){return t[0]>a[0]?1:t[0]<a[0]?-1:0});
         var obj2 = data[1];
         $('#deepmap_container').highcharts({
@@ -329,7 +313,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         $("#floor_popDiv").fadeIn(500);
     });
 
-
     $(".sure_btn").on("click",function(){
         $("#floor_popDiv").hide();
         $("#floor_bg").hide();
@@ -340,9 +323,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         $("#floor_bg").hide();
     });
 
-
     $(".timebar").on("click", function() {
-        console.log("timebar");
         $(this).addClass("btn_choosed");
         $(this).siblings().removeClass("btn_choosed");
         if ($(this).hasClass("oneminute")) {
@@ -357,12 +338,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             highcharts_Rendering("sixty", groupingUnits);
         } else if ($(this).hasClass("onedayminute")) {
             highcharts_Rendering("oneday", groupingUnits);
-
         }
     });
-
-
-
     $("#slider_limited_price").slider({
         value: 0,
         min: 0,
@@ -400,22 +377,22 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         }
     });
     //("#buyin_slider_value").val("$" + $("#slider").slider("value"));
-    var flag = true;
-    $('.messagenum_area').on("click", function() {
-        if (flag) {
-            flag = false;
-            $(this).css("background-color", "#ffffff");
-            $(".popup_message_box").show("100");
-            $(".messagenum_area em").css("color", "#333333");
-            $(".msg_num").css("color", "#cccccc");
-        } else {
-            flag = true;
-            $(this).css("background-color", "#282828");
-            $(".popup_message_box").hide("100");
-            $(".messagenum_area em").css("color", "#cccccc");
-            $(".msg_num").css("color", "#333333");
-        }
-    });
+    // var flag = true;
+    // $('.messagenum_area').on("click", function() {
+    //     if (flag) {
+    //         flag = false;
+    //         $(this).css("background-color", "#ffffff");
+    //         $(".popup_message_box").show("100");
+    //         $(".messagenum_area em").css("color", "#333333");
+    //         $(".msg_num").css("color", "#cccccc");
+    //     } else {
+    //         flag = true;
+    //         $(this).css("background-color", "#282828");
+    //         $(".popup_message_box").hide("100");
+    //         $(".messagenum_area em").css("color", "#cccccc");
+    //         $(".msg_num").css("color", "#333333");
+    //     }
+    // });
 
     var fflat = false;
     $(".eye_i").on("click",function(){
@@ -434,8 +411,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             $(".ithreeshow").show();
             $(".ifourhide").hide();
             $(".ifourshow").show();
-
-            
         } else {
             $(this)[0].style.background = "url(./images/floor_no_eye.png)";
             fflat = true;
@@ -581,5 +556,23 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             }
         });
     });
+
+
+    // var flag = true;
+    // $('.messagenum_area').on("click",function(){
+    //     if(flag){
+    //         flag = false;
+    //         $(this).css("background-color","#ffffff");
+    //         $(".popup_message_box").show("100");
+    //         $(".messagenum_area em").css("color","#333333");
+    //         $(".msg_num").css("color","#333333");
+    //     } else {
+    //         flag = true;
+    //         $(this).css("background-color","#282828");
+    //         $(".popup_message_box").hide("100");
+    //         $(".messagenum_area em").css("color","#cccccc");
+    //         $(".msg_num").css("color","#cccccc");
+    //     }
+    // });
     
 });

@@ -13,7 +13,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
         var exchangeToken = $.cookie('exchangeToken');
         var ff = $(this).html();
         if (!exchangeToken) {
-            alert("没有token")
+            //alert("没有token")
             $(".popDiv").show();
             $(".bg").show();
             if(ff=="首页"){
@@ -26,7 +26,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
                 $.cookie("loginfromwhichpage","four");
             }
         } else {
-            alert("有tokne");
+            //alert("有tokne");
             $(".popDiv").hide();
             $(".bg").hide();
             // var whichpage = $.cookie("loginfromwhichpage");
@@ -244,4 +244,26 @@ require(['api_mkt','cookie'], function(api_mkt) {
         	location.reload(true);
         },100);
     });
+
+    var flag = true;
+    $('.messagenum_area').on("click",function(){
+        //console.log("messagenum_area");
+        if(flag){
+            flag = false;
+            $(this).css("background-color","#ffffff");
+            $(".popup_message_box").show("100");
+            $(".messagenum_area em").css("color","#333333");
+            $(".msg_num").css("color","#333333");
+            console.log("hahaha");
+        } else {
+            flag = true;
+            $(this).css("background-color","#282828");
+            $(".popup_message_box").hide("100");
+            $(".messagenum_area em").css("color","#cccccc");
+            $(".msg_num").css("color","#cccccc");
+            console.log("hihihi");
+        }
+    });
+
+
 });

@@ -704,11 +704,14 @@
     display: table;
     width: 100%;
 }
+.messagenum_area .msg_num{
+    color:#cccccc;
+}
 
 .order_record_list {
         display: table;
     width: 100%;
-    margin-top: 18px;
+    /* margin-top: 18px; */
 }
 
 .buy_order_list .table_row .table_con:first-child {
@@ -755,13 +758,14 @@
 }
 
 .table_header {
-    display: table-row;
-    height: 40px;
-    line-height: 40px;
+    height: 66px;
+    line-height: 66px;
+    display: table;
+    width: 100%;
 }
 
 .table_row {
-    display: table-row;
+    /* display: table-row; */
     height: 36px;
 }
 
@@ -773,6 +777,7 @@
 .table_con {
     display: table-cell;
     text-align: center;
+    width: 108px;
 }
 
 .list_header {
