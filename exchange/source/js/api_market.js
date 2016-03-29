@@ -174,6 +174,10 @@ define('api_mkt', ['cookie'], function() {
 	add('basic','exchangeApi/user/basic');
 	//总资产
 	add('getTotalAssets','exchangeApi/wealth/getTotalAssets');
+	//买入
+	add('buy','exchangeApi/wealth/buy');
+	//卖出
+	add('sell','exchangeApi/wealth/sell');
 
 
 	add('userlogout','exchangeApi/user/logout');

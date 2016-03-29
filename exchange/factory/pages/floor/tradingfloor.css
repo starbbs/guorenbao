@@ -571,7 +571,10 @@
 }
 .dotted_input{
     width: 172px;
-    border:1px dotted #cccccc;
+    border:none;
+}
+.msg{
+    float:left;color:red;margin:10px 0 0 3px;
 }
 .buying_btn,.sale_btn{
     width: 252px;
@@ -657,7 +660,7 @@
     height:30px;
 }
 .jyeinput{
-    border: 1px dotted #cccccc;
+    border: none;
     width: 172px;
 }
 .form_wrapper_leftdiv div {

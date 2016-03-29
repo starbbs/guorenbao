@@ -63,7 +63,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         'wallet':$(this).parent().find('.nutIdAddress').text()
                     }, function(data) {
                         if (data.status == 200) {
-                            //window.location.href='withdraw.html?id=rmbtx';
+                            window.location.href='withdraw.html?id=rmbtx';
                         } else {
                             console.log(data.msg);
                         }
@@ -476,7 +476,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 });
             });
         } else {
-            console.log(err);
+            console.log(data.msg);
         }
     });
 

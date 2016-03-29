@@ -6,6 +6,9 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iscrollLoading
 ], function(router, api, get, filters, H5bill, iscrollLoading, billView, mydate) {
 
 	router.init();
+	$(document).get(0).ontouchmove = function(event){
+		event.preventDefault();
+	};
 	var gopToken = $.cookie('gopToken');
 	var page = 1; // 账单页数, 当返回列表长度小于当前列表长度时, 置零, 不再请求
 	var size = 8; // 账单列表
