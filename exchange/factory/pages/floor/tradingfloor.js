@@ -606,6 +606,63 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         }
     });
 
+   //买入 市价 滑块
+   $('.marketBuy').blur(function(){
+        var marketBuy = $('.marketBuy').val();
+        if(isNaN(marketBuy) || !marketBuy){
+            $('.msgNumber').text('非数字');
+            flag = false;
+        }else{
+            flag = true;
+            $('.msgNumber').text(''); 
+            var num = parseInt($('.marketBuy').val());
+            $('.one').val('¥：'+ num +'.00'); 
+            /*买入-限价 滑块数值*/
+            $( "#amount1" ).text(num+'%'); //限价除以总钱数
+            $( "#amount" ).text(num+'%'); //限价除以总钱数
+            $( "#red1" ).slider({
+                  orientation: "horizontal",
+                  range: "min",
+                  slide: refreshSwatch,
+                  change: refreshSwatch, 
+                  value: num,
+                  min: 0,
+                  max: 100,
+                  slide: function( event, ui ) {
+                        $( "#amount1" ).html( ui.value +  "%" );
+                        $( ".marketBuy" ).val( ui.value);
+                  }
+            });          
+        }
+    });
+   //卖出 市价 滑块
+   $('.sellAmount').blur(function(){
+        var marketBuy = $('.sellAmount').val();
+        if(isNaN(marketBuy) || !marketBuy){
+            $('.msgNumber').text('非数字');
+            flag = false;
+        }else{
+            flag = true;
+            $('.msgNumber').text(''); 
+            var num = parseInt($('.sellAmount').val());
+            /*买入-限价 滑块数值*/
+            $( "#amount3" ).text(num+'%'); //限价除以总钱数
+            $( "#green1" ).slider({
+                  orientation: "horizontal",
+                  range: "min",
+                  slide: refreshSwatch,
+                  change: refreshSwatch, 
+                  value: num,
+                  min: 0,
+                  max: 100,
+                  slide: function( event, ui ) {
+                        $( "#amount3" ).html( ui.value +  "%" );
+                        $( ".sellAmount" ).val( ui.value);
+                  }
+            });          
+        }
+    });
+
     /*买入-限价 滑块初始化*/
     $( "#red" ).slider({
           orientation: "horizontal",
@@ -620,8 +677,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 $( ".buying_number" ).val( ui.value);
           }
     }); 
-
-    $('.')
 
     /*卖出-限价 滑块初始化*/
     $( "#red1" ).slider({
@@ -648,7 +703,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
           max: 100,
           slide: function( event, ui ) {
                 $( "#amount2" ).html( ui.value +  "%" );
-                $( ".marketBuy" ).val( ui.value);
+                $( ".sellNumber" ).val( ui.value);
           }
     });
     /*卖出-市价 滑块数值*/
@@ -662,6 +717,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
           max: 100,
           slide: function( event, ui ) {
                 $( "#amount3" ).html( ui.value +  "%" );
+                $( ".sellAmount" ).val( ui.value);
           }
     });
 
@@ -685,7 +741,23 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         }else{
             flag = true;
             $('.msgSellNumber').text(''); 
-            $('.two').val('¥：'+parseInt($('.sellPrice').val()) * parseInt($('.sellNumber').val()) +'.00');           
+            var num = parseInt($('.sellPrice').val()) * parseInt($('.sellNumber').val());
+            $('.two').val('¥：'+ num +'.00'); 
+            /*买入-市价 滑块数值*/
+            $( "#amount2" ).text(num+'%');
+            $( " #green" ).slider({
+                  orientation: "horizontal",
+                  range: "min",
+                  slide: refreshSwatch,
+                  change: refreshSwatch, 
+                  value: num,
+                  min: 0,
+                  max: 100,
+                  slide: function( event, ui ) {
+                        $( "#amount2" ).html( ui.value +  "%" );
+                        $( ".sellNumber" ).val( ui.value);
+                  }
+            });          
         }
     });
     /*$('.marketBuy').blur(function(){
@@ -727,6 +799,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     console.log(data);               
                 }else{
                     console.log(data);
+                    alert('支付密码有误');
                 }
             });
         }else{
@@ -739,6 +812,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     console.log(data);               
                 }else{
                     console.log(data);
+                    alert('支付密码有误');
                 }
             });
         }    
@@ -759,6 +833,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     console.log(data);               
                 }else{
                     console.log(data);
+                    alert('支付密码有误');
                 }
             });
         }else{
@@ -771,6 +846,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     console.log(data);               
                 }else{
                     console.log(data);
+                    alert('支付密码有误');
                 }
             });
         }    

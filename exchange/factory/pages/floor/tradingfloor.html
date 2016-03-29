@@ -181,7 +181,7 @@
                             <div class="form_wrapper">
                                 <div class="slider_container-pos1">
                                     <div id="red1"></div> 
-                                    <p id="amount1"></p>
+                                    <p id="amount1">0%</p>
                                 </div>
                                 <div class="form_wrapper_leftdiv">
                                     <div>买入价格</div>
@@ -400,73 +400,6 @@
     </div>
     <div id="floor_bg" class="bg" style="display:none;">这里是遮罩层</div>
     <div id="bg" class="bg" style="display:none;">这里是遮罩层</div>
-
-
-
-    Welcome<br/>
-    <input id="text" type="text" />
-    <button onclick="send()">Send</button>    
-    <button onclick="closeWebSocket()">Close</button>
-    <div id="message"></div>
-    
-    
-<script type="text/javascript">
-      var websocket = null;
-       
-      //判断当前浏览器是否支持WebSocket
-      if('WebSocket' in window){
-          websocket = new WebSocket("ws://172.16.33.3:8080/exchangeApi/websocket/chat");
-      }
-      else{
-          alert('Not support websocket')
-      }
-       
-      //连接发生错误的回调方法
-      websocket.onerror = function(){
-          setMessageInnerHTML("error");
-      };
-       
-      //连接成功建立的回调方法
-      websocket.onopen = function(event){
-          setMessageInnerHTML("open");
-      }
-       
-      //接收到消息的回调方法
-      websocket.onmessage = function(){
-          setMessageInnerHTML(event.data);
-      }
-       
-      //连接关闭的回调方法
-      websocket.onclose = function(){
-          setMessageInnerHTML("close");
-      }
-       
-      //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
-      window.onbeforeunload = function(){
-          websocket.close();
-      }
-       
-      //将消息显示在网页上
-      function setMessageInnerHTML(innerHTML){
-          document.getElementById('message').innerHTML += innerHTML + '<br/>';
-      }
-       
-      //关闭连接
-      function closeWebSocket(){
-          websocket.close();
-      }
-       
-      //发送消息
-      function send(){
-          var message = document.getElementById('text').value;
-          websocket.send(message);
-      }
-  </script>
-
-
-
-
-
     @@include('../../includes/bottom/bottom.html')
     <script type="text/javascript" src="./js/highstock.js"></script>
     <script type="text/javascript" src="./js/highcharts.js"></script>
