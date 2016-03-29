@@ -20,6 +20,10 @@ require('./exchange/exchange-build');
 require('./exchange/exchange-public');
 gulp.task('exchange',['exchange-build']);
 
+// 交易所_后台管理系统
+require('./exchange-manage/exchange-manage-build');
+require('./exchange-manage/exchange-manage-public');
+gulp.task('exchange-manage',['exchange-manage-build']);
 
 // 任务
 // gulp.task('watch', ['pc-build-watch']);
