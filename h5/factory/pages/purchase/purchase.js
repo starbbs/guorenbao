@@ -2,7 +2,7 @@
 // H5微信端 --- 买果仁
 
 
-require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'api', 'check', 'filters', 'h5-view-bill', 'h5-dialog-alert', 'h5-text', 'h5-ident', 'h5-weixin', 'h5-component-keyboard'], function(router, View, dialogBankcard, price, weixin, api, check, filters, billView, dialogAlert) {
+require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'api', 'check', 'filters', 'h5-view-bill', 'h5-text', 'h5-ident', 'h5-weixin', 'h5-component-keyboard'], function(router, View, dialogBankcard, price, weixin, api, check, filters, billView) {
 	router.init(true);
 
 	var gopToken = $.cookie('gopToken');
@@ -10,9 +10,6 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 	var viewOrder = new View('purchase-order');
 
 	var main = $('.purchase');
-
-	dialogAlert.set('请输入1~3000内的金额');
-	dialogAlert.button('确定');
 
 	var vm = avalon.define({ // 主页面
 		$id: 'purchase',
@@ -55,21 +52,12 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 		},
 		gopBuyValidate: function() {
 			if(this.value){
-				console.log(isNaN(this.value));
 				if(isNaN(this.value)){//输入框是非数字时 NaN === NaN -> false所以只能用isNaN判断类型
 					this.value = '';
-					dialogAlert.show();
 				}else{
 					this.value = parseInt(this.value);
 					vm.ifBuy = check.gopBuyValidate(this.value, vm.price);
-					if(vm.ifBuy){
-						vm.expect = this.value ? 'G ' + filters.floorFix(this.value / vm.price) : '';
-					}else{
-						dialogAlert.show();
-						this.value = '';
-						vm.expect = '';
-					}
-					
+					vm.expect = this.value ? 'G ' + filters.floorFix(this.value / vm.price) : '';
 				}	
 			}
 		},

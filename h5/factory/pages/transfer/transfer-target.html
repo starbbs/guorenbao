@@ -10,22 +10,17 @@
 		<div class="transfer-target-head-name">果仁市场</div>
 		<div class="transfer-target-head-address">{{address|address}}</div>
 	</div>
-
 	<!--联系人头像及姓名-->
-	<!--
 	<div class="transfer-target-head phone-address">
 		<div class="transfer-target-head-img"><img ms-attr-src="photo" alt="" class="img-f"></div>
 		<div class="transfer-target-head-name">{{name}}</div>
 		<div class="transfer-target-head-address">{{phone|phone}}</div>
 	</div>
-	-->
 	<div class="transfer-target-head wallet-address">
 		<div class="transfer-icon-5-big"></div>
 		<div class="transfer-target-head-name">{{name}}</div>
 		<div class="transfer-target-head-address">{{address|address}}</div>
 	</div>
-	
-
 	<!--数量转帐金额  钱包和果仁联系人-->
 	<div class="transfer-target-box wallet">
 		<div class="transfer-target-box-title">转出数量
@@ -44,7 +39,7 @@
 						type="number" 
 						maxlength="10" 
 						data-text='close|two' 
-						ms-on-blur="getCnyMoney" 
+						ms-on-input="getCnyMoney" 
 						ms-duplex="transferNum">
 				</div>
 				<div class="text-close"></div>
@@ -67,8 +62,6 @@
 		</div>
 		<div class="transfer-target-box-tip">约合RMB {{cnyMoney|fix}}</div>
 	</div>
-
-
 	<!--转帐说明-->
 	<div class="transfer-target-detail">
 		<div class="text">
