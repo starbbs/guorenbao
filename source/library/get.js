@@ -8,9 +8,8 @@ define('get', ['url'], function(url) {
 	var parse = function(str) {
 		var data = {};
 		str.split('&').forEach(function(item) {
-			var arr;
-			item && (arr = item.split('='));
-			arr && arr[0] && (data[arr[0]] = arr[1]);
+			var arr = item.split('=');
+			data[arr[0]] = arr[1];
 		});
 		return data; 
 		//data = {from:aaa,id:111}
