@@ -384,7 +384,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     });
 
     /*滑块 start*/
-    function hexFromRGB(r, g, b) {
+    function hexFromRGB(r, g) {
     var hex = [
           r.toString( 16 ),
           g.toString( 16 )
@@ -400,58 +400,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         var red = $( "#red" ).slider( "value" ),
             green = $( "#green" ).slider( "value" ),
             hex = hexFromRGB( red, green);
-    }
-    /*买入-限价 滑块数值*/
-    $( "#red" ).slider({
-          orientation: "horizontal",
-          range: "min",
-          slide: refreshSwatch,
-          change: refreshSwatch, 
-          value: 0,
-          min: 0,
-          max: 100,
-          slide: function( event, ui ) {
-                $( "#amount" ).html( ui.value +  "%" );
-          }
-    });
-    /*买入-市价 滑块数值*/
-    $( "#red1" ).slider({
-          orientation: "horizontal",
-          range: "min",
-          slide: refreshSwatch,
-          change: refreshSwatch, 
-          value: 0,
-          min: 0,
-          max: 100,
-          slide: function( event, ui ) {
-                $( "#amount1" ).html( ui.value +  "%" );
-          }
-    });
-    $( " #green" ).slider({
-          orientation: "horizontal",
-          range: "min",
-          slide: refreshSwatch,
-          change: refreshSwatch, 
-          value: 0,
-          min: 0,
-          max: 100,
-          slide: function( event, ui ) {
-                $( "#amount2" ).html( ui.value +  "%" );
-          }
-    });
-    
-    $( " #green1" ).slider({
-          orientation: "horizontal",
-          range: "min",
-          slide: refreshSwatch,
-          change: refreshSwatch, 
-          value: 0,
-          min: 0,
-          max: 100,
-          slide: function( event, ui ) {
-                $( "#amount3" ).html( ui.value +  "%" );
-          }
-    });
+    }   
 
     //当前委托（不传参数查询最近5条）
     api_mkt.tradeGopCurrentList(function(data) {
@@ -609,9 +558,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         $(this).addClass("border_bottom_on");
         $("#sale_limitedpricebtn").removeClass("border_bottom_on");
         typeFixedOrMarketTwo = false;
-    });
-
-    
+    });     
 
     //弹出框确认 关闭
     /*$(".sure_btn").on("click",function(){
@@ -638,9 +585,87 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         }else{
             flag = true;
             $('.msgNumber').text(''); 
-            $('.one').val('¥：'+parseInt($('.buying_price').val()) * parseInt($('.buying_number').val()) +'.00');           
+            var num = parseInt($('.buying_price').val()) * parseInt($('.buying_number').val());
+            $('.one').val('¥：'+ num +'.00'); 
+
+            /*买入-限价 滑块数值*/
+            $( "#amount" ).text(num+'%'); //限价除以总钱数
+            $( "#red" ).slider({
+                  orientation: "horizontal",
+                  range: "min",
+                  slide: refreshSwatch,
+                  change: refreshSwatch, 
+                  value: num,
+                  min: 0,
+                  max: 100,
+                  slide: function( event, ui ) {
+                        $( "#amount" ).html( ui.value +  "%" );
+                        $( ".buying_number" ).val( ui.value);
+                  }
+            });          
         }
     });
+
+    /*买入-限价 滑块初始化*/
+    $( "#red" ).slider({
+          orientation: "horizontal",
+          range: "min",
+          slide: refreshSwatch,
+          change: refreshSwatch, 
+          value: 0,
+          min: 0,
+          max: 100,
+          slide: function( event, ui ) {
+                $( "#amount" ).html( ui.value +  "%" );
+                $( ".buying_number" ).val( ui.value);
+          }
+    }); 
+
+    $('.')
+
+    /*卖出-限价 滑块初始化*/
+    $( "#red1" ).slider({
+          orientation: "horizontal",
+          range: "min",
+          slide: refreshSwatch,
+          change: refreshSwatch, 
+          value: 0,
+          min: 0,
+          max: 100,
+          slide: function( event, ui ) {
+                $( "#amount1" ).html( ui.value +  "%" );
+                $( ".marketBuy" ).val( ui.value);
+          }
+    });
+    /*买入-市价 滑块数值*/
+    $( " #green" ).slider({
+          orientation: "horizontal",
+          range: "min",
+          slide: refreshSwatch,
+          change: refreshSwatch, 
+          value: 0,
+          min: 0,
+          max: 100,
+          slide: function( event, ui ) {
+                $( "#amount2" ).html( ui.value +  "%" );
+                $( ".marketBuy" ).val( ui.value);
+          }
+    });
+    /*卖出-市价 滑块数值*/
+    $( " #green1" ).slider({
+          orientation: "horizontal",
+          range: "min",
+          slide: refreshSwatch,
+          change: refreshSwatch, 
+          value: 0,
+          min: 0,
+          max: 100,
+          slide: function( event, ui ) {
+                $( "#amount3" ).html( ui.value +  "%" );
+          }
+    });
+
+
     //卖出 校验
     $('.sellPrice').blur(function(){
         var price = $('.sellPrice').val();
