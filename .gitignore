@@ -10,3 +10,5 @@ pc/build
 pc/public
 exchange/build
 exchange/public
+exchange-management/build
+exchange-management/public
