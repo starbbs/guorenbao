@@ -166,7 +166,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 			transferTarget.phone = item.phone;
 			targetInit(vm.transferOutType);
 			router.go('/transfer-target');
-		},*/
+		},
 		showAuthenDes: function() {
 			dialogAlert.set('为保证您的账户资金安全，请您输入真实姓名，实名信息校验正确后不可更改');
 			dialogAlert.show();
@@ -380,7 +380,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 				return;
 			}
 			//parseFloat(this.value) > parseFloat(transferTarget.gopNum - transferTarget.serviceFee 写入的大于总值-手续费
-			if (parseFloat(this.value) > parseFloat(transferTarget.gopNum - transferTarget.serviceFee){
+			if (parseFloat(this.value) > parseFloat(transferTarget.gopNum - transferTarget.serviceFee)){
 				$.alert('您的果仁数不足');
 				transferTarget.notchecked = true;
 				return;
