@@ -21,7 +21,7 @@ require(['router', 'api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h
 	// $.cookie('gopToken', '4b35b6239f8b465cb126cae77177f2d7'); //自己133
 	// $.cookie('gopToken', '60371545982b401d9cba6eea72402f01'); //13833298624
 	var gotoAuthorization = function() { // 跳转授权页, 未授权
-		return;
+		// return;
 		setTimeout(function() {
 			window.location.href = authorization.default; //跳转威信授权的地址
 		}, 100);
