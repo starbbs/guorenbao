@@ -87,7 +87,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info,mkt_pagehead)
                 $('.cnyLock').text(data.data.cnyLock + '.00'); 
                 $('.gopBalance').text(data.data.gopBalance + '.00'); 
             } else {
-                consloe.log(data.msg);
+                console.log(data.msg);
             }
         });
 
