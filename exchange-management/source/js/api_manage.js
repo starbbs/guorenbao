@@ -1,12 +1,13 @@
 define('api_mkt_management', ['cookie'], function() {
 
 	var basePath = 'http://localhost/';
+
 	var api = {};
 	var goIndex = function(useURL) {		//返回首页
 		if (useURL) {
 		}
-		if (window.location.href.indexOf('/index.html') === -1) {
-			return window.location.href = 'index.html';
+		if (window.location.href.indexOf('/home.html') === -1) {
+			return window.location.href = 'home.html';
 		} else {
 			alert('无法获得用户信息');
 		}
@@ -106,40 +107,41 @@ define('api_mkt_management', ['cookie'], function() {
 			''
 		);
 	};
+
 	//后台登录
-	add('login','exchangeApi/exchange_manager/login/login');
+	add('login','exchange_manager/login/login');
 	//后台登出
-	add('logout','exchangeApi/exchange_manager/login/logout');
+	add('logout','exchange_manager/login/logout');
 	//后台重置密码
-	add('setLoginPassword','exchangeApi/exchange_manager/login/setLoginPassword');
+	add('setLoginPassword','exchange_manager/login/setLoginPassword');
 	//后台创建管理员
-	add('create','exchangeApi/exchange_manager/login/create');
+	add('create','exchange_manager/login/create');
 	//后台锁定管理员
-	add('lockAdmin','exchangeApi/exchange_manager/login/lockAdmin');
+	add('lockAdmin','exchange_manager/login/lockAdmin');
 	//后台解锁管理员
-	add('unlockAdmin','exchangeApi/exchange_manager/login/unlockAdmin');
+	add('unlockAdmin','exchange_manager/login/unlockAdmin');
 	//人民币充值/提现查询
-	add('transfer','exchangeApi/exchange_manager/cny/transfer');
+	add('transfer','exchange_manager/cny/transfer');
 	//人民币充值/提现确认
-	add('confirmTransfer','exchangeApi/exchange_manager/cny/confirmTransfer');
+	add('confirmTransfer','exchange_manager/cny/confirmTransfer');
 	//人民币提现锁定
-	add('lockTransfer','exchangeApi/exchange_manager/cny/lockTransfer');	
+	add('lockTransfer','exchange_manager/cny/lockTransfer');	
 	//人民币提现解锁
-	add('unlockTransfer','exchangeApi/exchange_manager/cny/unlockTransfer');
+	add('unlockTransfer','exchange_manager/cny/unlockTransfer');
 	//果仁转入查询
-	add('transferGopInput','exchangeApi/exchange_manager/gop/transfer');
+	add('transferGopInput','exchange_manager/gop/transfer');
 	//果仁转出查询
-	add('transferGopOutput','exchangeApi/exchange_manager/gop/transfer');
+	add('transferGopOutput','exchange_manager/gop/transfer');
 	//果仁挂单查询
-	add('trade','exchangeApi/exchange_manager/gop/trade');
+	add('trade','exchange_manager/gop/trade');
 	//果仁成交查询
-	add('order','exchangeApi/exchange_manager/gop/order');
+	add('order','exchange_manager/gop/order');
 	//用户列表
-	add('userList','exchangeApi/exchange_manager/user/userList');
+	add('userList','exchange_manager/user/userList');
 	//用户_基本信息
-	add('userInfo','exchangeApi/exchange_manager/user/userInfo');
+	add('userInfo','exchange_manager/user/userInfo');
 	//用户银行卡信息
-	add('userAcBank','exchangeApi/exchange_manager/user/userAcBank');
+	add('userAcBank','exchange_manager/user/userAcBank');
 
 	return api;
 });
