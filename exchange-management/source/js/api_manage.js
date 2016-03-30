@@ -1,9 +1,6 @@
-define('api_mkt', ['cookie'], function() {
-	//var basePath = 'http://localhost/';
+define('api_manage', ['cookie'], function() {
+
 	var basePath = 'http://localhost/';
-	//var basePath = "http://172.16.33.3:8080/";
-	//http://ip:port/login/registerBefore
-	//var basePath = 'http://ip:port/login/registerBefore';
 	var api = {};
 	var goIndex = function(useURL) {		//返回首页
 		if (useURL) {
@@ -109,104 +106,40 @@ define('api_mkt', ['cookie'], function() {
 			''
 		);
 	};
-	add('pollinfo','trade/info');
-	add('polltrade','trade/trade');
-	add('homepage_tradingfloor_kline','trade/kline');
-	add('depthchart','trade/depth');
-	add('homepagekline','trade/kline');
+	//后台登录
+	add('login','exchangeApi/exchange_manager/login/login');
+	//后台登出
+	add('logout','exchangeApi/exchange_manager/login/logout');
+	//后台重置密码
+	add('setLoginPassword','exchangeApi/exchange_manager/login/setLoginPassword');
+	//后台创建管理员
+	add('create','exchangeApi/exchange_manager/login/create');
+	//后台锁定管理员
+	add('lockAdmin','exchangeApi/exchange_manager/login/lockAdmin');
+	//后台解锁管理员
+	add('unlockAdmin','exchangeApi/exchange_manager/login/unlockAdmin');
+	//人民币充值/提现查询
+	add('transfer','exchangeApi/exchange_manager/cny/transfer');
+	//人民币充值/提现确认
+	add('confirmTransfer','exchangeApi/exchange_manager/cny/confirmTransfer');
+	//人民币提现锁定
+	add('lockTransfer','exchangeApi/exchange_manager/cny/lockTransfer');	
+	//人民币提现解锁
+	add('unlockTransfer','exchangeApi/exchange_manager/cny/unlockTransfer');
+	//果仁转入查询
+	add('transferGopInput','exchangeApi/exchange_manager/gop/transfer');
+	//果仁转出查询
+	add('transferGopOutput','exchangeApi/exchange_manager/gop/transfer');
+	//果仁挂单查询
+	add('trade','exchangeApi/exchange_manager/gop/trade');
+	//果仁成交查询
+	add('order','exchangeApi/exchange_manager/gop/order');
+	//用户列表
+	add('userList','exchangeApi/exchange_manager/user/userList');
+	//用户_基本信息
+	add('userInfo','exchangeApi/exchange_manager/user/userInfo');
+	//用户银行卡信息
+	add('userAcBank','exchangeApi/exchange_manager/user/userAcBank');
 
-
-	add('login','exchangeApi/login/login');
-
-	//接口 发送验证码 
-	add('sendCode','exchangeApi/common/sendCode');
-	//接口 注册第一步 手机号注册
-	add('registerBefore','exchangeApi/login/registerBefore');	
-	//接口 注册第二步 设置支付密码 
-	add('register','exchangeApi/login/register');
-	//接口 注册第三步 设置实名验证 
-	add('realNameAuth','exchangeApi/security/realNameAuth');
-
-	//接口 账户明细（查询最近5条）
-	add('billList','exchangeApi/bill/billList');
-	//接口 账户明细（带分页）
-	add('billListPage','exchangeApi/bill/billList');
-	//接口 人民币充值
-	add('rmbRecharge','exchangeApi/wealth/rmbRecharge');
-	//接口 人民币提现
-	add('rmbWithdrawals','exchangeApi/wealth/rmbWithdrawals');
-	//接口 人民币充值历史（查询最近5条）
-	add('rmbRechargeHistory','exchangeApi/wealth/rmbRechargeHistory');
-	//接口 人民币提现历史（查询最近5条）
-	add('rmbWithdrawalsHistory','exchangeApi/wealth/rmbWithdrawalsHistory');
-	//接口 银行卡识别
-	add('checkBankCard','exchangeApi/common/checkBankCard');
-	// 接口 人民币提现管理添加 添加银行卡
-	add('rmbWithdrawalsManageAdd','exchangeApi/wealth/rmbWithdrawalsManageAdd');
-	// 接口 人民币提现管理删除
-	add('rmbWithdrawalsManageDel','exchangeApi/wealth/rmbWithdrawalsManageDel');
-	// 接口 发送手机号验证码(登录后不需要手机号参数)
-	add('sendCodeByLoginAfter','exchangeApi/common/sendCodeByLoginAfter');
-	// 接口 果仁提现地址管理添加
-	add('gopAddressManAdd','exchangeApi/wealth/gopAddressManAdd');	
-	// 接口 果仁提现地址管理删除
-	add('gopAddressManDel','exchangeApi/wealth/gopAddressManDel');	
-	// 接口 果仁提现地址管理
-	add('gopAddressMan','exchangeApi/wealth/gopAddressMan');
-	// 接口 果仁提现地址修改
-	add('gopAddressManUpdate','exchangeApi/wealth/gopAddressManUpdate');		
-	// 接口 人民币提现管理【判断是否添加银行卡】
-	add('bankList','exchangeApi/wealth/bankList');	
-	// 接口 果仁(提现)转出记录_只查询成功记录
-	add('transferOutHistory','exchangeApi/wealth/transferOutHistory');
-	// 接口 果仁(充值)转出记录_只查询成功记录
-	add('transferInHistory','exchangeApi/wealth/transferInHistory');
-	// 接口 果仁充值
-	add('gopRecharge','exchangeApi/wealth/gopRecharge');
-	// 接口 果仁提现
-	add('gopWithdrawals','exchangeApi/wealth/gopWithdrawals');
-
-	//当前委托（不传参数查询最近5条）、带分页
-	add('tradeGopCurrentList','exchangeApi/wealth/tradeGopCurrentList');
-	//历史委托（不传参数查询最近5条）、带分页
-	add('tradeGopHistoryList','exchangeApi/wealth/tradeGopHistoryList');
-	//我的账户信息
-	add('basic','exchangeApi/user/basic');
-	//总资产
-	add('getTotalAssets','exchangeApi/wealth/getTotalAssets');
-
-
-	add('userlogout','exchangeApi/user/logout');
-	add('realAuth','exchangeApi/user/realAuth');
-	add('totalAssets','exchangeApi/wealth/getTotalAssets');
-
-
-
-	add('userbasic','exchangeApi/user/basic');
-
-	add('loginpassword','exchangeApi/login/setLoginPassword');
-	add('setpaypwd','exchangeApi/security/setPayPwd');
-	
-
-	add('resetpaypwdbefore','exchangeApi/security/resetPayPwdBefore');
-
-	add('resetLoginPwd','exchangeApi/login/resetLoginPwd');
-
-	add('resetPayPwd','exchangeApi/security/resetPayPwd');
-
-	/*
-	// 1.手机号注册
-	add('register', '/login/register');
-	// 1.1 手机号注册
-	add('registerall', '/login/registerall');
-	// 83.获取联系人头像（49.账单列表接口的附加接口）
-	add('billPhoto', '/bill/contentPhoto', {
-		asyn: true // 可同时请求多次
-	});
-	// 84.获取联系人信息
-	add('contactInfo', '/contact/info', {
-		ignoreStatus: [304] // 忽略304错误
-	});
-	*/
 	return api;
 });

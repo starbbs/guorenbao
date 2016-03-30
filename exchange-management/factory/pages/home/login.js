@@ -1,4 +1,19 @@
-require(['jquery','avalon'],function($,avalon){
+require(['jquery','api_manage','avalon'],function($,api_manage,avalon){
+    
+    $('.container-section-inputThree').click(function(){
+        alert('asdfasf');
+        api_manage.login({
+            'phone':$('.container-section-inputOne').val(),
+            'password':$('.container-section-inputTwo').val()
+        }, function(data) {
+            if (data.status == 200) {
+                console.log(data);
+            } else {
+                console.log(data.msg);
+            }
+        });
+    });    
+
     avalon.ready(function(){
         var vm = avalon.define({
             $id:'test',

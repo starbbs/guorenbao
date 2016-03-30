@@ -1,4 +1,4 @@
-require(['jquery'], function($) {
+require(['jquery','api_manage'], function($,api_manage) {
     //左侧导航  
     $(".div2").click(function() {
         $(this).next("div").slideToggle();
@@ -13,9 +13,9 @@ require(['jquery'], function($) {
     function changeIcon(img) {
         if (img) {
             if (img.css("background-image").indexOf("collapsed.gif") >= 0) {
-                img.css("background-image", "url('../../images/home/expanded.gif')");
+                img.css("background-image", "url('./images/expanded.gif')");
             } else {
-                img.css("background-image", "url('../../images/home/collapsed.gif')");
+                img.css("background-image", "url('./images/collapsed.gif')");
             }
         }
     }
@@ -61,7 +61,7 @@ require(['jquery'], function($) {
     });
 
     //创建iframe
-    $("<Iframe class='frameHtml' src='../controllPanel/controllPanel.html' height='550' scrolling='no' frameborder='0' name='main'></iframe>").insertAfter(".nav");
+    $("<Iframe class='frameHtml' src='./controllPanel.html' height='550' scrolling='no' frameborder='0' name='main'></iframe>").insertAfter(".nav");
 
     //点击框架 收起
     $(window.frames["main"].document.body).click(function() {
@@ -83,35 +83,47 @@ require(['jquery'], function($) {
 
     //操作框架
     $(".liCashIn").click(function() {
-        $(".frameHtml").attr("src", "../cash/cashIn.html");
+        $(".frameHtml").attr("src", "cashIn.html");
     });
     $(".liCashOut").click(function() {
-        $(".frameHtml").attr("src", "../cash/cashOut.html");
+        $(".frameHtml").attr("src", "cashOut.html");
     });
     $(".liguoRenDeal").click(function() {
-        $(".frameHtml").attr("src", "../guoren/guoRenDeal.html");
+        $(".frameHtml").attr("src", "guoRenDeal.html");
     });
     $(".liguoRenKaDan").click(function() {
-        $(".frameHtml").attr("src", "../guoren/guoRenKaDan.html");
+        $(".frameHtml").attr("src", "guoRenKaDan.html");
     });
     $(".liguoRenInput").click(function() {
-        $(".frameHtml").attr("src", "../guoren/guoRenInput.html");
+        $(".frameHtml").attr("src", "guoRenInput.html");
     });
     $(".liguoRenOutput").click(function() {
-        $(".frameHtml").attr("src", "../guoren/guoRenOutput.html");
+        $(".frameHtml").attr("src", "guoRenOutput.html");
     });
     $(".liguoRenGuaDan").click(function() {
-        $(".frameHtml").attr("src", "../guoren/guoRenGuaDan.html");
+        $(".frameHtml").attr("src", "guoRenGuaDan.html");
     });
     $(".liuser").click(function() {
-        $(".frameHtml").attr("src", "../user/user.html");
+        $(".frameHtml").attr("src", "user.html");
     });
     $(".liuser-info").click(function() {
-        $(".frameHtml").attr("src", "../user-info/user-info.html");
+        $(".frameHtml").attr("src", "user-info.html");
     });
 
     $(".ContrllPanel").click(function() {
-        $(".frameHtml").attr("src", "../controllPanel/controllPanel.html");
+        $(".frameHtml").attr("src", "controllPanel.html");
+    });
+
+    api_mkt.realAuth({
+        'phone':
+    }, function(data) {
+        if (data.status == 200) {
+            whether_auth = true;  //已经实名认证
+        } else if (data.status == 305) {
+        } else if(data.status == 400){
+            whether_auth = false;
+        } else {
+        }
     });
 
 

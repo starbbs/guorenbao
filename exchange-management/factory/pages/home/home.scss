@@ -76,7 +76,7 @@ $fontSize:16px;
             @include PosTopRight(absolute, 53px, 30px);
             @include widthAndHeight(200px,200px);
             border:1px solid #ccc;
-            background:#fff url(../../../images/home/toTop.png) no-repeat fixed 0 0;
+            background:#fff url(./images/toTop.png) no-repeat fixed 0 0;
             color:#000;
             font-size: 13px;
             display: none;
@@ -283,13 +283,13 @@ Progress Bars
     }
 }
 .div2{padding-left:30px;@include heightLineHeight(40px);cursor:pointer;
-      background: url(../../../images/home/collapsed.gif) no-repeat 110px center;
+      background: url(./images/collapsed.gif) no-repeat 110px center;
     &:hover{
-      background:url(../../../images/home/collapsed.gif) #575757 no-repeat 110px center;
+      background:url(./images/collapsed.gif) #575757 no-repeat 110px center;
     }
 }
 .div2-1{padding-left:50px;@include heightLineHeight(40px);cursor:pointer;color:#000;
-      background: url(../../../images/home/collapsed.gif) #ccc no-repeat 110px center;
+      background: url(./images/collapsed.gif) #ccc no-repeat 110px center;
 }
 .div2-2{padding-left:30px;@include heightLineHeight(40px);cursor:pointer;background-color:#e02222;}
 .div3{display:none;}
