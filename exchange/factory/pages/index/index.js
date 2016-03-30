@@ -290,7 +290,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         var phone = $(".phone_loginarea").val();
         var password = $(".password_loginarea").val();
         var flag = verify(phone, "tel");
-        //var authcode_index = $(".authcode_index").val();
+        var authcode_index = $(".authcode_index").val();
         if(flag=="请输入正确的手机号码"){
             $(".error_tips_index").show().html("请输入正确的手机号码");
             return;
@@ -302,21 +302,17 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             $(".error_tips_index").show().html("请输入6~12位密码");
             return;
         }
-        // if(authcode_index==""){
-        //     $(".autocode_tips").show().html("请输入验证码");
-        //     return;
-        // }
-        
-        //if(flag==true&&password!=""&&password.length>=6&&password.length<=12&&authcode_index!=""){
-        if(flag==true&&password!=""&&password.length>=6&&password.length<=12){
+        if(authcode_index==""){
+            $(".autocode_tips").show().html("请输入验证码");
+            return;
+        }
+        if(flag==true&&password!=""&&password.length>=6&&password.length<=12&&authcode_index!=""){
             $(".error_tips_index").hide();
             $(".autocode_tips").hide();
-            console.log("error_tips_index...");
             api_mkt.login({
                 phone: phone,
-                password: password
-                // ,
-                // code: authcode_index
+                password: password,
+                code: authcode_index
             }, function(data) {
                 if (data.status == 200) {
                     $.cookie('exchangeToken', 'logined');
@@ -438,6 +434,17 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             $(".rg_asset_center_none").hide();
         }
     });
+    $(".loc_img").on("click",function(){
+        $("#one1").html("");
+        $("<img id='topbar_img'/>").attr("src","/exchangeApi/code/getCode?v="+Math.random()).appendTo($("#one1"));
+        return false;
+    });
+    $(".loc_img_topbar").on("click",function(){
+        $("#one2").html("");
+        $("<img id='topbar_img'/>").attr("src","/exchangeApi/code/getCode?v="+Math.random()).appendTo($("#one2"));
+        return false;
+    });
+
     $(".loginout").on("click", function() {
         $.cookie('exchangeToken', '');
         $.cookie("global_loginuserphone",'');
