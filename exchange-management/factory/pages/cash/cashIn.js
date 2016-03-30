@@ -1,10 +1,56 @@
-require(['jquery','avalon'],function($,avalon){
+require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_management){
 
-    //请求
-    //$(".cashIn").click(function(){   //点击载入
+    alert('aaa');
+    //人民币充值/提现查询
+    api_mkt_management.transfer({
+
+    },function(data){
+        if (data.status == 200) {
+            console.log(data);
+            var html = [];
+            for(var i=0; i<num;i++){
+                html.push("<tr>");
+                html.push("<td><span class='icon-cny btnConfirm'></span></td>");
+                html.push("<td>"+ data.data.list[i].uid +"</a></td>");
+                html.push("<td class='uid'><a href='../user-info/user-info.html' style='color:blue;text-decoration:underline' title='点击进入"+data.data[(now-1)*10+i].uid+"用户信息详情页'>"+ data.data[(now-1)*10+i].uid +"</td>");
+                html.push("<td>"+ data.data.list[i].bankId +"</td>");
+                html.push("<td>"+ data.data.list[i].amount +"</td>");
+                html.push("<td>"+ data.data.list[i].bankName +"</td>");
+                html.push("<td>"+ data.data.list[i].phone +"</td>");
+                html.push("<td>"+ data.data.list[i].realName +"</td>");
+                html.push("<td>"+ data.data.list[i].content +"</td>");
+                html.push("<td>"+ data.data.list[i].status +"</td>");
+                html.push("<td>"+ data.data.list[i].createTime +"</td>");
+                html.push("<td>"+ data.data.list[i].updateTimed +"</td>");
+                html.push("</tr>");
+                $(".aside-table-tbody").html("");  //添加前，先清空 
+                $(".aside-table-tbody").append(html.join("")); 
+
+                //<input class='btnConfirm' type='button' value="￥" />
+                $(".btnConfirm").click(function(){
+                    $(".mydiv").css("display","block");
+                    $(".bg").css("display","block");
+                });
+                $(".btnClose").click(function(){
+                    $(".mydiv").css("display","none");
+                    $(".bg").css("display","none");
+                });
+
+            }
+        } else {
+            console.log(data.msg);
+        }
+    });   
+    /*api_mkt_management.transfer(function(data) {
+        if (data.status == 200) {
+            console.log(data);
+        } else {
+            console.log(data.msg);
+        }
+    });*/
     $(function(){   //直接载入
             $.ajax({
-                    url: "http://localhost/goopalMarketBack/1.json",
+                    url: "http://172.16.33.2:8080/exchange_manager/cny/transfer",
                     type:"post",
                     dataType: "json",
                     cache: true,
@@ -17,27 +63,27 @@ require(['jquery','avalon'],function($,avalon){
                             
                                 id : 'div1',
                                 nowNum : 1,
-                                allNum : Math.ceil(data.data.length/10),
+                                allNum : Math.ceil(data.data.list.length/10),
                                 callBack : function(now,all){
 
-                                    var num = now*10 < data.data.length ? 10 : data.data.length - (now-1)*10;
+                                    var num = now*10 < data.data.list.length ? 10 : data.data.length - (now-1)*10;
                                     
                                     var html = [];
                                     for(var i=0; i<num;i++){
                                         html.push("<tr>");
                                         /*html.push("<td>"+ data.data[(now-1)*10+i].id +"</td>");*/
                                         html.push("<td><span class='icon-cny btnConfirm'></span></td>");
-                                        html.push("<td>"+ data.data[(now-1)*10+i].uid +"</a></td>");
+                                        html.push("<td>"+ data.data.list[(now-1)*10+i].uid +"</a></td>");
                                         html.push("<td class='uid'><a href='../user-info/user-info.html' style='color:blue;text-decoration:underline' title='点击进入"+data.data[(now-1)*10+i].uid+"用户信息详情页'>"+ data.data[(now-1)*10+i].uid +"</td>");
-                                        html.push("<td>"+ data.data[(now-1)*10+i].bankId +"</td>");
-                                        html.push("<td>"+ data.data[(now-1)*10+i].amount +"</td>");
-                                        html.push("<td>"+ data.data[(now-1)*10+i].bankName +"</td>");
-                                        html.push("<td>"+ data.data[(now-1)*10+i].phone +"</td>");
-                                        html.push("<td>"+ data.data[(now-1)*10+i].realName +"</td>");
-                                        html.push("<td>"+ data.data[(now-1)*10+i].content +"</td>");
-                                        html.push("<td>"+ data.data[(now-1)*10+i].status +"</td>");
-                                        html.push("<td>"+ data.data[(now-1)*10+i].createTime +"</td>");
-                                        html.push("<td>"+ data.data[(now-1)*10+i].updateTimed +"</td>");
+                                        html.push("<td>"+ data.data.list[(now-1)*10+i].bankId +"</td>");
+                                        html.push("<td>"+ data.data.list[(now-1)*10+i].amount +"</td>");
+                                        html.push("<td>"+ data.data.list[(now-1)*10+i].bankName +"</td>");
+                                        html.push("<td>"+ data.data.list[(now-1)*10+i].phone +"</td>");
+                                        html.push("<td>"+ data.data.list[(now-1)*10+i].realName +"</td>");
+                                        html.push("<td>"+ data.data.list[(now-1)*10+i].content +"</td>");
+                                        html.push("<td>"+ data.data.list[(now-1)*10+i].status +"</td>");
+                                        html.push("<td>"+ data.data.list[(now-1)*10+i].createTime +"</td>");
+                                        html.push("<td>"+ data.data.list[(now-1)*10+i].updateTimed +"</td>");
                                         html.push("</tr>");
                                         $(".aside-table-tbody").html("");  //添加前，先清空 
                                         $(".aside-table-tbody").append(html.join("")); 

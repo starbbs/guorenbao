@@ -1,35 +1,21 @@
 require(['jquery','api_mkt_management','avalon'],function($,api_mkt_management,avalon){
     
+
     $('.container-section-inputThree').click(function(){
-        alert('asdfasf');
         api_mkt_management.login({
             'phone':$('.container-section-inputOne').val(),
             'password':$('.container-section-inputTwo').val()
         }, function(data) {
             if (data.status == 200) {
                 console.log(data);
+                window.location.href="home.html";
+                $.cookie('key',data.data.username);
             } else {
-                console.log(data.msg);
+                console.log(data);
             }
         });
     });    
 
-    avalon.ready(function(){
-        var vm = avalon.define({
-            $id:'test',
-            htmlFiles:'',
-            showCashOut:function(){
-                vm.htmlFiles = './cashOut.html';
-            },
-            showControlPanel:function(){
-                vm.htmlFiles = './controlPanel.html';
-            },
-            showCashIn:function(){
-                vm.htmlFiles = './cashIn.html';
-            }
-        });
-        avalon.scan();
-    });
     //验证登录 1 只能输入数字
     $(".container-section-inputOne").keyup(function(){
         $(this).val($(this).val().replace(/[^0-9$]/g,''));

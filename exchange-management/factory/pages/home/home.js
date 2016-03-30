@@ -1,4 +1,19 @@
-require(['jquery','api_manage'], function($,api_manage) {
+require(['jquery','api_mkt_management'], function($,api_mkt_management) {
+
+    $('.div-2-name').text($.cookie('key'));
+
+    $('.div-2-btn').click(function(){
+        api_mkt_management.logout(function(data) {
+            if (data.status == 200) {
+                console.log(data);
+                $.cookie('key','');
+                window.location.href="login.html";
+            } else {
+                console.log(data.msg);
+            }
+        });
+    });
+      
     //左侧导航  
     $(".div2").click(function() {
         $(this).next("div").slideToggle();
@@ -63,6 +78,11 @@ require(['jquery','api_manage'], function($,api_manage) {
     //创建iframe
     $("<Iframe class='frameHtml' src='./controllPanel.html' height='550' scrolling='no' frameborder='0' name='main'></iframe>").insertAfter(".nav");
 
+    /*//操作框架
+    var iframeObj = $(window.frames['main'].document); 
+    //alert(iframeObj.find("#un").val());
+    alert(iframeObj.find('body').html());*/
+
     //点击框架 收起
     $(window.frames["main"].document.body).click(function() {
         $('.header-div-showHide').slideUp();
@@ -114,17 +134,7 @@ require(['jquery','api_manage'], function($,api_manage) {
         $(".frameHtml").attr("src", "controllPanel.html");
     });
 
-    api_mkt.realAuth({
-        'phone':
-    }, function(data) {
-        if (data.status == 200) {
-            whether_auth = true;  //已经实名认证
-        } else if (data.status == 305) {
-        } else if(data.status == 400){
-            whether_auth = false;
-        } else {
-        }
-    });
+    
 
 
 });
