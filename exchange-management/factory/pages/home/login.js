@@ -1,8 +1,8 @@
-require(['jquery','api_manage','avalon'],function($,api_manage,avalon){
+require(['jquery','api_mkt_management','avalon'],function($,api_mkt_management,avalon){
     
     $('.container-section-inputThree').click(function(){
         alert('asdfasf');
-        api_manage.login({
+        api_mkt_management.login({
             'phone':$('.container-section-inputOne').val(),
             'password':$('.container-section-inputTwo').val()
         }, function(data) {

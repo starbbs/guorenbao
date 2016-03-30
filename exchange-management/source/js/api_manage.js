@@ -1,4 +1,4 @@
-define('api_manage', ['cookie'], function() {
+define('api_mkt_management', ['cookie'], function() {
 
 	var basePath = 'http://localhost/';
 	var api = {};

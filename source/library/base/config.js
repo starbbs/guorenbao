@@ -17,6 +17,12 @@
 	var MKT_FACTORY = '../factory';
 	var MKT_PAGES = MKT_FACTORY + '/pages';
 	var MKT_SOURCE = '../source';
+
+	var MKT_MANAGEMENT_FACTORY = '../factory';
+	var MKT_MANAGEMENT_PAGES = MKT_MANAGEMENT_FACTORY + '/pages';
+	var MKT_MANAGEMENT_SOURCE = '../source';
+
+
 	
 	require.config({
 		baseUrl: './',
@@ -93,7 +99,10 @@
 			//交易所项目
 			'api_mkt':                      MKT_SOURCE + '/js/api_market',
 			'mkt_info':                     MKT_SOURCE + '/js/info',
-			'mkt_trade':                    MKT_SOURCE + '/js/trade'
+			'mkt_trade':                    MKT_SOURCE + '/js/trade',
+
+			//交易所管理系统
+			'mkt_trade':                    MKT_MANAGEMENT_SOURCE + '/js/trade'
 		},
 		shim: {
 			jquery: {
