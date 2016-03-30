@@ -769,14 +769,85 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         }
     }); */   
     //买入 卖出 四个按钮 点击弹出框
-    $(".buying_btn, .market_price_buying_btn, .sale_btn, .market_price_sale_btn").click(function(){  
+    $(".buying_btn").click(function(){  
         if(flag == false){
             alert('请完整填写信息');
         }else{
-            $("#floor_bg").show();
-            $("#floor_popDiv").fadeIn(500);
+            api_mkt.buyBefore({
+                'price':$('.buying_price').val(),
+                'number':$('.buying_number').val(),
+                'type':'FIXED'
+            },function(data) {
+                if (data.status == 200) {
+                    console.log(data);
+                    $("#floor_bg").show();
+                    $("#floor_popDiv").fadeIn(500);               
+                }else{
+                    console.log(data);
+                    alert('账户余额不足');
+                }
+            });                     
         }
-    });    
+    }); 
+    $(".market_price_buying_btn").click(function(){  
+        if(flag == false){
+            alert('请完整填写信息');
+        }else{
+            api_mkt.buyBefore({
+                'price':$('.marketBuy').val(),
+                'type':'MARKET'
+            },function(data) {
+                if (data.status == 200) {
+                    console.log(data);
+                    $("#floor_bg").show();
+                    $("#floor_popDiv").fadeIn(500);               
+                }else{
+                    console.log(data);
+                    alert('账户余额不足');
+                }
+            });        
+        }
+    });
+    $(".sale_btn").click(function(){  
+        if(flag == false){
+            alert('请完整填写信息');
+        }else{
+            api_mkt.sellBefore({
+                'price':$('.sellPrice').val(),
+                'number':$('.sellNumber').val(),
+                'type':'FIXED'
+            },function(data) {
+                if (data.status == 200) {
+                    console.log(data);
+                    $("#floor_bg").show();
+                    $("#floor_popDiv").fadeIn(500);               
+                }else{
+                    console.log(data);
+                    alert('账户余额不足');
+                }
+            });            
+        }
+    }); 
+    $(".market_price_sale_btn").click(function(){  
+        if(flag == false){
+            alert('请完整填写信息');
+        }else{
+            api_mkt.sellBefore({
+                'number':$('.sellAmount').val(),
+                'type':'MARKET'
+            },function(data) {
+                if (data.status == 200) {
+                    console.log(data);
+                    $("#floor_bg").show();
+                    $("#floor_popDiv").fadeIn(500);               
+                }else{
+                    console.log(data);
+                    alert('账户余额不足');
+                }
+            });            
+        }
+    });              
+
 
     $(".close_btn").on("click",function(){  //买入卖出 关闭按钮
         $("#floor_popDiv").hide();

@@ -178,6 +178,10 @@ define('api_mkt', ['cookie'], function() {
 	add('buy','exchangeApi/wealth/buy');
 	//卖出
 	add('sell','exchangeApi/wealth/sell');
+	//买入果仁前数据验证
+	add('buyBefore','exchangeApi/wealth/buyBefore');
+	//买出果仁前数据验证
+	add('sellBefore','exchangeApi/wealth/sellBefore');
 
 
 	add('userlogout','exchangeApi/user/logout');
