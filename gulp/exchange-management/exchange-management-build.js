@@ -111,4 +111,4 @@ gulp.task('exchange-management-css-move', function() {
         return todo(event.path);
     });
 });
-gulp.task('exchange-management-build', ['exchange-management-include', 'exchange-management-img-move', 'exchange-management-fontbuild','exchange-management-js-move','exchange-management-sass']);
+gulp.task('exchange-management-build', ['exchange-management-include', 'exchange-management-img-move', 'exchange-management-fontbuild','exchange-management-js-move','exchange-management-css-move','exchange-management-sass']);
