@@ -18,7 +18,7 @@ require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_manag
             for(var i=0; i<10;i++){
                html.push("<tr>");
                 html.push("<td><span class='aa icon-unlocked'></span>&nbsp;&nbsp;&nbsp;<span class='bb icon-undo'></span></td>");
-                html.push("<td>"+ data.data.list[i].id +"</a></td>");                
+                html.push("<td class='idNum'>"+ data.data.list[i].id +"</a></td>");                
                 /*html.push("<td class='uid'><a href='../user-info/user-info.html' style='color:blue;text-decoration:underline' title='点击进入"+data.data.list[i].uid+"用户信息详情页'>"+ data.data.list[i].uid +"</td>");*/
                 html.push("<td>"+ data.data.list[i].uid +"</td>");
                 html.push("<td>"+ data.data.list[i].name +"</td>");
@@ -41,10 +41,33 @@ require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_manag
                         $(this).removeClass("icon-unlocked").addClass("icon-lock");
                         $(this).parent().parent().css("backgroundColor","yellow");
                         $(this).siblings(".bb").removeClass("icon-undo").addClass("icon-checkmark");
+                        //人民币提现锁定
+                        api_mkt_management.lockTransfer({
+                            'id':$(this).parent().parent().find('.idNum').text(),
+                            'ip':''
+                        }, function(data) {
+                            if (data.status == 200) {
+                                console.log(data);
+                            } else {
+                                console.log(data);
+                            }
+                        });
+
                     }else{
                         $(this).removeClass("icon-lock").addClass("icon-unlocked");
                         $(this).parent().parent().css("backgroundColor","");
                         $(this).siblings(".bb").removeClass("icon-checkmark").addClass("icon-undo");
+                        //人民币提现解锁
+                        api_mkt_management.unlockTransfer({
+                            'id':$(this).parent().parent().find('.idNum').text(),
+                            'ip':''
+                        }, function(data) {
+                            if (data.status == 200) {
+                                console.log(data);
+                            } else {
+                                console.log(data);
+                            }
+                        });
                     }
                 });
 
@@ -59,6 +82,12 @@ require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_manag
                         data.data.length = data.data.length-1;
                     }
                 });
+
+                //关闭弹出框 
+                $(".icon-cross").click(function(){
+                    $(".mydiv").css("display","none");
+                    $(".bg").css("display","none");
+                }); 
 
             }
         } else {

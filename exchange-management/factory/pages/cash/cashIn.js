@@ -1,22 +1,16 @@
 require(['api_mkt_management'],function(api_mkt_management){
-    
+
     //人民币充值/提现查询
     api_mkt_management.transfer({
-        'id':'',
-        'uid':'',
-        'phone':'',
         'optType':'IN',
-        'name':'',
-        'msg':'',
-        'status':'',
         'pageNo':1,
         'pageSize':10
     },function(data){
         if (data.status == 200) {
-            console.log(data.data.list[0].mobile);
+            //console.log(data.data.list.length);
             var html = [];
             for(var i=0; i<10;i++){
-               html.push("< tr>");
+               html.push("<tr>");
                 html.push("<td><span class='icon-cny btnConfirm'></span></td>");
                 html.push("<td class='uidNum'>"+ data.data.list[i].id +"</td>");                
                 /*html.push("<td class='uid'><a href='../user-info/user-info.html' style='color:blue;text-decoration:underline' title='点击进入"+data.data.list[i].uid+"用户信息详情页'>"+ data.data.list[i].uid +"</td>");*/
@@ -42,12 +36,7 @@ require(['api_mkt_management'],function(api_mkt_management){
                     //传值
                     $('.cashInUid').val($(this).parent().parent().find('.uidNum').text());
                     //console.log($(this).parent().parent().find('.uidNum').text());
-                });                
-
-                $(".btnClose").click(function(){
-                    $(".mydiv").css("display","none");
-                    $(".bg").css("display","none");
-                });
+                });  
 
             }
         } else {
@@ -223,18 +212,25 @@ require(['api_mkt_management'],function(api_mkt_management){
     $('.btnTrue').click(function(){        
         api_mkt_management.confirmTransfer({
             'id':$('.cashInUid').val(),
+            'password':$('.btn-a').val(),
             'ip':''
         }, function(data) {
             if (data.status == 200) {
                 console.log(data);
                 //window.location.href="home.html";
+                $(".frameHtml").attr("src", "cashIn.html");                
+                $(".mydiv").css("display","none");
+                $(".bg").css("display","none");
             } else {
                 console.log(data);
             }
         });
-    });
-
-
+    }); 
+    //关闭弹出框 
+    $(".btnClose, icon-cross").click(function(){
+        $(".mydiv").css("display","none");
+        $(".bg").css("display","none");
+    });   
 
 //end
 });
