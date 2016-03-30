@@ -293,7 +293,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         var authcode_index = $(".authcode_index").val();
         if(flag=="请输入正确的手机号码"){
             $(".error_tips_index").show().html("请输入正确的手机号码");
-            return;
+        } else {
+            $(".error_tips_index").hide().html("");
         }
         if(password==""){
             $(".error_tips_index").show().html("请输入密码");
@@ -329,12 +330,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     $.cookie("global_loginuserphone",global_loginuserphone);
                     $.cookie("global_loginusername",global_loginusername);
                     $.cookie("global_loginuseruid",global_loginuseruid);
-
-
                     $("#logined_username").html(data.data.phone);
                     $(".top_em").html(data.data.phone.substr(0,3)+'****'+data.data.phone.substr(7,4));
                     $("#uidval").html(global_loginuseruid);  //首页uid赋值
-
                     var whichpage = $.cookie("loginfromwhichpage");
                     if(whichpage=="one"){
                         location.href="./index.html";
@@ -352,14 +350,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                             var totalNuts = data.data.cnyBalance + data.data.cnyLock;
                             $.cookie("totalAssets",totalAssets);
                             $.cookie("totalNuts",totalNuts);
-
                             console.log(data);
-
                             $.cookie("mine_one",data.data.cnyBalance);
                             $.cookie("mine_two",data.data.gopBalance);
                             $.cookie("mine_three",data.data.cnyLock);
                             $.cookie("mine_four",data.data.gopLock);
-
                             $('.lf_asset_center').html(totalAssets);//总资产
                             $('.rg_asset_center').html(totalNuts);//总果仁
                         } else if (data.status == 305) {
@@ -393,10 +388,14 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     alert(data.msg);
                     login_area_times++;
                 } else if(data.status==400){
-                    alert(data.msg);
+                    if(data.msg=="登录密码错误"){
+                        $(".error_tips_index").show().html(data.msg);
+                    } else {
+                        $(".autocode_tips").show().html(data.msg);
+                    }
                 } else {
                     login_area_times++;
-                    alert("asfasffads")
+                    alert("asfasffads");//
                     $(".error_tips_index").show().html(data.msg);
                 }
             });

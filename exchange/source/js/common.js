@@ -106,12 +106,14 @@ require(['api_mkt','cookie'], function(api_mkt) {
         popup_login_times++;
         var phone = $(".phone").val();
         var password = $(".password").val();
-        //var authcode_common = $(".authcode_common").val();
+        var authcode_common = $(".authcode_common").val();
         var flag = verify(phone, "tel");
         console.log(flag);
         if(flag=="请输入正确的手机号码"){
         	$(".error_tips").show().html("请输入正确的手机号码");
-        	return;
+            return;
+        } else {
+            $(".error_tips_index").hide().html("");
         }
         if(password==""){
         	$(".error_tips").show().html("请输入密码");
@@ -119,19 +121,20 @@ require(['api_mkt','cookie'], function(api_mkt) {
         } else if(password.length>12||password.length<6){
         	$(".error_tips").show().html("请输入6~12位密码");
         	return;
+        } else {
+            $(".error_tips").hide().html("");
         }
-        // if(authcode_common==""){
-        //     $(".autocode_tips").show().html("请输入验证码");
-        //     return;
-        // }
-        //if(flag==true&&password!=""&&password.length>=6&&password.length<12&&authcode_common!=""){
-        if(flag==true&&password!=""&&password.length>=6&&password.length<12){
+        if(authcode_common==""){
+            $(".autocode_tips").show().html("请输入验证码");
+            return;
+        }
+        if(flag==true&&password!=""&&password.length>=6&&password.length<12&&authcode_common!=""){
         	$(".error_tips").hide();
+            $(".autocode_tips").hide();
         	api_mkt.login({
 	            phone: phone,
-	            password: password
-                //,
-                //code:authcode_common
+	            password: password,
+                code:authcode_common
 	        }, function(data) {
 	            if (data.status == 200) {
 	                $.cookie('exchangeToken', 'logined');
@@ -153,9 +156,14 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	                $.cookie("global_loginuserphone",global_loginuserphone);
 	                $.cookie("global_loginusername",global_loginusername);
 	                $.cookie("global_loginuseruid",global_loginuseruid);
-	                $("#logined_username").html(global_loginuserphone);
+                    if(global_loginusername!=""){
+                        $("#logined_username").html(global_loginusername);
+                        whether_auth = true;
+                    } else {
+                        whether_auth = false;
+                        $("#logined_username").html(global_loginuserphone.substr(0,3)+'****'+global_loginuserphone.substr(7,4));
+                    }
 	                $("#uidval").html(global_loginuseruid);
-	                //$(".top_em").html(global_loginuserphone);
 	                $(".top_em").html(global_loginuserphone.substr(0,3)+'****'+global_loginuserphone.substr(7,4));
 	                var whether_auth_val = "";
                     if(whether_auth){
