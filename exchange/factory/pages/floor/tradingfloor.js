@@ -65,7 +65,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     var thirtym;
     var sixtym;
     var oned;
-
     var klineapply = function(data) {
         dataLength = data.length;
         onem = JSON.parse(data['1m']);
@@ -74,8 +73,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         thirtym = JSON.parse(data['30m']);
         sixtym = JSON.parse(data['60m']);
         oned = JSON.parse(data['1d']);
-
-        console.log(oned);
         if(!on_page_load){
             $(".fivteenminute").click();
             on_page_load = true;

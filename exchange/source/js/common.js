@@ -138,7 +138,6 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	        }, function(data) {
 	            if (data.status == 200) {
 	                $.cookie('exchangeToken', 'logined');
-	                console.log(data.msg);
 	                $(".login_regist").hide();
 	                $(".login_header").show();
 	                $(".popDiv").hide();
@@ -148,11 +147,6 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	                global_loginuserphone = data.data.phone;
 	                global_loginusername = data.data.name;
 	                global_loginuseruid = data.data.uid;
-	                console.log(data.data);
-	                alert(global_loginuseruid);
-	                console.log(global_loginuserphone);
-	                console.log(global_loginusername);
-	                console.log(global_loginuseruid);
 	                $.cookie("global_loginuserphone",global_loginuserphone);
 	                $.cookie("global_loginusername",global_loginusername);
 	                $.cookie("global_loginuseruid",global_loginuseruid);
@@ -235,9 +229,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	    $.cookie("mine_two","");
 	    $.cookie("mine_three","");
 	    $.cookie("mine_four","");
-
         $.cookie("loginfromwhichpage","");
-        //退出登录
         api_mkt.userlogout({
         }, function(data) {
             if (data.status == 200) {
@@ -253,25 +245,31 @@ require(['api_mkt','cookie'], function(api_mkt) {
         },100);
     });
 
+
+    api_mkt.unReadMessage({
+        
+    },function(data){
+        if(data.status==200){
+            console.log(data);
+        } else {
+            console.log(data);
+        }
+    });
+
     var flag = true;
     $('.messagenum_area').on("click",function(){
-        //console.log("messagenum_area");
         if(flag){
             flag = false;
             $(this).css("background-color","#ffffff");
             $(".popup_message_box").show("100");
             $(".messagenum_area em").css("color","#333333");
             $(".msg_num").css("color","#333333");
-            console.log("hahaha");
         } else {
             flag = true;
             $(this).css("background-color","#282828");
             $(".popup_message_box").hide("100");
             $(".messagenum_area em").css("color","#cccccc");
             $(".msg_num").css("color","#cccccc");
-            console.log("hihihi");
         }
     });
-
-
 });

@@ -1,16 +1,21 @@
 // 徐乐天 2016年3月1日20:27:07 创建
 // gulp exchange 路径(相对于gulpfile.js)
-var PATH_EXCHANGE = '../exchange';
+
+var PATH_H5 = '../h5';
 // 用于rjs的相对路径
 var PATH_BATH = '../../..';
 var PATH_LIBRARY = PATH_BATH + '/source/library';
 var PATH_COMPONENTS = PATH_BATH + '/factory/components';
-var H5_FACTORY = PATH_BATH + '/exchange/factory';
-var H5_SOURCE = PATH_BATH + '/exchange/source';
+var H5_FACTORY = PATH_BATH + '/h5/factory';
+var H5_SOURCE = PATH_BATH + '/h5/source';
 var H5_VIEWS = H5_FACTORY + '/views';
 var H5_COMPONENTS = H5_FACTORY + '/components';
 var H5_DIALOGS = H5_FACTORY + '/dialogs';
 var H5_PAGES = H5_FACTORY + '/pages';
+var MKT_FACTORY = PATH_BATH + '/exchange/factory';
+var MKT_PAGES = MKT_FACTORY + '/pages';
+var MKT_SOURCE = PATH_BATH + '/exchange/source';
+
 module.exports = {
     pc: PATH_EXCHANGE,
     factory: PATH_EXCHANGE + '/factory',
@@ -28,6 +33,7 @@ module.exports = {
         'api': PATH_LIBRARY + '/api',
         'authorization': PATH_LIBRARY + '/authorization',
         'check': PATH_LIBRARY + '/check',
+        'mydate': PATH_LIBRARY + '/mydate',
         'cookie': PATH_LIBRARY + '/cookie',
         'dom': PATH_LIBRARY + '/dom',
         'filters': PATH_LIBRARY + '/filters',
@@ -41,6 +47,7 @@ module.exports = {
         'module': PATH_LIBRARY + '/api',
         'router': PATH_LIBRARY + '/router',
         'hashMap': PATH_LIBRARY + '/hashMap',
+        'iscrollLoading': PATH_LIBRARY + '/iscrollLoading',
         'touch-slide': PATH_LIBRARY + '/src/TouchSlide.1.1.source',
         // PC端部分
         'bank': PATH_COMPONENTS + '/bank/bank',
@@ -64,11 +71,19 @@ module.exports = {
         'h5-paypass': H5_COMPONENTS + '/paypass/paypass',
         'h5-wait': H5_COMPONENTS + '/wait/wait',
         'h5-component-bill': H5_COMPONENTS + '/bill/bill',
+        'h5-component-keyboard': H5_COMPONENTS + '/keyboard/keyboard',
         'h5-dialog': H5_DIALOGS + '/dialog',
+
+        //添加对话
         'h5-dialog-alert': H5_DIALOGS + '/alert/alert',
+        'h5-dialog-success': H5_DIALOGS + '/success/success',
+        'h5-dialog-info': H5_DIALOGS + '/info/info',
+        'h5-dialog-confirm': H5_DIALOGS + '/confirm/confirm',
         'h5-dialog-bankcard': H5_DIALOGS + '/bankcard/bankcard',
         'h5-dialog-paypass': H5_DIALOGS + '/paypass/paypass',
         'h5-dialog-more': H5_DIALOGS + '/more/more',
+
+
         'h5-bankcard-append': H5_VIEWS + '/bankcard/bankcard-append',
         'h5-bankcard-ident': H5_VIEWS + '/bankcard/bankcard-ident',
         'h5-view': H5_VIEWS + '/view',
@@ -82,6 +97,13 @@ module.exports = {
         'h5-view-login': H5_VIEWS + '/login/login',
         'h5-view-password': H5_VIEWS + '/password/password',
         'h5-view-nickname': H5_VIEWS + '/nickname/nickname',
-        // 交易所
+
+        //交易所项目
+        'api_mkt': MKT_SOURCE + '/js/api_market',
+        'mkt_info': MKT_SOURCE + '/js/info',
+        'mkt_trade': MKT_SOURCE + '/js/trade',
+
+        //交易所管理系统
+        'api_mkt_management': MKT_MANAGEMENT_SOURCE + '/js/api_manage'
     }
 };
