@@ -9,7 +9,8 @@ require(['jquery','api_mkt_management','avalon'],function($,api_mkt_management,a
             if (data.status == 200) {
                 console.log(data);
                 window.location.href="home.html";
-                $.cookie('key',data.data.username);
+                $.cookie('key',data.data.username);                
+                $.cookie('phone',$('.container-section-inputOne').val());
             } else {
                 console.log(data);
             }

@@ -189,3 +189,7 @@ _top:       expression(eval(document.compatMode &&
             document.body.scrollTop + (document.body.clientHeight - this.clientHeight)/2);/*IE5 IE5.5*/
 
 }
+
+.tdWidth{
+    width:50px;
+}
