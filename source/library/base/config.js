@@ -102,7 +102,7 @@
 			'mkt_trade':                    MKT_SOURCE + '/js/trade',
 
 			//交易所管理系统
-			'mkt_trade':                    MKT_MANAGEMENT_SOURCE + '/js/trade'
+			'api_mkt_management':                    MKT_MANAGEMENT_SOURCE + '/js/api_manage'
 		},
 		shim: {
 			jquery: {
