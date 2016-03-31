@@ -12,9 +12,12 @@ var H5_VIEWS = H5_FACTORY + '/views';
 var H5_COMPONENTS = H5_FACTORY + '/components';
 var H5_DIALOGS = H5_FACTORY + '/dialogs';
 var H5_PAGES = H5_FACTORY + '/pages';
+
+
 var MKT_FACTORY = PATH_BATH + '/exchange/factory';
 var MKT_PAGES = MKT_FACTORY + '/pages';
 var MKT_SOURCE = PATH_BATH + '/exchange/source';
+var MKT_MANAGEMENT_SOURCE = PATH_BATH + '/exchange-management/source';
 
 module.exports = {
     pc: PATH_EXCHANGE,
@@ -102,8 +105,7 @@ module.exports = {
         'api_mkt': MKT_SOURCE + '/js/api_market',
         'mkt_info': MKT_SOURCE + '/js/info',
         'mkt_trade': MKT_SOURCE + '/js/trade',
-
         //交易所管理系统
-        'api_mkt_management': MKT_MANAGEMENT_SOURCE + '/js/api_manage'
+        'api_mkt_management':                    MKT_MANAGEMENT_SOURCE + '/js/api_manage'
     }
 };
