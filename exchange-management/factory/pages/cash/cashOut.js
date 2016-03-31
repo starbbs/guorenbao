@@ -19,7 +19,7 @@ require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_manag
                 html.push("<td><span class='aa icon-unlocked'></span>&nbsp;&nbsp;&nbsp;<span class='bb icon-undo'></span></td>");
                 html.push("<td class='idNum'>"+ data.data.list[i].id +"</a></td>");
                 html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
-                html.push("<td>"+ data.data.list[i].name +"</td>");
+                html.push("<td>"+ data.data.list[i].mobile +"</td>");
                 html.push("<td>"+ data.data.list[i].money +"</td>");
                 html.push("<td>"+ data.data.list[i].pay +"</td>");
                 html.push("<td>"+ data.data.list[i].bank +"</td>");
@@ -275,18 +275,43 @@ require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_manag
             
     });
 
-    //搜索
-    $('.aside-div-searchBtn').click(function(){
-        /*$('.selecte').find('option:selected').text()*/
-        api_mkt_management.transfer(function(data) {
-            if (data.status == 200) {
-                $.cookie('key','');
-                window.location.href="login.html";
-            } else {
-                console.log(data.msg);
+        
+        //搜索
+        $('.aside-div-searchBtn').click(function(){
+            var sel = $('.aside-div-select').find('option:selected').text();
+            var val = $('.aside-div-input').val();
+            /*alert(sel);
+            alert(val);*/
+            if(sel == 'ID'){
+                api_mkt_management.transfer({
+                    'id':val,
+                    'pageNo':1,
+                    'optType':'IN', //类型必须加上
+                    'pageSize':10
+                },function(data) {
+                    if (data.status == 200) {
+                        console.log(data);
+                    } else {
+                        console.log(data.msg);
+                    }
+                });
             }
-        });
-    });
+            if(sel == '用户ID'){
+                api_mkt_management.transfer({
+                    'id':val,
+                    'pageNo':1,
+                    'optType':'IN', //类型必须加上
+                    'pageSize':10
+                },function(data) {
+                    if (data.status == 200) {
+                        console.log(data);
+                    } else {
+                        console.log(data.msg);
+                    }
+                });
+            }
+            
+        });   
 
 //end
 });

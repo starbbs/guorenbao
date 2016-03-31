@@ -1,10 +1,8 @@
 require(['api_mkt','cookie'], function(api_mkt) {
 	
-	var btnConfirm = true;
-	/*陈 - 添加 start*/   
+	var btnConfirm = false; 
 	//表单校验
 	$(".msg").hide();
-	$(".regular-checkbox").attr("checked","true");	
 	//复选框
 	$(".regular-checkbox").click(function(){
 		if($(".regular-checkbox").is(':checked')){
@@ -67,11 +65,13 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		//登录密码
 		if ($(this).is(".checkpwd")){
 			var pwd = $.trim($(this).val());
-			var reg = /^[0-9a-zA-Z]{6,12}$/;
+			var reg = /^[0-9a-z]{6,12}$/;
 			if(!reg.exec(pwd)){
+				btnConfirm = false;
 				$('.msg-pwd').show().text('密码格式：6~12位非纯数字字符');
 			}else{
 				$('.msg-pwd').hide();
+				btnConfirm = true;
 			}
 		}
 		//确认登录密码
@@ -129,7 +129,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	//接口2 注册第一步 手机号注册 
     $('.oneStep').on('click',function(){
     	if(btnConfirm == false){
-
+    		alert('请完善填写信息！');
     	}else{
     		api_mkt.registerBefore({			
 		   		'phone':$('.checkPhone').val(), 
