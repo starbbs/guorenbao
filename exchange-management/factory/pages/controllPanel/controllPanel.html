@@ -7,45 +7,81 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/controllPanel.css">
     <script type="text/javascript" src="./js/require.js"></script>
+    <script type="text/javascript" src="./js/avalon.js"></script>
+    <script type="text/javascript" src="./js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="./js/config.js"></script>
     <title>控制面板</title>
+    <style>
+        input[type="password"],input[type="text"]{
+            width:130px;
+            height:25px;
+            line-height: 25px;
+        }
+        .selectManager{
+            width:130px;
+            height:28px;
+            line-height: 28px;
+        }
+        input[type="button"]{
+            width:70px;
+            height:30px;
+        }
+    </style>
 </head>
 <body ms-controller="test">
     <aside class="aside">
-        <h1>使用说明</h1>
+        <h1>控制面板</h1>
         <hr />
         
         <table class="aside-table" border="1" width="100%">
             <thead class="aside-table-thead">
                 <tr>
-                    <td>具体模块</td>
-                    <td colspan="4">功能说明</td>
+                    <td>模块</td>
+                    <td colspan="5">功能</td>
                 </tr>
             </thead>
             <tbody class="aside-table-tbody" id="tobody-json">
-              <!-- 放json数据 -->
                 <tr>
-                    <td>财务中心</td>
-                    <td colspan="4">财务中心主要做什么</td>
+                    <td>后台重置密码</td>
+                    <td colspan="5">
+                        <label for="oldPwd">原密码：</label><input type="password" id="oldPwd"/>
+                        <label for="newPwd">新密码：</label><input type="password" id="newPwd"/>
+                        <label for="newPwdConfirm">确认新密码：</label><input type="password" id="newPwdConfirm"/>
+                        <input type="button" value="确 认" id="btnResetPwd" />
+                    </td>
                 </tr>
                 <tr>
-                    <td>财务中心-人民币</td>
-                    <td colspan="4">财务中心人民币主要做什么</td>
+                    <td>后台创建管理员</td>
+                    <td colspan="5">
+                        <label for="CreateManagerUserName">用户名：</label>
+                        <input type="text" id="CreateManagerUserName"/>
+                        <label for="role">角色：</label>
+                        <select id="role" class="selectManager selectRole">
+                            <option>ACCOUNTANT</option>
+                            <option>CUSTOM_SERVICE</option>
+                        </select>
+                        <label for="CreateManagerPhone">电话：</label><input type="text" id="CreateManagerPhone"/>
+                        <label for="CreateManagerPwd">密码：</label><input type="password" id="CreateManagerPwd"/>
+                        <input type="button" value="确 认" id="btnCreateManager" />
+                    </td>
                 </tr>
                 <tr>
-                    <td>财务中心-果仁</td>
-                    <td colspan="4">财务中心果仁主要做什么</td>
-                </tr><tr>
-                    <td>财务中心</td>
-                    <td colspan="4">财务中心主要做什么</td>
+                    <td>后台锁定管理员</td>
+                    <td colspan="5">
+                        <select class="selectManager btnLockManager">
+                            <option>asfasdf</option>
+                        </select>   
+                        <input type="button" value="锁 定" id="btnLock" />
+                    </td>
                 </tr>
                 <tr>
-                    <td>财务中心-人民币</td>
-                    <td colspan="4">财务中心人民币主要做什么</td>
-                </tr>
-                <tr>
-                    <td>财务中心-果仁</td>
-                    <td colspan="4">财务中心果仁主要做什么</td>
+                    <td>后台解锁管理员</td>
+                    <td colspan="5">
+                        <select class="selectManager btnUnlockManager">
+                            <option>asfasdf</option>
+                        </select>
+                        <input type="button" value="解 锁" id="btnUnlock" />
+                    </td>
                 </tr>
             </tbody>
         </table>
