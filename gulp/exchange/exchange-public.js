@@ -7,15 +7,15 @@ var paths = require('./exchange-paths');
 var uglify = require('gulp-uglify');
 gulp.task('exchange-js', function() {
 	return gulp.src(path.join(paths.build, '/js/*.js'))
-		.pipe(uglify())
+		// .pipe(uglify())
 		.pipe(gulp.dest(paths.public + '/js'))
 });
-// gulp.task('exchange-rjs', ['exchange-js'], function() {
-// 	return tools.rjs(paths.build + '/*.html', paths.public + '/js', {
-// 		rjsPaths: paths.rjs,
-// 		uglify: true
-// 	});
-// });
+gulp.task('exchange-rjs', ['exchange-js'], function() {
+	return tools.rjs(paths.build + '/*.html', paths.public + '/js', {
+		rjsPaths: paths.rjs,
+		uglify: true
+	});
+});
 
 gulp.task('exchange-rjs', function() {
 	return tools.rjs(paths.build + '/*.html', paths.public + '/js', {
