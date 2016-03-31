@@ -76,7 +76,7 @@ $fontSize:16px;
             @include PosTopRight(absolute, 53px, 30px);
             @include widthAndHeight(200px,200px);
             border:1px solid #ccc;
-            background:#fff url(./images/toTop.png) no-repeat fixed 0 0;
+            background:#fff no-repeat fixed 0 0;
             color:#000;
             font-size: 13px;
             display: none;

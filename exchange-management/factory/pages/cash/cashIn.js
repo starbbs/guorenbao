@@ -14,7 +14,7 @@ require(['api_mkt_management'],function(api_mkt_management){
                 html.push("<td><span class='icon-cny btnConfirm'></span></td>");
                 html.push("<td class='uidNum'>"+ data.data.list[i].id +"</td>");                
                 /*html.push("<td class='uid'><a href='../user-info/user-info.html' style='color:blue;text-decoration:underline' title='点击进入"+data.data.list[i].uid+"用户信息详情页'>"+ data.data.list[i].uid +"</td>");*/
-                html.push("<td>"+ data.data.list[i].uid +"</td>");
+                html.push("<td class='toUidInfo'>"+ data.data.list[i].uid +"</td>");
                 html.push("<td>"+ data.data.list[i].name +"</td>");
                 html.push("<td>"+ data.data.list[i].money +"</td>");
                 html.push("<td>"+ data.data.list[i].bank +"</td>");
@@ -36,7 +36,27 @@ require(['api_mkt_management'],function(api_mkt_management){
                     //传值
                     $('.cashInUid').val($(this).parent().parent().find('.uidNum').text());
                     //console.log($(this).parent().parent().find('.uidNum').text());
-                });  
+                }); 
+
+                //用户详情
+                /*$('.toUidInfo').click(function(){
+                    if($(this).parent().find('.userNameHave').text().length == 0){
+                        alert('用户认证信息不存在！');
+                    }else{
+                        $.cookie('userUid',$(this).children().text());
+                        $.cookie('userUidMobile',$(this).parent().find('.mobile').text());
+                        api_mkt_management.userInfo({
+                            'uId':$(this).children().text()
+                        },function(data) {
+                            if (data.status == 200) {
+                                console.log(data);
+                                window.location.href='user-info.html';
+                            } else {
+                                console.log(data.msg);
+                            }
+                        });
+                    }
+                });*/ 
 
             }
         } else {

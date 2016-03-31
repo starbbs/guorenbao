@@ -13,14 +13,13 @@ require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_manag
         'pageSize':10
     },function(data){
         if (data.status == 200) {
-            console.log(data.data.list[0].mobile);
+            //console.log(data.data.list[i].createDate);            
             var html = [];
             for(var i=0; i<10;i++){
-               html.push("<tr>");
+                html.push("<tr>");
                 html.push("<td><span class='aa icon-unlocked'></span>&nbsp;&nbsp;&nbsp;<span class='bb icon-undo'></span></td>");
-                html.push("<td class='idNum'>"+ data.data.list[i].id +"</a></td>");                
-                /*html.push("<td class='uid'><a href='../user-info/user-info.html' style='color:blue;text-decoration:underline' title='点击进入"+data.data.list[i].uid+"用户信息详情页'>"+ data.data.list[i].uid +"</td>");*/
-                html.push("<td>"+ data.data.list[i].uid +"</td>");
+                html.push("<td class='idNum'>"+ data.data.list[i].id +"</a></td>");
+                html.push("<td class='toUidInfo'>"+ data.data.list[i].uid +"</td>");
                 html.push("<td>"+ data.data.list[i].name +"</td>");
                 html.push("<td>"+ data.data.list[i].money +"</td>");
                 html.push("<td>"+ data.data.list[i].pay +"</td>");
@@ -29,11 +28,34 @@ require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_manag
                 html.push("<td>"+ data.data.list[i].name +"</td>");
                 html.push("<td>"+ data.data.list[i].msg +"</td>");
                 html.push("<td>"+ data.data.list[i].transferCnyStatus +"</td>");
-                html.push("<td>"+ data.data.list[i].createTime +"</td>");
-                html.push("<td>"+ data.data.list[i].updateTimed +"</td>");
+                html.push("<td class='createTime'>"+ data.data.list[i].createDate +"</td>");
+                html.push("<td class='updateTimed'>"+ data.data.list[i].updateTimed +"</td>");
                 html.push("</tr>");
                 $(".aside-table-tbody").html("");  //添加前，先清空 
-                $(".aside-table-tbody").append(html.join("")); 
+                $(".aside-table-tbody").append(html.join(""));
+
+                /*//用户详情
+                $('.toUidInfo').click(function(){
+                    $.cookie('userUid',$(this).children().text());
+                    $.cookie('userUidMobile',$(this).parent().find('.mobile').text());
+                    api_mkt_management.userInfo({
+                        'uId':$(this).text()
+                    },function(data) {
+                        if (data.status == 200) {
+                            console.log(data);
+                            window.location.href='user-info.html';
+                        } else {
+                            console.log(data.msg);
+                        }
+                    });
+                });*/
+
+                //时间戳转时间格式
+                $('.createTime').text(getLocalTime(data.data.list[i].createTime));
+                function getLocalTime(nS) {     
+                    return new Date(parseInt(nS) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");      
+                }
+                //alert(getLocalTime(data.data.list[i].createTime));
                 
                 //点击锁定/接触锁定
                 $(".aa").on('click',function(){
@@ -93,7 +115,7 @@ require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_manag
         } else {
             console.log(data.msg);
         }
-    });   
+    }); 
     
     //分页 
     function page(opt){
@@ -255,6 +277,20 @@ require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_manag
                 });
             }else{
                 $(this).parent().show();
+            }
+        });
+    });
+
+    //搜索
+    $('.aside-div-searchBtn').click(function(){
+        /*$('.selecte').find('option:selected').text()*/
+        api_mkt_management.transfer(function(data) {
+            if (data.status == 200) {
+                console.log(data);
+                $.cookie('key','');
+                window.location.href="login.html";
+            } else {
+                console.log(data.msg);
             }
         });
     });

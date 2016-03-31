@@ -251,11 +251,11 @@ require(['jquery','api_mkt_management'], function($,api_mkt_management) {
     });
 
     //输入文本框 + 下拉菜单选择 -> 搜索
-    $(".aside-div-searchBtn").submit(function(){
+    /*$(".aside-div-searchBtn").submit(function(){
         var oSearchText = $(".aside-div-input").val() + $(".aside-div-select").find("option:selected").text();
         
         
-    });
+    });*/
 
 //end
 });

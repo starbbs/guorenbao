@@ -5,11 +5,11 @@ require(['jquery','api_mkt_management'], function($,api_mkt_management) {
     $('.div-2-btn').click(function(){
         api_mkt_management.logout(function(data) {
             if (data.status == 200) {
-                console.log(data);
+                //console.log(data);
                 $.cookie('key','');
                 window.location.href="login.html";
             } else {
-                console.log(data.msg);
+                //console.log(data.msg);
             }
         });
     });
@@ -46,7 +46,7 @@ require(['jquery','api_mkt_management'], function($,api_mkt_management) {
     });
 
     //顶部三个小图标的点击
-    $(".icon-warning").on('click', function(e) {
+    /*$(".icon-warning").on('click', function(e) {
         $(".left-1").slideToggle();
         $(".middle-1").hide();
         $(".right-1").hide();
@@ -63,25 +63,20 @@ require(['jquery','api_mkt_management'], function($,api_mkt_management) {
         $(".left-1").hide();
         $(".middle-1").hide();
         e.stopPropagation();
-    });
+    });*/
 
     //点击其他位置，收起
-    $('body').bind('click', function(event) {
+    /*$('body').bind('click', function(event) {
         // IE支持 event.srcElement ， FF支持 event.target    
         var evt = event.srcElement ? event.srcElement : event.target;
         if (evt.className == 'header-div-icon') return; //如果点击的类名匹配 返回
         else {
             $('.header-div-showHide').slideUp();
         }
-    });
+    });*/
 
     //创建iframe
     $("<Iframe class='frameHtml' src='./controllPanel.html' height='550' scrolling='no' frameborder='0' name='main'></iframe>").insertAfter(".nav");
-
-    /*//操作框架
-    var iframeObj = $(window.frames['main'].document); 
-    //alert(iframeObj.find("#un").val());
-    alert(iframeObj.find('body').html());*/
 
     //点击框架 收起
     $(window.frames["main"].document.body).click(function() {
@@ -133,8 +128,6 @@ require(['jquery','api_mkt_management'], function($,api_mkt_management) {
     $(".ContrllPanel").click(function() {
         $(".frameHtml").attr("src", "controllPanel.html");
     });
-
-    
 
 
 });

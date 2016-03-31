@@ -277,6 +277,7 @@ dt {
   _top: expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollTop + (document.documentElement.clientHeight-this.offsetHeight)/2 :/*IE6*/ document.body.scrollTop + (document.body.clientHeight - this.clientHeight)/2);
   /*IE5 IE5.5*/ }
 
+.tdWidth {
+  width: 50px; }
+
 /*# sourceMappingURL=cashIn.css.map */
-
-
