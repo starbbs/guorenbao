@@ -350,7 +350,7 @@ table {
     right: 0px;
     display:none;
 }
-.popup_message_box div:nth-child(1){
+.newinfo_div{
     color: #333333;
     margin: 0 10px;
     border-bottom: 1px solid #e6e6e6;

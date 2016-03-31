@@ -18,20 +18,15 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     //     $(".popDiv").hide();
     //     $(".bg").hide();
     // }
-    
     var totalAssets = $.cookie("totalAssets");
     var totalNuts = $.cookie("totalNuts");
-
     var mine_one = $.cookie("mine_one");
     var mine_two = $.cookie("mine_two");
     var mine_three = $.cookie("mine_three");
     var mine_four = $.cookie("mine_four");
-
     var exchangeToken = $.cookie('exchangeToken');
     if (!exchangeToken) {
-       //$(".eye_i").click();
        $('.eye_i').trigger("click");
-       //console.log($('.eye_i'));
     } else {
         
     }
@@ -44,9 +39,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     }
     mkt_info.get();
     mkt_trade.getfloor();
-    //console.log(mkt_depthchart);
-    //mkt_depthchart.get();
-    // set the allowed units for data grouping
     var groupingUnits = [
         [
             '周', // unit name
@@ -81,7 +73,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     api_mkt.homepage_tradingfloor_kline(function(data) {
         klineapply(data);
     });
-
     var highcharts_Rendering = function(whichday, groupingUnits) {
         Highcharts.theme = {
             colors: ["#ee6259", "#bee8d0", "#ED561B", "#DDDF00", "#24CBE5", "#64E572", "#FF9655", "#FFF263", "#6AF9C4"],
@@ -186,8 +177,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             ]
         });
     }
-
-
     api_mkt.depthchart(function(data){
         var obj1 = data[0].sort(function(t,a){return t[0]>a[0]?1:t[0]<a[0]?-1:0});
         var obj2 = data[1];
@@ -246,7 +235,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             }]
         });
     });
-
     $(".leftchart").on("click",function(){
         //分时图
         $(".timeshareblock").show();
@@ -255,7 +243,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         $(this).addClass("leftright_bottomon");
         $(".rightchart").removeClass("leftright_bottomon");
     });
-
     $(".rightchart").on("click",function(){
         //深度图
         $(".timeshareblock").hide();
@@ -264,7 +251,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         $(this).addClass("leftright_bottomon");
         $(".leftchart").removeClass("leftright_bottomon");
     }); 
-
     $(".timebar").on("click", function() {
         $(this).addClass("btn_choosed");
         $(this).siblings().removeClass("btn_choosed");
@@ -318,30 +304,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             $("#sale_slider_marketprice_value").text(ui.value + "%");
         }
     });
-    //("#buyin_slider_value").val("$" + $("#slider").slider("value"));
-    // var flag = true;
-    // $('.messagenum_area').on("click", function() {
-    //     if (flag) {
-    //         flag = false;
-    //         $(this).css("background-color", "#ffffff");
-    //         $(".popup_message_box").show("100");
-    //         $(".messagenum_area em").css("color", "#333333");
-    //         $(".msg_num").css("color", "#cccccc");
-    //     } else {
-    //         flag = true;
-    //         $(this).css("background-color", "#282828");
-    //         $(".popup_message_box").hide("100");
-    //         $(".messagenum_area em").css("color", "#cccccc");
-    //         $(".msg_num").css("color", "#333333");
-    //     }
-    // });
-
     var fflat = false;
     $(".eye_i").on("click",function(){
         if(fflat){
             $(this)[0].style.background = "url(./images/floor_eye_black.png)";
-            //var totalAssets = $.cookie("totalAssets");
-            //var totalNuts = $.cookie("totalNuts");
             fflat = false;
             $(".iallhide").hide();
             $(".iallshow").show();
@@ -368,7 +334,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             $(".ifourshow").hide();
         }
     });
-
     /*当前委托-历史委托 new 页面 tab*/
     $(function(){
         $(".entrust-side-table:gt(0)").hide();
@@ -397,7 +362,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         var red = $( "#red" ).slider( "value" ),
             green = $( "#green" ).slider( "value" ),
             hex = hexFromRGB( red, green);
-    }   
+    }
 
     //当前委托（不传参数查询最近5条）
     api_mkt.tradeGopCurrentList(function(data) {
@@ -498,24 +463,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             }
         });
     });
-
-
-    // var flag = true;
-    // $('.messagenum_area').on("click",function(){
-    //     if(flag){
-    //         flag = false;
-    //         $(this).css("background-color","#ffffff");
-    //         $(".popup_message_box").show("100");
-    //         $(".messagenum_area em").css("color","#333333");
-    //         $(".msg_num").css("color","#333333");
-    //     } else {
-    //         flag = true;
-    //         $(this).css("background-color","#282828");
-    //         $(".popup_message_box").hide("100");
-    //         $(".messagenum_area em").css("color","#cccccc");
-    //         $(".msg_num").css("color","#cccccc");
-    //     }
-    // });
     
     /*$(".buying_btn").on("click",function(){              //买入中的限价买入按钮
         $("#floor_bg").show();

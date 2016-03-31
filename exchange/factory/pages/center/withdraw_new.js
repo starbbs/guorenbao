@@ -250,7 +250,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $('.two').css('display','none');
                         $('.three').css('display','flex');
 
-                        <!-- 添加银行卡 -->
                         var Node = $('<div class="bankIdCard addBankCard three"></div>');
                         var Node1 = '<section class="bankIdCard-bankLogoName bankName"></section>'+
                           '<section class="bankIdCard-Code"></section>'  +                    

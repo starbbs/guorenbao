@@ -197,7 +197,8 @@ define('api_mkt', ['cookie'], function() {
 
     add('resetPayPwd', 'exchangeApi/security/resetPayPwd');
 
-
+    add('buyBefore','exchangeApi/wealth/buyBefore');
+    add('sellBefore','exchangeApi/wealth/sellBefore');
 
     add('unReadMessage', 'exchangeApi/user/unReadMessage');
 
@@ -215,6 +216,7 @@ define('api_mkt', ['cookie'], function() {
     	ignoreStatus: [304] // 忽略304错误
     });
     */
+
     return api;
 });
 

@@ -17,13 +17,6 @@ gulp.task('exchange-rjs', ['exchange-js'], function() {
 	});
 });
 
-gulp.task('exchange-rjs', function() {
-	return tools.rjs(paths.build + '/*.html', paths.public + '/js', {
-		rjsPaths: paths.rjs,
-		uglify: true
-	});
-});
-
 gulp.task('exchange-html', function() {
 	return tools.html(paths.build + '/*.html', paths.public, {
 		remove: '<script src="./js/config.js"></script>',
@@ -36,4 +29,12 @@ gulp.task('exchange-img', function() {
 		removeDirname: false
 	});
 });
-gulp.task('exchange-public', ['exchange-rjs', 'exchange-html', 'exchange-img']);
+
+gulp.task('exchange-css', function() {
+	return tools.fileMove(paths.build+'/css/**/**',paths.public+'/css',{
+		type:'css',
+		removeDirname:false
+	});
+});
+
+gulp.task('exchange-public', ['exchange-rjs', 'exchange-html', 'exchange-img','exchange-css']);

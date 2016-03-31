@@ -105,7 +105,9 @@ module.exports = {
         'api_mkt': MKT_SOURCE + '/js/api_market',
         'mkt_info': MKT_SOURCE + '/js/info',
         'mkt_trade': MKT_SOURCE + '/js/trade',
+        'mkt_pagehead':MKT_SOURCE + '/js/pagehead',
         //交易所管理系统
-        'api_mkt_management': MKT_MANAGEMENT_SOURCE + '/js/api_manage'
+        'api_mkt_management': MKT_MANAGEMENT_SOURCE + '/js/api_manage',
+
     }
 };
