@@ -53,15 +53,24 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	});
 
 	api_mkt.realAuth(function(data){
-		console.log(data.data.list.name);
-		console.log(data.data.list.idNumber);
-		if(data.data.list.name&&data.data.list.name!=""){
-			$(".authenticated").show();
-			$(".unautherized").hide();
-			$("#username_value").html(data.data.list.name);
-			$("#identificode_value").html(data.data.list.idNumber);
+		if(data.status=="200"){
+			console.log(data.data.list.name);
+			console.log(data.data.list.idNumber);
+			if(data.data.list.name&&data.data.list.name!=""){
+				$(".authenticated").show();
+				$(".unautherized").hide();
+				$("#username_value").html(data.data.list.name);
+				$("#identificode_value").html(data.data.list.idNumber);
+			} else {
+				$(".unautherized").show();
+			}
+		} else if(data.status=="400") {
+			if(data.msg=="用户未实名认证"){
+				$(".authenticated").hide();
+				$(".unautherized").show();
+			}
 		} else {
-			$(".unautherized").show();
+
 		}
 	});
 });

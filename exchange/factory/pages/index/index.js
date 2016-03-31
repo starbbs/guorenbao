@@ -317,7 +317,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             }, function(data) {
                 if (data.status == 200) {
                     $.cookie('exchangeToken', 'logined');
-                    console.log(data.msg);
                     $(".login_regist").hide();
                     $(".login_header").show();
                     $(".popDiv").hide();
@@ -325,8 +324,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     global_loginuserphone = data.data.phone;
                     global_loginusername = data.data.name;
                     global_loginuseruid = data.data.uid;
-                    console.log(global_loginuserphone);
-                    console.log(global_loginusername);
                     $.cookie("global_loginuserphone",global_loginuserphone);
                     $.cookie("global_loginusername",global_loginusername);
                     $.cookie("global_loginuseruid",global_loginuseruid);

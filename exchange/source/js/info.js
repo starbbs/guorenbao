@@ -65,13 +65,11 @@
         }
         $("#table_three").html(bid_history_list_html);
 	}
-
 	var get = price.get = function() {
 		once(function(next){
 			updateprice(next);
 			price.timer = setTimeout(price.get, price.interval);
 		});
 	};
-
 	return price;
 });
