@@ -30,11 +30,11 @@
 		$('#thelatestprice_em').html(thelatestprice); //首页轮播图下面最新成交价
 		var low24 = Number(haha['24low']);  //最低价
 		var high24 = Number(haha['24high']);//最高价
-		$('#thehighest_price').html(low24.toFixed(2));  //首页 最高价
-		$('#thelowest_price').html(high24.toFixed(2));  //首页 最低价
+		$('#thehighest_price').html(high24.toFixed(2));  //首页 最高价
+		$('#thelowest_price').html(low24.toFixed(2));  //首页 最低价
 
-		$('#thehighest_price_floor').html(low24.toFixed(2));  //交易大厅 最高价
-		$('#thelowest_price_floor').html(high24.toFixed(2));  //交易大厅 最低价
+		$('#thehighest_price_floor').html(high24.toFixed(2));  //交易大厅 最高价
+		$('#thelowest_price_floor').html(low24.toFixed(2));  //交易大厅 最低价
 
 		var total = Number(haha['total']);
 		var unknow = Number((thelatestprice/24)-1);

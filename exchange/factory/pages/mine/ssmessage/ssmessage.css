@@ -449,6 +449,7 @@
     border-bottom: 1px solid #ccc;
     padding: 20px 0 0 0;
     position:relative;
+    padding-left: 20px;
 }
 .color_let{
     background-color:#fafafa;
