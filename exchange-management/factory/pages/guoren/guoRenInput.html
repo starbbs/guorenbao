@@ -11,6 +11,11 @@
     <script type="text/javascript" src="./js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="./js/config.js"></script>
     <title>控制面板</title>
+    <style>
+    td {
+      white-space:nowrap;overflow:hidden;text-overflow: ellipsis;
+    }
+    </style>
 </head>
 <body ms-controller="test">
     <aside class="aside" id="aside" ms-include-src="htmlFiles">
@@ -37,9 +42,8 @@
         <table class="aside-table" border="1" width="100%">
             <thead class="aside-table-thead">
                 <tr>
-                    <td>id</td>
-                    <td>uid</td>
-                    <td>手机</td>
+                    <td width="30px">id</td>
+                    <td width="30px">uid</td>
                     <td style="width:100px;">钱包地址</td>
                     <td>数量</td>
                     <td style="width:110px;">
@@ -52,8 +56,8 @@
                         </select>
                     </td>
                     <td>附言</td>
-                    <td>创建于</td>
-                    <td>更新于</td>
+                    <td width="140px">创建于</td>
+                    <td width="140px">更新于</td>
                 </tr>
             </thead>
             <tbody class="aside-table-tbody" id="tobody-json">

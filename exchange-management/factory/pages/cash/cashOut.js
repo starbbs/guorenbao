@@ -12,14 +12,13 @@ require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_manag
         'pageNo':1,
         'pageSize':10
     },function(data){
-        if (data.status == 200) {
-            //console.log(data.data.list[i].createDate);            
+        if (data.status == 200) {           
             var html = [];
             for(var i=0; i<10;i++){
                 html.push("<tr>");
                 html.push("<td><span class='aa icon-unlocked'></span>&nbsp;&nbsp;&nbsp;<span class='bb icon-undo'></span></td>");
                 html.push("<td class='idNum'>"+ data.data.list[i].id +"</a></td>");
-                html.push("<td class='toUidInfo'>"+ data.data.list[i].uid +"</td>");
+                html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
                 html.push("<td>"+ data.data.list[i].name +"</td>");
                 html.push("<td>"+ data.data.list[i].money +"</td>");
                 html.push("<td>"+ data.data.list[i].pay +"</td>");
@@ -29,17 +28,17 @@ require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_manag
                 html.push("<td>"+ data.data.list[i].msg +"</td>");
                 html.push("<td>"+ data.data.list[i].transferCnyStatus +"</td>");
                 html.push("<td class='createTime'>"+ data.data.list[i].createDate +"</td>");
-                html.push("<td class='updateTimed'>"+ data.data.list[i].updateTimed +"</td>");
+                html.push("<td class='updateTimed'>"+ data.data.list[i].updateDate +"</td>");
                 html.push("</tr>");
                 $(".aside-table-tbody").html("");  //添加前，先清空 
                 $(".aside-table-tbody").append(html.join(""));
 
-                /*//用户详情
+                //用户详情
                 $('.toUidInfo').click(function(){
                     $.cookie('userUid',$(this).children().text());
                     $.cookie('userUidMobile',$(this).parent().find('.mobile').text());
                     api_mkt_management.userInfo({
-                        'uId':$(this).text()
+                        'uId':$(this).children().text()
                     },function(data) {
                         if (data.status == 200) {
                             console.log(data);
@@ -48,14 +47,15 @@ require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_manag
                             console.log(data.msg);
                         }
                     });
-                });*/
+                });
 
                 //时间戳转时间格式
-                $('.createTime').text(getLocalTime(data.data.list[i].createTime));
-                function getLocalTime(nS) {     
-                    return new Date(parseInt(nS) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");      
+                $('.createTime').text(unix_to_datetime(data.data.list[i].createDate));
+                $('.updateTimed').text(unix_to_datetime(data.data.list[i].updateDate));
+                function unix_to_datetime(unix) {
+                    var now = new Date(parseInt(unix));
+                    return now.toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
                 }
-                //alert(getLocalTime(data.data.list[i].createTime));
                 
                 //点击锁定/接触锁定
                 $(".aa").on('click',function(){
@@ -96,7 +96,6 @@ require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_manag
                 //点击锁定后，撤销按钮【点击弹出框】变 确定【点击删除】
                 $(".bb").on('click',function(){
                     if($(this).hasClass("icon-undo")){
-                        console.log('undo');
                         $(".mydiv").css("display","block");
                         $(".bg").css("display","block");
                     }else{
@@ -251,17 +250,12 @@ require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_manag
     }
     //分页 结束
 
-    //表格 select -> onchange -> filter
+   //表格 select -> onchange -> filter
     $(".aside-table-thead-select").change(function(){
-        //ar oVal = $(".aside-table-thead-select").val();
-        var oVal =  $(".aside-table-thead-select").find("option:selected").text();  //被选中的选项
-        //console.log(oVal);
-        $(".aside-table-tbody tr td").each(function(){   //找到每行的
-            //$(this).children("td").filter(":contain(oVal)").show().end().siblings().hide();
-            if(oVal === "成功"){
-                //$(this).filter(":contains('成功')").parent().css("backgroundColor","red");
-                $(".aside-table-tbody tr").each(function(){
-                    //$(this).filter(":contains('成功')").css("background","red");  
+        var oVal =  $(".aside-table-thead-select").find("option:selected").text(); 
+        
+            /*if(oVal === "成功"){
+                $(".aside-table-tbody tr").each(function(){ 
                     $(this).hide();
                     $(this).filter(":contains('成功')").show().css('padding','10px');
                 });
@@ -277,8 +271,8 @@ require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_manag
                 });
             }else{
                 $(this).parent().show();
-            }
-        });
+            }*/
+            
     });
 
     //搜索
@@ -286,7 +280,6 @@ require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_manag
         /*$('.selecte').find('option:selected').text()*/
         api_mkt_management.transfer(function(data) {
             if (data.status == 200) {
-                console.log(data);
                 $.cookie('key','');
                 window.location.href="login.html";
             } else {
@@ -294,8 +287,6 @@ require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_manag
             }
         });
     });
-
-
 
 //end
 });

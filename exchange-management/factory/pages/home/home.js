@@ -36,8 +36,7 @@ require(['jquery','api_mkt_management'], function($,api_mkt_management) {
     }
 
     //点击增加 active类
-    $(".div3").find("a").on("click", function() {
-        console.log("ddfsd");
+    $(".div3").find("a").on("click", function() {        
         $(".div3").find("a").removeClass("active");
         $(this).addClass("active");
         //$(this).hover(function(){

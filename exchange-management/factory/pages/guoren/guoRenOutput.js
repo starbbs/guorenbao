@@ -17,19 +17,40 @@ require(['api_mkt_management'],function(api_mkt_management){
             var html = [];
             for(var i=0; i<10;i++){
                html.push("<tr>");
-                html.push("<td>"+ data.data.list[i].id +"</td>");                
-                /*html.push("<td class='uid'><a href='../user-info/user-info.html' style='color:blue;text-decoration:underline' title='点击进入"+data.data.list[i].uid+"用户信息详情页'>"+ data.data.list[i].uid +"</td>");*/
-                html.push("<td class='uidNum'>"+ data.data.list[i].uid +"</td>");
-                html.push("<td>"+ data.data.list[i].price +"</td>");
-                html.push("<td>"+ data.data.list[i].num +"</td>");
-                html.push("<td>"+ data.data.list[i].buyUid +"</td>");
-                html.push("<td>"+ data.data.list[i].sellTid +"</td>");
-                html.push("<td>"+ data.data.list[i].sellUid +"</td>");
-                html.push("<td>"+ data.data.list[i].createTime +"</td>");
-                html.push("<td>"+ data.data.list[i].updateTimed +"</td>");
+                html.push("<td>"+ data.data.list[i].id +"</td>");
+                html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
+                html.push("<td>"+ data.data.list[i].wallet +"</td>");
+                html.push("<td>"+ data.data.list[i].number +"</td>");
+                html.push("<td>"+ data.data.list[i].transferGopStatus +"</td>");
+                html.push("<td>"+ data.data.list[i].msg +"</td>");
+                html.push("<td class='createTime'>"+ data.data.list[i].createDate +"</td>");
+                html.push("<td class='updateTimed'>"+ data.data.list[i].updateDate +"</td>");
                 html.push("</tr>");
                 $(".aside-table-tbody").html("");  //添加前，先清空 
                 $(".aside-table-tbody").append(html.join("")); 
+
+                //时间戳转时间格式
+                $('.createTime').text(unix_to_datetime(data.data.list[i].createDate));
+                $('.updateTimed').text(unix_to_datetime(data.data.list[i].updateDate));
+                function unix_to_datetime(unix) {
+                    var now = new Date(parseInt(unix));
+                    return now.toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
+                }
+                //用户详情
+                $('.toUidInfo').click(function(){
+                    $.cookie('userUid',$(this).children().text());
+                    $.cookie('userUidMobile',$(this).parent().find('.mobile').text());
+                    api_mkt_management.userInfo({
+                        'uId':$(this).children().text()
+                    },function(data) {
+                        if (data.status == 200) {
+                            console.log(data);
+                            window.location.href='user-info.html';
+                        } else {
+                            console.log(data.msg);
+                        }
+                    });
+                });
             }
         } else {
             console.log(data.msg);
@@ -172,15 +193,10 @@ require(['api_mkt_management'],function(api_mkt_management){
 
     //表格 select -> onchange -> filter
     $(".aside-table-thead-select").change(function(){
-        //ar oVal = $(".aside-table-thead-select").val();
-        var oVal =  $(".aside-table-thead-select").find("option:selected").text();  //被选中的选项
-        //console.log(oVal);
-        $(".aside-table-tbody tr td").each(function(){   //找到每行的
-            //$(this).children("td").filter(":contain(oVal)").show().end().siblings().hide();
-            if(oVal === "成功"){
-                //$(this).filter(":contains('成功')").parent().css("backgroundColor","red");
-                $(".aside-table-tbody tr").each(function(){
-                    //$(this).filter(":contains('成功')").css("background","red");  
+        var oVal =  $(".aside-table-thead-select").find("option:selected").text(); 
+        
+            /*if(oVal === "成功"){
+                $(".aside-table-tbody tr").each(function(){ 
                     $(this).hide();
                     $(this).filter(":contains('成功')").show().css('padding','10px');
                 });
@@ -196,8 +212,8 @@ require(['api_mkt_management'],function(api_mkt_management){
                 });
             }else{
                 $(this).parent().show();
-            }
-        });
+            }*/
+
     });
 
 

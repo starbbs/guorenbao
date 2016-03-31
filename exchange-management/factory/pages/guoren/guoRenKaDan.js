@@ -215,17 +215,12 @@ require(['jquery','avalon'],function($,avalon){
             });
     });
 
-    //表格 select -> onchange -> filter
+//表格 select -> onchange -> filter
     $(".aside-table-thead-select").change(function(){
-        //ar oVal = $(".aside-table-thead-select").val();
-        var oVal =  $(".aside-table-thead-select").find("option:selected").text();  //被选中的选项
-        //console.log(oVal);
-        $(".aside-table-tbody tr td").each(function(){   //找到每行的
-            //$(this).children("td").filter(":contain(oVal)").show().end().siblings().hide();
-            if(oVal === "成功"){
-                //$(this).filter(":contains('成功')").parent().css("backgroundColor","red");
-                $(".aside-table-tbody tr").each(function(){
-                    //$(this).filter(":contains('成功')").css("background","red");  
+        var oVal =  $(".aside-table-thead-select").find("option:selected").text(); 
+        
+            /*if(oVal === "成功"){
+                $(".aside-table-tbody tr").each(function(){ 
                     $(this).hide();
                     $(this).filter(":contains('成功')").show().css('padding','10px');
                 });
@@ -241,8 +236,8 @@ require(['jquery','avalon'],function($,avalon){
                 });
             }else{
                 $(this).parent().show();
-            }
-        });
+            }*/
+            
     });
 
 
