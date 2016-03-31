@@ -142,6 +142,7 @@
       height: 40px;
       line-height: 40px;
       float: left;
+      cursor: pointer;
       text-align: center; }
       .aside-tabList-li-active {
         border-top: 2px red solid;
