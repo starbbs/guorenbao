@@ -247,10 +247,15 @@ require(['api_mkt','cookie'], function(api_mkt) {
 
 
     api_mkt.unReadMessage({
-        
+
     },function(data){
         if(data.status==200){
-            console.log(data);
+            console.log("---------");
+            console.log(data.data);
+            console.log("---------");
+            if(data.data){
+                console.log(data.data.list);
+            }
         } else {
             console.log(data);
         }

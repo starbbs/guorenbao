@@ -1,7 +1,7 @@
 // 徐乐天 2016年3月1日20:27:07 创建
 // gulp exchange 路径(相对于gulpfile.js)
 
-var PATH_H5 = '../h5';
+var PATH_H5 = '../exchange';
 // 用于rjs的相对路径
 var PATH_BATH = '../../..';
 var PATH_LIBRARY = PATH_BATH + '/source/library';
