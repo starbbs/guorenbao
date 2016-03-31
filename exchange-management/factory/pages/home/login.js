@@ -1,5 +1,4 @@
-require(['jquery','api_mkt_management','avalon'],function($,api_mkt_management,avalon){
-    
+require(['api_mkt_management'],function(api_mkt_management){
 
     $('.container-section-inputThree').click(function(){
         api_mkt_management.login({
@@ -9,7 +8,8 @@ require(['jquery','api_mkt_management','avalon'],function($,api_mkt_management,a
             if (data.status == 200) {
                 console.log(data);
                 window.location.href="home.html";
-                $.cookie('name',data.data.opName);                
+                $.cookie('name',data.data.opName); 
+                $.cookie('uid',data.data.uid);                
                 $.cookie('phone',$('.container-section-inputOne').val());
             } else {
                 console.log(data);

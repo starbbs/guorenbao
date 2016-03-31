@@ -7,17 +7,18 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/user-info.css">
     <script type="text/javascript" src="./js/require.js"></script>
+    <script type="text/javascript" src="./js/avalon.js"></script>
+    <script type="text/javascript" src="./js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="./js/config.js"></script>
-    <script type="text/javascript" src="./js/config-source.js"></script>
     <title>控制面板</title>
 </head>
 <body ms-controller="test">
     <aside class="aside">
-        <h1><span>18911234294</span> <small>用户</small></h1>
+        <h1><span class="userInfoNum">11</span> <small>用户</small></h1>
         <hr />
         <div class="aside-div">
-            <span class="aside-div-spanLeft">主页 > 后台 > <span>18911234294</span></span>
-            <span class="aside-div-spanRight">常用<span class="icon-ctrl aside-div-spanRight-span"></span>
+            <span class="aside-div-spanLeft">主页 > 后台 > 用户详情</span>
+            <!-- <span class="aside-div-spanRight">常用<span class="icon-ctrl aside-div-spanRight-span"></span>
                 <div class="aside-div-spanRight-div">
                     <ul>
                         <li class="aside-div-spanRight-div-li"><a href="#">提现</a></li>
@@ -25,18 +26,18 @@
                         <li class="aside-div-spanRight-div-li"><a href="#">用户管理</a></li>
                     </ul>
                 </div>
-            </span>
+            </span> -->
         </div>
         <div class="aside-tabList">
             <ul>
                 <li class="aside-tabList-li aside-tabList-li-active">基本信息</li>
-                <li class="aside-tabList-li">资金</li>
-                <li class="aside-tabList-li">银行卡</li>
+                <!-- <li class="aside-tabList-li">资金</li> -->
+                <li class="aside-tabList-li bankCard">银行卡</li>
             </ul>
         </div>
         <div class="aside-tabContent">
             <span class="aside-tabContent-span">
-                <ul>
+                <!-- <ul>
                     <li class="aside-tabContent-span-li">
                         <label>{{NoName}}</label>
                         <input type="radio" ms-on-click="aa" ms-attr-checked="checkedA" />{{checkedA}}
@@ -44,30 +45,23 @@
                     <li class="aside-tabContent-span-li">
                         <span>注册时间：2016-03-11 15:03</span><span>注册IP：192.168.12.2</span>
                     </li>
-                </ul>
+                </ul> -->
                 <table class="aside-table" border="1" width="100%">
                     <thead class="aside-table-thead">
                         <tr>
                             <td>姓名</td>
                             <td>证件类型</td>
                             <td>号码</td>
-                            <td>时间</td>
-                            <td>ip</td>
+                            <td>注册时间</td>
+                            <td>注册ip</td>
                         </tr>
                     </thead>
-                    <tbody class="aside-table-tbody" id="tobody-json">
+                    <tbody class="aside-table-tbody userInfo" id="tobody-json">
                       <!-- 放json数据 -->
-                        <tr>
-                            <td>姓名</td>
-                            <td>身份证</td>
-                            <td>132132</td>
-                            <td>date</td>
-                            <td>192.168.0.1</td>
-                        </tr>
                     </tbody>
                 </table>
             </span>
-            <span class="aside-tabContent-span">
+            <!-- <span class="aside-tabContent-span">
                 <h1>
                     总资产：￥<span>104423.00</span>
                 </h1>
@@ -96,7 +90,7 @@
                         </tr>
                     </thead>
                     <tbody class="aside-table-tbody" id="tobody-json">
-                      <!-- 放json数据 -->
+                     
                         <tr>
                             <td class="tda">GOP</td>
                             <td>
@@ -121,7 +115,7 @@
                         </tr>
                     </tbody>
                 </table>
-            </span>
+            </span> -->
             <span class="aside-tabContent-span">
                 <table class="aside-table" border="1" width="100%">
                     <thead class="aside-table-thead">
@@ -132,28 +126,8 @@
                             <td class="tda-1">创建时间</td>
                         </tr>
                     </thead>
-                    <tbody class="aside-table-tbody" id="tobody-json">
-                      <!-- 放json数据 -->
-                        <tr>
-                            <td>招商银行</td>
-                            <td>
-                                <h2>姚怀宇</h2><br/>
-                                <span>北京 / 北京</span> - 
-                                <span>北京市朝阳区芍药居北里101号1幢1层103室世奥国际中心</span>
-                            </td>
-                            <td>6214830100726412</td>
-                            <td>2016-01-19 16:35</td>
-                        </tr>
-                        <tr>
-                            <td>中国工商银行</td>
-                            <td>
-                                <h2>姚怀宇</h2><br/>
-                                <span>北京 / 北京</span> - 
-                                <span>北京市朝阳区芍药居北里101号1幢1层103室世奥国际中心</span>
-                            </td>
-                            <td>6225000000000000</td>
-                            <td>2016-01-19 16:35</td>
-                        </tr>
+                    <tbody class="aside-table-tbody userInfoBank" id="tobody-json">
+                        <!-- 放json数据 -->
                     </tbody>
                 </table>
             </span>
