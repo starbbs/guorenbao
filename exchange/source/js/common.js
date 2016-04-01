@@ -1,5 +1,5 @@
 require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
-    mkt_info.get();
+    //mkt_info.get();
     var popup_login_times = 0;
     var exchangeToken = $.cookie('exchangeToken');
     var whether_auth = false;
@@ -239,6 +239,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         }, function(data) {
             if (data.status == 200) {
                 alert(data.msg);
+                window.location.href="index.html";
             } else if (data.status == 305) {
                 alert(data.msg);
             } else {
