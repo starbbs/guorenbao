@@ -267,43 +267,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         } else if ($(this).hasClass("onedayminute")) {
             highcharts_Rendering("oneday", groupingUnits);
         }
-    });
-    $("#slider_limited_price").slider({
-        value: 0,
-        min: 0,
-        max: 100,
-        step: 1,
-        slide: function(event, ui) {
-            $("#buyin_slider_value").text(ui.value + "%");
-        }
-    });
-    $("#slider_marketprice").slider({
-        value: 0,
-        min: 0,
-        max: 100,
-        step: 1,
-        slide: function(event, ui) {
-            $("#slider_marketprice_value").text(ui.value + "%");
-        }
-    });
-    $("#sale_scale_limited").slider({
-        value: 0,
-        min: 0,
-        max: 100,
-        step: 1,
-        slide: function(event, ui) {
-            $("#sale_slider_value").text(ui.value + "%");
-        }
-    });
-    $("#slider_marketprice_sale").slider({
-        value: 0,
-        min: 0,
-        max: 100,
-        step: 1,
-        slide: function(event, ui) {
-            $("#sale_slider_marketprice_value").text(ui.value + "%");
-        }
-    });
+    });    
     var fflat = false;
     $(".eye_i").on("click",function(){
         if(fflat){
@@ -543,7 +507,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         var num = (parseInt($('.buying_price').val()) * parseInt($('.buying_number').val())) / parseInt($.cookie('allCNY'))*100;
         var numDeal = parseInt($('.buying_price').val()) * parseInt($('.buying_number').val())
         num1 = Math.floor(num);
-        $('.one').val('¥：'+ numDeal +'.00'); 
+        $('.one').val('¥：'+ numDeal); 
 
         /*买入-限价 滑块数值*/
         $( "#amount" ).text(num.toFixed(2)+'%'); //限价除以总钱数
@@ -562,6 +526,20 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
               }
         });
     });
+    /*买入-限价 滑块初始化*/
+    $( "#red" ).slider({
+          orientation: "horizontal",
+          range: "min",
+          slide: refreshSwatch,
+          change: refreshSwatch, 
+          value: 0,
+          min: 0,
+          max: 100,
+          slide: function( event, ui ) {
+                $( "#amount" ).html( ui.value +  "%" );
+                $( ".buying_number" ).val( ((parseInt(ui.value) * parseInt($.cookie('allCNY'))) / 100).toFixed(2));
+          }
+    });
 
     //买入价格
     $('.w_b_l').html("<em>账户余额："+$.cookie('allCNY')+" CNY</em>"); 
@@ -570,6 +548,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
    $('.marketBuy').focus(function(){
         $(this).val('');        
     });
+
    $('.marketBuy').blur(function(){
         var num = parseInt($('.marketBuy').val()); 
         var Money = parseInt($.cookie('allCNY'));
@@ -589,6 +568,20 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     $( ".marketBuy" ).val( ((parseInt(ui.value) * parseInt($.cookie('allCNY')) ) / 100).toFixed(2));
               }
         }); 
+    });
+   /*卖出-限价 滑块初始化*/
+    $( "#red1" ).slider({
+          orientation: "horizontal",
+          range: "min",
+          slide: refreshSwatch,
+          change: refreshSwatch, 
+          value: 0,
+          min: 0,
+          max: 100,
+          slide: function( event, ui ) {
+                $( "#amount1" ).html( ui.value +  "%" );
+                $( ".marketBuy" ).val( ((parseInt(ui.value) * parseInt($.cookie('allCNY')) ) / 100).toFixed(2));
+          }
     });
    //卖出 市价 滑块
    $('.sellAmount').blur(function(){
@@ -611,66 +604,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
               }
         }); 
     });
-
-    /*买入-限价 滑块初始化*/
-    $( "#red" ).slider({
-          orientation: "horizontal",
-          range: "min",
-          slide: refreshSwatch,
-          change: refreshSwatch, 
-          value: 0,
-          min: 0,
-          max: 100,
-          slide: function( event, ui ) {
-                $( "#amount" ).html( ui.value +  "%" );
-                $( ".buying_number" ).val( ui.value);
-          }
-    }); 
-
-    /*卖出-限价 滑块初始化*/
-    $( "#red1" ).slider({
-          orientation: "horizontal",
-          range: "min",
-          slide: refreshSwatch,
-          change: refreshSwatch, 
-          value: 0,
-          min: 0,
-          max: 100,
-          slide: function( event, ui ) {
-                $( "#amount1" ).html( ui.value +  "%" );
-                $( ".marketBuy" ).val( ui.value);
-          }
-    });
-    /*买入-市价 滑块数值*/
-    $( " #green" ).slider({
-          orientation: "horizontal",
-          range: "min",
-          slide: refreshSwatch,
-          change: refreshSwatch, 
-          value: 0,
-          min: 0,
-          max: 100,
-          slide: function( event, ui ) {
-                $( "#amount2" ).html( ui.value +  "%" );
-                $( ".sellNumber" ).val( ui.value);
-          }
-    });
-    /*卖出-市价 滑块数值*/
-    $( " #green1" ).slider({
-          orientation: "horizontal",
-          range: "min",
-          slide: refreshSwatch,
-          change: refreshSwatch, 
-          value: 0,
-          min: 0,
-          max: 100,
-          slide: function( event, ui ) {
-                $( "#amount3" ).html( ui.value +  "%" );
-                $( ".sellAmount" ).val( ui.value);
-          }
-    });
-
-
     //卖出 校验
     $('.sellPrice').focus(function(){
         $(this).val('');        
@@ -683,10 +616,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         var num = parseInt($('.sellNumber').val());
         var num1 = parseInt($.cookie('gop'));
         var num2 = ((num / num1 )*100).toFixed(2);
-        //$('.two').val('¥：'+ num2 +'.00');
+        $('.two').val('¥：'+ num2);
         /*买入-限价 滑块数值*/
         $( "#amount2" ).text( num2 +'%'); //限价除以总钱数
-        $( "#green1" ).slider({
+        $( "#green" ).slider({
               orientation: "horizontal",
               range: "min",
               slide: refreshSwatch,
@@ -700,85 +633,93 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
               }
         }); 
     });
+    /*卖出-市价 滑块初始化*/
+    $( " #green" ).slider({
+          orientation: "horizontal",
+          range: "min",
+          slide: refreshSwatch,
+          change: refreshSwatch, 
+          value: 0,
+          min: 0,
+          max: 100,
+          slide: function( event, ui ) {
+                $( "#amount2" ).html( ui.value +  "%" );
+                $( ".sellNumber" ).val(((parseInt(ui.value) * parseInt($.cookie('gop')) ) / 100).toFixed(2));;
+          }
+    });
+    /*卖出-市价 滑块初始化*/
+    $( " #green1" ).slider({
+          orientation: "horizontal",
+          range: "min",
+          slide: refreshSwatch,
+          change: refreshSwatch, 
+          value: 0,
+          min: 0,
+          max: 100,
+          slide: function( event, ui ) {
+                $( "#amount3" ).html( ui.value +  "%" );
+                $( ".sellAmount" ).val(((parseInt(ui.value) * parseInt($.cookie('gop')) ) / 100).toFixed(2));
+          }
+    });
 
     //买入 卖出 四个按钮 点击弹出框
     $(".buying_btn").click(function(){  
-        if(flag == false){
-            alert('请完整填写信息');
-        }else{
-            api_mkt.buyBefore({
-                'price':$('.buying_price').val(),
-                'number':$('.buying_number').val(),
-                'type':'FIXED'
-            },function(data) {
-                if (data.status == 200) {
-                    console.log(data);
-                    $("#floor_bg").show();
-                    $("#floor_popDiv").fadeIn(500);               
-                }else{
-                    console.log(data);
-                    alert('账户余额不足');
-                }
-            });                     
-        }
+        api_mkt.buyBefore({
+            'price':$('.buying_price').val(),
+            'number':$('.buying_number').val(),
+            'type':'FIXED'
+        },function(data) {
+            if (data.status == 200) {
+                console.log(data);
+                $("#floor_bg").show();
+                $("#floor_popDiv").fadeIn(500);               
+            }else if(data.status == 400){
+                console.log(data);
+            }
+        });  
     }); 
     $(".market_price_buying_btn").click(function(){  
-        if(flag == false){
-            alert('请完整填写信息');
-        }else{
-            api_mkt.buyBefore({
-                'price':$('.marketBuy').val(),
-                'type':'MARKET'
-            },function(data) {
-                if (data.status == 200) {
-                    console.log(data);
-                    $("#floor_bg").show();
-                    $("#floor_popDiv").fadeIn(500);               
-                }else{
-                    console.log(data);
-                    alert('账户余额不足');
-                }
-            });        
-        }
+        api_mkt.buyBefore({
+            'price':$('.marketBuy').val(),
+            'type':'MARKET'
+        },function(data) {
+            if (data.status == 200) {
+                console.log(data);
+                $("#floor_bg").show();
+                $("#floor_popDiv").fadeIn(500);               
+            }else{
+                console.log(data);
+            }
+        }); 
     });
     $(".sale_btn").click(function(){  
-        if(flag == false){
-            alert('请完整填写信息');
-        }else{
-            api_mkt.sellBefore({
-                'price':$('.sellPrice').val(),
-                'number':$('.sellNumber').val(),
-                'type':'FIXED'
-            },function(data) {
-                if (data.status == 200) {
-                    console.log(data);
-                    $("#floor_bg").show();
-                    $("#floor_popDiv").fadeIn(500);               
-                }else{
-                    console.log(data);
-                    alert('账户余额不足');
-                }
-            });            
-        }
+        api_mkt.sellBefore({
+            'price':$('.sellPrice').val(),
+            'number':$('.sellNumber').val(),
+            'type':'FIXED'
+        },function(data) {
+            if (data.status == 200) {
+                console.log(data);
+                $("#floor_bg").show();
+                $("#floor_popDiv").fadeIn(500);               
+            }else{
+                console.log(data);
+            }
+        }); 
     }); 
     $(".market_price_sale_btn").click(function(){  
-        if(flag == false){
-            alert('请完整填写信息');
-        }else{
-            api_mkt.sellBefore({
-                'number':$('.sellAmount').val(),
-                'type':'MARKET'
-            },function(data) {
-                if (data.status == 200) {
-                    console.log(data);
-                    $("#floor_bg").show();
-                    $("#floor_popDiv").fadeIn(500);               
-                }else{
-                    console.log(data);
-                    alert('账户余额不足');
-                }
-            });            
-        }
+        api_mkt.sellBefore({
+            'number':$('.sellAmount').val(),
+            'type':'MARKET'
+        },function(data) {
+            if (data.status == 200) {
+                console.log(data);
+                $("#floor_bg").show();
+                $("#floor_popDiv").fadeIn(500);               
+            }else{
+                console.log(data);
+            }
+        }); 
     });              
 
 
@@ -789,7 +730,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     
     //单击弹出框 确认按钮判断   买入 > 限价 市价 判断
     $('.sure_btn').click(function(){
-
         $("#floor_popDiv").hide();
         $("#floor_bg").hide();
         if(typeFixedOrMarket == true){
@@ -806,7 +746,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     alert('支付密码有误');
                 }
             });
-        }else{
+        }else if(typeFixedOrMarket == false){
             api_mkt.buy({
                 'price':$('.marketBuy').val(),
                 'type':'MARKET',
@@ -840,7 +780,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     alert('支付密码有误');
                 }
             });
-        }else{
+        }else if(typeFixedOrMarketTwo == false){
             api_mkt.sell({
                 'number':$('.sellAmount').val(),
                 'type':'MARKET',
@@ -855,7 +795,5 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             });
         }    
     });
-    
-    
 
 });

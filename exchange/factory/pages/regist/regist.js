@@ -81,19 +81,18 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	});
 
 	//复选框   
-	btnConfirmCheckbox = false;
 	$(".regular-checkbox").click(function(){
 		if($(".regular-checkbox").is(':checked')){
-			btnConfirmCheckbox = true;
+			btnConfirm = true;
 			$('.oneStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
 		}else{
-			btnConfirmCheckbox = false;
+			btnConfirm = false;
 			$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
 		}	
 	});
 	//注册第一步 手机号注册 
     $('.oneStep').bind('click',function(){
-    	if(btnConfirm == false || btnConfirmCheckbox == false){
+    	if(btnConfirm == false){
     		alert('请完善填写信息！');
     	}else{
     		api_mkt.registerBefore({			
@@ -158,18 +157,6 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			}, function(data) {
 				if (data.status == 200) {
 					console.log(data.status);
-					//设置支付密码 点击-进入 实名验证
-					//加直接登录
-					api_mkt.login({			
-				   		'phone':$('.checkPhone').val(), 
-				   		'password':$('.checkpwd').val()   
-					}, function(data) {
-						if (data.status == 200) {
-							console.log(data.status);				
-						}else{
-			            	console.log(data.status);
-			            }
-					});
 					$(".three").css('display','flex')
 					$(".two").css('display','none');				
 				}else{
