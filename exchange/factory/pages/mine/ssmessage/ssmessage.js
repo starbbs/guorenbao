@@ -1,32 +1,111 @@
 require(['api_mkt','cookie'], function(api_mkt) {
 	$(".tab").on("click",function(){
-
-		/**
-		 * <div class="message_cont_box color_let">
-                        <span>系统</span><span>2016年3月13日17:27:50</span>
-                        <div>亲爱的用户：比特币和莱特币近期行情波动较大，火币网提醒杠杆交易用户周末注意价格变化，控制仓位和杠杆倍数，防范由剧烈价格波动产生的风险。</div>
-                        <img src="./images/mine_ssmessage_delete_btn.png" alt="" width="13px;" height="16px;">
-                    </div>
-		 */
-
 		var messageonehtml = "";
 		$(this).siblings().removeClass("choosed_on_mes");
 		$(this).addClass("choosed_on_mes");
-		if($(this).hasClass("one")){
-			messageonehtml += "<div class='message_cont_box color_let'><span>系统</sapn><span>2016年3月27日15:42:16</sapn>";
-			messageonehtml += "<div>亲爱的用户:比特币和莱特币近期行情波动较大</div>";
-			messageonehtml += "<img src='./images/mine_ssmessage_delete_btn.png' alt='' width='13px;' height='16px;'/>";
-			messageonehtml += "</div>"
-		} else if($(this).hasClass("two")){
-			messageonehtml += "";
-		} else if($(this).hasClass("three")){
-			messageonehtml += "";
-		} else if($(this).hasClass("four")){
-			messageonehtml += "";
-		} else if($(this).hasClass("five")){
-			messageonehtml += "";
+		
+		if($(this).hasClass("one")){		  //全部
+			mymessage("all");
+		} else if($(this).hasClass("two")){   //系统
+			mymessage("system");
+		} else if($(this).hasClass("three")){ //安全
+			mymessage("security");
+		} else if($(this).hasClass("four")){  //资产
+			mymessage("assets");
 		}
-		$(".message_cont").html("");
-		$(".message_cont").html(messageonehtml);
-	})
+	});
+	var mymessage = function(gaga){
+		$("#itemContainer").html("");
+		api_mkt.message(function(data){
+			console.log(data.data.list);
+			var messagehtml = "";
+			if(data){
+				if(data.data){
+					if(data.data.list){
+						var dlist = data.data.list;
+							if(gaga=="all"){
+								for (var i = 0; i < dlist.length; i++) {
+									var categoryname = dlist[i]['cmsNewsCategory'];
+									var categoryname_showvalue = "";
+									if(categoryname=="ASSETS"){
+										categoryname_showvalue = "资产";
+									} else if(categoryname=="SECURITY"){
+										categoryname_showvalue = "安全";
+									} else if(categoryname=="SYSTEM"){
+										categoryname_showvalue = "系统";
+									}
+									if(i==0){
+										messagehtml += "<li><div class='message_cont_box color_let'><span>"+categoryname_showvalue+"</span><span>"+dlist[i]['createDate']+"</span><div>"+dlist[i]['content']+"</div></div></li>";
+									} else {
+										messagehtml += "<li><div class='message_cont_box'><span>"+categoryname_showvalue+"</span><span>"+dlist[i]['createDate']+"</span><div>"+dlist[i]['content']+"</div></div></li>";
+									}
+								}
+							} else if(gaga=="security"){
+								for (var i = 0; i < dlist.length; i++) {
+									var categoryname = dlist[i]['cmsNewsCategory'];
+									var categoryname_showvalue = "";
+									if(categoryname=="ASSETS"){
+										categoryname_showvalue = "资产";
+									} else if(categoryname=="SECURITY"){
+										categoryname_showvalue = "安全";
+										if(i==0){
+											messagehtml += "<li><div class='message_cont_box color_let'><span>"+categoryname_showvalue+"</span><span>"+dlist[i]['createDate']+"</span><div>"+dlist[i]['content']+"</div></div></li>";
+										} else {
+											messagehtml += "<li><div class='message_cont_box'><span>"+categoryname_showvalue+"</span><span>"+dlist[i]['createDate']+"</span><div>"+dlist[i]['content']+"</div></div></li>";
+										}
+									} else if(categoryname=="SYSTEM"){
+										categoryname_showvalue = "系统";
+									}
+								}
+							} else if(gaga=="system"){
+								for (var i = 0; i < dlist.length; i++) {
+									var categoryname = dlist[i]['cmsNewsCategory'];
+									var categoryname_showvalue = "";
+									if(categoryname=="ASSETS"){
+										categoryname_showvalue = "资产";
+									} else if(categoryname=="SECURITY"){
+										categoryname_showvalue = "安全";
+									} else if(categoryname=="SYSTEM"){
+										categoryname_showvalue = "系统";
+										if(i==0){
+											messagehtml += "<li><div class='message_cont_box color_let'><span>"+categoryname_showvalue+"</span><span>"+dlist[i]['createDate']+"</span><div>"+dlist[i]['content']+"</div></div></li>";
+										} else {
+											messagehtml += "<li><div class='message_cont_box'><span>"+categoryname_showvalue+"</span><span>"+dlist[i]['createDate']+"</span><div>"+dlist[i]['content']+"</div></div></li>";
+										}
+									}
+								}
+							} else if(gaga=="assets"){
+								for (var i = 0; i < dlist.length; i++) {
+									var categoryname = dlist[i]['cmsNewsCategory'];
+									var categoryname_showvalue = "";
+									if(categoryname=="ASSETS"){
+										categoryname_showvalue = "资产";
+										if(i==0){
+											messagehtml += "<li><div class='message_cont_box color_let'><span>"+categoryname_showvalue+"</span><span>"+dlist[i]['createDate']+"</span><div>"+dlist[i]['content']+"</div></div></li>";
+										} else {
+											messagehtml += "<li><div class='message_cont_box'><span>"+categoryname_showvalue+"</span><span>"+dlist[i]['createDate']+"</span><div>"+dlist[i]['content']+"</div></div></li>";
+										}
+									} else if(categoryname=="SECURITY"){
+										categoryname_showvalue = "安全";
+									} else if(categoryname=="SYSTEM"){
+										categoryname_showvalue = "系统";
+									}
+								}
+							}
+					}
+				}
+			}
+			$("#itemContainer").append(messagehtml);
+			$("div.holder").jPages({
+		        containerID: "itemContainer",
+		        perPage: 2,
+		        startPage: 1,
+		        startRange: 1,
+		        midRange: 5,
+		        endRange: 1,
+		        previous : "←",
+	      		next : "→"
+		    });
+		});
+	}
 });

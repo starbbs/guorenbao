@@ -1,7 +1,6 @@
 define('api_mkt', ['cookie'], function() {
     //var basePath = 'http://localhost/';
-    //var basePath = 'http://localhost/';
-    var basePath = './';
+    var basePath = 'http://10.23.1.155/';
     //var basePath = "http://172.16.33.3:8080/";
     //http://ip:port/login/registerBefore
     //var basePath = 'http://ip:port/login/registerBefore';
@@ -203,20 +202,7 @@ define('api_mkt', ['cookie'], function() {
 
     add('unReadMessage', 'exchangeApi/user/unReadMessage');
 
-    /*
-    // 1.手机号注册
-    add('register', '/login/register');
-    // 1.1 手机号注册
-    add('registerall', '/login/registerall');
-    // 83.获取联系人头像（49.账单列表接口的附加接口）
-    add('billPhoto', '/bill/contentPhoto', {
-    	asyn: true // 可同时请求多次
-    });
-    // 84.获取联系人信息
-    add('contactInfo', '/contact/info', {
-    	ignoreStatus: [304] // 忽略304错误
-    });
-    */
+    add('message','exchangeApi/user/message');
 
     return api;
 });
