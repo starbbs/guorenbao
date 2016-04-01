@@ -1,7 +1,10 @@
 require(['api_mkt','cookie'], function(api_mkt) {
+
+	$.cookie('loginName',data.data.phone);
+	$.cookie('loginName',data.data.password);
 	
 	var btnConfirm = false; 		
-	//表单校验
+	//表单校验password
 	$(".checkPhone").blur(function(){
 		var phone = $.trim($(this).val());
 		var reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
