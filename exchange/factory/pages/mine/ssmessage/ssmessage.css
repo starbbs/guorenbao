@@ -335,9 +335,31 @@
     display: inline-block;
     height: 28px;
     top: 6px;
+    font-weight:600;
     position: relative;
     cursor:pointer;
 }
+
+.right_msg{
+    float: right;
+    position: relative;
+    top: 8px;
+}
+.unread_msg{
+    color: #ff6600;
+    margin: 0 3px;
+}
+.readed_msg{
+    color: #333333;
+    margin: 0 3px;
+}
+.centerspan{
+    margin: 0 5px;
+}
+.right_msg{
+
+}
+
 .rmbtx{
     color: #333333;
     font-size: 1.4rem;
