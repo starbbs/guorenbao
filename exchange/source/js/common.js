@@ -1,4 +1,5 @@
-require(['api_mkt','cookie'], function(api_mkt) {
+require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
+    //mkt_info.get();
     var popup_login_times = 0;
     var exchangeToken = $.cookie('exchangeToken');
     var whether_auth = false;
@@ -150,6 +151,10 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	                $.cookie("global_loginuserphone",global_loginuserphone);
 	                $.cookie("global_loginusername",global_loginusername);
 	                $.cookie("global_loginuseruid",global_loginuseruid);
+                    console.log("asdf")
+                    synchronous();
+                    setInterval(synchronous, 300000);
+
                     if(global_loginusername!=""){
                         $("#logined_username").html(global_loginusername);
                         whether_auth = true;
@@ -234,6 +239,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
         }, function(data) {
             if (data.status == 200) {
                 alert(data.msg);
+                window.location.href="index.html";
             } else if (data.status == 305) {
                 alert(data.msg);
             } else {
@@ -246,6 +252,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
     });
 
     function synchronous() {
+        console.log("synchronous_common");
         $("#mybox").html("");
         api_mkt.unReadMessage({
 
@@ -274,8 +281,12 @@ require(['api_mkt','cookie'], function(api_mkt) {
             }
         });
     }
-    synchronous();
-    //setInterval(synchronous, 5000);
+    if (!exchangeToken) {
+        
+    } else {
+        synchronous();
+        setInterval(synchronous, 300000);
+    }
     
     var flag = true;
     $('.messagenum_area').on("click",function(){

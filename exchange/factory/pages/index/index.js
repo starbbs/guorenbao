@@ -12,6 +12,36 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     var mine_three = $.cookie("mine_three");
     var mine_four = $.cookie("mine_four");
 
+    function synchronous() {
+        console.log("synchronous_index");
+        $("#mybox").html("");
+        api_mkt.unReadMessage({
+
+        },function(data){
+            if(data.status==200){
+                if(data.data){
+                    var dlist = data.data.list;
+                    var unReadNum = data.data.unReadNum;
+                    $("#msg_num_top,#newinfor_result").html(unReadNum);
+                    var dlisthtml = "";
+                    if(dlist){
+                        if(dlist.length<2){
+                            var obj = dlist[0];
+                            dlisthtml += "<div class='message_flow'><p class='message_content_p'>"+obj.content+"</p><p class='message_date_p'>"+obj.createDate+"</p></div>";
+                        }
+                        if(dlist.length>=2){
+                            dlisthtml += "<div class='message_flow'><p class='message_content_p'>"+dlist[0].content+"</p><p class='message_date_p'>"+dlist[0].createDate+"</p></div>";
+                            dlisthtml += "<div class='message_flow second_message_flow'><p class='message_content_p'>"+dlist[1].content+"</p><p class='message_date_p'>"+dlist[1].createDate+"</p></div>";
+                        }
+                        dlisthtml += "<a href='ssmessage.html'>查看全部</a>";
+                        $(dlisthtml).appendTo("#mybox");
+                    }
+                }
+            } else {
+                console.log(data);
+            }
+        });
+    }
 
     if (!exchangeToken) {          //没有token 即未登录
         $(".login_regist").show(); //显示登录注册按钮
@@ -43,6 +73,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         }
         $(".popDiv").hide();
         $(".bg").hide();
+
+        synchronous();
+        setInterval(synchronous, 300000);
     }
     $(".bg").width($(document).width());
     $('.bg').height($(document).height());
@@ -213,7 +246,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         });
     }
     gethomepagekline();
-    window.setInterval(gethomepagekline, 10000);  //轮询首页的k线图
+    window.setInterval(gethomepagekline, 300000);  //轮询首页的k线图
 
     var flag = true;
     $('.messagenum_area').on("click", function() {
@@ -327,6 +360,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     $.cookie("global_loginuserphone",global_loginuserphone);
                     $.cookie("global_loginusername",global_loginusername);
                     $.cookie("global_loginuseruid",global_loginuseruid);
+
+                    synchronous();
+                    setInterval(synchronous, 300000);
+
                     $("#logined_username").html(data.data.phone);
                     $(".top_em").html(data.data.phone.substr(0,3)+'****'+data.data.phone.substr(7,4));
                     $("#uidval").html(global_loginuseruid);  //首页uid赋值

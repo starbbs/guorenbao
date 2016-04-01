@@ -299,6 +299,7 @@
     height: 730px;
     flex: 0.2;
     margin-bottom:50px;
+    margin-right:14px;
     background-color: #ffffff;
 }
 .rightside{
@@ -449,6 +450,7 @@
     border-bottom: 1px solid #ccc;
     padding: 20px 0 0 0;
     position:relative;
+    padding-left: 20px;
 }
 .color_let{
     background-color:#fafafa;
@@ -471,4 +473,8 @@
     right: 30px;
     cursor:pointer;
     top: 45px;
+}
+
+.msg_span{
+    margin-right:35px;
 }
