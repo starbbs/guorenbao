@@ -12,11 +12,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     var mine_three = $.cookie("mine_three");
     var mine_four = $.cookie("mine_four");
 
-    function synchronous() {
+    var synchronous = function() {
         console.log("synchronous_index");
         $("#mybox").html("");
         api_mkt.unReadMessage({
-
         },function(data){
             if(data.status==200){
                 if(data.data){
@@ -73,6 +72,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         }
         $(".popDiv").hide();
         $(".bg").hide();
+
+        console.log("asdf")
 
         synchronous();
         setInterval(synchronous, 300000);

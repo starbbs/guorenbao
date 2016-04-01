@@ -58,7 +58,7 @@ define('api_mkt', ['cookie'], function() {
                 type: 'post',
                 data: JSON.stringify(data),
                 dataType: 'json',
-                timeout: 30000,
+                timeout: 50000,
                 success: function(data) {
                     if (!data) {
                         // alert('1:' + name + ';' + $.cookie('gopToken'));

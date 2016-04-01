@@ -16,8 +16,8 @@
 	var updateprice = function(haha){
 		//console.log(JSON.parse(haha['order'][0]));
 		//console.log(JSON.parse(haha['order'][0]).price);
-		
-		var thelatestprice;
+		console.log("=========================");
+		var thelatestprice;	
 		if(haha['order']){
 			var thelatestprice  = JSON.parse(haha['order'][0]).price;
 			$('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
