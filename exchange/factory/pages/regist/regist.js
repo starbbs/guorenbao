@@ -1,63 +1,58 @@
 require(['api_mkt','cookie'], function(api_mkt) {
 	
-	var btnConfirm = false; 
-	
-	//复选框
-	$(".regular-checkbox").click(function(){
-		if($(".regular-checkbox").is(':checked')){
-			btnConfirm = true;
-			$('.oneStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
-		}else{
-			btnConfirm = false;
-			$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
-		}	
-	});	
-		
+	var btnConfirm = false; 		
 	//表单校验
 	$(".checkPhone").blur(function(){
 		var phone = $.trim($(this).val());
 		var reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
 		if(!reg.test(phone) || !phone){
-			$('.msg-phone').show().text('请输入正确的手机号');		
+			$('.msg-phone').show().text('请输入正确的手机号');	
+			btnConfirm = false;	
 		}else{
 			$('.msg-phone').hide();
-			//获取验证码
-			$('.checkCode-send').click(function(){
-			    api_mkt.sendCode({			
-			   		'phone':$('.checkPhone').val()	   
-				}, function(data) {
-					if (data.status !== 200) {
-						console.log(data.phone);
-						$('.checkCode-send').attr('disabled',true).css('cursor','not-allowed');
-					} else {
-						
-					}
-				});
-			  	
-		    	//60秒后重新发送
-		    	var count = 60;
-		    	var resend = setInterval(function(){
-			    		count--;
-			    		if(count > 0){
-			    			$('.checkCode-send').val(count+'s后重新发送');
-			    			$('.checkCode-send').attr('disabled',true).css('cursor','not-allowed');
-			    		}else{
-			    			clearInterval(resend);
-			    			$('.checkCode-send').attr('disabled',false).css('cursor','pointer').val('获取验证码');
-			    		}
-			    	},1000); 
-			});
+			btnConfirm = true;
 		}
 	});
 	//验证码
 	$(".checkCode").blur(function(){			
 		if(!$(this).val()){
 			$('.msg-code').text('请输入正确的验证码');
-			btnConfirm = false;
 		}else{
 			$('.msg-code').text('');
 		}
 	});
+	//获取验证码
+	$('.checkCode-send').click(function(){
+		if(btnConfirm == false){
+			$('.msg-phone').show().text('请输入您的手机号');
+		}else{
+			$('.msg-phone').hide();
+		    api_mkt.sendCode({			
+		   		'phone':$('.checkPhone').val()	   
+			}, function(data) {
+				if (data.status !== 200) {
+					console.log(data.phone);
+					$('.checkCode-send').attr('disabled',true).css('cursor','not-allowed');
+				} else {
+					
+				}
+			});
+		  	
+	    	//60秒后重新发送
+	    	var count = 60;
+	    	var resend = setInterval(function(){
+		    		count--;
+		    		if(count > 0){
+		    			$('.checkCode-send').val(count+'s后重新发送');
+		    			$('.checkCode-send').attr('disabled',true).css('cursor','not-allowed');
+		    		}else{
+		    			clearInterval(resend);
+		    			$('.checkCode-send').attr('disabled',false).css('cursor','pointer').val('获取验证码');
+		    		}
+		    	},1000); 
+	    }
+	});
+	
 	//登录密码
 	$(".checkpwd").blur(function(){			
 		var pwd = $(this).val();
@@ -85,9 +80,20 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		}
 	});
 
+	//复选框   
+	btnConfirmCheckbox = false;
+	$(".regular-checkbox").click(function(){
+		if($(".regular-checkbox").is(':checked')){
+			btnConfirmCheckbox = true;
+			$('.oneStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
+		}else{
+			btnConfirmCheckbox = false;
+			$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
+		}	
+	});
 	//注册第一步 手机号注册 
     $('.oneStep').bind('click',function(){
-    	if(btnConfirm == false){
+    	if(btnConfirm == false || btnConfirmCheckbox == false){
     		alert('请完善填写信息！');
     	}else{
     		api_mkt.registerBefore({			
@@ -98,7 +104,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			}, function(data) {
 				console.log(data);
 	            if (data.msg == "手机号码已经注册") {
-	            	$('.msg-phone').show().html('手机号已注册，请<a class="markasread" href="index.html">直接登录</a>');
+	            	$('.msg-phone').show().html('手机号已注册，请<a class="markasread" href="index.html">直接登录，3秒后跳转到首页</a>');
 	            	$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
 	            	$('.oneStep').unbind('click');
 	            	toIndex();
