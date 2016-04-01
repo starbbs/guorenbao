@@ -27,7 +27,6 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		}
 	});
 
-	//按钮 
 	$('.realAuthBtn').click(function(){
 		if(BtnConfirm == false){
 			alert('请填写正确姓名和身份证号');
@@ -60,7 +59,9 @@ require(['api_mkt','cookie'], function(api_mkt) {
 				$(".authenticated").show();
 				$(".unautherized").hide();
 				$("#username_value").html(data.data.list.name);
-				$("#identificode_value").html(data.data.list.idNumber);
+				var num = data.data.list.idNumber;
+				var numId = num.replace(num.slice(6,14),'********');
+				$("#identificode_value").html(numId);
 			} else {
 				$(".unautherized").show();
 			}

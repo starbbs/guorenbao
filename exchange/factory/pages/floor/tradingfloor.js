@@ -373,8 +373,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     html.push("<tr>");                                        
                     html.push("<td>"+ data.data.list[i].createDate +"</td>");
                     html.push("<td>"+ data.data.list[i].tradeGopType +"</td>");
-                    html.push("<td>"+ data.data.list[i].price +"</td>");
-                    html.push("<td>"+ data.data.list[i].numTotal +"</td>");
+                    html.push("<td class='price'>"+ data.data.list[i].price +"</td>");
+                    html.push("<td class='numSaDan'>"+ data.data.list[i].numTotal +"</td>");
                     html.push("<td>"+ (data.data.list[i].numTotal - data.data.list[i].numOver) + "</td>");
                     html.push("<td>"+ data.data.list[i].numOver +"</td>");
                     html.push("<td><p class='saDan'>撒单</p></td>");
@@ -382,24 +382,15 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     $(".tradeGopCurrentListTable").html("");  //添加前清空 
                     $(".tradeGopCurrentListTable").append(html.join(""));
                 } 
+
             $('.saDan').click(function(){
-                api_mkt.tradeGopCurrentList(function(data) {
+                api_mkt.tradeGopCurrentList({
+                    'price':$(this).parent().find('.price').text(),
+                    'number':$(this).parent().find('.numSaDan').text(),
+                    'type':'FIXED'
+                },function(data) {
                     if (data.status == 200) {
-                        console.log(data); 
-                        var html = [];
-                        for(var i=0; i<10;i++){
-                            html.push("<tr>");                                        
-                            html.push("<td>"+ data.data.list[i].createDate +"</td>");
-                            html.push("<td>"+ data.data.list[i].tradeGopType +"</td>");
-                            html.push("<td>"+ data.data.list[i].price +"</td>");
-                            html.push("<td>"+ data.data.list[i].numTotal +"</td>");
-                            html.push("<td>"+ data.data.list[i].numTotal - data.data.list[i].numOver + "</td>");
-                            html.push("<td>"+ data.data.list[i].numOver +"</td>");
-                            html.push("<td><p class='saDan'>撒单</p></td>");
-                            html.push("</tr>");
-                            $(".tradeGopCurrentListTable").html("");  //添加前清空 
-                            $(".tradeGopCurrentListTable").append(html.join(""));
-                        }                            
+                        console.log(data);                            
                     }else{
                         console.log(data);
                     }
@@ -422,9 +413,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     html.push("<tr>");                                        
                     html.push("<td>"+ data.data.list[i].createDate +"</td>");
                     html.push("<td>"+ data.data.list[i].tradeGopType +"</td>");
-                    html.push("<td>"+ data.data.list[i].price +"</td>");
-                    html.push("<td>"+ data.data.list[i].numTotal +"</td>");
-                    html.push("<td>"+ data.data.list[i].numTotal - data.data.list[i].numOver + "</td>");
+                    html.push("<td class='price'>"+ data.data.list[i].price +"</td>");
+                    html.push("<td class='numSaDan'>"+ data.data.list[i].numTotal +"</td>");
+                    html.push("<td>"+ (data.data.list[i].numTotal - data.data.list[i].numOver) + "</td>");
                     html.push("<td>"+ data.data.list[i].numOver +"</td>");
                     html.push("<td><p class='saDan'>撒单</p></td>");
                     html.push("</tr>");
@@ -447,7 +438,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     html.push("<td>"+ data.data.list[i].tradeGopType +"</td>");
                     html.push("<td>"+ data.data.list[i].price +"</td>");
                     html.push("<td>"+ data.data.list[i].numTotal +"</td>");
-                    html.push("<td>"+ data.data.list[i].numOver / data.data.list[i].numTotal + "</td>");
+                    html.push("<td>"+ (data.data.list[i].numOver / data.data.list[i].numTotal) + "</td>");
                     html.push("<td>"+ data.data.list[i].numOver +"</td>");
                     html.push("<td>"+ data.data.list[i].tradeGopType +"</td>");
                     html.push("<td>"+ data.data.list[i].price +"</td>");
@@ -474,7 +465,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     html.push("<td>"+ data.data.list[i].tradeGopType +"</td>");
                     html.push("<td>"+ data.data.list[i].price +"</td>");
                     html.push("<td>"+ data.data.list[i].numTotal +"</td>");
-                    html.push("<td>"+ data.data.list[i].numTotal - data.data.list[i].numOver + "</td>");
+                    html.push("<td>"+ (data.data.list[i].numOver / data.data.list[i].numTotal) + "</td>");
                     html.push("<td>"+ data.data.list[i].numOver +"</td>");
                     html.push("<td><p class='saDan'>撒单</p></td>");
                     html.push("</tr>");

@@ -1,8 +1,7 @@
 require(['api_mkt','cookie'], function(api_mkt) {
 	
 	var btnConfirm = false; 
-	//表单校验
-	$(".msg").hide();
+	
 	//复选框
 	$(".regular-checkbox").click(function(){
 		if($(".regular-checkbox").is(':checked')){
@@ -14,120 +13,80 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		}	
 	});	
 		
-	//给所有regist_rg_input类+blur
-	$(".regist_rg_input").blur(function(){
-		//手机号
-		if ($(this).is(".checkPhone")){
-			var phone = $.trim($(this).val());
-			var reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
-			if(!reg.test(phone) || !phone){
-				$('.msg-phone').show().text('请输入正确的手机号');;
-				$('.checkCode-send').val('获取验证码');			
-			}else{
-				$('.msg-phone').hide();
-				//接口1-获取验证码
-				$('.checkCode-send').click(function(){
-				    api_mkt.sendCode({			
-				   		'phone':$('.checkPhone').val()	   
-					}, function(data) {
-						if (data.status !== 200) {
-							console.log(data.phone);
-							$('.checkCode-send').attr('disabled',true).css('cursor','not-allowed');
-						} else {
-							
-						}
-					});
-				  	
-			    	//60秒后重新发送
-			    	var count = 60;
-			    	var resend = setInterval(function(){
-				    		count--;
-				    		if(count > 0){
-				    			$('.checkCode-send').val(count+'s后重新发送');
-				    			$('.checkCode-send').attr('disabled',true).css('cursor','not-allowed');
-				    		}else{
-				    			clearInterval(resend);
-				    			$('.checkCode-send').attr('disabled',false).css('cursor','pointer').val('获取验证码');
-				    		}
-				    	},1000); 
+	//表单校验
+	$(".checkPhone").blur(function(){
+		var phone = $.trim($(this).val());
+		var reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
+		if(!reg.test(phone) || !phone){
+			$('.msg-phone').show().text('请输入正确的手机号');		
+		}else{
+			$('.msg-phone').hide();
+			//获取验证码
+			$('.checkCode-send').click(function(){
+			    api_mkt.sendCode({			
+			   		'phone':$('.checkPhone').val()	   
+				}, function(data) {
+					if (data.status !== 200) {
+						console.log(data.phone);
+						$('.checkCode-send').attr('disabled',true).css('cursor','not-allowed');
+					} else {
+						
+					}
 				});
-			}
+			  	
+		    	//60秒后重新发送
+		    	var count = 60;
+		    	var resend = setInterval(function(){
+			    		count--;
+			    		if(count > 0){
+			    			$('.checkCode-send').val(count+'s后重新发送');
+			    			$('.checkCode-send').attr('disabled',true).css('cursor','not-allowed');
+			    		}else{
+			    			clearInterval(resend);
+			    			$('.checkCode-send').attr('disabled',false).css('cursor','pointer').val('获取验证码');
+			    		}
+			    	},1000); 
+			});
 		}
-		//验证码
-		if ($(this).is(".checkCode")){
-			if(!$(this).val()){
-				$('.msg-code').show().text('请输入正确的验证码');
-				btnConfirm = false;
-			}else{
-				$('.msg-code').hide();
-			}
+	});
+	//验证码
+	$(".checkCode").blur(function(){			
+		if(!$(this).val()){
+			$('.msg-code').text('请输入正确的验证码');
+			btnConfirm = false;
+		}else{
+			$('.msg-code').text('');
 		}
-		//登录密码
-		if ($(this).is(".checkpwd")){
-			var pwd = $.trim($(this).val());
-			var reg = /^[0-9a-z]{6,12}$/;
-			if(!reg.exec(pwd)){
-				btnConfirm = false;
-				$('.msg-pwd').show().text('密码格式：6~12位非纯数字字符');
-			}else{
-				$('.msg-pwd').hide();
-				btnConfirm = true;
-			}
+	});
+	//登录密码
+	$(".checkpwd").blur(function(){			
+		var pwd = $(this).val();
+		var reg = /^[a-zA-Z0-9]\w{6,12}$/g;
+		if(!reg.test(pwd)){
+			btnConfirm = false;
+			$('.msg-pwd').text('密码格式：6~12位非纯数字字符');
+		}else{
+			$('.msg-pwd').text('');
+			btnConfirm = true;
 		}
-		//确认登录密码
-		if ($(this).is(".checkConfirmPwd")){
-			var pwd = $.trim($(".checkpwd").val());
-			var ConfirmPwd = $(this).val();
-			if(pwd !== ConfirmPwd){
-				$('.msg-ConfirmPwd').show().text('确认密码与登录密码不一致');
-			}else{
-				$('.msg-ConfirmPwd').hide();
-			}
-		}
-		
-		//下一步--支付密码
-		if ($(this).is(".payPwd")){
-			var payPwd = $.trim($(".payPwd").val());
-			var reg = /^[0-9a-zA-Z]{8,20}$/;
-			if(!reg.test(payPwd)){
-				$('.msg-payPwd').show().text('8~20位非纯数字字符');
-			}else{
-				$('.msg-payPwd').hide();
-			}
-		}
-		//确认支付密码
-		if ($(this).is(".payConfirmPwd")){
-			var payConfirmPwd = $.trim($(".payConfirmPwd").val());
-			var payPwd = $(".payPwd").val();
-			if(payConfirmPwd !== payPwd){
-				$('.msg-payConfirmPwd').show().text('两次输入不一致');
-			}else{
-				$('.msg-payConfirmPwd').hide();
-			}
-		}
-		//实名认证 姓名
-		if ($(this).is(".personName")){
-			var personName = $.trim($(".personName").val());
-			if(!personName){
-				$('.msg-personName').show().text('请输入正确的姓名');
-			}else{payPwd
-				$('.msg-personName').hide();
-			}
-		}
-		//实名认证 身份证号
-		if ($(this).is(".personId")){
-			var personId = $.trim($(".personId").val());
-			if(!personId){
-				$('.msg-personId').show().text('请输入正确的身份证号');
-			}else{payPwd
-				$('.msg-personId').hide();
-			}
+	});
+	$(".checkpwd").focus(function(){			
+		$(this).val('');
+	});
+
+	//确认登录密码
+	$(".checkConfirmPwd").blur(function(){	
+		var pwd = $.trim($(".checkpwd").val());
+		var ConfirmPwd = $(this).val();
+		if(pwd !== ConfirmPwd){
+			$('.msg-ConfirmPwd').show().text('确认密码与登录密码不一致');
+		}else{
+			$('.msg-ConfirmPwd').hide();
 		}
 	});
 
-	//测试
-	//接口2 注册第一步 手机号注册 
-    $('.oneStep').on('click',function(){
+	//注册第一步 手机号注册 
+    $('.oneStep').bind('click',function(){
     	if(btnConfirm == false){
     		alert('请完善填写信息！');
     	}else{
@@ -140,68 +99,131 @@ require(['api_mkt','cookie'], function(api_mkt) {
 				console.log(data);
 	            if (data.msg == "手机号码已经注册") {
 	            	$('.msg-phone').show().html('手机号已注册，请<a class="markasread" href="index.html">直接登录</a>');
+	            	$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
+	            	$('.oneStep').unbind('click');
+	            	toIndex();
 	            }else if(data.status == 200){
 	                $(".two").css('display','flex');
-					$(".one").css('display','none');                 
+					$(".one").css('display','none');                
 	            }else{
-	            	btnConfirm = false;
+	            	
 	            }
 			});
     	}   	
 
     });
+    //下一步--支付密码
+	$(".payPwd").blur(function(){
+		var payPwd = $.trim($(".payPwd").val());
+		var reg = /^[0-9a-zA-Z]{8,20}$/;
+		if(!reg.test(payPwd)){
+			btnConfirm = false;
+			$('.msg-payPwd').show().text('8~20位非纯数字字符');
+		}else{
+			btnConfirm = true;
+			$('.msg-payPwd').hide();
+		}
+	});
+	//确认支付密码
+	$(".payConfirmPwd").blur(function(){
+		var payConfirmPwd = $.trim($(".payConfirmPwd").val());
+		var payPwd = $(".payPwd").val();
+		if(payConfirmPwd !== payPwd){
+			$('.msg-payConfirmPwd').show().text('两次输入不一致');
+			btnConfirm = false;
+		}else{
+			$('.msg-payConfirmPwd').hide();
+			btnConfirm = true;
+		}
+	});
 
 	//接口3 注册第二步 设置支付密码 
 	$('.twoStep').click(function(){
-		api_mkt.register({			
-	   		'phone':$('.checkPhone').val(), 
-	   		'identifyingCode':$('.checkCode').val(),
-	   		'password':$('.checkpwd').val(),
-	   		'confirmPwd':$('.checkConfirmPwd').val(),
-	   		'payPwd':$('.payPwd').val(),
-	   		'comfirmPayPwd':$('.payConfirmPwd').val()	   
-		}, function(data) {
-			if (data.status == 200) {
-				console.log(data.status);
-				//设置支付密码 点击-进入 实名验证
-				$(".three").css('display','flex')
-				$(".two").css('display','none');				
-			}else{
-            	$('.twoStep').css('backgroundColor','#eee');
-            	console.log(data.status);
-            }
-		});
+		if(btnConfirm == false){
+			alert('请完善填写信息！');
+		}else{
+			api_mkt.register({			
+		   		'phone':$('.checkPhone').val(), 
+		   		'identifyingCode':$('.checkCode').val(),
+		   		'password':$('.checkpwd').val(),
+		   		'confirmPwd':$('.checkConfirmPwd').val(),
+		   		'payPwd':$('.payPwd').val(),
+		   		'comfirmPayPwd':$('.payConfirmPwd').val()	   
+			}, function(data) {
+				if (data.status == 200) {
+					console.log(data.status);
+					//设置支付密码 点击-进入 实名验证
+					//加直接登录
+					api_mkt.login({			
+				   		'phone':$('.checkPhone').val(), 
+				   		'password':$('.checkpwd').val()   
+					}, function(data) {
+						if (data.status == 200) {
+							console.log(data.status);				
+						}else{
+			            	console.log(data.status);
+			            }
+					});
+					$(".three").css('display','flex')
+					$(".two").css('display','none');				
+				}else{
+	            	$('.twoStep').css('backgroundColor','#eee');
+	            	console.log(data.status);
+	            }
+			});			
+		}	
 
     });
+    //实名认证 姓名
+	$(".personName").blur(function(){
+		var personName = $.trim($(".personName").val());
+		if(!personName){
+			btnConfirm = false;
+			$('.msg-personName').show().text('请输入正确的姓名');
+		}else{
+			$('.msg-personName').hide();
+			btnConfirm = true;
+		}
+	});
+	//实名认证 身份证号
+	$(".personId").blur(function(){
+		var personId = $.trim($(".personId").val());
+		if(!personId){
+			btnConfirm = false;
+			$('.msg-personId').show().text('请输入正确的身份证号');
+		}else{
+			$('.msg-personId').hide();
+			btnConfirm = true;
+		}
+	});
 	//接口4 注册第三步 设置实名验证
-	$('.threeStep').click(function(){		
-		api_mkt.realNameAuth({			
-	   		'realName':$('.personName').val(),
-		   	'idNumber':$('.personId').val()	   
-		}, function(data) {
-			if (data.status == 200) {
-				console.log(data);
-				//进入注册完成页
-				$(".four").css('display','flex');
-				$(".three").css('display','none');
-				toIndex();
-				//进入注册完成页，3秒后跳转首页
-							
-			} else {
-				console.log(data.status);
-				$('.threeStep').css('backgroundColor','#eee');
-			}
-		});
-		
+	$('.threeStep').click(function(){
+		if(btnConfirm == false){
+			alert('请完善填写信息！');
+		}else{
+			api_mkt.realNameAuth({			
+		   		'realName':$('.personName').val(),
+			   	'idNumber':$('.personId').val()	   
+			}, function(data) {
+				if (data.status == 200) {
+					console.log(data);
+					//进入注册完成页
+					$(".four").css('display','flex');
+					$(".three").css('display','none');
+					toIndex();
+				} else {
+					console.log(data.status);
+					$('.threeStep').css('backgroundColor','#eee');
+				}
+			});
+		}
     });
 
     //跳过实名验证
     $('.SkipThreeStep').click(function(){
     	$(".four").css('display','flex');
 		$(".three").css('display','none');
-		toIndex();
-		//进入注册完成页，3秒后跳转首页
-		
+		toIndex();		
     })
     function toIndex(){
 			var count = 3;
@@ -211,11 +233,10 @@ require(['api_mkt','cookie'], function(api_mkt) {
 					$(".toIndex").text(count+'s后自动跳转进入首页');
 				}else{
 					clearInterval(timer);
-					location.href="http://localhost/exchange/build/index.html";
+					window.location.href="index.html";
 				}
 			},1000);		
 	}
-  	/*陈 - 添加  end*/
 
 });
 	/*
