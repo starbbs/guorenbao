@@ -1,5 +1,5 @@
 require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_info, mkt_trade) {
-    mkt_info.get();
+    //mkt_info.get();
     mkt_trade.get();
     var exchangeToken = $.cookie('exchangeToken');
     var global_loginuserphone = $.cookie("global_loginuserphone");
@@ -127,7 +127,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             navigation: { buttonOptions: { theme: { stroke: "#CCCCCC" } } }
         };
         //图表设置
+        //Highcharts.setOptions({ global: { useUTC: false } });
+        //<li class="alt"><span><span class="tag"><</span><span class="tag-name">script</span><span>&nbsp;</span><span class="attribute">type</span><span>=</span><span class="attribute-value">"text/javascript"</span><span class="tag">></span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Highcharts.setOptions({&nbsp;global:&nbsp;{&nbsp;useUTC:&nbsp;false&nbsp;}&nbsp;});&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;<span class="tag"></</span><span class="tag-name">script</span><span class="tag">></span><span>&nbsp;&nbsp;</span></span></li>
         Highcharts.setOptions({
+            global: { useUTC: false },
             colors: ['#DD1111', '#FF0000', '#DDDF0D', '#7798BF', '#55BF3B', '#DF5353', '#aaeeee', '#ff0066', '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
             lang: {
                 loading: 'Loading...',
@@ -178,7 +181,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         $('#container').highcharts('StockChart', {
             rangeSelector: {buttons: [{type: 'minute', count: 60, text: '1h'},{type: 'minute', count: 120, text: '2h'},{type: 'minute', count: 360, text: '6h'},{type: 'minute', count: 720, text: '12h'},{type: 'day', count: 1, text: '1d'},{type: 'week', count: 1, text: '1w'},{type: 'all', text: '所有'}],selected:2, inputEnabled:false},
             global: {
-                useUTC: true
+                useUTC: false
             },
             credits: { enabled: false },
             colors: ['#000000', '#0000ff', '#ff00ff', '#f7a35c', '#8085e9'],

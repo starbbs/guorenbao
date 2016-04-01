@@ -6,6 +6,7 @@
 			clearTimeout(price.timer);
 		},
 		onChange: updateprice,
+		onChange2:$.noop
 	};
 	var once = price.once = function(callback) {
 		api_mkt.pollinfo(function(data) {
@@ -68,6 +69,7 @@
 	var get = price.get = function() {
 		once(function(next){
 			updateprice(next);
+			price.onChange2();
 			price.timer = setTimeout(price.get, price.interval);
 		});
 	};
