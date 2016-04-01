@@ -1,13 +1,12 @@
 require(['api_mkt', 'cookie'], function(api_mkt) {
     var mymessage = function(gaga) {
         $("#itemContainer").html("");
-        console.log(gaga);
         var obj = {};
         if (gaga == "ALL") {} else {
             obj.category = gaga;
         }
         api_mkt.message(obj, function(data) {
-            console.log(data.data.list);
+            //console.log(data.data.list);
             var messagehtml = "";
             if (data) {
                 if (data.data) {
