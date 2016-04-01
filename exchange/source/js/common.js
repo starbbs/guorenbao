@@ -1,5 +1,5 @@
 require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
-    //mkt_info.get();
+    mkt_info.get();
     var popup_login_times = 0;
     var exchangeToken = $.cookie('exchangeToken');
     var whether_auth = false;
@@ -252,7 +252,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
     });
 
     function synchronous() {
-        console.log("synchronous_common");
         $("#mybox").html("");
         api_mkt.unReadMessage({
 
