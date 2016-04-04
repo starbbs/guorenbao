@@ -57,7 +57,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     $(".status").filter(":contains('已完成')").css("color","#ccc");
                 }
             }else{
-                console.log('财务中心-人民币充值历史表格，加载失败。');
+               // console.log('财务中心-人民币充值历史表格，加载失败。');
             }
         });
 
@@ -87,7 +87,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $(".status").filter(":contains('已完成')").css("color","#ccc");
                     }
                 }else{
-                    console.log('财务中心-人民币充值历史表格，加载失败。');
+                    //console.log('财务中心-人民币充值历史表格，加载失败。');
                 }
             });
         });
@@ -171,28 +171,30 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             'pageSize' :10   
         }, function(data) {
             if (data.status == 200) {
-                console.log(data);
-                console.log(data.data.list[0].acnumber);
-                var num = data.data.list[0].acnumber;
-                var node = $('<div></div>');
-                var nodeList ='<input type="radio" name="checkBankCard" class="checkBankCard" checked/>'+'<div class="bankIdCard"></div>';
-                node.html(nodeList);
-                node.insertBefore($('.addBankCard'));
-                $('.bankIdCard').text('尾号：'+num.substr(num.length-4));
-                //判断显示银行logo
-                var bankName = new String(data.data.list[0].bank);
-                if(bankName == '中国工商银行'){
-                    $('.bankIdCard').addClass('ICBC');
-                }else if(bankName == '中国建设银行'){
-                    $('.bankIdCard').addClass('CBC');
-                }else if(bankName == '交通银行'){
-                    $('.bankIdCard').addClass('BC');
-                }else if(bankName == '招商银行'){
-                    $('.bankIdCard').addClass('CMB');
-                }else if(bankName == '中国邮政储蓄银行'){
-                    $('.bankIdCard').addClass('PSBC');
-                }else if(bankName == '中国农业银行'){
-                    $('.bankIdCard').addClass('ABC');
+                //console.log(data);
+                //console.log(data.data.list[0].acnumber);
+                if(data.data.list.length > 0){
+                    var num = data.data.list[0].acnumber;
+                    var node = $('<div></div>');
+                    var nodeList ='<input type="radio" name="checkBankCard" class="checkBankCard" checked/>'+'<div class="bankIdCard"></div>';
+                    node.html(nodeList);
+                    node.insertBefore($('.addBankCard'));
+                    $('.bankIdCard').text('尾号：'+num.substr(num.length-4));
+                    //判断显示银行logo
+                    var bankName = new String(data.data.list[0].bank);
+                    if(bankName == '中国工商银行'){
+                        $('.bankIdCard').addClass('ICBC');
+                    }else if(bankName == '中国建设银行'){
+                        $('.bankIdCard').addClass('CBC');
+                    }else if(bankName == '交通银行'){
+                        $('.bankIdCard').addClass('BC');
+                    }else if(bankName == '招商银行'){
+                        $('.bankIdCard').addClass('CMB');
+                    }else if(bankName == '中国邮政储蓄银行'){
+                        $('.bankIdCard').addClass('PSBC');
+                    }else if(bankName == '中国农业银行'){
+                        $('.bankIdCard').addClass('ABC');
+                    }
                 }
 
                 //人民币提现申请 弹出层        
@@ -265,7 +267,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     $(".cnyWithdrawals").filter(":contains('进行中')").css("color","orange");
                 }
             }else {
-                console.log('财务中心-人民币提现历史表格带分页，加载失败。');
+                //console.log('财务中心-人民币提现历史表格带分页，加载失败。');
             }
         });
 
@@ -294,7 +296,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $(".cnyWithdrawals").filter(":contains('进行中')").css("color","orange"); 
                     }
                 }else {
-                    console.log('财务中心-人民币提现历史表格带分页，加载失败。');
+                    //console.log('财务中心-人民币提现历史表格带分页，加载失败。');
                 }
             });
         });

@@ -525,7 +525,7 @@
 .accountholder_tipafter{
     width: 16px;
     height: 16px;
-    content: url(tips_img.png);
+    /*content: url(tips_img.png);*/
     cursor: pointer;
     left: 0px;
     display: inline;

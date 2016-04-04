@@ -78,16 +78,23 @@ function closeDiv() {
         liA.click(function(){
             $(this).addClass("tab_on").siblings(".tab").removeClass("tab_on");
             $(".tabcon").eq(liA.index(this)).show().siblings(".tabcon").hide();
-        });
-
-        
+        });        
     });
+
     $(function(){
         $(".two-right:gt(0)").hide();
         var liA = $(".li_tab");
         liA.click(function(){
             $(this).addClass("li_tab_active").siblings(".li_tab").removeClass("li_tab_active");
             $(".two-right").eq(liA.index(this)).show().siblings(".two-right").hide();
+        });
+    });
+    $(function(){
+        $(".two-right1:gt(0)").hide();
+        var liA = $(".li_tab1");
+        liA.click(function(){
+            $(this).addClass("li_tab_active").siblings(".li_tab1").removeClass("li_tab_active");
+            $(".two-right1").eq(liA.index(this)).show().siblings(".two-right1").hide();
         });
     });
 
