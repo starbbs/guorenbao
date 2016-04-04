@@ -165,8 +165,8 @@
 }
 .rightfunction {
     display: flex;
-    float: right;
-    position: relative;
+/*     float: right;
+position: relative; */
     top: 34px;
 }
 .feature {

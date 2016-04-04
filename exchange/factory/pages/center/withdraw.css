@@ -162,9 +162,9 @@
     top: 17px;
 }
 .rightfunction {
-    display: flex;
+    /* display: flex;
     float: right;
-    position: relative;
+    position: relative; */
     top: 34px;
 }
 .feature {

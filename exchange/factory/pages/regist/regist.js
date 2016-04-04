@@ -160,13 +160,13 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			}, function(data) {
 				if (data.status == 200) {
 					console.log(data.status);
-					$(".three").css('display','flex')
-					$(".two").css('display','none');				
+					$(".three").css('display','flex');
+					$(".two").css('display','none');			
 				}else{
 	            	$('.twoStep').css('backgroundColor','#eee');
 	            	console.log(data.status);
 	            }
-			});			
+			});
 		}	
 
     });
