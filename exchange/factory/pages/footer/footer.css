@@ -249,12 +249,49 @@
     position:relative;
     top:50px;
 }
+.p_1_two{
+    width:1000px;
+    height: 1000px;
+}
+.two_left{
+    float: left;
+    width:180px;
+    background:#fafafa;
+    height: 150px;
+}
+.two_left li{
+    display: block;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    cursor: pointer;
+}
+.two-right{
+    margin-left:230px;
+    height: auto;
+}
+.two-right h3 {
+    font-size: 1.6rem;
+    margin-bottom:25px;
+    text-align: left;
+    margin-top:20px;
+    height: 40px;
+    border-bottom: 1px dashed #ccc;
+}
+.two-right p{
+    font-size: 1.2rem;
+    text-align: left;
+    height: 40px;
+    line-height: 40px;
+}
+
 .p_1{
     width:1000px;
-    height:190px;
-    border:1px solid red;
+    height:180px;
+    border-bottom: 1px solid #e6e6e6;
     text-align:left;
     margin-top:50px;
+    padding-left:150px;
 }
 .p_1 h3 {
     font-size: 2.0rem;
@@ -265,4 +302,40 @@
     line-height: 20px;
     height:20px;
     color:#666666;
+}
+.p_1_1{
+    background: url(../images/3-1.png) no-repeat 70px top;
+}
+.p_1_2{
+    background: url(../images/3-2.png) no-repeat 70px top;
+}
+.p_1_3{
+    background: url(../images/3-3.png) no-repeat 70px top;
+}
+.p_1_4{
+    background: url(../images/3-4.png) no-repeat 70px top;
+}
+/*表格样式*/
+.aside-table td{
+    font-size: 12px; 
+    padding: 15px;
+    vertical-align: middle; 
+}
+.aside-table-thead td {
+    background: #FAFAFA;
+    border:1px solid #eee;
+}
+.aside-table-tbody td {
+    width:20%;
+    border:1px solid #eee;
+}
+.aside-table-tbody tr:nth-child(even) {
+    background: #fbfcff;
+}
+.aside-table-tbody tr:hover {
+    background: #FAFAFA; 
+}
+
+.li_tab_active{
+    background: #eee;
 }
