@@ -70,3 +70,14 @@ function closeDiv() {
     $("#popDiv").hide();
     $("#bg").hide();
 }
+
+    /*tab*/
+    $(function(){
+        $(".tabcon:gt(0)").hide();
+        var liA = $(".tab");
+        liA.click(function(){
+            $(this).addClass("tab_on").siblings(".tab").removeClass("tab_on");
+            $(".tabcon").eq(liA.index(this)).show().siblings(".tabcon").hide();
+        });
+    });
+
