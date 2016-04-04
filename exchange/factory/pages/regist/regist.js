@@ -1,8 +1,4 @@
 require(['api_mkt','cookie'], function(api_mkt) {
-
-	// $.cookie('loginName',data.data.phone);
-	// $.cookie('loginName',data.data.password);
-	
 	var btnConfirm = false; 		
 	//表单校验password
 	$(".checkPhone").blur(function(){
