@@ -18,25 +18,35 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     //     $(".popDiv").hide();
     //     $(".bg").hide();
     // }
-    var totalAssets = $.cookie("totalAssets");
-    var totalNuts = $.cookie("totalNuts");
-    var mine_one = $.cookie("mine_one");
-    var mine_two = $.cookie("mine_two");
-    var mine_three = $.cookie("mine_three");
-    var mine_four = $.cookie("mine_four");
+    
+
     var exchangeToken = $.cookie('exchangeToken');
     if (!exchangeToken) {
        $('.eye_i').trigger("click");
     } else {
         
     }
-    if(totalAssets&&totalNuts&&mine_one&&mine_two&&mine_three&&mine_four){
-        $(".iallshow").html(totalAssets);
-        $(".ioneshow").html(mine_one);
-        $(".itwoshow").html(mine_two);
-        $(".ithreeshow").html(mine_three);
-        $(".ifourshow").html(mine_four);
-    }
+
+    
+    api_mkt.totalAssets(function(data) {
+        if (data.status == 200) {
+            var gopBalance = data.data.gopBalance;  //剩余果仁数
+            var cnyBalance = data.data.cnyBalance;  //剩余人民币数
+            var gopLock = data.data.gopLock;  //冻结果仁数
+            var cnyLock = data.data.cnyLock;  //冻结人民币数
+
+            var totalAssets = data.data.gopBalance + data.data.gopLock;
+            $(".ioneshow").html(cnyBalance);
+            $(".itwoshow").html(gopBalance);
+            $(".ithreeshow").html(cnyLock);
+            $(".ifourshow").html(gopLock);
+            $(".iallshow").html(totalAssets);
+        } else {
+            console.log(data.msg);
+        }
+    });
+
+
     mkt_info.get();
     mkt_trade.getfloor();
     var groupingUnits = [
@@ -271,7 +281,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     var fflat = false;
     $(".eye_i").on("click",function(){
         if(fflat){
-            $(this)[0].style.background = "url(./images/floor_eye_black.png)";
+            $(this)[0].style.background = "url(./images/floor_no_eye.png)";
             fflat = false;
             $(".iallhide").hide();
             $(".iallshow").show();
@@ -284,7 +294,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             $(".ifourhide").hide();
             $(".ifourshow").show();
         } else {
-            $(this)[0].style.background = "url(./images/floor_no_eye.png)";
+            $(this)[0].style.background = "url(./images/floor_eye_black.png)";
             fflat = true;
             $(".iallhide").show();
             $(".iallshow").hide();
@@ -507,11 +517,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     //总资产
     api_mkt.getTotalAssets(function(data) {        
         if (data.status == 200) {
-            console.log(data);
-            $('.w_b_l').text(data.data.cnyBalance + '.00');
-                       
-            $.cookie('allCNY',$('.w_b_l').text());
-            $.cookie('gop',$('.gopBalance').text());
+            $('.w_b_l').text(data.data.cnyBalance);
+            var cnyBalance = data.data.cnyBalance;
+            $.cookie('allCNY',cnyBalance);
              //买入价格
             $('.w_b_l').html("<em>账户余额："+data.data.cnyBalance+" CNY</em>");
         } else {

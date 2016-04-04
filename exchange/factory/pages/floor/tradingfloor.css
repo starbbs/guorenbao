@@ -540,10 +540,7 @@
 
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
     border: 1px solid #cccccc;
-    /* background: #fafafa url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x; */
     font-weight: 400;
-    /* color: #fafafa; */
-    /* border-radius: 50%; */
 }
 
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
@@ -1091,7 +1088,7 @@
 
 .eye_i {
     /* background: url('./eye.png') no-repeat 0 0; */
-    background:url('../images/floor_eye_visible.png') no-repeat 0 0;
+    background:url('../images/floor_no_eye.png') no-repeat 0 0;
     width: 16px;
     height: 12px;
     background-size: 16px 12px;

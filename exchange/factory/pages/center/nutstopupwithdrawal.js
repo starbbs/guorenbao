@@ -22,10 +22,9 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
     //我的账户信息-取账户地址
     api_mkt.basic(function(data) {
         if (data.status == 200) {
-            console.log(data);
             //创建节点
-            $('.regist_rg_input-longAddress').val(data.data.list.address);
-            $('.gpal_address').text(data.data.list.address);
+            $('.regist_rg_input-longAddress').val(data.data.list.gOPAddress);
+            $('.gpal_address').text(data.data.list.gOPAddress);
         } else {
             //console.log(err);
         }

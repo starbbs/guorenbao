@@ -67,11 +67,10 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 		
 		var list_sell_html = "";
 		var buy_list_html = "";
-
-		if(!list_buy){
-
-		} else if(list_buy.length!=0){
+		if(list_buy.length!=0){
 			if(list_buy.length<=5){
+				console.log("-------------");
+				console.log(list_buy[0][0]);
 				$("#wbr_m_best_buy").html(list_buy[0][0]);  //最佳买价
 				for(var i=0;i<list_buy.length;i++){
 		            buy_list_html += "<div class='table_row'>"
@@ -100,9 +99,7 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 			$(".buysec").html(buy_list_html);
 		}
 
-
-		if(!list_sell){
-		} else if(list_sell.length!=0){
+		if(list_sell.length!=0){
 			if(list_sell.length<=5){
 				$("#wbr_m_best_sell").html(list_sell[0][0]);  //最佳卖价
 				for(var i=0;i<list_sell.length;i++){

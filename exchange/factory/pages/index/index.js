@@ -89,9 +89,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         }
         $(".popDiv").hide();
         $(".bg").hide();
-
-        console.log("asdf")
-
         synchronous();
         setInterval(synchronous, 300000);
     }
@@ -403,13 +400,13 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                         if (data.status == 200) {
                             var totalAssets = data.data.gopBalance + data.data.gopLock;
                             var totalNuts = data.data.cnyBalance + data.data.cnyLock;
-                            $.cookie("totalAssets",totalAssets);
-                            $.cookie("totalNuts",totalNuts);
-                            console.log(data);
-                            $.cookie("mine_one",data.data.cnyBalance);
-                            $.cookie("mine_two",data.data.gopBalance);
-                            $.cookie("mine_three",data.data.cnyLock);
-                            $.cookie("mine_four",data.data.gopLock);
+                            // $.cookie("totalAssets",totalAssets);
+                            // $.cookie("totalNuts",totalNuts);
+                            // console.log(data);
+                            // $.cookie("mine_one",data.data.cnyBalance);
+                            // $.cookie("mine_two",data.data.gopBalance);
+                            // $.cookie("mine_three",data.data.cnyLock);
+                            // $.cookie("mine_four",data.data.gopLock);
                             $('.lf_asset_center').html(totalAssets);//总资产
                             $('.rg_asset_center').html(totalNuts);//总果仁
                         } else if (data.status == 305) {
@@ -473,7 +470,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     var fflat = true;
     $(".eye_i").on("click",function(){
         if(fflat){
-            $(this)[0].style.background = "url(./images/index_no_eye.png)";
+            $(this)[0].style.background = "url(./images/floor_no_eye.png)";
             fflat = false;
             $(".lf_asset_center").hide();
             $(".lf_asset_center_none").show();

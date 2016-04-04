@@ -88,13 +88,13 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pageh
     api_mkt.getTotalAssets(function(data) {        
         if (data.status == 200) {
             console.log(data);
-            $('#total_assets').text(data.data.cnyBalance + '.00');
-            $('.cnyBalance').text(data.data.cnyBalance + '.00');
-            $('.gopLock').text(data.data.gopLock + '.00');
-            $('.cnyLock').text(data.data.cnyLock + '.00');
-            $('.gopBalance').text(data.data.gopBalance + '.00');
-            $.cookie('allCNY',$('.cnyBalance').text());
-            $.cookie('gop',$('.gopBalance').text());
+            $('#total_assets').text(data.data.cnyBalance);
+            $('.cnyBalance').text(data.data.cnyBalance);
+            $('.gopLock').text(data.data.gopLock);
+            $('.cnyLock').text(data.data.cnyLock);
+            $('.gopBalance').text(data.data.gopBalance);
+            //$.cookie('allCNY',$('.cnyBalance').text());
+            //$.cookie('gop',$('.gopBalance').text());
         } else {
             console.log(data.msg);
         }
