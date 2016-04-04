@@ -202,6 +202,21 @@ require(['api_mkt','cookie'], function(api_mkt) {
 					//进入注册完成页
 					$(".four").css('display','flex');
 					$(".three").css('display','none');
+					// api_mkt.login({
+			  //           phone: phone,
+			  //           password: password,
+		   //              code:authcode_common
+			  //       }, function(data) {
+			  //           if (data.status == 200) {
+			                
+			  //           } else if (data.status == 305) {
+			  //               alert(data.msg);
+			  //           } else if (data.status==400) {
+		   //                  $(".autocode_tips").show().html(data.msg);
+		   //              } else {
+			  //           	$(".error_tips").show().html(data.msg);
+			  //           }
+			  //       });
 					toIndex();
 				} else {
 					console.log(data.status);
