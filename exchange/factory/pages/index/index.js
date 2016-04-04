@@ -42,21 +42,21 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         });
     }
 
-    api_mkt.login({          
-        'realName':$('.personName').val(),
-        'idNumber':$('.personId').val()    
-    }, function(data) {
-        if (data.status == 200) {
-            console.log(data);
-            //进入注册完成页
-            $(".four").css('display','flex');
-            $(".three").css('display','none');
-            toIndex();
-        } else {
-            console.log(data.status);
-            $('.threeStep').css('backgroundColor','#eee');
-        }
-    });
+    // api_mkt.login({          
+    //     'realName':$('.personName').val(),
+    //     'idNumber':$('.personId').val()    
+    // }, function(data) {
+    //     if (data.status == 200) {
+    //         console.log(data);
+    //         //进入注册完成页
+    //         $(".four").css('display','flex');
+    //         $(".three").css('display','none');
+    //         toIndex();
+    //     } else {
+    //         console.log(data.status);
+    //         $('.threeStep').css('backgroundColor','#eee');
+    //     }
+    // });
 
 
     if (!exchangeToken) {          //没有token 即未登录

@@ -6,11 +6,11 @@ require(['api_mkt','cookie'], function(api_mkt) {
     var exchangeToken = $.cookie('exchangeToken');
     
     if (!exchangeToken) {
-        $(".popDiv").show();
-        $(".bg").show();
+        //$(".popDiv").show();
+        //$(".bg").show();
     } else {  //已经实名认证
-        $(".popDiv").hide();
-        $(".bg").hide();
+        //$(".popDiv").hide();
+        //$(".bg").hide();
 
         api_mkt.userbasic(function(data){
             /**

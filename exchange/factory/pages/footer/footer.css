@@ -63,9 +63,8 @@
     height: 100%;
     overflow: hidden;
     font-family: "微软雅黑";
-    background-color: #f6f6f6;
+    background-color: #ffffff;
 }
-
 
 .report_forms {
     background-color: #ffffff;
@@ -118,16 +117,19 @@
     color: #777777;
     font-size: 1.6rem;
     cursor: pointer;
-    text-decoration:none;
+    text-decoration: none;
 }
+
 .index_on {
     color: #0bbeee;
 }
+
 .quoted_price_top,
 .report_forms {
     max-width: 1200px;
     margin: 0 auto;
 }
+
 .quoted_price_top_wrapper {
     display: flex;
     height: 70px;
@@ -144,14 +146,106 @@
     background-color: #ffffff;
 }
 
-
 .center_content {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    display: flex;
     margin-top: 14px;
 }
 
+.topbanner {
+    background: url('../images/footer_banner_footer.png') no-repeat 0 0;
+    height: 258px;
+    background-size: 100% 100%;
+}
 
+.center_indicator {
+    width: 100%;
+    height: 64px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e6e6e6;
+    box-sizing: border-box;
+}
 
+.tab {
+    float: left;
+    margin-right: 42px;
+    line-height: 62px;
+    position: relative;
+    top: 0px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.tabcon {
+    width: 100%;
+}
+
+.tab_on {
+    border-bottom: 2px solid #333333;
+}
+
+.tab_one_h3 {
+    margin-top: 68px;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.indicator_wrapper {
+    width: 400px;
+    margin: 0 auto;
+    height: 64px;
+}
+
+.tab_one_p1 {
+    margin-top: 128px;
+    text-align: center;
+}
+
+.one1 {
+    text-align: center;
+    height: 188px;
+}
+
+.one1 h3 {
+    font-size: 2.0rem;
+    position: relative;
+    top: 68px;
+}
+
+.one1 p {
+    position: relative;
+    top: 128px;
+    font-size: 1.2rem;
+}
+
+.one2 {
+    text-align: center;
+    height: 188px;
+}
+
+.one2 h3 {
+    font-size: 2.0rem;
+    top: 26px;
+    position: relative;
+}
+
+.one2 p {
+    position: relative;
+    top: 68px;
+    font-size:1.2rem;
+}
+
+.one3 {
+    text-align: center;
+    height: 686px;
+}
+.one3 h3{
+    font-size: 2.0rem;
+    top: 26px;
+    position: relative;
+}
+.one3 img{
+    position:relative;
+    top:50px;
+}

@@ -9,15 +9,55 @@
     <script type="text/javascript" src="./js/jquery-1.12.1.min.js"></script>
     <script type="text/javascript" src="./js/require.js"></script>
     <script type="text/javascript" src="./js/config.js"></script>
-    <script type="text/javascript" src="./js/common.js"></script>
+    <!-- <script type="text/javascript" src="./js/common.js"></script> -->
     <script type="text/javascript" src="./js/footer.js"></script>
 </head>
 <body>
     <div class="wrapper">
         @@include('../../includes/top/topbar.html')
         @@include('../../includes/top/topnav.html',{"feature_on":"mine"})
+        <div class="topbanner">
+            <img src="./images/footer_banner_footer.png">
+        </div>
+        <div class="center_indicator">
+            <div class="indicator_wrapper">
+                <div class="tab tab_on">关于我们</div>
+                <div class="tab">费率及服务</div>
+                <div class="tab">安全体系</div>
+                <div class="tab">服务中心</div>
+            </div>
+        </div>
         <div class="center_content">
-            xxx
+            <div class="tabcon tab_one">
+                <div class="one1">
+                    <h3>平台服务范围</h3>
+                    <p>果仁市场为用户在网站进行的 Goopal数字积分（果仁）交易活动提供网络交易平台服务。平台本身并不参与买卖Goopal数字积分(果仁)的行为。</p>
+                </div>
+                <div class="one2">
+                    <h3>平台服务范围</h3>
+                    <p>果仁市场为用户在网站进行的 Goopal数字积分（果仁）交易活动提供网络交易平台服务。平台本身并不参与买卖Goopal数字积分(果仁)的行为。</p>
+                </div>
+                <div class="one3">
+                    <h3>企业资质</h3>
+                    <img src="./images/qualification.png" alt="">
+                </div>
+                <div class="one4">
+                    <h3>联系我们</h3>
+                    <ul>
+                        <li>客服热线</li>
+                        <li>商务致电</li>
+                        <li>企业邮箱</li>
+                    </ul>
+                    <div>
+                        <img src="./images/map_address.png" alt="">
+                    </div>
+                    <p>北京果汇科技有限公司</p>
+                    <p>地址：北京市海淀区知春路太月园1号楼泰跃商务中心3层</p>
+                </div>
+            </div>
+            <div class="tabcon tab_two"></div>
+            <div class="tabcon tab_three"></div>
+            <div class="tabcon tab_four"></div>
         </div>
         @@include('../../includes/bottom/bottom.html')
     </div>
