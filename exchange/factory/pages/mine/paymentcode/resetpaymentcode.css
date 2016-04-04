@@ -408,8 +408,9 @@
     line-height: 31px;
     float: left;
     margin-left: 34px;
-    border: 1px solid #d6d6d6;
-        cursor: pointer;
-            background-color: #f5f5f5;
+    border: 1px solid #cccccc;
+    color: #424242;
+    cursor: pointer;
+    background-color: #f5f5f5;
 }
 

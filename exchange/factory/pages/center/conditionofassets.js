@@ -25,7 +25,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pageh
         if (data.status == 200) {
             if(data.data){
                 var dlist = data.data.list;
-                if(dlist){
+                if(dlist.length!=0){
                     console.log(data);
                     console.log(data.data.list[0].createDate);
                     var html = [];

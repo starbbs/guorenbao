@@ -10,7 +10,7 @@
 
     <script type="text/javascript" src="./js/require.js"></script>
     <script type="text/javascript" src="./js/config.js"></script>
-    <script type="text/javascript" src="./js/common.js"></script>
+    <!-- <script type="text/javascript" src="./js/common.js"></script> -->
     <script type="text/javascript" src="./js/resetpaymentcode.js"></script>
 </head>
 <body>
@@ -64,11 +64,11 @@
                         </div>
                         <div class="two_rg_rg_input" style="display: none;">
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="支付密码" id="password"/>
+                                <input class="regist_rg_input" type="text" placeholder="支付密码" id="password" minlength="8" maxlength="20" />
                                 <span class="tow_span1"></span>
                             </div>
                             <div class="regist_input_div edit_yanzhengma">
-                                <input class="regist_rg_input" type="text" placeholder="确认密码" id="confirmPwd"/>
+                                <input class="regist_rg_input" type="text" placeholder="确认密码" id="confirmPwd" minlength="8" maxlength="20"/>
                                 <span class="tow_span2"></span>
                             </div>
                             <div class="next_step_btn_two">下一步</div>
@@ -76,7 +76,7 @@
                         </div>
                         <div class="correct" style="display: none;">
                             <div class="correct_left">
-                                <img src="./images/correct.png">
+                                <img src="./images/mine_paymentcode_correct.png">
                             </div>
                             <div class="correct_right">
                                 <div class="correct_right_top">
