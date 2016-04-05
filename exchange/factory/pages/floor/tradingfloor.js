@@ -34,13 +34,14 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             var cnyBalance = data.data.cnyBalance;  //剩余人民币数
             var gopLock = data.data.gopLock;  //冻结果仁数
             var cnyLock = data.data.cnyLock;  //冻结人民币数
-
-            var totalAssets = data.data.gopBalance + data.data.gopLock;
+            var totalAssets = data.data.cnyBalance + data.data.cnyLock;
+            var totalNuts = data.data.gopBalance + data.data.gopLock;
+            var totalvalue = totalNuts*$('#thelatestprice').html()+totalAssets;
+            $('.iallshow').html(totalvalue);//总资产
             $(".ioneshow").html(cnyBalance);
             $(".itwoshow").html(gopBalance);
             $(".ithreeshow").html(cnyLock);
             $(".ifourshow").html(gopLock);
-            $(".iallshow").html(totalAssets);
         } else {
             console.log(data.msg);
         }

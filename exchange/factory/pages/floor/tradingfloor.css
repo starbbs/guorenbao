@@ -945,8 +945,7 @@
     top: 1px; 
     position: relative;
     cursor: pointer;
-    /* background: url("./eye_visible.png") 0px 0px no-repeat; */
-    background: url("../images/floor_eye_black.png") 0px 0px no-repeat;
+    background: url("../images/floor_no_eye.png") 0px 0px no-repeat;
 }
 
 .top_cny_i{

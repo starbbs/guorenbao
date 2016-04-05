@@ -1,9 +1,6 @@
 define('api_mkt', ['cookie'], function() {
     var basePath = 'http://localhost/';
     //var basePath = 'http://10.23.1.155/';
-    //var basePath = "http://172.16.33.3:8080/";
-    //http://ip:port/login/registerBefore
-    //var basePath = 'http://ip:port/login/registerBefore';
     var api = {};
     var goIndex = function(useURL) { //返回首页
         if (useURL) {}
@@ -43,11 +40,6 @@ define('api_mkt', ['cookie'], function() {
         var xhr = null;
         options = options || {};
         api[name] = function(data, success) { // 每个接口具体请求
-            if (xhr && !options.asyn) {
-                xhr.abort();
-                xhr = null;
-                return;
-            }
             if (typeof data === 'function') {
                 success = data;
                 data = {};
