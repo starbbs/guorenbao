@@ -13,6 +13,9 @@
     <title>控制面板</title>
     <style>
      .td-1{width:20px}
+     td {
+      white-space:nowrap;overflow:hidden;text-overflow: ellipsis;
+    }
     </style>
 </head>
 <body ms-controller="test">
@@ -46,21 +49,21 @@
                     <td width="80px">用户名</td>
                     <td>金额</td>
                     <td>金额</td>
-                    <td width="85px">bankName</td>
-                    <td width="145px">bankId</td>
+                    <td width="35px">bankName</td>
+                    <td width="65px">bankId</td>
                     <td>姓名</td>
                     <td>附言</td>
-                    <td style="width:110px;">
+                    <td style="width:105px;">
                         <label for="selectStatus">状态:</label>
                         <select class="aside-table-thead-select" name="selectStatus">
-                            <option selected="selected">等待</option>
-                            <option>成功</option>
-                            <option>已取消</option>
-                            <option>显示全部</option>
+                            <option selected="selected">WAIT</option>
+                            <option>SUCCESS</option>
+                            <option>CANCEL</option>
+                            <option>ALL</option>
                         </select>
                     </td>
-                    <td width="70px">创建于</td>
-                    <td width="70px">更新于</td>
+                    <td width="125px">创建于</td>
+                    <td width="125px">更新于</td>
                 </tr>
             </thead>
             <tbody class="aside-table-tbody" id="tobody-json">
@@ -69,15 +72,15 @@
         </table>
         <!-- 分页 -->
         <div id="div1" class="PageCode">
-            <!--<a href="#1">首页</a>
-                <a href="#3">上一页</a>
-                <a href="#2">[2]</a>
-                <a href="#3">[3]</a>
-                <a href="#4">4</a>
-                <a href="#5">[5]</a>
-                <a href="#6">[6]</a>
-                <a href="#5">下一页</a>
-                <a href="#10">尾页</a>-->
+            <!-- <a href="#1">首页</a>
+            <a href="#3">上一页</a>
+            <a href="#2">[2]</a>
+            <a href="#3">[3]</a>
+            <a href="#4">4</a>
+            <a href="#5">[5]</a>
+            <a href="#6">[6]</a>
+            <a href="#5">下一页</a>
+            <a href="#10">尾页</a> -->
         </div>
     </aside>
 <!-- 弹出框内容 -->

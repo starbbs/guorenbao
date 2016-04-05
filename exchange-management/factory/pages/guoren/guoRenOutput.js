@@ -1,59 +1,60 @@
 require(['api_mkt_management'],function(api_mkt_management){
 
     //人民币充值/提现查询
-    api_mkt_management.transferGopOutput({
-        'id':'',
-        'uid':'',
-        'phone':'',
-        'optType':'OUT',
-        'address':'',
-        'optType':'',
-        'status':'',
-        'pageNo':1,
-        'pageSize':10
-    },function(data){
-        if (data.status == 200) {
-            console.log(data.data.list[0].mobile);
-            var html = [];
-            for(var i=0; i<10;i++){
-               html.push("<tr>");
-                html.push("<td>"+ data.data.list[i].id +"</td>");
-                html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
-                html.push("<td>"+ data.data.list[i].wallet +"</td>");
-                html.push("<td>"+ data.data.list[i].number +"</td>");
-                html.push("<td>"+ data.data.list[i].transferGopStatus +"</td>");
-                html.push("<td>"+ data.data.list[i].msg +"</td>");
-                html.push("<td class='createTime'>"+ data.data.list[i].createDate +"</td>");
-                html.push("<td class='updateTimed'>"+ data.data.list[i].updateDate +"</td>");
-                html.push("</tr>");
-                $(".aside-table-tbody").html("");  //添加前，先清空 
-                $(".aside-table-tbody").append(html.join("")); 
+    $("#div1").html("");   //添加前，先清空 
+    page({            
+        id : 'div1',
+        nowNum : 1,
+        allNum : 2, // Math.ceil(data.data.list.length/10),
+        callBack : function(now,all){
+            //alert(now);
+            api_mkt_management.transferGopOutput({
+                'id':'',
+                'uid':'',
+                'phone':'',
+                'optType':'OUT',
+                'address':'',
+                'optType':'',
+                'status':'',
+                'pageNo':now,
+                'pageSize':10
+            },function(data){   
+                 if (data.status == 200 && data.data.list.length > 1) {                             
+                        var html = [];
+                        var len = data.data.list.length < 10?data.data.list.length:10;
+                        for(var i=0; i<len;i++){
+                           html.push("<tr>");
+                            html.push("<td>"+ data.data.list[i].id +"</td>");
+                            html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
+                            html.push("<td>"+ data.data.list[i].phone +"</td>");
+                            html.push("<td>"+ data.data.list[i].wallet +"</td>");
+                            html.push("<td>"+ data.data.list[i].number +"</td>");
+                            html.push("<td>"+ data.data.list[i].transferGopStatus +"</td>");
+                            html.push("<td>"+ data.data.list[i].msg +"</td>");
+                            html.push("<td class='createTime'>"+ data.data.list[i].createDate +"</td>");
+                            html.push("<td class='updateTimed'>"+ data.data.list[i].updateDate +"</td>");
+                            html.push("</tr>");
+                            $(".aside-table-tbody").html("");  //添加前，先清空 
+                            $(".aside-table-tbody").append(html.join("")); 
 
-                //时间戳转时间格式
-                $('.createTime').text(unix_to_datetime(data.data.list[i].createDate));
-                $('.updateTimed').text(unix_to_datetime(data.data.list[i].updateDate));
-                function unix_to_datetime(unix) {
-                    var now = new Date(parseInt(unix));
-                    return now.toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
-                }
-                //用户详情
-                $('.toUidInfo').click(function(){
-                    $.cookie('userUid',$(this).children().text());
-                    $.cookie('userUidMobile',$(this).parent().find('.mobile').text());
-                    api_mkt_management.userInfo({
-                        'uId':$(this).children().text()
-                    },function(data) {
-                        if (data.status == 200) {
-                            console.log(data);
-                            window.location.href='user-info.html';
-                        } else {
-                            console.log(data.msg);
+                            //用户详情
+                            $('.toUidInfo').click(function(){
+                                $.cookie('userUid',$(this).children().text());
+                                $.cookie('userUidMobile',$(this).parent().find('.mobile').text());
+                                api_mkt_management.userInfo({
+                                    'uId':$(this).children().text()
+                                },function(data) {
+                                    if (data.status == 200) {
+                                        console.log(data);
+                                        window.location.href='user-info.html';
+                                    } else {
+                                        console.log(data.msg);
+                                    }
+                                });
+                            });
                         }
-                    });
-                });
-            }
-        } else {
-            console.log(data.msg);
+                    }
+            });   
         }
     });   
     
@@ -191,30 +192,6 @@ require(['api_mkt_management'],function(api_mkt_management){
     }
     //分页 结束
 
-    //表格 select -> onchange -> filter
-    $(".aside-table-thead-select").change(function(){
-        var oVal =  $(".aside-table-thead-select").find("option:selected").text(); 
-        
-            /*if(oVal === "成功"){
-                $(".aside-table-tbody tr").each(function(){ 
-                    $(this).hide();
-                    $(this).filter(":contains('成功')").show().css('padding','10px');
-                });
-            }else if(oVal === "等待"){
-                $(".aside-table-tbody tr").each(function(){
-                    $(this).hide();
-                    $(this).filter(":contains('等待')").show();
-                });
-            }else if(oVal === "已取消"){
-                $(".aside-table-tbody tr").each(function(){
-                    $(this).hide();
-                    $(this).filter(":contains('已取消')").show();
-                });
-            }else{
-                $(this).parent().show();
-            }*/
-
-    });
 
 
 

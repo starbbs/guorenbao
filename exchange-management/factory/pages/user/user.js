@@ -57,7 +57,7 @@ require(['jquery','api_mkt_management'], function($,api_mkt_management) {
                 html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</a></td>");
                 html.push("<td class='mobile'>"+ data.data.list[i].mobile +"</td>");
                 html.push("<td class='userNameHave'>"+ data.data.list[i].name +"</td>");
-                html.push("<td>"+ data.data.list[i].createTime +"</td>");
+                html.push("<td>"+ data.data.list[i].createDate +"</td>");
                 html.push("<td>"+ data.data.list[i].createip +"</td>");
                 html.push("</tr>");
                 $(".aside-table-tbody").html("");  //添加前，先清空 
@@ -220,7 +220,7 @@ require(['jquery','api_mkt_management'], function($,api_mkt_management) {
     }
     //分页 结束
 
-    //表格 select -> onchange -> filter
+    /*//表格 select -> onchange -> filter
     $(".aside-table-thead-select").change(function(){
         //ar oVal = $(".aside-table-thead-select").val();
         var oVal =  $(".aside-table-thead-select").find("option:selected").text();  //被选中的选项
@@ -248,7 +248,7 @@ require(['jquery','api_mkt_management'], function($,api_mkt_management) {
                 $(this).parent().show();
             }
         });
-    });
+    });*/
 
     //输入文本框 + 下拉菜单选择 -> 搜索
     /*$(".aside-div-searchBtn").submit(function(){

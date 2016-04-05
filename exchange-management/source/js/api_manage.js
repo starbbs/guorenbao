@@ -2,6 +2,8 @@ define('api_mkt_management', ['cookie'], function() {
 
 	//var basePath = 'http://localhost/';
 	var basePath = './';
+	var basePath = 'http://10.23.1.138/';
+
 	var api = {};
 	var goIndex = function(useURL) {		//返回首页
 		if (useURL) {
