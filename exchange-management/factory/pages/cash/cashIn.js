@@ -1,4 +1,9 @@
 require(['api_mkt_management'],function(api_mkt_management){
+    /*function unix_to_datetime(unix) {
+        var now = new Date(parseInt(unix));
+        console.log(now.toLocaleString());
+        return now.toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ").replace(/上午/g,"am").replace(/下午/g,"pm");
+    }*/
 
     //人民币充值/提现查询
 
@@ -36,12 +41,9 @@ require(['api_mkt_management'],function(api_mkt_management){
                             $(".aside-table-tbody").html("");  //添加前，先清空 
                             $(".aside-table-tbody").append(html.join("")); 
                             //时间戳转时间格式
-                            $('.createTime').text(unix_to_datetime(data.data.list[i].createDate));
-                            $('.updateTimed').text(unix_to_datetime(data.data.list[i].updateDate));
-                            function unix_to_datetime(unix) {
-                                var now = new Date(parseInt(unix));
-                                return now.toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ").replace(/上午/g,"am").replace(/下午/g,"pm");
-                            }  
+                            /*$('.createTime').text(unix_to_datetime(data.data.list[i].createDate));
+                            $('.updateTimed').text(unix_to_datetime(data.data.list[i].updateDate));*/
+
                             //用户详情
                             $('.toUidInfo').click(function(){
                                 $.cookie('userUid',$(this).children().text());
