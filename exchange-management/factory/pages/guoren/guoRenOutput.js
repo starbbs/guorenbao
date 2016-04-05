@@ -1,11 +1,12 @@
 require(['api_mkt_management'],function(api_mkt_management){
-
+    $.cookie('pageTotal', '');
+    
     //人民币充值/提现查询
     $("#div1").html("");   //添加前，先清空 
     page({            
         id : 'div1',
         nowNum : 1,
-        allNum : 2, // Math.ceil(data.data.list.length/10),
+        allNum : $.cookie('pageTotal'), 
         callBack : function(now,all){
             //alert(now);
             api_mkt_management.transferGopOutput({
@@ -21,12 +22,14 @@ require(['api_mkt_management'],function(api_mkt_management){
             },function(data){   
                  if (data.status == 200 && data.data.list.length > 1) {                             
                         var html = [];
+
+                        $.cookie('pageTotal',data.data.pageNum);
                         var len = data.data.list.length < 10?data.data.list.length:10;
                         for(var i=0; i<len;i++){
                            html.push("<tr>");
                             html.push("<td>"+ data.data.list[i].id +"</td>");
                             html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
-                            html.push("<td>"+ data.data.list[i].phone +"</td>");
+                            /*html.push("<td>"+ data.data.list[i].phone +"</td>");*/
                             html.push("<td>"+ data.data.list[i].wallet +"</td>");
                             html.push("<td>"+ data.data.list[i].number +"</td>");
                             html.push("<td>"+ data.data.list[i].transferGopStatus +"</td>");

@@ -1,10 +1,11 @@
 require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_management){
+    $.cookie('pageTotal', '');
     
     $("#div1").html("");   //添加前，先清空 
     page({            
         id : 'div1',
         nowNum : 1,
-        allNum : 7, // Math.ceil(data.data.list.length/10),
+        allNum : $.cookie('pageTotal'), 
         callBack : function(now,all){
             //人民币充值/提现查询
             api_mkt_management.trade({
@@ -19,7 +20,7 @@ require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_manag
                 'pageSize':10
             },function(data){
                 if (data.status == 200) {
-                    console.log(data.data.list[0].mobile);
+                    $.cookie('pageTotal',data.data.pageNum);
                     var html = [];
                     for(var i=0; i<10;i++){
                        html.push("<tr>");

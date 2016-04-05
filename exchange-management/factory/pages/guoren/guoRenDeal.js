@@ -1,11 +1,11 @@
-require(['api_mkt_management'],function(api_mkt_management){
-
+require(['api_mkt_management'],function(api_mkt_management){    
+    $.cookie('pageTotal', '');
     //人民币充值/提现查询
     $("#div1").html("");   //添加前，先清空 
     page({            
         id : 'div1',
         nowNum : 1,
-        allNum : 3, // Math.ceil(data.data.list.length/10),
+        allNum : $.cookie('pageTotal'), 
         callBack : function(now,all){
             //alert(now);
             api_mkt_management.order({
@@ -19,7 +19,9 @@ require(['api_mkt_management'],function(api_mkt_management){
                 'pageNo':now,
                 'pageSize':10
             },function(data){   
-                 if (data.status == 200 && data.data.list.length > 1) {                             
+                 if (data.status == 200 && data.data.list.length > 1) { 
+                        
+                        $.cookie('pageTotal',data.data.pageNum);                                                    
                         var html = [];
                         var len = data.data.list.length < 10?data.data.list.length:10;
                         for(var i=0; i<len;i++){
