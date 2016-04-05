@@ -522,7 +522,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             var cnyBalance = data.data.cnyBalance;
             $.cookie('allCNY',cnyBalance);
              //买入价格
-            $('.w_b_l').html("<em>账户余额："+data.data.cnyBalance+" CNY</em>");
+            $('.w_b_l').html("<em>账户余额："+data.data.cnyBalance+" GOP</em>");
         } else {
             console.log(data.msg);
         }

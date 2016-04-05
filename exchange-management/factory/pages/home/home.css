@@ -238,9 +238,9 @@ Progress Bars
   height: 40px;
   line-height: 40px;
   cursor: pointer;
-  background: url(./images/collapsed.gif) no-repeat 110px center; }
+  background: url(../images/home_collapsed.gif) no-repeat 110px center; }
   .div2:hover {
-    background: url(./images/collapsed.gif) #575757 no-repeat 110px center; }
+    background: url(../images/home_collapsed.gif) #575757 no-repeat 110px center; }
 
 .div2-1 {
   padding-left: 50px;
@@ -248,7 +248,7 @@ Progress Bars
   line-height: 40px;
   cursor: pointer;
   color: #000;
-  background: url(./images/collapsed.gif) #ccc no-repeat 110px center; }
+  background: url(../images/home_collapsed.gif) #ccc no-repeat 110px center; }
 
 .div2-2 {
   padding-left: 30px;

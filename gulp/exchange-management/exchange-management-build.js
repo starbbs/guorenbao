@@ -8,7 +8,6 @@ var paths = {
     source: '../exchange-management/source',
     pages: '../exchange-management/factory/pages',
     common: '../source',
-    includes: '../exchange-management/factory/includes',
     font:'../exchange-management/source/fonts'
 };
 var notify = function(task, path) { // 提示
