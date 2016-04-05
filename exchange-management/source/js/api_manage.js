@@ -142,7 +142,9 @@ define('api_mkt_management', ['cookie'], function() {
 	//用户_基本信息
 	add('userInfo','exchange_manager/user/userInfo');
 	//用户银行卡信息
-	add('userAcBank','exchange_manager/user/userAcBank');
+	add('userAcBank','exchange_manager/user/userAcBank');	
+	//后台管理员列表
+	add('adminList','exchange_manager/login/adminList');
 
 	return api;
 });
