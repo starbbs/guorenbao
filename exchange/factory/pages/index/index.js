@@ -370,8 +370,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         if(password==""){
             $(".error_tips_index").show().html("请输入密码");
             return;
-        } else if(password.length>12||password.length<6){
-            $(".error_tips_index").show().html("请输入6~12位密码");
+        } else if(password.length>20||password.length<6){
+            $(".error_tips_index").show().html("请输入6~20位密码");
             return;
         }
         if(authcode_index==""){
