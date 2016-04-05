@@ -1,5 +1,4 @@
 require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_management){
-    $.cookie('pageTotal', '');
     
     $("#div1").html("");   //添加前，先清空 
     page({            

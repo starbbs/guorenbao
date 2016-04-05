@@ -15,7 +15,6 @@ require(['jquery','api_mkt_management'], function($,api_mkt_management) {
     $('.div-2-btn').click(function(){
         api_mkt_management.logout(function(data) {
             if (data.status == 200) {
-                //console.log(data);
                 $.cookie('key','');
                 window.location.href="login.html";
             } else {
@@ -113,39 +112,30 @@ require(['jquery','api_mkt_management'], function($,api_mkt_management) {
 
     //操作框架
     $(".liCashIn").click(function() {
-        $.cookie('pageTotal','');
         $(".frameHtml").attr("src", "cashIn.html");
     });
     $(".liCashOut").click(function() {
-        $.cookie('pageTotal','');
         $(".frameHtml").attr("src", "cashOut.html");
     });
     $(".liguoRenDeal").click(function() {
-        $.cookie('pageTotal','');
         $(".frameHtml").attr("src", "guoRenDeal.html");
     });
     $(".liguoRenKaDan").click(function() {
-        $.cookie('pageTotal','');
         $(".frameHtml").attr("src", "guoRenKaDan.html");
     });
     $(".liguoRenInput").click(function() {
-        $.cookie('pageTotal','');
         $(".frameHtml").attr("src", "guoRenInput.html");
     });
     $(".liguoRenOutput").click(function() {
-        $.cookie('pageTotal','');
         $(".frameHtml").attr("src", "guoRenOutput.html");
     });
     $(".liguoRenGuaDan").click(function() {
-        $.cookie('pageTotal','');
         $(".frameHtml").attr("src", "guoRenGuaDan.html");
     });
     $(".liuser").click(function() {
-        $.cookie('pageTotal','');
         $(".frameHtml").attr("src", "user.html");
     });
     $(".liuser-info").click(function() {
-        $.cookie('pageTotal','');
         $(".frameHtml").attr("src", "user-info.html");
     });
 

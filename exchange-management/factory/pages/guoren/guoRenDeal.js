@@ -1,5 +1,4 @@
 require(['api_mkt_management'],function(api_mkt_management){    
-    $.cookie('pageTotal', '');
     //人民币充值/提现查询
     $("#div1").html("");   //添加前，先清空 
     page({            

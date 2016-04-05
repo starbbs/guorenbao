@@ -43,7 +43,7 @@ require(['jquery','api_mkt_management'], function($,api_mkt_management) {
     });
     
     //请求
-     $("#div1").html("");   //添加前，先清空 
+    $("#div1").html("");   //添加前，先清空 
     page({            
         id : 'div1',
         nowNum : 1,
