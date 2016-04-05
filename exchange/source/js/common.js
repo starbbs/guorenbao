@@ -186,11 +186,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     api_mkt.totalAssets({
                     }, function(data) {
                         if (data.status == 200) {
-                        	var totalAssets = data.data.gopBalance + data.data.gopLock;
-                            var totalNuts = data.data.cnyBalance + data.data.cnyLock;
-                            $.cookie("totalAssets",totalAssets);
-                            $.cookie("totalNuts",totalNuts);
-                            $('.lf_asset_center').html(totalAssets);//总资产
+                        	var totalAssets = data.data.cnyBalance + data.data.cnyLock;
+                            var totalNuts = data.data.gopBalance + data.data.gopLock;
+                            //$('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
+                            var totalvalue = totalNuts*$('#thelatestprice').html()+totalAssets;
+                            $('.lf_asset_center').html(totalvalue);//总资产
                             $('.rg_asset_center').html(totalNuts);//总果仁
                         } else if (data.status == 305) {
                         } else if(data.status == 400){

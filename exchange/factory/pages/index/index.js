@@ -12,6 +12,20 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     var mine_three = $.cookie("mine_three");
     var mine_four = $.cookie("mine_four");
 
+
+    api_mkt.totalAssets(function(data) {
+        if (data.status == 200) {
+            var totalAssets = data.data.cnyBalance + data.data.cnyLock;
+            var totalNuts = data.data.gopBalance + data.data.gopLock;
+            //console.log($('#thelatestprice').html());
+            var totalvalue = totalNuts*$('#thelatestprice').html()+totalAssets;
+            $('.lf_asset_center').html(totalvalue);//总资产
+            $('.rg_asset_center').html(totalNuts); //总果仁
+        } else {
+            console.log(data.msg);
+        }
+    });
+
     var synchronous = function() {
         console.log("synchronous_index");
         $("#mybox").html("");
@@ -96,10 +110,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     $('.bg').height($(document).height());
     $('.bg').css('left', 0);
     $('.bg').css('top', 0);
-    var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        paginationClickable: true
-    });
+    // var swiper = new Swiper('.swiper-container', {
+    //     pagination: '.swiper-pagination',
+    //     paginationClickable: true
+    // });
     var ohlc = [];
     var volume = [];
     var groupingUnits = [
@@ -200,10 +214,16 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             credits: { enabled: false },
             colors: ['#000000', '#0000ff', '#ff00ff', '#f7a35c', '#8085e9'],
             title: {
-                text: '果仁市场K线图'
+                //text: '分时图',
+                style:{
+                    font:'normal 14px Microsoft yahei'
+                }
             },
             xAxis: {
-                type: 'dataTime'
+                type: 'dataTime',
+                style:{
+                    font:'normal 14px Microsoft yahei'
+                }
             },
             exporting: { enabled: false, buttons: { exportButton: { enabled: false }, printButton: { enabled: true } } },
             tooltip: { xDateFormat: '%Y-%m-%d %H:%M %A', color: '#f0f', changeDecimals: 4, borderColor: '#058dc7' },
@@ -398,16 +418,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     api_mkt.totalAssets({
                     }, function(data) {
                         if (data.status == 200) {
-                            var totalAssets = data.data.gopBalance + data.data.gopLock;
-                            var totalNuts = data.data.cnyBalance + data.data.cnyLock;
-                            // $.cookie("totalAssets",totalAssets);
-                            // $.cookie("totalNuts",totalNuts);
-                            // console.log(data);
-                            // $.cookie("mine_one",data.data.cnyBalance);
-                            // $.cookie("mine_two",data.data.gopBalance);
-                            // $.cookie("mine_three",data.data.cnyLock);
-                            // $.cookie("mine_four",data.data.gopLock);
-                            $('.lf_asset_center').html(totalAssets);//总资产
+                            var totalAssets = data.data.cnyBalance + data.data.cnyLock;
+                            var totalNuts = data.data.gopBalance + data.data.gopLock;
+                            //$('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
+                            var totalvalue = totalNuts*$('#thelatestprice').html()+totalAssets;
+                            $('.lf_asset_center').html(totalvalue);//总资产
                             $('.rg_asset_center').html(totalNuts);//总果仁
                         } else if (data.status == 305) {
                             

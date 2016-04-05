@@ -438,6 +438,7 @@ table {
     line-height: 32px;
     width: 220px;
     padding-left: 15px;
+    font-family: "Microsoft Yahei";
 }
 .first_input_div{
     top: 60px;
@@ -459,6 +460,7 @@ table {
     width: 51%;
     float: left;
     padding-left: 5%;
+    font-family: "Microsoft Yahei";
 }
 .error_tips{
     position: absolute;
@@ -505,3 +507,16 @@ table {
     left: 130px;
     display: inline-block;
 }
+
+input::-webkit-input-placeholder {
+　　color: #999 !important;
+}
+　　input:-moz-placeholder {
+　　color: #999 !important;
+　　}
+　　input::-moz-placeholder {
+　　color: #999 !important;
+　　}
+　　input:-ms-input-placeholder {
+　　color: #999 !important;
+　　}
