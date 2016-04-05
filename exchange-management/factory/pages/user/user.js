@@ -1,4 +1,5 @@
 require(['jquery','api_mkt_management'], function($,api_mkt_management) {
+    
     avalon.ready(function(){
         var vm = avalon.define({
             $id:'test',
@@ -42,47 +43,56 @@ require(['jquery','api_mkt_management'], function($,api_mkt_management) {
     });
     
     //请求
-    api_mkt_management.userList({
-        'uid':'',
-        'phone':'',
-        'name':'',
-        'pageNo':1,
-        'pageSize':10
-    },function(data){
-        if (data.status == 200) {
-            //console.log(data.data.list[0].mobile); 
-            var html = [];
-            for(var i=0; i<10;i++){
-                html.push("<tr>");
-                html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</a></td>");
-                html.push("<td class='mobile'>"+ data.data.list[i].mobile +"</td>");
-                html.push("<td class='userNameHave'>"+ data.data.list[i].name +"</td>");
-                html.push("<td>"+ data.data.list[i].createDate +"</td>");
-                html.push("<td>"+ data.data.list[i].createip +"</td>");
-                html.push("</tr>");
-                $(".aside-table-tbody").html("");  //添加前，先清空 
-                $(".aside-table-tbody").append(html.join("")); 
+     $("#div1").html("");   //添加前，先清空 
+    page({            
+        id : 'div1',
+        nowNum : 1,
+        allNum : $.cookie('pageTotal'), 
+        callBack : function(now,all){
+            api_mkt_management.userList({
+                'uid':'',
+                'phone':'',
+                'name':'',
+                'pageNo':now,
+                'pageSize':10
+            },function(data){
+                if (data.status == 200) {
+                    var html = [];
+                    $.cookie('pageTotal',data.data.pageNum);
+                    var len = data.data.list.length < 10?data.data.list.length:10;
+                    for(var i=0; i<len;i++){
+                        html.push("<tr>");
+                        html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</a></td>");
+                        html.push("<td class='mobile'>"+ data.data.list[i].mobile +"</td>");
+                        html.push("<td class='userNameHave'>"+ data.data.list[i].name +"</td>");
+                        html.push("<td>"+ data.data.list[i].createDate +"</td>");
+                        html.push("<td>"+ data.data.list[i].createip +"</td>");
+                        html.push("</tr>");
+                        $(".aside-table-tbody").html("");  //添加前，先清空 
+                        $(".aside-table-tbody").append(html.join("")); 
 
-                //用户详情
-                $('.toUidInfo').click(function(){
-                    if($(this).parent().find('.userNameHave').text().length == 0){
-                        alert('用户认证信息不存在！');
-                    }else{
-                        $.cookie('userUid',$(this).children().text());
-                        $.cookie('userUidMobile',$(this).parent().find('.mobile').text());
-                        api_mkt_management.userInfo({
-                            'uId':$(this).children().text()
-                        },function(data) {
-                            if (data.status == 200) {
-                                console.log(data);
-                                window.location.href='user-info.html';
-                            } else {
-                                console.log(data.msg);
+                        //用户详情
+                        $('.toUidInfo').click(function(){
+                            if($(this).parent().find('.userNameHave').text().length == 0){
+                                alert('用户认证信息不存在！');
+                            }else{
+                                $.cookie('userUid',$(this).children().text());
+                                $.cookie('userUidMobile',$(this).parent().find('.mobile').text());
+                                api_mkt_management.userInfo({
+                                    'uId':$(this).children().text()
+                                },function(data) {
+                                    if (data.status == 200) {
+                                        console.log(data);
+                                        window.location.href='user-info.html';
+                                    } else {
+                                        console.log(data.msg);
+                                    }
+                                });
                             }
                         });
-                    }
-                });
-            }            
+                    }            
+                }
+            });
         }
     });
 
