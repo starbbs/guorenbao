@@ -12,7 +12,7 @@
     <script type="text/javascript" src="./js/config.js"></script>
     <title>控制面板</title>
     <style>
-     .td-1{width:28px}
+     td {white-space:nowrap;overflow:hidden;text-overflow: ellipsis;}
     </style>
 </head>
 <body ms-controller="test">
@@ -40,16 +40,16 @@
         <table class="aside-table" border="1" width="100%">
             <thead class="aside-table-thead">
                 <tr>
-                    <td class="td-1">btn</td>
-                    <td class="td-1">id</td>
-                    <td class="td-1">uid</td>
+                    <td width="30px">btn</td>
+                    <td width="20px">id</td>
+                    <td width="20px">uid</td>
                     <td width="80px">用户名</td>
-                    <td>金额</td>
-                    <td width="90px">银行</td>
-                    <td width="145px">银行卡号</td>
-                    <td>姓名</td>
+                    <td width="50px">金额</td>
+                    <td width="80px">银行</td>
+                    <td width="135px">银行卡号</td>
+                    <td width="40px">姓名</td>
                     <td>附言</td>
-                    <td style="width:110px;">
+                    <td style="width:105px;">
                         <label for="selectStatus">状态:</label>
                         <select class="aside-table-thead-select" name="selectStatus">
                             <option selected="selected">等待</option>
@@ -58,8 +58,8 @@
                             <option>显示全部</option>
                         </select>
                     </td>
-                    <td>创建于</td>
-                    <td>更新于</td>
+                    <td width="125px">创建于</td>
+                    <td width="125px">更新于</td>
                 </tr>
             </thead>
             <tbody class="aside-table-tbody" id="tobody-json">
@@ -68,7 +68,7 @@
         </table>
         <!-- 分页 -->
         <div id="div1" class="PageCode">
-            <!-- <a href="#1">首页</a>
+            <a href="#1">首页</a>
             <a href="#3">上一页</a>
             <a href="#2">[2]</a>
             <a href="#3">[3]</a>
@@ -76,16 +76,17 @@
             <a href="#5">[5]</a>
             <a href="#6">[6]</a>
             <a href="#5">下一页</a>
-            <a href="#10">尾页</a> -->
+            <a href="#10">尾页</a>
         </div>
     </aside>
 <!-- 弹出框内容 -->
 <div class="mydiv" style="display:none;">
     <dl>
         <dt>请确认收到网银汇款且核实充值到账？</dt>
-        <input style="display:block" class="cashInUid" val="11" />
+        <input class="cashInUid" val="" style="display:none" />
         <dd>
-            <input class="btn-a" type="text" placeholder="请输入当前账户登录密码" /><input class="btn-b btnTrue" type="button" value="确定" />
+            <input class="btn-a" type="text" placeholder="请输入当前账户登录密码" />
+            <input class="btn-b btnTrue" type="button" value="确定" />
         </dd>
     </dl>
     <span class="btnClose">
