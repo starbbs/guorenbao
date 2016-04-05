@@ -10,6 +10,7 @@ require(['api_mkt_management'],function(api_mkt_management){
         callBack : function(now,all){
             //alert(now);
             api_mkt_management.transfer({
+                'status':'',
                 'optType':'IN',
                 'pageNo':now,
                 'pageSize':10
@@ -47,14 +48,13 @@ require(['api_mkt_management'],function(api_mkt_management){
                                 $.cookie('userUidMobile',$(this).parent().find('.mobile').text());
                                 api_mkt_management.userInfo({
                                     'uId':$(this).children().text()
-                                },function(data) {
-                                    window.location.href='user-info.html';
-                                    /*if (data.status == 200) {
+                                },function(data) {                                    
+                                    if (data.status == 200) {
                                         console.log(data);
                                         window.location.href='user-info.html';
                                     } else {
                                         console.log(data.msg);
-                                    }*/
+                                    }
                                 });
                             });
                             //<input class='btnConfirm' type='button' value="￥" />
@@ -62,14 +62,101 @@ require(['api_mkt_management'],function(api_mkt_management){
                                 //alert($(this).parent().find('.uidNum').text());
                                 $(".mydiv").css("display","block");
                                 $(".bg").css("display","block");
+                                $('.btn-a').val('');
                                 //传值
                                 $('.cashInUid').val($(this).parent().parent().find('.uidNum').text());
                                 //console.log($(this).parent().parent().find('.uidNum').text());
                             }); 
                         }
+
+                        /*if(data.data.list.length < 10){
+                            $("#div1").hide();
+                        }else{
+                            $("#div1").show();
+                        }*/
                     }
             });   
         }
+    }); 
+
+    $('.aside-table-thead-select').change(function(){
+        var optionSel = $(this).find('option:selected').text();
+        //console.log(optionSel);
+        if(optionSel === 'ALL'){
+            api_mkt_management.transfer({
+                'status':'',
+                'optType':'IN',
+                'pageNo':1,
+                'pageSize':10
+            },function(data){   
+                if (data.status == 200 && data.data.list.length > 1) {                             
+                    var html = [];
+                    var len = data.data.list.length < 10?data.data.list.length:10;
+                    for(var i=0; i<len;i++){
+                       html.push("<tr>");
+                        html.push("<td><span class='icon-cny btnConfirm'></span></td>");
+                        html.push("<td class='uidNum'>"+ data.data.list[i].id +"</td>");
+                        html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
+                        html.push("<td class='mobile'>"+ data.data.list[i].mobile +"</td>");
+                        html.push("<td>"+ data.data.list[i].money +"</td>");
+                        html.push("<td>"+ data.data.list[i].bank +"</td>");
+                        html.push("<td>"+ data.data.list[i].acnumber +"</td>");
+                        html.push("<td>"+ data.data.list[i].name +"</td>");
+                        html.push("<td>"+ data.data.list[i].msg +"</td>");
+                        html.push("<td>"+ data.data.list[i].transferCnyStatus +"</td>");
+                        html.push("<td class='createTime'>"+ data.data.list[i].createDate +"</td>");
+                        html.push("<td class='updateTimed'>"+ data.data.list[i].updateDate +"</td>");
+                        html.push("</tr>");
+                        $(".aside-table-tbody").html("");  //添加前，先清空 
+                        $(".aside-table-tbody").append(html.join("")); 
+                        //时间戳转时间格式
+                        $('.createTime').text(unix_to_datetime(data.data.list[i].createDate));
+                        $('.updateTimed').text(unix_to_datetime(data.data.list[i].updateDate));
+                        function unix_to_datetime(unix) {
+                            var now = new Date(parseInt(unix));
+                            return now.toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ").replace(/上午/g,"am").replace(/下午/g,"pm");
+                        }
+                    }
+                }
+            }); 
+        }else{
+            api_mkt_management.transfer({
+                'status':optionSel,
+                'optType':'IN',
+                'pageNo':1,
+                'pageSize':10
+            },function(data){   
+                if (data.status == 200 && data.data.list.length > 1) {                             
+                    var html = [];
+                    var len = data.data.list.length < 10?data.data.list.length:10;
+                    for(var i=0; i<len;i++){
+                       html.push("<tr>");
+                        html.push("<td><span class='icon-cny btnConfirm'></span></td>");
+                        html.push("<td class='uidNum'>"+ data.data.list[i].id +"</td>");
+                        html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
+                        html.push("<td class='mobile'>"+ data.data.list[i].mobile +"</td>");
+                        html.push("<td>"+ data.data.list[i].money +"</td>");
+                        html.push("<td>"+ data.data.list[i].bank +"</td>");
+                        html.push("<td>"+ data.data.list[i].acnumber +"</td>");
+                        html.push("<td>"+ data.data.list[i].name +"</td>");
+                        html.push("<td>"+ data.data.list[i].msg +"</td>");
+                        html.push("<td>"+ data.data.list[i].transferCnyStatus +"</td>");
+                        html.push("<td class='createTime'>"+ data.data.list[i].createDate +"</td>");
+                        html.push("<td class='updateTimed'>"+ data.data.list[i].updateDate +"</td>");
+                        html.push("</tr>");
+                        $(".aside-table-tbody").html("");  //添加前，先清空 
+                        $(".aside-table-tbody").append(html.join("")); 
+                        //时间戳转时间格式
+                        $('.createTime').text(unix_to_datetime(data.data.list[i].createDate));
+                        $('.updateTimed').text(unix_to_datetime(data.data.list[i].updateDate));
+                        function unix_to_datetime(unix) {
+                            var now = new Date(parseInt(unix));
+                            return now.toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ").replace(/上午/g,"am").replace(/下午/g,"pm");
+                        }
+                    }
+                }
+            });
+        }          
     });
 
     //分页 
@@ -239,11 +326,11 @@ require(['api_mkt_management'],function(api_mkt_management){
         }, function(data) {
             if (data.status == 200) {
                 console.log(data);
-                //window.location.href="home.html";
                 $(".frameHtml").attr("src", "cashIn.html");                
                 $(".mydiv").css("display","none");
                 $(".bg").css("display","none");
                 window.location.href='cashIn.html';
+
             } else {
                 console.log(data);
             }

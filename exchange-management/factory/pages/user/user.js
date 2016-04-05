@@ -57,7 +57,7 @@ require(['jquery','api_mkt_management'], function($,api_mkt_management) {
                 html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</a></td>");
                 html.push("<td class='mobile'>"+ data.data.list[i].mobile +"</td>");
                 html.push("<td class='userNameHave'>"+ data.data.list[i].name +"</td>");
-                html.push("<td>"+ data.data.list[i].createTime +"</td>");
+                html.push("<td>"+ data.data.list[i].createDate +"</td>");
                 html.push("<td>"+ data.data.list[i].createip +"</td>");
                 html.push("</tr>");
                 $(".aside-table-tbody").html("");  //添加前，先清空 

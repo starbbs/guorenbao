@@ -1,7 +1,7 @@
 require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_management){
     
     //人民币充值/提现查询
-        $("#div1").html("");   //添加前，先清空 
+    $("#div1").html("");   //添加前，先清空 
     page({            
         id : 'div1',
         nowNum : 1,
@@ -86,7 +86,7 @@ require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_manag
                                     $(".bg").css("display","block");
                                 }else{
                                     $(this).parent().parent().remove();
-                                    data.data.length = data.data.length-1;
+                                    //data.data.length = data.data.length-1;
                                 }
                             });
 
@@ -112,6 +112,11 @@ require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_manag
                                 });
                             });
                         }
+                       /* if(data.data.list.length < 10){
+                            $("#div1").hide();
+                        }else{
+                            $("#div1").show();
+                        }*/
                     }
             });   
         }
