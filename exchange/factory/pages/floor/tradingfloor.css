@@ -1390,10 +1390,13 @@ a {
 }
 #floor_bg {
     background-color: #333333;
-    opacity: 0.1;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
     z-index: 1;
+    position: fixed !important;  
     position: absolute;
-    top:0;
 }
 
 .note_div {
@@ -1562,5 +1565,6 @@ a {
     top:262px;
     left:114px;
 }
+
 
 
