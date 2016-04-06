@@ -1,7 +1,5 @@
 require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
-	//console.log(api_mkt);
-	//console.log(mkt_info);
-	//mkt_pagehead.get();
+
         $('.rmbxh').on('click',function(){
             $(this).addClass('bottomon');
             $('.rmbtx').removeClass('bottomon');
@@ -38,7 +36,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             'pageSize':5
         },function(data) {
             //alert(data.msg);
-            if (data.status == 200) {
+            if (data.status == 200 && data.data.list.length > 0) {
                 console.log(data);
                 var html = [];
                 for(var i=0; i<5;i++){
@@ -308,7 +306,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 
         //生成汇款单校验
         //开户人姓名校验
-        var btnConfirm;
+        var btnConfirm = false;
         $("#bank-username").blur(function(){
             var username = $("#bank-username").val();
             if(!username){
@@ -322,13 +320,16 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         //充值金额校验
         $("#bank-money").blur(function(){
             var bankmoney = $("#bank-money").val();
-            if(!bankmoney || isNaN(bankmoney)){
+            if(bankmoney < 100 || isNaN(bankmoney)){
                 btnConfirm = false;
-                $('.msg-bank-money').show().text('请输入正确的整数金额');
+                $('.msg-bank-money').show().text('最小充值金额为100元');
             }else{
                 $('.msg-bank-money').hide();
                 btnConfirm = true;
             }
+        });
+        $("#bank-money").focus(function(){
+            $("#bank-money").val('');
         });
         //银行账号校验
         $("#bank-idcard").blur(function(){
@@ -397,13 +398,12 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 //打开弹出层-生成汇款单
                 $(".mydiv").css("display","block");
                 $(".bg").css("display","block");               
-                
-                $(".remittance-id").text(Math.random()*10E16);
+                $(".remittance-id").text(getNowFormatDate() + $('.pUid').val());
                 $(".bank-card-new").text($("#bank-idcard").val());
                 $(".bank-name-new").text($("#bank").val());
                 $(".account-name-new").text($("#bank-username").val());
-                $(".money-new").text($("#bank-money").val()+'.00');
-
+                $(".money-new").text($("#bank-money").val()+'.00');                
+                $(".remittance-note-numbe-newr").text($('.pUid').val());
                 //关闭弹出层 -生成汇款单
                 $(".span-text").click(function(){
                     $(".mydiv").css("display","none");
@@ -424,6 +424,40 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         console.log('err');
                     }
                 });         
+            }
+        });
+
+        //获取当前时间字符串
+        var getNowFormatDate = function () {
+                var date = new Date();
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var strDate = date.getDate();
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                var currentdate = year + month + strDate+ date.getHours() + date.getMinutes()
+                        + date.getSeconds();
+                return currentdate;
+            }
+        //alert(getNowFormatDate());
+
+        //勾选 使用绑定手机
+        $('#phonePos').click(function(){
+            if($(this).is(':checked')){
+                api_mkt.userbasic(function(data){
+                    if(data.data){
+                        if(data.data.list){
+                            $("#phone").val(data.data.list.mobile);
+                            $('.pUid').val(data.data.list.uid);
+                        }
+                    }
+                });
+            }else{
+                $('#phone').val('');
             }
         });
         

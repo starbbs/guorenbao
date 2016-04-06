@@ -386,10 +386,11 @@
     padding-left: 14px;
 }
 .checkCode-send{
-    color:#999;    
+    color:#fff;    
     padding-left: 4px;
     outline: none;
     cursor: pointer;
+    background: #0bbeee;
 }
 .checkCode-send:hover{
     border:1px solid #bbb;

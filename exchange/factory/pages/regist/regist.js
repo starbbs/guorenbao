@@ -43,10 +43,10 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		    		count--;
 		    		if(count > 0){
 		    			$('.checkCode-send').val(count+'s后重新发送');
-		    			$('.checkCode-send').attr('disabled',true).css('cursor','not-allowed');
+		    			$('.checkCode-send').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
 		    		}else{
 		    			clearInterval(resend);
-		    			$('.checkCode-send').attr('disabled',false).css('cursor','pointer').val('获取验证码');
+		    			$('.checkCode-send').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
 		    		}
 		    	},1000); 
 	    }
@@ -55,7 +55,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	//登录密码
 	$(".checkpwd").blur(function(){			
 		var pwd = $(this).val();
-		var reg = /^[a-zA-Z0-9]\w{6,12}$/g;
+		var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
 		if(!reg.test(pwd)){
 			btnConfirm = false;
 			$('.msg-pwd').text('密码格式：6~12位非纯数字字符');
@@ -73,7 +73,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		var pwd = $.trim($(".checkpwd").val());
 		var ConfirmPwd = $(this).val();
 		if(pwd !== ConfirmPwd){
-			$('.msg-ConfirmPwd').show().text('确认密码与登录密码不一致');
+			$('.msg-ConfirmPwd').show().text('两次输入不一致');
 		}else{
 			$('.msg-ConfirmPwd').hide();
 		}
@@ -119,7 +119,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
     //下一步--支付密码
 	$(".payPwd").blur(function(){
 		var payPwd = $.trim($(".payPwd").val());
-		var reg = /^[0-9a-zA-Z]{8,20}$/;
+		var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
 		if(!reg.test(payPwd)){
 			btnConfirm = false;
 			$('.msg-payPwd').show().text('8~20位非纯数字字符');
