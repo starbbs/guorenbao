@@ -158,7 +158,8 @@ define('api_mkt', ['cookie'], function() {
     add('gopRecharge', 'exchangeApi/wealth/gopRecharge');
     // 接口 果仁提现
     add('gopWithdrawals', 'exchangeApi/wealth/gopWithdrawals');
-
+    //撤单
+    add('tradeGopCancelByid', 'exchangeApi/wealth/tradeGopCancelByid');
     //当前委托（不传参数查询最近5条）、带分页
     add('tradeGopCurrentList', 'exchangeApi/wealth/tradeGopCurrentList');
     //历史委托（不传参数查询最近5条）、带分页
