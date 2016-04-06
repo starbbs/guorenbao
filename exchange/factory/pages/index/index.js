@@ -457,6 +457,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 } else if(data.status==400){
                     if(data.msg=="登录密码错误"){
                         $(".error_tips_index").show().html(data.msg);
+                    } else if(data.msg=="手机号未注册"){
+                        $(".error_tips_index").show().html(data.msg);
                     } else {
                         $(".autocode_tips").show().html(data.msg);
                     }
