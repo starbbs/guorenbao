@@ -1,4 +1,4 @@
-require(['jquery','api_mkt_management'], function($,api_mkt_management) {
+require(['api_mkt_management'], function(api_mkt_management) {
 
     api_mkt_management.login({
         'phone':'',

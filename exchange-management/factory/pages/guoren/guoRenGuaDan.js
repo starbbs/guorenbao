@@ -1,4 +1,4 @@
-require(['jquery','avalon','api_mkt_management'],function($,avalon,api_mkt_management){
+require(['api_mkt_management'],function(api_mkt_management){
     
     $("#div1").html("");   //添加前，先清空 
     page({            

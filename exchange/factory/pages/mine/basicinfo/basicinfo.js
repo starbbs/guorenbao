@@ -31,7 +31,11 @@ require(['api_mkt','cookie'], function(api_mkt) {
                     console.log(data.data.list.name);
                     console.log(data.data.list.mobile);
                     console.log(data.data.list.uid);
-                    $("#realname").html(data.data.list.name);
+                    if(data.data.list.name!=""){
+                        $("#realname").html(data.data.list.name);
+                    } else {
+                        $("#realname").html("未认证");
+                    }
                     $("#account_name").html(data.data.list.mobile);
                     $("#account_uid").html(data.data.list.uid);
                 }

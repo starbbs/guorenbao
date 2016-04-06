@@ -10,7 +10,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
     $('.bg').css('left', 0);
     $('.bg').css('top', 0);
 
-    $(".pagetwo,.pagethree,.pagefour").on("click",function(){
+    $(".pageone,.pagetwo,.pagethree,.pagefour").on("click",function(){
         var exchangeToken = $.cookie('exchangeToken');
         var ff = $(this).html();
         if (!exchangeToken) {
@@ -19,12 +19,16 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             $(".bg").show();
             if(ff=="首页"){
                 $.cookie("loginfromwhichpage","one");
+                console.log("loginfromwhichpage"+"one");
             } else if(ff=="交易大厅"){
                 $.cookie("loginfromwhichpage","two");
+                console.log("loginfromwhichpage"+"two");
             } else if(ff=="财务中心"){
                 $.cookie("loginfromwhichpage","three");
+                console.log("loginfromwhichpage"+"three");
             } else if(ff=="我的账户"){
                 $.cookie("loginfromwhichpage","four");
+                console.log("loginfromwhichpage"+"four");
             }
         } else {
             //alert("有tokne");
@@ -192,6 +196,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             var totalvalue = totalNuts*$('#thelatestprice').html()+totalAssets;
                             $('.lf_asset_center').html(totalvalue);//总资产
                             $('.rg_asset_center').html(totalNuts);//总果仁
+
+                            var cnyBalance = data.data.cnyBalance;
+                            $.cookie('allCNY',cnyBalance);
+                            $('.w_b_l_one').html("<em>账户余额："+data.data.cnyBalance+" CNY</em>");
+                            $('.w_b_l_two').html("<em>果仁余额："+data.data.gopBalance+" GOP</em>");
                         } else if (data.status == 305) {
                         } else if(data.status == 400){
                         } else {
