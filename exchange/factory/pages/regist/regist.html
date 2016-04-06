@@ -52,7 +52,7 @@
                         </div>
                         <div class="rg_rg_input">
                             <div class="regist_input_div">
-                                <input class="regist_rg_input checkPhone" type="text" placeholder="请输入手机号" id="phone"/>
+                                <input class="regist_rg_input checkPhone" type="text" placeholder="请输入手机号" maxlength="11" id="phone"/>
                                 <span class="msg msg-phone"></span>
                             </div>
                             <div class="regist_input_div">
@@ -72,7 +72,7 @@
                                 <input type="checkbox" id="checkbox-1-1" class="regular-checkbox" checked="checked"/>
                                 <label for="checkbox-1-1"></label>
                                 <label for="checkbox-1-1">我已阅读并同意</label>
-                                <a class="markasread" href="javascript:;"><<果仁市场用户协议>></a>
+                                <a class="markasread" href="javascript:;">《果仁市场用户协议》</a>
                             </div>
                             <div class="next_step_btn next_step_sure oneStep">下一步</div>
                         </div>
@@ -141,56 +141,5 @@
             </div>
         </div>
     </div>
-
-    <script type="text/javascript">
-        /*$(function(){
-            $("#test").on("click", function() {
-                alert("ssdds")
-                //var username = $("#username").val();
-                //var password = $("#password").val();
-                //console.log("username"+username);
-                //console.log("password"+password);
-                var phonenum = "18701097891";
-                // $.ajax({
-                //     url: 'http://10.23.0.228:8080/common/sendCode',
-                //     data: {
-                //         "phone": phonenum,
-                //     },
-                //     type: 'post',
-                //     cache: false,
-                //     dataType: 'json',
-                //     success: function(data) {
-                //         if (data.msg == "true") {
-                //             alert("login");
-                //             //window.location.reload();
-                //         } else {
-                //         }
-                //     },
-                //     error: function() {
-                //         alert("error");
-                //     }
-                // });
-                $.ajax({
-                    type: "POST",
-                    dataType: "json",
-                    url: "http://10.23.0.228:8080/common/sendCode",
-                    data: JSON.stringify({
-                        phone: phonenum,
-                    }),
-                    cache: false,
-                    success: function(data) {
-                        if (data.msg == "true") {
-
-                        } else {
-                            
-                        }
-                    },
-                    error: function() {
-                        console.log("提交失败");
-                    }
-                });
-            });
-        });*/
-    </script>
 </body>
 </html>
