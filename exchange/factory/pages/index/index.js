@@ -402,7 +402,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     synchronous();
                     setInterval(synchronous, 300000);
 
-                    $("#logined_username").html(data.data.phone);
+                    $("#logined_username").html(data.data.phone.substr(0,3)+'****'+data.data.phone.substr(7,4));
                     $(".top_em").html(data.data.phone.substr(0,3)+'****'+data.data.phone.substr(7,4));
                     $("#uidval").html(global_loginuseruid);  //首页uid赋值
                     var whichpage = $.cookie("loginfromwhichpage");

@@ -1,4 +1,4 @@
-require(['jquery','avalon'],function($,avalon){
+require([],function(){
 
     //请求
     //$(".cashIn").click(function(){   //点击载入

@@ -25,9 +25,9 @@ gulp.task('exchange-management-include', function() {
     gulp.watch(page, function(event) {
         return todo(event.path);
     });
-    gulp.watch([path.join(paths.includes, '/**/*.html')], function(event) {
-        return todo();
-    });
+    // gulp.watch([path.join(paths.includes, '/**/*.html')], function(event) {
+    //     return todo();
+    // });
     return todo();
 });
 // sass部分

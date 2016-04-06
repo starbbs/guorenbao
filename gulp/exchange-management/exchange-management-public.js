@@ -9,26 +9,26 @@ var rjs = require('gulp-requirejs');
 var imagemin = require('gulp-imagemin');
 gulp.task('exchange-management-js', function() {
 	return gulp.src(path.join(paths.build, '/js/*.js'))
-		.pipe(uglify())
+		//.pipe(uglify())
 		.pipe(gulp.dest(paths.public + '/js'))
 });
 
 gulp.task('exchange-management-rjs', ['exchange-management-js'], function() {
 	return gulp.src([
 
-		paths.build + '/js/cashiIn.js',
-		paths.build + '/js/cashiOut.js',
-		paths.build + '/js/controllPanel.js',
-		paths.build + '/js/guoRenDeal.js',
-		paths.build + '/js/guorenGuaDan.js',
-		paths.build + '/js/guorenInput.js',
-		paths.build + '/js/guorenKaDan.js',
-		paths.build + '/js/guorenOutput.js',
+		path.join(paths.build, '/js/cashiIn.js'),
+		path.join(paths.build, '/js/cashiOut.js'),
+		path.join(paths.build, '/js/controllPanel.js'),
+		path.join(paths.build, '/js/guoRenDeal.js'),
+		path.join(paths.build, '/js/guorenGuaDan.js'),
+		path.join(paths.build, '/js/guorenInput.js'),
+		path.join(paths.build, '/js/guorenKaDan.js'),
+		path.join(paths.build, '/js/guorenOutput.js'),
 		
-		paths.build + '/js/home.js',
-		paths.build + '/js/login.js',
-		paths.build + '/js/user-info.js',
-		paths.build + '/js/user.js'
+		path.join(paths.build, '/js/home.js'),
+		path.join(paths.build, '/js/login.js'),
+		path.join(paths.build, '/js/user-info.js'),
+		path.join(paths.build, '/js/user.js')
 	], function(somethingNULL, filePaths) {
 		filePaths.forEach(function(url) {
 			var name = path.basename(url, '.js');
