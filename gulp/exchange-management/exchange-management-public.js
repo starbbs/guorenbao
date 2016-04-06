@@ -13,11 +13,11 @@ gulp.task('exchange-management-js', function() {
 		.pipe(gulp.dest(paths.public + '/js'))
 });
 
-gulp.task('exchange-management-rjs', ['exchange-management-js'], function() {
+gulp.task('exchange-management-rjs',/* ['exchange-management-js'],*/ function() {
 	return gulp.src([
 
-		path.join(paths.build, '/js/cashiIn.js'),
-		path.join(paths.build, '/js/cashiOut.js'),
+		path.join(paths.build, '/js/cashIn.js'),
+		path.join(paths.build, '/js/cashOut.js'),
 		path.join(paths.build, '/js/controllPanel.js'),
 		path.join(paths.build, '/js/guoRenDeal.js'),
 		path.join(paths.build, '/js/guorenGuaDan.js'),
@@ -78,4 +78,13 @@ gulp.task('exchange-management-css', function() {
 		removeDirname:false
 	});
 });
-gulp.task('exchange-management-public', ['exchange-management-rjs', 'exchange-management-html', 'exchange-management-img','exchange-management-css']);
+
+
+gulp.task('exchange-management-font', function() {
+	return tools.fileMove(paths.build+'/css/fonts/**',paths.public+'/css/fonts',{
+		removeDirname:true
+	});
+});
+
+
+gulp.task('exchange-management-public', ['exchange-management-rjs', 'exchange-management-html', 'exchange-management-img','exchange-management-css','exchange-management-font']);

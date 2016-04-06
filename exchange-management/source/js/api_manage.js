@@ -2,7 +2,7 @@ define('api_mkt_management', ['cookie'], function() {
 
 	//var basePath = 'http://localhost/';
 	var basePath = './';
-	var basePath = 'http://10.23.1.138/';
+	//var basePath = 'http://10.23.1.138/';
 
 	var api = {};
 	var goIndex = function(useURL) {		//返回首页
@@ -111,41 +111,41 @@ define('api_mkt_management', ['cookie'], function() {
 	};
 
 	//后台登录
-	add('login','exchange_manager/login/login');
+	add('login','./login/login');
 	//后台登出
-	add('logout','exchange_manager/login/logout');
+	add('logout','./login/logout');
 	//后台重置密码
-	add('setLoginPassword','exchange_manager/login/setLoginPassword');
+	add('setLoginPassword','./login/setLoginPassword');
 	//后台创建管理员
-	add('create','exchange_manager/login/create');
+	add('create','./login/create');
 	//后台锁定管理员
-	add('lockAdmin','exchange_manager/login/lockAdmin');
+	add('lockAdmin','./login/lockAdmin');
 	//后台解锁管理员
-	add('unlockAdmin','exchange_manager/login/unlockAdmin');
+	add('unlockAdmin','./login/unlockAdmin');
 	//人民币充值/提现查询
-	add('transfer','exchange_manager/cny/transfer');
+	add('transfer','./cny/transfer');
 	//人民币充值/提现确认
-	add('confirmTransfer','exchange_manager/cny/confirmTransfer');
+	add('confirmTransfer','./cny/confirmTransfer');
 	//人民币提现锁定
-	add('lockTransfer','exchange_manager/cny/lockTransfer');	
+	add('lockTransfer','./cny/lockTransfer');	
 	//人民币提现解锁
-	add('unlockTransfer','exchange_manager/cny/unlockTransfer');
+	add('unlockTransfer','./cny/unlockTransfer');
 	//果仁转入查询
-	add('transferGopInput','exchange_manager/gop/transfer');
+	add('transferGopInput','./gop/transfer');
 	//果仁转出查询
-	add('transferGopOutput','exchange_manager/gop/transfer');
+	add('transferGopOutput','./gop/transfer');
 	//果仁挂单查询
-	add('trade','exchange_manager/gop/trade');
+	add('trade','./gop/trade');
 	//果仁成交查询
-	add('order','exchange_manager/gop/order');
+	add('order','./gop/order');
 	//用户列表
-	add('userList','exchange_manager/user/userList');
+	add('userList','./user/userList');
 	//用户_基本信息
-	add('userInfo','exchange_manager/user/userInfo');
+	add('userInfo','./user/userInfo');
 	//用户银行卡信息
-	add('userAcBank','exchange_manager/user/userAcBank');	
+	add('userAcBank','./user/userAcBank');	
 	//后台管理员列表
-	add('adminList','exchange_manager/login/adminList');
+	add('adminList','./login/adminList');
 
 	return api;
 });

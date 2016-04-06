@@ -489,13 +489,12 @@ progress::-webkit-progress-value {
 }
 
 .error_tips_index{
-    top: 40px;
+    top: 38px;
     display: none;
     position: absolute;
-    height: 20px;
+    height: 22px;
     color: #ff6600;
-    line-height: 20px;
-
+    line-height: 22px;
 }
 
 .table_header {
@@ -609,7 +608,7 @@ progress::-webkit-progress-value {
 }
 
 .loginarea div:nth-child(3) {
-    top: 114px;
+    top: 122px;
 }
 
 .loginarea div:nth-child(3) b {
@@ -619,7 +618,7 @@ progress::-webkit-progress-value {
 }
 
 .loginarea div:nth-child(4) {
-    top: 176px;
+    top: 182px;
     width: 84%;
 }
 
@@ -952,4 +951,13 @@ progress::-webkit-progress-value {
     position: static;
 }
 
-.popup_message_box
+/* .popup_message_box */
+
+.error_tips_one{
+    top: 38px;
+    position: absolute;
+    height: 22px;
+    color: #ff6600;
+    line-height: 22px;
+    display:none;
+}

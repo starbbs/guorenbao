@@ -115,16 +115,16 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         var flag = verify(phone, "tel");
         console.log(flag);
         if(flag=="请输入正确的手机号码"){
-        	$(".error_tips").show().html("请输入正确的手机号码");
+        	$(".err_tips_one").show().html("请输入正确的手机号码");
             return;
         } else {
-            $(".error_tips_index").hide().html("");
+            $(".err_tips_one").hide().html("");
         }
         if(password==""){
         	$(".error_tips").show().html("请输入密码");
         	return;
         } else if(password.length>12||password.length<6){
-        	$(".error_tips").show().html("请输入6~12位密码");
+        	$(".error_tips").show().html("请输入6~20位密码");
         	return;
         } else {
             $(".error_tips").hide().html("");

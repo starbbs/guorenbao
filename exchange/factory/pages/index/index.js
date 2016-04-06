@@ -363,9 +363,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         var flag = verify(phone, "tel");
         var authcode_index = $(".authcode_index").val();
         if(flag=="请输入正确的手机号码"){
-            $(".error_tips_index").show().html("请输入正确的手机号码");
+            $(".error_tips_one").show().html("请输入正确的手机号码");
+            return;
         } else {
-            $(".error_tips_index").hide().html("");
+            $(".error_tips_one").hide().html("");
         }
         if(password==""){
             $(".error_tips_index").show().html("请输入密码");
@@ -457,6 +458,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 } else if(data.status==400){
                     if(data.msg=="登录密码错误"){
                         $(".error_tips_index").show().html(data.msg);
+                    } else if(data.msg=="手机号未注册"){
+                        $(".error_tips_one").show().html(data.msg);
                     } else {
                         $(".autocode_tips").show().html(data.msg);
                     }
