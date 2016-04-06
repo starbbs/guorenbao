@@ -26,22 +26,30 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
         	listsell_array.push(list_sell[i][1]);
         }
         var maxsell = Math.max.apply(null, listsell_array);   //求卖出最大值
-        for (var i = 0; i < list_sell.length; i++) {
-        	sellaprice = list_sell[0][0];
-        	sell_list_html += "<div class='table_row'>"+
-        	"<div class='table_con'>卖"+(i+1)+"</div><div class='table_con'>"+list_sell[i][0]+"</div>"+
-        	"<div class='table_con'>"+list_sell[i][1]+"</div><progress value='"+(list_sell[i][1]/maxsell)*100+"' max='100'></progress></div></div>";
-        }
+
         var listbuy_arry = [];
         for (var i = 0; i < list_buy.length; i++) {
         	listbuy_arry.push(list_buy[i][1]);
         }
         var maxbuy = Math.max.apply(null, listbuy_arry);     //求买入最大值
+
+        var myarr = [];
+        myarr.push(maxbuy,maxsell);
+        var maxval = Math.max.apply(null,myarr);
+
+
+        for (var i = 0; i < list_sell.length; i++) {
+        	sellaprice = list_sell[0][0];
+        	sell_list_html += "<div class='table_row'>"+
+        	"<div class='table_con'>卖"+(i+1)+"</div><div class='table_con'>"+list_sell[i][0]+"</div>"+
+        	"<div class='table_con'>"+list_sell[i][1]+"</div><progress value='"+(list_sell[i][1]/maxval)*100+"' max='100'></progress></div></div>";
+        }
+
         for (var i = 0; i < list_buy.length; i++) {
         	buyaprice = list_buy[0][0];
         	buy_list_html += "<div class='table_row'>"+
         	"<div class='table_con'>买"+(i+1)+"</div><div class='table_con'>"+list_buy[i][0]+"</div>"+
-        	"<div class='table_con'>"+list_buy[i][1]+"</div><progress value='"+(list_buy[i][1]/maxbuy)*100+"' max='100'></progress></div></div>";
+        	"<div class='table_con'>"+list_buy[i][1]+"</div><progress value='"+(list_buy[i][1]/maxval)*100+"' max='100'></progress></div></div>";
         }
         $('#buyonece_price').html(buyaprice);        //买一价
 		$('#sellonece_price').html(sellaprice);      //卖一价
@@ -77,7 +85,7 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 		            +"<div class='table_con buyprice'>买"+(i+1)+"</div>"
 		            +"<div class='table_con'>¥"+list_buy[i][0]+"</div>"
 		            +"<div class='table_con'>"+list_buy[i][1]+"</div>"
-		            +"<div class='table_con'>¥"+list_buy[i][0]*list_buy[i][1]+"</div></div>";
+		            +"<div class='table_con'>¥"+(list_buy[i][0]*list_buy[i][1]).toFixed(2)+"</div></div>";
 				}
 			} else {
 				var list_buy_five = [];
@@ -92,7 +100,7 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 		            +"<div class='table_con buyprice'>买"+(i+1)+"</div>"
 		            +"<div class='table_con'>¥"+list_buy_five[i][0]+"</div>"
 		            +"<div class='table_con'>"+list_buy_five[i][1]+"</div>"
-		            +"<div class='table_con'>¥"+list_buy_five[i][0]*list_buy_five[i][1]+"</div></div>";
+		            +"<div class='table_con'>¥"+(list_buy_five[i][0]*list_buy_five[i][1]).toFiexed(2)+"</div></div>";
 				}
 			}
 			$(".table_row_line").show();
@@ -107,7 +115,7 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 		            +"<div class='table_con saleprice'>卖"+(list_sell.length-i)+"</div>"
 		            +"<div class='table_con'>¥"+list_sell[i][0]+"</div>"
 		            +"<div class='table_con'>"+list_sell[i][1]+"</div>"
-		            +"<div class='table_con'>¥"+list_sell[i][0]*list_sell[i][1]+"</div>";
+		            +"<div class='table_con'>¥"+(list_sell[i][0]*list_sell[i][1]).toFixed(2)+"</div>";
 				}
 			} else {
 				var list_sell_five = [];
@@ -122,7 +130,7 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 		            +"<div class='table_con saleprice'>卖"+(list_sell_five.length-i)+"</div>"
 		            +"<div class='table_con'>¥"+list_sell_five[i][0]+"</div>"
 		            +"<div class='table_con'>"+list_sell_five[i][1]+"</div>"
-		            +"<div class='table_con'>¥"+list_sell_five[i][0]*list_sell_five[i][1]+"</div>";
+		            +"<div class='table_con'>¥"+(list_sell_five[i][0]*list_sell_five[i][1]).toFixed(2)+"</div>";
 				}
 			}
 			$(".table_row_line").show();

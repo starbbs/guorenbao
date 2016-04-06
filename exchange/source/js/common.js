@@ -1,4 +1,4 @@
-require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
+﻿require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
     mkt_info.get();
     var popup_login_times = 0;
     var exchangeToken = $.cookie('exchangeToken');
@@ -123,7 +123,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         if(password==""){
         	$(".error_tips").show().html("请输入密码");
         	return;
-        } else if(password.length>12||password.length<6){
+        } else if(password.length>20||password.length<6){
         	$(".error_tips").show().html("请输入6~20位密码");
         	return;
         } else {
@@ -209,10 +209,23 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 	            } else if (data.status == 305) {
 	                alert(data.msg);
 	            } else if (data.status==400) {
-                    $(".autocode_tips").show().html(data.msg);
+                    if(data.msg=="验证码错误"){
+                        $(".autocode_tips").show().html(data.msg);
+                    } else if(data.msg=="手机号未注册"){
+                        $(".err_tips_one").show().html(data.msg);
+                    }
                 } else {
 	            	$(".error_tips").show().html(data.msg);
 	            }
+                // if(data.msg=="登录密码错误"){
+                //     $(".error_tips_index").show().html(data.msg);
+                // } else if(data.msg=="手机号未注册"){
+                //     $(".error_tips_one").show().html(data.msg);
+                // } else {
+                //     $(".autocode_tips").show().html(data.msg);
+                // }
+
+                //err_tips_one
 	        });
         }
         // if (popup_login_times > 3) {
