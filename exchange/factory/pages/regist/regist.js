@@ -30,31 +30,30 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	$('.checkCode-send').click(function(){
 		if(btnConfirm == false){
 			$('.msg-phone').show().text('请输入您的手机号');
+			$('.checkCode-send').css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
 		}else{
 			$('.msg-phone').hide();
+			$('.checkCode-send').css({'cursor':'pointer','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
 		    api_mkt.sendCode({			
 		   		'phone':$('.checkPhone').val()	   
 			}, function(data) {
 				if (data.status !== 200) {
-					console.log(data.phone);
-					$('.checkCode-send').attr('disabled',true).css('cursor','not-allowed');
+					//60秒后重新发送
+			    	var count = 60;
+			    	var resend = setInterval(function(){
+				    		count--;
+				    		if(count > 0){
+				    			$('.checkCode-send').val(count+'s后重新发送');
+				    			$('.checkCode-send').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
+				    		}else{
+				    			clearInterval(resend);
+				    			$('.checkCode-send').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
+				    		}
+				    	},1000); 
 				} else {
 					
 				}
 			});
-		  	
-	    	//60秒后重新发送
-	    	var count = 60;
-	    	var resend = setInterval(function(){
-		    		count--;
-		    		if(count > 0){
-		    			$('.checkCode-send').val(count+'s后重新发送');
-		    			$('.checkCode-send').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
-		    		}else{
-		    			clearInterval(resend);
-		    			$('.checkCode-send').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
-		    		}
-		    	},1000); 
 	    }
 	});
 	
