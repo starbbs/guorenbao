@@ -71,7 +71,8 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 			if(list_buy.length<=5){
 				console.log("-------------");
 				console.log(list_buy[0][0]);
-				$("#wbr_m_best_buy").html(list_buy[0][0]);  //最佳买价
+				//$("#wbr_m_best_buy").html(list_buy[0][0]);  //最佳买价
+				$("#wbr_m_best_sell").html(list_buy[0][0]);   //最佳卖价
 				for(var i=0;i<list_buy.length;i++){
 		            buy_list_html += "<div class='table_row'>"
 		            +"<div class='table_con buyprice'>买"+(i+1)+"</div>"
@@ -86,7 +87,8 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 				list_sell_five.push(list_buy[2]);
 				list_sell_five.push(list_buy[3]);
 				list_sell_five.push(list_buy[4]);
-				$("#wbr_m_best_buy").html(list_buy[0][0]);  //最佳买价
+				//$("#wbr_m_best_buy").html(list_buy[0][0]);  //最佳买价
+				$("#wbr_m_best_sell").html(list_buy[0][0]);   //最佳卖价
 				for(var i=0;i<list_buy_five.length;i++){
 		            buy_list_html += "<div class='table_row'>"
 		            +"<div class='table_con buyprice'>买"+(i+1)+"</div>"
@@ -101,7 +103,8 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 
 		if(list_sell.length!=0){
 			if(list_sell.length<=5){
-				$("#wbr_m_best_sell").html(list_sell[0][0]);  //最佳卖价
+				//$("#wbr_m_best_sell").html(list_sell[0][0]);  //最佳卖价
+				$("#wbr_m_best_buy").html(list_sell[0][0]);
 				for(var i=0;i<list_sell.length;i++){
 		            list_sell_html += "<div class='table_row'>"
 		            +"<div class='table_con saleprice'>卖"+(list_sell.length-i)+"</div>"
@@ -116,7 +119,8 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 				list_sell_five.push(list_sell[2]);
 				list_sell_five.push(list_sell[3]);
 				list_sell_five.push(list_sell[4]);
-				$("#wbr_m_best_sell").html(list_sell_five[0][0]);  //最佳卖价
+				//$("#wbr_m_best_sell").html(list_sell_five[0][0]);  //最佳卖价
+				$("#wbr_m_best_buy").html(list_sell[0][0]);
 				for(var i=0;i<list_sell_five.length;i++){
 		            list_sell_html += "<div class='table_row'>"
 		            +"<div class='table_con saleprice'>卖"+(list_sell_five.length-i)+"</div>"

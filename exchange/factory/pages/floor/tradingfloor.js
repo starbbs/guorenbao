@@ -518,11 +518,13 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     //总资产
     api_mkt.getTotalAssets(function(data) {        
         if (data.status == 200) {
-            //$('.w_b_l').text(data.data.cnyBalance);
             var cnyBalance = data.data.cnyBalance;
+            var gopBalance = data.data.gopBalance;
+            console.log(cnyBalance);
+            console.log(gopBalance);
             $.cookie('allCNY',cnyBalance);
-             //买入价格
-            $('.w_b_l').html("<em>账户余额："+data.data.cnyBalance+" GOP</em>");
+            $('.w_b_l_one').html("<em>账户余额："+data.data.cnyBalance+" CNY</em>");
+            $('.w_b_l_two').html("<em>果仁余额："+data.data.gopBalance+" GOP</em>");
         } else {
             console.log(data.msg);
         }
