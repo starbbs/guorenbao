@@ -1,7 +1,5 @@
 require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
-	//console.log(api_mkt);
-	//console.log(mkt_info);
-	//mkt_pagehead.get();
+
         $('.rmbxh').on('click',function(){
             $(this).addClass('bottomon');
             $('.rmbtx').removeClass('bottomon');
@@ -38,26 +36,47 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             'pageSize':5
         },function(data) {
             //alert(data.msg);
-            if (data.status == 200) {
+            if (data.status == 200 && data.data.list.length > 0) {
                 console.log(data);
                 var html = [];
                 for(var i=0; i<5;i++){
                     html.push("<tr>");                                        
                     html.push("<td>"+ data.data.list[i].updateDate +"</td>");
-                    html.push("<td>"+ data.data.list[i].bank +"</td>");
-                    html.push("<td>"+ data.data.list[i].money +"</td>");
-                    html.push("<td class='status'>"+ data.data.list[i].status +"</td>");
+                    html.push("<td class='bank'>"+ data.data.list[i].bank +"</td>");
+                    html.push("<td class='money'>"+ data.data.list[i].money +"</td>");                    
+                    html.push("<td style='display:none' class='txid'>"+ data.data.list[i].txid +"</td>");
+                    html.push("<td style='display:none' class='name'>"+ data.data.list[i].name +"</td>");  
+                    html.push("<td style='display:none' class='uid'>"+ data.data.list[i].uid +"</td>");                   
+                    html.push("<td style='display:none' class='acnumber'>"+ data.data.list[i].acnumber +"</td>");
+                    html.push("<td class='status'>"+ data.data.list[i].transferCnyStatus +"</td>");
                     html.push("<td class='checkDeal'>查看此笔充值单</td>");
                     html.push("</tr>");
                     $(".cnyInput").html("");  //添加前清空 
                     $(".cnyInput").append(html.join(""));
 
                     //过滤内容显示不同颜色
-                    $(".status").filter(":contains('进行中')").css("color","orange");
-                    $(".status").filter(":contains('已完成')").css("color","#ccc");
+                    $(".status").filter(":contains('WAIT')").css("color","orange");
+                    $(".status").filter(":contains('SUCCESS')").css("color","#ccc");
+                    //查看此笔充值单
+                    $('.checkDeal').click(function(){
+                        //打开弹出层-生成汇款单
+                        $(".mydiv").css("display","block");
+                        $(".bg").css("display","block");               
+                        $(".remittance-id").text($(this).parent().find('.txid').text());
+                        $(".bank-card-new").text($(this).parent().find('.acnumber').text());
+                        $(".bank-name-new").text($(this).parent().find('.bank').text());
+                        $(".account-name-new").text($(this).parent().find('.name').text());
+                        $(".money-new").text($(this).parent().find('.money').text()+'.00');                
+                        $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
+                        //关闭弹出层 -生成汇款单
+                        $(".span-text").click(function(){
+                            $(".mydiv").css("display","none");
+                            $(".bg").css("display","none");
+                        });  
+                    });
                 }
             }else{
-                console.log('财务中心-人民币充值历史表格，加载失败。');
+               // console.log('财务中心-人民币充值历史表格，加载失败。');
             }
         });
 
@@ -74,20 +93,41 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     for(var i=0; i<10;i++){
                         html.push("<tr>");                                        
                         html.push("<td>"+ data.data.list[i].updateDate +"</td>");
-                        html.push("<td>"+ data.data.list[i].bank +"</td>");
-                        html.push("<td>"+ data.data.list[i].money +"</td>");
-                        html.push("<td class='status'>"+ data.data.list[i].status +"</td>");
+                        html.push("<td class='bank'>"+ data.data.list[i].bank +"</td>");
+                        html.push("<td class='money'>"+ data.data.list[i].money +"</td>");                    
+                        html.push("<td style='display:none' class='txid'>"+ data.data.list[i].txid +"</td>");
+                        html.push("<td style='display:none' class='name'>"+ data.data.list[i].name +"</td>");  
+                        html.push("<td style='display:none' class='uid'>"+ data.data.list[i].uid +"</td>");                   
+                        html.push("<td style='display:none' class='acnumber'>"+ data.data.list[i].acnumber +"</td>");
+                        html.push("<td class='status'>"+ data.data.list[i].transferCnyStatus +"</td>");
                         html.push("<td class='checkDeal'>查看此笔充值单</td>");
                         html.push("</tr>");
                         $(".cnyInput").html("");  //添加前清空 
                         $(".cnyInput").append(html.join(""));
 
                         //过滤内容显示不同颜色
-                        $(".status").filter(":contains('进行中')").css("color","orange");
-                        $(".status").filter(":contains('已完成')").css("color","#ccc");
+                        $(".status").filter(":contains('WAIT')").css("color","orange");
+                        $(".status").filter(":contains('SUCCESS')").css("color","#ccc");
+                        //查看此笔充值单
+                        $('.checkDeal').click(function(){
+                            //打开弹出层-生成汇款单
+                            $(".mydiv").css("display","block");
+                            $(".bg").css("display","block");               
+                            $(".remittance-id").text($(this).parent().find('.txid').text());
+                            $(".bank-card-new").text($(this).parent().find('.acnumber').text());
+                            $(".bank-name-new").text($(this).parent().find('.bank').text());
+                            $(".account-name-new").text($(this).parent().find('.name').text());
+                            $(".money-new").text($(this).parent().find('.money').text()+'.00');                
+                            $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
+                            //关闭弹出层 -生成汇款单
+                            $(".span-text").click(function(){
+                                $(".mydiv").css("display","none");
+                                $(".bg").css("display","none");
+                            });  
+                        });
                     }
                 }else{
-                    console.log('财务中心-人民币充值历史表格，加载失败。');
+                    //console.log('财务中心-人民币充值历史表格，加载失败。');
                 }
             });
         });
@@ -156,13 +196,13 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         count--;
                         if(count > 0){
                             $('#VerificationCodeBtn').val(count+'s后重新发送');
-                            $('#VerificationCodeBtn').attr('disabled',true).css('cursor','not-allowed');
+                            $('#VerificationCodeBtn').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
                         }else{
                             clearInterval(resend);
-                            $('#VerificationCodeBtn').attr('disabled',false).css('cursor','pointer').val('获取验证码');
+                            $('#VerificationCodeBtn').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
                         }
                     },1000); 
-            }
+            }                   
             
         }); 
         //判断是否添加银行卡
@@ -171,28 +211,30 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             'pageSize' :10   
         }, function(data) {
             if (data.status == 200) {
-                console.log(data);
-                console.log(data.data.list[0].acnumber);
-                var num = data.data.list[0].acnumber;
-                var node = $('<div></div>');
-                var nodeList ='<input type="radio" name="checkBankCard" class="checkBankCard" checked/>'+'<div class="bankIdCard"></div>';
-                node.html(nodeList);
-                node.insertBefore($('.addBankCard'));
-                $('.bankIdCard').text('尾号：'+num.substr(num.length-4));
-                //判断显示银行logo
-                var bankName = new String(data.data.list[0].bank);
-                if(bankName == '中国工商银行'){
-                    $('.bankIdCard').addClass('ICBC');
-                }else if(bankName == '中国建设银行'){
-                    $('.bankIdCard').addClass('CBC');
-                }else if(bankName == '交通银行'){
-                    $('.bankIdCard').addClass('BC');
-                }else if(bankName == '招商银行'){
-                    $('.bankIdCard').addClass('CMB');
-                }else if(bankName == '中国邮政储蓄银行'){
-                    $('.bankIdCard').addClass('PSBC');
-                }else if(bankName == '中国农业银行'){
-                    $('.bankIdCard').addClass('ABC');
+                //console.log(data);
+                //console.log(data.data.list[0].acnumber);
+                if(data.data.list.length > 0){
+                    var num = data.data.list[0].acnumber;
+                    var node = $('<div></div>');
+                    var nodeList ='<input type="radio" name="checkBankCard" class="checkBankCard" checked/>'+'<div class="bankIdCard"></div>';
+                    node.html(nodeList);
+                    node.insertBefore($('.addBankCard'));
+                    $('.bankIdCard').text('尾号：'+num.substr(num.length-4));
+                    //判断显示银行logo
+                    var bankName = new String(data.data.list[0].bank);
+                    if(bankName == '中国工商银行'){
+                        $('.bankIdCard').addClass('ICBC');
+                    }else if(bankName == '中国建设银行'){
+                        $('.bankIdCard').addClass('CBC');
+                    }else if(bankName == '交通银行'){
+                        $('.bankIdCard').addClass('BC');
+                    }else if(bankName == '招商银行'){
+                        $('.bankIdCard').addClass('CMB');
+                    }else if(bankName == '中国邮政储蓄银行'){
+                        $('.bankIdCard').addClass('PSBC');
+                    }else if(bankName == '中国农业银行'){
+                        $('.bankIdCard').addClass('ABC');
+                    }
                 }
 
                 //人民币提现申请 弹出层        
@@ -265,7 +307,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     $(".cnyWithdrawals").filter(":contains('进行中')").css("color","orange");
                 }
             }else {
-                console.log('财务中心-人民币提现历史表格带分页，加载失败。');
+                //console.log('财务中心-人民币提现历史表格带分页，加载失败。');
             }
         });
 
@@ -294,7 +336,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $(".cnyWithdrawals").filter(":contains('进行中')").css("color","orange"); 
                     }
                 }else {
-                    console.log('财务中心-人民币提现历史表格带分页，加载失败。');
+                    //console.log('财务中心-人民币提现历史表格带分页，加载失败。');
                 }
             });
         });
@@ -306,7 +348,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 
         //生成汇款单校验
         //开户人姓名校验
-        var btnConfirm;
+        var btnConfirm = false;
         $("#bank-username").blur(function(){
             var username = $("#bank-username").val();
             if(!username){
@@ -320,13 +362,16 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         //充值金额校验
         $("#bank-money").blur(function(){
             var bankmoney = $("#bank-money").val();
-            if(!bankmoney || isNaN(bankmoney)){
+            if(bankmoney < 100 || isNaN(bankmoney)){
                 btnConfirm = false;
-                $('.msg-bank-money').show().text('请输入正确的整数金额');
+                $('.msg-bank-money').show().text('最小充值金额为100元');
             }else{
                 $('.msg-bank-money').hide();
                 btnConfirm = true;
             }
+        });
+        $("#bank-money").focus(function(){
+            $("#bank-money").val('');
         });
         //银行账号校验
         $("#bank-idcard").blur(function(){
@@ -395,13 +440,12 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 //打开弹出层-生成汇款单
                 $(".mydiv").css("display","block");
                 $(".bg").css("display","block");               
-                
-                $(".remittance-id").text(Math.random()*10E16);
+                $(".remittance-id").text(getNowFormatDate() + $('.pUid').val());
                 $(".bank-card-new").text($("#bank-idcard").val());
                 $(".bank-name-new").text($("#bank").val());
                 $(".account-name-new").text($("#bank-username").val());
-                $(".money-new").text($("#bank-money").val()+'.00');
-
+                $(".money-new").text($("#bank-money").val()+'.00');                
+                $(".remittance-note-numbe-newr").text($('.pUid').val());
                 //关闭弹出层 -生成汇款单
                 $(".span-text").click(function(){
                     $(".mydiv").css("display","none");
@@ -422,6 +466,40 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         console.log('err');
                     }
                 });         
+            }
+        });
+
+        //获取当前时间字符串
+        var getNowFormatDate = function () {
+                var date = new Date();
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var strDate = date.getDate();
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                var currentdate = year + month + strDate+ date.getHours() + date.getMinutes()
+                        + date.getSeconds();
+                return currentdate;
+            }
+        //alert(getNowFormatDate());
+
+        //勾选 使用绑定手机
+        $('#phonePos').click(function(){
+            if($(this).is(':checked')){
+                api_mkt.userbasic(function(data){
+                    if(data.data){
+                        if(data.data.list){
+                            $("#phone").val(data.data.list.mobile);
+                            $('.pUid').val(data.data.list.uid);
+                        }
+                    }
+                });
+            }else{
+                $('#phone').val('');
             }
         });
         

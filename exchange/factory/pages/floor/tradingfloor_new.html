@@ -3,16 +3,17 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>交易大厅</title>
+    <title>交易大厅</title>    
     <link rel="stylesheet" type="text/css" href="./css/base.css">
     <link rel="stylesheet" type="text/css" href="./css/jquery-ui.theme.min.css">
     <link rel="stylesheet" type="text/css" href="./css/jquery-ui.min.css">
     <link rel="stylesheet" type="text/css" href="./css/tradingfloor.css">
     <script type="text/javascript" src="./js/jquery-1.12.1.min.js"></script>
     <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="./js/common.js"></script>
     <script type="text/javascript" src="./js/require.js"></script>
     <script type="text/javascript" src="./js/config.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
+    <script type="text/javascript" src="./js/judge_login.js"></script>
     <script type="text/javascript" src="./js/tradingfloor_new.js"></script>
 </head>
 <body>
@@ -27,21 +28,21 @@
             </div>
             <div class="entrust-side-table">
                <table class="aside-table" border="1" width="100%">
-                <thead class="aside-table-thead">
-                    <tr>
-                        <td>操作时间</td>
-                        <td>类型</td>
-                        <td>委托价格</td>
-                        <td>委托数量</td>
-                        <td>成交数量</td>
-                        <td>剩余数量</td>
-                        <td>操作</td>
-                    </tr>
-                </thead>
-                <tbody class="aside-table-tbody tradeGopCurrentListTable">
-                        <!-- 载入数据 -->
-                </tbody>
-            </table>
+                    <thead class="aside-table-thead">
+                        <tr>
+                            <td>操作时间</td>
+                            <td>类型</td>
+                            <td>委托价格</td>
+                            <td>委托数量</td>
+                            <td>成交数量</td>
+                            <td>剩余数量</td>
+                            <td>操作</td>
+                        </tr>
+                    </thead>
+                    <tbody class="aside-table-tbody tradeGopCurrentListTable">
+                            <!-- 载入数据 -->
+                    </tbody>
+                </table>
                 <!-- 分页 --> 
                 <!-- <div  class="PageCode">
                     <span id="div1">
@@ -93,6 +94,21 @@
                 </div> -->
             </div>
         </div>
+    </div>
+    <div id="floor_popDiv" class="popDiv" style="display:none;">
+        <div id='orgNote' class="note_div">
+            <h3>请输入支付密码</h3>
+            <img src="./images/close_btn.png" alt="" class="close_btn">
+            <div class="sel_div">
+                <input type="password" placeholder="请输入支付密码" id="sel_div_password"/>
+                <input tyspe="text" id="hideSection" style="display:none"/>
+                <!-- <span class="payment_error">支付密码错误</span> -->
+            </div>
+            <div class="sure_btn">确认</div>
+        </div>
+    </div>
+    <div id="floor_bg" class="bg" style="display:none;">这里是遮罩层</div>
+    <div id="bg" class="bg" style="display:none;">这里是遮罩层</div>
     @@include('../../includes/bottom/bottom.html')
     <script type="text/javascript" src="./js/highstock.js"></script>
     <script type="text/javascript" src="./js/highcharts-more.js"></script>

@@ -160,10 +160,10 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                         count--;
                         if (count > 0) {
                             $('.getauthcode_one').html(count + 's后重新发送');
-                            $('.getauthcode_one').attr('disabled', true).css('cursor', 'not-allowed');
+                            $('.getauthcode_one').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
                         } else {
                             clearInterval(resend);
-                            $('.getauthcode_one').attr('disabled', false).css('cursor', 'pointer').html('获取验证码');
+                            $('.getauthcode_one').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
                         }
                     }, 1000);
                 } else if (data.status == 400) {

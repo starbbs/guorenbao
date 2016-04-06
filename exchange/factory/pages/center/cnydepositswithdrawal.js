@@ -42,17 +42,38 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 for(var i=0; i<5;i++){
                     html.push("<tr>");                                        
                     html.push("<td>"+ data.data.list[i].updateDate +"</td>");
-                    html.push("<td>"+ data.data.list[i].bank +"</td>");
-                    html.push("<td>"+ data.data.list[i].money +"</td>");
-                    html.push("<td class='status'>"+ data.data.list[i].status +"</td>");
+                    html.push("<td class='bank'>"+ data.data.list[i].bank +"</td>");
+                    html.push("<td class='money'>"+ data.data.list[i].money +"</td>");                    
+                    html.push("<td style='display:none' class='txid'>"+ data.data.list[i].txid +"</td>");
+                    html.push("<td style='display:none' class='name'>"+ data.data.list[i].name +"</td>");  
+                    html.push("<td style='display:none' class='uid'>"+ data.data.list[i].uid +"</td>");                   
+                    html.push("<td style='display:none' class='acnumber'>"+ data.data.list[i].acnumber +"</td>");
+                    html.push("<td class='status'>"+ data.data.list[i].transferCnyStatus +"</td>");
                     html.push("<td class='checkDeal'>查看此笔充值单</td>");
                     html.push("</tr>");
                     $(".cnyInput").html("");  //添加前清空 
                     $(".cnyInput").append(html.join(""));
 
                     //过滤内容显示不同颜色
-                    $(".status").filter(":contains('进行中')").css("color","orange");
-                    $(".status").filter(":contains('已完成')").css("color","#ccc");
+                    $(".status").filter(":contains('WAIT')").css("color","orange");
+                    $(".status").filter(":contains('SUCCESS')").css("color","#ccc");
+                    //查看此笔充值单
+                    $('.checkDeal').click(function(){
+                        //打开弹出层-生成汇款单
+                        $(".mydiv").css("display","block");
+                        $(".bg").css("display","block");               
+                        $(".remittance-id").text($(this).parent().find('.txid').text());
+                        $(".bank-card-new").text($(this).parent().find('.acnumber').text());
+                        $(".bank-name-new").text($(this).parent().find('.bank').text());
+                        $(".account-name-new").text($(this).parent().find('.name').text());
+                        $(".money-new").text($(this).parent().find('.money').text()+'.00');                
+                        $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
+                        //关闭弹出层 -生成汇款单
+                        $(".span-text").click(function(){
+                            $(".mydiv").css("display","none");
+                            $(".bg").css("display","none");
+                        });  
+                    });
                 }
             }else{
                // console.log('财务中心-人民币充值历史表格，加载失败。');
@@ -72,17 +93,38 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     for(var i=0; i<10;i++){
                         html.push("<tr>");                                        
                         html.push("<td>"+ data.data.list[i].updateDate +"</td>");
-                        html.push("<td>"+ data.data.list[i].bank +"</td>");
-                        html.push("<td>"+ data.data.list[i].money +"</td>");
-                        html.push("<td class='status'>"+ data.data.list[i].status +"</td>");
+                        html.push("<td class='bank'>"+ data.data.list[i].bank +"</td>");
+                        html.push("<td class='money'>"+ data.data.list[i].money +"</td>");                    
+                        html.push("<td style='display:none' class='txid'>"+ data.data.list[i].txid +"</td>");
+                        html.push("<td style='display:none' class='name'>"+ data.data.list[i].name +"</td>");  
+                        html.push("<td style='display:none' class='uid'>"+ data.data.list[i].uid +"</td>");                   
+                        html.push("<td style='display:none' class='acnumber'>"+ data.data.list[i].acnumber +"</td>");
+                        html.push("<td class='status'>"+ data.data.list[i].transferCnyStatus +"</td>");
                         html.push("<td class='checkDeal'>查看此笔充值单</td>");
                         html.push("</tr>");
                         $(".cnyInput").html("");  //添加前清空 
                         $(".cnyInput").append(html.join(""));
 
                         //过滤内容显示不同颜色
-                        $(".status").filter(":contains('进行中')").css("color","orange");
-                        $(".status").filter(":contains('已完成')").css("color","#ccc");
+                        $(".status").filter(":contains('WAIT')").css("color","orange");
+                        $(".status").filter(":contains('SUCCESS')").css("color","#ccc");
+                        //查看此笔充值单
+                        $('.checkDeal').click(function(){
+                            //打开弹出层-生成汇款单
+                            $(".mydiv").css("display","block");
+                            $(".bg").css("display","block");               
+                            $(".remittance-id").text($(this).parent().find('.txid').text());
+                            $(".bank-card-new").text($(this).parent().find('.acnumber').text());
+                            $(".bank-name-new").text($(this).parent().find('.bank').text());
+                            $(".account-name-new").text($(this).parent().find('.name').text());
+                            $(".money-new").text($(this).parent().find('.money').text()+'.00');                
+                            $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
+                            //关闭弹出层 -生成汇款单
+                            $(".span-text").click(function(){
+                                $(".mydiv").css("display","none");
+                                $(".bg").css("display","none");
+                            });  
+                        });
                     }
                 }else{
                     //console.log('财务中心-人民币充值历史表格，加载失败。');
@@ -154,13 +196,13 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         count--;
                         if(count > 0){
                             $('#VerificationCodeBtn').val(count+'s后重新发送');
-                            $('#VerificationCodeBtn').attr('disabled',true).css('cursor','not-allowed');
+                            $('#VerificationCodeBtn').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
                         }else{
                             clearInterval(resend);
-                            $('#VerificationCodeBtn').attr('disabled',false).css('cursor','pointer').val('获取验证码');
+                            $('#VerificationCodeBtn').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
                         }
                     },1000); 
-            }
+            }                   
             
         }); 
         //判断是否添加银行卡
@@ -208,7 +250,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $(".WithdrawalsBank").text(data.data.list[0].bank);
                         $(".WithdrawalsName").text(data.data.list[0].name);
                         var amount = parseInt($("#WithdrawalsAmount").val());
-                        var Fee = parseInt($('.WithdrawalsFee').text());
+                        //var Fee = parseInt($('.WithdrawalsFee').text());
                         $(".WithdrawalsAmount").text(amount+'.00');
                         $(".WithdrawalsRealAmount").text((amount - Fee)+'.00');
 
@@ -223,7 +265,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             'bankId':data.data.list[0].acnumber,
                             'money':amount,
                             'identifyingCode':$('#VerificationCode').val(),
-                            'fee':Fee,
+                            //'fee':Fee,
                             'bankName':data.data.list[0].bank,
                             'acName':data.data.list[0].name,
                             'paypwd':$('#WithdrawalsPayPwd').val() 

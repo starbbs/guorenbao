@@ -218,11 +218,12 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         count--;
                         if(count > 0){
                             $('#sendCodeByLoginAfterBtn, #nut-identifyingCodeBtn').val(count+'s后重新发送');
-                            $('#sendCodeByLoginAfterBtn, #nut-identifyingCodeBtn').attr('disabled',true).css('cursor','not-allowed');
+                            $('#sendCodeByLoginAfterBtn, #nut-identifyingCodeBtn').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
                         }else{
                             clearInterval(resend);
-                            $('#sendCodeByLoginAfterBtn, #nut-identifyingCodeBtn').attr('disabled',false).css('cursor','pointer').val('获取验证码');
+                            $('#sendCodeByLoginAfterBtn, #nut-identifyingCodeBtn').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
                         }
+                        
                     },1000); 
             }
             
@@ -232,8 +233,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         $('.confirmAdd').click(function(){
             if(btnConfirm == false || $('#sendCodeByLoginAfter').val() ==''){
                 alert('请填写完整信息');
-            }else{ 
-                window.location.reload();               
+            }else{                               
                 var auth_name = $.cookie("global_loginusername");
                 api_mkt.rmbWithdrawalsManageAdd({          
                     'name':auth_name, 
@@ -248,7 +248,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     if (data.status == 200) {
                         console.log(data);                        
                         $('.two').css('display','none');
-                        $('.three').css('display','flex');
+                        $('.three').css('display','block');
 
                         var Node = $('<div class="bankIdCard addBankCard three"></div>');
                         var Node1 = '<section class="bankIdCard-bankLogoName bankName"></section>'+
@@ -258,7 +258,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                           '<section class="bankIdCard-Name"></section>'+
                           '<section class="bankIdCard-del">删除</section>'+
                           '<‘section class="bankIdCard-address"></section>' ; 
-                        Node.html(Node1);
+                        Node.html(Node1);                        
 
                         //填写表单-生成银行卡 
                         $('.bankName').text(''); //添加对应银行的logo图片
@@ -285,7 +285,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         }else if(bankName == '中国农业银行'){
                             $('.bankName').addClass('ABC');
                         }
-                        
+                    window.location.reload();  
                     } else {
                         consloe.log(err);
                     }

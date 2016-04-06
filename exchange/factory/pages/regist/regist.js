@@ -13,13 +13,13 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		}
 	});
 	//验证码
-	$(".checkCode").blur(function(){			
+	/*$(".checkCode").blur(function(){			
 		if(!$(this).val()){
 			$('.msg-code').text('请输入正确的验证码');
 		}else{
 			$('.msg-code').text('');
 		}
-	});
+	});*/
 	//获取验证码
 	$('.checkCode-send').click(function(){
 		if(btnConfirm == false){

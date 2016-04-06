@@ -493,9 +493,10 @@
     box-sizing: border-box;
     text-align: center;
     float:left;
+    color:#fff;
     outline: none;
     cursor: pointer;
-    background: #EEE;
+    background: #0bbeee;
 }
 .regist_rg_input-btn:hover{
     border: 1px solid #bbb;
