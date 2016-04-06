@@ -1,10 +1,16 @@
 require(['api_mkt','cookie'], function(api_mkt) {
 	var btnConfirm = false; 		
 	//表单校验password
+	$('.checkPhone, .checkCode-send, .checkpwd, .checkConfirmPwd, .payPwd, .payConfirmPwd, .personName, .personId').focus(function(){
+		$(this).val('');
+	});
+	$(".checkPhone").keyup(function(){
+        $(this).val($(this).val().replace(/[^0-9$]/g,''));
+    });
 	$(".checkPhone").blur(function(){
 		var phone = $.trim($(this).val());
 		var reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
-		if(!reg.test(phone) || !phone){
+		if(!reg.test(phone)){
 			$('.msg-phone').show().text('请输入正确的手机号');	
 			btnConfirm = false;	
 		}else{
@@ -63,9 +69,6 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			$('.msg-pwd').text('');
 			btnConfirm = true;
 		}
-	});
-	$(".checkpwd").focus(function(){			
-		$(this).val('');
 	});
 
 	//确认登录密码
@@ -128,23 +131,26 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			$('.msg-payPwd').hide();
 		}
 	});
+
 	//确认支付密码
-	$(".payConfirmPwd").blur(function(){
-		var payConfirmPwd = $.trim($(".payConfirmPwd").val());
+	$('.payConfirmPwd').blur(function(){
+		var payConfirmPwd = $.trim($('.payConfirmPwd').val());
 		var payPwd = $(".payPwd").val();
 		if(payConfirmPwd !== payPwd){
 			$('.msg-payConfirmPwd').show().text('两次输入不一致');
 			btnConfirm = false;
+			$('.twoStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
 		}else{
 			$('.msg-payConfirmPwd').hide();
 			btnConfirm = true;
+			$('.twoStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
 		}
 	});
 
 	//接口3 注册第二步 设置支付密码 
 	$('.twoStep').click(function(){
 		if(btnConfirm == false){
-			alert('请完善填写信息！');
+			
 		}else{
 			api_mkt.register({			
 		   		'phone':$('.checkPhone').val(), 

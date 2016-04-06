@@ -13,6 +13,7 @@ require(['api_mkt_management'],function(api_mkt_management){
                 $.cookie('phone',$('.container-section-inputOne').val());
             } else {
                 console.log(data);
+                alert(登录失败，请重新登录。);
             }
         });
     });    
