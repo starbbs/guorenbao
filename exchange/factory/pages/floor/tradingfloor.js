@@ -518,7 +518,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     //总资产
     api_mkt.getTotalAssets(function(data) {        
         if (data.status == 200) {
-            $('.w_b_l').text(data.data.cnyBalance);
+            //$('.w_b_l').text(data.data.cnyBalance);
             var cnyBalance = data.data.cnyBalance;
             $.cookie('allCNY',cnyBalance);
              //买入价格
