@@ -8,7 +8,7 @@ var paths = {
     source: '../exchange-management/source',
     pages: '../exchange-management/factory/pages',
     common: '../source',
-    font:'../exchange-management/source/fonts'
+    font:'../exchange-management/source/css/fonts'
 };
 var notify = function(task, path) { // 提示
     var notice = (path && !Array.isArray(path) && tools.filePath(path).type !== 'dir') ? tools.filePath(path).filename + ' ' : '全部文件';
