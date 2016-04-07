@@ -548,8 +548,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     });
     $('.buying_number, .buying_price').blur(function(){
         var num = $(this).val();
-        var reg = /[0-9]/g;
-        if(!reg.exec(num)){
+        if(parseInt($(this).val()) <= 0){
             flag = false;
         }else{
             flag = true;
@@ -598,7 +597,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     });
 
    $('.marketBuy').blur(function(){
-        if(parseInt($(this).val()) < 0){
+        if(parseInt($(this).val()) <= 0){
             flag = false;
         }else{
             flag = true;
@@ -638,7 +637,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     });
    //卖出 市价 滑块
    $('.sellAmount').blur(function(){
-        if(parseInt($(this).val()) < 0){
+        if(parseInt($(this).val()) <= 0){
             flag = false;
         }else{
             flag = true;
@@ -671,7 +670,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     });
 
     $('.sellNumber, .sellPrice').blur(function(){
-        if(parseInt($(this).val()) < 0){
+        if(parseInt($(this).val()) <= 0){
             flag = false;
         }else{
             flag = true;
@@ -740,7 +739,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     $("#floor_popDiv").fadeIn(500);   
                     $('#hideSection').val('1');         
                 }else if(data.status == 400){
-                    console.log(data);
+                    alert('账户余额不足');
                 }
             }); 
         } 
@@ -759,8 +758,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     $("#floor_bg").show();
                     $("#floor_popDiv").fadeIn(500);
                     $('#hideSection').val('2');               
-                }else{
-                    console.log(data);
+                }else if(data.status == 400){
+                    alert('账户余额不足');
                 }
             }); 
         }        
