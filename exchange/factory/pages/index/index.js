@@ -1,6 +1,7 @@
 require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_info, mkt_trade) {
     //mkt_info.get();
-    mkt_trade.get();
+    
+    //mkt_trade.get();
     var exchangeToken = $.cookie('exchangeToken');
     var global_loginuserphone = $.cookie("global_loginuserphone");
     var global_loginusername = $.cookie("global_loginusername");
@@ -483,7 +484,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         location.href = "./cnydepositswithdrawal.html";
     });
     $(".withdraw").on("click",function(){
-        location.href = "./nutstopupwithdrawal.html?formindex='index'";
+        location.href = "./cnydepositswithdrawal.html?formindex='index'";
     });
     var fflat = true;
     $(".eye_i").on("click",function(){

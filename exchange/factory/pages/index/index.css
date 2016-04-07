@@ -952,7 +952,6 @@ progress::-webkit-progress-value {
 }
 
 /* .popup_message_box */
-
 .error_tips_one{
     top: 38px;
     position: absolute;
@@ -960,4 +959,16 @@ progress::-webkit-progress-value {
     color: #ff6600;
     line-height: 22px;
     display:none;
+}
+.grfhafter:after{
+    content: url('../images/index_gopal_logo.png');
+    position: relative;
+    top: 2px;
+    left:4px;
+}
+.grfhafter_two:after{
+    content: url('../images/index_cny_money_logo.png');
+    position: relative;
+    top: 2px;
+    left:4px;
 }

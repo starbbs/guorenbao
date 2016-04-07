@@ -83,8 +83,8 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 				for(var i=0;i<list_buy.length;i++){
 		            buy_list_html += "<div class='table_row'>"
 		            +"<div class='table_con buyprice'>买"+(i+1)+"</div>"
-		            +"<div class='table_con'>¥"+list_buy[i][0]+"</div>"
-		            +"<div class='table_con'>"+list_buy[i][1]+"</div>"
+		            +"<div class='table_con'>¥"+list_buy[i][0].toFixed(2)+"</div>"
+		            +"<div class='table_con'>"+list_buy[i][1].toFixed(2)+"</div>"
 		            +"<div class='table_con'>¥"+(list_buy[i][0]*list_buy[i][1]).toFixed(2)+"</div></div>";
 				}
 			} else {
@@ -98,8 +98,8 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 				for(var i=0;i<list_buy_five.length;i++){
 		            buy_list_html += "<div class='table_row'>"
 		            +"<div class='table_con buyprice'>买"+(i+1)+"</div>"
-		            +"<div class='table_con'>¥"+list_buy_five[i][0]+"</div>"
-		            +"<div class='table_con'>"+list_buy_five[i][1]+"</div>"
+		            +"<div class='table_con'>¥"+list_buy_five[i][0].toFixed(2)+"</div>"
+		            +"<div class='table_con'>"+list_buy_five[i][1].toFixed(2)+"</div>"
 		            +"<div class='table_con'>¥"+(list_buy_five[i][0]*list_buy_five[i][1]).toFiexed(2)+"</div></div>";
 				}
 			}
@@ -113,8 +113,8 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 				for(var i=0;i<list_sell.length;i++){
 		            list_sell_html += "<div class='table_row'>"
 		            +"<div class='table_con saleprice'>卖"+(list_sell.length-i)+"</div>"
-		            +"<div class='table_con'>¥"+list_sell[i][0]+"</div>"
-		            +"<div class='table_con'>"+list_sell[i][1]+"</div>"
+		            +"<div class='table_con'>¥"+list_sell[i][0].toFixed(2)+"</div>"
+		            +"<div class='table_con'>"+list_sell[i][1].toFixed(2)+"</div>"
 		            +"<div class='table_con'>¥"+(list_sell[i][0]*list_sell[i][1]).toFixed(2)+"</div>";
 				}
 			} else {
@@ -128,8 +128,8 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 				for(var i=0;i<list_sell_five.length;i++){
 		            list_sell_html += "<div class='table_row'>"
 		            +"<div class='table_con saleprice'>卖"+(list_sell_five.length-i)+"</div>"
-		            +"<div class='table_con'>¥"+list_sell_five[i][0]+"</div>"
-		            +"<div class='table_con'>"+list_sell_five[i][1]+"</div>"
+		            +"<div class='table_con'>¥"+list_sell_five[i][0].toFixed(2)+"</div>"
+		            +"<div class='table_con'>"+list_sell_five[i][1].toFixed(2)+"</div>"
 		            +"<div class='table_con'>¥"+(list_sell_five[i][0]*list_sell_five[i][1]).toFixed(2)+"</div>";
 				}
 			}
