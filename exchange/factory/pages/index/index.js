@@ -1,7 +1,7 @@
 require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_info, mkt_trade) {
     //mkt_info.get();
     
-    //mkt_trade.get();
+    mkt_trade.get();
     var exchangeToken = $.cookie('exchangeToken');
     var global_loginuserphone = $.cookie("global_loginuserphone");
     var global_loginusername = $.cookie("global_loginusername");
@@ -458,7 +458,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     login_area_times++;
                 } else if(data.status==400){
                     if(data.msg=="登录密码错误"){
-                        $(".error_tips_index").show().html(data.msg);
+                        $(".error_tips_index").show().html("用户名或密码错误，请重新登录");
                     } else if(data.msg=="手机号未注册"){
                         $(".error_tips_one").show().html(data.msg);
                     } else {
@@ -532,7 +532,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         api_mkt.userlogout({
         }, function(data) {
             if (data.status == 200) {
-                alert(data.msg);
+                //alert(data.msg);
             } else if (data.status == 305) {
                 alert(data.msg);
             } else {

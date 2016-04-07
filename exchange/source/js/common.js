@@ -214,7 +214,7 @@
                     } else if(data.msg=="手机号未注册"){
                         $(".err_tips_one").show().html(data.msg);
                     } else if(data.msg=="登录密码错误"){
-                        $(".error_tips").show().html(data.msg);
+                        $(".error_tips").show().html("用户名或密码错误，请重新登录");
                     }
                 } else {
 	            	$(".error_tips").show().html(data.msg);
@@ -262,7 +262,7 @@
         api_mkt.userlogout({
         }, function(data) {
             if (data.status == 200) {
-                alert(data.msg);
+                //alert(data.msg);
                 window.location.href="index.html";
             } else if (data.status == 305) {
                 alert(data.msg);

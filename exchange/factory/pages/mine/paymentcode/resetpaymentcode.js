@@ -59,6 +59,8 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                 } else if (data.status == 400) {
                     if (data.msg == "验证码错误") {
                         $(".one_span2").show().html(data.msg);
+                    } else if(data.msg=="未实名认证"){
+                        $(".one_span2").show().html(data.msg);
                     }
                 } else {
                     $(".one_span2").show().html(data.msg);
