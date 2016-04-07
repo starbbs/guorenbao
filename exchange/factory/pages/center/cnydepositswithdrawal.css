@@ -755,22 +755,22 @@ a {
     padding-left:147px;
 }
 .ICBC{
-    background: url(../images/ICBC.png) no-repeat 20px center;
+    background: url(../images/center_ICBC.png) no-repeat 20px center;
 }
 .CBC{
-    background: url(../images/CBC.png) no-repeat top left;
+    background: url(../images/center_CBC.png) no-repeat 20px left;
 }
 .BC{
-    background: url(../images/BC.png) no-repeat top left;
+    background: url(../images/center_BC.png) no-repeat 20px left;
 }
 .CMB{
-    background: url(../images/CMB.png) no-repeat top left;
+    background: url(../images/center_CMB.png) no-repeat 20px left;
 }
 .ABC{
-    background: url(../images/ABC.png) no-repeat top left;
+    background: url(../images/center_ABC.png) no-repeat 20px left;
 }
 .PSBC{
-    background: url(../images/PSBC.png) no-repeat top left;
+    background: url(../images/center_PSBC.png) no-repeat 20px left;
 }
 .Withdrawal{
     width:100%;

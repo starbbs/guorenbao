@@ -21,9 +21,6 @@
     align-items: center;
 }
 
-
-
-
 /*---滚动条默认显示样式--*/
 
 ::-webkit-scrollbar-thumb {
@@ -468,7 +465,8 @@ position: relative; */
     float:left;
     outline: none;
     cursor: pointer;
-    background: #EEE;
+    color:#fff;
+    background: #0bbeee;
 }
 .regist_rg_input-cost{
     width:200px;

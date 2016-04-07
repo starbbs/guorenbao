@@ -539,7 +539,7 @@
 .accountholder_tipafter{
     width: 16px;
     height: 16px;
-    content: url(../images/tips_img.png);
+    content: url(../images/center_tips_img.png);
     cursor: pointer;
     left: 0px;
     display: inline;
@@ -588,10 +588,10 @@
     padding-left:25px;
 }
 .ICBC{
-    background: url(../images/ICBC-logo.png) no-repeat top left;
+    background: url(../images/center_ICBC-logo.png) no-repeat top left;
 }
 .CBC{
-    background: url(../images/CBC-logo.png) no-repeat top left;
+    background: url(../images/center_CBC-logo.png) no-repeat top left;
 }
 .bankIdCard-Code{
     position: absolute;
@@ -604,7 +604,7 @@
     top:16px;
     width:56px;
     height:20px;
-    background-image: url(../images/withdraw-bankBg.png);
+    background-image: url(../images/center_withdraw-bankBg.png);
     padding-left:13px;
     padding-top:4px;
     color:#fff;
@@ -704,7 +704,7 @@
     position: absolute;
     top:30px;
     right:80px;
-    background: url(../images/modify.png) no-repeat center center;
+    background: url(../images/center_modify.png) no-repeat center center;
     width:20px;
     height: 20px;
     cursor: pointer;
@@ -713,28 +713,28 @@
     position: absolute;
     top:30px;
     right:30px;
-    background: url(../images/del.png) no-repeat center center;
+    background: url(../images/center_del.png) no-repeat center center;
     width:20px;
     height: 20px;
     cursor: pointer;
 }
 .ICBC{
-    background: url(../images/ICBC.png) no-repeat 10px 15px;
+    background: url(../images/center_ICBC.png) no-repeat 10px 15px;
 }
 .CBC{
-    background: url(../images/CBC.png) no-repeat 10px 15px;
+    background: url(../images/center_CBC.png) no-repeat 10px 15px;
 }
 .BC{
-    background: url(../images/BC.png) no-repeat 10px 15px;
+    background: url(../images/center_BC.png) no-repeat 10px 15px;
 }
 .CMB{
-    background: url(../images/CMB.png) no-repeat 10px 15px;
+    background: url(../images/center_CMB.png) no-repeat 10px 15px;
 }
 .ABC{
-    background: url(../images/ABC.png) no-repeat 10px 15px;
+    background: url(../images/center_ABC.png) no-repeat 10px 15px;
 }
 .PSBC{
-    background: url(../images/PSBC.png) no-repeat 10px 15px;
+    background: url(../images/center_PSBC.png) no-repeat 10px 15px;
 }
 
 /*果仁地址修改*/
