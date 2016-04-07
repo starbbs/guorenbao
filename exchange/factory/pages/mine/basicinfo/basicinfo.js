@@ -36,7 +36,8 @@ require(['api_mkt','cookie'], function(api_mkt) {
                     } else {
                         $("#realname").html("未认证");
                     }
-                    $("#account_name").html(data.data.list.mobile);
+                    //data.data.list.mobile.substr(0,3)+'****'+data.data.list.mobile.substr(7,4)
+                    $("#account_name").html(data.data.list.mobile.substr(0,3)+'****'+data.data.list.mobile.substr(7,4));
                     $("#account_uid").html(data.data.list.uid);
                 }
             }
