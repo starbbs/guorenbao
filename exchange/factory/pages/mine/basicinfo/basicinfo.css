@@ -231,6 +231,8 @@
 
 .rft_content >div {
     border-bottom: 1px solid #cccccc;
+    box-sizing: content-box;
+    height: 92px;
 }
 
 .rft_content div span:nth-child(1) {
@@ -277,7 +279,7 @@
 
 .rightside>div {
     width: 100%;
-    line-height: 90px;
+    line-height: 92px;
     position: relative;
 }
 

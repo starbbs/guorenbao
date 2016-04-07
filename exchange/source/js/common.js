@@ -213,6 +213,8 @@
                         $(".autocode_tips").show().html(data.msg);
                     } else if(data.msg=="手机号未注册"){
                         $(".err_tips_one").show().html(data.msg);
+                    } else if(data.msg=="登录密码错误"){
+                        $(".error_tips").show().html(data.msg);
                     }
                 } else {
 	            	$(".error_tips").show().html(data.msg);
