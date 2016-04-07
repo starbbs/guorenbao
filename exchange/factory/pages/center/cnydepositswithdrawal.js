@@ -12,6 +12,10 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             $('.recharge').hide();
             $('.withdraw_deposit').show();
         });
+        //所有input focus 清空 内容
+        $('.regist_rg_input').focus(function(){
+            $(this).val('');
+        });
 
         var flag = false;
         $('.messagenum_area').on("click",function(){
@@ -31,7 +35,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         });
 
         //接口 人民币充值历史（查询最近5条）
-        api_mkt.rmbWithdrawalsHistory({
+        api_mkt.rmbRechargeHistory({
             'pageNo':1,
             'pageSize':5
         },function(data) {
@@ -193,8 +197,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         //人民币提现表单校验
         $('#WithdrawalsAmount').blur(function(){
             var WithdrawalsAmount = $(this).val();
-            if(!WithdrawalsAmount || isNaN(WithdrawalsAmount)){
-                $('.msg-WithdrawalsAmount').text('请输入提现金额');
+            if(!WithdrawalsAmount || isNaN(WithdrawalsAmount) || WithdrawalsAmount <100){
+                $('.msg-WithdrawalsAmount').text('最低提现金额为100元');
                 flag = false;
             }else if(WithdrawalsAmount > 50000){
                 $('.msg-WithdrawalsAmount').text('最大提现金额不能超过50000');
@@ -296,7 +300,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 
         //人民币提现申请 弹出层        
         $(".Withdrawalsbtn").click(function(){
-            if(flag == false || typeof(flag) == 'undefined'){
+            if(flag == false){
                 alert('请完成填写相关信息！');
             }else{
                 //打开弹出层-生成汇款单
