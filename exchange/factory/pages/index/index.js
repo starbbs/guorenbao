@@ -460,7 +460,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     if(data.msg=="登录密码错误"){
                         $(".error_tips_index").show().html("用户名或密码错误，请重新登录");
                     } else if(data.msg=="手机号未注册"){
-                        $(".error_tips_one").show().html(data.msg);
+                        //$(".error_tips_one").show().html(data.msg);
+                        $(".error_tips_one").show().html("用户名或密码错误，请重新登录");
                     } else {
                         $(".autocode_tips").show().html(data.msg);
                     }

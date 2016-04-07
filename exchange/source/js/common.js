@@ -212,7 +212,8 @@
                     if(data.msg=="验证码错误"){
                         $(".autocode_tips").show().html(data.msg);
                     } else if(data.msg=="手机号未注册"){
-                        $(".err_tips_one").show().html(data.msg);
+                        // $(".err_tips_one").show().html(data.msg);
+                        $(".error_tips_one").show().html("用户名或密码错误，请重新登录");
                     } else if(data.msg=="登录密码错误"){
                         $(".error_tips").show().html("用户名或密码错误，请重新登录");
                     }
