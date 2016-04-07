@@ -70,7 +70,7 @@
                             </div>
 
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入您想充值的整数金额" id="bank-money"/>
+                                <input class="regist_rg_input" type="text" placeholder="请输入您想充值的整数金额" onKeyUp="this.value=this.value.replace(/\D/g,'')" id="bank-money"/>
                                 <span class="msg-bank-money"></span>
                             </div>
                             <div class="regist_input_div">
@@ -164,7 +164,7 @@
                             <tr>
                                 <td><label for="WithdrawalsAmount">提现金额</label></td>
                                 <td>
-                                    <input class="regist_rg_input" type="text" placeholder="CNY" id="WithdrawalsAmount"/>
+                                    <input class="regist_rg_input" type="text" placeholder="CNY" id="WithdrawalsAmount" onKeyUp="this.value=this.value.replace(/\D/g,'')"/>
                                     <div class="regist_rg_input bankcard">
                                         <span class="msg msg-WithdrawalsAmount"></span>
                                     </div>                                    

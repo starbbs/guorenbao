@@ -19,6 +19,10 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
     $('#addNewAd').click(function() {
         location.href = "withdraw.html?id=rmbtx ";
     });
+    //所有input focus 清空 内容
+    $('.regist_rg_input').focus(function(){
+        $(this).val('');
+    });
     //我的账户信息-取账户地址
     api_mkt.basic(function(data) {
         if (data.status == 200) {
@@ -40,7 +44,7 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
             for (var i = 0; i < data.data.list.length; i++) {
                 //创建节点
                 var Node1 = $('<option></option>');
-                Node1.text(data.data.list[i].address);
+                Node1.text(data.data.list[i].name+ '：' + data.data.list[i].address);
                 $('.regist_rg_input-select').append(Node1);
             }
         } else {
@@ -125,10 +129,10 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
                 count--;
                 if (count > 0) {
                     $('#gopWithdrawalsCodeBtn').val(count + 's后重新发送');
-                    $('#gopWithdrawalsCodeBtn').attr('disabled', true).css('cursor', 'not-allowed');
+                    $('#gopWithdrawalsCodeBtn').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
                 } else {
                     clearInterval(resend);
-                    $('#gopWithdrawalsCodeBtn').attr('disabled', false).css('cursor', 'pointer').val('获取验证码');
+                    $('#gopWithdrawalsCodeBtn').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
                 }
             }, 1000);
         }
@@ -147,9 +151,9 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
                 'paypwd': $('#gopWithdrawalsPayPwd').val()
             }, function(data) {
                 if (data.status == 200) {
-                    console.log(data);
-                } else {
-                    console.log(data.msg);
+                    alert('转出成功');
+                } else if(data.status == 400){                    
+                    alert('账户果仁不足');
                 }
             });
         }
@@ -184,6 +188,13 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
     });
 
     
+
+    //点击图片 复制地址
+    $('.imgCopy').click(function(){
+        $('#a').select();  
+        document.execCommand("Copy");
+        alert("已复制好，可贴粘。"); 
+    });
 
 
 });
