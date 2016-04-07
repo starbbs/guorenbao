@@ -645,5 +645,13 @@ a {
 .btn-fenye {
   cursor: pointer;
   padding: 2px 7px; }
+.gpal_address{
+    width:80%;
+    border:none;
+    background: none;
+    outline: none;
+    color:#fff;
+     resize : none;
+}
   
 

@@ -228,5 +228,12 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
 
     })
 
+    //点击图片 复制地址
+    $('.imgCopy').click(function(){
+        $('#a').select();  
+        document.execCommand("Copy");
+        alert("已复制好，可贴粘。"); 
+    });
+
 
 });
