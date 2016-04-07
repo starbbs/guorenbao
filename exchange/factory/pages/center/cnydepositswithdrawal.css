@@ -523,25 +523,23 @@
 }
 
 .accountholder_tipafter{
-    width: 16px;
+    padding-right:20px;
     height: 16px;
     /*content: url(tips_img.png);*/
-    cursor: pointer;
-    left: 0px;
+    background: url('../images/center_useable_help.png') no-repeat right center;
     display: inline;
 }
 .tipscontent{
-    border: 1px solid #b0b5b6;
     width: 256px;
+    height: 157px;
     position: absolute;
-    right: -126px;
+    right: -120px;
     display: inline-block;
-    bottom: 30px;
-    background-color: #f6f6f6;
-    padding: 10px 10px;
-    border-radius:2px;
+    bottom: 23px;
+    padding: 27px 13px 0 13px;
     line-height: 20px;
     text-indent: 2rem;
+    background: url('../images/center_useable_help_bg.png') no-repeat center center;
 }
 
 .bankcard,.handlingcharget{

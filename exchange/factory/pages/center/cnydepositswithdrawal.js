@@ -11,11 +11,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             $('.rmbxh').removeClass('bottomon');
             $('.recharge').hide();
             $('.withdraw_deposit').show();
-        });
-        //所有input focus 清空 内容
-        $('.regist_rg_input').focus(function(){
-            $(this).val('');
-        });
+        });        
 
         var flag = false;
         $('.messagenum_area').on("click",function(){
@@ -31,6 +27,13 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 $(".popup_message_box").hide("100");
                 $(".messagenum_area em").css("color","#cccccc");
                 $(".msg_num").css("color","#cccccc");
+            }
+        });
+
+        //开户人姓名 
+        api_mkt.basic(function(data) {
+            if (data.status == 200) {
+                $("#bank-username").val(data.data.list.name);             
             }
         });
 
@@ -74,7 +77,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
                         //关闭弹出层 -生成汇款单
                         $(".span-text").click(function(){
-                            window.location.reload();
                             $(".mydiv").css("display","none");
                             $(".bg").css("display","none");
                         });  
@@ -121,7 +123,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             },function(data) {
                 //alert(data.msg);
                 if (data.status == 200) {
-                    console.log(data);
+                    if(data.data.list[i].transferCnyStatus == 'WAIT'){
+                        data.data.list[i].transferCnyStatus = '进行中';
+                    }
                     var html = [];
                     for(var i=0; i<10;i++){
                         html.push("<tr>");                                        
@@ -547,7 +551,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 $(".account-name-new").text($("#bank-username").val());
                 $(".money-new").text($("#bank-money").val()+'.00');                
                 $(".remittance-note-numbe-newr").text($('.pUid').val());
-                $('.bankName').text($("#bank").val());
+                $('.bankName').text($("#bank").val() + '网银');
                 //关闭弹出层 -生成汇款单
                 $(".span-text").click(function(){
                     $(".mydiv").css("display","none");
@@ -594,7 +598,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                                     $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
                                     //关闭弹出层 -生成汇款单
                                     $(".span-text").click(function(){
-                                        window.location.reload();
+                                        //window.location.reload();
                                         $(".mydiv").css("display","none");
                                         $(".bg").css("display","none");
                                     });  
@@ -680,17 +684,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 $('.withdraw_deposit').show();
             }
             var c = getQueryString("whichtab");
-            if (c=="recharget") {
-                $('.rmbxh').addClass('bottomon');
-                $('.rmbtx').removeClass('bottomon');
-                $('.recharge').hide();
-                $('.withdraw_deposit').show();
-            }
-            if(c=='withdraw'){
+            if(c){
                 $('.rmbxh').removeClass('bottomon');
                 $('.rmbtx').addClass('bottomon');
-                $('.recharge').show();
-                $('.withdraw_deposit').hide();
+                $('.recharge').hide();
+                $('.withdraw_deposit').show();
             }
         }); 
 
