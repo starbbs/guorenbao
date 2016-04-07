@@ -44,9 +44,16 @@ require(['api_mkt','cookie'], function(api_mkt) {
         });
     }
     $(".close_btn").on("click",function(){
-        $("#popDiv").hide();
-        $("#bg").hide();
+        $(".popDiv").hide();
+        $(".bg").hide();
     });
+
+    $(".sure_btn").on("click",function(){
+        $(".popDiv").hide();
+        $(".bg").hide();
+        alert("修改成功");
+    });
+
     var flag = true;
     $('.messagenum_area').on("click",function(){
         if(flag){
