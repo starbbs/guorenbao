@@ -363,42 +363,51 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     var text = $(this).parent().parent().find('.id').text();
                     $("#floor_bg").show();
                     $("#floor_popDiv").fadeIn(500);
-                    $('#hideSection').val('5');
-                    $('.sure_btn').click(function(){
-                        if($('#hideSection').val() == '5'){
-                            api_mkt.tradeGopCancelByid({
-                                'id':text
-                            },function(data) {        
-                                if (data.status == 200) {
-                                    api_mkt.tradeGopCurrentList(function(data) {
-                                        if (data.status == 200 && data.data.list.length >0) {
-                                            //console.log(data);
-                                            var html = [];
-                                            var num = data.data.list.length < 5?data.data.list.length:5;
-                                            for(var i=0; i<num;i++){
-                                                html.push("<tr>");                                        
-                                                html.push("<td>"+ data.data.list[i].createDate +"</td>");                
-                                                html.push("<td class='id' style='display:none'>"+ data.data.list[i].createDate +"</td>");
-                                                html.push("<td>"+ data.data.list[i].tradeGopType +"</td>");
-                                                html.push("<td class='tradeGopFlag' style='display:none'>"+ data.data.list[i].tradeGopFlag +"</td>");                    
-                                                html.push("<td class='price'>"+ data.data.list[i].price +"</td>");
-                                                html.push("<td class='numTotal'>"+ data.data.list[i].numTotal +"</td>");
-                                                html.push("<td>"+ (data.data.list[i].numTotal - data.data.list[i].numOver) + "</td>");
-                                                html.push("<td>"+ data.data.list[i].numOver +"</td>");
-                                                html.push("<td><p class='saDan'>撤单</p></td>");
-                                                html.push("</tr>");
-                                                $(".tradeGopCurrentListTable").html("");  //添加前清空 
-                                                $(".tradeGopCurrentListTable").append(html.join(""));
-                                            }
+                    $('.h3_1').css('display','none');
+                    $('.sure_btn').css('display','none');
+                    $('#sel_div_password').css('display','none');
+                    $('.h3_2').css('display','block');
+                    $('.sure_btn1').css('display','block');
+                
+                    //确认撤单
+                    $('.confirm').click(function(){                        
+                        api_mkt.tradeGopCancelByid({
+                            'id':text
+                        },function(data) {        
+                            if (data.status == 200) {
+                                api_mkt.tradeGopCurrentList(function(data) {
+                                    if (data.status == 200 && data.data.list.length >0) {
+                                        //console.log(data);
+                                        var html = [];
+                                        var num = data.data.list.length < 5?data.data.list.length:5;
+                                        for(var i=0; i<num;i++){
+                                            html.push("<tr>");                                        
+                                            html.push("<td>"+ data.data.list[i].createDate +"</td>");                
+                                            html.push("<td class='id' style='display:none'>"+ data.data.list[i].createDate +"</td>");
+                                            html.push("<td>"+ data.data.list[i].tradeGopType +"</td>");
+                                            html.push("<td class='tradeGopFlag' style='display:none'>"+ data.data.list[i].tradeGopFlag +"</td>");                    
+                                            html.push("<td class='price'>"+ data.data.list[i].price +"</td>");
+                                            html.push("<td class='numTotal'>"+ data.data.list[i].numTotal +"</td>");
+                                            html.push("<td>"+ (data.data.list[i].numTotal - data.data.list[i].numOver) + "</td>");
+                                            html.push("<td>"+ data.data.list[i].numOver +"</td>");
+                                            html.push("<td><p class='saDan'>撤单</p></td>");
+                                            html.push("</tr>");
+                                            $(".tradeGopCurrentListTable").html("");  //添加前清空 
+                                            $(".tradeGopCurrentListTable").append(html.join(""));
                                         }
-                                    });
-                                } else {
-                                    console.log(data.msg);
-                                }
-                            });
-                        }
+                                    }
+                                });
+                            } else {
+                                alert(data.msg);
+                            }
+                        });
                     }); 
-                });              
+                    //取消撤单
+                    $('.cancle').click(function(){
+                        $("#floor_bg").hide();
+                        $("#floor_popDiv").hide(500);
+                    }); 
+                });             
             }               
         }else{
             console.log(data);
@@ -874,6 +883,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 }
             });
         }       
+    });
+
+    //支付密码聚焦 清空
+    $('.sel_div_password').focus(function(){
+        $(this).val('');
     });
 
 

@@ -1447,6 +1447,27 @@ a {
     line-height: 36px;
     cursor: pointer;
 }
+.sure_btn1{
+    width: 110px;
+    height: 36px;
+    color: white;
+    background: #0bbeee;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    text-align: center;
+    line-height: 36px;
+    cursor: pointer;
+}
+.confirm{
+    position: absolute;
+    top: 140px;
+    left:45px;
+}
+.cancle{
+    position: absolute;
+    top: 140px;
+    left:165px;
+}
 .sel_div{
         position: absolute;
     top: 75px;
