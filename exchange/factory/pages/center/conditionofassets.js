@@ -87,21 +87,18 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pageh
     //总资产
     api_mkt.getTotalAssets(function(data) {        
         if (data.status == 200) {
-            //console.log(data);
-            //$('#total_assets').text(data.data.cnyBalance);
-            $('.cnyBalance').text(data.data.cnyBalance);
-            $('.gopLock').text(data.data.gopLock);
-            $('.cnyLock').text(data.data.cnyLock);
-            $('.gopBalance').text(data.data.gopBalance);
-
-
+            console.log(data);
+            $('#total_assets').text(data.data.cnyBalance.toFixed(2));
+            $('.cnyBalance').text(data.data.cnyBalance.toFixed(2));
+            $('.gopLock').text(data.data.gopLock.toFixed(2));
+            $('.cnyLock').text(data.data.cnyLock.toFixed(2));
+            $('.gopBalance').text(data.data.gopBalance.toFixed(2));
+            
             var totalAssets = data.data.cnyBalance + data.data.cnyLock;
             var totalNuts = data.data.gopBalance + data.data.gopLock;
             //console.log($('#thelatestprice').html());
             var totalvalue = totalNuts*$('#thelatestprice').html()+totalAssets;
             $('#total_assets').html(totalvalue.toFixed(2));//总资产
-
-
             //$.cookie('allCNY',$('.cnyBalance').text());
             //$.cookie('gop',$('.gopBalance').text());
         } else {
