@@ -102,7 +102,6 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		   		'password':$('.checkpwd').val(),
 		   		'confirmPwd':$('.checkConfirmPwd').val()	   
 			}, function(data) {
-				console.log(data);
 	            if (data.msg == "手机号码已经注册") {
 	            	$('.msg-phone').show().html('手机号已注册，请<a class="markasread" href="index.html">直接登录，3秒后跳转到首页</a>');
 	            	$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
@@ -149,7 +148,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	//接口3 注册第二步 设置支付密码 
 	$('.twoStep').click(function(){
 		if(btnConfirm == false){
-			
+			alert('输入支付密码格式不正确');
 		}else{
 			api_mkt.register({			
 		   		'phone':$('.checkPhone').val(), 
@@ -160,12 +159,12 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		   		'comfirmPayPwd':$('.payConfirmPwd').val()	   
 			}, function(data) {
 				if (data.status == 200) {
-					console.log(data.status);
+					$('.twoStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
 					$(".three").css('display','flex');
 					$(".two").css('display','none');			
 				}else{
-	            	$('.twoStep').css('backgroundColor','#eee');
-	            	console.log(data.status);
+	            	$('.twoStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
+	            	alert('输入支付密码格式不正确');
 	            }
 			});
 		}	
@@ -185,10 +184,11 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	//实名认证 身份证号
 	$(".personId").blur(function(){
 		var personId = $.trim($(".personId").val());
-		if(!personId){
+		var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;  
+   		if(!reg.test(personId)){
 			btnConfirm = false;
 			$('.msg-personId').show().text('请输入正确的身份证号');
-		}else{
+		}else {
 			$('.msg-personId').hide();
 			btnConfirm = true;
 		}
@@ -203,10 +203,10 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			   	'idNumber':$('.personId').val()	   
 			}, function(data) {
 				if (data.status == 200) {
-					console.log(data);
 					//进入注册完成页
 					$(".four").css('display','flex');
 					$(".three").css('display','none');
+					$('.threeStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
 					// api_mkt.login({
 			  //           phone: phone,
 			  //           password: password,
@@ -223,9 +223,9 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			  //           }
 			  //       });
 					toIndex();
-				} else {
-					console.log(data.status);
-					$('.threeStep').css('backgroundColor','#eee');
+				} else if(data.status == 400){
+					$('.threeStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
+					alert('请输入正确的身份证号');
 				}
 			});
 		}
@@ -251,40 +251,3 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	}
 
 });
-	/*
-	if ($.cookie('gopToken')) {			// 有token
-		api.getGopNum({
-			gopToken: $.cookie('gopToken')
-		}, function(data) {
-			if (data.status == 200) { 	// token有效
-				gotoHome();
-			} else { 					// token无效
-				$.cookie('gopToken', null);
-				gotoAuthorization();
-			}
-		});
-	} else { // 没有token
-		if (get.data.code) { 			// 已授权
-			api.wxlogin({
-				code: get.data.code
-			}, function(data) {
-				if (data.status == 200) {
-					if (data.data.gopToken) { // 已绑定
-						$.cookie('gopToken', data.data.gopToken); // 果仁账户token
-						gotoHome();
-					} else { // 未绑定
-						$.cookie('openId', data.data.openid); // 微信id
-						selectVM.userNick = viewLogin.vm.userNick = data.data.nick;
-						selectVM.userImage = viewLogin.vm.userImage = data.data.img;
-						gotoSelect();
-					}
-				} else {
-					$.alert(data.msg);
-				}
-			});
-		} else { // 未授权
-			gotoAuthorization();
-		}
-	}
-	*/
-	//apimkt
