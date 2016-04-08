@@ -56,10 +56,10 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 $('.nutOutputManager-del').click(function(){
                     $(this).parent().remove();            
                     api_mkt.gopAddressManDel({          
-                        'wallet':$(this).parent().find('.nutIdAddress').text()
+                        'wallet':($(this).parent().find('.nutIdAddress').text()).substr(36)
                     }, function(data) {
                         if (data.status == 200) {
-                            window.location.href='withdraw.html?id=rmbtx';
+                           window.location.href='withdraw.html?id=rmbtx';
                         } else {
                             
                         }
@@ -360,14 +360,12 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $('.nutOutputManager-add').click(function(){
                             $('.nut-one').show();
                             $('.nut-two').hide();
-                        });                        
+                        }); 
+                        window.location.href='withdraw.html?id=rmbtx';                        
                         
                     } else {
-                        consloe.log(err);
                     }
                 });
-
-               window.location.href='withdraw.html?id=rmbtx'; 
             }            
         });        
         
