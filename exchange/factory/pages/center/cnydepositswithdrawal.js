@@ -282,17 +282,15 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         var username = data.data.list[i].name;
                         var bank = data.data.list[i].bank;
                         var node = $('<div></div>');
-                        var nodeList ='<input type="radio" name="checkBankCard" class="checkBankCard" checked/>'+
-                                       '<input type="text" class="bankNum" style="display:block"/>'+
-                                       '<input type="text" class="bankUserName" style="display:block"/>'+
-                                       '<input type="text" class="bankName" style="display:block"/>'+'<div class="bankIdCard"></div>';
+                        var nodeList ='<input type="radio" name="checkBankCard" class="checkBankCard"/>'+
+                                       '<input type="text" class="bankNum" style="display:none" value="'+num+'"/>'+
+                                       '<input type="text" class="bankUserName" style="display:none" value="'+username+'"/>'+
+                                       '<input type="text" class="bankName" style="display:none" value="'+bank+'"/>'+
+                                       '<div class="bankIdCard">'+'尾号：'+num.substr(num.length-4)+'</div>';
                         node.html(nodeList);
                         node.insertBefore($('.addBankCard'));
-                        $('.bankNum').val(num);
-                        $('.bankUserName').val(username);
-                        $('.bankName').val(bank);
-                        $('.bankIdCard').text('尾号：'+num.substr(num.length-4));
                         //判断显示银行logo
+                        $('input[type="radio"]:eq(0)').attr('checked',true); 
                         var bankName = data.data.list[i].bank;
                         if(bankName == '中国工商银行'){
                             $('.bankIdCard').addClass('ICBC');
@@ -306,17 +304,18 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             $('.bankIdCard').addClass('PSBC');
                         }else if(bankName == '中国农业银行'){
                             $('.bankIdCard').addClass('ABC');
-                        }
-                        //勾选弹出框 选择内容
-                        $('.checkBankCard').click(function(){
-                            alert($(this).parent().find('.bankNum').val());
-                            $(this).parent().find('.bankUserName').val();
-                            $(this).parent().find('.bankName').val();
-                        });
+                        }                        
                     }                    
                 }
             }
-               
+            $('.checkBankCard').click(function(){
+                var a = $(this).parent().find('.bankNum').val();
+                var b = $(this).parent().find('.bankUserName').val();
+                var c = $(this).parent().find('.bankName').val();
+                $.cookie('bankNum',a);
+                $.cookie('bankUserName',b);
+                $.cookie('bankName',c);
+            });
 
             //人民币提现申请 弹出层        
             $(".Withdrawalsbtn").click(function(){
@@ -325,11 +324,12 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 }else{  
                     $(".mydiv1").css("display","block");
                     $(".bg").css("display","block"); 
+                    //勾选弹出框 选择内容
                           
                     //弹出层理面的内容
-                    $(".WithdrawalsCard").text(data.data.list[0].acnumber);
-                    $(".WithdrawalsBank").text(data.data.list[0].bank);
-                    $(".WithdrawalsName").text(data.data.list[0].name);
+                    $(".WithdrawalsCard").text($.cookie('bankNum'));
+                    $(".WithdrawalsBank").text($.cookie('bankUserName'));
+                    $(".WithdrawalsName").text($.cookie('bankName'));
                     var amount = parseInt($("#WithdrawalsAmount").val());
                     var Fee = parseInt($('.WithdrawalsFee').text());
                     $(".WithdrawalsAmount").text(amount+'.00');

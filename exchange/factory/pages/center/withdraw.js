@@ -424,20 +424,15 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 var bankName = data.data.list[i].bank;  //所属银行
                 var bankIP = data.data.list[i].province + data.data.list[i].city + data.data.list[i].subbank;  //支行
                 
-                var node = $('<div></div>');
-                node.addClass('bankIdCard addBankCard newCard');
-                var nodeList ='<section class="bankIdCard-bankLogoName bankName"></section>'+
-                                '<section class="bankIdCard-Code">尾号：1111</section>'+            
+                var node = $('<div></div>').addClass('bankIdCard addBankCard newCard');
+                var nodeList =$('<section class="bankIdCard-bankLogoName bankName"></section>'+
+                                '<section class="bankIdCard-Code">'+'尾号：'+num.substr(num.length-4)+'</section>'+            
                                 '<section class="bankIdCard-CardAndBg">储蓄卡</section>'+
                                 '<section class="bankIdCard-hr"></section>'+
-                                '<section class="bankIdCard-Name"></section>'+
+                                '<section class="bankIdCard-Name">'+name+'</section>'+
                                 '<section class="bankIdCard-del">删除</section>'+
-                                '<section class="bankIdCard-address"></section>';
-                node.html(nodeList);
+                                '<section class="bankIdCard-address">'+bankIP+'</section>').appendTo(node);
                 node.insertBefore($('.bankIdCard-add'));
-                $('.bankIdCard-Code').text('尾号：'+num.substr(num.length-4));
-                $('.bankIdCard-Name').text(name);
-                $('.bankIdCard-address').text(bankIP);
                 //判断显示银行logo
                 if(bankName == '中国工商银行'){
                     $('.bankIdCard').addClass('ICBC');
