@@ -159,8 +159,8 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
             api_mkt.sendCodeByLoginAfter(function(data) {
                 if (data.status == 200) {
                     console.log(data);
-                    //30秒内只能发送一次
-                    var count = 30;
+                    //60秒内只能发送一次
+                    var count = 60;
                     var resend = setInterval(function() {
                         count--;
                         if (count > 0) {
