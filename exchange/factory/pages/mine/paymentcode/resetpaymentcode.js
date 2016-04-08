@@ -11,6 +11,9 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         $("#who_account").html(global_loginuserphone.substr(0, 3) + '****' + global_loginuserphone.substr(7, 4));
     }
 
+    $(".logoimg").on("click",function(){
+        location.href="./index.html";
+    });
     var whether_sub_one = false;
     $("#idNumber").on("blur", function() {
         if ($(this).val() == "") {
@@ -156,8 +159,8 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
             api_mkt.sendCodeByLoginAfter(function(data) {
                 if (data.status == 200) {
                     console.log(data);
-                    //30秒内只能发送一次
-                    var count = 30;
+                    //60秒内只能发送一次
+                    var count = 60;
                     var resend = setInterval(function() {
                         count--;
                         if (count > 0) {

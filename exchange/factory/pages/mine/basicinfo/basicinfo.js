@@ -28,9 +28,9 @@ require(['api_mkt','cookie'], function(api_mkt) {
              */
             if(data.data){
                 if(data.data.list){
-                    console.log(data.data.list.name);
-                    console.log(data.data.list.mobile);
-                    console.log(data.data.list.uid);
+                    // console.log(data.data.list.name);
+                    // console.log(data.data.list.mobile);
+                    // console.log(data.data.list.uid);
                     if(data.data.list.name!=""){
                         $("#realname").html(data.data.list.name);
                     } else {

@@ -29,7 +29,8 @@ require(['api_mkt','cookie'], function(api_mkt) {
 
 	$('.realAuthBtn').click(function(){
 		if(BtnConfirm == false){
-			alert('请填写正确姓名和身份证号');
+			//alert('请填写正确姓名和身份证号');
+			$(".msg-realAuthId").show().text("请填写正确姓名和身份证号");
 		}else{
 			//我的账户实名认证信息
 			api_mkt.realNameAuth({
@@ -40,12 +41,14 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		        if(data.status == 200 || data.status == 304){
 		        	$('.authenticated').show();
 			    	$('.unautherized').hide();
+			    	$.cookie("global_loginusername",$('#realAuthName').val());
 			    	$('#username_value').text($('#realAuthName').val()); 
 			    	var num = $('#realAuthId').val();
 					var numId = num.replace(num.slice(6,14),'********');		        	
-			    	$('#identificode_value').text(numId);   
+			    	$('#identificode_value').text(numId);
+		        	$(".msg-realAuthId").hide().text("");  
 		        }else{
-		        	alert('err');
+		        	$(".msg-realAuthId").show().text("身份信息输入有误，请重新填写");
 		        }
 			});
 		}
@@ -56,6 +59,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			console.log(data.data.list.name);
 			console.log(data.data.list.idNumber);
 			if(data.data.list.name&&data.data.list.name!=""){
+				$.cookie("global_loginusername",data.data.list.name);
 				$(".authenticated").show();
 				$(".unautherized").hide();
 				$("#username_value").html(data.data.list.name);

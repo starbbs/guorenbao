@@ -20,8 +20,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             var totalNuts = data.data.gopBalance + data.data.gopLock;
             //console.log($('#thelatestprice').html());
             var totalvalue = totalNuts*$('#thelatestprice').html()+totalAssets;
-            $('.lf_asset_center').html(totalvalue);//总资产
-            $('.rg_asset_center').html(totalNuts); //总果仁
+            $('.lf_asset_center').html(totalvalue.toFixed(2));//总资产
+            $('.rg_asset_center').html(totalNuts.toFixed(2)); //总果仁
         } else {
             console.log(data.msg);
         }
@@ -56,24 +56,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             }
         });
     }
-
-    // api_mkt.login({          
-    //     'realName':$('.personName').val(),
-    //     'idNumber':$('.personId').val()    
-    // }, function(data) {
-    //     if (data.status == 200) {
-    //         console.log(data);
-    //         //进入注册完成页
-    //         $(".four").css('display','flex');
-    //         $(".three").css('display','none');
-    //         toIndex();
-    //     } else {
-    //         console.log(data.status);
-    //         $('.threeStep').css('backgroundColor','#eee');
-    //     }
-    // });
-
-
     if (!exchangeToken) {          //没有token 即未登录
         $(".login_regist").show(); //显示登录注册按钮
         $('.loginarea').show();    //显示页面中的登录区块（非弹出）
@@ -82,12 +64,34 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         $(".login_header").show(); //顶部右上角的轮询信息
         $(".loginarea").hide();    //隐藏页面中的登录区块
         $(".afterlogin").show();   //首页的总资产区块显示
+
+        api_mkt.realAuth({
+        }, function(data) {
+            if (data.status == 200) {
+                whether_auth = true;  //已经实名认证
+                if(global_loginusername){
+                    $("#whether_auth").html(global_loginusername);
+                    $(".bottom_em_i")[0].style.background = "url(./images/index_already_authentication.png)";
+                } else {
+                   $("#whether_auth").html("未认证");
+                   $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
+                }
+            } else if (data.status == 305) {
+            } else if(data.status == 400){
+                whether_auth = false;
+                $("#whether_auth").html("未认证");
+                $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
+            } else {
+            }
+        });
+
         $(".top_em").html(global_loginuserphone.substr(0,3)+'****'+global_loginuserphone.substr(7,4));
         // console.log("------index-------"+global_loginuserphone);
         // console.log("------index-------"+global_loginusername);
         // console.log("------index-------"+global_loginuseruid);
-        $(".lf_asset_center").html(totalAssets);  //总资产
-        $(".rg_asset_center").html(totalNuts);    //总果仁
+        
+        //$(".lf_asset_center").html(totalAssets.toFixed(2));  //总资产
+        //$(".rg_asset_center").html(totalNuts.toFixed(2));    //总果仁
         
         if(global_loginusername!=""&&global_loginusername){
             $("#logined_username").html(global_loginusername);
@@ -424,8 +428,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                             var totalNuts = data.data.gopBalance + data.data.gopLock;
                             //$('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
                             var totalvalue = totalNuts*$('#thelatestprice').html()+totalAssets;
-                            $('.lf_asset_center').html(totalvalue);//总资产
-                            $('.rg_asset_center').html(totalNuts);//总果仁
+                            $('.lf_asset_center').html(totalvalue.toFixed(2));//总资产
+                            $('.rg_asset_center').html(totalNuts.toFixed(2));//总果仁
                         } else if (data.status == 305) {
                             
                         } else if(data.status == 400){

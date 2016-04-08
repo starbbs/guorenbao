@@ -20,7 +20,7 @@
 		var thelatestprice;	
 		if(haha['order']){
 			thelatestprice  = JSON.parse(haha['order'][0]).price;
-			$('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
+			$('#thelatestprice').html(thelatestprice.toFixed(2)); //页面顶部 最新成交价
 		}
 		var turnover = Number(haha['24Total']).toFixed(2);
 		$('#turnover').html(turnover);  //页面顶部 24小时成交量

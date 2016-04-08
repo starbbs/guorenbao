@@ -10,6 +10,10 @@
     $('.bg').css('left', 0);
     $('.bg').css('top', 0);
 
+    $(".logoimg").on("click",function(){
+        location.href="./index.html";
+    });
+
     $(".pageone,.pagetwo,.pagethree,.pagefour").on("click",function(){
         var exchangeToken = $.cookie('exchangeToken');
         var ff = $(this).html();
@@ -101,7 +105,7 @@
 	    if(global_loginusername!=""&&global_loginusername){
 	    	$("#logined_username").html(global_loginusername);
 	    } else {
-	    	$("#logined_username").html(global_loginuserphone);
+	    	$("#logined_username").html(global_loginuserphone.substr(0,3)+'****'+global_loginuserphone.substr(7,4));
 	    }
         $(".popDiv").hide();
         $(".bg").hide();
@@ -113,7 +117,6 @@
         var password = $(".password").val();
         var authcode_common = $(".authcode_common").val();
         var flag = verify(phone, "tel");
-        console.log(flag);
         if(flag=="请输入正确的手机号码"){
         	$(".err_tips_one").show().html("请输入正确的手机号码");
             return;
@@ -152,6 +155,10 @@
 	                global_loginuserphone = data.data.phone;
 	                global_loginusername = data.data.name;
 	                global_loginuseruid = data.data.uid;
+
+                    console.log(global_loginuserphone);
+                    console.log(global_loginusername);
+
 	                $.cookie("global_loginuserphone",global_loginuserphone);
 	                $.cookie("global_loginusername",global_loginusername);
 	                $.cookie("global_loginuseruid",global_loginuseruid);
@@ -194,8 +201,8 @@
                             var totalNuts = data.data.gopBalance + data.data.gopLock;
                             //$('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
                             var totalvalue = totalNuts*$('#thelatestprice').html()+totalAssets;
-                            $('.lf_asset_center').html(totalvalue);//总资产
-                            $('.rg_asset_center').html(totalNuts);//总果仁
+                            $('.lf_asset_center').html(totalvalue.toFixed(2));//总资产
+                            $('.rg_asset_center').html(totalNuts.toFixed(2));//总果仁
 
                             var cnyBalance = data.data.cnyBalance;
                             $.cookie('allCNY',cnyBalance);
@@ -213,7 +220,7 @@
                         $(".autocode_tips").show().html(data.msg);
                     } else if(data.msg=="手机号未注册"){
                         // $(".err_tips_one").show().html(data.msg);
-                        $(".error_tips_one").show().html("用户名或密码错误，请重新登录");
+                        $(".err_tips_one").show().html("用户名或密码错误，请重新登录");
                     } else if(data.msg=="登录密码错误"){
                         $(".error_tips").show().html("用户名或密码错误，请重新登录");
                     }
@@ -278,6 +285,7 @@
 
     function synchronous() {
         $("#mybox").html("");
+        $("#msg_num_top,#newinfor_result").html("0");
         api_mkt.unReadMessage({
 
         },function(data){
@@ -285,6 +293,7 @@
                 if(data.data){
                     var dlist = data.data.list;
                     var unReadNum = data.data.unReadNum;
+                    console.log(unReadNum);
                     $("#msg_num_top,#newinfor_result").html(unReadNum);
                     var dlisthtml = "";
                     if(dlist){

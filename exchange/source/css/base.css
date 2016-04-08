@@ -204,6 +204,10 @@ table {
     flex: 1;
 }
 
+.bottom_up a:hover{
+    color:#0bbeee;
+}
+
 .bottom_down {
     max-width: 1200px;
     margin: 0 auto;
@@ -523,6 +527,15 @@ table {
     position: relative;
     top: 1px;
     right: 1px;
+}
+
+.loc_img_topbar {
+    display: block;
+    padding-top: 0px;
+    width: 33%;
+    float: left;
+    margin-left: 4%;
+    padding-top: 0px;
 }
 
 input::-webkit-input-placeholder {
