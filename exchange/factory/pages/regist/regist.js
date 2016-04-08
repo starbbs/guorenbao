@@ -196,7 +196,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	//接口4 注册第三步 设置实名验证
 	$('.threeStep').click(function(){
 		if(btnConfirm == false){
-			alert('请完善填写信息！');
+			alert('您填写的姓名或身份证号不正确，请重新输入。');
 		}else{
 			api_mkt.realNameAuth({			
 		   		'realName':$('.personName').val(),
@@ -225,7 +225,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 					toIndex();
 				} else if(data.status == 400){
 					$('.threeStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
-					alert('请输入正确的身份证号');
+					alert('您填写的姓名或身份证号不正确，请重新输入。');
 				}
 			});
 		}

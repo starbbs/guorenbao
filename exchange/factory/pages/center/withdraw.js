@@ -286,8 +286,10 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             $('.bankName').addClass('ABC');
                         }
                     window.location.reload();  
-                    } else {
-                        consloe.log(err);
+                    } else if(data.msg == '支付密码错误'){
+                        alert('支付密码错误');
+                    } else if(data.msg == '验证码错误'){
+                        alert('验证码错误');
                     }
                 });
                 
