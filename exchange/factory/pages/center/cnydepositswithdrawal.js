@@ -63,7 +63,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 
                     //过滤内容显示不同颜色
                     $(".status").filter(":contains('WAIT')").css("color","orange");
-                    $(".status").filter(":contains('SUCCESS')").replace('SUCCESS','成功').css("color","#ccc");
+                    //$(".status").filter(":contains('SUCCESS')").replace('SUCCESS','成功').css("color","#ccc");
+                    $(".status").filter(":contains('SUCCESS')").css("color","#ccc");
                     //查看此笔充值单
                     $('.checkDeal').click(function(){
                         //打开弹出层-生成汇款单
