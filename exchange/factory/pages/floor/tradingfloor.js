@@ -555,16 +555,26 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     $('.buying_number').focus(function(){
         $(this).val('');
     });
+    //禁止输入负号
+    $('input').keydown(function(event) { 
+        //console.log(event.keyCode); 
+        if (event.keyCode == 189 || event.keyCode == 109) {  
+            return false;  
+        }  
+    });
     $('.buying_number, .buying_price').blur(function(){
         var num = $(this).val();
-        if(parseInt($(this).val()) <= 0){
+        if(parseInt(num) <= 0){
             flag = false;
         }else{
             flag = true;
             var number = $('.buying_number').val();
+            //判断 账户余额
+            if(parseInt($.cookie('allCNY')) <= 0 ) return num = 100; 
             var num = (parseInt($('.buying_price').val()) * parseInt($('.buying_number').val())) / parseInt($.cookie('allCNY'))*100;
-            var numDeal = parseInt($('.buying_price').val()) * parseInt($('.buying_number').val())
+            var numDeal = parseInt($('.buying_price').val()) * parseInt($('.buying_number').val());
             num1 = Math.floor(num);
+
             $('.one').val('¥：'+ numDeal); 
 
             /*买入-限价 滑块数值*/
@@ -679,12 +689,15 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     });
 
     $('.sellNumber, .sellPrice').blur(function(){
+        //$(this).val().replace(/\-/,'');
         if(parseInt($(this).val()) <= 0){
             flag = false;
         }else{
             flag = true;
             var num = parseInt($('.sellNumber').val());
             var num1 = parseInt($.cookie('gop'));
+            //判断 账户余额
+            if(num1 <= 0 ) return num1 = 100;
             var num2 = ((num / num1 )*100).toFixed(2);
             $('.two').val('¥：'+ num2);
             /*买入-限价 滑块数值*/
