@@ -113,7 +113,6 @@
         var password = $(".password").val();
         var authcode_common = $(".authcode_common").val();
         var flag = verify(phone, "tel");
-        console.log(flag);
         if(flag=="请输入正确的手机号码"){
         	$(".err_tips_one").show().html("请输入正确的手机号码");
             return;
@@ -213,7 +212,7 @@
                         $(".autocode_tips").show().html(data.msg);
                     } else if(data.msg=="手机号未注册"){
                         // $(".err_tips_one").show().html(data.msg);
-                        $(".error_tips_one").show().html("用户名或密码错误，请重新登录");
+                        $(".err_tips_one").show().html("用户名或密码错误，请重新登录");
                     } else if(data.msg=="登录密码错误"){
                         $(".error_tips").show().html("用户名或密码错误，请重新登录");
                     }
