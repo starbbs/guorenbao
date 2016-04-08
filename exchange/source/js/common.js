@@ -10,6 +10,10 @@
     $('.bg').css('left', 0);
     $('.bg').css('top', 0);
 
+    $(".logoimg").on("click",function(){
+        location.href="./index.html";
+    });
+
     $(".pageone,.pagetwo,.pagethree,.pagefour").on("click",function(){
         var exchangeToken = $.cookie('exchangeToken');
         var ff = $(this).html();

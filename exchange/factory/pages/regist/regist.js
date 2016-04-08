@@ -18,6 +18,11 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			btnConfirm = true;
 		}
 	});
+
+	$(".logoimg").on("click",function(){
+        location.href="./index.html";
+    });
+
 	//验证码
 	/*$(".checkCode").blur(function(){			
 		if(!$(this).val()){
