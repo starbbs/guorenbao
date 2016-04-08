@@ -620,6 +620,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             flag = false;
         }else{
             flag = true;
+            if(parseInt($.cookie('allCNY')) <= 0 ) return num = 100; 
             var num = parseInt($('.marketBuy').val()); 
             var Money = parseInt($.cookie('allCNY'));
             var numRatio =  (num / Money)*100
@@ -660,6 +661,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             flag = false;
         }else{
             flag = true;
+            if(parseInt($.cookie('gop')) <= 0 ) return num1 = 100; 
             var num = parseInt($('.sellAmount').val());
             var num1 = parseInt($.cookie('gop'));
             var num2 = ((num / num1 )*100).toFixed(2);
@@ -696,8 +698,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             flag = true;
             var num = parseInt($('.sellNumber').val());
             var num1 = parseInt($.cookie('gop'));
-            //判断 账户余额
-            if(num1 <= 0 ) return num1 = 100;
+            if(parseInt($.cookie('gop')) <= 0 ) return num1 = 100; 
             var num2 = ((num / num1 )*100).toFixed(2);
             $('.two').val('¥：'+ num2);
             /*买入-限价 滑块数值*/
