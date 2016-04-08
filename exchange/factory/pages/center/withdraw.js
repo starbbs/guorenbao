@@ -1,8 +1,5 @@
 require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
-	//console.log(api_mkt);
-	//console.log(mkt_info);
-	//mkt_info.get();
-    //$('.three').hide();
+
         $('.rmbxh').on('click',function(){
             $(this).addClass('bottomon');
             $('.rmbtx').removeClass('bottomon');
@@ -30,7 +27,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             'pageSize':10
         }, function(data) {
             if (data.status == 200) {
-                console.log(data);
                 //果仁市场添加
                 $('.nut-one').hide();
                 $('.nut-two').show();
@@ -63,9 +59,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         'wallet':$(this).parent().find('.nutIdAddress').text()
                     }, function(data) {
                         if (data.status == 200) {
-                            //window.location.href='withdraw.html?id=rmbtx';
+                            window.location.href='withdraw.html?id=rmbtx';
                         } else {
-                            console.log(data.msg);
+                            
                         }
                     });         
                 });
@@ -90,7 +86,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     });         
                 });                
             } else {
-                console.log(data.msg);
             }
         });
         
@@ -131,12 +126,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     }),
                     cache: false,
                     success: function(data) {
-                        console.log(data.data.bankName);
                         //所属银行自动添加
                         $("#bank").val(data.data.bankName);
                     },
                     error: function() {
-                        console.log("提交失败");
+                        alert("提交失败");
                     }
                 });
 
@@ -203,7 +197,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             else{
                 api_mkt.sendCodeByLoginAfter(function(data) {
                     if (data.status == 200) {
-                        console.log(data);
                         $('.msg-sendCodeByLoginAfter').text('');
                         $('.msg-nut-identifyingCode').text('');
                     } else {
@@ -245,8 +238,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     'payPwd':$('#pay-pwd').val(),
                     'identifyingCode':$('#sendCodeByLoginAfter').val()
                 }, function(data) {
-                    if (data.status == 200) {
-                        console.log(data);                        
+                    if (data.status == 200) {                     
                         $('.two').css('display','none');
                         $('.three').css('display','block');
 
@@ -343,7 +335,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     'identifyingCode':$('#nut-identifyingCode').val()
                 }, function(data) {
                     if (data.status == 200) {
-                        console.log(data);
                         //果仁市场添加
                         $('.nut-one').hide();
                         $('.nut-two').show();
@@ -428,8 +419,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         'pageNo':1,
         'pageSize' :10  
     }, function(data) {
-        if (data.status == 200) {
-            console.log(data);
+        if (data.status == 200 && data.data.list >0) {
             var name = data.data.list[0].name;
             var num = data.data.list[0].acnumber;  //银行卡号
             var bankName = data.data.list[0].bank;  //所属银行
@@ -469,15 +459,12 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     'bankId':data.data.list[0].acnumber
                 }, function(data) {
                     if (data.status == 200) {
-                        console.log(data);
                         window.location.reload();
                     } else {
-                        console.log(data.msg);
                     }
                 });
             });
         } else {
-            console.log(data.msg);
         }
     });
 
