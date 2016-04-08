@@ -756,19 +756,19 @@ a {
     background: url(../images/center_ICBC.png) no-repeat 20px center;
 }
 .CBC{
-    background: url(../images/center_CBC.png) no-repeat 20px left;
+    background: url(../images/center_CBC.png) no-repeat 20px center;
 }
 .BC{
-    background: url(../images/center_BC.png) no-repeat 20px left;
+    background: url(../images/center_BC.png) no-repeat 20px center;
 }
 .CMB{
-    background: url(../images/center_CMB.png) no-repeat 20px left;
+    background: url(../images/center_CMB.png) no-repeat 20px center;
 }
 .ABC{
-    background: url(../images/center_ABC.png) no-repeat 20px left;
+    background: url(../images/center_ABC.png) no-repeat 20px center;
 }
 .PSBC{
-    background: url(../images/center_PSBC.png) no-repeat 20px left;
+    background: url(../images/center_PSBC.png) no-repeat 20px center;
 }
 .Withdrawal{
     width:100%;

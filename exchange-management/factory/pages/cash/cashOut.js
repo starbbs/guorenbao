@@ -8,7 +8,7 @@ require(['api_mkt_management'],function(api_mkt_management){
         callBack : function(now,all){
             //alert(now);
             api_mkt_management.transfer({
-                'optType':'IN',
+                'optType':'OUT',
                 'pageNo':now,
                 'pageSize':10
             },function(data){   

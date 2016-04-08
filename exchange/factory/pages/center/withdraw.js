@@ -206,7 +206,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 });
                 
                 //30秒内只能发送一次
-                var count = 30;
+                var count = 60;
                 var resend = setInterval(function(){
                         count--;
                         if(count > 0){
@@ -276,13 +276,13 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             $('.bankName').addClass('PSBC');
                         }else if(bankName == '中国农业银行'){
                             $('.bankName').addClass('ABC');
-                        }
-                    window.location.reload();  
-                    } else if(data.msg == '支付密码错误'){
-                        alert('支付密码错误');
+                        }                          
                     } else if(data.msg == '验证码错误'){
                         alert('验证码错误');
+                    } else if(data.msg == '服务器异常'){
+                        alert('服务器异常');
                     }
+                    window.location.reload();
                 });
                 
             }            
@@ -419,39 +419,41 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         'pageNo':1,
         'pageSize' :10  
     }, function(data) {
-        if (data.status == 200 && data.data.list >0) {
-            var name = data.data.list[0].name;
-            var num = data.data.list[0].acnumber;  //银行卡号
-            var bankName = data.data.list[0].bank;  //所属银行
-            var bankIP = data.data.list[0].province + data.data.list[0].city + data.data.list[0].subbank;  //支行
-            var node = $('<div></div>');
-            node.addClass('bankIdCard addBankCard newCard');
-            var nodeList ='<section class="bankIdCard-bankLogoName bankName"></section>'+
-                            '<section class="bankIdCard-Code">尾号：1111</section>'+            
-                            '<section class="bankIdCard-CardAndBg">储蓄卡</section>'+
-                            '<section class="bankIdCard-hr"></section>'+
-                            '<section class="bankIdCard-Name"></section>'+
-                            '<section class="bankIdCard-del">删除</section>'+
-                            '<section class="bankIdCard-address"></section>';
-            node.html(nodeList);
-            node.insertBefore($('.bankIdCard-add'));
-            $('.bankIdCard-Code').text('尾号：'+num.substr(num.length-4));
-            $('.bankIdCard-Name').text(name);
-            $('.bankIdCard-address').text(bankIP);
-            //判断显示银行logo
-            if(bankName == '中国工商银行'){
-                $('.bankIdCard').addClass('ICBC');
-            }else if(bankName == '中国建设银行'){
-                $('.bankIdCard').addClass('CBC');
-            }else if(bankName == '交通银行'){
-                $('.bankIdCard').addClass('BC');
-            }else if(bankName == '招商银行'){
-                $('.bankIdCard').addClass('CMB');
-            }else if(bankName == '中国邮政储蓄银行'){
-                $('.bankIdCard').addClass('PSBC');
-            }else if(bankName == '中国农业银行'){
-                $('.bankIdCard').addClass('ABC');
-            }
+        if (data.status == 200) {
+            for(var i=0;i<data.data.list.length;i++){
+                var name = data.data.list[i].name;
+                var num = data.data.list[i].acnumber;  //银行卡号
+                var bankName = data.data.list[i].bank;  //所属银行
+                var bankIP = data.data.list[i].province + data.data.list[i].city + data.data.list[i].subbank;  //支行
+                var node = $('<div></div>');
+                node.addClass('bankIdCard addBankCard newCard');
+                var nodeList ='<section class="bankIdCard-bankLogoName bankName"></section>'+
+                                '<section class="bankIdCard-Code">尾号：1111</section>'+            
+                                '<section class="bankIdCard-CardAndBg">储蓄卡</section>'+
+                                '<section class="bankIdCard-hr"></section>'+
+                                '<section class="bankIdCard-Name"></section>'+
+                                '<section class="bankIdCard-del">删除</section>'+
+                                '<section class="bankIdCard-address"></section>';
+                node.html(nodeList);
+                node.insertBefore($('.bankIdCard-add'));
+                $('.bankIdCard-Code').text('尾号：'+num.substr(num.length-4));
+                $('.bankIdCard-Name').text(name);
+                $('.bankIdCard-address').text(bankIP);
+                //判断显示银行logo
+                if(bankName == '中国工商银行'){
+                    $('.bankIdCard').addClass('ICBC');
+                }else if(bankName == '中国建设银行'){
+                    $('.bankIdCard').addClass('CBC');
+                }else if(bankName == '交通银行'){
+                    $('.bankIdCard').addClass('BC');
+                }else if(bankName == '招商银行'){
+                    $('.bankIdCard').addClass('CMB');
+                }else if(bankName == '中国邮政储蓄银行'){
+                    $('.bankIdCard').addClass('PSBC');
+                }else if(bankName == '中国农业银行'){
+                    $('.bankIdCard').addClass('ABC');
+                }
+            }          
 
             //删除银行卡
             $('.bankIdCard-del').click(function(){
