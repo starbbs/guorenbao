@@ -425,6 +425,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 var num = data.data.list[i].acnumber;  //银行卡号
                 var bankName = data.data.list[i].bank;  //所属银行
                 var bankIP = data.data.list[i].province + data.data.list[i].city + data.data.list[i].subbank;  //支行
+                
                 var node = $('<div></div>');
                 node.addClass('bankIdCard addBankCard newCard');
                 var nodeList ='<section class="bankIdCard-bankLogoName bankName"></section>'+

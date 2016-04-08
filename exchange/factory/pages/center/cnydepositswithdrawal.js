@@ -283,9 +283,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         var bank = data.data.list[i].bank;
                         var node = $('<div></div>');
                         var nodeList ='<input type="radio" name="checkBankCard" class="checkBankCard" checked/>'+
-                                       '<input type="text" class="bankNum" style="display:none"/>'+
-                                       '<input type="text" class="bankUserName" style="display:none"/>'+
-                                       '<input type="text" class="bankName" style="display:none"/>'+'<div class="bankIdCard"></div>';
+                                       '<input type="text" class="bankNum" style="display:block"/>'+
+                                       '<input type="text" class="bankUserName" style="display:block"/>'+
+                                       '<input type="text" class="bankName" style="display:block"/>'+'<div class="bankIdCard"></div>';
                         node.html(nodeList);
                         node.insertBefore($('.addBankCard'));
                         $('.bankNum').val(num);
@@ -307,15 +307,16 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         }else if(bankName == '中国农业银行'){
                             $('.bankIdCard').addClass('ABC');
                         }
+                        //勾选弹出框 选择内容
+                        $('.checkBankCard').click(function(){
+                            alert($(this).parent().find('.bankNum').val());
+                            $(this).parent().find('.bankUserName').val();
+                            $(this).parent().find('.bankName').val();
+                        });
                     }                    
                 }
             }
-            //勾选弹出框 选择内容
-            $('.checkBankCard').click(function(){
-                alert($(this).parent().find('.bankNum').val());
-                $(this).parent().find('.bankUserName').val();
-                $(this).parent().find('.bankName').val();
-            });   
+               
 
             //人民币提现申请 弹出层        
             $(".Withdrawalsbtn").click(function(){
