@@ -296,7 +296,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     }else if(bankName == '中国邮政储蓄银行'){
                         $('.bankIdCard').addClass('PSBC');
                     }else if(bankName == '中国农业银行'){
-                        $('.bankIdCard').addClass('ABC');
+                        $('.bankIdCard').addClass('ABC');S
                     }
                 }
             }
