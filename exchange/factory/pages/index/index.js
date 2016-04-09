@@ -393,6 +393,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 code: authcode_index
             }, function(data) {
                 if (data.status == 200) {
+                    $.cookie("loginfromwhichpage","");
+
+                    
                     $.cookie('exchangeToken', 'logined');
                     $(".login_regist").hide();
                     $(".login_header").show();

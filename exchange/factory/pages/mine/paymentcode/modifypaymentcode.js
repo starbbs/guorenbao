@@ -13,6 +13,9 @@ require(['api_mkt','cookie'], function(api_mkt) {
     		if($(this).val()==""){
 	   			$("#error_one").show().html("原支付密码不能为空");
 	   			return;
+	   		} else if($(this).val().length>20||$(this).val().length<8){
+	   			$("#error_one").show().html("请输入8~20位原支付密码");
+	   			return;
 	   		} else {
 	   			$("#error_one").hide().html("");
 	   		}
@@ -21,7 +24,10 @@ require(['api_mkt','cookie'], function(api_mkt) {
     		if($(this).val()==""){
 	   			$("#error_two").show().html("新支付密码不能为空");
 	   			return;
-	   		} else {
+	   		} else if($(this).val().length>20||$(this).val().length<8){
+	   			$("#error_two").show().html("请输入8~20位原支付密码");
+	   			return;
+	   		}  else {
 	   			$("#error_two").hide().html("");
 	   		}
 	   		// if($(this).val()!==""&&$(this).val()!==$("#confirmPayPwd").val()){
@@ -36,7 +42,10 @@ require(['api_mkt','cookie'], function(api_mkt) {
     		if($(this).val()==""){
 	   			$("#error_three").show().html("确认密码不能为空");
 	   			return;
-	   		} else {
+	   		} else if($(this).val().length>20||$(this).val().length<8){
+	   			$("#error_three").show().html("请输入8~20位原支付密码");
+	   			return;
+	   		}  else {
 	   			$("#error_two").hide().html("");
 	   			$("#error_three").hide().html("");
 	   		}
@@ -62,6 +71,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
     	var whether_sub_one = true;
 	    $(".next_step_btn_one").on("click",function(){
 	    	whether_sub_one = true;
+	    	alert("d")
 	    	$("#error_one,#error_two,#error_three,#error_four").hide().html("");
 	    	if($("#currentPayPwd").val()==""){
 	    		$("#error_one").show().html("原支付密码不能为空");
@@ -75,14 +85,14 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	    		$("#error_three").show().html("确认密码不能为空");
 	    		whether_sub_one = false;
 	    	}
+
+	    	if($("#newPayPwd").val()!=""&&$("#confirmPayPwd").val()!=""&&$("#newPayPwd").val()!==$("#confirmPayPwd").val()){
+	    		$("#error_three").show().html("两次输入不一致");
+	    		whether_sub_one = false;
+	    	}
 	    	if($("#identifyingCode").val()==""){
 	    		$("#error_four").show().html("验证码不能为空");
 	    		whether_sub_one = false;
-	    	}
-	    	if($("#newPayPwd").val()!==$("#confirmPayPwd").val()){
-	    		$("#error_three").show().html("两次输入不一致");
-	    		whether_sub_one = false;
-	    		return;
 	    	}
 	    	if(whether_sub_one){
 	    		api_mkt.setpaypwd({

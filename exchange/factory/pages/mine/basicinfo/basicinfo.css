@@ -404,4 +404,19 @@
     height: 28px;
 }
 
+.verticle_line{
+    color: #999999;
+    position: absolute;
+    left: 340px;
+    height: 90px;
+    line-height: 90px;
+    top: -1px;
+}
 
+.verticle_line_id{
+    color: #999999;
+    position: absolute;
+    left: 350px;
+    height: 90px;
+    line-height: 90px;
+}
