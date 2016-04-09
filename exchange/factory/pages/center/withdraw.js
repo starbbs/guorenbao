@@ -56,12 +56,12 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 $('.nutOutputManager-del').click(function(){
                     $(this).parent().remove();            
                     api_mkt.gopAddressManDel({          
-                        'wallet':($(this).parent().find('.nutIdAddress').text()).substr(36)
+                        'wallet':($(this).parent().find('.nutIdAddress').text())
                     }, function(data) {
                         if (data.status == 200) {
-                           window.location.href='withdraw.html?id=rmbtx';
+                          window.location.href='withdraw.html?id=rmbtx';
                         } else {
-                            
+                            alert(data.msg);
                         }
                     });         
                 });
@@ -80,7 +80,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             if (data.status == 200) {
                                 window.location.href = 'withdraw.html?id=rmbtx';
                             } else {
-                                
+                            	alert(data.msg);
                             }
                         });
                     });         
@@ -358,7 +358,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         var Node3 = $('<p class="nutIdAddress"></p>').appendTo(Node1); 
                         var Node4 = $('<span class="nutOutputManager-modify"></span>').appendTo(Node1); 
                         var Node5 = $('<span class="nutOutputManager-del"></span>').appendTo(Node1);
-                        Node2_1.val(data.data.list[i].name);
+                        Node2_1.val($('#nut-name').val());
                         Node3.text($('#nut-address').val());
                         //$('.nut-two').appendBefore(Node1);
                         Node1.insertBefore($('.nutOutputManager-add'));
@@ -373,9 +373,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             $('.nut-one').show();
                             $('.nut-two').hide();
                         }); 
-                        window.location.href='withdraw.html?id=rmbtx';                        
+//                        window.location.href='withdraw.html?id=rmbtx';                        
                         
                     } else {
+                    	alert(data.msg);
+                    	console.log(data);
                     }
                 });
             }            

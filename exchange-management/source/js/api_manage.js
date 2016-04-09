@@ -1,7 +1,7 @@
 define('api_mkt_management', ['cookie'], function() {
 
-	//var basePath = 'http://localhost/';
-	var basePath = './';
+	var basePath = 'http://localhost:8089/exchange_manager';
+//	var basePath = '/';
 	//var basePath = 'http://10.23.1.138/';
 
 	var api = {};
@@ -111,43 +111,43 @@ define('api_mkt_management', ['cookie'], function() {
 	};
 
 	//后台登录
-	add('login','./login/login');
+	add('login','/login/login');
 	//后台登出
-	add('logout','./login/logout');
+	add('logout','/login/logout');
 	//后台重置密码
-	add('setLoginPassword','./login/setLoginPassword');
+	add('setLoginPassword','/login/setLoginPassword');
 	//后台创建管理员
-	add('create','./login/create');
+	add('create','/login/create');
 	//后台锁定管理员
-	add('lockAdmin','./login/lockAdmin');
+	add('lockAdmin','/login/lockAdmin');
 	//后台解锁管理员
-	add('unlockAdmin','./login/unlockAdmin');
+	add('unlockAdmin','/login/unlockAdmin');
 	//人民币充值/提现查询
-	add('transfer','./cny/transfer');
+	add('transfer','/cny/transfer');
 	//人民币充值/提现确认
-	add('confirmTransfer','./cny/confirmTransfer');
+	add('confirmTransfer','/cny/confirmTransfer');
 	//人民币充值/提现撤销
-	add('cancelTransfer','./cny/cancelTransfer');
+	add('cancelTransfer','/cny/cancelTransfer');
 	//人民币提现锁定
-	add('lockTransfer','./cny/lockTransfer');	
+	add('lockTransfer','/cny/lockTransfer');	
 	//人民币提现解锁
-	add('unlockTransfer','./cny/unlockTransfer');
+	add('unlockTransfer','/cny/unlockTransfer');
 	//果仁转入查询
-	add('transferGopInput','./gop/transfer');
+	add('transferGopInput','/gop/transfer');
 	//果仁转出查询
-	add('transferGopOutput','./gop/transfer');
+	add('transferGopOutput','/gop/transfer');
 	//果仁挂单查询
-	add('trade','./gop/trade');
+	add('trade','/gop/trade');
 	//果仁成交查询
-	add('order','./gop/order');
+	add('order','/gop/order');
 	//用户列表
-	add('userList','./user/userList');
+	add('userList','/user/userList');
 	//用户_基本信息
-	add('userInfo','./user/userInfo');
+	add('userInfo','/user/userInfo');
 	//用户银行卡信息
-	add('userAcBank','./user/userAcBank');	
+	add('userAcBank','/user/userAcBank');	
 	//后台管理员列表
-	add('adminList','./login/adminList');
+	add('adminList','/login/adminList');
 
 	return api;
 });
