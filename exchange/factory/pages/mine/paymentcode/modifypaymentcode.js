@@ -71,7 +71,6 @@ require(['api_mkt','cookie'], function(api_mkt) {
     	var whether_sub_one = true;
 	    $(".next_step_btn_one").on("click",function(){
 	    	whether_sub_one = true;
-	    	alert("d")
 	    	$("#error_one,#error_two,#error_three,#error_four").hide().html("");
 	    	if($("#currentPayPwd").val()==""){
 	    		$("#error_one").show().html("原支付密码不能为空");
