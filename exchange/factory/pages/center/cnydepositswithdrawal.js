@@ -365,7 +365,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                                     html.push("<td>"+ data.data.list[i].updateDate +"</td>");
                                     html.push("<td>"+ data.data.list[i].bank +"</td>");
                                     html.push("<td>"+ data.data.list[i].pay +"</td>");
-                                    html.push("<td>"+ data.data.list[i].money-pay +"</td>");
+                                    html.push("<td>"+ data.data.list[i].money-data.data.list[i].pay +"</td>");
                                     html.push("<td class='cnyWithdrawals'>"+ data.data.list[i].status+ "</td>");
                                     html.push("</tr>");
                                     $(".cnyOutput").html("");  //添加前清空 
@@ -399,14 +399,14 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             if (data.status == 200) {
                 console.log(data);
                 var html = [];
-                var num = data.data.list<5?data.data.list:5;
+                var num = data.data.list.length<5?data.data.list.length:5;
                 for(var i=0; i<num;i++){
                     html.push("<tr>");                                        
                     html.push("<td>"+ data.data.list[i].updateDate +"</td>");
                     html.push("<td>"+ data.data.list[i].bank +"</td>");
                     html.push("<td>"+ data.data.list[i].pay +"</td>");
-                    html.push("<td>"+ data.data.list[i].money-pay +"</td>");
-                    html.push("<td class='cnyWithdrawals'>"+ data.data.list[i].status+ "</td>");
+                    html.push("<td>"+ (data.data.list[i].money-data.data.list[i].pay) +"</td>");
+                    html.push("<td class='cnyWithdrawals'>"+ data.data.list[i].transferCnyStatus+ "</td>");
                     html.push("</tr>");
                     $(".cnyOutput").html("");  //添加前清空 
                     $(".cnyOutput").append(html.join(""));
@@ -436,8 +436,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         html.push("<td>"+ data.data.list[i].updateDate +"</td>");
                         html.push("<td>"+ data.data.list[i].bank +"</td>");
                         html.push("<td>"+ data.data.list[i].pay +"</td>");
-                        html.push("<td>"+ data.data.list[i].money-pay +"</td>");
-                        html.push("<td class='cnyWithdrawals'>"+ data.data.list[i].status+ "</td>");
+                        html.push("<td>"+ (data.data.list[i].money-data.data.list[i].pay) +"</td>");
+                        html.push("<td class='cnyWithdrawals'>"+ data.data.list[i].transferCnyStatus+ "</td>");
                         html.push("</tr>");
                         $(".cnyOutput").html("");  //添加前清空 
                         $(".cnyOutput").append(html.join(""));
