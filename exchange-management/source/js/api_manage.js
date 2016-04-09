@@ -126,6 +126,8 @@ define('api_mkt_management', ['cookie'], function() {
 	add('transfer','./cny/transfer');
 	//人民币充值/提现确认
 	add('confirmTransfer','./cny/confirmTransfer');
+	//人民币充值/提现撤销
+	add('cancelTransfer','./cny/cancelTransfer');
 	//人民币提现锁定
 	add('lockTransfer','./cny/lockTransfer');	
 	//人民币提现解锁

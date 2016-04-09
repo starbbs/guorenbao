@@ -47,8 +47,8 @@
                     <td class="td-1">id</td>
                     <td class="td-1">uid</td>
                     <td width="80px">用户名</td>
-                    <td>金额</td>
-                    <td>金额</td>
+                    <td>申请金额</td>
+                    <td>实付金额</td>
                     <td width="35px">bankName</td>
                     <td width="65px">bankId</td>
                     <td>姓名</td>
@@ -57,6 +57,7 @@
                         <label for="selectStatus">状态:</label>
                         <select class="aside-table-thead-select" name="selectStatus">
                             <option selected="selected">WAIT</option>
+                            <option>PROCESSING</option>
                             <option>SUCCESS</option>
                             <option>CANCEL</option>
                             <option>ALL</option>
@@ -86,9 +87,9 @@
 <!-- 弹出框内容 -->
 <div class="mydiv" style="display:none;">
     <dl>
-        <dt>您要撤销此笔提现申请? </dt>
+        <dt class="js-msg">您要撤销此笔提现申请? </dt>
         <dd>
-            <input class="btn-a" type="text" placeholder="请输入当前账户密码" /><input class="btn-b btnTrue" type="button" value="确定" />
+            <input class="js-password" type="password" placeholder="请输入当前账户密码" /><input class="btn-b btnTrue" type="button" value="确定" />
         </dd>
     </dl>
     <span class="btnClose">
