@@ -41,7 +41,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	   			$("#error_three").hide().html("");
 	   		}
 	   		if($(this).val()!==""&&$("#newPayPwd").val()!=""&&$(this).val()!==$("#newPayPwd").val()){
-	   			$("#error_three").show().html("两次密码不相同");
+	   			$("#error_three").show().html("两次输入不一致");
 	   			return;
 	   		} else {
 	   			$("#error_three").hide().html("");
@@ -80,7 +80,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	    		whether_sub_one = false;
 	    	}
 	    	if($("#newPayPwd").val()!==$("#confirmPayPwd").val()){
-	    		$("#error_three").show().html("两次密码不相同");
+	    		$("#error_three").show().html("两次输入不一致");
 	    		whether_sub_one = false;
 	    		return;
 	    	}

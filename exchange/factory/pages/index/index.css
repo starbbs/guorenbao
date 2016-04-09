@@ -836,8 +836,16 @@ progress::-webkit-progress-value {
     width: 50%;
 }
 
-.rightassets_i {
-    background: url('../images/index_g_logo.png') no-repeat 0 0;
+.m1 {
+    background: url('../images/m1.png') no-repeat 0 0;
+    width: 18px;
+    height: 14px;
+    position: absolute;
+    left: 84px;
+    top: 1px;
+}
+.m2 {
+    background: url('../images/m2.png') no-repeat 0 0;
     width: 18px;
     height: 14px;
     position: absolute;
