@@ -366,6 +366,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     var text = $(this).parent().parent().find('.id').text();
                     $("#floor_bg").show();
                     $("#floor_popDiv").fadeIn(500);
+                    //变为 撤单 确认框
                     $('.h3_1').css('display','none');
                     $('.sure_btn').css('display','none');
                     $('#sel_div_password').css('display','none');
@@ -407,11 +408,23 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                                 alert(data.msg);
                             }
                         });
+                        //恢复为 买入卖出 确认框
+                        $('.h3_1').css('display','block');
+                        $('.sure_btn').css('display','block');
+                        $('#sel_div_password').css('display','block');
+                        $('.h3_2').css('display','none');
+                        $('.sure_btn1').css('display','none');
                     }); 
                     //取消撤单
                     $('.cancle').click(function(){
                         $("#floor_bg").hide();
                         $("#floor_popDiv").hide(500);
+                        //恢复为 买入卖出 确认框
+                        $('.h3_1').css('display','block');
+                        $('.sure_btn').css('display','block');
+                        $('#sel_div_password').css('display','block');
+                        $('.h3_2').css('display','none');
+                        $('.sure_btn1').css('display','none');
                     }); 
                 });             
             }               
@@ -502,7 +515,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     html.push("</tr>");
                     $(".tradeGopHistoryListTable").html("");  //添加前清空 
                     $(".tradeGopHistoryListTable").append(html.join(""));
-                    
+
                     //过滤内容显示不同颜色
                     $(".tradeGopType").filter(":contains('BUY')").text('买入').css("color","red");                    
                     $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green"); 
