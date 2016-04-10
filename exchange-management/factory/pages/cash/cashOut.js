@@ -1,6 +1,155 @@
 require(['api_mkt_management'],function(api_mkt_management){   
     //人民币充值/提现查询
     $("#div1").html("");   //添加前，先清空 
+    
+    //点击锁定/接触锁定
+    $("#tobody-json").on("click", ".aa", function() {
+        if($(this).hasClass("icon-unlocked")){
+	            //人民币提现锁定
+	            api_mkt_management.lockTransfer({
+	                'id':$(this).parent().parent().find('.idNum').text(),
+	                'ip':''
+	            }, function(data) {
+	                if (data.status == 200) {
+	                	 window.location.reload();
+	                    console.log(data);
+	                } else {
+	                	alert(data.msg);
+	                    console.log(data);
+	                }
+	            }); 
+        }else{
+            //人民币提现解锁
+            api_mkt_management.unlockTransfer({
+                'id':$(this).parent().parent().find('.idNum').text(),
+                'ip':''
+            }, function(data) {
+                if (data.status == 200) {
+                    console.log(data);
+                    window.location.reload();
+                } else {
+                	alert(data.msg);
+                    console.log(data);
+                }
+            });
+        }
+    });
+
+    //点击锁定后，撤销按钮【点击弹出框】变 确定【点击删除】
+    $("#tobody-json").on("click", ".bb", function() {
+    	$(".mydiv").css("display","block");
+        $(".bg").css("display","block");
+        $(".btnTrue").attr("data-id",$(this).parent().parent().find('.idNum').text());
+    	if($(this).hasClass("icon-undo")){
+    		//撤销提现申请        
+            $(".js-msg").html("您要撤销此笔提现申请?");
+            $(".btnTrue").attr("data-operation","cancel");
+        }else if($(this).hasClass("icon-checkmark")){
+        	//提现成功确认
+        	$(".js-msg").html("提现转账成功确认?");
+        	$(".btnTrue").attr("data-operation","confirm");
+        }
+    });
+
+    //密码输入确认操作
+    $(".mydiv").on("click", ".btnTrue", function() {
+    	if($(this).attr("data-operation")=="confirm"){
+    		//确认提现成功
+    		api_mkt_management.confirmTransfer({
+                'id':$(this).attr("data-id"),
+                'password':$(".js-password").val(),
+                'ip':''
+            }, function(data) {
+                if (data.status == 200) {
+                    console.log(data);
+                    window.location.reload();
+                } else {
+                	alert(data.msg);
+                    console.log(data);
+                }
+            });
+    	}else if($(this).attr("data-operation")=="cancel"){
+    		//撤销提现申请
+    		api_mkt_management.cancelTransfer({
+                'id':$(this).attr("data-id"),
+                'password':$(".js-password").val(),
+                'ip':''
+            }, function(data) {
+                if (data.status == 200) {
+                    console.log(data);
+                    window.location.reload();
+                } else {
+                	alert(data.msg);
+                    console.log(data);
+                }
+            });
+    	}
+    });
+    
+    //关闭弹出框 
+    
+    $(".mydiv").on("click", ".icon-cross", function() {
+        $(".mydiv").css("display","none");
+        $(".bg").css("display","none");
+    });  
+    
+    //用户详情
+    $("#tobody-json").on("click", ".toUidInfo", function() {
+        $.cookie('userUid',$(this).children().text());
+        $.cookie('userUidMobile',$(this).parent().find('.mobile').text());
+        api_mkt_management.userInfo({
+            'uId':$(this).children().text()
+        },function(data) {
+            if (data.status == 200) {
+                console.log(data);
+                window.location.href='user-info.html';
+            } else {
+                console.log(data.msg);
+            }
+        });
+    });
+    
+    /**
+     * 提现数据列表初始化操作
+     */
+    var initTransferOutList=function(data){     
+        var html = [];
+        $.cookie('pageTotal',data.data.pageNum);
+        var len = data.data.list.length < 10?data.data.list.length:10;
+        for(var i=0; i<len;i++){
+        	if(data.data.list[i].transferCnyStatus=='PROCESSING'){
+        		//进行中            		
+                html.push('<tr style="background-color: yellow;">');
+                html.push("<td class='firstBtn'><span class='aa icon-lock'></span>&nbsp;&nbsp;&nbsp;<span class='bb icon-checkmark'></span></td>");
+        	}else if(data.data.list[i].transferCnyStatus=='WAIT'){
+                html.push("<tr>");
+                html.push("<td class='firstBtn'><span class='aa icon-unlocked'></span>&nbsp;&nbsp;&nbsp;<span class='bb icon-undo'></span></td>");
+        	}else if(data.data.list[i].transferCnyStatus=='SUCCESS'){
+                html.push("<tr>");
+                html.push("<td class='firstBtn'>已成功</td>");
+        	}else if(data.data.list[i].transferCnyStatus=='CANCEL'){
+                html.push("<tr>");
+                html.push("<td class='firstBtn'>已取消</td>");
+        	}
+            html.push("<td class='idNum'>"+ data.data.list[i].id +"</a></td>");
+            html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
+            html.push("<td class='mobile'>"+ data.data.list[i].mobile +"</td>");
+            html.push("<td>"+ data.data.list[i].money +"</td>");
+            html.push("<td>"+ data.data.list[i].pay +"</td>");
+            html.push("<td>"+ data.data.list[i].bank +"</td>");
+            html.push("<td>"+ data.data.list[i].acnumber +"</td>");
+            html.push("<td>"+ data.data.list[i].name +"</td>");
+            html.push("<td>"+ data.data.list[i].msg +"</td>");
+            html.push("<td class='status'>"+ data.data.list[i].transferCnyStatus +"</td>");
+            html.push("<td class='createTime'>"+ data.data.list[i].createDate +"</td>");
+            html.push("<td class='updateTimed'>"+ data.data.list[i].updateDate +"</td>");
+            html.push("</tr>");
+            $(".aside-table-tbody").html(html.join(""));
+        }
+    
+    };
+    
+    
     page({            
         id : 'div1',
         nowNum : 1,
@@ -12,121 +161,9 @@ require(['api_mkt_management'],function(api_mkt_management){
                 'pageNo':now,
                 'pageSize':10
             },function(data){   
-                 if (data.status == 200 && data.data.list.length > 1) {                             
-                        var html = [];
-                        $.cookie('pageTotal',data.data.pageNum);
-                        var len = data.data.list.length < 10?data.data.list.length:10;
-                        for(var i=0; i<len;i++){
-                           html.push("<tr>");
-                            html.push("<td class='firstBtn'><span class='aa icon-unlocked'></span>&nbsp;&nbsp;&nbsp;<span class='bb icon-undo'></span></td>");
-                            html.push("<td class='idNum'>"+ data.data.list[i].id +"</a></td>");
-                            html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
-                            html.push("<td class='mobile'>"+ data.data.list[i].mobile +"</td>");
-                            html.push("<td>"+ data.data.list[i].money +"</td>");
-                            html.push("<td>"+ data.data.list[i].pay +"</td>");
-                            html.push("<td>"+ data.data.list[i].bank +"</td>");
-                            html.push("<td>"+ data.data.list[i].acnumber +"</td>");
-                            html.push("<td>"+ data.data.list[i].name +"</td>");
-                            html.push("<td>"+ data.data.list[i].msg +"</td>");
-                            html.push("<td class='status'>"+ data.data.list[i].transferCnyStatus +"</td>");
-                            html.push("<td class='createTime'>"+ data.data.list[i].createDate +"</td>");
-                            html.push("<td class='updateTimed'>"+ data.data.list[i].updateDate +"</td>");
-                            html.push("</tr>");
-
-                            $(function(){                                
-                                var msg = $('.status').text();
-                                if(msg == 'SUCCESS'){
-                                    $(this).parent().find('firstBtn').html('已成功');
-                                }else if(msg == 'CANCEL'){
-                                    $(this).parent().find('firstBtn').html('已取消');
-                                }
-                            });
-
-                            $(".aside-table-tbody").html("");  //添加前，先清空 
-                            $(".aside-table-tbody").append(html.join(""));
-
-                            //点击锁定/接触锁定
-                            $(".aa").on('click',function(){
-                                if($(this).hasClass("icon-unlocked")){
-                                    var msg = $(this).parent().parent().find('.status').html();
-                                    if(msg == 'SUCCESS'){
-                                        $(this).parent().text('已成功');
-                                    }else if(msg == 'CANCEL'){
-                                        $(this).parent().text('已取消');
-                                    }else{
-                                        $(this).removeClass("icon-unlocked").addClass("icon-lock");
-                                        $(this).parent().parent().css("backgroundColor","yellow");
-                                        $(this).siblings(".bb").removeClass("icon-undo").addClass("icon-checkmark");
-                                        //人民币提现锁定
-                                        api_mkt_management.lockTransfer({
-                                            'id':$(this).parent().parent().find('.idNum').text(),
-                                            'ip':''
-                                        }, function(data) {
-                                            if (data.status == 200) {
-                                                console.log(data);
-                                            } else {
-                                                console.log(data);
-                                            }
-                                        });
-                                    }
-                                }else{
-                                    $(this).removeClass("icon-lock").addClass("icon-unlocked");
-                                    $(this).parent().parent().css("backgroundColor","");
-                                    $(this).siblings(".bb").removeClass("icon-checkmark").addClass("icon-undo");
-                                    //人民币提现解锁
-                                    api_mkt_management.unlockTransfer({
-                                        'id':$(this).parent().parent().find('.idNum').text(),
-                                        'ip':''
-                                    }, function(data) {
-                                        if (data.status == 200) {
-                                            console.log(data);
-                                        } else {
-                                            console.log(data);
-                                        }
-                                    });
-                                }
-                            });
-
-                            //点击锁定后，撤销按钮【点击弹出框】变 确定【点击删除】
-                            $(".bb").on('click',function(){
-                                var msg = $(this).parent().parent().find('.status').html();
-                                if(msg == 'SUCCESS'){
-                                    $(this).parent().text('已成功');
-                                }else if(msg == 'CANCEL'){
-                                    $(this).parent().text('已取消');
-                                }else{
-                                    if($(this).hasClass("icon-undo")){
-                                        $(".mydiv").css("display","block");
-                                        $(".bg").css("display","block");
-                                    }else{
-                                        $(this).parent().parent().remove();
-                                        //data.data.length = data.data.length-1;
-                                    }
-                                }
-                            });
-
-                            //关闭弹出框 
-                            $(".icon-cross").click(function(){
-                                $(".mydiv").css("display","none");
-                                $(".bg").css("display","none");
-                            });  
-                            //用户详情
-                            $('.toUidInfo').click(function(){
-                                $.cookie('userUid',$(this).children().text());
-                                $.cookie('userUidMobile',$(this).parent().find('.mobile').text());
-                                api_mkt_management.userInfo({
-                                    'uId':$(this).children().text()
-                                },function(data) {
-                                    if (data.status == 200) {
-                                        console.log(data);
-                                        window.location.href='user-info.html';
-                                    } else {
-                                        console.log(data.msg);
-                                    }
-                                });
-                            });
-                        }
-                    }
+                 if (data.status == 200 && data.data.list.length > 1) {
+                	 initTransferOutList(data); 
+                 }
             });   
         }
     });
@@ -134,67 +171,27 @@ require(['api_mkt_management'],function(api_mkt_management){
     $('.aside-table-thead-select').change(function(){
         var optionSel = $(this).find('option:selected').text();
         //console.log(optionSel);
+        $(".aside-table-tbody").html('');
         if(optionSel === 'ALL'){
             api_mkt_management.transfer({
                 'status':'',
-                'optType':'IN',
+                'optType':'OUT',
                 'pageNo':1,
                 'pageSize':10
             },function(data){   
-                if (data.status == 200 && data.data.list.length > 1) {                             
-                    var html = [];
-                    var len = data.data.list.length < 10?data.data.list.length:10;
-                    for(var i=0; i<len;i++){
-                       html.push("<tr>");
-                        html.push("<td><span class='aa icon-unlocked'></span>&nbsp;&nbsp;&nbsp;<span class='bb icon-undo'></span></td>");
-                        html.push("<td class='idNum'>"+ data.data.list[i].id +"</a></td>");
-                        html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
-                        html.push("<td class='mobile'>"+ data.data.list[i].mobile +"</td>");
-                        html.push("<td>"+ data.data.list[i].money +"</td>");
-                        html.push("<td>"+ data.data.list[i].pay +"</td>");
-                        html.push("<td>"+ data.data.list[i].bank +"</td>");
-                        html.push("<td>"+ data.data.list[i].acnumber +"</td>");
-                        html.push("<td>"+ data.data.list[i].name +"</td>");
-                        html.push("<td>"+ data.data.list[i].msg +"</td>");
-                        html.push("<td>"+ data.data.list[i].transferCnyStatus +"</td>");
-                        html.push("<td class='createTime'>"+ data.data.list[i].createDate +"</td>");
-                        html.push("<td class='updateTimed'>"+ data.data.list[i].updateDate +"</td>");
-                        html.push("</tr>");
-                        $(".aside-table-tbody").html("");  //添加前，先清空 
-                        $(".aside-table-tbody").append(html.join(""));                       
-                        
-                    }
+                if (data.status == 200 && data.data.list.length > 1) {
+                	initTransferOutList(data); 
                 }
             }); 
         }else{
             api_mkt_management.transfer({
                 'status':optionSel,
-                'optType':'IN',
+                'optType':'OUT',
                 'pageNo':1,
                 'pageSize':10
             },function(data){   
-                if (data.status == 200 && data.data.list.length > 1) {                             
-                    var html = [];
-                    var len = data.data.list.length < 10?data.data.list.length:10;
-                    for(var i=0; i<len;i++){
-                       html.push("<tr>");
-                        html.push("<td><span class='aa icon-unlocked'></span>&nbsp;&nbsp;&nbsp;<span class='bb icon-undo'></span></td>");
-                        html.push("<td class='idNum'>"+ data.data.list[i].id +"</a></td>");
-                        html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
-                        html.push("<td class='mobile'>"+ data.data.list[i].mobile +"</td>");
-                        html.push("<td>"+ data.data.list[i].money +"</td>");
-                        html.push("<td>"+ data.data.list[i].pay +"</td>");
-                        html.push("<td>"+ data.data.list[i].bank +"</td>");
-                        html.push("<td>"+ data.data.list[i].acnumber +"</td>");
-                        html.push("<td>"+ data.data.list[i].name +"</td>");
-                        html.push("<td>"+ data.data.list[i].msg +"</td>");
-                        html.push("<td>"+ data.data.list[i].transferCnyStatus +"</td>");
-                        html.push("<td class='createTime'>"+ data.data.list[i].createDate +"</td>");
-                        html.push("<td class='updateTimed'>"+ data.data.list[i].updateDate +"</td>");
-                        html.push("</tr>");
-                        $(".aside-table-tbody").html("");  //添加前，先清空 
-                        $(".aside-table-tbody").append(html.join(""));                       
-                    }
+                if (data.status == 200 && data.data.list.length > 1) {
+                	initTransferOutList(data); 
                 }
             });
         }          
