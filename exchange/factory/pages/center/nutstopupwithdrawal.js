@@ -170,9 +170,9 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
                 var html = [];
                 html.push("<tr>");
                 html.push("<td>" + data.data.list[i].createDate + "</td>");
-                html.push("<td>" + data.data.list[i].address + "</td>");
-                html.push("<td>" + data.data.list[i].amount + "</td>");
-                html.push("<td class='status-guorenInput'>" + data.data.list[i].status + "</td>");
+                html.push("<td>" + data.data.list[i].wallet + "</td>");
+                html.push("<td>" + data.data.list[i].number + "</td>");
+                html.push("<td class='status-guorenInput'>" + data.data.list[i].transferGopOptType + "</td>");
                 html.push("</tr>");
                 $(".guorenInput").html(""); //添加前清空 
                 $(".guorenInput").append(html.join(""));
