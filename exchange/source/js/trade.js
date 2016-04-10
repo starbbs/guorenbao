@@ -5,6 +5,8 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 		stop: function() {
 			clearTimeout(trade.timer);
 		},
+		buyaprice:0,//买一价
+		sellaprice:0,//卖一价
 		onChange: updatebuy_sell, // 价格改变时回调, 传参(当前价格, 上一次价格, 改变大小)
 	};
 	var once = trade.once = function(callback) {
@@ -68,8 +70,20 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
         if(list_buy.length!=0){
         	buyaprice = list_buy[0][0];
         }
+        
+//		buyaprice=9.1;// TODO 测试
+//		sellaprice=1;// TODO 测试
+		
 		$('#buyonece_price_floor').html(buyaprice);  //交易市场买一价
+		trade.buyaprice=buyaprice;
+		if(buyaprice && buyaprice!=''){
+        	$('.buying_price').val(buyaprice);
+		}
 		$('#sellonece_price_floor').html(sellaprice);//交易市场卖一价
+		trade.sellaprice=sellaprice;
+		if(sellaprice && sellaprice!=''){
+        	$('.sellPrice').val(sellaprice);
+		}
 		//console.log(list_buy);
 		//console.log(list_sell);
 		
