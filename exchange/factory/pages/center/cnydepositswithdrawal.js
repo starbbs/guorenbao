@@ -356,25 +356,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             'acName':data.data.list[0].name,
                             'paypwd':$('#WithdrawalsPayPwd').val() 
                         }, function(data) {
-                            if (data.status == 200) {
-                                //打开弹出层-生成汇款单
-                                var html = [];
-                                var num = data.data.list<5?data.data.list:5;
-                                for(var i=0; i<num;i++){
-                                    html.push("<tr>");                                        
-                                    html.push("<td>"+ data.data.list[i].updateDate +"</td>");
-                                    html.push("<td>"+ data.data.list[i].bank +"</td>");
-                                    html.push("<td>"+ data.data.list[i].pay +"</td>");
-                                    html.push("<td>"+ (data.data.list[i].money-data.data.list[i].pay) +"</td>");
-                                    html.push("<td class='cnyWithdrawals'>"+data.data.list[i].transferCnyStatus+ "</td>");
-                                    html.push("</tr>");
-                                    $(".cnyOutput").html("");  //添加前清空 
-                                    $(".cnyOutput").append(html.join(""));
-
-                                    //过滤内容显示不同颜色
-                                    $(".cnyWithdrawals").filter(":contains('WAIT')").text('进行中').css("color","orange");
-                                    $(".cnyWithdrawals").filter(":contains('SUCCESS')").text('提现成功').css("color","orange"); 
-                                }
+                            if (data.status == 200) {                              
                                 window.location.reload();
                             } else if(data.msg == '验证码错误'){
                                 alert('验证码错误');
