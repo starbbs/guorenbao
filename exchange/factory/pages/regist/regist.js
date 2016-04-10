@@ -24,13 +24,17 @@ require(['api_mkt','cookie'], function(api_mkt) {
     });
 
 	//验证码
-	/*$(".checkCode").blur(function(){			
-		if(!$(this).val()){
+	$(".checkCode").blur(function(){
+		var pwd = $(this).val();			
+		if(!pwd || isNaN(pwd) || pwd.length !== 6){
 			$('.msg-code').text('请输入正确的验证码');
 		}else{
 			$('.msg-code').text('');
 		}
-	});*/
+	});
+	$(".checkCode").focus(function(){
+		$(this).val('');
+	});
 	//获取验证码
 	$('.checkCode-send').click(function(){
 		if(btnConfirm == false){
@@ -68,7 +72,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
 		if(!reg.test(pwd)){
 			btnConfirm = false;
-			$('.msg-pwd').text('密码格式：6~12位非纯数字字符');
+			$('.msg-pwd').text('密码格式：6~20位非纯数字字符');
 		}else{
 			$('.msg-pwd').text('');
 			btnConfirm = true;
@@ -91,9 +95,11 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		if($(".regular-checkbox").is(':checked')){
 			btnConfirm = true;
 			$('.oneStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
+			$('.msg-checked').text('我已阅读并同意').css('color','#999999');
 		}else{
 			btnConfirm = false;
 			$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
+			$('.msg-checked').text('请阅读且接受服务条款').css('color','red');
 		}	
 	});
 	//注册第一步 手机号注册 
@@ -107,7 +113,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		   		'password':$('.checkpwd').val(),
 		   		'confirmPwd':$('.checkConfirmPwd').val()	   
 			}, function(data) {
-	            if (data.msg == "手机号码已经注册") {
+	            if (data.msg == '手机号码已经注册') {
 	            	$('.msg-phone').show().html('手机号已注册，请<a class="markasread" href="index.html">直接登录，3秒后跳转到首页</a>');
 	            	$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
 	            	$('.oneStep').unbind('click');
@@ -115,15 +121,15 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	            }else if(data.status == 200){
 	                $(".two").css('display','flex');
 					$(".one").css('display','none');                
-	            }else{
-	            	
+	            }else if(data.msg == '验证码错误'){
+	            	alert('您输入的验证码有误，请重新输入！');
 	            }
 			});
     	}   	
 
     });
     //下一步--支付密码
-	$(".payPwd").blur(function(){
+	$('.payPwd').blur(function(){
 		var payPwd = $.trim($(".payPwd").val());
 		var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
 		if(!reg.test(payPwd)){
@@ -178,7 +184,8 @@ require(['api_mkt','cookie'], function(api_mkt) {
     //实名认证 姓名
 	$(".personName").blur(function(){
 		var personName = $.trim($(".personName").val());
-		if(!personName){
+		var reg=/^[\u4e00-\u9fa5]{0,}$/;
+		if(!reg.exec(personName)){
 			btnConfirm = false;
 			$('.msg-personName').show().text('请输入正确的姓名');
 		}else{

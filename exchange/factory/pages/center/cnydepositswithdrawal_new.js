@@ -345,7 +345,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                                     html.push("<td>"+ data.data.list[i].updateDate +"</td>");
                                     html.push("<td>"+ data.data.list[i].bank +"</td>");
                                     html.push("<td>"+ data.data.list[i].pay +"</td>");
-                                    html.push("<td>"+ data.data.list[i].money-pay +"</td>");
+                                    html.push("<td>"+ (data.data.list[i].money-data.data.list[i].pay) +"</td>");
                                     html.push("<td class='cnyWithdrawals'>"+ data.data.list[i].status+ "</td>");
                                     html.push("</tr>");
                                     $(".cnyOutput").html("");  //添加前清空 
@@ -385,7 +385,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     html.push("<td>"+ data.data.list[i].updateDate +"</td>");
                     html.push("<td>"+ data.data.list[i].bank +"</td>");
                     html.push("<td>"+ data.data.list[i].pay +"</td>");
-                    html.push("<td>"+ data.data.list[i].money-pay +"</td>");
+                    html.push("<td>"+ (data.data.list[i].money-data.data.list[i].pay) +"</td>");
                     html.push("<td class='cnyWithdrawals'>"+ data.data.list[i].status+ "</td>");
                     html.push("</tr>");
                     $(".cnyOutput").html("");  //添加前清空 
@@ -416,7 +416,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         html.push("<td>"+ data.data.list[i].updateDate +"</td>");
                         html.push("<td>"+ data.data.list[i].bank +"</td>");
                         html.push("<td>"+ data.data.list[i].pay +"</td>");
-                        html.push("<td>"+ data.data.list[i].money-pay +"</td>");
+                        html.push("<td>"+ (data.data.list[i].money-data.data.list[i].pay) +"</td>");
                         html.push("<td class='cnyWithdrawals'>"+ data.data.list[i].status+ "</td>");
                         html.push("</tr>");
                         $(".cnyOutput").html("");  //添加前清空 

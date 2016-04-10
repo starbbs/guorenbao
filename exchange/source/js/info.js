@@ -36,18 +36,18 @@
 			//$(".quoted_price_i").css("transform","rotate(180deg)");
 		} 
 		if(thelatestprice!=""&&thelatestprice_second!=""){
-			console.log("bbbbbb");
+			//console.log("bbbbbb");
 			if(thelatestprice>thelatestprice_second){
-				console.log("+++++++++++")
+				//console.log("+++++++++++")
 				$(".quoted_price_i").css("transform","rotate(0deg)");
 			} else {
-				console.log("+++++++++++-------------")
+				//console.log("+++++++++++-------------")
 				$(".quoted_price_i").css("transform","rotate(180deg)");
 			}
 		}
 
-		console.log("---------"+thelatestprice+"----------");
-		console.log("---------"+thelatestprice_second+"----------");
+		//console.log("---------"+thelatestprice+"----------");
+		//console.log("---------"+thelatestprice_second+"----------");
 		//$(".quoted_price_i").html(""); 
 
 		var low24 = Number(haha['24low']);  //最低价
