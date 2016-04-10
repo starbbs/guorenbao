@@ -167,6 +167,10 @@ table {
     color:#0bbeee;
 }
 
+.feature:hover{
+    color: #0bbeee;
+}
+
 
 .bottom {
     width: 100%;
