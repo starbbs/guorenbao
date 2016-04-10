@@ -113,6 +113,24 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         } else {
             $("#two_span").hide().html("");
         }
+
+        if ($("#confirmNewPwd").val() == "") {
+            $("#three_span").show().html("确认密码不能为空");
+            whether_sub = false;
+            return;
+        } else if ($("#confirmNewPwd").val().length > 20 || $("#confirmNewPwd").val().length < 8) {
+            $("#three_span").show().html("请输入8~20位确认密码");
+            whether_sub = false;
+            return;
+        } else {
+            $("#three_span").hide().html("");
+            if ($("#newPwd").val() !== $("#confirmNewPwd").val()) {
+                $("#three_span").show().html("两次密码不一致");
+                whether_sub = false;
+            }
+        }
+
+
         if ($("#newPwd").val().length >= 8 && $("#newPwd").val().length <= 20) {
             var pattern = /^[0-9]{1,20}$/;
             if (!pattern.exec($("#newPwd").val())) {
@@ -160,21 +178,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                 whether_sub = true;
             }
         }
-        if ($("#confirmNewPwd").val() == "") {
-            $("#three_span").show().html("确认密码不能为空");
-            whether_sub = false;
-            return;
-        } else if ($("#confirmNewPwd").val().length > 20 || $("#confirmNewPwd").val().length < 8) {
-            $("#three_span").show().html("请输入8~20位确认密码");
-            whether_sub = false;
-            return;
-        } else {
-            $("#three_span").hide().html("");
-            if ($("#newPwd").val() !== $("#confirmNewPwd").val()) {
-                $("#three_span").show().html("两次密码不一致");
-                whether_sub = false;
-            }
-        }
+        
         if (whether_sub) {
             api_mkt.loginpassword({
                 currentPwd: $("#currentPwd").val(),
@@ -184,10 +188,12 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                 if (data.status == 200) {
                     $(".reset_login_password_step_1").hide();
                     $(".reset_login_password_step_2").show();
-                    alert("修改登录密码成功");
-                    setTimeout(function() {
-                        location.href = "./basicinfo.html";
-                    }, 1000);
+
+                    $(".correct").show();
+                    $(".rg_lf_label").hide();
+                    $(".rg_rg_input").hide();
+
+                    toIndex();
                 } else if (data.status == 305) {
                     alert(data.msg);
                 } else if (data.status == 400) {
@@ -201,5 +207,21 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                 }
             });
         }
+
+
     });
+  
+    function toIndex() {
+        var count = 3;
+        var timer = setInterval(function() {
+            count--;
+            if (count > 0) {
+                $("#howmanysecond").text(count);
+            } else {
+                clearInterval(timer);
+                location.href = "./index.html";
+            }
+        }, 1000);
+    }
+
 });

@@ -118,10 +118,10 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		            if (data.status == 200) {
 		                // $(".one").hide();
 		                // $(".two").show();
-		                alert("修改支付密码成功");
-		                setTimeout(function(){
-		                	location.href = "./basicinfo.html";
-		                },1000);
+		                $(".correct").show();
+	                    $(".rg_lf_label").hide();
+	                    $(".rg_rg_input").hide();
+	                    toIndex();
 		            } else if (data.status == 305) {
 		                alert(data.msg);
 		            } else if (data.status==400) {
@@ -143,6 +143,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	    	}
 	    });
 	    
+
 
 	    //获取短信验证码
 		$('.getauthcode').click(function(){
@@ -171,5 +172,18 @@ require(['api_mkt','cookie'], function(api_mkt) {
                 
             }
         });
+    }
+
+    function toIndex() {
+        var count = 3;
+        var timer = setInterval(function() {
+            count--;
+            if (count > 0) {
+                $("#howmanysecond").text(count);
+            } else {
+                clearInterval(timer);
+                location.href = "./basicinfo.html";
+            }
+        }, 1000);
     }
 });
