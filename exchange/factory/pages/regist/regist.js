@@ -24,13 +24,17 @@ require(['api_mkt','cookie'], function(api_mkt) {
     });
 
 	//验证码
-	/*$(".checkCode").blur(function(){			
-		if(!$(this).val()){
+	$(".checkCode").blur(function(){
+		var pwd = $(this).val();			
+		if(!pwd || isNaN(pwd) || pwd.length !== 6){
 			$('.msg-code').text('请输入正确的验证码');
 		}else{
 			$('.msg-code').text('');
 		}
-	});*/
+	});
+	$(".checkCode").focus(function(){
+		$(this).val('');
+	});
 	//获取验证码
 	$('.checkCode-send').click(function(){
 		if(btnConfirm == false){
@@ -91,9 +95,11 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		if($(".regular-checkbox").is(':checked')){
 			btnConfirm = true;
 			$('.oneStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
+			$('.msg-checked').text('我已阅读并同意').css('color','#999999');
 		}else{
 			btnConfirm = false;
 			$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
+			$('.msg-checked').text('请阅读且接受服务条款').css('color','red');
 		}	
 	});
 	//注册第一步 手机号注册 
