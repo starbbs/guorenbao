@@ -17,10 +17,12 @@
 	var updateprice = function(haha){
 		//console.log(JSON.parse(haha['order'][0]));
 		//console.log(JSON.parse(haha['order'][0]).price);
-		var thelatestprice;	
+		var thelatestprice;
+		var thelatestprice_second;
 		if(haha['order']){
 			thelatestprice  = JSON.parse(haha['order'][0]).price;
 			$('#thelatestprice').html(thelatestprice.toFixed(2)); //页面顶部 最新成交价
+			thelatestprice_second = JSON.parse(haha['order'][1]).price;
 		}
 		var turnover = Number(haha['24Total']).toFixed(2);
 		$('#turnover').html(turnover);  //页面顶部 24小时成交量
@@ -28,6 +30,26 @@
 		
 		$('#thelatestprice_floor').html(thelatestprice); //交易大厅 最新成交价
 		$('#thelatestprice_em').html(thelatestprice); //首页轮播图下面最新成交价
+
+		if(thelatestprice!=""&&thelatestprice_second==""){
+			console.log("aaaaaa");
+			//$(".quoted_price_i").css("transform","rotate(180deg)");
+		} 
+		if(thelatestprice!=""&&thelatestprice_second!=""){
+			//console.log("bbbbbb");
+			if(thelatestprice>thelatestprice_second){
+				//console.log("+++++++++++")
+				$(".quoted_price_i").css("transform","rotate(0deg)");
+			} else {
+				//console.log("+++++++++++-------------")
+				$(".quoted_price_i").css("transform","rotate(180deg)");
+			}
+		}
+
+		//console.log("---------"+thelatestprice+"----------");
+		//console.log("---------"+thelatestprice_second+"----------");
+		//$(".quoted_price_i").html(""); 
+
 		var low24 = Number(haha['24low']);  //最低价
 		var high24 = Number(haha['24high']);//最高价
 		$('#thehighest_price').html(high24.toFixed(2));  //首页 最高价

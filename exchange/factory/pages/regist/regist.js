@@ -184,7 +184,8 @@ require(['api_mkt','cookie'], function(api_mkt) {
     //实名认证 姓名
 	$(".personName").blur(function(){
 		var personName = $.trim($(".personName").val());
-		if(!personName){
+		var reg=/^[\u4e00-\u9fa5]{0,}$/;
+		if(!reg.exec(personName)){
 			btnConfirm = false;
 			$('.msg-personName').show().text('请输入正确的姓名');
 		}else{

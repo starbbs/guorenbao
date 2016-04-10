@@ -1,4 +1,5 @@
 require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_info, mkt_trade) {
+require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_mkt, mkt_info, mkt_trade,decimal) {
     //console.log(api_mkt);
     //console.log(mkt_info);
     //$("#floor_popDiv").width($(document).width());

@@ -13,15 +13,27 @@ require(['api_mkt','cookie'], function(api_mkt) {
     		if($(this).val()==""){
 	   			$("#error_one").show().html("原支付密码不能为空");
 	   			return;
+	   		} else if($(this).val().length>20||$(this).val().length<8){
+	   			$("#error_one").show().html("请输入8~20位原支付密码");
+	   			return;
 	   		} else {
 	   			$("#error_one").hide().html("");
 	   		}
+    	}).on("input",function(){
+    		if ($(this).val() !== "") {
+	            $("#error_one").hide().html("");
+	        } else {
+	            $("#error_one").show().html("原支付密码不能为空");
+	        }
     	});
     	$("#newPayPwd").on("blur",function(){
     		if($(this).val()==""){
 	   			$("#error_two").show().html("新支付密码不能为空");
 	   			return;
-	   		} else {
+	   		} else if($(this).val().length>20||$(this).val().length<8){
+	   			$("#error_two").show().html("请输入8~20位原支付密码");
+	   			return;
+	   		}  else {
 	   			$("#error_two").hide().html("");
 	   		}
 	   		// if($(this).val()!==""&&$(this).val()!==$("#confirmPayPwd").val()){
@@ -31,12 +43,21 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	   		// 	$("#error_two").hide().html("");
 	   		// 	$("#error_three").hide().html("");
 	   		// }
+    	}).on("input",function(){
+    		if ($(this).val() !== "") {
+	            $("#error_two").hide().html("");
+	        } else {
+	            $("#error_two").show().html("新支付密码不能为空");
+	        }
     	});
     	$("#confirmPayPwd").on("blur",function(){
     		if($(this).val()==""){
 	   			$("#error_three").show().html("确认密码不能为空");
 	   			return;
-	   		} else {
+	   		} else if($(this).val().length>20||$(this).val().length<8){
+	   			$("#error_three").show().html("请输入8~20位原支付密码");
+	   			return;
+	   		}  else {
 	   			$("#error_two").hide().html("");
 	   			$("#error_three").hide().html("");
 	   		}
@@ -46,7 +67,12 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	   		} else {
 	   			$("#error_three").hide().html("");
 	   		}
-
+    	}).on("input",function(){
+    		if ($(this).val() !== "") {
+	            $("#error_three").hide().html("");
+	        } else {
+	            $("#error_three").show().html("确认密码不能为空");
+	        }
     	});
     	$("#identifyingCode").on("blur",function(){
     		if($(this).val()==""){
@@ -56,8 +82,6 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	   			$("#error_four").hide().html("");
 	   		}
     	});
-
-
 
     	var whether_sub_one = true;
 	    $(".next_step_btn_one").on("click",function(){
@@ -75,14 +99,14 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	    		$("#error_three").show().html("确认密码不能为空");
 	    		whether_sub_one = false;
 	    	}
+
+	    	if($("#newPayPwd").val()!=""&&$("#confirmPayPwd").val()!=""&&$("#newPayPwd").val()!==$("#confirmPayPwd").val()){
+	    		$("#error_three").show().html("两次输入不一致");
+	    		whether_sub_one = false;
+	    	}
 	    	if($("#identifyingCode").val()==""){
 	    		$("#error_four").show().html("验证码不能为空");
 	    		whether_sub_one = false;
-	    	}
-	    	if($("#newPayPwd").val()!==$("#confirmPayPwd").val()){
-	    		$("#error_three").show().html("两次输入不一致");
-	    		whether_sub_one = false;
-	    		return;
 	    	}
 	    	if(whether_sub_one){
 	    		api_mkt.setpaypwd({
@@ -94,10 +118,10 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		            if (data.status == 200) {
 		                // $(".one").hide();
 		                // $(".two").show();
-		                alert("修改支付密码成功");
-		                setTimeout(function(){
-		                	location.href = "./basicinfo.html";
-		                },1000);
+		                $(".correct").show();
+	                    $(".rg_lf_label").hide();
+	                    $(".rg_rg_input").hide();
+	                    toIndex();
 		            } else if (data.status == 305) {
 		                alert(data.msg);
 		            } else if (data.status==400) {
@@ -120,6 +144,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	    });
 	    
 
+
 	    //获取短信验证码
 		$('.getauthcode').click(function(){
             if(whether_sub_one == false){
@@ -128,23 +153,37 @@ require(['api_mkt','cookie'], function(api_mkt) {
                 api_mkt.sendCodeByLoginAfter( function(data) {
                     if (data.status == 200) {
                         console.log(data);
+                        //60秒内只能发送一次
+		                var count = 60;
+		                var resend = setInterval(function(){
+		                    count--;
+		                    if(count > 0){
+		                        $('.getauthcode').html(count+'s后重新发送');
+		                        $('.getauthcode').attr('disabled',true).css('cursor','not-allowed');
+		                    }else{
+		                        clearInterval(resend);
+		                        $('.getauthcode').attr('disabled',false).css('cursor','pointer').html('获取验证码');
+		                    }
+		                },1000);
                     } else {
 
                     }
                 });
-                //60秒内只能发送一次
-                var count = 60;
-                var resend = setInterval(function(){
-                    count--;
-                    if(count > 0){
-                        $('.getauthcode').html(count+'s后重新发送');
-                        $('.getauthcode').attr('disabled',true).css('cursor','not-allowed');
-                    }else{
-                        clearInterval(resend);
-                        $('.getauthcode').attr('disabled',false).css('cursor','pointer').html('获取验证码');
-                    }
-                },1000);
+                
             }
         });
+    }
+
+    function toIndex() {
+        var count = 3;
+        var timer = setInterval(function() {
+            count--;
+            if (count > 0) {
+                $("#howmanysecond").text(count);
+            } else {
+                clearInterval(timer);
+                location.href = "./basicinfo.html";
+            }
+        }, 1000);
     }
 });

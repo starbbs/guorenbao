@@ -56,12 +56,12 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 $('.nutOutputManager-del').click(function(){
                     $(this).parent().remove();            
                     api_mkt.gopAddressManDel({          
-                        'wallet':($(this).parent().find('.nutIdAddress').text()).substr(36)
+                        'wallet':($(this).parent().find('.nutIdAddress').text())
                     }, function(data) {
                         if (data.status == 200) {
-                           window.location.href='withdraw.html?id=rmbtx';
+                          window.location.href='withdraw.html?id=rmbtx';
                         } else {
-                            
+                            alert(data.msg);
                         }
                     });         
                 });
@@ -80,7 +80,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             if (data.status == 200) {
                                 window.location.href = 'withdraw.html?id=rmbtx';
                             } else {
-                                
+                            	alert(data.msg);
                             }
                         });
                     });         
@@ -127,7 +127,13 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     cache: false,
                     success: function(data) {
                         //所属银行自动添加
-                        $("#bank").val(data.data.bankName);
+                        
+                        if(data.data.bankName!='中国工商银行' && data.data.bankName!='中国建设银行' && data.data.bankName!='中国农业银行' 
+                    		&& data.data.bankName!='中国交通银行' && data.data.bankName!='中国邮政储蓄银行'  && data.data.bankName!='招商银行' ){
+                        	$("#bank").val('暂不支持('+data.data.bankName+')');
+                    	}else{
+                    		$("#bank").val(data.data.bankName);
+                    	}
                     },
                     error: function() {
                         alert("提交失败");
@@ -226,7 +232,13 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         $('.confirmAdd').click(function(){
             if(btnConfirm == false || $('#sendCodeByLoginAfter').val() ==''){
                 alert('请填写完整信息');
-            }else{                               
+            }else{       
+            	//中国工商银行，中国建设银行，中国农业银行，中国交通银行，中国邮政储蓄银行，招商银行
+            	if($('#bank').val()!='中国工商银行' && $('#bank').val()!='中国建设银行' && $('#bank').val()!='中国农业银行' 
+            		&& $('#bank').val()!='中国交通银行' && $('#bank').val()!='中国邮政储蓄银行'  && $('#bank').val()!='招商银行' ){
+            		alert('暂不支持此银行');
+            		return false;
+            	}
                 var auth_name = $.cookie("global_loginusername");
                 api_mkt.rmbWithdrawalsManageAdd({          
                     'name':auth_name, 
@@ -239,7 +251,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     'identifyingCode':$('#sendCodeByLoginAfter').val()
                 }, function(data) {
                     if (data.status == 200) {                     
-                        $('.two').css('display','none');
+                       /* $('.two').css('display','none');
                         $('.three').css('display','block');
 
                         var Node = $('<div class="bankIdCard addBankCard three"></div>');
@@ -276,13 +288,13 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             $('.bankName').addClass('PSBC');
                         }else if(bankName == '中国农业银行'){
                             $('.bankName').addClass('ABC');
-                        }                          
+                        }  */  
+                    	window.location.reload();
                     } else if(data.msg == '验证码错误'){
                         alert('验证码错误');
                     } else if(data.msg == '服务器异常'){
                         alert('服务器异常');
-                    }
-                    window.location.reload();
+                    }              
                 });
                 
             }            
@@ -346,7 +358,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         var Node3 = $('<p class="nutIdAddress"></p>').appendTo(Node1); 
                         var Node4 = $('<span class="nutOutputManager-modify"></span>').appendTo(Node1); 
                         var Node5 = $('<span class="nutOutputManager-del"></span>').appendTo(Node1);
-                        Node2_1.val(data.data.list[i].name);
+                        Node2_1.val($('#nut-name').val());
                         Node3.text($('#nut-address').val());
                         //$('.nut-two').appendBefore(Node1);
                         Node1.insertBefore($('.nutOutputManager-add'));
@@ -361,9 +373,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             $('.nut-one').show();
                             $('.nut-two').hide();
                         }); 
-                        window.location.href='withdraw.html?id=rmbtx';                        
+//                        window.location.href='withdraw.html?id=rmbtx';                        
                         
                     } else {
+                    	alert(data.msg);
+                    	console.log(data);
                     }
                 });
             }            
@@ -430,7 +444,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                                 '<section class="bankIdCard-CardAndBg">储蓄卡</section>'+
                                 '<section class="bankIdCard-hr"></section>'+
                                 '<section class="bankIdCard-Name">'+name+'</section>'+
-                                '<section class="bankIdCard-del">删除</section>'+
+                                '<section class="bankIdCard-del" data-cardId="'+num+'">删除</section>'+
                                 '<section class="bankIdCard-address">'+bankIP+'</section>').appendTo(node);
                 node.insertBefore($('.bankIdCard-add'));
                 //判断显示银行logo
@@ -452,7 +466,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             //删除银行卡
             $('.bankIdCard-del').click(function(){
                 api_mkt.rmbWithdrawalsManageDel({          
-                    'bankId':data.data.list[0].acnumber
+                    'bankId':$(this).attr('data-cardId')
                 }, function(data) {
                     if (data.status == 200) {
                         window.location.reload();

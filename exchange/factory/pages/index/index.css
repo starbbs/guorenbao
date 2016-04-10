@@ -837,7 +837,7 @@ progress::-webkit-progress-value {
 }
 
 .m1 {
-    background: url('../images/m1.png') no-repeat 0 0;
+    background: url('../images/index_m1.png') no-repeat 0 0;
     width: 18px;
     height: 14px;
     position: absolute;
@@ -845,12 +845,12 @@ progress::-webkit-progress-value {
     top: 1px;
 }
 .m2 {
-    background: url('../images/m2.png') no-repeat 0 0;
+    background: url('../images/index_m2.png') no-repeat 0 0;
     width: 18px;
     height: 14px;
     position: absolute;
-    left: 78px;
-    top: 1px;
+    left: 70px;
+    top: 0px;
 }
 
 .lf_asset_top,
@@ -866,8 +866,9 @@ progress::-webkit-progress-value {
 
 .lf_asset_top,
 .rg_asset_top {
-    top: 30px;
+        top: 30px;
     position: relative;
+    left: -10px;
 }
 
 .rg_asset_top {
@@ -913,7 +914,7 @@ progress::-webkit-progress-value {
 .withdraw {
     background-color: #0bbeee;
 }
-.quoted_price_first i {
+.quoted_price_i{
     background: url('../images/index_arrow_rise.png') no-repeat 0 0;
     width: 10px;
     background-size: 100% 110%;
@@ -921,8 +922,9 @@ progress::-webkit-progress-value {
     top: 39px;
     height: 22px;
     right: 32px;
+    /* transform:rotate(180deg); */
 }
-.quoted_price_seventh i {
+.quoted_price_updown {
     background: url('../images/index_arrow_down.png') no-repeat 0 0;
     width: 8px;
     background-size: 100% 100%;

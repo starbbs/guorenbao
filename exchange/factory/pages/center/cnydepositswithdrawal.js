@@ -400,7 +400,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             if (data.status == 200) {
                 console.log(data);
                 var html = [];
-                var num = data.data.list<5?data.data.list:5;
+                var num = data.data.list.length<5?data.data.list.length:5;
                 for(var i=0; i<num;i++){
                     html.push("<tr>");                                        
                     html.push("<td>"+ data.data.list[i].updateDate +"</td>");

@@ -44,7 +44,8 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
             for (var i = 0; i < data.data.list.length; i++) {
                 //创建节点
                 var Node1 = $('<option></option>');
-                Node1.text(data.data.list[i].name+ '：' + data.data.list[i].address);
+                Node1.text(data.data.list[i].name);
+                Node1.val(data.data.list[i].address);
                 $('.regist_rg_input-select').append(Node1);
             }
         } else {
@@ -146,14 +147,14 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
             //果仁提现
             api_mkt.gopWithdrawals({
                 'number': $('#gopWithdrawalsNumber').val(),
-                'toWallet': $('#gopWithdrawalsSelect').find('option:selected').text(),
+                'toWallet': $('#gopWithdrawalsSelect').find('option:selected').val(),
                 'identifyingCode': $('#gopWithdrawalsCode').val(),
                 'paypwd': $('#gopWithdrawalsPayPwd').val()
             }, function(data) {
                 if (data.status == 200) {
                     alert('转出成功');
-                } else if(data.status == 400){                    
-                    alert('账户果仁不足');
+                } else{                    
+                    alert(data.msg);
                 }
             });
         }
