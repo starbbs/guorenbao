@@ -64,6 +64,8 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                         $(".one_span2").show().html(data.msg);
                     } else if(data.msg=="未实名认证"){
                         $(".one_span2").show().html(data.msg);
+                    } else if(data.msg=="身份证号输入错误"){
+                        $(".one_span1").show().html("身份证号输入错误");
                     }
                 } else {
                     $(".one_span2").show().html(data.msg);
@@ -129,6 +131,8 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                         $(".one_span2").show().html(data.msg);
                     } else if (data.msg == "支付密码长度错误") {
                         $(".tow_span1").show().html(data.msg);
+                    } else if (data.msg=="验证码错误,请重新发送验证码") {
+                        $(".one_span2").show().html("验证码错误,请重新发送验证码");
                     }
                 } else {
                     $(".one_span2").show().html(data.msg);
@@ -168,7 +172,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                             $('.getauthcode_one').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
                         } else {
                             clearInterval(resend);
-                            $('.getauthcode_one').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
+                            $('.getauthcode_one').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).text('获取验证码');
                         }
                     }, 1000);
                 } else if (data.status == 400) {

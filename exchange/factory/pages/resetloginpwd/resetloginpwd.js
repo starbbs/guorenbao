@@ -161,7 +161,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                 }
             });
             //30秒内只能发送一次
-            var count = 30;
+            var count = 60;
             var resend = setInterval(function() {
                 count--;
                 if (count > 0) {

@@ -361,3 +361,10 @@
     background: #0bbeee;
     color: white;
 }
+
+.forgotpwd{
+        position: absolute;
+    left: 280px;
+    top: 10px;
+    color: #0bbeee;
+}
