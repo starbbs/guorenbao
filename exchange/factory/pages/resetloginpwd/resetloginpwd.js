@@ -1,6 +1,6 @@
 require(['api_mkt', 'cookie'], function(api_mkt) {
-	var exchangeToken = $.cookie('exchangeToken');
-	var global_loginuserphone = $.cookie("global_loginuserphone");
+    var exchangeToken = $.cookie('exchangeToken');
+    var global_loginuserphone = $.cookie("global_loginuserphone");
     if (!exchangeToken) {
         $(".popDiv").show();
         $(".bg").show();
@@ -13,50 +13,50 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         $("#who_account").html(global_loginuserphone.substr(0, 3) + '****' + global_loginuserphone.substr(7, 4));
     }
 
-    $("#phone").on("blur",function(){
-   		if($(this).val()==""){
-   			$("#error_one").show().html("手机号不能为空");
-   			mobileflag = false;
-   			return;
-   		} else {
-   			var phone = $("#phone").val();
-	        var reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
-	        if(!reg.test(phone) || !phone){
-	            $('#error_one').show().text('请输入正确的手机号码');
-	            mobileflag = false;
-	        }else{
-	            $('#error_one').hide();
-	            mobileflag = true;
-	        }
-   		}
-   	});
-    $("#identifyingCode").on("blur",function(){
-   		if($(this).val()==""){
-   			$("#error_two").show().html("验证码不能为空");
-   			return;
-   		} else {
-   			$("#error_two").hide().html("");
-   		}
-   	});
-    $("#newPwd").on("blur",function(){
-    	if($(this).val()==""){
-   			$("#error_three").show().html("登录密码不能为空");
-   			return;
-   		} else {
-   			$("#error_three").hide().html("");
-   		}
+    $("#phone").on("blur", function() {
+        if ($(this).val() == "") {
+            $("#error_one").show().html("手机号不能为空");
+            mobileflag = false;
+            return;
+        } else {
+            var phone = $("#phone").val();
+            var reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
+            if (!reg.test(phone) || !phone) {
+                $('#error_one').show().text('请输入正确的手机号码');
+                mobileflag = false;
+            } else {
+                $('#error_one').hide();
+                mobileflag = true;
+            }
+        }
     });
-    $("#confirmNewPwd").on("blur",function(){
-    	if($(this).val()==""){
-   			$("#error_four").show().html("确认密码不能为空");
-   			return;
-   		}
-   		if($(this).val()!==""&&$(this).val()!==$("#newPwd").val()){
-   			$("#error_four").show().html("两次密码不相同");
-   			return;
-   		} else {
-   			$("#error_four").hide().html("");
-   		}
+    $("#identifyingCode").on("blur", function() {
+        if ($(this).val() == "") {
+            $("#error_two").show().html("验证码不能为空");
+            return;
+        } else {
+            $("#error_two").hide().html("");
+        }
+    });
+    $("#newPwd").on("blur", function() {
+        if ($(this).val() == "") {
+            $("#error_three").show().html("登录密码不能为空");
+            return;
+        } else {
+            $("#error_three").hide().html("");
+        }
+    });
+    $("#confirmNewPwd").on("blur", function() {
+        if ($(this).val() == "") {
+            $("#error_four").show().html("确认密码不能为空");
+            return;
+        }
+        if ($(this).val() !== "" && $(this).val() !== $("#newPwd").val()) {
+            $("#error_four").show().html("两次密码不相同");
+            return;
+        } else {
+            $("#error_four").hide().html("");
+        }
     });
 
     var whether_sub = true;
@@ -70,16 +70,16 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
             whether_sub = false;
             mobileflag = false;
         } else {
-        	var phone = $("#phone").val();
-	        var reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
-	        if(!reg.test(phone) || !phone){
-	            $('#error_one').show().text('请输入正确的手机号码');
-	            whether_sub = false;
-	            mobileflag = false;
-	        }else{
-	            $('#error_one').hide();
-	            mobileflag = true;
-	        }
+            var phone = $("#phone").val();
+            var reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
+            if (!reg.test(phone) || !phone) {
+                $('#error_one').show().text('请输入正确的手机号码');
+                whether_sub = false;
+                mobileflag = false;
+            } else {
+                $('#error_one').hide();
+                mobileflag = true;
+            }
         }
         if ($("#identifyingCode").val() == "") {
             $("#error_two").show().html("验证码不能为空");
@@ -135,43 +135,43 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         }
     });
 
-    function toIndex(){
-		var count = 3;
-			var timer = setInterval(function(){
-			count--;
-			if(count > 0){
-				$("#howmanysecond").text(count);
-			}else{
-				clearInterval(timer);
-				location.href="./index.html";
-			}
-		},1000);
-	}
+    function toIndex() {
+        var count = 3;
+        var timer = setInterval(function() {
+            count--;
+            if (count > 0) {
+                $("#howmanysecond").text(count);
+            } else {
+                clearInterval(timer);
+                location.href = "./index.html";
+            }
+        }, 1000);
+    }
 
     //获取短信验证码
     $('.getauthcode').click(function() {
         if (mobileflag == false) {
             $("#error_two").show().html("请检查手机号是否输入正确");
         } else {
-            api_mkt.sendCode({"phone":$("#phone").val()},function(data) {
+            api_mkt.sendCode({ "phone": $("#phone").val() }, function(data) {
                 if (data.status == 200) {
                     console.log(data);
+                    //30秒内只能发送一次
+                    var count = 60;
+                    var resend = setInterval(function() {
+                        count--;
+                        if (count > 0) {
+                            $('.getauthcode').html(count + 's后重新发送');
+                            $('.getauthcode').attr('disabled', true).css('cursor', 'not-allowed').css('background-color', '#cccccc');
+                        } else {
+                            clearInterval(resend);
+                            $('.getauthcode').attr('disabled', false).css('cursor', 'pointer').css('background-color', '#0bbeee').html('获取验证码');
+                        }
+                    }, 1000);
                 } else {
 
                 }
             });
-            //30秒内只能发送一次
-            var count = 60;
-            var resend = setInterval(function() {
-                count--;
-                if (count > 0) {
-                    $('.getauthcode').html(count + 's后重新发送');
-                    $('.getauthcode').attr('disabled', true).css('cursor', 'not-allowed');
-                } else {
-                    clearInterval(resend);
-                    $('.getauthcode').attr('disabled', false).css('cursor', 'pointer').html('获取验证码');
-                }
-            }, 1000);
         }
     });
 });

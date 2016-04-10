@@ -19,6 +19,12 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	   		} else {
 	   			$("#error_one").hide().html("");
 	   		}
+    	}).on("input",function(){
+    		if ($(this).val() !== "") {
+	            $("#error_one").hide().html("");
+	        } else {
+	            $("#error_one").show().html("原支付密码不能为空");
+	        }
     	});
     	$("#newPayPwd").on("blur",function(){
     		if($(this).val()==""){
@@ -37,6 +43,12 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	   		// 	$("#error_two").hide().html("");
 	   		// 	$("#error_three").hide().html("");
 	   		// }
+    	}).on("input",function(){
+    		if ($(this).val() !== "") {
+	            $("#error_two").hide().html("");
+	        } else {
+	            $("#error_two").show().html("新支付密码不能为空");
+	        }
     	});
     	$("#confirmPayPwd").on("blur",function(){
     		if($(this).val()==""){
@@ -55,7 +67,12 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	   		} else {
 	   			$("#error_three").hide().html("");
 	   		}
-
+    	}).on("input",function(){
+    		if ($(this).val() !== "") {
+	            $("#error_three").hide().html("");
+	        } else {
+	            $("#error_three").show().html("确认密码不能为空");
+	        }
     	});
     	$("#identifyingCode").on("blur",function(){
     		if($(this).val()==""){
@@ -65,8 +82,6 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	   			$("#error_four").hide().html("");
 	   		}
     	});
-
-
 
     	var whether_sub_one = true;
 	    $(".next_step_btn_one").on("click",function(){
@@ -137,22 +152,23 @@ require(['api_mkt','cookie'], function(api_mkt) {
                 api_mkt.sendCodeByLoginAfter( function(data) {
                     if (data.status == 200) {
                         console.log(data);
+                        //60秒内只能发送一次
+		                var count = 60;
+		                var resend = setInterval(function(){
+		                    count--;
+		                    if(count > 0){
+		                        $('.getauthcode').html(count+'s后重新发送');
+		                        $('.getauthcode').attr('disabled',true).css('cursor','not-allowed');
+		                    }else{
+		                        clearInterval(resend);
+		                        $('.getauthcode').attr('disabled',false).css('cursor','pointer').html('获取验证码');
+		                    }
+		                },1000);
                     } else {
 
                     }
                 });
-                //60秒内只能发送一次
-                var count = 60;
-                var resend = setInterval(function(){
-                    count--;
-                    if(count > 0){
-                        $('.getauthcode').html(count+'s后重新发送');
-                        $('.getauthcode').attr('disabled',true).css('cursor','not-allowed');
-                    }else{
-                        clearInterval(resend);
-                        $('.getauthcode').attr('disabled',false).css('cursor','pointer').html('获取验证码');
-                    }
-                },1000);
+                
             }
         });
     }
