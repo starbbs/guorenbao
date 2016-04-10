@@ -423,6 +423,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                             }
                         });
                         //恢复为 买入卖出 确认框
+                        $("#floor_popDiv").hide(500);
+                        $("#floor_bg").hide();
                         $('.h3_1').css('display','block');
                         $('.sure_btn').css('display','block');
                         $('#sel_div_password').css('display','block');
@@ -434,6 +436,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                         $("#floor_bg").hide();
                         $("#floor_popDiv").hide(500);
                         //恢复为 买入卖出 确认框
+                        $("#floor_popDiv").hide(500);
+                        $("#floor_bg").hide();
                         $('.h3_1').css('display','block');
                         $('.sure_btn').css('display','block');
                         $('#sel_div_password').css('display','block');
@@ -443,7 +447,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 });             
             }               
         }else{
-            console.log(data);
+            //console.log(data);
         }
     });    
 
