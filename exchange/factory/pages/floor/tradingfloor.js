@@ -348,7 +348,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 html.push("<tr>");                                        
                 html.push("<td>"+ data.data.list[i].createDate +"</td>");                
                 html.push("<td class='id' style='display:none'>"+ data.data.list[i].id +"</td>");
-                html.push("<td>"+ data.data.list[i].tradeGopType +"</td>");
+                html.push("<td class='tradeGopType'>"+ data.data.list[i].tradeGopType +"</td>");
                 html.push("<td class='tradeGopFlag' style='display:none'>"+ data.data.list[i].tradeGopFlag +"</td>");                    
                 html.push("<td class='price'>"+ data.data.list[i].price +"</td>");
                 html.push("<td class='numTotal'>"+ data.data.list[i].numTotal +"</td>");
@@ -358,6 +358,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 html.push("</tr>");
                 $(".tradeGopCurrentListTable").html("");  //添加前清空 
                 $(".tradeGopCurrentListTable").append(html.join(""));  
+                //过滤内容显示不同颜色
+                $(".tradeGopType").filter(":contains('BUY')").text('买入').css("color","red");                    
+                $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green");  
                 //撤单
                 $('.saDan').click(function(){                    
                     var text = $(this).parent().parent().find('.id').text();
@@ -384,7 +387,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                                             html.push("<tr>");                                        
                                             html.push("<td>"+ data.data.list[i].createDate +"</td>");                
                                             html.push("<td class='id' style='display:none'>"+ data.data.list[i].createDate +"</td>");
-                                            html.push("<td>"+ data.data.list[i].tradeGopType +"</td>");
+                                            html.push("<td class='tradeGopType'>"+ data.data.list[i].tradeGopType +"</td>");
                                             html.push("<td class='tradeGopFlag' style='display:none'>"+ data.data.list[i].tradeGopFlag +"</td>");                    
                                             html.push("<td class='price'>"+ data.data.list[i].price +"</td>");
                                             html.push("<td class='numTotal'>"+ data.data.list[i].numTotal +"</td>");
@@ -394,6 +397,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                                             html.push("</tr>");
                                             $(".tradeGopCurrentListTable").html("");  //添加前清空 
                                             $(".tradeGopCurrentListTable").append(html.join(""));
+                                            //过滤内容显示不同颜色
+                                            $(".tradeGopType").filter(":contains('BUY')").text('买入').css("color","red");                    
+                                            $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green"); 
                                         }
                                     }
                                 });
@@ -427,7 +433,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 for(var i=0; i<num;i++){
                     html.push("<tr>");                                        
                     html.push("<td>"+ data.data.list[i].createDate +"</td>");
-                    html.push("<td>"+ data.data.list[i].tradeGopType +"</td>");
+                    html.push("<td class='tradeGopType'>"+ data.data.list[i].tradeGopType +"</td>");
                     html.push("<td>"+ data.data.list[i].price +"</td>");
                     html.push("<td>"+ data.data.list[i].numTotal +"</td>");
                     html.push("<td>"+ (data.data.list[i].numTotal - data.data.list[i].numOver) + "</td>");
@@ -436,6 +442,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     html.push("</tr>");
                     $(".tradeGopCurrentListTable").html("");  //添加前清空 
                     $(".tradeGopCurrentListTable").append(html.join(""));
+
+                    //过滤内容显示不同颜色
+                    $(".tradeGopType").filter(":contains('BUY')").text('买入').css("color","red");                    
+                    $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green"); 
                 }                            
             }else{
                 console.log(data);
@@ -451,7 +461,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             for(var i=0; i<num;i++){
                 html.push("<tr>");                                        
                 html.push("<td>"+ data.data.list[i].createDate +"</td>");
-                html.push("<td>"+ data.data.list[i].tradeGopType +"</td>");
+                html.push("<td class='tradeGopType'>"+ data.data.list[i].tradeGopType +"</td>");
                 html.push("<td>"+ data.data.list[i].price +"</td>");
                 html.push("<td>"+ data.data.list[i].numTotal +"</td>");
                 html.push("<td>"+ (data.data.list[i].totalTraded / data.data.list[i].numTotal) + "</td>");
@@ -461,6 +471,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 html.push("</tr>");
                 $(".tradeGopHistoryListTable").html("");  //添加前清空 
                 $(".tradeGopHistoryListTable").append(html.join(""));
+
+                //过滤内容显示不同颜色
+                $(".tradeGopType").filter(":contains('BUY')").text('买入').css("color","red");                    
+                $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green"); 
             }       
         }else{
             console.log(data);
@@ -479,7 +493,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 for(var i=0; i<num;i++){
                     html.push("<tr>");                                        
                     html.push("<td>"+ data.data.list[i].createDate +"</td>");
-                    html.push("<td>"+ data.data.list[i].tradeGopType +"</td>");
+                    html.push("<td class='tradeGopType'>"+ data.data.list[i].tradeGopType +"</td>");
                     html.push("<td>"+ data.data.list[i].price +"</td>");
                     html.push("<td>"+ data.data.list[i].numTotal +"</td>");
                     html.push("<td>"+ (data.data.list[i].numTotal - data.data.list[i].numOver) + "</td>");
@@ -488,6 +502,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     html.push("</tr>");
                     $(".tradeGopHistoryListTable").html("");  //添加前清空 
                     $(".tradeGopHistoryListTable").append(html.join(""));
+                    
+                    //过滤内容显示不同颜色
+                    $(".tradeGopType").filter(":contains('BUY')").text('买入').css("color","red");                    
+                    $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green"); 
                 }                      
             }else{
                 console.log(data);

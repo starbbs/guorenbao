@@ -26,8 +26,8 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pageh
             if(data.data){
                 var dlist = data.data.list;
                 if(dlist.length!=0){
-                    console.log(data);
-                    console.log(data.data.list[0].createDate);
+                    //console.log(data);
+                    //console.log(data.data.list[0].createDate);
                     var html = [];
                     var num = data.data.list.length >5 ? 5:data.data.list.length
                     for (var i = 0; i < num; i++) {
@@ -43,8 +43,9 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pageh
                         $(".aside-table-tbody").append(html.join(""));
 
                         //过滤内容显示不同颜色
-                        $(".operType").filter(":contains('买入')").css("color", "red");
-                        $(".operType").filter(":contains('卖出')").css("color", "green");
+                        $(".operType").filter(":contains('CNYIN')").text('买入').css("color", "red");
+
+                        $(".operType").filter(":contains('CNYOUT')").text('卖出').css("color", "green");
                     }
                 }
             }            
@@ -60,7 +61,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pageh
             'pageSize': 10
         }, function(data) {
             if (data.status == 200) {
-                console.log(data);
+                //console.log(data);
                 var PageNum = 0; //0当前为第一页                    
                 var html = [];
                 for (var i = 0; i < 10; i++) {
@@ -87,7 +88,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pageh
     //总资产
     api_mkt.getTotalAssets(function(data) {        
         if (data.status == 200) {
-            console.log(data);
+            //console.log(data);
             $('#total_assets').text(data.data.cnyBalance.toFixed(2));
             $('.cnyBalance').text(data.data.cnyBalance.toFixed(2));
             $('.gopLock').text(data.data.gopLock.toFixed(2));

@@ -107,7 +107,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		   		'password':$('.checkpwd').val(),
 		   		'confirmPwd':$('.checkConfirmPwd').val()	   
 			}, function(data) {
-	            if (data.msg == "手机号码已经注册") {
+	            if (data.msg == '手机号码已经注册') {
 	            	$('.msg-phone').show().html('手机号已注册，请<a class="markasread" href="index.html">直接登录，3秒后跳转到首页</a>');
 	            	$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
 	            	$('.oneStep').unbind('click');
@@ -115,15 +115,15 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	            }else if(data.status == 200){
 	                $(".two").css('display','flex');
 					$(".one").css('display','none');                
-	            }else{
-	            	
+	            }else if(data.msg == '验证码错误'){
+	            	alert('您输入的验证码有误，请重新输入！');
 	            }
 			});
     	}   	
 
     });
     //下一步--支付密码
-	$(".payPwd").blur(function(){
+	$('.payPwd').blur(function(){
 		var payPwd = $.trim($(".payPwd").val());
 		var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
 		if(!reg.test(payPwd)){
