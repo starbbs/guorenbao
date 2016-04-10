@@ -473,14 +473,16 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 html.push("<td>"+ (data.data.list[i].totalTraded / data.data.list[i].numTotal).toFixed(2) + "</td>");
                 html.push("<td>"+ data.data.list[i].numOver +"</td>");
                 html.push("<td>"+ data.data.list[i].totalTraded +"</td>");
-                html.push("<td>"+ data.data.list[i].tradeGopStatus +"</td>");
+                html.push("<td class='tradeGopStatus'>"+ data.data.list[i].tradeGopStatus +"</td>");
                 html.push("</tr>");
                 $(".tradeGopHistoryListTable").html("");  //添加前清空 
                 $(".tradeGopHistoryListTable").append(html.join(""));
 
                 //过滤内容显示不同颜色
                 $(".tradeGopType").filter(":contains('BUY')").text('买入').css("color","red");                    
-                $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green"); 
+                $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green");
+                $(".tradeGopStatus").filter(":contains('SUCCESS')").text('已成交').css("color","orange");                    
+                $(".tradeGopStatus").filter(":contains('CANCEL')").text('已撤销').css("color","#999"); 
             }       
         }else{
             console.log(data);
@@ -505,14 +507,16 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     html.push("<td>"+ (data.data.list[i].totalTraded / data.data.list[i].numTotal).toFixed(2) + "</td>");
                     html.push("<td>"+ data.data.list[i].numOver +"</td>");
                     html.push("<td>"+ data.data.list[i].totalTraded +"</td>");
-                    html.push("<td>"+ data.data.list[i].tradeGopStatus +"</td>");
+                    html.push("<td class='tradeGopStatus'>"+ data.data.list[i].tradeGopStatus +"</td>");
                     html.push("</tr>");
                     $(".tradeGopHistoryListTable").html("");  //添加前清空 
                     $(".tradeGopHistoryListTable").append(html.join(""));
 
                     //过滤内容显示不同颜色
                     $(".tradeGopType").filter(":contains('BUY')").text('买入').css("color","red");                    
-                    $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green"); 
+                    $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green");
+                    $(".tradeGopStatus").filter(":contains('SUCCESS')").text('已成交').css("color","orange");                    
+                    $(".tradeGopStatus").filter(":contains('CANCEL')").text('已撤销').css("color","#999"); 
                 }                      
             }else{
                 console.log(data);
