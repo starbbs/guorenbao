@@ -91,8 +91,7 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
     //输入数量校验
     $('#gopWithdrawalsNumber').blur(function() {
         var num = $('#gopWithdrawalsNumber').val();
-        var reg = /^[0-9]{1,}$/;
-        if (!reg.exec(num)) {
+        if (!num || isNaN(num)) {
             btnConfirm = false;
             $('.msg-gopWithdrawalsNumber').text('请输入提取数量');
         } else {

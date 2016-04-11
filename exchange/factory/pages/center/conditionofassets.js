@@ -45,14 +45,14 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pageh
                         //过滤内容显示不同颜色
                         $(".operType").filter(":contains('CNYIN')").text('买入').css("color", "red");
                         $(".operType").filter(":contains('CNYOUT')").text('卖出').css("color", "green");
-                        $(".operType").filter(":contains('GOPIN')").text('买入').css("color", "red");
-                        $(".operType").filter(":contains('GOPOUT')").text('卖出').css("color", "green");
+                        $(".operType").filter(":contains('GOPIN')").text('果仁充值');
+                        $(".operType").filter(":contains('GOPOUT')").text('果仁提现');
                         $("td").filter(":contains('undefined')").text('0');
                     }
                 }
             }            
         } else {
-            console.log('财务中心-资产状况-账户明细表格，加载失败。');
+            //console.log('财务中心-资产状况-账户明细表格，加载失败。');
         }
     });
 
