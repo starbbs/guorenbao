@@ -43,10 +43,12 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pageh
                         $(".aside-table-tbody").append(html.join(""));
 
                         //过滤内容显示不同颜色
-                        $(".operType").filter(":contains('CNYIN')").text('买入').css("color", "red");
-                        $(".operType").filter(":contains('CNYOUT')").text('卖出').css("color", "green");
+                        $(".operType").filter(":contains('CNYIN')").text('人民币充值');
+                        $(".operType").filter(":contains('CNYOUT')").text('人民币提现');
                         $(".operType").filter(":contains('GOPIN')").text('果仁充值');
                         $(".operType").filter(":contains('GOPOUT')").text('果仁提现');
+                        $(".operType").filter(":contains('BUY')").text('果仁买入').css("color", "red");
+                        $(".operType").filter(":contains('SELL')").text('果仁卖出').css("color", "green");
                         $("td").filter(":contains('undefined')").text('0');
                     }
                 }
@@ -79,10 +81,12 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pageh
                     $(".new").append(html.join(""));
 
                     //过滤内容显示不同颜色
-                    $(".operType").filter(":contains('CNYIN')").text('买入').css("color", "red");
-                    $(".operType").filter(":contains('CNYOUT')").text('卖出').css("color", "green");
-                    $(".operType").filter(":contains('GOPIN')").text('买入').css("color", "red");
-                    $(".operType").filter(":contains('GOPOUT')").text('卖出').css("color", "green");
+                    $(".operType").filter(":contains('CNYIN')").text('人民币充值');
+                    $(".operType").filter(":contains('CNYOUT')").text('人民币提现');
+                    $(".operType").filter(":contains('GOPIN')").text('果仁充值');
+                    $(".operType").filter(":contains('GOPOUT')").text('果仁提现');
+                    $(".operType").filter(":contains('BUY')").text('果仁买入').css("color", "red");
+                    $(".operType").filter(":contains('SELL')").text('果仁卖出').css("color", "green");
                     $("td").filter(":contains('undefined')").text('0');
                 }
             } else {
