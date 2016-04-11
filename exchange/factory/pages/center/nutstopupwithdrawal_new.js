@@ -214,7 +214,7 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
                 $(".guorenOutput").append(html.join(""));
 
                 //过滤内容显示不同颜色
-                $(".status-guorenInput").filter(":contains('IN')").text('已到账').css("color", "#999");
+                $(".status-guorenInput").filter(":contains('OUT')").text('已到账').css("color", "#999");
             
             }
         } else {
@@ -244,18 +244,10 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
             
             }
         } else {
-            consloe.log(err);
+            
         }
     });
 
-    
-
-    //点击图片 复制地址
-    $('.imgCopy').click(function(){
-        $('#a').select();  
-        document.execCommand("Copy");
-        alert("已复制好，可贴粘。"); 
-    });
 });
 
 
