@@ -189,6 +189,19 @@ progress::-webkit-progress-value {
     color: #999999;
 }
 
+.bottom_down_down a{
+
+}
+.bottom_up a{
+
+}
+
+.bottom_a{
+    text-decoration: underline;
+    color: #267a9c;
+}
+
+
 .bottom a {
     text-decoration: none;
     color: #999999;
@@ -199,7 +212,10 @@ progress::-webkit-progress-value {
     margin-right: 30px;
     font-size: 1.4rem;
 }
-
+.bottom_down_down a{
+    font-size:1.4rem;
+    color:#666666;
+}
 .bottom_up {
     height: 148px;
     border-bottom: 1px solid #333333;
@@ -917,7 +933,7 @@ progress::-webkit-progress-value {
 .quoted_price_i{
     background: url('../images/index_arrow_rise.png') no-repeat 0 0;
     width: 10px;
-    background-size: 100% 110%;
+    background-size: 100% 100%;
     position: absolute;
     top: 39px;
     height: 22px;
@@ -982,3 +998,11 @@ progress::-webkit-progress-value {
     top: 2px;
     left:4px;
 }
+
+.bottomimg{
+        position: relative;
+    top: 4px;
+    left: 2px;
+    margin-right: 5px;
+}
+

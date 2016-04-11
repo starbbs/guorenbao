@@ -1,36 +1,118 @@
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
     margin: 0;
     padding: 0;
     border: 0;
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    box-sizing:border-box;
+    box-sizing: border-box;
     text-decoration: none;
 }
+
+
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
     display: block;
 }
+
 html {
     font-family: "Microsoft Yahei, Helvetica, STHeiTi, Arial, sans-serif";
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     font-size: 62.5%;
 }
+
 body {
     line-height: 1;
     margin: 0;
@@ -42,23 +124,33 @@ body {
     -webkit-overflow-scrolling: touch;
     font-family: "Microsoft Yahei";
 }
-ol, ul {
+
+ol,
+ul {
     list-style: none;
 }
-blockquote, q {
+
+blockquote,
+q {
     quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
     content: '';
     content: none;
 }
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
 }
 
+
 /*---滚动条默认显示样式--*/
+
 ::-webkit-scrollbar-thumb {
     background-color: #dddddd;
     height: 50px;
@@ -67,31 +159,38 @@ table {
     -webkit-border-radius: 4px;
     border: 2px solid #fff;
 }
+
+
 /*---鼠标点击滚动条显示样式--*/
+
 ::-webkit-scrollbar-thumb:hover {
     background-color: #cccccc;
     height: 50px;
     -webkit-border-radius: 4px;
 }
+
+
 /*---滚动条大小--*/
+
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
+
+
 /*---滚动框背景样式--*/
+
 ::-webkit-scrollbar-track-piece {
     background-color: #fff;
     -webkit-border-radius: 0;
 }
-
-
 
 .topbar {
     height: 28px;
     background-color: #282828;
     width: 100%;
     margin: 0 auto;
-    line-height:28px;
+    line-height: 28px;
 }
 
 .topbar .content {
@@ -100,7 +199,7 @@ table {
     color: #cccccc;
     height: 100%;
     line-height: 28px;
-    font-size:1.2rem;
+    font-size: 1.2rem;
 }
 
 .topbar .content span {
@@ -111,22 +210,28 @@ table {
 .topbar .content span:nth-child(1) {
     /*color:blue;*/
 }
+
 .topbar .content span:nth-child(2) {
     /*color:red;✔✘*/
 }
-.login_regist{
-    width:80px;
-    float:right;
+
+.login_regist {
+    width: 80px;
+    float: right;
     right: 0px;
-    text-align:right;
+    text-align: right;
 }
-.login_regist a{
-    text-decoration:none;
-    color:#999999;
+
+.login_regist a {
+    text-decoration: none;
+    color: #999999;
 }
-.login_regist div{
-    display:inline;
+
+.login_regist div {
+    display: inline;
 }
+
+
 /* .login_regist_vertical:after{
     content: '|';
     color: #838383;
@@ -136,7 +241,7 @@ table {
 } */
 
 .topnav {
-        width: 100%;
+    width: 100%;
     height: 80px;
     background-color: #ffffff;
     box-shadow: 0px 0px 4px #888888;
@@ -161,16 +266,16 @@ table {
     color: #777777;
     font-size: 1.6rem;
     cursor: pointer;
-    text-decoration:none;
-}
-.index_on {
-    color:#0bbeee;
+    text-decoration: none;
 }
 
-.feature:hover{
+.index_on {
     color: #0bbeee;
 }
 
+.feature:hover {
+    color: #0bbeee;
+}
 
 .bottom {
     width: 100%;
@@ -208,8 +313,8 @@ table {
     flex: 1;
 }
 
-.bottom_up a:hover{
-    color:#0bbeee;
+.bottom_up a:hover {
+    color: #0bbeee;
 }
 
 .bottom_down {
@@ -269,18 +374,22 @@ table {
     top: 24px;
 }
 
+
 /****顶部通栏****/
-#newinfor{
-        position: absolute;
+
+#newinfor {
+    position: absolute;
     bottom: 12px;
     height: 16px;
     line-height: 16px;
     color: #333333;
 }
-.message_flow{
-    margin:0 10px;
+
+.message_flow {
+    margin: 0 10px;
 }
-#newinfor_result{
+
+#newinfor_result {
     position: absolute;
     bottom: 12px;
     color: #ff6600;
@@ -288,84 +397,96 @@ table {
     height: 16px;
     line-height: 16px;
 }
-.popup_message_box{
 
-}
-.message_flow{
+.popup_message_box {}
+
+.message_flow {
     height: 52px;
 }
-.message_flow p{
+
+.message_flow p {
     line-height: 26px;
-    text-overflow:ellipsis;
-    overflow:hidden;
-    white-space:nowrap;
-}
-.login_header{
-    float:right;
-    color:#cccccc;
-}
-.message_content_p{
-    color:#565656;
-    position:relative;
-    top:6px;
-}
-.message_date_p{
-    color:#999999;
-    float:right;
-    margin-right:10px;
-}
-.second_message_flow{
-    border-top: 1px dotted #cccccc;
-}
-.login_header >div{
-    display:inline;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
-.login_header >div:nth-child(2){
+.login_header {
+    float: right;
+    color: #cccccc;
+}
+
+.message_content_p {
+    color: #565656;
+    position: relative;
+    top: 6px;
+}
+
+.message_date_p {
+    color: #999999;
+    float: right;
+    margin-right: 10px;
+}
+
+.second_message_flow {
+    border-top: 1px dotted #cccccc;
+}
+
+.login_header >div {
+    display: inline;
+}
+
+.login_header >div:nth-child(2) {
     display: inline-block;
     padding: 0 6px;
     cursor: pointer;
-    position:relative;
-}
-.login_header span{
-    color:#cccccc;
-}
-.login_header em{
-    color:#cccccc;
+    position: relative;
 }
 
-.login_regist{
-    width:80px;
-    float:right;
+.login_header span {
+    color: #cccccc;
+}
+
+.login_header em {
+    color: #cccccc;
+}
+
+.login_regist {
+    width: 80px;
+    float: right;
     right: 0px;
-    text-align:right;
+    text-align: right;
 }
 
-.messnumarea_font_color{
-    color:#333333;
-}
-.login_regist a,.login_header a{
-    text-decoration:none;
-    color:#cccccc;
+.messnumarea_font_color {
+    color: #333333;
 }
 
-.popup_message_box{
+.login_regist a,
+.login_header a {
+    text-decoration: none;
+    color: #cccccc;
+}
+
+.popup_message_box {
     background-color: #ffffff;
     width: 260px;
     height: 178px;
     z-index: 3;
     position: absolute;
     right: 0px;
-    display:none;
+    display: none;
 }
-.newinfo_div{
+
+.newinfo_div {
     color: #333333;
     margin: 0 10px;
     border-bottom: 1px solid #e6e6e6;
     height: 44px;
-    position:relative;
+    position: relative;
 }
-.popup_message_box a{
+
+.popup_message_box a {
     text-decoration: none;
     height: 30px;
     line-height: 30px;
@@ -375,22 +496,19 @@ table {
     position: absolute;
 }
 
-
-.login_header{
-    display:block;
+.login_header {
+    display: block;
     float: right;
     color: #cccccc;
 }
 
-
-.rightfunction{
-        display: flex;
+.rightfunction {
+    display: flex;
     float: right;
     position: absolute;
     top: 34px;
     right: 0px;
 }
-
 
 .popDiv {
     width: 0;
@@ -402,16 +520,17 @@ table {
     bottom: 50%;
     z-index: 1000;
 }
+
 .bg {
     background-color: #333333;
     opacity: 0.8;
     z-index: 1;
     position: absolute;
-    top:0;
+    top: 0;
     z-index: 100;
 }
 
-.popup_loginarea{
+.popup_loginarea {
     width: 322px;
     height: 336px;
     margin-left: -161px;
@@ -421,8 +540,9 @@ table {
     padding: 0 43px;
     position: relative;
 }
-.popup_loginarea h3{
-        top: 30px;
+
+.popup_loginarea h3 {
+    top: 30px;
     position: absolute;
     font-size: 1.6rem;
     font-weight: 600;
@@ -430,46 +550,52 @@ table {
     left: 112px;
 }
 
-.close_btn{
-        position: absolute;
+.close_btn {
+    position: absolute;
     top: 24px;
     right: 36px;
     cursor: pointer;
 }
-.popup_divblock{
-        height: 56px;
+
+.popup_divblock {
+    height: 56px;
     line-height: 56px;
     width: 240px;
 }
-.popup_input{
+
+.popup_input {
     height: 32px;
     line-height: 32px;
     width: 220px;
     padding-left: 15px;
     font-family: "Microsoft Yahei";
 }
-.first_input_div{
+
+.first_input_div {
     top: 60px;
     position: absolute;
 }
-.second_input_div{
+
+.second_input_div {
     top: 120px;
     position: absolute;
 }
-.err_tips_one{
+
+.err_tips_one {
     height: 20px;
     position: relative;
     top: -26px;
     color: #ff6600;
-    display:none;
+    display: none;
 }
 
-#authcode{
+#authcode {
     position: absolute;
     top: 188px;
     width: 240px;
 }
-.authcodecls{
+
+.authcodecls {
     height: 32px;
     line-height: 32px;
     width: 51%;
@@ -477,7 +603,8 @@ table {
     padding-left: 5%;
     font-family: "Microsoft Yahei";
 }
-.error_tips{
+
+.error_tips {
     position: absolute;
     top: 48px;
     height: 20px;
@@ -485,13 +612,15 @@ table {
     line-height: 20px;
     display: none;
 }
-.autocode_tips{
-        color: #ff6600;
+
+.autocode_tips {
+    color: #ff6600;
     position: absolute;
     left: 0px;
     top: 32px;
 }
-.popup_login_btn{
+
+.popup_login_btn {
     width: 240px;
     height: 36px;
     color: white;
@@ -505,16 +634,18 @@ table {
     cursor: pointer;
 }
 
-.bottom_div{
+.bottom_div {
     position: absolute;
     top: 290px;
 }
-.freesignup{
+
+.freesignup {
     color: #0bbeee;
     display: inline-block;
     float: left;
 }
-.forgotpassword{
+
+.forgotpassword {
     color: #cccccc;
     float: right;
     position: relative;
@@ -523,8 +654,8 @@ table {
     display: inline-block;
 }
 
-.turnoverbefore{
-        background: url('../images/head_goopal_logo.png') no-repeat 0 0;
+.turnoverbefore {
+    background: url('../images/head_goopal_logo.png') no-repeat 0 0;
     width: 7px;
     height: 12px;
     display: inline-block;
@@ -543,14 +674,30 @@ table {
 }
 
 input::-webkit-input-placeholder {
-　　color: #999 !important;
+    color: #999 !important;
 }
-　　input:-moz-placeholder {
-　　color: #999 !important;
-　　}
-　　input::-moz-placeholder {
-　　color: #999 !important;
-　　}
-　　input:-ms-input-placeholder {
-　　color: #999 !important;
-　　}
+
+input:-moz-placeholder {
+    color: #999 !important;
+}
+
+input::-moz-placeholder {
+    color: #999 !important;
+}
+
+input:-ms-input-placeholder {
+    color: #999 !important;
+}
+
+.bottom_down_down a{
+    margin-right:0px;
+}
+.bottom_a{
+    text-decoration:underline;
+}
+.bottomimg{
+    position: relative;
+    top: 3px;
+    left: 0px;
+    margin-right: 4px;
+}
