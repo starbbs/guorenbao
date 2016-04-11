@@ -72,7 +72,7 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
                 $(".guorenOutput").append(html.join(""));
 
                 //过滤内容显示不同颜色
-                $(".status-guorenOutput").filter(":contains('进行中')").css("color", "orange");
+                $(".status-guorenInput").filter(":contains('IN')").text('已到账').css("color", "#999");
             
             }
         } else {
@@ -178,7 +178,7 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
                 $(".guorenInput").append(html.join(""));
 
                 //过滤内容显示不同颜色
-                $(".status-guorenInput").filter(":contains('进行中')").css("color", "orange");
+                $(".status-guorenInput").filter(":contains('IN')").text('已到账').css("color", "#999");
             
             }
         } else {

@@ -122,7 +122,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
     		$('.msg-pwd').text('密码格式：6~20位非纯数字字符');
     	}else if(btnConfirmPwd == false){
     		$('.msg-ConfirmPwd').show().text('两次输入不一致');
-    	}else if(btnCheckBox == false;){
+    	}else if(btnCheckBox == false){
     		$('.msg-checked').text('请阅读且接受服务条款').css('color','red');
     	}else{
     		api_mkt.registerBefore({			

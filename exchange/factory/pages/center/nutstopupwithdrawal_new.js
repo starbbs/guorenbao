@@ -1,6 +1,6 @@
-
+require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt_info) {
     //请求
-$(function(){ 
+
 
     $(function(){
         $('.rmbxh').on('click',function(){
@@ -17,14 +17,8 @@ $(function(){
         });
     });
 
-    //暂无真实接口-为出现效果,暂时放这里,有接口时,删除 -开始
-    $(".status-guorenInput").filter(":contains('进行中')").css("color","orange");
-
-    $(".status-guorenOutput").filter(":contains('进行中')").css("color","orange");
-    //暂无真实接口-为出现效果,暂时放这里,有接口时,删除 -结束
-
-    $.ajax({
-            url: "http://localhost/1.json",
+    /*$.ajax({
+            url: "http://localhost/wealth/transferInHistory",
             type:"post",
             dataType: "json",
             cache: true,
@@ -198,8 +192,69 @@ $(function(){
 
             },
             error:function(err){
-                console.log('error');
+                //console.log('error');
             }
+    });*/
+    //果仁(提现)转出记录_只查询成功记录
+    api_mkt.transferOutHistory({
+        'pageNo': 1,
+        'pageSize': 10
+    }, function(data) {
+        if (data.status == 200) {
+            console.log(data);
+            for (var i = 0; i <5 && i < data.data.list.length; i++) {
+                var html = [];
+                html.push("<tr>");
+                html.push("<td>" + data.data.list[i].createDate + "</td>");
+                html.push("<td>" + data.data.list[i].wallet + "</td>");
+                html.push("<td>" + data.data.list[i].number + "</td>");
+                html.push("<td class='status-guorenOutput'>" + data.data.list[i].transferGopOptType + "</td>");
+                html.push("</tr>");
+                $(".guorenOutput").html(""); //添加前清空 
+                $(".guorenOutput").append(html.join(""));
+
+                //过滤内容显示不同颜色
+                $(".status-guorenInput").filter(":contains('IN')").text('已到账').css("color", "#999");
+            
+            }
+        } else {
+            //console.log(err);
+        }
+    });
+    //果仁(充值)转出记录_只查询成功记录
+    api_mkt.transferInHistory({
+        'pageNo': 1,
+        'pageSize': 10
+    }, function(data) {
+        if (data.status == 200) {
+            console.log(data);
+            for (var i = 0; i <5 && i < data.data.list.length; i++) {
+                var html = [];
+                html.push("<tr>");
+                html.push("<td>" + data.data.list[i].createDate + "</td>");
+                html.push("<td>" + data.data.list[i].wallet + "</td>");
+                html.push("<td>" + data.data.list[i].number + "</td>");
+                html.push("<td class='status-guorenInput'>" + data.data.list[i].transferGopOptType + "</td>");
+                html.push("</tr>");
+                $(".guorenInput").html(""); //添加前清空 
+                $(".guorenInput").append(html.join(""));
+
+                //过滤内容显示不同颜色
+                $(".status-guorenInput").filter(":contains('IN')").text('已到账').css("color", "#999");
+            
+            }
+        } else {
+            consloe.log(err);
+        }
+    });
+
+    
+
+    //点击图片 复制地址
+    $('.imgCopy').click(function(){
+        $('#a').select();  
+        document.execCommand("Copy");
+        alert("已复制好，可贴粘。"); 
     });
 });
 
