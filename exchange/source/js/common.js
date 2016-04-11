@@ -178,10 +178,10 @@
 	                var whether_auth_val = "";
                     if(whether_auth){
                         whether_auth_val = global_loginusername;
-                        $(".bottom_em_i")[0].style.background = "url(./images/index_already_authentication.png)";
+                        $(".bottom_em_i")[0]?$(".bottom_em_i")[0].style.background = "url(./images/index_already_authentication.png)":"";
                     } else {
                         whether_auth_val = '未认证';
-                        $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
+                        $(".bottom_em_i")[0]?$(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)":"";
                     }
                     $("#whether_auth").html(whether_auth_val); //是否实名认证的标识
                     var whichpage = $.cookie("loginfromwhichpage");

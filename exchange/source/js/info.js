@@ -29,6 +29,18 @@
 		var turnover = Number(haha['24Total']).toFixed(2);
 		$('#turnover').html(turnover);  //页面顶部 24小时成交量
 		$('#thelatestprice_floor').html(thelatestprice); //交易大厅 最新成交价
+		if($('#thelatestprice_floor').text().length>5){
+			$(".quoted_price_firsti").css("right","36px");
+		} else {
+			$(".quoted_price_firsti").css("right","45px");
+		}
+
+		if($("#thelatestprice_em").text().length>5){
+			$(".quoted_price_i").css("right","18px");
+		} else {
+			$(".quoted_price_i").css("right","32px");
+		}
+
 		$('#thelatestprice_em').html(thelatestprice); //首页轮播图下面最新成交价
 		if(thelatestprice!=""&&thelatestprice_second==""){
 		}
