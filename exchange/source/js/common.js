@@ -164,7 +164,7 @@
 	                $.cookie("global_loginuseruid",global_loginuseruid);
                     console.log("asdf")
                     synchronous();
-                    setInterval(synchronous, 300000);
+                    setInterval(synchronous, 60000);
 
                     if(global_loginusername!=""){
                         $("#logined_username").html(global_loginusername);
@@ -284,6 +284,18 @@
         },100);
     });
 
+    $("#mybox").on("click",function(){
+        $("#msg_num_top,#newinfor_result").html("0");
+        synchronous();
+        location.href = "./ssmessage.html";
+    });
+
+    var lookall = function(){
+        $("#msg_num_top,#newinfor_result").html("0");
+        synchronous();
+        location.href = "./ssmessage.html";
+    }
+
     function synchronous() {
         $("#mybox").html("");
         $("#msg_num_top,#newinfor_result").html("0");
@@ -306,7 +318,7 @@
                             dlisthtml += "<div class='message_flow'><p class='message_content_p'>"+dlist[0].content+"</p><p class='message_date_p'>"+dlist[0].createDate+"</p></div>";
                             dlisthtml += "<div class='message_flow second_message_flow'><p class='message_content_p'>"+dlist[1].content+"</p><p class='message_date_p'>"+dlist[1].createDate+"</p></div>";
                         }
-                        dlisthtml += "<a href='ssmessage.html'>查看全部</a>";
+                        dlisthtml += "<a href='ssmessage.html' onClick='lookall()'>查看全部</a>";
                         $(dlisthtml).appendTo("#mybox");
                     }
                 }
@@ -319,7 +331,7 @@
         
     } else {
         synchronous();
-        setInterval(synchronous, 300000);
+        setInterval(synchronous, 60000);
     }
     
     var flag = true;

@@ -109,7 +109,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         $(".popDiv").hide();
         $(".bg").hide();
         synchronous();
-        setInterval(synchronous, 300000);
+        setInterval(synchronous, 60000);
     }
     $(".bg").width($(document).width());
     $('.bg').height($(document).height());
@@ -409,7 +409,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     $.cookie("global_loginuseruid",global_loginuseruid);
 
                     synchronous();
-                    setInterval(synchronous, 300000);
+                    setInterval(synchronous, 60000);
 
                     $("#logined_username").html(data.data.phone.substr(0,3)+'****'+data.data.phone.substr(7,4));
                     $(".top_em").html(data.data.phone.substr(0,3)+'****'+data.data.phone.substr(7,4));
