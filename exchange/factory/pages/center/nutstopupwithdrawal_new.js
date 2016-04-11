@@ -1,200 +1,58 @@
 require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt_info) {
-    //请求
-
-
-    $(function(){
-        $('.rmbxh').on('click',function(){
-            $(this).addClass('bottomon');
-            $('.rmbtx').removeClass('bottomon');
-            $('.recharge').show();
-            $('.withdraw_deposit').hide();
-        });
-        $('.rmbtx').on('click',function(){
-            $(this).addClass('bottomon');
-            $('.rmbxh').removeClass('bottomon');
-            $('.recharge').hide();
-            $('.withdraw_deposit').show();
-        });
+    //console.log(api_mkt);
+    //console.log(mkt_info);
+    //mkt_info.get();
+    //mkt_pagehead.get();
+    $('.rmbxh').on('click', function() {
+        $(this).addClass('bottomon');
+        $('.rmbtx').removeClass('bottomon');
+        $('.recharge').show();
+        $('.withdraw_deposit').hide();
+    });
+    $('.rmbtx').on('click', function() {
+        $(this).addClass('bottomon');
+        $('.rmbxh').removeClass('bottomon');
+        $('.recharge').hide();
+        $('.withdraw_deposit').show();
+    });
+    //点击进入tab的指定位置
+    $('#addNewAd').click(function() {
+        location.href = "withdraw.html?id=rmbtx ";
+    });
+    //所有input focus 清空 内容
+    $('.regist_rg_input').focus(function(){
+        $(this).val('');
+    });
+    //我的账户信息-取账户地址
+    api_mkt.basic(function(data) {
+        if (data.status == 200) {
+            //创建节点
+            $('.regist_rg_input-longAddress').val(data.data.list.gOPAddress);
+            $('.gpal_address').text(data.data.list.gOPAddress);
+        } else {
+            //console.log(err);
+        }
     });
 
-    /*$.ajax({
-            url: "http://localhost/wealth/transferInHistory",
-            type:"post",
-            dataType: "json",
-            cache: true,
-            success:function(data){
-
-                    $("#div1").html("");   //添加前，先清空 分页div
-                    console.log(data);
-                    page({
-
-                        id : 'div1',
-                        nowNum : 1,
-                        allNum : Math.ceil(data.data.length/5),
-                        callBack : function(now,all){ 
-
-                            var PageNum = 5;
-                            var num = now*PageNum < data.data.length ? PageNum : data.data.length - (now-1)*PageNum;
-                            
-                            var html = [];
-                            for(var i=0; i<num;i++){
-                                html.push("<tr>");                                        
-                                html.push("<td>"+ data.data[(now-1)*PageNum+i].uid +"</td>");
-                                html.push("<td>"+ data.data[(now-1)*PageNum+i].bankId +"</td>");
-                                html.push("<td>"+ data.data[(now-1)*PageNum+i].amount +"</td>");
-                                html.push("<td>"+ data.data[(now-1)*PageNum+i].amount +"</td>");
-                                html.push("<td>"+ data.data[(now-1)*PageNum+i].phone +"</td>");
-                                html.push("</tr>");
-                                $(".guorenInput-history").html("");  //添加前，先清空 
-                                $(".guorenInput-history").append(html.join("")); 
-
-                                //分页页码后半部分
-                                $(".allNum").html(all);
-                                //添加按钮点击跳转分页
-                                $(".btn-fenye").click(function(){
-                                    var inputValue = $(".inputNum").val();
-                                    if(isNaN(inputValue) || inputValue <= 0 || inputValue > all){
-                                        $(".inputNum").css("border","1px solid red").val("");
-                                    }else{
-                                         var html = [];
-                                         for(var i=0; i<num;i++){
-                                            html.push("<tr>");                                        
-                                            html.push("<td>"+ data.data[(inputValue-1)*PageNum+i].uid +"</td>");
-                                            html.push("<td>"+ data.data[(inputValue-1)*PageNum+i].bankId +"</td>");
-                                            html.push("<td>"+ data.data[(inputValue-1)*PageNum+i].amount +"</td>");
-                                            html.push("<td>"+ data.data[(inputValue-1)*PageNum+i].amount +"</td>");
-                                            html.push("<td>"+ data.data[(inputValue-1)*PageNum+i].phone +"</td>");
-                                            html.push("</tr>");
-                                            $(".guorenInput-history").html("");  //添加前，先清空 
-                                            $(".guorenInput-history").append(html.join(""));  
-                                            $(".inputNum").css("border","1px solid #ccc").val(inputValue);                                                   
-
-                                        }                                                
-                                    }
-
-                                });
-                            }
-                        }
-                    });
-                    //
-
-
-            //分页 
-            function page(opt){
-                
-                var obj = document.getElementById(opt.id);
-
-                var nowNum = opt.nowNum || 1;
-                var allNum = opt.allNum || 3;
-                var callBack = opt.callBack || function(){};
-                
-                if(nowNum>=0){  //为0 是刚开始就有，为2是 初始第一页时无，然后有
-                    var oA = document.createElement('a');
-                    oA.href = '#' + (nowNum - 1);
-                    oA.innerHTML = '上一页';
-                    obj.appendChild(oA);
-                }
-                
-                if(allNum<=3){
-                    for(var i=1;i<=allNum;i++){
-                        var oA = document.createElement('a');
-                        oA.href = '#' + i;
-                        if(nowNum == i){
-                            oA.innerHTML = '<font style="color: #58D2FF;"> '+ i +'</font>';;
-                        }
-                        else{
-                            oA.innerHTML = i;
-                        }
-                        obj.appendChild(oA);
-                    }   
-                }
-                else
-                {
-                    for(var i=1;i<=3;i++){
-                        var oA = document.createElement('a');
-                        
-                        if(nowNum == 1 || nowNum == 2){
-                            
-                            oA.href = '#' + i;
-                            if(nowNum == i){
-                                oA.innerHTML = '<font style="color: #428bca;"> '+ i +'</font>';
-                            }
-                            else{
-                                oA.innerHTML = i;
-                            }
-                            
-                        }
-                        else{
-                            oA.href = '#' + (nowNum - 2 + i);
-                            
-                            if(i==2){  //中间位置
-                                oA.innerHTML = '<font style="color: #428bca;"> '+ (nowNum - 2 + i) +' </font>';
-                            }
-                            else{
-                                oA.innerHTML = (nowNum - 2 + i);
-                            }
-                        }
-                        obj.appendChild(oA);
-                        
-                    }
-                
-                }
-                
-                if( (allNum - nowNum) >= 1 ){
-
-                    var oA = document.createElement('a');
-                    oA.href = '#' + (nowNum + 1);
-                    oA.innerHTML = '下一页';
-                    obj.appendChild(oA);
-                }
-                
-                callBack(nowNum,allNum);
-                
-                var aA = obj.getElementsByTagName('a');
-                
-                    for(var i=0;i<aA.length;i++){
-                        aA[i].onclick = function(){
-                            
-                            var nowNum = parseInt(this.getAttribute('href').substring(1));
-
-                            obj.innerHTML = '';
-                            
-                            page({
-                            
-                                id : opt.id,
-                                nowNum : nowNum,
-                                allNum : allNum,
-                                callBack : callBack
-                            
-                            });
-                            
-                            return false;
-                            
-                        };
-                    }
-
-                    //方法一
-                    $(".btn-fenye").click(function(){
-
-                            obj.innerHTML = '';
-                            
-                            page({
-                                id : opt.id,
-                                nowNum : parseInt($(".inputNum").val()),
-                                allNum : allNum,
-                                callBack : callBack    
-                            });
-                    });
-
-            //end 符号
+    //果仁提现地址管理(如果有就显示)
+    api_mkt.gopAddressMan({
+        'pageNo': 1,
+        'pageSize': 10
+    }, function(data) {
+        if (data.status == 200) {
+            console.log(data);
+            for (var i = 0; i < data.data.list.length; i++) {
+                //创建节点
+                var Node1 = $('<option></option>');
+                Node1.text(data.data.list[i].name);
+                Node1.val(data.data.list[i].address);
+                $('.regist_rg_input-select').append(Node1);
             }
-            //分页 结束
+        } else {
+            //console.log(err);
+        }
+    });
 
-            },
-            error:function(err){
-                //console.log('error');
-            }
-    });*/
     //果仁(提现)转出记录_只查询成功记录
     api_mkt.transferOutHistory({
         'pageNo': 1,
@@ -214,13 +72,92 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
                 $(".guorenOutput").append(html.join(""));
 
                 //过滤内容显示不同颜色
-                $(".status-guorenInput").filter(":contains('OUT')").text('已到账').css("color", "#999");
+                $(".status-guorenInput").filter(":contains('IN')").text('已到账').css("color", "#999");
             
             }
         } else {
             //console.log(err);
         }
     });
+    //果仁提现-校验
+    var btnConfirm = false;
+    //判断是否选择果仁地址
+    /*if($('.gopWithdrawalsSelect').find('option:selected').text() == '选择果仁地址'){
+        btnConfirm = false;
+    }else{
+        btnConfirm = true;
+        //$('.msg-gopWithdrawalsSelect').text('');
+    }*/
+    //输入数量校验
+    $('#gopWithdrawalsNumber').blur(function() {
+        var num = $('#gopWithdrawalsNumber').val();
+        if (!num || isNaN(num)) {
+            btnConfirm = false;
+            $('.msg-gopWithdrawalsNumber').text('请输入提取数量');
+        } else {
+            btnConfirm = true;
+            $('.msg-gopWithdrawalsNumber').text('');
+        }
+    });
+    //校验支付密码
+    $('#gopWithdrawalsPayPwd').blur(function() {
+        var PayPwd = $('#gopWithdrawalsPayPwd').val();
+        if (!PayPwd) {
+            btnConfirm = false;
+            $('.msg-gopWithdrawalsPayPwd').text('请输入支付密码');
+        } else {
+            btnConfirm = true;
+            $('.msg-gopWithdrawalsPayPwd').text('');
+        }
+    });
+
+    //获取验证码
+    $('#gopWithdrawalsCodeBtn').click(function() {
+        if (btnConfirm == false) {
+            alert('请完善填写信息！');
+        } else {
+            api_mkt.sendCodeByLoginAfter(function(data) {
+                if (data.status == 200) {
+                    console.log(data);
+                } else {}
+            });
+
+            //30秒内只能发送一次
+            var count = 30;
+            var resend = setInterval(function() {
+                count--;
+                if (count > 0) {
+                    $('#gopWithdrawalsCodeBtn').val(count + 's后重新发送');
+                    $('#gopWithdrawalsCodeBtn').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
+                } else {
+                    clearInterval(resend);
+                    $('#gopWithdrawalsCodeBtn').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
+                }
+            }, 1000);
+        }
+
+    });
+    //转出
+    $('.gopWithdrawalsBtn').click(function() {
+        if (btnConfirm == false || typeof(btnConfirm) == 'undefined') {
+            alert('请完善填写信息！');
+        } else {
+            //果仁提现
+            api_mkt.gopWithdrawals({
+                'number': $('#gopWithdrawalsNumber').val(),
+                'toWallet': $('#gopWithdrawalsSelect').find('option:selected').val(),
+                'identifyingCode': $('#gopWithdrawalsCode').val(),
+                'paypwd': $('#gopWithdrawalsPayPwd').val()
+            }, function(data) {
+                if (data.status == 200) {
+                    alert('转出成功');
+                } else{                    
+                    alert(data.msg);
+                }
+            });
+        }
+    });
+
     //果仁(充值)转出记录_只查询成功记录
     api_mkt.transferInHistory({
         'pageNo': 1,
@@ -240,14 +177,23 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
                 $(".guorenInput").append(html.join(""));
 
                 //过滤内容显示不同颜色
-                $(".status-guorenInput").filter(":contains('IN')").text('已到账').css("color", "#999");
+                $(".status-guorenInput").filter(":contains('OUT')").text('已到账').css("color", "#999");                
+                $(".status-guorenInput").filter(":contains('PROCESSING')").text('进行中').css("color", "orange");
             
             }
         } else {
-            
+            consloe.log(err);
         }
     });
 
+    
+
+    //点击图片 复制地址
+    $('.imgCopy').click(function(){
+        $('#a').select();  
+        document.execCommand("Copy");
+        alert("已复制好，可贴粘。"); 
+    });
+
+
 });
-
-

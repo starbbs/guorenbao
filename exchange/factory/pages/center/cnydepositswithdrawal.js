@@ -108,8 +108,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     $(".cnyOutput").append(html.join(""));
 
                     //过滤内容显示不同颜色
-                    $(".status").filter(":contains('WAIT')").css("color","orange");
-                    $(".status").filter(":contains('SUCCESS')").css("color","#ccc");                    
+                    $(".status").filter(":contains('WAIT')").text('等待');
+                    $(".status").filter(":contains('PROCESSING')").text('进行中').css("color","orange");
+                    $(".status").filter(":contains('SUCCESS')").text('提现成功').css("color","#ccc");                    
                 }
             }else{
                // console.log('财务中心-人民币提现历史表格，加载失败。');
@@ -124,9 +125,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             },function(data) {
                 //alert(data.msg);
                 if (data.status == 200) {
-                    if(data.data.list[i].transferCnyStatus == 'WAIT'){
-                        data.data.list[i].transferCnyStatus = '进行中';
-                    }
                     var html = [];
                     for(var i=0; i<10;i++){
                         html.push("<tr>");                                        
@@ -144,8 +142,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $(".cnyInput").append(html.join(""));
 
                         //过滤内容显示不同颜色
-                        $(".status").filter(":contains('WAIT')").css("color","orange");
-                        $(".status").filter(":contains('SUCCESS')").css("color","#ccc");
+                        $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");                    
+                        $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc");                                      
+                        $(".status").filter(":contains('CLOSED')").text('已关闭').css("color","#ccc");
                         //查看此笔充值单
                         $('.checkDeal').click(function(){
                             //打开弹出层-生成汇款单
@@ -183,14 +182,15 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         html.push("<td>"+ data.data.list[i].bank +"</td>");
                         html.push("<td>"+ data.data.list[i].pay +"</td>");                    
                         html.push("<td>"+ data.data.list[i].fee +"</td>");
-                        html.push("<td class='cnyWithdrawals'>"+ data.data.list[i].transferCnyStatus +"</td>");
+                        html.push("<td class='status'>"+ data.data.list[i].transferCnyStatus +"</td>");
                         html.push("</tr>");
                         $(".cnyOutput").html("");  //添加前清空 
                         $(".cnyOutput").append(html.join(""));
 
                         //过滤内容显示不同颜色
-                        $(".status").filter(":contains('WAIT')").css("color","orange");
-                        $(".status").filter(":contains('SUCCESS')").css("color","#ccc");                    
+                        $(".status").filter(":contains('WAIT')").text('等待');
+                        $(".status").filter(":contains('PROCESSING')").text('进行中').css("color","orange");
+                        $(".status").filter(":contains('SUCCESS')").text('提现成功').css("color","#ccc");                     
                     }
                 }else{
                    // console.log('财务中心-人民币提现历史表格，加载失败。');
@@ -371,40 +371,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             });            
         });
 
-    //人民币提现 
-    $('.rmbtx').click(function(){
-        //接口 人民币充提现（查询最近5条）
-        api_mkt.rmbWithdrawalsHistory({
-            'pageNo':1,
-            'pageSize':5
-        },function(data) {
-            //alert('提现查询5条');
-            if (data.status == 200) {
-                console.log(data);
-                var html = [];
-                var num = data.data.list.length<5?data.data.list.length:5;
-                for(var i=0; i<num;i++){
-                    html.push("<tr>");                                        
-                    html.push("<td>"+ data.data.list[i].updateDate +"</td>");
-                    html.push("<td>"+ data.data.list[i].bank +"</td>");
-                    html.push("<td>"+ data.data.list[i].pay +"</td>");
-                    html.push("<td>"+ (data.data.list[i].money-data.data.list[i].pay) +"</td>");
-                    html.push("<td class='cnyWithdrawals'>"+ data.data.list[i].transferCnyStatus+ "</td>");
-                    html.push("</tr>");
-                    $(".cnyOutput").html("");  //添加前清空 
-                    $(".cnyOutput").append(html.join(""));
-
-                    //过滤内容显示不同颜色
-                    $(".cnyWithdrawals").filter(":contains('WAIT')").text('进行中').css("color","orange");
-                    $(".cnyWithdrawals").filter(":contains('SUCCESS')").text('提现成功').css("color","orange"); 
-                }
-            }else {
-                //console.log('财务中心-人民币提现历史表格带分页，加载失败。');
-            }
-        });
-    });
-    
-
         //接口 人民币充提现（带分页）
         $(".moreCheck").click(function(){
             api_mkt.rmbWithdrawalsHistory({
@@ -427,8 +393,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $(".cnyOutput").append(html.join(""));
 
                         //过滤内容显示不同颜色
-                        $(".cnyWithdrawals").filter(":contains('WAIT')").text('进行中').css("color","orange");
-                        $(".cnyWithdrawals").filter(":contains('SUCCESS')").text('提现成功').css("color","orange");  
+                        $(".status").filter(":contains('WAIT')").text('等待');
+                        $(".status").filter(":contains('PROCESSING')").text('进行中').css("color","orange");
+                        $(".status").filter(":contains('SUCCESS')").text('提现成功').css("color","#ccc");
                     }
                 }else {
                     //console.log('财务中心-人民币提现历史表格带分页，加载失败。');
@@ -594,8 +561,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                                 $(".cnyInput").append(html.join(""));
 
                                 //过滤内容显示不同颜色
-                                $(".status").filter(":contains('WAIT')").css("color","orange");
-                                $(".status").filter(":contains('SUCCESS')").css("color","#ccc");
+                                $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");                    
+                                $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc");                                      
+                                $(".status").filter(":contains('CLOSED')").text('已关闭').css("color","#ccc");
                                 //查看此笔充值单
                                 $('.checkDeal').click(function(){
                                     //打开弹出层-生成汇款单
