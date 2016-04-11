@@ -470,7 +470,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 html.push("<td class='tradeGopType'>"+ data.data.list[i].tradeGopType +"</td>");
                 html.push("<td>"+ data.data.list[i].price +"</td>");
                 html.push("<td>"+ data.data.list[i].numTotal +"</td>");
-                html.push("<td>"+ (data.data.list[i].totalTraded / data.data.list[i].numTotal).toFixed(2) + "</td>");
+                html.push("<td class='priceAver'>"+ (data.data.list[i].totalTraded / data.data.list[i].numTotal).toFixed(2) + "</td>");
                 html.push("<td>"+ data.data.list[i].numOver +"</td>");
                 html.push("<td>"+ data.data.list[i].totalTraded +"</td>");
                 html.push("<td class='tradeGopStatus'>"+ data.data.list[i].tradeGopStatus +"</td>");
@@ -482,7 +482,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 $(".tradeGopType").filter(":contains('BUY')").text('买入').css("color","red");                    
                 $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green");
                 $(".tradeGopStatus").filter(":contains('SUCCESS')").text('已成交').css("color","orange");                    
-                $(".tradeGopStatus").filter(":contains('CANCEL')").text('已撤销').css("color","#999"); 
+                $(".tradeGopStatus").filter(":contains('CANCEL')").text('已撤销').css("color","#999");                                     
+                $(".priceAver").filter(":contains('Infinity')").text('0'); 
             }       
         }else{
             console.log(data);
