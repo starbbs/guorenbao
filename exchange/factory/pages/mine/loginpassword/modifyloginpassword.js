@@ -28,14 +28,16 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         }
     });
     $(".newPwd").on("blur", function() {
+    	var reg = new RegExp("^[0-9]*$");//纯数字
+		var hanzi = /[\u4e00-\u9fa5]/;//汉字
         if ($(this).val() == "") {
             $("#two_span").show().html("新登录密码不能为空");
             return;
-        } else if ($(this).val().length > 20 || $(this).val().length < 8) {
-            $("#two_span").show().html("请输入8~20位新登录密码");
+   		} else if($(this).val().length>20||$(this).val().length<6 || reg.test($(this).val()) || hanzi.test($(this).val())){
+            $("#two_span").show().html("请输入6~20位非纯数字字符");
             return;
         }
-        if ($(this).val().length >= 8 && $(this).val().length <= 20) {
+        if ($(this).val().length >= 6 && $(this).val().length <= 20) {
             var pattern = /^[0-9]{1,20}$/;
             if (!pattern.exec($(this).val())) {} else {
                 $("#two_span").show().html("新登录密码不能为纯数字");
@@ -49,7 +51,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                 }
             }
             if (!flagcharcode) {
-                $("#two_span").show().html("密码必须是8~20位非纯数字组成");
+                $("#two_span").show().html("密码必须是6~20位非纯数字组成");
             }
         }
     }).on("input", function() {
@@ -60,11 +62,13 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         }
     });
     $(".confirmNewPwd").on("blur", function() {
+    	var reg = new RegExp("^[0-9]*$");//纯数字
+		var hanzi = /[\u4e00-\u9fa5]/;//汉字
         if ($(this).val() == "") {
             $("#three_span").show().html("确认密码不能为空");
             return;
-        } else if ($(this).val().length > 20 || $(this).val().length < 8) {
-            $("#three_span").show().html("请输入8~20位确认密码");
+   		} else if($(this).val().length>20||$(this).val().length<6 || reg.test($(this).val()) || hanzi.test($(this).val())){
+            $("#three_span").show().html("请输入6~20位非纯数字字符");
             return;
         } else {
             $("#three_span").show().html("");
@@ -83,7 +87,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                 }
             }
             if (!flagcharcode) {
-                $("#three_span").show().html("密码必须是8~20位非纯数字组成");
+                $("#three_span").show().html("密码必须是6~20位非纯数字组成");
             }
         }
     }).on("input", function() {
