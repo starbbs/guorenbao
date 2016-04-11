@@ -1,7 +1,7 @@
 define('api_mkt_management', ['cookie'], function() {
 
-	var basePath = 'http://localhost:8089/exchange_manager';
-//	var basePath = '/';
+	// var basePath = 'http://localhost:8089/exchange_manager';
+	var basePath = './';
 	//var basePath = 'http://10.23.1.138/';
 
 	var api = {};
