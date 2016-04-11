@@ -304,11 +304,12 @@
 }
 .rightside{
     width: 100%;
-    height: 730px;
+    height: auto;
     background-color: #ffffff;
     flex: 0.8;
     padding: 0 34px;
-    font-size:1.2rem;
+    font-size: 1.2rem;
+    margin-bottom: 50px;
 }
 .lft_img{
     flex:0.05;
