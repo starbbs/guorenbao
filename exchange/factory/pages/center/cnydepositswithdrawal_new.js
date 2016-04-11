@@ -11,24 +11,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             $('.rmbxh').removeClass('bottomon');
             $('.recharge').hide();
             $('.withdraw_deposit').show();
-        });        
-
-        var flag = false;
-        $('.messagenum_area').on("click",function(){
-            if(flag){
-                flag = false;
-                $(this).css("background-color","#ffffff");
-                $(".popup_message_box").show("100");
-                $(".messagenum_area em").css("color","#333333");
-                $(".msg_num").css("color","#333333");
-            } else {
-                flag = true;
-                $(this).css("background-color","#282828");
-                $(".popup_message_box").hide("100");
-                $(".messagenum_area em").css("color","#cccccc");
-                $(".msg_num").css("color","#cccccc");
-            }
-        });
+        });    
 
         //接口 人民币充值历史（查询最近5条）
         api_mkt.rmbRechargeHistory({
@@ -38,7 +21,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 //alert(data.msg);
                 if (data.status == 200) {
                     var html = [];
-                    for(var i=0; i<10;i++){
+                    var num = data.data.list.length < 10?data.data.list.length:10;
+                    for(var i=0; i<num;i++){
                         html.push("<tr>");                                        
                         html.push("<td>"+ data.data.list[i].updateDate +"</td>");
                         html.push("<td class='bank'>"+ data.data.list[i].bank +"</td>");
@@ -209,13 +193,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             });            
         });
 
-   
-
-        //实名认证用户充值-显示/隐藏-提示文本内容
-        $(".accountholder_tip").hover(function(){
-            $(".tipscontent").toggle();
-        });
-
         //生成汇款单校验
         //开户人姓名校验
         var btnConfirm = false;
@@ -242,52 +219,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         });
         $("#bank-money").focus(function(){
             $("#bank-money").val('');
-        });
-        //银行账号校验
-        $("#bank-idcard").blur(function(){
-            var bankIdcard = $("#bank-idcard").val();
-            var reg = /^(\d{16}|\d{19})$/;
-            if(!bankIdcard || !reg.exec(bankIdcard)){
-                btnConfirm = false;
-                $('.msg-bank-idcard').show().text('请输入正确的银行账号');
-            }else{
-                $('.msg-bank-idcard').hide();
-                btnConfirm = true;
-                //接口 银行卡识别
-                $.ajax({
-                    type: "POST",
-                    dataType: "json",
-                    url: "http://116.213.142.89:8080/common/checkBankCard",
-                    data: JSON.stringify({
-                        'bankCard':$("#bank-idcard").val()
-                    }),
-                    cache: false,
-                    success: function(data) {
-                        console.log(data.data.bankName);
-                        //所属银行自动添加
-                        $("#bank").val(data.data.bankName);
-                    },
-                    error: function() {
-                        console.log("提交失败");
-                    }
-                });
-
-                /*api_mkt.checkBankCard({          
-                        'bankCard':$("#bank-idcard").val()     
-                    }, function(data) {
-                        if (data.status == 200) {
-                            console.log(data.bankName);
-                            //所属银行自动添加
-                            $("#bank").blur(function(){
-                                var bank = $("#bank").val();
-                                bank = data.bankName;
-                            });
-                        } else {
-                            alert('银行卡号有误'); 
-                        }
-                });*/
-            }
-        });       
+        });           
     
 
         //生成汇款单里的填充文本        
@@ -319,7 +251,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         if (data.status == 200 && data.data.list.length > 0) {
                             console.log(data);
                             var html = [];
-                            var num = data.data.list.length < 5?data.data.list.length:5;
+                            var num = data.data.list.length < 10?data.data.list.length:10;
                             for(var i=0; i<num;i++){
                                 html.push("<tr>");                                        
                                 html.push("<td>"+ data.data.list[i].updateDate +"</td>");
@@ -380,24 +312,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 });         
             }
         });
-
-        //获取当前时间字符串
-        var getNowFormatDate = function () {
-                var date = new Date();
-                var year = date.getFullYear();
-                var month = date.getMonth() + 1;
-                var strDate = date.getDate();
-                if (month >= 1 && month <= 9) {
-                    month = "0" + month;
-                }
-                if (strDate >= 0 && strDate <= 9) {
-                    strDate = "0" + strDate;
-                }
-                var currentdate = year + month + strDate+ date.getHours() + date.getMinutes()
-                        + date.getSeconds();
-                return currentdate;
-            }
-        //alert(getNowFormatDate());  
 
         //接受跳转参数
         $(function() {
