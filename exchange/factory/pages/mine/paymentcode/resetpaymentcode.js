@@ -16,7 +16,8 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
     });
     var whether_sub_one = false;
     $("#idNumber").on("blur", function() {
-        if ($(this).val() == "") {
+        var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;  
+        if(!reg.test($(this).val())){
             $(".one_span1").show().html("身份证号码不能为空");
             whether_sub_one = false;
             return;

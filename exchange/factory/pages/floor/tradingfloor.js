@@ -392,48 +392,25 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                         api_mkt.tradeGopCancelByid({
                             'id':text
                         },function(data) {        
-                            if (data.status == 200) {
-                                api_mkt.tradeGopCurrentList(function(data) {
-                                    if (data.status == 200 && data.data.list.length >0) {
-                                        //console.log(data);
-                                        var html = [];
-                                        var num = data.data.list.length < 5?data.data.list.length:5;
-                                        for(var i=0; i<num;i++){
-                                            html.push("<tr>");                                        
-                                            html.push("<td>"+ data.data.list[i].createDate +"</td>");                
-                                            html.push("<td class='id' style='display:none'>"+ data.data.list[i].createDate +"</td>");
-                                            html.push("<td class='tradeGopType'>"+ data.data.list[i].tradeGopType +"</td>");
-                                            html.push("<td class='tradeGopFlag' style='display:none'>"+ data.data.list[i].tradeGopFlag +"</td>");                    
-                                            html.push("<td class='price'>"+ data.data.list[i].price +"</td>");
-                                            html.push("<td class='numTotal'>"+ data.data.list[i].numTotal +"</td>");
-                                            html.push("<td>"+ (data.data.list[i].numTotal - data.data.list[i].numOver).toFixed(2) + "</td>");
-                                            html.push("<td>"+ data.data.list[i].numOver +"</td>");
-                                            html.push("<td><p class='saDan'>撤单</p></td>");
-                                            html.push("</tr>");
-                                            $(".tradeGopCurrentListTable").html("");  //添加前清空 
-                                            $(".tradeGopCurrentListTable").append(html.join(""));
-                                            //过滤内容显示不同颜色
-                                            $(".tradeGopType").filter(":contains('BUY')").text('买入').css("color","red");                    
-                                            $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green"); 
-                                        }
-                                    }
-                                });
-                            } else {
-                                alert(data.msg);
-                            }
+                            
                         });
                         //恢复为 买入卖出 确认框
+                        $("#floor_popDiv").hide(500);
+                        $("#floor_bg").hide();
                         $('.h3_1').css('display','block');
                         $('.sure_btn').css('display','block');
                         $('#sel_div_password').css('display','block');
                         $('.h3_2').css('display','none');
                         $('.sure_btn1').css('display','none');
+                        window.location.reload();
                     }); 
                     //取消撤单
                     $('.cancle').click(function(){
                         $("#floor_bg").hide();
                         $("#floor_popDiv").hide(500);
                         //恢复为 买入卖出 确认框
+                        $("#floor_popDiv").hide(500);
+                        $("#floor_bg").hide();
                         $('.h3_1').css('display','block');
                         $('.sure_btn').css('display','block');
                         $('#sel_div_password').css('display','block');
@@ -443,7 +420,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 });             
             }               
         }else{
-            console.log(data);
+            //console.log(data);
         }
     });    
 
@@ -496,14 +473,16 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 html.push("<td>"+ (data.data.list[i].totalTraded / data.data.list[i].numTotal).toFixed(2) + "</td>");
                 html.push("<td>"+ data.data.list[i].numOver +"</td>");
                 html.push("<td>"+ data.data.list[i].totalTraded +"</td>");
-                html.push("<td>"+ data.data.list[i].tradeGopStatus +"</td>");
+                html.push("<td class='tradeGopStatus'>"+ data.data.list[i].tradeGopStatus +"</td>");
                 html.push("</tr>");
                 $(".tradeGopHistoryListTable").html("");  //添加前清空 
                 $(".tradeGopHistoryListTable").append(html.join(""));
 
                 //过滤内容显示不同颜色
                 $(".tradeGopType").filter(":contains('BUY')").text('买入').css("color","red");                    
-                $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green"); 
+                $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green");
+                $(".tradeGopStatus").filter(":contains('SUCCESS')").text('已成交').css("color","orange");                    
+                $(".tradeGopStatus").filter(":contains('CANCEL')").text('已撤销').css("color","#999"); 
             }       
         }else{
             console.log(data);
@@ -528,14 +507,16 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     html.push("<td>"+ (data.data.list[i].totalTraded / data.data.list[i].numTotal).toFixed(2) + "</td>");
                     html.push("<td>"+ data.data.list[i].numOver +"</td>");
                     html.push("<td>"+ data.data.list[i].totalTraded +"</td>");
-                    html.push("<td>"+ data.data.list[i].tradeGopStatus +"</td>");
+                    html.push("<td class='tradeGopStatus'>"+ data.data.list[i].tradeGopStatus +"</td>");
                     html.push("</tr>");
                     $(".tradeGopHistoryListTable").html("");  //添加前清空 
                     $(".tradeGopHistoryListTable").append(html.join(""));
 
                     //过滤内容显示不同颜色
                     $(".tradeGopType").filter(":contains('BUY')").text('买入').css("color","red");                    
-                    $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green"); 
+                    $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green");
+                    $(".tradeGopStatus").filter(":contains('SUCCESS')").text('已成交').css("color","orange");                    
+                    $(".tradeGopStatus").filter(":contains('CANCEL')").text('已撤销').css("color","#999"); 
                 }                      
             }else{
                 console.log(data);
@@ -930,8 +911,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     $("#floor_popDiv").hide();
                     $("#floor_bg").hide();
                     getTotalAssets();
-                    alert('买入成功'); 
-                    
+                    alert('买入成功');                     
+                    window.location.reload();
                 }else{
                     console.log(data);
                     $(".payment_error").show();
@@ -949,7 +930,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     $("#floor_popDiv").hide();
                     $("#floor_bg").hide();
                     getTotalAssets();
-                    alert('买入成功');               
+                    alert('买入成功');
+                    window.location.reload();               
                 }else{
                     console.log(data);
                     $(".payment_error").show();
@@ -968,7 +950,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     $("#floor_popDiv").hide();
                     $("#floor_bg").hide();
                     getTotalAssets();
-                    alert('卖出成功');                
+                    alert('卖出成功');  
+                    window.location.reload();                
                 }else{
                     console.log(data);
                     $(".payment_error").show();
@@ -986,7 +969,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     $("#floor_popDiv").hide();
                     $("#floor_bg").hide();
                     getTotalAssets();
-                    alert('卖出成功');               
+                    alert('卖出成功');  
+                    window.location.reload();               
                 }else{
                     console.log(data);
                     $(".payment_error").show();

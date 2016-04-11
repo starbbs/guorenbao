@@ -1,5 +1,5 @@
 require(['api_mkt','cookie'], function(api_mkt) {
-	var btnConfirm = false; 		
+	 		
 	//表单校验password
 	$('.checkPhone, .checkCode-send, .checkpwd, .checkConfirmPwd, .payPwd, .payConfirmPwd, .personName, .personId').focus(function(){
 		$(this).val('');
@@ -7,15 +7,17 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	$(".checkPhone").keyup(function(){
         $(this).val($(this).val().replace(/[^0-9$]/g,''));
     });
+	//验证手机号
+    var btnPhone = false;
 	$(".checkPhone").blur(function(){
 		var phone = $.trim($(this).val());
 		var reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
 		if(!reg.test(phone)){
 			$('.msg-phone').show().text('请输入正确的手机号');	
-			btnConfirm = false;	
+			btnPhone = false;	
 		}else{
 			$('.msg-phone').hide();
-			btnConfirm = true;
+			btnPhone = true;
 		}
 	});
 
@@ -24,12 +26,15 @@ require(['api_mkt','cookie'], function(api_mkt) {
     });
 
 	//验证码
+	var btnCode = false;
 	$(".checkCode").blur(function(){
 		var pwd = $(this).val();			
 		if(!pwd || isNaN(pwd) || pwd.length !== 6){
 			$('.msg-code').text('请输入正确的验证码');
+			btnCode = false;
 		}else{
 			$('.msg-code').text('');
+			btnCode = true;
 		}
 	});
 	$(".checkCode").focus(function(){
@@ -37,7 +42,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	});
 	//获取验证码
 	$('.checkCode-send').click(function(){
-		if(btnConfirm == false){
+		if(btnPhone == false){
 			$('.msg-phone').show().text('请输入您的手机号');
 			$('.checkCode-send').css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
 		}else{
@@ -67,45 +72,58 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	});
 	
 	//登录密码
+	var btnPwd = false;
 	$(".checkpwd").blur(function(){			
 		var pwd = $(this).val();
 		var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
 		if(!reg.test(pwd)){
-			btnConfirm = false;
+			btnPwd = false;
 			$('.msg-pwd').text('密码格式：6~20位非纯数字字符');
 		}else{
 			$('.msg-pwd').text('');
-			btnConfirm = true;
+			btnPwd = true;
 		}
 	});
 
 	//确认登录密码
+	var btnConfirmPwd = false;
 	$(".checkConfirmPwd").blur(function(){	
 		var pwd = $.trim($(".checkpwd").val());
 		var ConfirmPwd = $(this).val();
 		if(pwd !== ConfirmPwd){
+			btnConfirmPwd = false;
 			$('.msg-ConfirmPwd').show().text('两次输入不一致');
 		}else{
 			$('.msg-ConfirmPwd').hide();
+			btnConfirmPwd = true;
 		}
 	});
 
-	//复选框   
+	//复选框 
+	var btnCheckBox = false;  
 	$(".regular-checkbox").click(function(){
 		if($(".regular-checkbox").is(':checked')){
-			btnConfirm = true;
+			btnCheckBox = false;
 			$('.oneStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
 			$('.msg-checked').text('我已阅读并同意').css('color','#999999');
 		}else{
-			btnConfirm = false;
+			btnCheckBox = true;
 			$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
 			$('.msg-checked').text('请阅读且接受服务条款').css('color','red');
 		}	
 	});
 	//注册第一步 手机号注册 
     $('.oneStep').bind('click',function(){
-    	if(btnConfirm == false){
-    		alert('请完善填写信息！');
+    	if(btnPhone == false){
+    		$('.msg-phone').show().text('请输入正确的手机号');
+    	}else if(btnCode == false){
+    		$('.msg-code').text('请输入正确的验证码');
+    	}else if(btnPwd == false){
+    		$('.msg-pwd').text('密码格式：6~20位非纯数字字符');
+    	}else if(btnConfirmPwd == false){
+    		$('.msg-ConfirmPwd').show().text('两次输入不一致');
+    	}else if(btnCheckBox == false;){
+    		$('.msg-checked').text('请阅读且接受服务条款').css('color','red');
     	}else{
     		api_mkt.registerBefore({			
 		   		'phone':$('.checkPhone').val(), 
@@ -118,48 +136,55 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	            	$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
 	            	$('.oneStep').unbind('click');
 	            	toIndex();
+	            	$('.msg-code').text('');
 	            }else if(data.status == 200){
 	                $(".two").css('display','flex');
-					$(".one").css('display','none');                
+					$(".one").css('display','none'); 
+	            	$('.msg-code').text('');               
 	            }else if(data.msg == '验证码错误'){
-	            	alert('您输入的验证码有误，请重新输入！');
+	            	//alert('您输入的验证码有误，请重新输入！');
+	            	$('.msg-code').text('请输入正确的验证码');
 	            }
 			});
     	}   	
 
     });
     //下一步--支付密码
+    var btnPayPwd = false;
 	$('.payPwd').blur(function(){
 		var payPwd = $.trim($(".payPwd").val());
 		var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
 		if(!reg.test(payPwd)){
-			btnConfirm = false;
+			btnPayPwd = false;
 			$('.msg-payPwd').show().text('8~20位非纯数字字符');
 		}else{
-			btnConfirm = true;
+			btnPayPwd = true;
 			$('.msg-payPwd').hide();
 		}
 	});
 
 	//确认支付密码
+	var btnConfirmPayPwd = false;
 	$('.payConfirmPwd').blur(function(){
 		var payConfirmPwd = $.trim($('.payConfirmPwd').val());
 		var payPwd = $(".payPwd").val();
 		if(payConfirmPwd !== payPwd){
 			$('.msg-payConfirmPwd').show().text('两次输入不一致');
-			btnConfirm = false;
+			btnConfirmPayPwd = false;
 			$('.twoStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
 		}else{
 			$('.msg-payConfirmPwd').hide();
-			btnConfirm = true;
+			btnConfirmPayPwd = true;
 			$('.twoStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
 		}
 	});
 
 	//接口3 注册第二步 设置支付密码 
 	$('.twoStep').click(function(){
-		if(btnConfirm == false){
-			alert('输入支付密码格式不正确');
+		if(btnPayPwd == false){
+			$('.msg-payPwd').show().text('8~20位非纯数字字符');
+		}else if(btnConfirmPayPwd == false){
+			$('.msg-payConfirmPwd').show().text('两次输入不一致');
 		}else{
 			api_mkt.register({			
 		   		'phone':$('.checkPhone').val(), 

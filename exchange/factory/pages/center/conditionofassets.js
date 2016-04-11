@@ -44,8 +44,10 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pageh
 
                         //过滤内容显示不同颜色
                         $(".operType").filter(":contains('CNYIN')").text('买入').css("color", "red");
-
                         $(".operType").filter(":contains('CNYOUT')").text('卖出').css("color", "green");
+                        $(".operType").filter(":contains('GOPIN')").text('买入').css("color", "red");
+                        $(".operType").filter(":contains('GOPOUT')").text('卖出').css("color", "green");
+                        $("td").filter(":contains('undefined')").text('0');
                     }
                 }
             }            
@@ -77,8 +79,11 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pageh
                     $(".new").append(html.join(""));
 
                     //过滤内容显示不同颜色
-                    $(".operType").filter(":contains('买入')").css("color", "red");
-                    $(".operType").filter(":contains('卖出')").css("color", "green");
+                    $(".operType").filter(":contains('CNYIN')").text('买入').css("color", "red");
+                    $(".operType").filter(":contains('CNYOUT')").text('卖出').css("color", "green");
+                    $(".operType").filter(":contains('GOPIN')").text('买入').css("color", "red");
+                    $(".operType").filter(":contains('GOPOUT')").text('卖出').css("color", "green");
+                    $("td").filter(":contains('undefined')").text('0');
                 }
             } else {
                 console.log('财务中心-资产状况-账户明细表格(带分页)，加载失败。');
