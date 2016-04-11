@@ -535,7 +535,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     $(".mydiv").css("display","none");
                     $(".bg").css("display","none");
                     //清空文本框
-                    $('.regist_rg_input').val('');
+                    $("#bank-idcard").val('');
+                    $("#bank").val('');
+                    $("#bank-money").val('');
                     //再次调接口 人民币充值历史（查询最近5条）
                     api_mkt.rmbRechargeHistory({
                         'pageNo':1,

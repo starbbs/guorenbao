@@ -233,13 +233,14 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	//接口4 注册第三步 设置实名验证
 	$('.threeStep').click(function(){
 		if(btnConfirm == false){
-			alert('您填写的姓名或身份证号不正确，请重新输入。');
+			$('.msg-personId').show().text('您填写的姓名与身份证号不匹配。');
 		}else{
 			api_mkt.realNameAuth({			
 		   		'realName':$('.personName').val(),
 			   	'idNumber':$('.personId').val()	   
 			}, function(data) {
 				if (data.status == 200) {
+					$('.msg-personId').hide();
 					//进入注册完成页
 					$(".four").css('display','flex');
 					$(".three").css('display','none');
@@ -260,9 +261,11 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			  //           }
 			  //       });
 					toIndex();
-				} else if(data.status == 400){
+				} else if(data.status == 304){
 					$('.threeStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
-					alert('您填写的姓名或身份证号不正确，请重新输入。');
+					$('.msg-personId').show().text('您填写的姓名或身份证号不正确，请重新输入。');
+				}else{
+					$('.msg-personId').show().text("果仁市场认证服务仅向18周岁及以上年龄用户开放");
 				}
 			});
 		}

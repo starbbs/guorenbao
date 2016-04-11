@@ -698,12 +698,13 @@ a {
     cursor: pointer;
 }
 .mydiv .span-text, .mydiv1 .span-text1{
-    width:120px;
+    width:240px;
     height:40px;
     line-height: 40px;
     float: left;
     cursor: pointer;
-    color:#0bbeee;
+    /*color:#0bbeee;*/
+    color:#fff;
 }
 .phonePos input{
     position: absolute;
