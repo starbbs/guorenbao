@@ -31,7 +31,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	   			$("#error_two").show().html("新支付密码不能为空");
 	   			return;
 	   		} else if($(this).val().length>20||$(this).val().length<8){
-	   			$("#error_two").show().html("请输入8~20位原支付密码");
+	   			$("#error_two").show().html("请输入8~20位新支付密码");
 	   			return;
 	   		}  else {
 	   			$("#error_two").hide().html("");
@@ -55,7 +55,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	   			$("#error_three").show().html("确认密码不能为空");
 	   			return;
 	   		} else if($(this).val().length>20||$(this).val().length<8){
-	   			$("#error_three").show().html("请输入8~20位原支付密码");
+	   			$("#error_three").show().html("请再次输入新支付密码");
 	   			return;
 	   		}  else {
 	   			$("#error_two").hide().html("");
@@ -159,10 +159,10 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		                    count--;
 		                    if(count > 0){
 		                        $('.getauthcode').html(count+'s后重新发送');
-		                        $('.getauthcode').attr('disabled',true).css('cursor','not-allowed');
+		                        $('.getauthcode').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
 		                    }else{
 		                        clearInterval(resend);
-		                        $('.getauthcode').attr('disabled',false).css('cursor','pointer').html('获取验证码');
+		                        $('.getauthcode').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).text('获取验证码');
 		                    }
 		                },1000);
                     } else {

@@ -66,17 +66,18 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
                 html.push("<td>" + data.data.list[i].createDate + "</td>");
                 html.push("<td>" + data.data.list[i].wallet + "</td>");
                 html.push("<td>" + data.data.list[i].number + "</td>");
-                html.push("<td class='status-guorenOutput'>" + data.data.list[i].transferGopOptType + "</td>");
+                html.push("<td class='status'>" + data.data.list[i].transferGopOptType + "</td>");
                 html.push("</tr>");
                 $(".guorenOutput").html(""); //添加前清空 
                 $(".guorenOutput").append(html.join(""));
 
                 //过滤内容显示不同颜色
-                $(".status-guorenOutput").filter(":contains('进行中')").css("color", "orange");
+                $(".status").filter(":contains('OUT')").text('已到账').css("color", "#999");                
+                $(".status").filter(":contains('PROCESSING')").text('进行中').css("color", "orange");
             
             }
         } else {
-            //console.log(err);
+            
         }
     });
     //果仁提现-校验
@@ -91,8 +92,7 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
     //输入数量校验
     $('#gopWithdrawalsNumber').blur(function() {
         var num = $('#gopWithdrawalsNumber').val();
-        var reg = /^[0-9]{1,}$/;
-        if (!reg.exec(num)) {
+        if (!num || isNaN(num)) {
             btnConfirm = false;
             $('.msg-gopWithdrawalsNumber').text('请输入提取数量');
         } else {
@@ -165,24 +165,24 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
         'pageSize': 10
     }, function(data) {
         if (data.status == 200) {
-            console.log(data);
             for (var i = 0; i <5 && i < data.data.list.length; i++) {
                 var html = [];
                 html.push("<tr>");
                 html.push("<td>" + data.data.list[i].createDate + "</td>");
                 html.push("<td>" + data.data.list[i].wallet + "</td>");
                 html.push("<td>" + data.data.list[i].number + "</td>");
-                html.push("<td class='status-guorenInput'>" + data.data.list[i].transferGopOptType + "</td>");
+                html.push("<td class='status'>" + data.data.list[i].transferGopOptType + "</td>");
                 html.push("</tr>");
                 $(".guorenInput").html(""); //添加前清空 
                 $(".guorenInput").append(html.join(""));
 
                 //过滤内容显示不同颜色
-                $(".status-guorenInput").filter(":contains('进行中')").css("color", "orange");
+                $(".status").filter(":contains('IN')").text('已到账').css("color", "#999");                
+                $(".status").filter(":contains('PROCESSING')").text('进行中').css("color", "orange");
             
             }
         } else {
-            consloe.log(err);
+            
         }
     });
 

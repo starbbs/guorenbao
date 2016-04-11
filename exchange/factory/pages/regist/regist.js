@@ -100,14 +100,14 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	});
 
 	//复选框 
-	var btnCheckBox = false;  
+	var btnCheckBox = true;  
 	$(".regular-checkbox").click(function(){
 		if($(".regular-checkbox").is(':checked')){
-			btnCheckBox = false;
+			btnCheckBox = true;
 			$('.oneStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
 			$('.msg-checked').text('我已阅读并同意').css('color','#999999');
 		}else{
-			btnCheckBox = true;
+			btnCheckBox = false;
 			$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
 			$('.msg-checked').text('请阅读且接受服务条款').css('color','red');
 		}	
