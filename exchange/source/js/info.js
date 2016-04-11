@@ -24,45 +24,49 @@
 			$('#thelatestprice').html(thelatestprice.toFixed(2)); //页面顶部 最新成交价
 			thelatestprice_second = JSON.parse(haha['order'][1]).price;
 		}
+		// thelatestprice = 3;
+		// thelatestprice_second = 4;
 		var turnover = Number(haha['24Total']).toFixed(2);
 		$('#turnover').html(turnover);  //页面顶部 24小时成交量
-
-		
 		$('#thelatestprice_floor').html(thelatestprice); //交易大厅 最新成交价
 		$('#thelatestprice_em').html(thelatestprice); //首页轮播图下面最新成交价
-
 		if(thelatestprice!=""&&thelatestprice_second==""){
-			console.log("aaaaaa");
-			//$(".quoted_price_i").css("transform","rotate(180deg)");
-		} 
+		}
+		console.log("thelatestprice"+thelatestprice);
+		console.log("thelatestprice_second"+thelatestprice_second);
 		if(thelatestprice!=""&&thelatestprice_second!=""){
-			//console.log("bbbbbb");
 			if(thelatestprice>thelatestprice_second){
-				//console.log("+++++++++++")
-				$(".quoted_price_i").css("transform","rotate(0deg)");
-			} else {
-				//console.log("+++++++++++-------------")
-				$(".quoted_price_i").css("transform","rotate(180deg)");
+				$(".quoted_price_first").css("color","#dd0900");//红色
+				$(".quoted_price_i")[0].style.backgroundImage="url(./images/index_arrow_rise.png)";
+			}
+			if(thelatestprice<thelatestprice_second){
+				$(".quoted_price_first").css("color","#00951c");//蓝色
+				$(".quoted_price_i")[0].style.backgroundImage="url(./images/index_big_down.png)";
+				//$(".quoted_price_updown")[0].style.background="url(./images/index_sma_top.png)";
 			}
 		}
+		var low24 = Number(haha['24low']);    //最低价
+		var high24 = Number(haha['24high']);  //最高价
+		var price24 = Number(haha['24Price']);//24小时之前价
 
-		//console.log("---------"+thelatestprice+"----------");
-		//console.log("---------"+thelatestprice_second+"----------");
-		//$(".quoted_price_i").html(""); 
-
-		var low24 = Number(haha['24low']);  //最低价
-		var high24 = Number(haha['24high']);//最高价
 		$('#thehighest_price').html(high24.toFixed(2));  //首页 最高价
 		$('#thelowest_price').html(low24.toFixed(2));  //首页 最低价
-
 		$('#thehighest_price_floor').html(high24.toFixed(2));  //交易大厅 最高价
 		$('#thelowest_price_floor').html(low24.toFixed(2));  //交易大厅 最低价
-
 		var total = Number(haha['total']);
-		var unknow = Number((thelatestprice/24)-1);
+
+		price24 = 0.8;
+		thelatestprice = 1;
+		
+		var unknow = Number((price24/thelatestprice));
+
+
+		console.log("price24"+price24);
+		console.log("thelatestprice"+thelatestprice);
+		console.log("unknow"+unknow);
+
 		$('#cumulativevolumeem').html(total.toFixed(2));  //首页 累计成交量
 		$('#thecumulativevolume_floor').html(total.toFixed(2));  //交易大厅 累计成交量
-
 		$('#pricechangeratio').html(unknow.toFixed(2)+"%");  //涨跌幅
         var bid_history_list_html = "";
         var orderlist = haha['order'];
