@@ -188,6 +188,7 @@
     top: 6px;
     position: relative;
     cursor:pointer;
+    font-weight: 600;
 }
 .rmbtx{
     color: #333333;

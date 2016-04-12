@@ -65,6 +65,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");                    
                     $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc");                                      
                     $(".status").filter(":contains('CLOSED')").text('已关闭').css("color","#ccc");
+                    if($(".status").filter(":contains('SUCCESS')")){
+                        $(this).parent().find('.checkDeal').text('已完成');
+                    }
                     //查看此笔充值单
                     $('.checkDeal').click(function(){
                         //打开弹出层-生成汇款单
@@ -337,6 +340,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             $(".Withdrawalsbtn").click(function(){
                 if(flag == false){
                     alert('请完成填写相关信息！');
+                }else if($.cookie('bankNum') == null){
+                    $('.addBankCard').html('+ 添加银行卡 <span style="color:red;margin-left:25px;"> 请点击添加银行卡</span>');
                 }else{  
                     $(".mydiv1").css("display","block");
                     $(".bg").css("display","block"); 
