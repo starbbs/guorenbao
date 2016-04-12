@@ -128,7 +128,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     success: function(data) {
                         //所属银行自动添加
                         if(data.data.bankName!='中国工商银行' && data.data.bankName!='中国建设银行' && data.data.bankName!='中国农业银行' 
-                    		&& data.data.bankName!='中国交通银行' && data.data.bankName!='中国邮政储蓄银行'  && data.data.bankName!='招商银行' ){
+                    		&& data.data.bankName!='交通银行' && data.data.bankName!='中国邮政储蓄银行'  && data.data.bankName!='招商银行' ){
                         	$("#bank").val('暂不支持('+data.data.bankName+')');
                     	}else{
                     		$("#bank").val(data.data.bankName);

@@ -106,12 +106,10 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	$(".regular-checkbox").click(function(){
 		if($(".regular-checkbox").is(':checked')){
 			btnCheckBox = true;
-			$('.oneStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
-			$('.msg-checked').text('我已阅读并同意').css('color','#999999');
+			$('.msg-checked').hide();
 		}else{
 			btnCheckBox = false;
-			$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
-			$('.msg-checked').text('请阅读且接受服务条款').css('color','red');
+			$('.msg-checked').show().text('请阅读且接受服务条款').css('color','red');
 		}	
 	});
 	//注册第一步 手机号注册 

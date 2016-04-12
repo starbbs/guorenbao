@@ -417,7 +417,7 @@
 }
 
 .next_step_sure {
-    top: 388px;
+    top: 398px;
 }
 
 
@@ -609,4 +609,8 @@ legend {
 }
 .nut-text span{
     color:#999;
+}
+.msg-checked{
+    margin:5px 0px;
+    text-align: left;
 }
