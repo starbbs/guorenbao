@@ -41,6 +41,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
     });
 
     $(".next_step_btn_one").on("click", function() {
+    	//
         if (checkFlag1 && checkFlag2) {
             api_mkt.resetpaypwdbefore({
                 idNumber: $("#idNumber").val(),
