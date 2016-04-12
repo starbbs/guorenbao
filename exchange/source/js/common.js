@@ -10,7 +10,7 @@
     $('.bg').css('left', 0);
     $('.bg').css('top', 0);
 
-    $(".popuptips").slideDown();
+    // $(".popuptips").slideDown();
     // $(".popuptips").slideUp();
 
     $(".logoimg").on("click",function(){
