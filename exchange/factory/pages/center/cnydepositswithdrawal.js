@@ -65,8 +65,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");                    
                     $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc");                                      
                     $(".status").filter(":contains('CLOSED')").text('已关闭').css("color","#ccc");
-                    if($(".status").filter(":contains('SUCCESS')")){
-                        $(this).parent().find('.checkDeal').text('已完成');
+                    if($(".status").text() == '已完成' || $(".status").text() == '已关闭'){
+                        $(this).parent().find('.checkDeal').text('已完成').removeClass('checkDeal');
                     }
                     //查看此笔充值单
                     $('.checkDeal').click(function(){
