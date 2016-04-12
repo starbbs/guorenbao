@@ -11,27 +11,8 @@ require(['api_mkt','cookie'], function(api_mkt) {
         $(".popDiv").hide();
         $(".bg").hide();
         api_mkt.userbasic(function(data){
-            /**
-             * address: "56ed0cd2b90b447e8859f6bf0d355c17"
-                createDate: 1458650196000
-                createip: "0.0.0.0"
-                locked: 0
-                mobile: "18701097891"
-                name: ""
-                pid: 0
-                pw: "ac787c6585709d40c601d6c5cef3c27b"
-                pwtrade: "ac787c6585709d40c601d6c5cef3c27b"
-                role: "user"
-                uid: 3
-                updateDate: 1458650196000
-                updateip: "0.0.0.0"
-             */
             if(data.data){
                 if(data.data.list){
-                    // console.log(data.data.list.name);
-                    // console.log(data.data.list.mobile);
-                    // console.log(data.data.list.uid);
-                    
                     api_mkt.realAuth({
                     }, function(data) {
                         if (data.status == 200) {
@@ -39,21 +20,23 @@ require(['api_mkt','cookie'], function(api_mkt) {
                                 var num = data.data.list.idNumber;
                                 var numId = num.replace(num.slice(1,17),'****************');
                                 $(".verticle_line_id").html(numId);
+                                $(".verticle_line").show();
+                                $(".verticle_line_id").show();
+                                $("#realname").html(data.data.list.name);
                             } else {
                                 $(".unautherized").show();
                             }
                         } else if (data.status == 305) {
                         } else if(data.status == 400){
+                            if(data.msg=="用户未实名认证"){
+                                $(".verticle_line").hide();
+                                $(".verticle_line_id").hide();
+                                $("#realname").html("未认证").css("color","#ff6600");
+                                $(".lookup").hide();
+                            }
                         } else {
                         }
                     });
-
-                    if(data.data.list.name!=""){
-                        $("#realname").html(data.data.list.name);
-                    } else {
-                        $("#realname").html("未认证");
-                    }
-                    //data.data.list.mobile.substr(0,3)+'****'+data.data.list.mobile.substr(7,4)
                     $("#account_name").html(data.data.list.mobile.substr(0,3)+'****'+data.data.list.mobile.substr(7,4));
                     $("#account_uid").html(data.data.list.uid);
                 }
