@@ -104,6 +104,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             $('.two').css('display','flex');
             $('.newCard').hide();
         });
+        
+        $("#bank-idcard").keyup(function(){
+            $(this).val($(this).val().replace(/[^0-9$]/g,''));
+        });
+        
         //校验银行账户
         var btnConfirm = false;
         //银行账号校验-人民币提现管理
