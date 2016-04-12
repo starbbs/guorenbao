@@ -1,7 +1,10 @@
 require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pagehead) {
 
     //接口9 账户明细（分页）
-    api_mkt.billList(function(data) {
+    api_mkt.billList({
+        'pageNo':1,
+        'pageSize':10
+    },function(data) {
         if (data.status == 200 && data.data && data.data.list.length!=0){
             var html = [];
             var num = data.data.list.length <10 ? data.data.list.length:10;

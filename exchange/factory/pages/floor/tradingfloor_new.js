@@ -9,8 +9,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             $(".entrust-side-table").eq(liA.index(this)).show().siblings(".entrust-side-table").hide();
         });
     });
-   //当前委托（不传参数查询最近5条）
-    api_mkt.tradeGopCurrentList(function(data) {
+   //当前委托（分页）
+    api_mkt.tradeGopCurrentList({
+        'pageNo':1,
+        'pageSize':10
+    },function(data) {
         if (data.status == 200 && data.data.list.length >0) {
             var html = [];
             var num = data.data.list.length < 10?data.data.list.length:10;
@@ -22,7 +25,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 html.push("<td class='tradeGopFlag' style='display:none'>"+ data.data.list[i].tradeGopFlag +"</td>");                    
                 html.push("<td class='price'>"+ data.data.list[i].price +"</td>");
                 html.push("<td class='numTotal'>"+ data.data.list[i].numTotal +"</td>");
-                html.push("<td>"+ (data.data.list[i].numTotal - data.data.list[i].numOver) + "</td>");
+                html.push("<td>"+ toFixedNum(data.data.list[i].numTotal - data.data.list[i].numOver) + "</td>");
                 html.push("<td>"+ data.data.list[i].numOver +"</td>");
                 html.push("<td><p class='saDan'>撤单</p></td>");
                 html.push("</tr>");
@@ -97,7 +100,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     html.push("<td class='tradeGopType'>"+ data.data.list[i].tradeGopType +"</td>");
                     html.push("<td>"+ data.data.list[i].price +"</td>");
                     html.push("<td>"+ data.data.list[i].numTotal +"</td>");
-                    html.push("<td>"+ (data.data.list[i].totalTraded / data.data.list[i].numTotal).toFixed(2) + "</td>");
+                    html.push("<td>"+ toFixedNum(data.data.list[i].totalTraded / data.data.list[i].numTotal) + "</td>");
                     html.push("<td>"+ data.data.list[i].numOver +"</td>");
                     html.push("<td>"+ data.data.list[i].totalTraded +"</td>");
                     html.push("<td class='tradeGopStatus'>"+ data.data.list[i].tradeGopStatus +"</td>");
@@ -156,5 +159,24 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             }
             
         })
+
+
+    //toFixed 不 四舍五入
+    var toFixedNum = function(){
+        var bb = num+"";  
+        var dian = bb.indexOf('.');  
+        var result = "";  
+        if(dian == -1){  
+            result =  num.toFixed(2);  
+        }else{  
+            var cc = bb.substring(dian+1,bb.length);  
+            if(cc.length >=3){  
+                result =  (Number(num.toFixed(2)));  
+            }else{  
+                result =  num.toFixed(2)-0.01;  
+            }  
+        } 
+        return result; 
+    }
 
 });

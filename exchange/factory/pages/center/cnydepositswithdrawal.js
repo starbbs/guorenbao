@@ -63,11 +63,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 
                     //过滤内容显示不同颜色
                     $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");                    
-                    $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc");                                      
-                    $(".status").filter(":contains('CLOSED')").text('已关闭').css("color","#ccc");
-                    if($(".status").filter(":contains('SUCCESS')")){
-                        $(this).parent().find('.checkDeal').text('已完成');
-                    }
+                    $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('已完成');                                      
+                    $(".status").filter(":contains('CLOSED')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('已关闭');
                     //查看此笔充值单
                     $('.checkDeal').click(function(){
                         //打开弹出层-生成汇款单
@@ -125,96 +122,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             }else{
                // console.log('财务中心-人民币提现历史表格，加载失败。');
             }
-        });
-
-        //查看更多 - > 人民币充值提现历史（带分页）
-        $(".moreCheck").click(function(){
-            api_mkt.rmbRechargeHistory({
-                'pageNo':1,
-                'pageSize':10
-            },function(data) {
-                //alert(data.msg);
-                if (data.status == 200) {
-                    var html = [];
-                    for(var i=0; i<10;i++){
-                        html.push("<tr>");                                        
-                        html.push("<td>"+ data.data.list[i].updateDate +"</td>");
-                        html.push("<td class='bank'>"+ data.data.list[i].bank +"</td>");
-                        html.push("<td class='money'>"+ data.data.list[i].money +"</td>");                    
-                        html.push("<td style='display:none' class='txid'>"+ data.data.list[i].txid +"</td>");
-                        html.push("<td style='display:none' class='name'>"+ data.data.list[i].name +"</td>");  
-                        html.push("<td style='display:none' class='uid'>"+ data.data.list[i].uid +"</td>");                   
-                        html.push("<td style='display:none' class='acnumber'>"+ data.data.list[i].acnumber +"</td>");
-                        html.push("<td class='status'>"+ data.data.list[i].transferCnyStatus +"</td>");
-                        html.push("<td class='checkDeal'>查看此笔充值单</td>");
-                        html.push("</tr>");
-                        $(".cnyInput").html("");  //添加前清空 
-                        $(".cnyInput").append(html.join(""));
-
-                        //过滤内容显示不同颜色
-                        $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");                    
-                        $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc");                                      
-                        $(".status").filter(":contains('CLOSED')").text('已关闭').css("color","#ccc");
-                        //查看此笔充值单
-                        $('.checkDeal').click(function(){
-                            //打开弹出层-生成汇款单
-                            $(".mydiv").css("display","block");
-                            $(".bg").css("display","block");               
-                            $(".remittance-id").text($(this).parent().find('.txid').text());
-                            $(".bank-card-new").text($(this).parent().find('.acnumber').text());
-                            $(".bank-name-new").text($(this).parent().find('.bank').text());
-                            //开户人姓名 
-                            api_mkt.basic(function(data) {
-                                if (data.status == 200) {
-                                    $("#bank-username").val(data.data.list.name);             
-                                }
-                            });
-                            $(".account-name-new").text($("#bank-username").val());
-                            //$(".account-name-new").text($(this).parent().find('.name').text());
-                            $(".money-new").text('¥'+$(this).parent().find('.money').text()+'.00');                
-                            $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
-                            //关闭弹出层 -生成汇款单
-                            $(".span-text").click(function(){
-                                $(".mydiv").css("display","none");
-                                $(".bg").css("display","none");
-                            });  
-                        });
-                    }
-                }else{
-                    //console.log('财务中心-人民币充值历史表格，加载失败。');
-                }
-            });
-            //人民币提现 带分页
-            api_mkt.rmbWithdrawalsHistory({
-                'pageNo':1,
-                'pageSize':5
-            },function(data) {
-                if (data.status == 200 && data.data.list.length > 0) {
-                    console.log(data);
-                    var html = [];
-                    var num = data.data.list.length < 10?data.data.list.length:10;
-                    for(var i=0; i<num;i++){
-                        html.push("<tr>");                                        
-                        html.push("<td>"+ data.data.list[i].updateDate +"</td>");
-                        html.push("<td>"+ data.data.list[i].bank +"</td>");
-                        html.push("<td>"+ data.data.list[i].pay +"</td>");                    
-                        html.push("<td>"+ data.data.list[i].fee +"</td>");
-                        html.push("<td class='status'>"+ data.data.list[i].transferCnyStatus +"</td>");
-                        html.push("</tr>");
-                        $(".cnyOutput").html("");  //添加前清空 
-                        $(".cnyOutput").append(html.join(""));
-
-                        //过滤内容显示不同颜色
-                        $(".status").filter(":contains('WAIT')").text('等待');
-                        $(".status").filter(":contains('PROCESSING')").text('进行中').css("color","orange");
-                        $(".status").filter(":contains('SUCCESS')").text('提现成功').css("color","#ccc");                     
-                    }
-                }else{
-                   // console.log('财务中心-人民币提现历史表格，加载失败。');
-                }
-            });
-            
-        });
+        });        
 
         //人民币提现表单校验
         $('#WithdrawalsAmount').blur(function(){
@@ -249,7 +157,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             }
         });
         //验证码
-        /*$('#VerificationCode').blur(function(){
+        $('#VerificationCode').blur(function(){
             var pwd = $(this).val();
             var reg = /^\d{6}$/;
             if(!reg.exec(pwd)){
@@ -259,7 +167,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 flag = true;
                 $('.msg-VerificationCode').text('');
             }
-        });*/
+        });
 
         //获取验证码-人民币提现
         $('#VerificationCodeBtn').click(function(){
@@ -299,30 +207,23 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         var num = data.data.list[i].acnumber;
                         var username = data.data.list[i].name;
                         var bank = data.data.list[i].bank;
-                        var node = $('<div></div>');
+                        var node = $('<div class="divFixed"></div>');
                         var nodeList ='<input type="radio" name="checkBankCard" class="checkBankCard"/>'+
                                        '<input type="text" class="bankNum" style="display:none" value="'+num+'"/>'+
                                        '<input type="text" class="bankUserName" style="display:none" value="'+username+'"/>'+
                                        '<input type="text" class="bankName" style="display:none" value="'+bank+'"/>'+
-                                       '<div class="bankIdCard">'+'尾号：'+num.substr(num.length-4)+'</div>';
+                                       '<div class="bankIdCard">'+bank+'</div><div class="num">尾号：'+num.substr(num.length-4)+'</div>';
                         node.html(nodeList);
                         node.insertBefore($('.addBankCard'));
                         //判断显示银行logo
-                        $('input[type="radio"]:eq(0)').attr('checked',true); 
-                        var bankName = data.data.list[i].bank;
-                        if(bankName == '中国工商银行'){
-                            $('.bankIdCard').addClass('ICBC');
-                        }else if(bankName == '中国建设银行'){
-                            $('.bankIdCard').addClass('CBC');
-                        }else if(bankName == '交通银行'){
-                            $('.bankIdCard').addClass('BC');
-                        }else if(bankName == '招商银行'){
-                            $('.bankIdCard').addClass('CMB');
-                        }else if(bankName == '中国邮政储蓄银行'){
-                            $('.bankIdCard').addClass('PSBC');
-                        }else if(bankName == '中国农业银行'){
-                            $('.bankIdCard').addClass('ABC');
-                        }                        
+                        $('input[type="radio"]:eq(0)').attr('checked',true);  
+
+                        $('.bankIdCard').filter(":contains('中国工商银行')").addClass('ICBC').text('');
+                        $('.bankIdCard').filter(":contains('中国建设银行')").addClass('CBC').text('');
+                        $('.bankIdCard').filter(":contains('交通银行')").addClass('BC').text('');
+                        $('.bankIdCard').filter(":contains('招商银行')").addClass('CMB').text('');
+                        $('.bankIdCard').filter(":contains('中国邮政储蓄银行')").addClass('PSBC').text('');
+                        $('.bankIdCard').filter(":contains('中国农业银行')").addClass('ABC').text('');                    
                     }                    
                 }
             }
@@ -335,7 +236,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 $.cookie('bankUserName',b);
                 $.cookie('bankName',c);
             });
-
+            
+            $("#bank-idcard").keyup(function(){
+                $(this).val($(this).val().replace(/[^0-9$]/g,''));
+            });
+            
             //人民币提现申请 弹出层        
             $(".Withdrawalsbtn").click(function(){
                 if(flag == false){
@@ -519,7 +424,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 api_mkt.userbasic(function(data){
                     if(data.data){
                         if(data.data.list){
-                            $("#phone").val(data.data.list.mobile);
+                        	var phone=data.data.list.mobile;
+                            $("#phone").val(phone.substring(0,3)+"****"+phone.substring(7,11));
+                            $("#phone").attr("data-phone",data.data.list.mobile);
                             $('.pUid').val(data.data.list.uid);
                         }
                     }
@@ -531,7 +438,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 
         //生成汇款单里的填充文本        
         $(".build-remit-layer").click(function(){
-            if(btnConfirm == false || typeof(btnConfirm) == 'undefined'){
+            if(btnConfirm == false || typeof(btnConfirm) == 'undefined' || !$("#bank").val()){
                 alert('请完成填写相关信息！');
             }else{
                 //打开弹出层-生成汇款单 
@@ -623,7 +530,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 api_mkt.rmbRecharge({          
                     'bankId':$('#bank-idcard').val(),
                     'rechargeMoney':$('#bank-money').val(),
-                    'phone':$('#phone').val(),
+                    'phone':$('#phone').val().indexOf("*")>0?$('#phone').attr("data-phone"):$('#phone').val(),
                     "bankName":$("#bank").val()     
                 }, function(data) {
                     if (data.status == 200) {

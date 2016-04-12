@@ -106,12 +106,10 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	$(".regular-checkbox").click(function(){
 		if($(".regular-checkbox").is(':checked')){
 			btnCheckBox = true;
-			$('.oneStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
-			$('.msg-checked').text('我已阅读并同意').css('color','#999999');
+			$('.msg-checked').hide();
 		}else{
 			btnCheckBox = false;
-			$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
-			$('.msg-checked').text('请阅读且接受服务条款').css('color','red');
+			$('.msg-checked').show().text('请阅读且接受服务条款').css('color','red');
 		}	
 	});
 	//注册第一步 手机号注册 
@@ -134,10 +132,9 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		   		'confirmPwd':$('.checkConfirmPwd').val()	   
 			}, function(data) {
 	            if (data.msg == '手机号码已经注册') {
-	            	$('.msg-phone').show().html('手机号已注册，请<a class="markasread" href="index.html">直接登录，3秒后跳转到首页</a>');
-	            	$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
+	            	$('.msg-phone').show().html('手机号已注册，请<a class="markasread" href="index.html">直接登录</a>');
+	            	//$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
 	            	$('.oneStep').unbind('click');
-	            	toIndex();
 	            	$('.msg-code').text('');
 	            }else if(data.status == 200){
 	                $(".two").css('display','flex');
@@ -175,11 +172,9 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		if(payConfirmPwd !== payPwd){
 			$('.msg-payConfirmPwd').show().text('两次输入不一致');
 			btnConfirmPayPwd = false;
-			$('.twoStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
 		}else{
 			$('.msg-payConfirmPwd').hide();
 			btnConfirmPayPwd = true;
-			$('.twoStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
 		}
 	});
 
@@ -199,45 +194,48 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		   		'comfirmPayPwd':$('.payConfirmPwd').val()	   
 			}, function(data) {
 				if (data.status == 200) {
-					$('.twoStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
+					$('.msg-payConfirmPwd').hide();
 					$(".three").css('display','flex');
 					$(".two").css('display','none');			
 				}else{
-	            	$('.twoStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
-	            	alert('输入支付密码格式不正确');
+	            	$('.msg-payConfirmPwd').show().text(data.msg);
 	            }
 			});
 		}	
 
     });
     //实名认证 姓名
+    var btnConfirm1 = false;
 	$(".personName").blur(function(){
 		var personName = $.trim($(".personName").val());
 		var reg=/^[\u4e00-\u9fa5]{0,}$/;
 		if(!reg.exec(personName)){
-			btnConfirm = false;
-			$('.msg-personName').show().text('请输入正确的姓名');
+			btnConfirm1 = false;
+			$('.msg-personName').show().text('请填写您的姓名');
 		}else{
 			$('.msg-personName').hide();
-			btnConfirm = true;
+			btnConfirm1 = true;
 		}
 	});
 	//实名认证 身份证号
+    var btnConfirm2 = false;
 	$(".personId").blur(function(){
 		var personId = $.trim($(".personId").val());
 		var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;  
    		if(!reg.test(personId)){
-			btnConfirm = false;
+			btnConfirm2 = false;
 			$('.msg-personId').show().text('请输入正确的身份证号');
 		}else {
 			$('.msg-personId').hide();
-			btnConfirm = true;
+			btnConfirm2 = true;
 		}
 	});
 	//接口4 注册第三步 设置实名验证
 	$('.threeStep').click(function(){
-		if(btnConfirm == false){
-			$('.msg-personId').show().text('您填写的姓名与身份证号不匹配。');
+		if(btnConfirm1 == false){
+			$('.msg-personName').show().text('请填写您的姓名');
+		}else if(btnConfirm2 == false){
+			$('.msg-personId').show().text('请输入正确的身份证号');
 		}else{
 			api_mkt.realNameAuth({			
 		   		'realName':$('.personName').val(),
@@ -248,7 +246,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 					//进入注册完成页
 					$(".four").css('display','flex');
 					$(".three").css('display','none');
-					$('.threeStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
+					//$('.threeStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
 					// api_mkt.login({
 			  //           phone: phone,
 			  //           password: password,
@@ -265,9 +263,6 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			  //           }
 			  //       });
 					toIndex();
-				} else if(data.status == 304){
-					$('.threeStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
-					$('.msg-personId').show().text('您填写的姓名或身份证号不正确，请重新输入。');
 				}else{
 					$('.msg-personId').show().text(data.msg);
 				}
