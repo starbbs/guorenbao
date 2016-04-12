@@ -299,30 +299,23 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         var num = data.data.list[i].acnumber;
                         var username = data.data.list[i].name;
                         var bank = data.data.list[i].bank;
-                        var node = $('<div></div>');
+                        var node = $('<div class="divFixed"></div>');
                         var nodeList ='<input type="radio" name="checkBankCard" class="checkBankCard"/>'+
                                        '<input type="text" class="bankNum" style="display:none" value="'+num+'"/>'+
                                        '<input type="text" class="bankUserName" style="display:none" value="'+username+'"/>'+
                                        '<input type="text" class="bankName" style="display:none" value="'+bank+'"/>'+
-                                       '<div class="bankIdCard">'+'尾号：'+num.substr(num.length-4)+'</div>';
+                                       '<div class="bankIdCard">'+bank+'</div><div class="num">尾号：'+num.substr(num.length-4)+'</div>';
                         node.html(nodeList);
                         node.insertBefore($('.addBankCard'));
                         //判断显示银行logo
-                        $('input[type="radio"]:eq(0)').attr('checked',true); 
-                        var bankName = data.data.list[i].bank;
-                        if(bankName == '中国工商银行'){
-                            $('.bankIdCard').addClass('ICBC');
-                        }else if(bankName == '中国建设银行'){
-                            $('.bankIdCard').addClass('CBC');
-                        }else if(bankName == '交通银行'){
-                            $('.bankIdCard').addClass('BC');
-                        }else if(bankName == '招商银行'){
-                            $('.bankIdCard').addClass('CMB');
-                        }else if(bankName == '中国邮政储蓄银行'){
-                            $('.bankIdCard').addClass('PSBC');
-                        }else if(bankName == '中国农业银行'){
-                            $('.bankIdCard').addClass('ABC');
-                        }                        
+                        $('input[type="radio"]:eq(0)').attr('checked',true);  
+
+                        $('.bankIdCard').filter(":contains('中国工商银行')").addClass('ICBC').text('');
+                        $('.bankIdCard').filter(":contains('中国建设银行')").addClass('CBC').text('');
+                        $('.bankIdCard').filter(":contains('交通银行')").addClass('BC').text('');
+                        $('.bankIdCard').filter(":contains('招商银行')").addClass('CMB').text('');
+                        $('.bankIdCard').filter(":contains('中国邮政储蓄银行')").addClass('PSBC').text('');
+                        $('.bankIdCard').filter(":contains('中国农业银行')").addClass('ABC').text('');                    
                     }                    
                 }
             }

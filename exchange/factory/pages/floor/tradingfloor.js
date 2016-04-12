@@ -382,17 +382,16 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                         api_mkt.tradeGopCancelByid({
                             'id':text
                         },function(data) {        
-                            
+                            //恢复为 买入卖出 确认框
+                            $("#floor_popDiv").hide(500);
+                            $("#floor_bg").hide();
+                            $('.h3_1').css('display','block');
+                            $('.sure_btn').css('display','block');
+                            $('#sel_div_password').css('display','block');
+                            $('.h3_2').css('display','none');
+                            $('.sure_btn1').css('display','none');
+                            window.location.reload();
                         });
-                        //恢复为 买入卖出 确认框
-                        $("#floor_popDiv").hide(500);
-                        $("#floor_bg").hide();
-                        $('.h3_1').css('display','block');
-                        $('.sure_btn').css('display','block');
-                        $('#sel_div_password').css('display','block');
-                        $('.h3_2').css('display','none');
-                        $('.sure_btn1').css('display','none');
-                        window.location.reload();
                     }); 
                     //取消撤单
                     $('.cancle').click(function(){

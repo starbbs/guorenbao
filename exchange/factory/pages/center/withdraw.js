@@ -392,7 +392,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 var bankIP = data.data.list[i].province + data.data.list[i].city + data.data.list[i].subbank;  //支行
                 
                 var node = $('<div></div>').addClass('bankIdCard addBankCard newCard');
-                var nodeList =$('<section class="bankIdCard-bankLogoName bankName"></section>'+
+                var nodeList =$('<section class="bankIdCard-bankLogoName bankName">'+bankName+'</section>'+
                                 '<section class="bankIdCard-Code">'+'尾号：'+num.substr(num.length-4)+'</section>'+            
                                 '<section class="bankIdCard-CardAndBg">储蓄卡</section>'+
                                 '<section class="bankIdCard-hr"></section>'+
@@ -401,19 +401,12 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                                 '<section class="bankIdCard-address">'+bankIP+'</section>').appendTo(node);
                 node.insertBefore($('.bankIdCard-add'));
                 //判断显示银行logo
-                if(bankName == '中国工商银行'){
-                    $('.bankIdCard').addClass('ICBC');
-                }else if(bankName == '中国建设银行'){
-                    $('.bankIdCard').addClass('CBC');
-                }else if(bankName == '交通银行'){
-                    $('.bankIdCard').addClass('BC');
-                }else if(bankName == '招商银行'){
-                    $('.bankIdCard').addClass('CMB');
-                }else if(bankName == '中国邮政储蓄银行'){
-                    $('.bankIdCard').addClass('PSBC');
-                }else if(bankName == '中国农业银行'){
-                    $('.bankIdCard').addClass('ABC');
-                }
+                $('.bankName').filter(":contains('中国工商银行')").addClass('ICBC').text('');
+                $('.bankName').filter(":contains('中国建设银行')").addClass('CBC').text('');
+                $('.bankName').filter(":contains('交通银行')").addClass('BC').text('');
+                $('.bankName').filter(":contains('招商银行')").addClass('CMB').text('');
+                $('.bankName').filter(":contains('中国邮政储蓄银行')").addClass('PSBC').text('');
+                $('.bankName').filter(":contains('中国农业银行')").addClass('ABC').text('');
             }          
 
             //删除银行卡

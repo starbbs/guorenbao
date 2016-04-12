@@ -9,8 +9,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             $(".entrust-side-table").eq(liA.index(this)).show().siblings(".entrust-side-table").hide();
         });
     });
-   //当前委托（不传参数查询最近5条）
-    api_mkt.tradeGopCurrentList(function(data) {
+   //当前委托（分页）
+    api_mkt.tradeGopCurrentList({
+        'pageNo':1,
+        'pageSize':10
+    },function(data) {
         if (data.status == 200 && data.data.list.length >0) {
             var html = [];
             var num = data.data.list.length < 10?data.data.list.length:10;
