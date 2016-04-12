@@ -42,7 +42,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
     	var reg = new RegExp("^[0-9]*$");//纯数字
 		var hanzi = /[\u4e00-\u9fa5]/;//汉字
 		var pwd=$(this).val();
-		if(pwd.length<6 || pwd.length>20 || reg.test(pwd) || hanzi.test(pwd)){
+		if(pwd.indexOf(" ")>0 || pwd.length<6 || pwd.length>20 || reg.test(pwd) || hanzi.test(pwd)){
 			 $("#error_three").show().html("请输入6~20位非纯数字字符");
 	         return;
 		}
@@ -57,7 +57,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
     	var reg = new RegExp("^[0-9]*$");//纯数字
 		var hanzi = /[\u4e00-\u9fa5]/;//汉字
 		var pwd=$(this).val();
-		if(pwd.length<6 || pwd.length>20 || reg.test(pwd) || hanzi.test(pwd)){
+		if(pwd.indexOf(" ")>0 || pwd.length<6 || pwd.length>20 || reg.test(pwd) || hanzi.test(pwd)){
 			 $("#error_four").show().html("请输入6~20位非纯数字字符");
 	         return;
 		}
