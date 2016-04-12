@@ -1,4 +1,4 @@
-require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt_info) {
+require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(api_mkt, mkt_info,decimal) {
     //console.log(api_mkt);
     //console.log(mkt_info);
     //mkt_info.get();
@@ -95,11 +95,27 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
         if (!num || isNaN(num)) {
             btnConfirm = false;
             $('.msg-gopWithdrawalsNumber').text('请输入提取数量');
+        }else if (num) {
+            btnConfirm = false;
+            $('.msg-gopWithdrawalsNumber').text('请输入提取数量');
         } else {
             btnConfirm = true;
             $('.msg-gopWithdrawalsNumber').text('');
         }
     });
+    
+    $(".wrapper").on("input propertychange", "#gopWithdrawalsNumber", function() {
+    	var num = $(this).val();
+        var oldData=$(this).attr("data-old");
+        if(decimal.toDecimal(num) < 0.02||decimal.getPsercison(num)>2 ){
+        	//
+        	$(this).val(oldData?oldData:0.02);
+            flag = false;
+        }else{
+        	$(this).attr("data-old",num);
+        }
+    });
+    
     //校验支付密码
     $('#gopWithdrawalsPayPwd').blur(function() {
         var PayPwd = $('#gopWithdrawalsPayPwd').val();
