@@ -499,7 +499,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     $(".wrapper").on("input propertychange", ".buying_number, .buying_price", function() {
         var num = $(this).val();
         var oldData=$(this).attr("data-old");
-        if((decimal.toDecimal(num) >0 && decimal.toDecimal(num) < 0.1) || decimal.getPsercison(num)>2 || decimal.getPsercison(num)>999999.00){
+        if((decimal.toDecimal(num) >0 && decimal.toDecimal(num) < 0.1) || decimal.getPsercison(num)>2 || decimal.toDecimal(num)>999999.00){
         	//0.01-0.09,大于小数点2位的都禁止输入
         	$(this).val(oldData?oldData:0.1);
             flag = false;
@@ -557,7 +557,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     $(".wrapper").on("input propertychange", ".marketBuy", function() {
     	var num = $(this).val();
         var oldData=$(this).attr("data-old");
-        if((decimal.toDecimal(num) >0 && decimal.toDecimal(num) < 0.1) || decimal.getPsercison(num)>2 || decimal.getPsercison(num)>999999.00){
+        if((decimal.toDecimal(num) >0 && decimal.toDecimal(num) < 0.1) || decimal.getPsercison(num)>2 || decimal.toDecimal(num)>999999.00){
         	//0.01-0.09,大于小数点2位的都禁止输入
         	$(this).val(oldData?oldData:0.1);
             flag = false;
@@ -613,7 +613,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     $(".wrapper").on("input propertychange", ".sellAmount", function() {
     	var num = $(this).val();
         var oldData=$(this).attr("data-old");
-        if((decimal.toDecimal(num) >0 && decimal.toDecimal(num) < 0.1) || decimal.getPsercison(num)>2 || decimal.getPsercison(num)>999999.00){
+        if((decimal.toDecimal(num) >0 && decimal.toDecimal(num) < 0.1) || decimal.getPsercison(num)>2 || decimal.toDecimal(num)>999999.00){
         	//0.01-0.09,大于小数点2位的都禁止输入
         	$(this).val(oldData?oldData:0.1);
             flag = false;
@@ -654,7 +654,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     $(".wrapper").on("input propertychange", ".sellNumber, .sellPrice", function() {
     	var num = $(this).val();
         var oldData=$(this).attr("data-old");
-        if((decimal.toDecimal(num) >0 && decimal.toDecimal(num) < 0.1) || decimal.getPsercison(num)>2 || decimal.getPsercison(num)>999999.00){
+        if((decimal.toDecimal(num) >0 && decimal.toDecimal(num) < 0.1) || decimal.getPsercison(num)>2 || decimal.toDecimal(num)>999999.00){
         	//0.01-0.09,大于小数点2位的都禁止输入
         	$(this).val(oldData?oldData:0.1);
             flag = false;
