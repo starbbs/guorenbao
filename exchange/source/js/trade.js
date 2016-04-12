@@ -83,8 +83,8 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 
 
 
-        console.log("list_sell"+list_sell);
-        console.log("list_buy"+list_buy);
+        // console.log("list_sell"+list_sell);
+        // console.log("list_buy"+list_buy);
         var list_sell_array = [];
         for (var i = 0; i < list_sell.length; i++) {
         	list_sell_array.push(list_sell[i][0]);

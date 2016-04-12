@@ -50,14 +50,14 @@
 			if(thelatestprice>thelatestprice_second){
 				$(".quoted_price_first").css("color","#dd0900");//红色
 				$(".quoted_price_i")[0] ? $(".quoted_price_i")[0].style.backgroundImage="url(./images/index_arrow_rise.png)":"";
-				console.log("aaaaaa");
+				// console.log("aaaaaa");
 				$(".new_color").css("color","#dd0900");
 				$(".quoted_price_firsti")[0]?$(".quoted_price_firsti")[0].style.backgroundImage="url(./images/floor_arrow_rise.png)":"";
 			}
 			if(thelatestprice<thelatestprice_second){
 				$(".quoted_price_first").css("color","#00951c");//蓝色
 				$(".quoted_price_i")[0] ? $(".quoted_price_i")[0].style.backgroundImage="url(./images/index_big_down.png)":"";
-				console.log("bbbbbb");
+				// console.log("bbbbbb");
 				$(".new_color").css("color","#00951c");
 				$(".quoted_price_firsti")[0]?$(".quoted_price_firsti")[0].style.backgroundImage="url(./images/floor_big_down.png)":"";
 			}
