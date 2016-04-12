@@ -222,7 +222,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             }else{       
             	//中国工商银行，中国建设银行，中国农业银行，中国交通银行，中国邮政储蓄银行，招商银行
             	if($('#bank').val()!='中国工商银行' && $('#bank').val()!='中国建设银行' && $('#bank').val()!='中国农业银行' 
-            		&& $('#bank').val()!='中国交通银行' && $('#bank').val()!='中国邮政储蓄银行'  && $('#bank').val()!='招商银行' ){
+            		&& $('#bank').val()!='交通银行' && $('#bank').val()!='中国邮政储蓄银行'  && $('#bank').val()!='招商银行' ){
             		$('.msg-bank').show().text('暂不支持此银行');
             		return false;
             	}
@@ -240,11 +240,13 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     if (data.status == 200) {  
                     	window.location.reload();
                     } else if(data.msg == '验证码错误'){
-                        alert('验证码错误');
+                        $('.msg-sendCodeByLoginAfter').text('验证码错误');
                     } else if(data.msg == '服务器异常'){
-                        alert('服务器异常');
+                        $('.msg-sendCodeByLoginAfter').text('服务器异常');
                     } else if(data.msg == '提现银行卡账户名必须与您的实名认证姓名一致'){
-                        alert('提现银行卡账户名必须与您的实名认证姓名一致');
+                        $('.msg-sendCodeByLoginAfter').text('提现银行卡账户名必须与您的实名认证姓名一致');
+                    } else if(data.msg == '支付密码错误'){
+                        $('.msg-pay-pwd').text('支付密码错误');
                     }              
                 });
                 
