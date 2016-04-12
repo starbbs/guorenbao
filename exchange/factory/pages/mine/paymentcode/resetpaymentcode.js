@@ -21,8 +21,8 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
     $("#idNumber").on("blur", function() {
         var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;  
         if(!reg.test($(this).val())){
-            $(".one_span1").show().html("身份证号码格式不正确");
-            checkFlag1 = false;
+            $(".one_span1").show().html("身份信息有误，请重新输入");
+            whether_sub_one = false;
             return;
         } else {
             $(".one_span1").hide().html("");
@@ -41,6 +41,19 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
     });
 
     $(".next_step_btn_one").on("click", function() {
+        if ($("#idNumber").val() == "") {
+            $(".one_span1").show().html("身份信息有误，请重新输入");
+            whether_sub_one = false;
+        } else {
+            $(".one_span1").hide().html("");
+            whether_sub_one = true;
+        }
+        if ($("#identifyingCode").val() == "") {
+            $(".one_span2").show().html("验证码不能为空");
+            whether_sub_one = false;
+        }
+
+        if (whether_sub_one) {
         if (checkFlag1 && checkFlag2) {
             api_mkt.resetpaypwdbefore({
                 idNumber: $("#idNumber").val(),
@@ -59,7 +72,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                     } else if(data.msg=="未实名认证"){
                         $(".one_span2").show().html(data.msg);
                     } else if(data.msg=="身份证号输入错误"){
-                        $(".one_span1").show().html("身份证号输入错误");
+                        $(".one_span1").show().html("身份信息有误，请重新输入");
                     }
                 } else {
                     $(".one_span2").show().html(data.msg);

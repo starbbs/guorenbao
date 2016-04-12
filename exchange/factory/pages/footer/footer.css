@@ -299,7 +299,7 @@
     margin-right: 0px;
     background:url(../images/footer_1-3.png) no-repeat 100px center;
 }
-.two_left{
+.two_left, .two_left1{
     float: left;
     width:180px;
     background:#fafafa;
@@ -311,11 +311,15 @@
     line-height: 50px;
     cursor: pointer;
 }
-.two-right, .two-right1{
-    margin-left:230px;
-    height: auto;
+.two_left1 li{
+    display: block;
+    text-align: left;
+    height: 50px;
+    line-height: 50px;
+    cursor: pointer;
+    padding-left:40px;
 }
-{
+.two-right, .two-right1{
     margin-left:230px;
     height: auto;
 }
@@ -417,4 +421,7 @@
     top: 45px;
     text-align: center;
     font-size: 1.2rem;
+}
+.li_tab1{
+    text-align: left;
 }
