@@ -13,7 +13,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     var mine_three = $.cookie("mine_three");
     var mine_four = $.cookie("mine_four");
 
-    //$.cookie("asdf","haha",{"expires":"s120"},"guorenmarket");
+    //$.cookie("asdf","haha",{"expires":"h0.5"},"guorenmarket");
     api_mkt.totalAssets(function(data) {
         if (data.status == 200) {
             var totalAssets = data.data.cnyBalance + data.data.cnyLock;
@@ -394,7 +394,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             }, function(data) {
                 if (data.status == 200) {
                     $.cookie("loginfromwhichpage","");
-                    $.cookie('exchangeToken', 'logined',{"expires":"s120"},"guorenmarket");
+                    $.cookie('exchangeToken', 'logined',{"expires":"h0.5"},"guorenmarket");
                     $(".login_regist").hide();
                     $(".login_header").show();
                     $(".popDiv").hide();
@@ -402,9 +402,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     global_loginuserphone = data.data.phone;
                     global_loginusername = data.data.name;
                     global_loginuseruid = data.data.uid;
-                    $.cookie("global_loginuserphone",global_loginuserphone,{"expires":"s120"},"guorenmarket");
-                    $.cookie("global_loginusername",global_loginusername,{"expires":"s120"},"guorenmarket");
-                    $.cookie("global_loginuseruid",global_loginuseruid,{"expires":"s120"},"guorenmarket");
+                    $.cookie("global_loginuserphone",global_loginuserphone,{"expires":"h0.5"},"guorenmarket");
+                    $.cookie("global_loginusername",global_loginusername,{"expires":"h0.5"},"guorenmarket");
+                    $.cookie("global_loginuseruid",global_loginuseruid,{"expires":"h0.5"},"guorenmarket");
 
                     synchronous();
                     setInterval(synchronous, 60000);
