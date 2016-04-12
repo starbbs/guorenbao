@@ -22,7 +22,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;  
         if(!reg.test($(this).val())){
             $(".one_span1").show().html("身份信息有误，请重新输入");
-            whether_sub_one = false;
+            checkFlag1 = false;
             return;
         } else {
             $(".one_span1").hide().html("");
@@ -41,19 +41,6 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
     });
 
     $(".next_step_btn_one").on("click", function() {
-        if ($("#idNumber").val() == "") {
-            $(".one_span1").show().html("身份信息有误，请重新输入");
-            whether_sub_one = false;
-        } else {
-            $(".one_span1").hide().html("");
-            whether_sub_one = true;
-        }
-        if ($("#identifyingCode").val() == "") {
-            $(".one_span2").show().html("验证码不能为空");
-            whether_sub_one = false;
-        }
-
-        if (whether_sub_one) {
         if (checkFlag1 && checkFlag2) {
             api_mkt.resetpaypwdbefore({
                 idNumber: $("#idNumber").val(),
@@ -109,11 +96,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
     	var reg = new RegExp("^[0-9]*$");//纯数字
 		var hanzi = /[\u4e00-\u9fa5]/;//汉字
 		var pwd=$(this).val();
-		if(pwd.indexOf(" ")>0 || pwd.length<8 || pwd.length>20 || reg.test(pwd) || hanzi.test(pwd)){
-			$(".tow_span2").show().html("请输入 8~20位非纯数字字符");
-			checkFlag4 = false;
-            return;
-		}else if ($(this).val() != $("#password").val()) {
+		if ($(this).val() != $("#password").val()) {
             $(".tow_span2").show().html("两次密码输入不一致");
             checkFlag4 = false;
             return;

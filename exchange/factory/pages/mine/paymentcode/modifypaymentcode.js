@@ -38,18 +38,8 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	   		}
     	});
     	
-    	$("#confirmPayPwd").on("blur",function(){
-    		var reg = new RegExp("^[0-9]*$");//纯数字
-    		var hanzi = /[\u4e00-\u9fa5]/;//汉字
-    		if($(this).val().indexOf(" ")>0 || $(this).val().length>20||$(this).val().length<8 || reg.test($(this).val()) || hanzi.test($(this).val())){
-	   			$("#error_three").show().html("请再次输入新支付密码");
-	   			checkFlag3= false;
-	   			return;
-	   		}  else {
-	   			$("#error_three").hide().html("");
-	   			checkFlag3= true;
-	   		}
-	   		if($(this).val()!==""&&$("#newPayPwd").val()!=""&&$(this).val()!==$("#newPayPwd").val()){
+    	$("#confirmPayPwd").on("blur",function(){   		
+	   		if($(this).val()!=$("#newPayPwd").val()){
 	   			$("#error_three").show().html("两次输入不一致");
 	   			checkFlag3= false;
 	   		} else {
