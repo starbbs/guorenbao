@@ -39,15 +39,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     $("#msg_num_top,#newinfor_result").html(unReadNum);
                     var dlisthtml = "";
                     if(dlist){
-                        if(dlist.length<2){
-                            var obj = dlist[0];
-                            dlisthtml += "<div class='message_flow'><p class='message_content_p'>"+obj.content+"</p><p class='message_date_p'>"+obj.createDate+"</p></div>";
-                        }
-                        if(dlist.length>=2){
-                            dlisthtml += "<div class='message_flow'><p class='message_content_p'>"+dlist[0].content+"</p><p class='message_date_p'>"+dlist[0].createDate+"</p></div>";
-                            dlisthtml += "<div class='message_flow second_message_flow'><p class='message_content_p'>"+dlist[1].content+"</p><p class='message_date_p'>"+dlist[1].createDate+"</p></div>";
-                        }
-                        dlisthtml += "<a href='ssmessage.html'>查看全部</a>";
+                        dlisthtml += "<div class='message_flow'><p class='message_content_p'>"+dlist[0].content+"</p><p class='message_date_p'>"+dlist[0].createDate+"</p></div>";
+                        dlisthtml += "<div class='message_flow second_message_flow'><p class='message_content_p'>"+dlist[1].content+"</p><p class='message_date_p'>"+dlist[1].createDate+"</p></div>";
+                        dlisthtml += "<a href='ssmessage.html' onClick='lookall()'>查看全部</a>";
                         $(dlisthtml).appendTo("#mybox");
                     }
                 }

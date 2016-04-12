@@ -1,7 +1,7 @@
 define('api_mkt', ['cookie'], function() {
     //var basePath = 'http://localhost/';
-    //var basePath = 'http://10.23.1.155/';
-    var basePath = './';
+    var basePath = 'http://10.23.1.155/';
+    //var basePath = './';
     //var basePath = 'http://localhost:8089/';
     var api = {};
     api.basePath2 = 'http://116.213.142.89:8080/common/checkBankCard';
@@ -53,7 +53,7 @@ define('api_mkt', ['cookie'], function() {
                 type: 'post',
                 data: JSON.stringify(data),
                 dataType: 'json',
-                timeout: 50000,
+                timeout: 100000,
                 success: function(data) {
                     if (!data) {
                         // alert('1:' + name + ';' + $.cookie('gopToken'));
@@ -64,7 +64,7 @@ define('api_mkt', ['cookie'], function() {
                         goIndex(true);
                     } else if (data.status == 304 && options.ignoreStatus && options.ignoreStatus.indexOf(304) === -1) { // {msg: "服务器异常", status: "304"}
                         //$.alert('服务器异常, 请联系后台人员!');
-                        alert('服务器异常');
+                        //alert('服务器异常');
                     }
                     options.callback && options.callback.call(this, data);
                     success && success.call(this, data);
@@ -73,7 +73,8 @@ define('api_mkt', ['cookie'], function() {
                     console.log('Error: ', arguments);
                     if (text === 'timeout') {
                         //$.alert('请求超时...<br>请检查您的网络');
-                        alert('请求超时...<br>请检查您的网络');
+                        //alert('请求超时...<br>请检查您的网络');
+                        console.log("请求超时");
                     }
                 },
                 complete: function() {

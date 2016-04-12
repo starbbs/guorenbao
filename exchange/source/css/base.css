@@ -267,6 +267,7 @@ table {
     font-size: 1.6rem;
     cursor: pointer;
     text-decoration: none;
+    text-align:right;
 }
 
 .index_on {
