@@ -12,7 +12,8 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         // });
         $("#who_account").html(global_loginuserphone.substr(0, 3) + '****' + global_loginuserphone.substr(7, 4));
     }
-
+    var whether_sub = true;
+    var mobileflag = false;
     $("#phone").on("blur", function() {
         if ($(this).val() == "") {
             $("#error_one").show().html("手机号不能为空");
@@ -38,19 +39,24 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
             $("#error_two").hide().html("");
         }
     });
+
+
     $("#newPwd").on("blur", function() {
     	var reg = new RegExp("^[0-9]*$");//纯数字
 		var hanzi = /[\u4e00-\u9fa5]/;//汉字
 		var pwd=$(this).val();
 		if(pwd.indexOf(" ")>0 || pwd.length<6 || pwd.length>20 || reg.test(pwd) || hanzi.test(pwd)){
 			 $("#error_three").show().html("请输入6~20位非纯数字字符");
+			 whether_sub=false;
 	         return;
 		}
         if ($(this).val() == "") {
             $("#error_three").show().html("登录密码不能为空");
+            whether_sub=false;
             return;
         } else {
             $("#error_three").hide().html("");
+            whether_sub=true;
         }
     });
     $("#confirmNewPwd").on("blur", function() {
@@ -59,26 +65,27 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
 		var pwd=$(this).val();
 		if(pwd.indexOf(" ")>0 || pwd.length<6 || pwd.length>20 || reg.test(pwd) || hanzi.test(pwd)){
 			 $("#error_four").show().html("请输入6~20位非纯数字字符");
+			 whether_sub=false;
 	         return;
 		}
         if ($(this).val() == "") {
             $("#error_four").show().html("确认密码不能为空");
+            whether_sub=false;
             return;
         }
         if ($(this).val() !== "" && $(this).val() !== $("#newPwd").val()) {
             $("#error_four").show().html("两次密码不相同");
+            whether_sub=false;
             return;
         } else {
             $("#error_four").hide().html("");
+            whether_sub=true;
         }
     });
 
-    var whether_sub = true;
 
-    var mobileflag = false;
     $(".next_step_btn").on("click", function() {
-        whether_sub = true;
-        $("#error_one,#error_two,#error_three,#error_four").hide().html("");
+        //$("#error_one,#error_two,#error_three,#error_four").hide().html("");
         if ($("#phone").val() == "") {
             $("#error_one").show().html("手机号不能为空");
             whether_sub = false;
@@ -99,20 +106,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
             $("#error_two").show().html("验证码不能为空");
             whether_sub = false;
         }
-        if ($("#newPwd").val() == "") {
-            $("#error_three").show().html("登录密码不能为空");
-            whether_sub = false;
-        }
-        if ($("#confirmNewPwd").val() == "") {
-            $("#error_four").show().html("确认密码不能为空");
-            whether_sub = false;
-        }
-        if ($("#newPwd").val() !== $("#confirmNewPwd").val()) {
-            $("#error_four").show().html("两次密码不相同");
-            whether_sub = false;
-            return;
-        }
-        if (whether_sub) {
+        if (whether_sub && mobileflag) {
             api_mkt.resetLoginPwd({
                 phone: $("#phone").val(),
                 identifyingCode: $("#identifyingCode").val(),
