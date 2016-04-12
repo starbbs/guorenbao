@@ -73,8 +73,15 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $(".remittance-id").text($(this).parent().find('.txid').text());
                         $(".bank-card-new").text($(this).parent().find('.acnumber').text());
                         $(".bank-name-new").text($(this).parent().find('.bank').text());
-                        $(".account-name-new").text($(this).parent().find('.name').text());
-                        $(".money-new").text($(this).parent().find('.money').text()+'.00');                
+                        //开户人姓名 
+                        api_mkt.basic(function(data) {
+                            if (data.status == 200) {
+                                $("#bank-username").val(data.data.list.name);             
+                            }
+                        });
+                        $(".account-name-new").text($("#bank-username").val());
+                        //$(".account-name-new").text($(this).parent().find('.name').text());
+                        $(".money-new").text('¥'+$(this).parent().find('.money').text()+'.00');                
                         $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
                         //关闭弹出层 -生成汇款单
                         $(".span-text").click(function(){
@@ -153,8 +160,15 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             $(".remittance-id").text($(this).parent().find('.txid').text());
                             $(".bank-card-new").text($(this).parent().find('.acnumber').text());
                             $(".bank-name-new").text($(this).parent().find('.bank').text());
-                            $(".account-name-new").text($(this).parent().find('.name').text());
-                            $(".money-new").text($(this).parent().find('.money').text()+'.00');                
+                            //开户人姓名 
+                            api_mkt.basic(function(data) {
+                                if (data.status == 200) {
+                                    $("#bank-username").val(data.data.list.name);             
+                                }
+                            });
+                            $(".account-name-new").text($("#bank-username").val());
+                            //$(".account-name-new").text($(this).parent().find('.name').text());
+                            $(".money-new").text('¥'+$(this).parent().find('.money').text()+'.00');                
                             $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
                             //关闭弹出层 -生成汇款单
                             $(".span-text").click(function(){
@@ -334,8 +348,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     $(".WithdrawalsName").text($.cookie('bankName'));
                     var amount = parseInt($("#WithdrawalsAmount").val());
                     var Fee = parseInt($('.WithdrawalsFee').text());
-                    $(".WithdrawalsAmount").text(amount+'.00');
-                    $(".WithdrawalsRealAmount").text((amount - Fee)+'.00');
+                    $(".WithdrawalsAmount").text('¥'+amount+'.00');
+                    $(".WithdrawalsRealAmount").text('¥'+(amount - Fee)+'.00');
 
                     //只关闭
                     $(".span-text1").click(function(){
@@ -455,7 +469,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     }),
                     cache: false,
                     success: function(data) {
-                        console.log(data.data.bankName);
+                        //console.log(data.data.bankName);
                         //所属银行自动添加
                         $("#bank").val(data.data.bankName);
                     },
@@ -525,7 +539,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     $(".bank-card-new").text($("#bank-idcard").val());
                     $(".bank-name-new").text($("#bank").val());
                     $(".account-name-new").text($("#bank-username").val());
-                    $(".money-new").text($("#bank-money").val()+'.00');                
+                    $(".money-new").text('¥'+$("#bank-money").val()+'.00');                
                     $(".remittance-note-numbe-newr").text($('.pUid').val());
                     $('.bankName').text($("#bank").val() + '网银');
                 });    
@@ -574,8 +588,15 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                                     $(".remittance-id").text($(this).parent().find('.txid').text());
                                     $(".bank-card-new").text($(this).parent().find('.acnumber').text());
                                     $(".bank-name-new").text($(this).parent().find('.bank').text());
-                                    $(".account-name-new").text($(this).parent().find('.name').text());
-                                    $(".money-new").text($(this).parent().find('.money').text()+'.00');                
+                                    //开户人姓名 
+                                    api_mkt.basic(function(data) {
+                                        if (data.status == 200) {
+                                            $("#bank-username").val(data.data.list.name);             
+                                        }
+                                    });
+                                    $(".account-name-new").text($("#bank-username").val());
+                                    //$(".account-name-new").text($(this).parent().find('.name').text());
+                                    $(".money-new").text('¥'+$(this).parent().find('.money').text()+'.00');                
                                     $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
                                     //关闭弹出层 -生成汇款单
                                     $(".span-text").click(function(){
@@ -600,10 +621,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     "bankName":$("#bank").val()     
                 }, function(data) {
                     if (data.status == 200) {
-                        console.log(data);
-
+                        //console.log(data);
                     } else {
-                        console.log('err');
+                        //console.log('err');
                     }
                 });         
             }
