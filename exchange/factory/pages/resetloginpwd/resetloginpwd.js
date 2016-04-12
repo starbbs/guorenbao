@@ -1,6 +1,10 @@
 require(['api_mkt', 'cookie'], function(api_mkt) {
     var exchangeToken = $.cookie('exchangeToken');
     var global_loginuserphone = $.cookie("global_loginuserphone");
+	var checkFlag1=false;//校验通过标志
+	var checkFlag2=false;//校验通过标志
+	var checkFlag3=false;//校验通过标志
+	var checkFlag4=false;//校验通过标志
     if (!exchangeToken) {
         $(".popDiv").show();
         $(".bg").show();
@@ -12,31 +16,32 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         // });
         $("#who_account").html(global_loginuserphone.substr(0, 3) + '****' + global_loginuserphone.substr(7, 4));
     }
-    var whether_sub = true;
-    var mobileflag = false;
+    
     $("#phone").on("blur", function() {
         if ($(this).val() == "") {
             $("#error_one").show().html("手机号不能为空");
-            mobileflag = false;
+            checkFlag1 = false;
             return;
         } else {
             var phone = $("#phone").val();
             var reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
             if (!reg.test(phone) || !phone) {
                 $('#error_one').show().text('请输入正确的手机号码');
-                mobileflag = false;
+                checkFlag1 = false;
             } else {
                 $('#error_one').hide();
-                mobileflag = true;
+                checkFlag1 = true;
             }
         }
     });
+    
     $("#identifyingCode").on("blur", function() {
         if ($(this).val() == "") {
             $("#error_two").show().html("验证码不能为空");
-            return;
+            checkFlag2=false;
         } else {
             $("#error_two").hide().html("");
+            checkFlag2=true;
         }
     });
 
@@ -47,16 +52,11 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
 		var pwd=$(this).val();
 		if(pwd.indexOf(" ")>0 || pwd.length<6 || pwd.length>20 || reg.test(pwd) || hanzi.test(pwd)){
 			 $("#error_three").show().html("请输入6~20位非纯数字字符");
-			 whether_sub=false;
+			 checkFlag3=false;
 	         return;
-		}
-        if ($(this).val() == "") {
-            $("#error_three").show().html("登录密码不能为空");
-            whether_sub=false;
-            return;
-        } else {
+		}else {
             $("#error_three").hide().html("");
-            whether_sub=true;
+            checkFlag3=true;
         }
     });
     $("#confirmNewPwd").on("blur", function() {
@@ -65,48 +65,21 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
 		var pwd=$(this).val();
 		if(pwd.indexOf(" ")>0 || pwd.length<6 || pwd.length>20 || reg.test(pwd) || hanzi.test(pwd)){
 			 $("#error_four").show().html("请输入6~20位非纯数字字符");
-			 whether_sub=false;
+			 checkFlag4=false;
 	         return;
-		}
-        if ($(this).val() == "") {
-            $("#error_four").show().html("确认密码不能为空");
-            whether_sub=false;
-            return;
-        }
-        if ($(this).val() !== "" && $(this).val() !== $("#newPwd").val()) {
+		}else if ($(this).val() !== "" && $(this).val() !== $("#newPwd").val()) {
             $("#error_four").show().html("两次密码不相同");
-            whether_sub=false;
+            checkFlag4=false;
             return;
         } else {
             $("#error_four").hide().html("");
-            whether_sub=true;
+            checkFlag4=true;
         }
     });
 
 
-    $(".next_step_btn").on("click", function() {
-        //$("#error_one,#error_two,#error_three,#error_four").hide().html("");
-        if ($("#phone").val() == "") {
-            $("#error_one").show().html("手机号不能为空");
-            whether_sub = false;
-            mobileflag = false;
-        } else {
-            var phone = $("#phone").val();
-            var reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
-            if (!reg.test(phone) || !phone) {
-                $('#error_one').show().text('请输入正确的手机号码');
-                whether_sub = false;
-                mobileflag = false;
-            } else {
-                $('#error_one').hide();
-                mobileflag = true;
-            }
-        }
-        if ($("#identifyingCode").val() == "") {
-            $("#error_two").show().html("验证码不能为空");
-            whether_sub = false;
-        }
-        if (whether_sub && mobileflag) {
+    $(".next_step_btn").on("click", function() {      
+        if (checkFlag1 && checkFlag2 && checkFlag3 && checkFlag4) {
             api_mkt.resetLoginPwd({
                 phone: $("#phone").val(),
                 identifyingCode: $("#identifyingCode").val(),
@@ -140,6 +113,18 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                     $("#error_four").show().html(data.msg);
                 }
             });
+        }else{
+        	$('#phone').focus();
+    		$('#phone').blur();
+    		
+    		$('#identifyingCode').focus();
+    		$('#identifyingCode').blur();
+    		
+    		$('#newPwd').focus();
+    		$('#newPwd').blur();
+    		
+    		$('#confirmNewPwd').focus();
+    		$('#confirmNewPwd').blur();
         }
     });
 

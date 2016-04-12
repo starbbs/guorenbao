@@ -1,6 +1,10 @@
 require(['api_mkt','cookie'], function(api_mkt) {
 	var exchangeToken = $.cookie('exchangeToken');
 	var global_loginuserphone = $.cookie("global_loginuserphone");
+	var checkFlag1=false;//校验通过标志
+	var checkFlag2=false;//校验通过标志
+	var checkFlag3=false;//校验通过标志
+	var checkFlag4=false;//校验通过标志
 	if (!exchangeToken) {
         $(".popDiv").show();
         $(".bg").show();
@@ -12,109 +16,60 @@ require(['api_mkt','cookie'], function(api_mkt) {
     	$("#currentPayPwd").on("blur",function(){
     		var reg = new RegExp("^[0-9]*$");//纯数字
     		var hanzi = /[\u4e00-\u9fa5]/;//汉字
-    		if($(this).val()==""){
-	   			$("#error_one").show().html("原支付密码不能为空");
-	   			return;
-	   		} else if($(this).val().indexOf(" ")>0 || $(this).val().length>20||$(this).val().length<8 || reg.test($(this).val()) || hanzi.test($(this).val())){
+    		if($(this).val().indexOf(" ")>0 || $(this).val().length>20||$(this).val().length<8 || reg.test($(this).val()) || hanzi.test($(this).val())){
 	   			$("#error_one").show().html("请输入8~20位原支付密码");
-	   			return;
+	   			checkFlag1= false;
 	   		} else {
 	   			$("#error_one").hide().html("");
+	   			checkFlag1= true;
 	   		}
-    	}).on("input",function(){
-    		if ($(this).val() !== "") {
-	            $("#error_one").hide().html("");
-	        } else {
-	            $("#error_one").show().html("原支付密码不能为空");
-	        }
     	});
+    	
     	$("#newPayPwd").on("blur",function(){
     		var reg = new RegExp("^[0-9]*$");//纯数字
     		var hanzi = /[\u4e00-\u9fa5]/;//汉字
-    		if($(this).val()==""){
-	   			$("#error_two").show().html("新支付密码不能为空");
-	   			return;
-	   		} else if($(this).val().indexOf(" ")>0 || $(this).val().length>20||$(this).val().length<8 || reg.test($(this).val()) || hanzi.test($(this).val())){
+    		if($(this).val().indexOf(" ")>0 || $(this).val().length>20||$(this).val().length<8 || reg.test($(this).val()) || hanzi.test($(this).val())){
 	   			$("#error_two").show().html("请输入8~20位新支付密码");
+	   			checkFlag2= false;
 	   			return;
 	   		}  else {
 	   			$("#error_two").hide().html("");
+	   			checkFlag2= true;
 	   		}
-	   		// if($(this).val()!==""&&$(this).val()!==$("#confirmPayPwd").val()){
-	   		// 	$("#error_two").show().html("两次密码不相同");
-	   		// 	return;
-	   		// } else {
-	   		// 	$("#error_two").hide().html("");
-	   		// 	$("#error_three").hide().html("");
-	   		// }
-    	}).on("input",function(){
-    		if ($(this).val() !== "") {
-	            $("#error_two").hide().html("");
-	        } else {
-	            $("#error_two").show().html("新支付密码不能为空");
-	        }
     	});
+    	
     	$("#confirmPayPwd").on("blur",function(){
     		var reg = new RegExp("^[0-9]*$");//纯数字
     		var hanzi = /[\u4e00-\u9fa5]/;//汉字
-    		if($(this).val()==""){
-	   			$("#error_three").show().html("确认密码不能为空");
-	   			return;
-	   		} else if($(this).val().indexOf(" ")>0 || $(this).val().length>20||$(this).val().length<8 || reg.test($(this).val()) || hanzi.test($(this).val())){
+    		if($(this).val().indexOf(" ")>0 || $(this).val().length>20||$(this).val().length<8 || reg.test($(this).val()) || hanzi.test($(this).val())){
 	   			$("#error_three").show().html("请再次输入新支付密码");
+	   			checkFlag3= false;
 	   			return;
 	   		}  else {
-	   			$("#error_two").hide().html("");
 	   			$("#error_three").hide().html("");
+	   			checkFlag3= true;
 	   		}
 	   		if($(this).val()!==""&&$("#newPayPwd").val()!=""&&$(this).val()!==$("#newPayPwd").val()){
 	   			$("#error_three").show().html("两次输入不一致");
-	   			return;
+	   			checkFlag3= false;
 	   		} else {
 	   			$("#error_three").hide().html("");
+	   			checkFlag3= true;
 	   		}
-    	}).on("input",function(){
-    		if ($(this).val() !== "") {
-	            $("#error_three").hide().html("");
-	        } else {
-	            $("#error_three").show().html("确认密码不能为空");
-	        }
     	});
+    	
     	$("#identifyingCode").on("blur",function(){
     		if($(this).val()==""){
 	   			$("#error_four").show().html("验证码不能为空");
-	   			return;
+	   			checkFlag4= false;
 	   		} else {
 	   			$("#error_four").hide().html("");
+	   			checkFlag4= true;
 	   		}
     	});
 
-    	var whether_sub_one = true;
 	    $(".next_step_btn_one").on("click",function(){
-	    	whether_sub_one = true;
-	    	$("#error_one,#error_two,#error_three,#error_four").hide().html("");
-	    	if($("#currentPayPwd").val()==""){
-	    		$("#error_one").show().html("原支付密码不能为空");
-	    		whether_sub_one = false;
-	    	}
-	    	if($("#newPayPwd").val()==""){
-	    		$("#error_two").show().html("新支付密码不能为空");
-	    		whether_sub_one = false;
-	    	}
-	    	if($("#confirmPayPwd").val()==""){
-	    		$("#error_three").show().html("确认密码不能为空");
-	    		whether_sub_one = false;
-	    	}
-
-	    	if($("#newPayPwd").val()!=""&&$("#confirmPayPwd").val()!=""&&$("#newPayPwd").val()!==$("#confirmPayPwd").val()){
-	    		$("#error_three").show().html("两次输入不一致");
-	    		whether_sub_one = false;
-	    	}
-	    	if($("#identifyingCode").val()==""){
-	    		$("#error_four").show().html("验证码不能为空");
-	    		whether_sub_one = false;
-	    	}
-	    	if(whether_sub_one){
+	    	if(checkFlag1 && checkFlag2 && checkFlag3 && checkFlag4){
 	    		api_mkt.setpaypwd({
 		            currentPayPwd: $("#currentPayPwd").val(),
 		            newPayPwd: $("#newPayPwd").val(),
@@ -146,6 +101,19 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		            	$("#error_three").show().html(data.msg);
 		            }
 		        });
+	    	}else{
+	    		
+	    		$('#currentPayPwd').focus();
+	    		$('#currentPayPwd').blur();
+	    		
+	    		$('#newPayPwd').focus();
+	    		$('#newPayPwd').blur();
+
+	    		$('#confirmPayPwd').focus();
+	    		$('#confirmPayPwd').blur();
+
+	    		$('#identifyingCode').focus();
+	    		$('#identifyingCode').blur();
 	    	}
 	    });
 	    
