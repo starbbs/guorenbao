@@ -542,7 +542,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     $(".account-name-new").text($("#bank-username").val());
                     $(".money-new").text('¥'+$("#bank-money").val()+'.00');                
                     $(".remittance-note-numbe-newr").text($('.pUid').val());
-                    $('.bankName').text($("#bank").val() + '网银');
+                    $('.bankName').text($("#bank").val());
                 });    
                 
                 //关闭弹出层 -生成汇款单

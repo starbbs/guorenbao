@@ -127,7 +127,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     cache: false,
                     success: function(data) {
                         //所属银行自动添加
-                        
                         if(data.data.bankName!='中国工商银行' && data.data.bankName!='中国建设银行' && data.data.bankName!='中国农业银行' 
                     		&& data.data.bankName!='中国交通银行' && data.data.bankName!='中国邮政储蓄银行'  && data.data.bankName!='招商银行' ){
                         	$("#bank").val('暂不支持('+data.data.bankName+')');
@@ -139,18 +138,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         alert("提交失败");
                     }
                 });
-
-                /*api_mkt.checkBankCard({          
-                        'bankCard':$("#bank-idcard").val()     
-                    }, function(data) {
-                        if (data.status == 200) {
-                            console.log(data.bankName);
-                            //所属银行自动添加
-                            $("#bank").val(data.data.bankName);
-                        } else {
-                            alert('银行卡号有误'); 
-                        }
-                });*/
             }
         });
 
