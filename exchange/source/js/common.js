@@ -310,7 +310,8 @@
         }, function(data) {
             if (data.status == 200) {
                 //alert(data.msg);
-                alert("成功退出");
+                //alert("成功退出");
+                console.log("success logout")
                 window.location.href="index.html";
             } else if (data.status == 305) {
                 alert(data.msg);
