@@ -335,7 +335,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 $.cookie('bankUserName',b);
                 $.cookie('bankName',c);
             });
-
+            
+            $("#bank-idcard").keyup(function(){
+                $(this).val($(this).val().replace(/[^0-9$]/g,''));
+            });
+            
             //人民币提现申请 弹出层        
             $(".Withdrawalsbtn").click(function(){
                 if(flag == false){
@@ -519,7 +523,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 api_mkt.userbasic(function(data){
                     if(data.data){
                         if(data.data.list){
-                            $("#phone").val(data.data.list.mobile);
+                        	var phone=data.data.list.mobile;
+                            $("#phone").val(phone.substring(0,3)+"****"+phone.substring(7,11));
+                            $("#phone").attr("data-phone",data.data.list.mobile);
                             $('.pUid').val(data.data.list.uid);
                         }
                     }
@@ -531,7 +537,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 
         //生成汇款单里的填充文本        
         $(".build-remit-layer").click(function(){
-            if(btnConfirm == false || typeof(btnConfirm) == 'undefined'){
+            if(btnConfirm == false || typeof(btnConfirm) == 'undefined' || !$("#bank").val()){
                 alert('请完成填写相关信息！');
             }else{
                 //打开弹出层-生成汇款单 
@@ -623,7 +629,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 api_mkt.rmbRecharge({          
                     'bankId':$('#bank-idcard').val(),
                     'rechargeMoney':$('#bank-money').val(),
-                    'phone':$('#phone').val(),
+                    'phone':$('#phone').val().indexOf("*")>0?$('#phone').attr("data-phone"):$('#phone').val(),
                     "bankName":$("#bank").val()     
                 }, function(data) {
                     if (data.status == 200) {
