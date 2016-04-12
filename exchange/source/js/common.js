@@ -18,21 +18,16 @@
         var exchangeToken = $.cookie('exchangeToken');
         var ff = $(this).html();
         if (!exchangeToken) {
-            //alert("没有token")
             $(".popDiv").show();
             $(".bg").show();
             if(ff=="首页"){
                 $.cookie("loginfromwhichpage","one");
-                console.log("loginfromwhichpage"+"one");
             } else if(ff=="交易大厅"){
                 $.cookie("loginfromwhichpage","two");
-                console.log("loginfromwhichpage"+"two");
             } else if(ff=="财务中心"){
                 $.cookie("loginfromwhichpage","three");
-                console.log("loginfromwhichpage"+"three");
             } else if(ff=="我的账户"){
                 $.cookie("loginfromwhichpage","four");
-                console.log("loginfromwhichpage"+"four");
             }
         } else {
             //alert("有tokne");

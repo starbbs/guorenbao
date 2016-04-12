@@ -54,36 +54,37 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         }
 
         if (whether_sub_one) {
-        if (checkFlag1 && checkFlag2) {
-            api_mkt.resetpaypwdbefore({
-                idNumber: $("#idNumber").val(),
-                identifyingCode: $("#identifyingCode").val()
-            }, function(data) {
-                if (data.status == 200) {
-                    $(".rg_lf_label").hide();
-                    $(".two_rg_lf_label").show();
-                    $(".rg_rg_input").hide();
-                    $(".two_rg_rg_input").show();
-                } else if (data.status == 305) {
-                    alert(data.msg);
-                } else if (data.status == 400) {
-                    if (data.msg == "验证码错误") {
+            if (checkFlag1 && checkFlag2) {
+                api_mkt.resetpaypwdbefore({
+                    idNumber: $("#idNumber").val(),
+                    identifyingCode: $("#identifyingCode").val()
+                }, function(data) {
+                    if (data.status == 200) {
+                        $(".rg_lf_label").hide();
+                        $(".two_rg_lf_label").show();
+                        $(".rg_rg_input").hide();
+                        $(".two_rg_rg_input").show();
+                    } else if (data.status == 305) {
+                        alert(data.msg);
+                    } else if (data.status == 400) {
+                        if (data.msg == "验证码错误") {
+                            $(".one_span2").show().html(data.msg);
+                        } else if(data.msg=="未实名认证"){
+                            $(".one_span2").show().html(data.msg);
+                        } else if(data.msg=="身份证号输入错误"){
+                            $(".one_span1").show().html("身份信息有误，请重新输入");
+                        }
+                    } else {
                         $(".one_span2").show().html(data.msg);
-                    } else if(data.msg=="未实名认证"){
-                        $(".one_span2").show().html(data.msg);
-                    } else if(data.msg=="身份证号输入错误"){
-                        $(".one_span1").show().html("身份信息有误，请重新输入");
                     }
-                } else {
-                    $(".one_span2").show().html(data.msg);
-                }
-            });
-        }else{
-        	$('#idNumber').focus();
-    		$('#idNumber').blur();
-    		
-    		$('#identifyingCode').focus();
-    		$('#identifyingCode').blur();
+                });
+            }else{
+            	$('#idNumber').focus();
+        		$('#idNumber').blur();
+        		
+        		$('#identifyingCode').focus();
+        		$('#identifyingCode').blur();
+            }
         }
     });
 
