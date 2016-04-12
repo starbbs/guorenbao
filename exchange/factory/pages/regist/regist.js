@@ -204,7 +204,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 					$(".two").css('display','none');			
 				}else{
 	            	$('.twoStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
-	            	alert('输入支付密码格式不正确');
+	            	alert(data.msg);
 	            }
 			});
 		}	
