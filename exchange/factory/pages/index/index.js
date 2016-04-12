@@ -90,7 +90,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         if(global_loginusername!=""&&global_loginusername){
             $("#logined_username").html(global_loginusername);
         } else {
-            $("#logined_username").html(global_loginuserphone);
+            $("#logined_username").html(global_loginuserphone.substr(0,3)+'****'+global_loginuserphone.substr(7,4));
         }
         $("#uidval").html(global_loginuseruid);
         if(global_loginusername){
@@ -396,6 +396,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     global_loginuserphone = data.data.phone;
                     global_loginusername = data.data.name;
                     global_loginuseruid = data.data.uid;
+
+                    global_loginusername = global_loginusername==undefined ?"":global_loginusername;
+
                     $.cookie("global_loginuserphone",global_loginuserphone,{"expires":"h0.5"},"guorenmarket");
                     $.cookie("global_loginusername",global_loginusername,{"expires":"h0.5"},"guorenmarket");
                     $.cookie("global_loginuseruid",global_loginuseruid,{"expires":"h0.5"},"guorenmarket");

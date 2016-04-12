@@ -268,7 +268,28 @@ table {
     cursor: pointer;
     text-decoration: none;
     text-align:right;
+    outline:0;
 }
+.feature:active {
+    color:#ffffff;
+    text-decoration:none;
+}
+
+::selection {
+    background:#ffffff; 
+    color:#0bbeee;
+}
+
+::-moz-selection {
+    background:#ffffff; 
+    color:#0bbeee;
+}
+
+::-webkit-selection {
+    background:#ffffff; 
+    color:#0bbeee;
+}
+
 
 .index_on {
     color: #0bbeee;

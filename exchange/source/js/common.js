@@ -198,10 +198,11 @@
                     console.log(global_loginuserphone);
                     console.log(global_loginusername);
 
+                    global_loginusername = global_loginusername==undefined ?"":global_loginusername;
+
 	                $.cookie("global_loginuserphone",global_loginuserphone,{"expires":"h0.5"},"guorenmarket");
 	                $.cookie("global_loginusername",global_loginusername,{"expires":"h0.5"},"guorenmarket");
 	                $.cookie("global_loginuseruid",global_loginuseruid,{"expires":"h0.5"},"guorenmarket");
-                    console.log("asdf")
                     synchronous();
                     setInterval(synchronous, 60000);
 
@@ -312,7 +313,7 @@
                 //alert(data.msg);
                 //alert("成功退出");
                 console.log("success logout")
-                window.location.href="index.html";
+                window.location.href="./index.html";
             } else if (data.status == 305) {
                 alert(data.msg);
             } else {
