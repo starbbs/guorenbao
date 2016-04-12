@@ -78,7 +78,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		//var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
 		var reg = new RegExp("^[0-9]*$");//纯数字
 		var hanzi = /[\u4e00-\u9fa5]/;//汉字
-		if(pwd.length<6 || pwd.length>20 || reg.test(pwd) || hanzi.test(pwd)){
+		if(pwd.indexOf(" ")>0 || pwd.length<6 || pwd.length>20 || reg.test(pwd) || hanzi.test(pwd)){
 			btnPwd = false;
 			$('.msg-pwd').text('密码格式：6~20位非纯数字字符');
 		}else{
@@ -155,8 +155,10 @@ require(['api_mkt','cookie'], function(api_mkt) {
     var btnPayPwd = false;
 	$('.payPwd').blur(function(){
 		var payPwd = $.trim($(".payPwd").val());
-		var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
-		if(!reg.test(payPwd)){
+		//var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
+		var reg = new RegExp("^[0-9]*$");//纯数字
+		var hanzi = /[\u4e00-\u9fa5]/;//汉字
+		if(payPwd.indexOf(" ")>0 || payPwd.length<8 || payPwd.length>20 || reg.test(payPwd) || hanzi.test(payPwd)){
 			btnPayPwd = false;
 			$('.msg-payPwd').show().text('8~20位非纯数字字符');
 		}else{
@@ -235,13 +237,14 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	//接口4 注册第三步 设置实名验证
 	$('.threeStep').click(function(){
 		if(btnConfirm == false){
-			alert('您填写的姓名或身份证号不正确，请重新输入。');
+			$('.msg-personId').show().text('您填写的姓名与身份证号不匹配。');
 		}else{
 			api_mkt.realNameAuth({			
 		   		'realName':$('.personName').val(),
 			   	'idNumber':$('.personId').val()	   
 			}, function(data) {
 				if (data.status == 200) {
+					$('.msg-personId').hide();
 					//进入注册完成页
 					$(".four").css('display','flex');
 					$(".three").css('display','none');
@@ -262,9 +265,11 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			  //           }
 			  //       });
 					toIndex();
-				} else if(data.status == 400){
+				} else if(data.status == 304){
 					$('.threeStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
-					alert('您填写的姓名或身份证号不正确，请重新输入。');
+					$('.msg-personId').show().text('您填写的姓名或身份证号不正确，请重新输入。');
+				}else{
+					$('.msg-personId').show().text(data.msg);
 				}
 			});
 		}

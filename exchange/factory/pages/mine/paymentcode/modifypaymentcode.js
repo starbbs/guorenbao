@@ -15,7 +15,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
     		if($(this).val()==""){
 	   			$("#error_one").show().html("原支付密码不能为空");
 	   			return;
-	   		} else if($(this).val().length>20||$(this).val().length<8 || reg.test($(this).val()) || hanzi.test($(this).val())){
+	   		} else if($(this).val().indexOf(" ")>0 || $(this).val().length>20||$(this).val().length<8 || reg.test($(this).val()) || hanzi.test($(this).val())){
 	   			$("#error_one").show().html("请输入8~20位原支付密码");
 	   			return;
 	   		} else {
@@ -34,7 +34,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
     		if($(this).val()==""){
 	   			$("#error_two").show().html("新支付密码不能为空");
 	   			return;
-	   		} else if($(this).val().length>20||$(this).val().length<8 || reg.test($(this).val()) || hanzi.test($(this).val())){
+	   		} else if($(this).val().indexOf(" ")>0 || $(this).val().length>20||$(this).val().length<8 || reg.test($(this).val()) || hanzi.test($(this).val())){
 	   			$("#error_two").show().html("请输入8~20位新支付密码");
 	   			return;
 	   		}  else {
@@ -60,7 +60,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
     		if($(this).val()==""){
 	   			$("#error_three").show().html("确认密码不能为空");
 	   			return;
-	   		} else if($(this).val().length>20||$(this).val().length<8 || reg.test($(this).val()) || hanzi.test($(this).val())){
+	   		} else if($(this).val().indexOf(" ")>0 || $(this).val().length>20||$(this).val().length<8 || reg.test($(this).val()) || hanzi.test($(this).val())){
 	   			$("#error_three").show().html("请再次输入新支付密码");
 	   			return;
 	   		}  else {

@@ -120,14 +120,13 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 $.ajax({
                     type: "POST",
                     dataType: "json",
-                    url: "http://116.213.142.89:8080/common/checkBankCard",
+                    url: api_mkt.basePath2,
                     data: JSON.stringify({
                         'bankCard':$("#bank-idcard").val()
                     }),
                     cache: false,
                     success: function(data) {
                         //所属银行自动添加
-                        
                         if(data.data.bankName!='中国工商银行' && data.data.bankName!='中国建设银行' && data.data.bankName!='中国农业银行' 
                     		&& data.data.bankName!='中国交通银行' && data.data.bankName!='中国邮政储蓄银行'  && data.data.bankName!='招商银行' ){
                         	$("#bank").val('暂不支持('+data.data.bankName+')');
@@ -139,18 +138,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         alert("提交失败");
                     }
                 });
-
-                /*api_mkt.checkBankCard({          
-                        'bankCard':$("#bank-idcard").val()     
-                    }, function(data) {
-                        if (data.status == 200) {
-                            console.log(data.bankName);
-                            //所属银行自动添加
-                            $("#bank").val(data.data.bankName);
-                        } else {
-                            alert('银行卡号有误'); 
-                        }
-                });*/
             }
         });
 
@@ -236,7 +223,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             	//中国工商银行，中国建设银行，中国农业银行，中国交通银行，中国邮政储蓄银行，招商银行
             	if($('#bank').val()!='中国工商银行' && $('#bank').val()!='中国建设银行' && $('#bank').val()!='中国农业银行' 
             		&& $('#bank').val()!='中国交通银行' && $('#bank').val()!='中国邮政储蓄银行'  && $('#bank').val()!='招商银行' ){
-            		alert('暂不支持此银行');
+            		$('.msg-bank').show().text('暂不支持此银行');
             		return false;
             	}
                 var auth_name = $.cookie("global_loginusername");
@@ -250,50 +237,14 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     'payPwd':$('#pay-pwd').val(),
                     'identifyingCode':$('#sendCodeByLoginAfter').val()
                 }, function(data) {
-                    if (data.status == 200) {                     
-                       /* $('.two').css('display','none');
-                        $('.three').css('display','block');
-
-                        var Node = $('<div class="bankIdCard addBankCard three"></div>');
-                        var Node1 = '<section class="bankIdCard-bankLogoName bankName"></section>'+
-                          '<section class="bankIdCard-Code"></section>'  +                    
-                          '<section class="bankIdCard-CardAndBg">储蓄卡</section>'+
-                          '<section class="bankIdCard-hr"></section>'+
-                          '<section class="bankIdCard-Name"></section>'+
-                          '<section class="bankIdCard-del">删除</section>'+
-                          '<‘section class="bankIdCard-address"></section>' ; 
-                        Node.html(Node1);                        
-
-                        //填写表单-生成银行卡 
-                        $('.bankName').text(''); //添加对应银行的logo图片
-                        var bankAccount = $('#bank-idcard').val();
-                        $('.bankIdCard-Code').text('尾号:'+bankAccount.substr(bankAccount.length-4));
-                        $('.bankIdCard-Name').text('持卡人姓名：'+auth_name);
-                        var bankProvince = $('.select-area').find('option:selected').text();
-                        var bankCity = $('.select-city').find('option:selected').text();
-                        var subbank = $('#subbank').val();
-                        $('.bankIdCard-address').html(bankProvince+bankCity+subbank);
-
-                        //判断显示银行logo
-                        var bankName = $('#bank').val();
-                        if(bankName == '中国工商银行'){
-                            $('.bankName').addClass('ICBC');
-                        }else if(bankName == '中国建设银行'){
-                            $('.bankName').addClass('CBC');
-                        }else if(bankName == '交通银行'){
-                            $('.bankName').addClass('BC');
-                        }else if(bankName == '招商银行'){
-                            $('.bankName').addClass('CMB');
-                        }else if(bankName == '中国邮政储蓄银行'){
-                            $('.bankName').addClass('PSBC');
-                        }else if(bankName == '中国农业银行'){
-                            $('.bankName').addClass('ABC');
-                        }  */  
+                    if (data.status == 200) {  
                     	window.location.reload();
                     } else if(data.msg == '验证码错误'){
                         alert('验证码错误');
                     } else if(data.msg == '服务器异常'){
                         alert('服务器异常');
+                    } else if(data.msg == '提现银行卡账户名必须与您的实名认证姓名一致'){
+                        alert('提现银行卡账户名必须与您的实名认证姓名一致');
                     }              
                 });
                 

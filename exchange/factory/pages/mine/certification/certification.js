@@ -48,7 +48,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			    	$('#identificode_value').text(numId);
 		        	$(".msg-realAuthId").hide().text("");  
 		        }else{
-		        	$(".msg-realAuthId").show().text("果仁市场认证服务仅向18周岁及以上年龄用户开放");
+		        	$(".msg-realAuthId").show().text(data.msg);
 		        }
 			});
 		}
