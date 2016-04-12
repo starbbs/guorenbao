@@ -31,6 +31,23 @@ require(['api_mkt','cookie'], function(api_mkt) {
                     // console.log(data.data.list.name);
                     // console.log(data.data.list.mobile);
                     // console.log(data.data.list.uid);
+                    
+                    api_mkt.realAuth({
+                    }, function(data) {
+                        if (data.status == 200) {
+                            if(data.data.list.name&&data.data.list.name!=""){
+                                var num = data.data.list.idNumber;
+                                var numId = num.replace(num.slice(1,17),'****************');
+                                $(".verticle_line_id").html(numId);
+                            } else {
+                                $(".unautherized").show();
+                            }
+                        } else if (data.status == 305) {
+                        } else if(data.status == 400){
+                        } else {
+                        }
+                    });
+
                     if(data.data.list.name!=""){
                         $("#realname").html(data.data.list.name);
                     } else {

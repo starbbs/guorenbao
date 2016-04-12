@@ -13,7 +13,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     var mine_three = $.cookie("mine_three");
     var mine_four = $.cookie("mine_four");
 
-
+    //$.cookie("asdf","haha",{"expires":"h0.5"},"guorenmarket");
     api_mkt.totalAssets(function(data) {
         if (data.status == 200) {
             var totalAssets = data.data.cnyBalance + data.data.cnyLock;
@@ -109,7 +109,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         $(".popDiv").hide();
         $(".bg").hide();
         synchronous();
-        setInterval(synchronous, 300000);
+        setInterval(synchronous, 60000);
     }
     $(".bg").width($(document).width());
     $('.bg').height($(document).height());
@@ -394,9 +394,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             }, function(data) {
                 if (data.status == 200) {
                     $.cookie("loginfromwhichpage","");
-
-                    
-                    $.cookie('exchangeToken', 'logined');
+                    $.cookie('exchangeToken', 'logined',{"expires":"h0.5"},"guorenmarket");
                     $(".login_regist").hide();
                     $(".login_header").show();
                     $(".popDiv").hide();
@@ -404,12 +402,12 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     global_loginuserphone = data.data.phone;
                     global_loginusername = data.data.name;
                     global_loginuseruid = data.data.uid;
-                    $.cookie("global_loginuserphone",global_loginuserphone);
-                    $.cookie("global_loginusername",global_loginusername);
-                    $.cookie("global_loginuseruid",global_loginuseruid);
+                    $.cookie("global_loginuserphone",global_loginuserphone,{"expires":"h0.5"},"guorenmarket");
+                    $.cookie("global_loginusername",global_loginusername,{"expires":"h0.5"},"guorenmarket");
+                    $.cookie("global_loginuseruid",global_loginuseruid,{"expires":"h0.5"},"guorenmarket");
 
                     synchronous();
-                    setInterval(synchronous, 300000);
+                    setInterval(synchronous, 60000);
 
                     $("#logined_username").html(data.data.phone.substr(0,3)+'****'+data.data.phone.substr(7,4));
                     $(".top_em").html(data.data.phone.substr(0,3)+'****'+data.data.phone.substr(7,4));

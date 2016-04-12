@@ -12,9 +12,8 @@ require(['api_mkt_management'],function(api_mkt_management){
                 'id':'',
                 'uid':'',
                 'phone':'',
-                'optType':'OUT',
+                'optType':'IN',
                 'address':'',
-                'optType':'',
                 'status':'',
                 'pageNo':now,
                 'pageSize':10

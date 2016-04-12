@@ -34,7 +34,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
             $("#itemContainer").append(messagehtml);
             $("div.holder").jPages({
                 containerID: "itemContainer",
-                perPage: 2,
+                perPage: 10,
                 startPage: 1,
                 startRange: 1,
                 midRange: 5,

@@ -336,7 +336,7 @@
     top: 18px;
     font-size: 2.0rem;
     position: relative;
-    color: #333333;
+    /* color: #333333; */
     font-weight: 600;
 }
 
@@ -738,7 +738,7 @@
 }
 
 .quoted_price_first div:nth-child(2){
-    color:#dd0900;
+    /* color:#dd0900; */
 }
 .fivth {
     width: 200px;
@@ -1214,8 +1214,10 @@
 .withdraw {
     background-color: #0bbeee;
 }
-
-.quoted_price_first i{
+.new_color{
+    color:#dd0900;
+}
+.quoted_price_firsti{
         background: url('../images/floor_arrow_rise.png') no-repeat 0 0;
     width: 10px;
     background-size: 100% 100%;

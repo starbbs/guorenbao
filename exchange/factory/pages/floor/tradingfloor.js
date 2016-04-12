@@ -38,7 +38,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 var totalAssets = data.data.cnyBalance + data.data.cnyLock;
                 var totalNuts = data.data.gopBalance + data.data.gopLock;
                 var totalvalue = totalNuts*$('#thelatestprice').html()+totalAssets;
-                $('.iallshow').html(totalvalue);//总资产
+                $('.iallshow').html(totalvalue.toFixed(2));//总资产
                 $(".ioneshow").html(cnyBalance);
                 $(".itwoshow").html(gopBalance);
                 $(".ithreeshow").html(cnyLock);
