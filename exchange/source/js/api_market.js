@@ -3,6 +3,7 @@ define('api_mkt', ['cookie'], function() {
     var basePath = 'http://10.23.1.155/';
     var basePath = './';
     var api = {};
+    api.basePath2 = 'http://116.213.142.89:8080/common/checkBankCard';
     var goIndex = function(useURL) { //返回首页
         if (useURL) {}
         if (window.location.href.indexOf('/index.html') === -1) {

@@ -451,6 +451,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         });
         //银行账号校验
         $("#bank-idcard").blur(function(){
+            //console.log(api_mkt.basePath2);
             var bankIdcard = $("#bank-idcard").val();
             var reg = /^(\d{16}|\d{19})$/;
             if(!bankIdcard || !reg.exec(bankIdcard)){
@@ -463,7 +464,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 $.ajax({
                     type: "POST",
                     dataType: "json",
-                    url: "http://116.213.142.89:8080/common/checkBankCard",
+                    url: api_mkt.basePath2,
                     data: JSON.stringify({
                         'bankCard':$("#bank-idcard").val()
                     }),

@@ -120,7 +120,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 $.ajax({
                     type: "POST",
                     dataType: "json",
-                    url: "http://116.213.142.89:8080/common/checkBankCard",
+                    url: api_mkt.basePath2,
                     data: JSON.stringify({
                         'bankCard':$("#bank-idcard").val()
                     }),
