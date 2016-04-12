@@ -194,10 +194,11 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		   		'comfirmPayPwd':$('.payConfirmPwd').val()	   
 			}, function(data) {
 				if (data.status == 200) {
+					$('.msg-payConfirmPwd').hide();
 					$(".three").css('display','flex');
 					$(".two").css('display','none');			
 				}else{
-	            	//alert('输入支付密码格式不正确');
+	            	$('.msg-payConfirmPwd').show().text(data.msg);
 	            }
 			});
 		}	
