@@ -707,6 +707,15 @@ a {
     /*color:#0bbeee;*/
     color:#fff;
 }
+.mydiv1 .span-text1{
+    width:40px;
+    height:40px;
+    line-height: 40px;
+    float: right;
+    cursor: pointer;
+    /*color:#0bbeee;*/
+    color:#0bbeee;
+}
 .phonePos input{
     position: absolute;
     left:252px;
