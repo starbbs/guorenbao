@@ -1589,5 +1589,6 @@ a {
     left:114px;
 }
 
-
-
+.ui-slider-handle,.ui-state-default,.ui-corner-all{
+    z-index:0;
+}

@@ -89,6 +89,45 @@
         }
         return reg.test(inputData) ? reg.test(inputData) : varMes;
     };
+
+    $(".center_content").on("click",function(){
+        if(!exchangeToken){
+            $(".bg").show();
+            $(".login_regist").show();
+            $(".popDiv").show();
+            $(".afterlogin").hide();
+            // return;
+        } else {
+            $(".bg").hide();
+            $(".login_regist").hide();
+            $(".popDiv").hide();
+            $(".afterlogin").hide();
+        }
+    });
+
+    $(".ls_tab").on("click",function(){
+        if(!exchangeToken){
+            $(".bg").show();
+            $(".login_regist").show();
+            $(".popDiv").show();
+            $(".afterlogin").hide();
+            // return;
+            if($(this).text()=="基本信息"){
+
+            } else if($(this).text()=="实名认证"){
+
+            } else if($(this).text()=="系统消息"){
+                
+            }
+        } else {
+            $(".bg").hide();
+            $(".login_regist").hide();
+            $(".popDiv").hide();
+            $(".afterlogin").hide();
+        }
+
+    });
+
     if (!exchangeToken) {
     	$(".login_regist").show();
     	$(".loginarea").show();
@@ -145,7 +184,7 @@
                 code:authcode_common
 	        }, function(data) {
 	            if (data.status == 200) {
-	                $.cookie('exchangeToken', 'logined',{"expires":"h0.5"},"guorenmarket");
+	                $.cookie('exchangeToken', 'logined',{"expires":"s120"},"guorenmarket");
 	                $(".login_regist").hide();
 	                $(".login_header").show();
 	                $(".popDiv").hide();
@@ -159,9 +198,9 @@
                     console.log(global_loginuserphone);
                     console.log(global_loginusername);
 
-	                $.cookie("global_loginuserphone",global_loginuserphone,{"expires":"h0.5"},"guorenmarket");
-	                $.cookie("global_loginusername",global_loginusername,{"expires":"h0.5"},"guorenmarket");
-	                $.cookie("global_loginuseruid",global_loginuseruid,{"expires":"h0.5"},"guorenmarket");
+	                $.cookie("global_loginuserphone",global_loginuserphone,{"expires":"s120"},"guorenmarket");
+	                $.cookie("global_loginusername",global_loginusername,{"expires":"s120"},"guorenmarket");
+	                $.cookie("global_loginuseruid",global_loginuseruid,{"expires":"s120"},"guorenmarket");
                     console.log("asdf")
                     synchronous();
                     setInterval(synchronous, 60000);
