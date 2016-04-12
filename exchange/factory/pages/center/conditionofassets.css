@@ -370,7 +370,7 @@
     position: absolute;
     left: 300px;
 }
-.usable_cny div:nth-child(4) a{
+.btnA{
     display: inline-block;
     border: 1px solid #cccccc;
     height: 28px;
@@ -379,17 +379,14 @@
     width: 56px;
     text-align: center;
     border-radius: 3px;
+    margin-right:10px;
 }
+    
 .usable_cny div:nth-child(4){
     display: inline;
     top: 22px;
     position: absolute;
     right: 230px;
-}
-.usable_cny div:nth-child(4) a{
-    text-decoration:none;
-    color:#333333;
-    margin-right:25px;
 }
 .bigsize{
     font-size:1.8rem;
@@ -416,11 +413,6 @@
     top: 28px;
     position: absolute;
     right: 230px;
-}
-.usable_nutlet div:nth-child(4) a{
-    text-decoration:none;
-    color:#333333;
-    margin-right:20px;
 }
 .usable_cny img{
     margin: 22px 0px 22px 30px;
