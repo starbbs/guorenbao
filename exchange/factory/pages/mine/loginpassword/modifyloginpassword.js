@@ -33,7 +33,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         if ($(this).val() == "") {
             $("#two_span").show().html("新登录密码不能为空");
             return;
-   		} else if($(this).val().length>20||$(this).val().length<6 || reg.test($(this).val()) || hanzi.test($(this).val())){
+   		} else if($(this).val().indexOf(" ")>0 || $(this).val().length>20||$(this).val().length<6 || reg.test($(this).val()) || hanzi.test($(this).val())){
             $("#two_span").show().html("请输入6~20位非纯数字字符");
             return;
         }
@@ -67,7 +67,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         if ($(this).val() == "") {
             $("#three_span").show().html("确认密码不能为空");
             return;
-   		} else if($(this).val().length>20||$(this).val().length<6 || reg.test($(this).val()) || hanzi.test($(this).val())){
+   		} else if($(this).val().indexOf(" ")>0 || $(this).val().length>20||$(this).val().length<6 || reg.test($(this).val()) || hanzi.test($(this).val())){
             $("#three_span").show().html("请输入6~20位非纯数字字符");
             return;
         } else {
