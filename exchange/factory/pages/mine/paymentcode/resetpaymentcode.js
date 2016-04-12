@@ -77,40 +77,58 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
 
     var whether_sub_two = false;
     $("#password").on("blur", function() {
-        if ($(this).val() == "") {
-            $(".one_span1").show().html("支付密码不能为空");
+    	var reg = new RegExp("^[0-9]*$");//纯数字
+		var hanzi = /[\u4e00-\u9fa5]/;//汉字
+		var pwd=$(this).val();
+		if(pwd.indexOf(" ")>0 || pwd.length<8 || pwd.length>20 || reg.test(pwd) || hanzi.test(pwd)){
+			$(".tow_span1").show().html("请输入 8~20位非纯数字字符");
+			whether_sub_two = false;
+            return;
+		}else if ($(this).val() == "") {
+            $(".tow_span1").show().html("支付密码不能为空");
             whether_sub_two = false;
             return;
         } else {
-            $(".one_span1").hide().html("");
+            $(".tow_span1").hide().html("");
             whether_sub_two = true;
         }
     });
     $("#confirmPwd").on("blur", function() {
-        if ($(this).val() == "") {
+    	var reg = new RegExp("^[0-9]*$");//纯数字
+		var hanzi = /[\u4e00-\u9fa5]/;//汉字
+		var pwd=$(this).val();
+		if(pwd.indexOf(" ")>0 || pwd.length<8 || pwd.length>20 || reg.test(pwd) || hanzi.test(pwd)){
+			$(".tow_span2").show().html("请输入 8~20位非纯数字字符");
+			whether_sub_two = false;
+            return;
+		}else if ($(this).val() == "") {
             $(".tow_span2").show().html("确认密码不能为空");
             whether_sub_two = false;
             return;
-        } else {
+        }else if ($(this).val() != $("#password").val()) {
+            $(".tow_span2").show().html("两次密码输入不一致");
+            whether_sub_two = false;
+            return;
+        }else {
             $(".tow_span2").hide().html("");
             whether_sub_two = true;
         }
     });
     $(".next_step_btn_two").on("click", function() {
-        if ($("#password").val() == "") {
-            $(".tow_span1").show().html("支付密码不能为空");
-            whether_sub_two = false;
-        } else {
-            $(".tow_span1").hide().html("");
-            whether_sub_two = true;
-        }
-        if ($("#confirmPwd").val() == "") {
-            $(".tow_span2").show().html("确认密码不能为空");
-            whether_sub_two = false;
-        } else {
-            $(".tow_span2").hide().html("");
-            whether_sub_two = true;
-        }
+//        if ($("#password").val() == "") {
+//            $(".tow_span1").show().html("支付密码不能为空");
+//            whether_sub_two = false;
+//        } else {
+//            $(".tow_span1").hide().html("");
+//            whether_sub_two = true;
+//        }
+//        if ($("#confirmPwd").val() == "") {
+//            $(".tow_span2").show().html("确认密码不能为空");
+//            whether_sub_two = false;
+//        } else {
+//            $(".tow_span2").hide().html("");
+//            whether_sub_two = true;
+//        }
         if (whether_sub_two) {
             api_mkt.resetPayPwd({
                 password: $("#password").val(),

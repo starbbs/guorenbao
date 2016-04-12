@@ -89,6 +89,45 @@
         }
         return reg.test(inputData) ? reg.test(inputData) : varMes;
     };
+
+    $(".center_content").on("click",function(){
+        if(!exchangeToken){
+            $(".bg").show();
+            $(".login_regist").show();
+            $(".popDiv").show();
+            $(".afterlogin").hide();
+            // return;
+        } else {
+            $(".bg").hide();
+            $(".login_regist").hide();
+            $(".popDiv").hide();
+            $(".afterlogin").hide();
+        }
+    });
+
+    $(".ls_tab").on("click",function(){
+        if(!exchangeToken){
+            $(".bg").show();
+            $(".login_regist").show();
+            $(".popDiv").show();
+            $(".afterlogin").hide();
+            // return;
+            if($(this).text()=="基本信息"){
+
+            } else if($(this).text()=="实名认证"){
+
+            } else if($(this).text()=="系统消息"){
+                
+            }
+        } else {
+            $(".bg").hide();
+            $(".login_regist").hide();
+            $(".popDiv").hide();
+            $(".afterlogin").hide();
+        }
+
+    });
+
     if (!exchangeToken) {
     	$(".login_regist").show();
     	$(".loginarea").show();
@@ -271,7 +310,8 @@
         }, function(data) {
             if (data.status == 200) {
                 //alert(data.msg);
-                alert("成功退出");
+                //alert("成功退出");
+                console.log("success logout")
                 window.location.href="index.html";
             } else if (data.status == 305) {
                 alert(data.msg);

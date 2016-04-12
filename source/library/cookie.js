@@ -55,7 +55,7 @@ define(function() {
                     time.setTime(time.getTime() + days);
                 }
             }
-            console.log("options.expires`````````" + typeof options.expires);
+            // console.log("options.expires`````````" + typeof options.expires);
             value = String(value);
             return (document.cookie = [
                 encodeURIComponent(key), '=',

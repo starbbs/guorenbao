@@ -456,6 +456,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     });
     $("#buyin_marketpricebtn").on("click",function(){
         //买入市价
+        $(".a1").hide();
+        $(".a2").hide();
+        $(".market_price_buying_btn").css("top","332px");
+
         $(".buyin_limitprices_section").hide();
         $(".buyin_marketprices_section").show();
         $(this).addClass("border_bottom_on");
@@ -470,6 +474,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     });
     $("#sale_marketpricebtn").on("click",function(){
         //卖出市价
+        $(".b1").hide();
+        $(".b2").hide();
         $(".sale_limitprices").hide();
         $(".sale_marketprices").show();
         $(this).addClass("border_bottom_on");

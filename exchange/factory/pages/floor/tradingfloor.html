@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,10 +17,10 @@
     <script type="text/javascript" src="./js/judge_login.js"></script>
     <script type="text/javascript" src="./js/tradingfloor.js"></script>
 </head>
+
 <body>
     <div class="wrapper">
-        @@include('../../includes/top/topbar.html')
-        @@include('../../includes/top/topnav.html',{"feature_on":"floor"})
+        @@include('../../includes/top/topbar.html') @@include('../../includes/top/topnav.html',{"feature_on":"floor"})
         <div class="quoted_price">
             <div class="quoted_price_top">
                 <div class="quoted_price_top_wrapper">
@@ -55,7 +56,7 @@
             </div>
             <div class="tabhover">
                 <div class="leftchart leftright_bottomon">
-                    分时图
+                    简易K线
                 </div>
                 <div class="rightchart">
                     深度图
@@ -166,7 +167,6 @@
                                         <input type="text" placeholder="¥:0.00" class="dotted_input one" readonly/>
                                     </div>
                                 </div>
-                                
                             </div>
                             <div class="buying_btn">买入</div>
                         </section>
@@ -176,20 +176,23 @@
                             </div>
                             <div class="form_wrapper">
                                 <div class="slider_container-pos1">
-                                    <div id="red1"></div> 
+                                    <div id="red1"></div>
                                     <p id="amount1">0%</p>
                                 </div>
                                 <div class="form_wrapper_leftdiv">
                                     <div>买入金额</div>
                                     <div>比例</div>
-                                    <div>交易额</div>
+                                    <div class="a1">交易额</div>
                                 </div>
                                 <div class="form_wrapper_rightdiv">
                                     <div>
-                                        <input class="marketBuy" type="number" placeholder="以市场最优价格买入" ></div>
+                                        <input class="marketBuy" type="number" placeholder="以市场最优价格买入">
+                                    </div>
                                     <div>
                                     </div>
-                                    <div><input type="text" placeholder="¥：0.00" class="jyeinput onePage" readonly></div>
+                                    <div class="a2">
+                                        <input type="text" placeholder="¥：0.00" class="jyeinput onePage" readonly>
+                                    </div>
                                 </div>
                                 <div class="market_price_buying_btn">买入</div>
                             </div>
@@ -234,18 +237,18 @@
                                         <label for="">比例</label>
                                     </div>
                                     <div class="slider_container">
-                                        <div id="green"></div> 
+                                        <div id="green"></div>
                                         <p id="amount2">0%</p>
                                     </div>
                                 </div>
-                                <div>
+                                <div class="">
                                     <div>
                                         <label for="">交易额</label>
                                     </div>
                                     <div>
                                         <input type="text" placeholder="¥：0.00" class="dotted_input two" readonly>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                             <div class="sale_btn">卖出</div>
                         </section>
@@ -255,19 +258,23 @@
                             </div>
                             <div class="form_wrapper">
                                 <div class="slider_container-pos">
-                                    <div id="green1"></div> 
+                                    <div id="green1"></div>
                                     <p id="amount3">0%</p>
                                 </div>
                                 <div class="form_wrapper_leftdiv">
                                     <div>卖出数量</div>
                                     <div>比例</div>
-                                    <div>交易额</div>
+                                    <div class="b1">交易额</div>
                                 </div>
                                 <div class="form_wrapper_rightdiv">
-                                    <div><input class="sellAmount" type="text" placeholder="以市场最优价格卖出"></div>
+                                    <div>
+                                        <input class="sellAmount" type="text" placeholder="以市场最优价格卖出">
+                                    </div>
                                     <div>
                                     </div>
-                                    <div><input type="text" placeholder="¥：0.00" class="jyeinput two" readonly></div>
+                                    <div class="b2">
+                                        <input type="text" placeholder="¥：0.00" class="jyeinput two" readonly>
+                                    </div>
                                 </div>
                                 <!-- <div class="market_price_buying_btn">卖出</div> -->
                             </div>
@@ -309,61 +316,61 @@
         </div>
         <!-- 表格 -->
         <center>
-        <div class="entrust-table-title">
-            <span>当前委托</span>
-            <span><a href="tradingfloor_new.html" class="tradingfloorMore">查看更多</a></span>
-        </div>
-        <div class="entrust-table">
-            <table class="aside-table" border="1" width="100%">
-                <thead class="aside-table-thead">
-                    <tr>
-                        <td>操作时间</td>
-                        <td>类型</td>
-                        <td>委托价格</td>
-                        <td>委托数量</td>
-                        <td>成交数量</td>
-                        <td>剩余数量</td>
-                        <td>操作</td>
-                    </tr>
-                </thead>
-                <tbody class="aside-table-tbody tradeGopCurrentListTable">
-                    <tr>
-                        <td colspan="7" class="no-record-td">
-                            <section class="no-record-picture">暂无记录</section>
-                        </td>
-                    </tr>
-                    <!-- 载入数据 -->
-                </tbody>
-            </table>
-        </div>
-        <div class="history-entrust-table-title">
-            <span>历史委托</span>
-            <span><a href="tradingfloor_new.html?whichtab='withdraw'" class="tradingfloorMore">查看更多</a></span>
-        </div>
-        <div class="entrust-table">
-            <table class="aside-table" border="1" width="100%">
-                <thead class="aside-table-thead">
-                    <tr>
-                        <td>操作时间</td>
-                        <td>类型</td>
-                        <td>委托价格</td>
-                        <td>委托数量</td>
-                        <td>平均成交价</td>
-                        <td>剩余数量</td>
-                        <td>成交额</td>
-                        <td>状态</td>
-                    </tr>
-                </thead>
-                <tbody class="aside-table-tbody tradeGopHistoryListTable">
-                    <tr>
-                        <td colspan="7" class="no-record-td">
-                            <section class="no-record-picture">暂无记录</section>
-                        </td>
-                    </tr>
+            <div class="entrust-table-title">
+                <span>当前委托</span>
+                <span><a href="tradingfloor_new.html" class="tradingfloorMore">查看更多</a></span>
+            </div>
+            <div class="entrust-table">
+                <table class="aside-table" border="1" width="100%">
+                    <thead class="aside-table-thead">
+                        <tr>
+                            <td>操作时间</td>
+                            <td>类型</td>
+                            <td>委托价格</td>
+                            <td>委托数量</td>
+                            <td>成交数量</td>
+                            <td>剩余数量</td>
+                            <td>操作</td>
+                        </tr>
+                    </thead>
+                    <tbody class="aside-table-tbody tradeGopCurrentListTable">
+                        <tr>
+                            <td colspan="7" class="no-record-td">
+                                <section class="no-record-picture">暂无记录</section>
+                            </td>
+                        </tr>
                         <!-- 载入数据 -->
-                </tbody>
-            </table>            
-        </div>
+                    </tbody>
+                </table>
+            </div>
+            <div class="history-entrust-table-title">
+                <span>历史委托</span>
+                <span><a href="tradingfloor_new.html?whichtab='withdraw'" class="tradingfloorMore">查看更多</a></span>
+            </div>
+            <div class="entrust-table">
+                <table class="aside-table" border="1" width="100%">
+                    <thead class="aside-table-thead">
+                        <tr>
+                            <td>操作时间</td>
+                            <td>类型</td>
+                            <td>委托价格</td>
+                            <td>委托数量</td>
+                            <td>平均成交价</td>
+                            <td>剩余数量</td>
+                            <td>成交额</td>
+                            <td>状态</td>
+                        </tr>
+                    </thead>
+                    <tbody class="aside-table-tbody tradeGopHistoryListTable">
+                        <tr>
+                            <td colspan="7" class="no-record-td">
+                                <section class="no-record-picture">暂无记录</section>
+                            </td>
+                        </tr>
+                        <!-- 载入数据 -->
+                    </tbody>
+                </table>
+            </div>
         </center>
     </div>
     <div id="floor_popDiv" class="popDiv" style="display:none;">
@@ -372,11 +379,11 @@
             <h3 class="h3_2" style="display:none">请确认是否撤单</h3>
             <img src="./images/close_btn.png" alt="" class="close_btn">
             <div class="sel_div">
-                <input type="password" placeholder="请输入支付密码" id="sel_div_password"/>
-                <input tyspe="text" id="hideSection" style="display:none"/>
-                <span class="payment_error"  style="display:none">支付密码错误</span>
+                <input type="password" placeholder="请输入支付密码" id="sel_div_password" />
+                <input tyspe="text" id="hideSection" style="display:none" />
+                <span class="payment_error" style="display:none">支付密码错误</span>
             </div>
-            <div class="sure_btn">确认</div>            
+            <div class="sure_btn">确认</div>
             <div class="sure_btn1 confirm" style="display:none">确认</div>
             <div class="sure_btn1 cancle" style="display:none">取消</div>
         </div>
@@ -389,4 +396,5 @@
     <script type="text/javascript" src="./js/highcharts-more.js"></script>
     <script type="text/javascript" src="./js/exporting.js"></script>
 </body>
+
 </html>
