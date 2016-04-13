@@ -669,7 +669,11 @@ a {
     color:orange; 
 }
 
-.mydiv p, .mydiv1 p{
+.mydiv p{
+    float:left;width:400px;margin-left: 68px;
+    margin-top:15px;
+}
+.mydiv1 p{
     float: left;
     width:100%;
     text-align: center;
@@ -684,7 +688,7 @@ a {
     width:400px;
     text-align: center;
     margin-top:20px;
-    margin-left:110px;
+    margin-left:93px;
 }
 
 .mydiv .span-btn, .mydiv1 .span-btn1{
@@ -818,4 +822,7 @@ a {
     top:20px;
     width:100px;
     height:30px;
+}
+.spanText1{
+    color:orange;display:block;float:left;width:350px;margin-left: 70px;margin-top: 25px;
 }

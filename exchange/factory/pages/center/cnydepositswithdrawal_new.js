@@ -84,7 +84,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $(".cnyOutput").append(html.join(""));
 
                         //过滤内容显示不同颜色
-                        $(".status").filter(":contains('WAIT')").text('等待');
+                        $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");
                         $(".status").filter(":contains('PROCESSING')").text('进行中').css("color","orange");
                         $(".status").filter(":contains('SUCCESS')").text('提现成功').css("color","#ccc");                     
                     }

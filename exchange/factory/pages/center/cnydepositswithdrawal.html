@@ -71,7 +71,7 @@
                             </div>
 
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入您想充值的整数金额" onKeyUp="this.value=this.value.replace(/\D/g,'')" id="bank-money" maxlength="6"/>
+                                <input class="regist_rg_input" type="text" placeholder="请输入您想充值的整数金额" onKeyUp="this.value=this.value.replace(/\D/g,'')" id="bank-money"/>
                                 <span class="msg-bank-money"></span>
                             </div>
                             <div class="regist_input_div">
@@ -184,6 +184,9 @@
                                 <td><label for="WithdrawalsPayPwd">支付密码</label></td>
                                 <td>
                                     <input class="regist_rg_input" type="password" placeholder="请输入支付密码" id="WithdrawalsPayPwd"/>
+                                    <div class="regist_rg_input bankcard">
+                                        <span class="msg msg-WithdrawalsPayPwd"></span>
+                                    </div> 
                                 </td>
                             </tr>
                             <tr>
@@ -245,7 +248,8 @@
                 <li>汇款备注编号</li>
                 <li class="remittance-note-numbe-newr">461235</li>
             </ul>
-            <p>请使用<span class="bankName">招商银行网银</span>对上述账户进行转账（或前往柜台进行汇款）</p>
+            <span class="spanText1">(为确保您及时到账，请务必在汇款时填写此汇款编号)</span>
+            <p style="margin-left:80px;">请使用<span class="bankName">招商银行网银</span>对上述账户进行转账（或前往柜台进行汇款）</p>
             <div>
                 <!-- <span class="span-btn">前往<span class="bankName">招商银行网银</span>进行汇款</span> -->
                 <span class="span-btn span-text">我知道了</span>

@@ -132,7 +132,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     cache: false,
                     success: function(data) {
                         if(data.msg = '无法识别此卡'){
-                             $('.msg-bank-idcard').show().text('您输入的银行账号有误，请重新输入');
+                            $('.msg-bank-idcard').show().text('您输入的银行账号有误，请重新输入');
                         }else{
                             $('.msg-bank-idcard').hide();
                         }
@@ -142,7 +142,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     		&& data.data.bankName!='交通银行' && data.data.bankName!='中国邮政储蓄银行'  && data.data.bankName!='招商银行' ){
                         	$("#bank").val('暂不支持('+data.data.bankName+')');
                             $('.msg-bank-idcard').hide();
-                    	}else{
+                    	}else if(data.data.cardType == 'CREDIT_CARD'){
+                            $('.msg-bank-idcard').show().text('仅支持储蓄卡提现');
+                        }else{
                             $("#bank").val(data.data.bankName);
                             $('.msg-bank-idcard').hide();
                         }
@@ -267,43 +269,64 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 
         //果仁提现地址备注-校验
         $('.msg-nut-name').show().html('<p style="color:#999;">果仁市场内互转即时极速到账</p>');
+        var btnNut1 = false;
         $('#nut-name').blur(function(){
             var name = $(this).val();
             if(!name){
-                btnConfirm = false;
+                btnNut1 = false;
                 $('.msg-nut-name').show().text('请输入地址备注');
             }else{
-                btnConfirm = true;
+                btnNut1 = true;
                 $('.msg-nut-name').show().html('<p style="color:#999;">地址备注完成：果仁市场内互转即时极速到账</p>');
             }
         });
         //果仁提现地址-校验
+        var btnNut2 = false;
         $('#nut-address').blur(function(){
             var address = $(this).val();
             if(!address){
-                btnConfirm = false;
+                btnNut2 = false;
                 $('.msg-nut-address').show().text('请输入正确地址');
             }else{
-                btnConfirm = true;
+                btnNut2 = true;
                 $('.msg-nut-address').hide();
             }
         });
         //校验支付宝密码
-        $('.nut-paypwd').blur(function(){
+        var btnNut3 = false;
+        $('#nut-paypwd').blur(function(){
             var nutPayPwd = $(this).val();
             if(!nutPayPwd){
-                btnConfirm = false;
-                $('.msg-nut-paypwd').show().text('请输入支付宝密码');
+                btnNut3 = false;
+                $('.msg-nut-paypwd').show().text('请输入支付密码');
             }else{
-                btnConfirm = true;
+                btnNut3 = true;
                 $('.msg-nut-paypwd').hide();
+            }
+        });
+        //验证码校验
+        var btnNut4 = false;
+        $('#nut-identifyingCode').blur(function(){
+            var pwd = $(this).val();            
+            if(!pwd || isNaN(pwd) || pwd.length !== 6){
+                $('.msg-code').text('请输入正确的验证码');
+                btnNut4 = false;
+            }else{
+                $('.msg-code').hide();
+                btnNut4 = true;
             }
         });
 
         //果仁提现地址管理添加
         $('.gopAddressManAdd, .del').click(function(){
-            if(btnConfirm == false || $('#nut-identifyingCode').val() ==''){
-                alert('请填写完整信息');
+            if(btnNut1 == false){
+                $('.msg-nut-name').show().text('请输入地址备注');
+            }else if(btnNut2 == false){
+                $('.msg-nut-address').show().text('请输入正确地址');
+            }else if(btnNut3 == false){
+                $('.msg-nut-paypwd').show().text('请输入正确的支付密码');
+            }else if(btnNut4 == false){
+                $('.msg-nut-identifyingCode').show().text('请输入正确的短信验证码');
             }else{
                 api_mkt.gopAddressManAdd({          
                     'name':$('#nut-name').val(),
@@ -338,11 +361,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             $('.nut-one').show();
                             $('.nut-two').hide();
                         }); 
-//                        window.location.href='withdraw.html?id=rmbtx';                        
-                        
-                    } else {
-                    	alert(data.msg);
-                    	console.log(data);
+                        window.location.href='withdraw.html?id=rmbtx'; 
+                    } else if(data.msg = '支付密码错误'){
+                    	$('.msg-nut-paypwd').show().text('请输入正确的支付密码');
+                    }else if(data.msg = '验证码错误'){
+                        $('.msg-nut-identifyingCode').show().text('请输入正确的短信验证码');
                     }
                 });
             }            

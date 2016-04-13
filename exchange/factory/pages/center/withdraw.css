@@ -735,7 +735,7 @@
     border:0;
     background:none;
 }
-.gopAddressManAdd, .msg-nut-address{
+.gopAddressManAdd, .msg-nut-address, .msg-nut-paypwd, .msg-nut-identifyingCode{
     margin-left: 69px;
 }
 .msg-nut-name{

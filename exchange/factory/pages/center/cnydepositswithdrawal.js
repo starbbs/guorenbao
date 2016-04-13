@@ -43,7 +43,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             'pageSize':5
         },function(data) {
             if (data.status == 200 && data.data.list.length > 0) {
-                console.log(data);
                 var html = [];
                 var num = data.data.list.length < 5?data.data.list.length:5;
                 for(var i=0; i<num;i++){
@@ -125,16 +124,17 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         });        
 
         //人民币提现表单校验
+        var flag1 = false;
         $('#WithdrawalsAmount').blur(function(){
             var WithdrawalsAmount = $(this).val();
             if(!WithdrawalsAmount || isNaN(WithdrawalsAmount) || WithdrawalsAmount <100){
                 $('.msg-WithdrawalsAmount').text('最低提现金额为100元');
-                flag = false;
+                flag1 = false;
             }else if(WithdrawalsAmount > 50000){
-                $('.msg-WithdrawalsAmount').text('最大提现金额不能超过50000');
-                flag = false;
+                $('.msg-WithdrawalsAmount').text('最大提现金额不能超过50000元');
+                flag1 = false;
             }else{
-                flag = true;
+                flag1 = true;
                 $('.msg-WithdrawalsAmount').text('');
                 //手续费校验
                 var Fee =$('.WithdrawalsFee');
@@ -146,35 +146,36 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             }
         });
         //支付密码
+        var flag2 = false;
         $('#WithdrawalsPayPwd').blur(function(){
             var pwd = $(this).val();
             if(!pwd){
                 $('.msg-WithdrawalsPayPwd').text('请输入支付密码');
-                flag = false;
+                flag2 = false;
             }else{
-                flag = true;
+                flag2 = true;
                 $('.msg-WithdrawalsPayPwd').text('');
             }
         });
         //验证码
+        var flag3 = false;
         $('#VerificationCode').blur(function(){
             var pwd = $(this).val();
             var reg = /^\d{6}$/;
             if(!reg.exec(pwd)){
                 $('.msg-VerificationCode').text('请输入验证码');
-                flag = false;
+                flag3 = false;
             }else{
-                flag = true;
+                flag3 = true;
                 $('.msg-VerificationCode').text('');
             }
         });
 
         //获取验证码-人民币提现
         $('#VerificationCodeBtn').click(function(){
-            if(flag == false){
-                alert('请完善填写信息！');
-            }
-            else{
+            if(flag3 == false){
+               $('.msg-VerificationCode').text('请输入正确的短信验证码');
+            }else{
                 api_mkt.sendCodeByLoginAfter( function(data) {
                     if (data.status == 200) {
                         console.log(data);
@@ -243,8 +244,12 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             
             //人民币提现申请 弹出层        
             $(".Withdrawalsbtn").click(function(){
-                if(flag == false){
-                    alert('请完成填写相关信息！');
+                if(flag1 == false){
+                   $('.msg-WithdrawalsAmount').text('提现金额为100元至50000元之间');
+                }else if(flag2 == false){
+                   $('.msg-WithdrawalsPayPwd').text('请输入正确的支付密码');
+                }else if(flag3 == false){
+                   $('.msg-VerificationCode').text('请输入正确的短信验证码');
                 }else if($.cookie('bankNum') == null){
                     $('.addBankCard').html('+ 添加银行卡 <span style="color:red;margin-left:25px;"> 请点击添加银行卡</span>');
                 }else{  
@@ -317,7 +322,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $(".cnyOutput").append(html.join(""));
 
                         //过滤内容显示不同颜色
-                        $(".status").filter(":contains('WAIT')").text('等待');
+                        $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");
                         $(".status").filter(":contains('PROCESSING')").text('进行中').css("color","orange");
                         $(".status").filter(":contains('SUCCESS')").text('提现成功').css("color","#ccc");
                     }
@@ -333,43 +338,30 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         });
 
         //生成汇款单校验
-        //开户人姓名校验
-        var btnConfirm = false;
-        $("#bank-username").blur(function(){
-            var username = $("#bank-username").val();
-            if(!username){
-                btnConfirm = false;
-                $('.msg-bank-username').show().text('请输入正确开户人姓名');
-            }else{
-                $('.msg-bank-username').hide();
-                btnConfirm = true;
-            }
-        });
         //充值金额校验
+        var btnConfirm1 = false;
         $("#bank-money").blur(function(){
             var bankmoney = $("#bank-money").val();
             if(bankmoney < 100 || isNaN(bankmoney)){
-                btnConfirm = false;
+                btnConfirm1 = false;
                 $('.msg-bank-money').show().text('最小充值金额为100元');
             }else{
                 $('.msg-bank-money').hide();
-                btnConfirm = true;
+                btnConfirm1 = true;
             }
         });
-        $("#bank-money").focus(function(){
-            $("#bank-money").val('');
-        });
         //银行账号校验
+        var btnConfirm2 = false;
         $("#bank-idcard").blur(function(){
             //console.log(api_mkt.basePath2);
             var bankIdcard = $("#bank-idcard").val();
             var reg = /^(\d{16}|\d{19})$/;
             if(!bankIdcard || !reg.exec(bankIdcard)){
-                btnConfirm = false;
+                btnConfirm2 = false;
                 $('.msg-bank-idcard').show().text('请输入正确的银行账号');
             }else{
                 $('.msg-bank-idcard').hide();
-                btnConfirm = true;
+                btnConfirm2 = true;
                 //接口 银行卡识别
                 $.ajax({
                     type: "POST",
@@ -380,43 +372,30 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     }),
                     cache: false,
                     success: function(data) {
-                        //console.log(data.data.bankName);
-                        //所属银行自动添加
                         $("#bank").val(data.data.bankName);
                     },
                     error: function() {
                         console.log("提交失败");
                     }
                 });
-
-                /*api_mkt.checkBankCard({          
-                        'bankCard':$("#bank-idcard").val()     
-                    }, function(data) {
-                        if (data.status == 200) {
-                            console.log(data.bankName);
-                            //所属银行自动添加
-                            $("#bank").blur(function(){
-                                var bank = $("#bank").val();
-                                bank = data.bankName;
-                            });
-                        } else {
-                            alert('银行卡号有误'); 
-                        }
-                });*/
             }
         });
         
         //手机号校验
+        var btnConfirm3 = false;
         $("#phone").blur(function(){
             var phone = $("#phone").val();
             var reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
             if(!reg.test(phone)){  
-                btnConfirm = false;
+                btnConfirm3 = false;
                 $('.msg-phone').show().text('请输入手机正确手机号码');
             }else{
                 $('.msg-phone').hide();
-                btnConfirm = true;
+                btnConfirm3 = true;
             }
+        });
+        $("#phone").focus(function(){
+            $("#phone").val('');
         });
         //勾选 使用绑定手机
         $('#phonePos').click(function(){
@@ -428,23 +407,25 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $("#phone").attr("data-phone",data.data.list.mobile);
                         $('.pUid').val(data.data.list.uid);
                         $('.msg-phone').hide();
-                        btnConfirm = true;
-                    } else if($("#phone").val(phone.substring(0,3)+"****"+phone.substring(7,11))){                        
-                        $('.msg-phone').hide();
-                        btnConfirm = true;
+                        btnConfirm3 = true;
                     }
                 });
+
             }else{
                 $('#phone').val('');
-                btnConfirm = false;
+                btnConfirm3 = false;
                 $('.msg-phone').show().text('请输入手机正确手机号码');
             }
         });
 
         //生成汇款单里的填充文本        
         $(".build-remit-layer").click(function(){
-            if(btnConfirm == false || typeof(btnConfirm) == 'undefined' || !$("#bank").val()){
-                alert('请完成填写相关信息！');
+            if(btnConfirm1 == false){
+                $('.msg-bank-money').show().text('最小充值金额为100元');
+            }else if(btnConfirm2 == false){
+                $('.msg-bank-idcard').show().text('请输入正确的银行账号');
+            }else if(btnConfirm3 == false){
+                $('.msg-phone').show().text('请输入手机正确手机号码');
             }else{
                 //打开弹出层-生成汇款单 
                 api_mkt.rmbRechargeHistory({
