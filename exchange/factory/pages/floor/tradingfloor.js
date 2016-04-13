@@ -47,16 +47,16 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 var totalNuts = data.data.gopBalance + data.data.gopLock;
                 var totalvalue = totalNuts*$('#thelatestprice').html()+totalAssets;
                 $('.iallshow').html(totalvalue.toFixed(2));//总资产
-                $(".ioneshow").html(cnyBalance);
-                $(".itwoshow").html(gopBalance);
-                $(".ithreeshow").html(cnyLock);
-                $(".ifourshow").html(gopLock);
+                $(".ioneshow").html(cnyBalance.toFixed(2));
+                $(".itwoshow").html(gopBalance.toFixed(2));
+                $(".ithreeshow").html(cnyLock.toFixed(2));
+                $(".ifourshow").html(gopLock.toFixed(2));
                 
                 $.cookie('allCNY',cnyBalance);
                 $.cookie('gop',gopBalance);           
                 $.cookie('allCNY',cnyBalance);
-                $('.w_b_l_one').html("<em>账户余额："+data.data.cnyBalance+" CNY</em>");
-                $('.w_b_l_two').html("<em>果仁余额："+data.data.gopBalance+" GOP</em>");
+                $('.w_b_l_one').html("<em>账户余额："+data.data.cnyBalance.toFixed(2)+" CNY</em>");
+                $('.w_b_l_two').html("<em>果仁余额："+data.data.gopBalance.toFixed(2)+" GOP</em>");
             } else {
                 console.log(data.msg);
             }
@@ -512,7 +512,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
         	$(this).val(oldData?oldData:0.1);
             flag = true;
         }else{
-        	$(this).attr("data-old",num);
             flag = true;
             var number = decimal.toDecimal($('.buying_number').val());//购买数量
             var price=decimal.toDecimal($('.buying_price').val());//购买价格
@@ -523,6 +522,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             	number=decimal.toDecimal(numDeal/price);
             	$('.buying_number').val(number);//重置购买数量
             }
+            $(this).attr("data-old",numDeal);            
             var percentage =decimal.toDecimal(balance<=0? 0: (numDeal)/balance*100);//购买比例(占总资产)
             $( "#amount" ).text(percentage+'%'); //限价除以人民币账户余额
             $('.one').val('¥：'+ decimal.toDecimal(numDeal)); 
@@ -570,7 +570,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
         	$(this).val(oldData?oldData:0.1);
         	flag = true;
         }else{
-        	$(this).attr("data-old",num);
             flag = true;
             var numDeal = decimal.toDecimal(num);//购买金额
             var balance = decimal.toDecimal($.cookie('allCNY'));//人民币余额
@@ -578,6 +577,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             	numDeal=balance;
             	$(this).val(numDeal);//重置购买数量
             }
+        	$(this).attr("data-old",numDeal);
             var percentage =  decimal.toDecimal((numDeal / balance)*100);//购买百分比
             /*买入-限价 滑块数值*/
             $( "#amount1" ).text(percentage+'%'); //购买百分比
@@ -626,14 +626,14 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
         	$(this).val(oldData?oldData:0.1);
         	flag = true;
         }else{
-        	$(this).attr("data-old",num);
             flag = true;
-            var sellGop = decimal.toDecimal($('.sellAmount').val());
+            var sellGop = decimal.toDecimal(num);
             var balanceGop = decimal.toDecimal($.cookie('gop'));
             if(sellGop>balanceGop){//成交金额大于账户余额
             	sellGop=balanceGop;
             	$(this).val(sellGop);//重置购买数量
             }
+            $(this).attr("data-old",sellGop);
             var percentage = decimal.toDecimal((sellGop / balanceGop )*100);
             /*买入-限价 滑块数值*/
             $( "#amount3" ).text( percentage +'%'); //卖出百分比
@@ -676,6 +676,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             	sellGop=balanceGop;
             	$(this).val(sellGop);//重置购买数量
             }
+            $(this).attr("data-old",sellGop);
             var percentage = decimal.toDecimal((sellGop / balanceGop )*100);
             $('.two').val('¥：'+ decimal.toDecimal(sellGop*sellPrice));
             /*买入-限价 滑块数值*/

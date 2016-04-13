@@ -38,7 +38,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $(".cnyInput").append(html.join(""));
 
                         //过滤内容显示不同颜色
-                        $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");                    
+                        $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");                                      
+                        $(".status").filter(":contains('CANCEL')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('已关闭');                  
                         $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('已完成');                                      
                         $(".status").filter(":contains('CLOSED')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('已关闭');
                         //查看此笔充值单
