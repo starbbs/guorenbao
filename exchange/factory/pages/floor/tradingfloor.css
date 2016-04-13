@@ -953,8 +953,8 @@
     width: 16px;
     height: 12px;
     display: inline-block;
-    top: 35px;
-    left: 108px;
+    top: 34px;
+    left: 103px;
     position: absolute;
     cursor: pointer;
 }
@@ -964,17 +964,17 @@
     height: 12px;
     display: inline-block;
     top: 36px;
-    left: 34px;
+    left: 30px;
     position: relative;
     cursor: pointer;
 }
 .bottom_cny_i{
-    background: url('../images/floor_cny_money_logo.png') no-repeat 0 0;
+        background: url('../images/floor_cny_money_logo.png') no-repeat 0 0;
     width: 16px;
     height: 12px;
     display: inline-block;
-    top: 35px;
-    left: 45px;
+    top: 34px;
+    left: 40px;
     position: relative;
     cursor: pointer;
 }
@@ -986,7 +986,7 @@
     top: 36px;
     position: relative;
     cursor: pointer;
-    left: 34px;
+    left: 30px;
 }
 
 .myassetbottom > div{
@@ -1012,7 +1012,7 @@
 .myassetbottom > div > span{
         top: 34px;
     position: absolute;
-    left: 40px;
+    left: 36px;
 }
 .myassetbottom{
     height: 300px;

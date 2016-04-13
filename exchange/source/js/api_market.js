@@ -10,7 +10,7 @@ define('api_mkt', ['cookie'], function() {
         if (window.location.href.indexOf('/index.html') === -1) {
             return window.location.href = 'index.html';
         } else {
-            alert('无法获得用户信息');
+            //alert('无法获得用户信息');
         }
     };
     // 方便cookie
@@ -53,8 +53,9 @@ define('api_mkt', ['cookie'], function() {
                 type: 'post',
                 data: JSON.stringify(data),
                 dataType: 'json',
-                timeout: 50000,
+                timeout: 500000,
                 success: function(data) {
+                    console.log(data);
                     if (!data) {
                         // alert('1:' + name + ';' + $.cookie('gopToken'));
                         return goIndex(true);
@@ -69,6 +70,11 @@ define('api_mkt', ['cookie'], function() {
                         if(data.msg == "系统已经退出了"){
                             goIndex(true);
                         }
+                    } else if(data.status==444){
+                        $.cookie("global_loginuserphone",global_loginuserphone);
+                        $.cookie("global_loginusername",global_loginusername);
+                        $.cookie("global_loginuseruid",global_loginuseruid);
+                        goIndex(true);
                     }
                     options.callback && options.callback.call(this, data);
                     success && success.call(this, data);
@@ -77,7 +83,7 @@ define('api_mkt', ['cookie'], function() {
                     console.log('Error: ', arguments);
                     if (text === 'timeout') {
                         //$.alert('请求超时...<br>请检查您的网络');
-                        alert('请求超时...<br>请检查您的网络');
+                        //alert('请求超时...<br>请检查您的网络');
                     }
                 },
                 complete: function() {

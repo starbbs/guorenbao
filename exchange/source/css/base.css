@@ -272,12 +272,28 @@ table {
 
 }
 
+::selection {
+    background:#ffffff; 
+    color:#0bbeee;
+}
+
+::-moz-selection {
+    background:#ffffff; 
+    color:#0bbeee;
+}
+
+::-webkit-selection {
+    background:#ffffff; 
+    color:#0bbeee;
+}
+
 .feature {
     width: 116px;
     color: #777777;
     font-size: 1.6rem;
     cursor: pointer;
     text-decoration: none;
+    text-align: right;
 }
 
 .index_on {
