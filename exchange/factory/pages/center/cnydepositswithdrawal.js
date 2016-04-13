@@ -407,32 +407,37 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         });
         
         //手机号校验
-        /*$("#phone").blur(function(){
+        $("#phone").blur(function(){
             var phone = $("#phone").val();
             var reg = /^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;
             if(!reg.test(phone)){  
                 btnConfirm = false;
-                $('.msg-phone').show().text('请输入手机号码');
+                $('.msg-phone').show().text('请输入手机正确手机号码');
             }else{
                 $('.msg-phone').hide();
                 btnConfirm = true;
             }
-        });*/
+        });
         //勾选 使用绑定手机
         $('#phonePos').click(function(){
             if($(this).is(':checked')){
                 api_mkt.userbasic(function(data){
-                    if(data.data){
-                        if(data.data.list){
-                        	var phone=data.data.list.mobile;
-                            $("#phone").val(phone.substring(0,3)+"****"+phone.substring(7,11));
-                            $("#phone").attr("data-phone",data.data.list.mobile);
-                            $('.pUid').val(data.data.list.uid);
-                        }
+                    if(data.data && data.data.list){
+                    	var phone=data.data.list.mobile;
+                        $("#phone").val(phone.substring(0,3)+"****"+phone.substring(7,11));
+                        $("#phone").attr("data-phone",data.data.list.mobile);
+                        $('.pUid').val(data.data.list.uid);
+                        $('.msg-phone').hide();
+                        btnConfirm = true;
+                    } else if($("#phone").val(phone.substring(0,3)+"****"+phone.substring(7,11))){                        
+                        $('.msg-phone').hide();
+                        btnConfirm = true;
                     }
                 });
             }else{
                 $('#phone').val('');
+                btnConfirm = false;
+                $('.msg-phone').show().text('请输入手机正确手机号码');
             }
         });
 
@@ -465,6 +470,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     $("#bank-idcard").val('');
                     $("#bank").val('');
                     $("#bank-money").val('');
+                    $("#phone").val('');
                     //再次调接口 人民币充值历史（查询最近5条）
                     api_mkt.rmbRechargeHistory({
                         'pageNo':1,
