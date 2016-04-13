@@ -411,6 +411,7 @@
     height: 90px;
     line-height: 90px;
     top: -1px;
+    display:none;
 }
 
 .verticle_line_id{

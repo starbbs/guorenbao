@@ -261,6 +261,17 @@ table {
     bottom: 1px;
 }
 
+.popuptips{
+        text-align: center;
+    height: 16px;
+    line-height: 16px;
+    color: #ff6600;
+    margin-top: 10px;
+    display: none;
+    margin-bottom: -4px;
+
+}
+
 .feature {
     width: 116px;
     color: #777777;
