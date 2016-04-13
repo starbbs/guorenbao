@@ -834,13 +834,20 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     console.log(data); 
                     $("#floor_popDiv").hide();
                     $("#floor_bg").hide();
-                    getTotalAssets();
+                    //getTotalAssets();
                     alert('买入成功');                     
                     window.location.reload();
                 }else{
-                    console.log(data);
+                	console.log(data);
+                	if(data.status==400){
+                		if((data.date && data.date.num) || (data.data && data.data.num)){
+                			var num=data.data?data.data.num:data.date.num;
+                			$(".payment_error").html("还有"+(3-num)+"次输入机会");
+                		}
+                	}else{
+                		$(".payment_error").html(data.msg);
+                	}
                     $(".payment_error").show();
-                    $(".payment_error").html(data.msg);
                 }
             });
         }else if( $('#hideSection').val() == 2){//市价买入
@@ -853,7 +860,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     console.log(data);
                     $("#floor_popDiv").hide();
                     $("#floor_bg").hide();
-                    getTotalAssets();
+                    //getTotalAssets();
                     alert('买入成功');
                     window.location.reload();               
                 }else{
