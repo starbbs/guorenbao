@@ -854,6 +854,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 		if((data.date && data.date.num) || (data.data && data.data.num)){
                 			var num=data.data?data.data.num:data.date.num;
                 			$(".payment_error").html("还有"+(3-num)+"次输入机会");
+                		}else{
+                			$(".payment_error").html(data.msg);	
                 		}
                 	}else{
                 		$(".payment_error").html(data.msg);
