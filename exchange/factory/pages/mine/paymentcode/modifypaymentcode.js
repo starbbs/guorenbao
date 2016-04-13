@@ -112,7 +112,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 
 	    //获取短信验证码
 		$('.getauthcode').click(function(){
-            if(whether_sub_one == false){
+            if(!checkFlag1 || !checkFlag2 || !checkFlag3){
                 alert('请完善填写信息！');
             } else {
                 api_mkt.sendCodeByLoginAfter( function(data) {
