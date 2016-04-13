@@ -1019,12 +1019,16 @@
     background-color: #ffffff;
     position:relative;
 }
+.ioneshow,.itwoshow,.ithreeshow,.ifourshow{
+    width:100%;
+}
 
 .myassetbottom > div > div{
         position: absolute;
     top: 72px;
-    left: 66px;
+    /* left: 66px; */
     display: block;
+    text-align: center;
 }
 
 .quoted_price_sixth:after {
