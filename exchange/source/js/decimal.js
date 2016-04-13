@@ -8,7 +8,7 @@ define('decimal', function() {
 	};
 
 	/**
-	 * 制保留 precision 位小数(默认两位)
+	 * 制保留 precision 位小数(默认两位)向下取整
 	 */
 	decimal.toDecimal = function(number,precision) {
 		var f = parseFloat(number);
@@ -18,10 +18,12 @@ define('decimal', function() {
 		if(!precision){
 			precision=decimal.precision;
 		}
-		var f = Math.round(number * Math.pow(10,precision)) / (Math.pow(10,precision));	
+		var f = Math.floor(number * Math.pow(10,precision)) / (Math.pow(10,precision));
+		f=f.toFixed(2);
 		return f;
 	};
 
+	
 	/**
 	 * 判断保留了小数点多少位
 	 */
