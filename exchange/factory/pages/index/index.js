@@ -385,7 +385,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             $(".autocode_tips").show().html("请输入验证码");
             return;
         }
-        if(flag==true&&password!=""&&password.length>=6&&password.length<=12&&authcode_index!=""){
+        if(flag==true){
             $(".error_tips_index").hide();
             $(".autocode_tips").hide();
             api_mkt.login({
