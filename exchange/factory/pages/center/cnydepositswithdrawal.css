@@ -705,10 +705,8 @@ a {
     width:240px;
     height:40px;
     line-height: 40px;
-    float: left;
     cursor: pointer;
-    /*color:#0bbeee;*/
-    color:#fff;
+    color:#0bbeee;
 }
 .mydiv1 .span-text1{
     width:40px;

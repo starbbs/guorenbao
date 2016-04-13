@@ -402,8 +402,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 $(".span-text").click(function(){
                     $(".mydiv").css("display","none");
                     $(".bg").css("display","none");
-                    window.location.reload();
-                    /*//清空文本框
+
+                    //清空文本框
                     $("#bank-idcard").val('');
                     $("#bank").val('');
                     $("#bank-money").val('');
@@ -414,7 +414,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         'pageSize':5
                     },function(data) {
                         if (data.status == 200 && data.data.list.length > 0) {
-                            console.log(data);
                             var html = [];
                             var num = data.data.list.length < 5?data.data.list.length:5;
                             for(var i=0; i<num;i++){
@@ -455,7 +454,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         }else{
                            // console.log('财务中心-人民币充值历史表格，加载失败。');
                         }
-                    });*/
+                    });
                 });  
 
                 //接口：人民币充值
