@@ -69,9 +69,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         }, function(data) {
             if (data.status == 200) {
                 whether_auth = true;  //已经实名认证
-                if(global_loginusername){
+                if(global_loginusername&&global_loginusername!=""){
                     $("#whether_auth").html(global_loginusername);
                     $(".bottom_em_i")[0].style.background = "url(./images/index_already_authentication.png)";
+                    
                 } else {
                    $("#whether_auth").html("未认证");
                    $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
@@ -96,7 +97,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         if(global_loginusername!=""&&global_loginusername){
             $("#logined_username").html(global_loginusername);
         } else {
-            $("#logined_username").html(global_loginuserphone);
+            $("#logined_username").html(global_loginuserphone.substr(0,3)+'****'+global_loginuserphone.substr(7,4));
         }
         $("#uidval").html(global_loginuseruid);
         if(global_loginusername){
@@ -394,21 +395,25 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             }, function(data) {
                 if (data.status == 200) {
                     $.cookie("loginfromwhichpage","");
-                    $.cookie('exchangeToken', 'logined',{"expires":"h0.5"},"guorenmarket");
+                    // $.cookie('exchangeToken', 'logined',{"expires":"h0.5"},"guorenmarket");
+                    $.cookie('exchangeToken', 'logined');
                     $(".login_regist").hide();
                     $(".login_header").show();
                     $(".popDiv").hide();
                     $(".bg").hide();
-                    global_loginuserphone = data.data.phone;
-                    global_loginusername = data.data.name;
-                    global_loginuseruid = data.data.uid;
-                    $.cookie("global_loginuserphone",global_loginuserphone,{"expires":"h0.5"},"guorenmarket");
-                    $.cookie("global_loginusername",global_loginusername,{"expires":"h0.5"},"guorenmarket");
-                    $.cookie("global_loginuseruid",global_loginuseruid,{"expires":"h0.5"},"guorenmarket");
 
+                    $("#msg_num_top").text(0);
+                    global_loginuserphone = data.data.phone;
+                    global_loginusername = data.data.name?data.data.name:"";
+                    global_loginuseruid = data.data.uid;
+                    // $.cookie("global_loginuserphone",global_loginuserphone,{"expires":"h0.5"},"guorenmarket");
+                    // $.cookie("global_loginusername",global_loginusername,{"expires":"h0.5"},"guorenmarket");
+                    // $.cookie("global_loginuseruid",global_loginuseruid,{"expires":"h0.5"},"guorenmarket");
+                    $.cookie("global_loginuserphone",global_loginuserphone);
+                    $.cookie("global_loginusername",global_loginusername);
+                    $.cookie("global_loginuseruid",global_loginuseruid);
                     synchronous();
                     setInterval(synchronous, 60000);
-
                     $("#logined_username").html(data.data.phone.substr(0,3)+'****'+data.data.phone.substr(7,4));
                     $(".top_em").html(data.data.phone.substr(0,3)+'****'+data.data.phone.substr(7,4));
                     $("#uidval").html(global_loginuseruid);  //首页uid赋值
@@ -431,6 +436,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                             var totalvalue = totalNuts*$('#thelatestprice').html()+totalAssets;
                             $('.lf_asset_center').html(totalvalue.toFixed(2));//总资产
                             $('.rg_asset_center').html(totalNuts.toFixed(2));//总果仁
+
                         } else if (data.status == 305) {
                             
                         } else if(data.status == 400){
