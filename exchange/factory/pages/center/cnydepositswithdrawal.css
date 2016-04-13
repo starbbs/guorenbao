@@ -680,8 +680,8 @@ a {
 }
 
 .mydiv p{
-    float:left;width:400px;margin-left: 68px;
-    margin-top:15px;
+    float:left;width:470px;margin-left: 90px;
+    margin-top:15px;text-align: left;
 }
 .mydiv1 p{
     float: left;
