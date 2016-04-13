@@ -13,6 +13,22 @@ define('api_mkt', ['cookie'], function() {
             //alert('无法获得用户信息');
         }
     };
+
+
+    var clearcookie = function(){
+        $.cookie('exchangeToken', '');
+        $.cookie("global_loginuserphone",'');
+        $.cookie("global_loginusername",'');
+        $.cookie("global_loginuseruid",'');
+        $.cookie("totalAssets","");
+        $.cookie("totalNuts","");
+        $.cookie("mine_one","");
+        $.cookie("mine_two","");
+        $.cookie("mine_three","");
+        $.cookie("mine_four","");
+        $.cookie("loginfromwhichpage","");
+    }
+
     // 方便cookie
     $.gopToken = function(token) {
         return $.cookie('gopToken', token);
@@ -68,20 +84,34 @@ define('api_mkt', ['cookie'], function() {
                         alert('服务器异常');
                     } else if(data.status==400){
                         if(data.msg == "系统已经退出了"){
+                            clearcookie();
                             goIndex(true);
                         }
+                        if(data.msg=="用户未实名认证"){
+                            var loginfromwhichpage = $.cookie("loginfromwhichpage");
+                            if(loginfromwhichpage=="one"){
+                                $(".popuptips").slideUp();
+                            } else if(loginfromwhichpage=="two"){
+                                $(".popuptips").slideDown();
+                            } else if(loginfromwhichpage=="three"){
+                                $(".popuptips").slideDown();
+                                if(location.href.indexOf('/conditionofassets.html') != -1){
+                                } else {
+                                    location.href="./conditionofassets.html";
+                                }
+                            } else if(loginfromwhichpage=="four"){
+                                if(location.href.indexOf('/basicinfo.html')!=-1){
+                                    $(".popuptips").slideDown();
+                                    if(location.href.indexOf('/certification.html')!=-1){
+                                        location.href="./basicinfo.html";
+                                    }
+                                } else {
+                                    $(".popuptips").slideDown();
+                                }
+                            }
+                        }
                     } else if(data.status==444){
-                        $.cookie('exchangeToken', '');
-                        $.cookie("global_loginuserphone",'');
-                        $.cookie("global_loginusername",'');
-                        $.cookie("global_loginuseruid",'');
-                        $.cookie("totalAssets","");
-                        $.cookie("totalNuts","");
-                        $.cookie("mine_one","");
-                        $.cookie("mine_two","");
-                        $.cookie("mine_three","");
-                        $.cookie("mine_four","");
-                        $.cookie("loginfromwhichpage","");
+                        clearcookie();
                         goIndex(true);
                     }
                     options.callback && options.callback.call(this, data);

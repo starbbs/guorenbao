@@ -44,6 +44,16 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
             });
         });
     }
+
+    api_mkt.realAuth({
+    }, function(data) {
+        if (data.status == 200) {
+        } else if (data.status == 305) {
+        } else if(data.status == 400){
+        } else {
+        }
+    });
+
     mymessage("ALL"); //默认是全部选中
     $(".tab").on("click", function() {
         var messageonehtml = "";

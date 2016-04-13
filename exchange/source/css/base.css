@@ -262,14 +262,16 @@ table {
 }
 
 .popuptips{
-        text-align: center;
-    height: 16px;
-    line-height: 16px;
-    color: #ff6600;
+    text-align: center;
+    height: 22px;
+    line-height: 22px;
+    color: #ffffff;
     margin-top: 10px;
     display: none;
     margin-bottom: -4px;
-
+    width: 100%;
+    margin: 0 auto;
+    background-color: red;
 }
 
 ::selection {

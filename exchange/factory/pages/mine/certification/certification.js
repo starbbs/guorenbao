@@ -41,6 +41,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		        if(data.status == 200 || data.status == 304){
 		        	$('.authenticated').show();
 			    	$('.unautherized').hide();
+			    	$(".popuptips").slideUp();
 			    	$.cookie("global_loginusername",$('#realAuthName').val());
 			    	$('#username_value').text($('#realAuthName').val()); 
 			    	var num = $('#realAuthId').val();

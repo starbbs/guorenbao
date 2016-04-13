@@ -24,9 +24,17 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     if (!exchangeToken) {
        $('.eye_i').trigger("click");
     } else {
-        
+        api_mkt.realAuth({
+        }, function(data) {
+            if (data.status == 200) {
+            } else if (data.status == 305) {
+            } else if(data.status == 400){
+            } else {
+            }
+        });
     }
 
+    
     
     var getTotalAssets=function(){
     	api_mkt.totalAssets(function(data) {

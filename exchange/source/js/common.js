@@ -21,48 +21,31 @@
         var exchangeToken = $.cookie('exchangeToken');
         var ff = $(this).html();
         if (!exchangeToken) {
-            //alert("没有token")
             $(".popDiv").show();
             $(".bg").show();
             if(ff=="首页"){
                 $.cookie("loginfromwhichpage","one");
-                console.log("loginfromwhichpage"+"one");
             } else if(ff=="交易大厅"){
                 $.cookie("loginfromwhichpage","two");
-                console.log("loginfromwhichpage"+"two");
             } else if(ff=="财务中心"){
                 $.cookie("loginfromwhichpage","three");
-                console.log("loginfromwhichpage"+"three");
             } else if(ff=="我的账户"){
                 $.cookie("loginfromwhichpage","four");
-                console.log("loginfromwhichpage"+"four");
             }
         } else {
-            //alert("有tokne");
             $(".popDiv").hide();
             $(".bg").hide();
-            // var whichpage = $.cookie("loginfromwhichpage");
-            // if(whichpage=="one"){
-            //     $.cookie("loginfromwhichpage","");
-            //     location.href="./index.html";
-            // } else if(whichpage=="two"){
-            //     $.cookie("loginfromwhichpage","");
-            //     location.href="./tradingfloor.html";
-            // } else if(whichpage=="three"){
-            //     $.cookie("loginfromwhichpage","");
-            //     location.href="./conditionofassets.html";
-            // } else if(whichpage=="four"){
-            //     $.cookie("loginfromwhichpage","");
-            //     location.href="./basicinfo.html";
-            // }
-
             if(ff=="首页"){
+                $.cookie("loginfromwhichpage","one");
                 location.href="./index.html";
             } else if(ff=="交易大厅"){
+                $.cookie("loginfromwhichpage","two");
                 location.href="./tradingfloor.html";
             } else if(ff=="财务中心"){
+                $.cookie("loginfromwhichpage","three");
                 location.href="./conditionofassets.html";
             } else if(ff=="我的账户"){
+                $.cookie("loginfromwhichpage","four");
                 location.href="./basicinfo.html";
             }
         }
@@ -308,8 +291,6 @@
         api_mkt.userlogout({
         }, function(data) {
             if (data.status == 200) {
-                //alert(data.msg);
-                //alert("成功退出");
                 console.log("success logout")
                 window.location.href="index.html";
             } else if (data.status == 305) {
