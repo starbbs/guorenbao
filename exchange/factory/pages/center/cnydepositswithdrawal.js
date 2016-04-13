@@ -165,7 +165,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 
         //获取验证码-人民币提现
         $('#VerificationCodeBtn').click(function(){
-            if(flag3 == false){
+            if(flag3 == true){
                $('.msg-VerificationCode').text('请输入正确的短信验证码');
             }else{
                 api_mkt.sendCodeByLoginAfter( function(data) {
@@ -243,7 +243,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 }else if(flag3 == false){
                    $('.msg-VerificationCode').text('请输入正确的短信验证码');
                 }else if($.cookie('bankNum') == null){
-                    $('.addBankCard').html('<a href="withdraw.html" style="color:blue;">+ 添加银行卡</a><span style="color:red;margin-left:25px;"> 请点击添加银行卡</span>');
+                    $('.addBankCard').html('<a href="withdraw.html" style="color:#0bbeee;">+ 添加银行卡</a><span style="color:red;margin-left:25px;"> 请点击添加银行卡</span>');
                 }else{  
                     $(".mydiv1").css("display","block");
                     $(".bg").css("display","block"); 
