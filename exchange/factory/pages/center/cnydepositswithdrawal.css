@@ -377,17 +377,16 @@
 }
 
 .right_reg_side_content{
-        display: flex;
     margin-top: 40px;
     position: relative;
     margin-left: 20px;
 }
 
 .rg_lf_label{
-    flex:0.21;
+    float: left;
 }
 .rg_lf_label .label_div{
-        height: 32px;
+    height: 32px;
     line-height: 32px;
     margin-bottom: 26px;
     text-align: right;

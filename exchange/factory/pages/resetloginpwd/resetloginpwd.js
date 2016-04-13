@@ -143,7 +143,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
 
     //获取短信验证码
     $('.getauthcode').click(function() {
-        if (mobileflag == false) {
+        if (!checkFlag1) {
             $("#error_two").show().html("请检查手机号是否输入正确");
         } else {
             api_mkt.sendCode({ "phone": $("#phone").val() }, function(data) {
