@@ -1,7 +1,7 @@
 define('api_mkt', ['cookie'], function() {
     //var basePath = 'http://localhost/';
-    //var basePath = 'http://10.23.1.155/';
-    var basePath = './';
+    var basePath = 'http://10.23.1.155/';
+    //var basePath = './';
     //var basePath = 'http://localhost:8089/';
     var api = {};
     api.basePath2 = 'http://116.213.142.89:8080/common/checkBankCard';
@@ -65,6 +65,10 @@ define('api_mkt', ['cookie'], function() {
                     } else if (data.status == 304 && options.ignoreStatus && options.ignoreStatus.indexOf(304) === -1) { // {msg: "服务器异常", status: "304"}
                         //$.alert('服务器异常, 请联系后台人员!');
                         alert('服务器异常');
+                    } else if(data.status==400){
+                        if(data.msg == "系统已经退出了"){
+                            goIndex(true);
+                        }
                     }
                     options.callback && options.callback.call(this, data);
                     success && success.call(this, data);

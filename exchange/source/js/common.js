@@ -187,7 +187,9 @@
                 code:authcode_common
 	        }, function(data) {
 	            if (data.status == 200) {
-	                $.cookie('exchangeToken', 'logined',{"expires":"h0.5"},"guorenmarket");
+	                //$.cookie('exchangeToken', 'logined',{"expires":"h0.5"},"guorenmarket");
+                    $.cookie('exchangeToken', 'logined');
+                    $("#msg_num_top").text(0);
 	                $(".login_regist").hide();
 	                $(".login_header").show();
 	                $(".popDiv").hide();
@@ -195,19 +197,13 @@
 	                $(".loginarea").hide();
     				$(".afterlogin").show();
 	                global_loginuserphone = data.data.phone;
-	                global_loginusername = data.data.name;
+	                global_loginusername = data.data.name?data.data.name:"";
 	                global_loginuseruid = data.data.uid;
-
-                    console.log(global_loginuserphone);
-                    console.log(global_loginusername);
-
-	                $.cookie("global_loginuserphone",global_loginuserphone,{"expires":"h0.5"},"guorenmarket");
-	                $.cookie("global_loginusername",global_loginusername,{"expires":"h0.5"},"guorenmarket");
-	                $.cookie("global_loginuseruid",global_loginuseruid,{"expires":"h0.5"},"guorenmarket");
-                    console.log("asdf")
+	                $.cookie("global_loginuserphone",global_loginuserphone);
+	                $.cookie("global_loginusername",global_loginusername);
+	                $.cookie("global_loginuseruid",global_loginuseruid);
                     synchronous();
                     setInterval(synchronous, 60000);
-
                     if(global_loginusername!=""){
                         $("#logined_username").html(global_loginusername);
                         whether_auth = true;
