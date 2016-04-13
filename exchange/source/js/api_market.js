@@ -71,9 +71,17 @@ define('api_mkt', ['cookie'], function() {
                             goIndex(true);
                         }
                     } else if(data.status==444){
-                        $.cookie("global_loginuserphone",global_loginuserphone);
-                        $.cookie("global_loginusername",global_loginusername);
-                        $.cookie("global_loginuseruid",global_loginuseruid);
+                        $.cookie('exchangeToken', '');
+                        $.cookie("global_loginuserphone",'');
+                        $.cookie("global_loginusername",'');
+                        $.cookie("global_loginuseruid",'');
+                        $.cookie("totalAssets","");
+                        $.cookie("totalNuts","");
+                        $.cookie("mine_one","");
+                        $.cookie("mine_two","");
+                        $.cookie("mine_three","");
+                        $.cookie("mine_four","");
+                        $.cookie("loginfromwhichpage","");
                         goIndex(true);
                     }
                     options.callback && options.callback.call(this, data);
