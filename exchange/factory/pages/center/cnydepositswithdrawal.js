@@ -68,14 +68,14 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     $('.checkDeal').click(function(){
                         //打开弹出层-生成汇款单
                         $(".mydiv").css("display","block");
-                        $(".bg").css("display","block");               
+                        $(".bg1").css("display","block");               
                         $(".remittance-id").text($(this).parent().find('.txid').text());
                         $(".money-new").text('¥'+$(this).parent().find('.money').text()+'.00');                
                         $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
                         //关闭弹出层 -生成汇款单
                         $(".span-text").click(function(){
                             $(".mydiv").css("display","none");
-                            $(".bg").css("display","none");
+                            $(".bg1").css("display","none");
                         });  
                     });
                 }
@@ -402,7 +402,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 $(".span-text").click(function(){
                     $(".mydiv").css("display","none");
                     $(".bg").css("display","none");
-
+                    //window.location.reload();
                     //清空文本框
                     $("#bank-idcard").val('');
                     $("#bank").val('');
@@ -439,7 +439,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                                 $('.checkDeal').click(function(){
                                     //打开弹出层-生成汇款单
                                     $(".mydiv").css("display","block");
-                                    $(".bg").css("display","block");               
+                                    $(".bg1").css("display","block");               
                                     $(".remittance-id").text($(this).parent().find('.txid').text());
                                     $(".money-new").text('¥'+$(this).parent().find('.money').text()+'.00');                
                                     $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
@@ -447,7 +447,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                                     $(".span-text").click(function(){
                                         //window.location.reload();
                                         $(".mydiv").css("display","none");
-                                        $(".bg").css("display","none");
+                                        $(".bg1").css("display","none");
                                     });  
                                 });
                             }

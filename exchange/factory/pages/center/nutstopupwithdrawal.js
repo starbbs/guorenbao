@@ -56,12 +56,12 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
     //果仁(提现)转出记录_只查询成功记录
     api_mkt.transferOutHistory({
         'pageNo': 1,
-        'pageSize': 10
+        'pageSize': 5
     }, function(data) {
         if (data.status == 200) {
-            console.log(data);
-            for (var i = 0; i <5 && i < data.data.list.length; i++) {
-                var html = [];
+            var html = [];
+            var num = data.data.list.length < 5?data.data.list.length:5;
+            for(var i=0; i<num;i++){
                 html.push("<tr>");
                 html.push("<td>" + data.data.list[i].createDate + "</td>");
                 html.push("<td>" + data.data.list[i].wallet + "</td>");
@@ -178,8 +178,9 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
         'pageSize': 10
     }, function(data) {
         if (data.status == 200) {
-            for (var i = 0; i <5 && i < data.data.list.length; i++) {
-                var html = [];
+            var html = [];
+            var num = data.data.list.length < 5?data.data.list.length:5;
+            for(var i=0; i<num;i++){
                 html.push("<tr>");
                 html.push("<td>" + data.data.list[i].createDate + "</td>");
                 html.push("<td>" + data.data.list[i].wallet + "</td>");
