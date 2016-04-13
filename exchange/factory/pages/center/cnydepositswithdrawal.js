@@ -196,7 +196,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         }, function(data) {
             if (data.status == 200) {
                 if(data.data.list.length > 0){
-                    for(var i=data.data.list.length-1;i>0;i--){
+                    for(var i=data.data.list.length-1;i>=0;i--){
                         var num = data.data.list[i].acnumber;
                         var username = data.data.list[i].name;
                         var bank = data.data.list[i].bank;
