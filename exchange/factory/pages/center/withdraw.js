@@ -131,16 +131,23 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     }),
                     cache: false,
                     success: function(data) {
+                        if(data.msg = '无法识别此卡'){
+                             $('.msg-bank-idcard').show().text('您输入的银行账号有误，请重新输入');
+                        }else{
+                            $('.msg-bank-idcard').hide();
+                        }
+
                         //所属银行自动添加
                         if(data.data.bankName!='中国工商银行' && data.data.bankName!='中国建设银行' && data.data.bankName!='中国农业银行' 
                     		&& data.data.bankName!='交通银行' && data.data.bankName!='中国邮政储蓄银行'  && data.data.bankName!='招商银行' ){
                         	$("#bank").val('暂不支持('+data.data.bankName+')');
+                            $('.msg-bank-idcard').hide();
                     	}else{
-                    		$("#bank").val(data.data.bankName);
-                    	}
+                            $("#bank").val(data.data.bankName);
+                            $('.msg-bank-idcard').hide();
+                        }
                     },
                     error: function() {
-                        alert("提交失败");
                     }
                 });
             }
