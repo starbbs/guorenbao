@@ -196,7 +196,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         }, function(data) {
             if (data.status == 200) {
                 if(data.data.list.length > 0){
-                    for(var i=0;i<data.data.list.length;i++){
+                    for(var i=data.data.list.length-1;i>0;i--){
                         var num = data.data.list[i].acnumber;
                         var username = data.data.list[i].name;
                         var bank = data.data.list[i].bank;
@@ -220,16 +220,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     }                    
                 }
             }
-            //radio 获取值
-            $('.checkBankCard').click(function(){
-                var a = $(this).parent().find('.bankNum').val();
-                var b = $(this).parent().find('.bankUserName').val();
-                var c = $(this).parent().find('.bankName').val();
-                $.cookie('bankNum',a);
-                $.cookie('bankUserName',b);
-                $.cookie('bankName',c);
-            });
-            
+                        
             $("#bank-idcard").keyup(function(){
                 $(this).val($(this).val().replace(/[^0-9$]/g,''));
             });
@@ -248,7 +239,15 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     $(".mydiv1").css("display","block");
                     $(".bg").css("display","block"); 
                     //勾选弹出框 选择内容
-                          
+                    //radio 获取值
+                    $('.checkBankCard').click(function(){
+                        var a = $(this).parent().find('.bankNum').val();
+                        var b = $(this).parent().find('.bankUserName').val();
+                        var c = $(this).parent().find('.bankName').val();
+                        $.cookie('bankNum',a);
+                        $.cookie('bankUserName',b);
+                        $.cookie('bankName',c);
+                    });     
                     //弹出层理面的内容
                     $(".WithdrawalsCard").text($.cookie('bankNum'));
                     $(".WithdrawalsBank").text($.cookie('bankName'));
