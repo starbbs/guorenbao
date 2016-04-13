@@ -535,8 +535,8 @@
     right: -120px;
     display: inline-block;
     bottom: 23px;
-    padding: 27px 13px 0 13px;
-    line-height: 20px;
+    padding: 27px 22px 0 22px;
+    line-height: 23px;
     text-indent: 2rem;
     background: url('../images/center_useable_help_bg.png') no-repeat center center;
 }

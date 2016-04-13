@@ -70,17 +70,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $(".mydiv").css("display","block");
                         $(".bg").css("display","block");               
                         $(".remittance-id").text($(this).parent().find('.txid').text());
-                        $(".bank-card-new").text($(this).parent().find('.acnumber').text());
-                        $(".bank-name-new").text($(this).parent().find('.bank').text());
-                        //开户人姓名 
-                        api_mkt.basic(function(data) {
-                            if (data.status == 200) {
-                                $("#bank-username").val(data.data.list.name);             
-                            }
-                        });
-                        //$(".account-name-new").text($("#bank-username").val());
-                        $(".account-name-new").text('北京果汇科技信息有限公司');
-                        //$(".account-name-new").text($(this).parent().find('.name').text());
                         $(".money-new").text('¥'+$(this).parent().find('.money').text()+'.00');                
                         $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
                         //关闭弹出层 -生成汇款单
@@ -301,38 +290,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             });            
         });
 
-        //接口 人民币充提现（带分页）
-        $(".moreCheck").click(function(){
-            api_mkt.rmbWithdrawalsHistory({
-                'pageNo':1,
-                'pageSize':5
-            },function(data) {
-                //alert(data.msg);
-                if (data.status == 200) {
-                    console.log(data);
-                    var html = [];
-                    for(var i=0; i<10;i++){
-                        html.push("<tr>");                                        
-                        html.push("<td>"+ data.data.list[i].updateDate +"</td>");
-                        html.push("<td>"+ data.data.list[i].bank +"</td>");
-                        html.push("<td>"+ data.data.list[i].pay +"</td>");
-                        html.push("<td>"+ (data.data.list[i].money-data.data.list[i].pay) +"</td>");
-                        html.push("<td class='cnyWithdrawals'>"+ data.data.list[i].transferCnyStatus+ "</td>");
-                        html.push("</tr>");
-                        $(".cnyOutput").html("");  //添加前清空 
-                        $(".cnyOutput").append(html.join(""));
-
-                        //过滤内容显示不同颜色
-                        $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");
-                        $(".status").filter(":contains('PROCESSING')").text('进行中').css("color","orange");
-                        $(".status").filter(":contains('SUCCESS')").text('提现成功').css("color","#ccc");
-                    }
-                }else {
-                    //console.log('财务中心-人民币提现历史表格带分页，加载失败。');
-                }
-            });
-        });
-
         //实名认证用户充值-显示/隐藏-提示文本内容
         $(".accountholder_tip").hover(function(){
             $(".tipscontent").toggle();
@@ -436,9 +393,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     $(".mydiv").css("display","block");
                     $(".bg").css("display","block");
                     $(".remittance-id").text(data.data.list[0].txid); 
-                    $(".bank-card-new").text($("#bank-idcard").val());
-                    $(".bank-name-new").text($("#bank").val());
-                    $(".account-name-new").text('北京果汇科技信息有限公司');
                     $(".money-new").text('¥'+$("#bank-money").val()+'.00');                
                     $(".remittance-note-numbe-newr").text($('.pUid').val());
                     $('.bankName').text($("#bank").val());
@@ -448,7 +402,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 $(".span-text").click(function(){
                     $(".mydiv").css("display","none");
                     $(".bg").css("display","none");
-                    //清空文本框
+                    window.location.reload();
+                    /*//清空文本框
                     $("#bank-idcard").val('');
                     $("#bank").val('');
                     $("#bank-money").val('');
@@ -487,16 +442,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                                     $(".mydiv").css("display","block");
                                     $(".bg").css("display","block");               
                                     $(".remittance-id").text($(this).parent().find('.txid').text());
-                                    $(".bank-card-new").text($(this).parent().find('.acnumber').text());
-                                    //$(".bank-name-new").text($(this).parent().find('.bank').text());
-                                    //开户人姓名 
-                                    /*api_mkt.basic(function(data) {
-                                        if (data.status == 200) {
-                                            $("#bank-username").val(data.data.list.name);             
-                                        }
-                                    });*/
-                                    //$(".account-name-new").text($("#bank-username").val());
-                                    $(".account-name-new").text('北京果汇科技信息有限公司');
                                     $(".money-new").text('¥'+$(this).parent().find('.money').text()+'.00');                
                                     $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
                                     //关闭弹出层 -生成汇款单
@@ -510,7 +455,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         }else{
                            // console.log('财务中心-人民币充值历史表格，加载失败。');
                         }
-                    });
+                    });*/
                 });  
 
                 //接口：人民币充值
