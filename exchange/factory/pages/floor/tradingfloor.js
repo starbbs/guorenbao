@@ -39,16 +39,16 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 var totalNuts = data.data.gopBalance + data.data.gopLock;
                 var totalvalue = totalNuts*$('#thelatestprice').html()+totalAssets;
                 $('.iallshow').html(totalvalue.toFixed(2));//总资产
-                $(".ioneshow").html(cnyBalance);
-                $(".itwoshow").html(gopBalance);
-                $(".ithreeshow").html(cnyLock);
-                $(".ifourshow").html(gopLock);
+                $(".ioneshow").html(cnyBalance.toFixed(2));
+                $(".itwoshow").html(gopBalance.toFixed(2));
+                $(".ithreeshow").html(cnyLock.toFixed(2));
+                $(".ifourshow").html(gopLock.toFixed(2));
                 
                 $.cookie('allCNY',cnyBalance);
                 $.cookie('gop',gopBalance);           
                 $.cookie('allCNY',cnyBalance);
-                $('.w_b_l_one').html("<em>账户余额："+data.data.cnyBalance+" CNY</em>");
-                $('.w_b_l_two').html("<em>果仁余额："+data.data.gopBalance+" GOP</em>");
+                $('.w_b_l_one').html("<em>账户余额："+data.data.cnyBalance.toFixed(2)+" CNY</em>");
+                $('.w_b_l_two').html("<em>果仁余额："+data.data.gopBalance.toFixed(2)+" GOP</em>");
             } else {
                 console.log(data.msg);
             }
