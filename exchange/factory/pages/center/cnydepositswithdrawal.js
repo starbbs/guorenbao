@@ -78,7 +78,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                                 $("#bank-username").val(data.data.list.name);             
                             }
                         });
-                        $(".account-name-new").text($("#bank-username").val());
+                        //$(".account-name-new").text($("#bank-username").val());
+                        $(".account-name-new").text('北京果汇科技信息有限公司');
                         //$(".account-name-new").text($(this).parent().find('.name').text());
                         $(".money-new").text('¥'+$(this).parent().find('.money').text()+'.00');                
                         $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
@@ -114,7 +115,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     $(".cnyOutput").append(html.join(""));
 
                     //过滤内容显示不同颜色
-                    $(".status").filter(":contains('WAIT')").text('等待');
+                    $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");
                     $(".status").filter(":contains('PROCESSING')").text('进行中').css("color","orange");
                     $(".status").filter(":contains('SUCCESS')").text('提现成功').css("color","#ccc");                    
                 }
@@ -437,7 +438,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     $(".remittance-id").text(data.data.list[0].txid); 
                     $(".bank-card-new").text($("#bank-idcard").val());
                     $(".bank-name-new").text($("#bank").val());
-                    $(".account-name-new").text($("#bank-username").val());
+                    $(".account-name-new").text('北京果汇科技信息有限公司');
                     $(".money-new").text('¥'+$("#bank-money").val()+'.00');                
                     $(".remittance-note-numbe-newr").text($('.pUid').val());
                     $('.bankName').text($("#bank").val());
@@ -487,15 +488,15 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                                     $(".bg").css("display","block");               
                                     $(".remittance-id").text($(this).parent().find('.txid').text());
                                     $(".bank-card-new").text($(this).parent().find('.acnumber').text());
-                                    $(".bank-name-new").text($(this).parent().find('.bank').text());
+                                    //$(".bank-name-new").text($(this).parent().find('.bank').text());
                                     //开户人姓名 
-                                    api_mkt.basic(function(data) {
+                                    /*api_mkt.basic(function(data) {
                                         if (data.status == 200) {
                                             $("#bank-username").val(data.data.list.name);             
                                         }
-                                    });
-                                    $(".account-name-new").text($("#bank-username").val());
-                                    //$(".account-name-new").text($(this).parent().find('.name').text());
+                                    });*/
+                                    //$(".account-name-new").text($("#bank-username").val());
+                                    $(".account-name-new").text('北京果汇科技信息有限公司');
                                     $(".money-new").text('¥'+$(this).parent().find('.money').text()+'.00');                
                                     $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
                                     //关闭弹出层 -生成汇款单
@@ -511,7 +512,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         }
                     });
                 });  
-                /*$(".remittance-note-number").text();*/  
 
                 //接口：人民币充值
                 api_mkt.rmbRecharge({          

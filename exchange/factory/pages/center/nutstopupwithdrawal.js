@@ -95,10 +95,7 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
         if (!num || isNaN(num)) {
             btnConfirm = false;
             $('.msg-gopWithdrawalsNumber').text('请输入提取数量');
-        }else if (num) {
-            btnConfirm = false;
-            $('.msg-gopWithdrawalsNumber').text('请输入提取数量');
-        } else {
+        }else {
             btnConfirm = true;
             $('.msg-gopWithdrawalsNumber').text('');
         }
