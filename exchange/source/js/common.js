@@ -330,11 +330,11 @@
 
     function synchronous(ff) {
         $("#mybox").html("");
-        if(ff=="myboxclick"){
-            $("#msg_num_top,#newinfor_result").html("0");
-        } else {
-            $("#msg_num_top,#newinfor_result").html("0");
-        }
+        // if(ff=="myboxclick"){
+        //     $("#msg_num_top,#newinfor_result").html("0");
+        // } else {
+        //     $("#msg_num_top,#newinfor_result").html("0");
+        // }
         api_mkt.unReadMessage({
 
         },function(data){
@@ -357,8 +357,9 @@
                     }
                     $(dlisthtml).appendTo("#mybox");
                 }
-            } else {
+            } else if(data.status==400&&data.msg=="无数据"){
                 console.log(data);
+                $("#msg_num_top,#newinfor_result").html("0");
             }
         });
     }
