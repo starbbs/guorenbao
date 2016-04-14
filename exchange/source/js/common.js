@@ -17,6 +17,7 @@
         location.href="./index.html";
     });
 
+
     $(".pageone,.pagetwo,.pagethree,.pagefour").on("click",function(){
         var exchangeToken = $.cookie('exchangeToken');
         var ff = $(this).html();
@@ -304,14 +305,24 @@
         },100);
     });
 
+
     $("#mybox").on("click",function(){
+        console.log("clcccc")
         $("#msg_num_top,#newinfor_result").html("0");
         var ff = "myboxclick";
         synchronous(ff);
         location.href = "./ssmessage.html";
     });
 
+    // var readMsg = function(){
+    //     alert("ga")
+    //     $("#msg_num_top,#newinfor_result").html("0");
+    //     var ff = "myboxclick";
+    //     synchronous(ff);
+    //     location.href = "./ssmessage.html";
+    // }
     var lookall = function(){
+        alert("d")
         $("#msg_num_top,#newinfor_result").html("0");
         var ff = "myboxclick";
         synchronous(ff);
@@ -335,12 +346,17 @@
                     console.log(unReadNum);
                     $("#msg_num_top,#newinfor_result").html(unReadNum);
                     var dlisthtml = "";
-                    if(dlist){
+                    console.log(dlist)
+                    if(dlist.length==1){
+                        dlisthtml += "<div class='message_flow'><p class='message_content_p'>"+dlist[0].content+"</p><p class='message_date_p'>"+dlist[0].createDate+"</p></div>";
+                        dlisthtml += "<a href='ssmessage.html' onclick='lookall()'>查看全部</a>";
+                    }
+                    if(dlist.length==2){
                         dlisthtml += "<div class='message_flow'><p class='message_content_p'>"+dlist[0].content+"</p><p class='message_date_p'>"+dlist[0].createDate+"</p></div>";
                         dlisthtml += "<div class='message_flow second_message_flow'><p class='message_content_p'>"+dlist[1].content+"</p><p class='message_date_p'>"+dlist[1].createDate+"</p></div>";
-                        dlisthtml += "<a href='ssmessage.html' onClick='lookall()'>查看全部</a>";
-                        $(dlisthtml).appendTo("#mybox");
+                        dlisthtml += "<a href='ssmessage.html' onclick='lookall()'>查看全部</a>";
                     }
+                    $(dlisthtml).appendTo("#mybox");
                 }
             } else {
                 console.log(data);
