@@ -255,12 +255,16 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     	window.location.reload();
                     } else if(data.msg == '验证码错误'){
                         $('.msg-sendCodeByLoginAfter').text('验证码错误');
+                        return;
                     } else if(data.msg == '服务器异常'){
                         $('.msg-sendCodeByLoginAfter').text('服务器异常');
+                        return;
                     } else if(data.msg == '提现银行卡账户名必须与您的实名认证姓名一致'){
                         $('.msg-sendCodeByLoginAfter').text('提现银行卡账户名必须与您的实名认证姓名一致');
+                        return;
                     } else if(data.msg == '支付密码错误'){
                         $('.msg-pay-pwd').text('支付密码错误');
+                        return;
                     }              
                 });
                 
@@ -362,9 +366,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             $('.nut-two').hide();
                         }); 
                         window.location.href='withdraw.html?id=rmbtx'; 
-                    } else if(data.msg = '支付密码错误'){
+                    } else if(data.msg == '支付密码错误'){
                     	$('.msg-nut-paypwd').show().text('请输入正确的支付密码');
-                    }else if(data.msg = '验证码错误'){
+                    }else if(data.msg == '验证码错误'){
                         $('.msg-nut-identifyingCode').show().text('请输入正确的短信验证码');
                     }
                 });
