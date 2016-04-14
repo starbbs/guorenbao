@@ -175,7 +175,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                             $('.getauthcode_one').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
                         } else {
                             clearInterval(resend);
-                            $('.getauthcode_one').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).text('获取验证码');
+                            $('.getauthcode_one').attr('disabled',false).css({'cursor':'pointer','backgroundColor':'#0bbeee','color':'#fff'}).text('获取验证码');
                         }
                     }, 1000);
                 } else if (data.status == 400) {

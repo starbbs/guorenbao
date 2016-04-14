@@ -723,7 +723,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                   max: 100,
                   slide: function( event, ui ) {
                         $( "#amount2" ).html( ui.value +  "%" );
-                        $( ".sellNumber" ).val(((parseInt(ui.value) * parseInt($.cookie('gop')) ) / 100).toFixed(2));
+                        $( ".sellNumber" ).val(((parseInt(ui.value) * decimal.toDecimal($.cookie('gop')) ) / 100).toFixed(2));
                         $( ".sellNumber" ).attr("data-old",$( ".sellNumber" ).val());
                         if(sellPrice){
                             $(".two").val("¥"+decimal.toDecimal(decimal.toDecimal($('.sellNumber').val())*sellPrice));//交易额
