@@ -411,7 +411,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $(".mydiv").css("display","block");
                         $(".bg").css("display","block");
                         $(".remittance-id").text('AAAAAAAAA'); 
-                        $(".money-new").text('¥'+$("#bank-money").val()+'.00');                
+                        $(".money-new").text('¥'+$('#bank-money').val()+'.00');                
                         $(".remittance-note-numbe-newr").text($('.pUid').val());
                         $('.bankName').text($("#bank").val()+'网银');
                     } else {
