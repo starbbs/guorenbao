@@ -155,7 +155,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             var pwd = $(this).val();
             var reg = /^\d{6}$/;
             if(!reg.exec(pwd)){
-                $('.msg-VerificationCode').text('请输入验证码');
+                //$('.msg-VerificationCode').text('请输入验证码');
                 flag3 = false;
             }else{
                 flag3 = true;
@@ -165,29 +165,28 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 
         //获取验证码-人民币提现
         $('#VerificationCodeBtn').click(function(){
-            if(flag3 == true){
+            /*if(flag3 == true){
                $('.msg-VerificationCode').text('请输入正确的短信验证码');
-            }else{
-                api_mkt.sendCodeByLoginAfter( function(data) {
-                    if (data.status == 200) {
-                        console.log(data);
-                    } else {   
+            }else{*/
+            api_mkt.sendCodeByLoginAfter( function(data) {
+                if (data.status == 200) {
+                    console.log(data);
+                } else {   
+                }
+            });
+            
+            //30秒内只能发送一次
+            var count = 60;
+            var resend = setInterval(function(){
+                    count--;
+                    if(count > 0){
+                        $('#VerificationCodeBtn').val(count+'s后重新发送');
+                        $('#VerificationCodeBtn').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
+                    }else{
+                        clearInterval(resend);
+                        $('#VerificationCodeBtn').attr('disabled',false).css({'cursor':'pointer','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
                     }
-                });
-                
-                //30秒内只能发送一次
-                var count = 60;
-                var resend = setInterval(function(){
-                        count--;
-                        if(count > 0){
-                            $('#VerificationCodeBtn').val(count+'s后重新发送');
-                            $('#VerificationCodeBtn').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
-                        }else{
-                            clearInterval(resend);
-                            $('#VerificationCodeBtn').attr('disabled',false).css({'cursor':'pointer','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
-                        }
-                    },1000); 
-            }
+                },1000); 
         }); 
         //判断是否添加银行卡
         api_mkt.bankList({  
@@ -216,7 +215,26 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $('.bankIdCard').filter(":contains('交通银行')").addClass('BC').text('');
                         $('.bankIdCard').filter(":contains('招商银行')").addClass('CMB').text('');
                         $('.bankIdCard').filter(":contains('中国邮政储蓄银行')").addClass('PSBC').text('');
-                        $('.bankIdCard').filter(":contains('中国农业银行')").addClass('ABC').text('');                    
+                        $('.bankIdCard').filter(":contains('中国农业银行')").addClass('ABC').text(''); 
+                        //radio 获取值
+                        if($('.checkBankCard').length == 1){
+                            //console.log('asdfas');
+                            var a = $('.bankNum').val();
+                            var b = $('.bankUserName').val();
+                            var c = $('.bankName').val();
+                            $.cookie('bankNum',a);
+                            $.cookie('bankUserName',b);
+                            $.cookie('bankName',c);
+                        }else{
+                            $('.checkBankCard').click(function(){
+                                var a = $(this).parent().find('.bankNum').val();
+                                var b = $(this).parent().find('.bankUserName').val();
+                                var c = $(this).parent().find('.bankName').val();
+                                $.cookie('bankNum',a);
+                                $.cookie('bankUserName',b);
+                                $.cookie('bankName',c);
+                            }); 
+                        }                 
                     }                    
                 }
             }
@@ -233,21 +251,13 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                    $('.msg-WithdrawalsPayPwd').text('请输入正确的支付密码');
                 }else if(flag3 == false){
                    $('.msg-VerificationCode').text('请输入正确的短信验证码');
-                }else if($.cookie('bankNum') == null){
+                }else if($('.checkBankCard').length == 0){
                     $('.addBankCard').html('<a href="withdraw.html" style="color:#0bbeee;">+ 添加银行卡</a><span style="color:red;margin-left:25px;"> 请点击添加银行卡</span>');
                 }else{  
                     $(".mydiv1").css("display","block");
-                    $(".bg").css("display","block"); 
+                    $(".bg1").css("display","block"); 
                     //勾选弹出框 选择内容
-                    //radio 获取值
-                    $('.checkBankCard').click(function(){
-                        var a = $(this).parent().find('.bankNum').val();
-                        var b = $(this).parent().find('.bankUserName').val();
-                        var c = $(this).parent().find('.bankName').val();
-                        $.cookie('bankNum',a);
-                        $.cookie('bankUserName',b);
-                        $.cookie('bankName',c);
-                    });     
+                         
                     //弹出层理面的内容
                     $(".WithdrawalsCard").text($.cookie('bankNum'));
                     $(".WithdrawalsBank").text($.cookie('bankName'));
@@ -260,12 +270,12 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     //只关闭
                     $(".span-text1").click(function(){
                         $(".mydiv1").css("display","none");
-                        $(".bg").css("display","none");
+                        $(".bg1").css("display","none");
                     }); 
                     //关闭弹出层 -生成汇款单
                     $(".span-btn1").click(function(){
                         $(".mydiv1").css("display","none");
-                        $(".bg").css("display","none"); 
+                        $(".bg1").css("display","none"); 
                         //接口：人民币提现
                         api_mkt.rmbWithdrawals({          
                             'bankId':data.data.list[0].acnumber,

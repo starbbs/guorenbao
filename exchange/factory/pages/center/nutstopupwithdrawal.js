@@ -19,10 +19,6 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
     $('#addNewAd').click(function() {
         location.href = "withdraw.html?id=rmbtx ";
     });
-    //所有input focus 清空 内容
-    $('.regist_rg_input').focus(function(){
-        $(this).val('');
-    });
     //我的账户信息-取账户地址
     api_mkt.basic(function(data) {
         if (data.status == 200) {
@@ -47,6 +43,8 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
                 Node1.text(data.data.list[i].name);
                 Node1.val(data.data.list[i].address);
                 $('.regist_rg_input-select').append(Node1);
+
+                $('option:eq(1)').attr('selected',true);
             }
         } else {
             //console.log(err);
@@ -66,13 +64,13 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
                 html.push("<td>" + data.data.list[i].createDate + "</td>");
                 html.push("<td>" + data.data.list[i].wallet + "</td>");
                 html.push("<td>" + data.data.list[i].number + "</td>");
-                html.push("<td class='status'>" + data.data.list[i].transferGopOptType + "</td>");
+                html.push("<td class='status'>" + data.data.list[i].transferGopStatus + "</td>");
                 html.push("</tr>");
                 $(".guorenOutput").html(""); //添加前清空 
                 $(".guorenOutput").append(html.join(""));
 
                 //过滤内容显示不同颜色
-                $(".status").filter(":contains('OUT')").text('已到账').css("color", "#999");                
+                $(".status").filter(":contains('SUCCESS')").text('已到账').css("color", "#999");                
                 $(".status").filter(":contains('PROCESSING')").text('进行中').css("color", "orange");
             
             }
@@ -81,27 +79,25 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
         }
     });
     //果仁提现-校验
-    var btnConfirm = false;
-    //判断是否选择果仁地址
-    /*if($('.gopWithdrawalsSelect').find('option:selected').text() == '选择果仁地址'){
-        btnConfirm = false;
-    }else{
-        btnConfirm = true;
-        //$('.msg-gopWithdrawalsSelect').text('');
-    }*/
+    var btnConfirm1a = false; //校验表单-变量
+    var btnConfirm2a = false; //校验表单-变量
+    var btnConfirm3a = false; //校验表单-变量
     //输入数量校验
     $('#gopWithdrawalsNumber').blur(function() {
         var num = $('#gopWithdrawalsNumber').val();
         if (!num || isNaN(num)) {
-            btnConfirm = false;
+            btnConfirm1a = false;
             $('.msg-gopWithdrawalsNumber').text('请输入提取数量');
-        }else {
-            btnConfirm = true;
+        }else if(parseInt(num.length - num.lastIndexOf('.')) > 3){
+            btnConfirm1a = false;
+            $('.msg-gopWithdrawalsNumber').text('果仁提现转出数量最多输入两位小数');
+        }else{
+            btnConfirm1a = true;
             $('.msg-gopWithdrawalsNumber').text('');
         }
     });
     
-    $(".wrapper").on("input propertychange", "#gopWithdrawalsNumber", function() {
+    /*$(".wrapper").on("input propertychange", "#gopWithdrawalsNumber", function() {
     	var num = $(this).val();
         var oldData=$(this).attr("data-old");
         if(decimal.toDecimal(num) < 0.02||decimal.getPsercison(num)>2 ){
@@ -111,51 +107,62 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
         }else{
         	$(this).attr("data-old",num);
         }
-    });
+    });*/
     
     //校验支付密码
     $('#gopWithdrawalsPayPwd').blur(function() {
         var PayPwd = $('#gopWithdrawalsPayPwd').val();
         if (!PayPwd) {
-            btnConfirm = false;
-            $('.msg-gopWithdrawalsPayPwd').text('请输入支付密码');
+            btnConfirm2a = false;
+            $('.msg-gopWithdrawalsPayPwd').text('请输入您的支付密码');
         } else {
-            btnConfirm = true;
+            btnConfirm2a = true;
             $('.msg-gopWithdrawalsPayPwd').text('');
         }
     });
 
     //获取验证码
     $('#gopWithdrawalsCodeBtn').click(function() {
-        if (btnConfirm == false) {
-            alert('请完善填写信息！');
+        api_mkt.sendCodeByLoginAfter(function(data) {
+            if (data.status == 200) {
+                console.log(data);
+            } else {}
+        });
+
+        //30秒内只能发送一次
+        var count = 30;
+        var resend = setInterval(function() {
+            count--;
+            if (count > 0) {
+                $('#gopWithdrawalsCodeBtn').val(count + 's后重新发送');
+                $('#gopWithdrawalsCodeBtn').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
+            } else {
+                clearInterval(resend);
+                $('#gopWithdrawalsCodeBtn').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
+            }
+        }, 1000);
+
+    });
+    //校验验证码
+    $('#gopWithdrawalsPayPwd').blur(function() {
+        var code= $('#gopWithdrawalsCode').val();
+        if (!code) {
+            btnConfirm3a = false;
+            $('.msg-gopWithdrawalsCode').text('请输入短信验证码');
         } else {
-            api_mkt.sendCodeByLoginAfter(function(data) {
-                if (data.status == 200) {
-                    console.log(data);
-                } else {}
-            });
-
-            //30秒内只能发送一次
-            var count = 30;
-            var resend = setInterval(function() {
-                count--;
-                if (count > 0) {
-                    $('#gopWithdrawalsCodeBtn').val(count + 's后重新发送');
-                    $('#gopWithdrawalsCodeBtn').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
-                } else {
-                    clearInterval(resend);
-                    $('#gopWithdrawalsCodeBtn').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
-                }
-            }, 1000);
+            btnConfirm3a = true;
+            $('.msg-gopWithdrawalsCode').text('');
         }
-
     });
     //转出
     $('.gopWithdrawalsBtn').click(function() {
-        if (btnConfirm == false || typeof(btnConfirm) == 'undefined') {
-            alert('请完善填写信息！');
-        } else {
+        if (btnConfirm1a == false) {
+            $('.msg-gopWithdrawalsNumber').text('请输入提取数量');
+        } else if (btnConfirm2a == false) {
+            $('.msg-gopWithdrawalsPayPwd').text('请输入您的支付密码');
+        } else if (btnConfirm3a == false) {
+            $('.msg-gopWithdrawalsCode').text('请输入正确的短信验证码');
+        } else{
             //果仁提现
             api_mkt.gopWithdrawals({
                 'number': $('#gopWithdrawalsNumber').val(),
@@ -164,9 +171,13 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
                 'paypwd': $('#gopWithdrawalsPayPwd').val()
             }, function(data) {
                 if (data.status == 200) {
+                    //$('.msg-gopWithdrawalsNumber').show().text('转出成功');
                     alert('转出成功');
                 } else{                    
-                    alert(data.msg);
+                    //$('.msg-gopWithdrawalsNumber').show().text('您的'+data.msg+'，转出失败');
+                    /*$("#floor_bg").show();
+                    $("#floor_popDiv").fadeIn(500);*/
+                    alert('您的'+data.msg+'，转出失败');
                 }
             });
         }
@@ -185,13 +196,13 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
                 html.push("<td>" + data.data.list[i].createDate + "</td>");
                 html.push("<td>" + data.data.list[i].wallet + "</td>");
                 html.push("<td>" + data.data.list[i].number + "</td>");
-                html.push("<td class='status'>" + data.data.list[i].transferGopOptType + "</td>");
+                html.push("<td class='status'>" + data.data.list[i].transferGopStatus + "</td>");
                 html.push("</tr>");
                 $(".guorenInput").html(""); //添加前清空 
                 $(".guorenInput").append(html.join(""));
 
                 //过滤内容显示不同颜色
-                $(".status").filter(":contains('IN')").text('已到账').css("color", "#999");                
+                $(".status").filter(":contains('SUCCESS')").text('已到账').css("color", "#999");                
                 $(".status").filter(":contains('PROCESSING')").text('进行中').css("color", "orange");
             
             }

@@ -25,13 +25,13 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
                 html.push("<td>" + data.data.list[i].createDate + "</td>");
                 html.push("<td>" + data.data.list[i].wallet + "</td>");
                 html.push("<td>" + data.data.list[i].number + "</td>");
-                html.push("<td class='status'>" + data.data.list[i].transferGopOptType + "</td>");
+                html.push("<td class='status'>" + data.data.list[i].transferGopStatus + "</td>");
                 html.push("</tr>");
                 $(".guorenOutput").html(""); //添加前清空 
                 $(".guorenOutput").append(html.join(""));
 
                 //过滤内容显示不同颜色
-                $(".status").filter(":contains('OUT')").text('已到账').css("color", "#999");                
+                $(".status").filter(":contains('SUCCESS')").text('已到账').css("color", "#999");                
                 $(".status").filter(":contains('PROCESSING')").text('进行中').css("color", "orange");
             
             }
@@ -53,13 +53,13 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
                 html.push("<td>" + data.data.list[i].createDate + "</td>");
                 html.push("<td>" + data.data.list[i].wallet + "</td>");
                 html.push("<td>" + data.data.list[i].number + "</td>");
-                html.push("<td class='status'>" + data.data.list[i].transferGopOptType + "</td>");
+                html.push("<td class='status'>" + data.data.list[i].transferGopStatus + "</td>");
                 html.push("</tr>");
                 $(".guorenInput").html(""); //添加前清空 
                 $(".guorenInput").append(html.join(""));
 
                 //过滤内容显示不同颜色
-                $(".status").filter(":contains('IN')").text('已到账').css("color", "#999");                
+                $(".status").filter(":contains('SUCCESS')").text('已到账').css("color", "#999");                
                 $(".status").filter(":contains('PROCESSING')").text('进行中').css("color", "orange");
             
             }

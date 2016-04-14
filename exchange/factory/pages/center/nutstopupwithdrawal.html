@@ -115,6 +115,7 @@
                             <div class="regist_input_div">
                                 <input class="regist_rg_input-VerificationCode" type="text" placeholder="" id="gopWithdrawalsCode"/>
                                 <input class="regist_rg_input-btn" type="button" value="获取验证码" id="gopWithdrawalsCodeBtn"/>
+                                <span class="msg-gopWithdrawalsCode"></span>
                             </div>
                             <div class="build_remit_btn gopWithdrawalsBtn">转出</div>
                             <div class="aside-table-div-1">
@@ -146,6 +147,15 @@
 
         @@include('../../includes/bottom/bottom.html')
     </div>
+    <div id="floor_popDiv" class="popDiv" style="display:none;">
+        <div id='orgNote' class="note_div">
+            <h3 class="h3_1">请输入支付密码</h3>
+            <h3 class="h3_2" style="display:none">请确认是否撤单</h3>
+            <img src="./images/close_btn.png" alt="" class="close_btn">
+            <div class="sure_btn close_btn">确认</div>
+        </div>
+    </div>
+    <div id="floor_bg" class="bg" style="display:none;">这里是遮罩层</div>
     <div id="bg" class="bg" style="display:none;">这里是遮罩层</div>
 </body>
 </html>

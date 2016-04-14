@@ -112,7 +112,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     $(".tradeGopType").filter(":contains('BUY')").text('买入').css("color","red");                    
                     $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green");
                     $(".tradeGopStatus").filter(":contains('SUCCESS')").text('已成交').css("color","orange");                    
-                    $(".tradeGopStatus").filter(":contains('CANCEL')").text('已撤销').css("color","#999"); 
+                    $(".tradeGopStatus").filter(":contains('CANCEL')").text('已撤销').css("color","#999");                                     
+                    $(".priceAver").filter(":contains('Infinity')").text('0'); 
                 }                      
             }else{
                 console.log(data);
@@ -162,7 +163,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
 
 
     //toFixed 不 四舍五入
-    var toFixedNum = function(){
+    var toFixedNum = function(num){
         var bb = num+"";  
         var dian = bb.indexOf('.');  
         var result = "";  

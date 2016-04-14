@@ -172,9 +172,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         });
         //校验支付密码-人民币提现管理
         $('.pay-pwd').blur(function(){
-            var payPwd = $.trim($(".pay-pwd").val());
-            var reg = /^[0-9a-zA-Z]{6,12}$/;
-            if(!reg.test(payPwd) || !payPwd){
+            var reg = new RegExp("^[0-9]*$");//纯数字
+            var hanzi = /[\u4e00-\u9fa5]/;//汉字
+            if($(this).val().indexOf(" ")>0 || $(this).val().length>20||$(this).val().length<8 || reg.test($(this).val()) || hanzi.test($(this).val())){
                 btnConfirm = false;
                 $('.msg-pay-pwd').show().text('请输入正确的支付密码');
             }else{

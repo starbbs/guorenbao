@@ -425,7 +425,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     //历史委托（不传参数查询最近5条）
     api_mkt.tradeGopHistoryList(function(data) {
         if (data.status == 200) {
-            console.log(data); 
             var html = [];
             var num = data.data.list.length < 5?data.data.list.length:5;
             for(var i=0; i<num;i++){
@@ -450,7 +449,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 $(".priceAver").filter(":contains('Infinity')").text('0'); 
             }       
         }else{
-            console.log(data);
         }
     });
     
@@ -963,7 +961,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
         $(this).val('');
     });
     //toFixed 不 四舍五入
-    var toFixedNum = function(){
+    var toFixedNum = function(num){
         var bb = num+"";  
         var dian = bb.indexOf('.');  
         var result = "";  
