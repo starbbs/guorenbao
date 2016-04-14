@@ -20,7 +20,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
     $(".currentPwd").on("blur", function() {
     	var reg = new RegExp("^[0-9]*$");//纯数字
 		var hanzi = /[\u4e00-\u9fa5]/;//汉字
-		if($(this).val().indexOf(" ")>0 || $(this).val().length>20||$(this).val().length<6 || reg.test($(this).val()) || hanzi.test($(this).val())){
+		if($(this).val().indexOf(" ")>=0 || $(this).val().length>20||$(this).val().length<6 || reg.test($(this).val()) || hanzi.test($(this).val())){
             $("#one_span").show().html("请输入6~20位非纯数字字符");
             checkFlag1 = false;
         }else{
@@ -31,7 +31,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
     $(".newPwd").on("blur", function() {
     	var reg = new RegExp("^[0-9]*$");//纯数字
 		var hanzi = /[\u4e00-\u9fa5]/;//汉字
-		if($(this).val().indexOf(" ")>0 || $(this).val().length>20||$(this).val().length<6 || reg.test($(this).val()) || hanzi.test($(this).val())){
+		if($(this).val().indexOf(" ")>=0 || $(this).val().length>20||$(this).val().length<6 || reg.test($(this).val()) || hanzi.test($(this).val())){
             $("#two_span").show().html("请输入6~20位非纯数字字符");
             checkFlag2 = false;
         }else{
@@ -42,7 +42,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
     $(".confirmNewPwd").on("blur", function() {
     	var reg = new RegExp("^[0-9]*$");//纯数字
 		var hanzi = /[\u4e00-\u9fa5]/;//汉字
-		if($(this).val().indexOf(" ")>0 || $(this).val().length>20||$(this).val().length<6 || reg.test($(this).val()) || hanzi.test($(this).val())){
+		if($(this).val().indexOf(" ")>=0 || $(this).val().length>20||$(this).val().length<6 || reg.test($(this).val()) || hanzi.test($(this).val())){
             $("#three_span").show().html("请输入6~20位非纯数字字符");
             checkFlag3 = false;
         }else if($(this).val()!=$(".newPwd").val()){

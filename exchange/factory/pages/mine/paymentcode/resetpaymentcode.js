@@ -79,7 +79,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
     	var reg = new RegExp("^[0-9]*$");//纯数字
 		var hanzi = /[\u4e00-\u9fa5]/;//汉字
 		var pwd=$(this).val();
-		if(pwd.indexOf(" ")>0 || pwd.length<8 || pwd.length>20 || reg.test(pwd) || hanzi.test(pwd)){
+		if(pwd.indexOf(" ")>=0 || pwd.length<8 || pwd.length>20 || reg.test(pwd) || hanzi.test(pwd)){
 			$(".tow_span1").show().html("请输入 8~20位非纯数字字符");
 			checkFlag3 = false;
             return;

@@ -78,7 +78,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		//var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
 		var reg = new RegExp("^[0-9]*$");//纯数字
 		var hanzi = /[\u4e00-\u9fa5]/;//汉字
-		if(pwd.indexOf(" ")>0 || pwd.length<6 || pwd.length>20 || reg.test(pwd) || hanzi.test(pwd)){
+		if(pwd.indexOf(" ")>=0 || pwd.length<6 || pwd.length>20 || reg.test(pwd) || hanzi.test(pwd)){
 			btnPwd = false;
 			$('.msg-pwd').text('密码格式：6~20位非纯数字字符');
 		}else{
@@ -155,7 +155,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		//var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
 		var reg = new RegExp("^[0-9]*$");//纯数字
 		var hanzi = /[\u4e00-\u9fa5]/;//汉字
-		if(payPwd.indexOf(" ")>0 || payPwd.length<8 || payPwd.length>20 || reg.test(payPwd) || hanzi.test(payPwd)){
+		if(payPwd.indexOf(" ")>=0 || payPwd.length<8 || payPwd.length>20 || reg.test(payPwd) || hanzi.test(payPwd)){
 			btnPayPwd = false;
 			$('.msg-payPwd').show().text('8~20位非纯数字字符');
 		}else{
