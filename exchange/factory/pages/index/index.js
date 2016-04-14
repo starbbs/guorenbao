@@ -485,8 +485,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                         $(".error_tips_index").show().html("用户名或密码错误，请重新登录");
                     } else if(data.msg=="手机号未注册"){
                         $(".error_tips_one").show().html("用户名或密码错误，请重新登录");
-                    } else {
-                        $(".autocode_tips").show().html(data.msg);
+                    } else if(data.data && data.data.num && data.data.num<=10){
+//                    	{"data":{"num":2,"msg":"登录密码错误"},"msg":"error","status":"400"}
+                        $(".autocode_tips").show().html("还有次"+(10-data.data.num)+"输入机会");
+                    }else{
+                    	$(".autocode_tips").show().html(data.msg);
                     }
                 } else {
                     login_area_times++;
