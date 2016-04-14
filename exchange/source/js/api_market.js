@@ -84,6 +84,7 @@ define('api_mkt', ['cookie'], function() {
                         alert('服务器异常');
                     } else if(data.status==400){
                         if(data.msg == "系统已经退出了"){
+                            alert("登录超时");
                             clearcookie();
                             goIndex(true);
                         }

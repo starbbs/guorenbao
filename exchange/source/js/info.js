@@ -79,7 +79,7 @@
 		// console.log("unknow"+unknow);
 		$('#cumulativevolumeem').html(total.toFixed(2));  //首页 累计成交量
 		$('#thecumulativevolume_floor').html(total.toFixed(2));  //交易大厅 累计成交量
-		$('#pricechangeratio').html(unknow*100+"%");  //涨跌幅
+		$('#pricechangeratio').html((unknow*100).toFixed(2)+"%");  //涨跌幅
 		if(unknow<0){
 			$("#pricechangeratio").css("color","#00951c");
 			$(".quoted_price_updown")[0]?$(".quoted_price_updown")[0].style.background="url(./images/index_arrow_down.png)":"";

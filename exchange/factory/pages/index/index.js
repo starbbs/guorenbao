@@ -39,15 +39,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     $("#msg_num_top,#newinfor_result").html(unReadNum);
                     var dlisthtml = "";
                     if(dlist){
-                        if(dlist.length<2){
-                            var obj = dlist[0];
-                            dlisthtml += "<div class='message_flow'><p class='message_content_p'>"+obj.content+"</p><p class='message_date_p'>"+obj.createDate+"</p></div>";
-                        }
-                        if(dlist.length>=2){
-                            dlisthtml += "<div class='message_flow'><p class='message_content_p'>"+dlist[0].content+"</p><p class='message_date_p'>"+dlist[0].createDate+"</p></div>";
-                            dlisthtml += "<div class='message_flow second_message_flow'><p class='message_content_p'>"+dlist[1].content+"</p><p class='message_date_p'>"+dlist[1].createDate+"</p></div>";
-                        }
-                        dlisthtml += "<a href='ssmessage.html'>查看全部</a>";
+                        dlisthtml += "<div class='message_flow'><p class='message_content_p'>"+dlist[0].content+"</p><p class='message_date_p'>"+dlist[0].createDate+"</p></div>";
+                        dlisthtml += "<div class='message_flow second_message_flow'><p class='message_content_p'>"+dlist[1].content+"</p><p class='message_date_p'>"+dlist[1].createDate+"</p></div>";
+                        dlisthtml += "<a href='ssmessage.html' onClick='lookall()'>查看全部</a>";
                         $(dlisthtml).appendTo("#mybox");
                     }
                 }
@@ -94,11 +88,26 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         //$(".lf_asset_center").html(totalAssets.toFixed(2));  //总资产
         //$(".rg_asset_center").html(totalNuts.toFixed(2));    //总果仁
         
-        if(global_loginusername!=""&&global_loginusername){
+        api_mkt.realAuth({
+        }, function(data) {
+            if (data.status == 200) {
+                if(data.data.list.name!=""){
+                    $("#logined_username").html(data.data.list.name);
+                } else {
+                    $("#logined_username").html(global_loginuserphone.substr(0,3)+'****'+global_loginuserphone.substr(7,4));
+                }
+            } else if (data.status == 305) {
+            } else if(data.status == 400){
+                $("#logined_username").html(global_loginuserphone.substr(0,3)+'****'+global_loginuserphone.substr(7,4));
+            } else {
+            }
+        });
+
+        /*if(global_loginusername!=""&&global_loginusername){
             $("#logined_username").html(global_loginusername);
         } else {
             $("#logined_username").html(global_loginuserphone.substr(0,3)+'****'+global_loginuserphone.substr(7,4));
-        }
+        }*/
         $("#uidval").html(global_loginuseruid);
         if(global_loginusername){
             $("#whether_auth").html(global_loginusername);
@@ -414,7 +423,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     $.cookie("global_loginuseruid",global_loginuseruid);
                     synchronous();
                     setInterval(synchronous, 60000);
-                    $("#logined_username").html(data.data.phone.substr(0,3)+'****'+data.data.phone.substr(7,4));
+                    
                     $(".top_em").html(data.data.phone.substr(0,3)+'****'+data.data.phone.substr(7,4));
                     $("#uidval").html(global_loginuseruid);  //首页uid赋值
                     var whichpage = $.cookie("loginfromwhichpage");
@@ -448,10 +457,14 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     api_mkt.realAuth({
                     }, function(data) {
                         if (data.status == 200) {
-                            whether_auth = true;  //已经实名认证
+                            if(data.data.list.name!=""){
+                                $("#logined_username").html(data.data.list.name);
+                            } else {
+                                $("#logined_username").html(global_loginuserphone.substr(0,3)+'****'+global_loginuserphone.substr(7,4));
+                            }
                         } else if (data.status == 305) {
                         } else if(data.status == 400){
-                            whether_auth = false;
+                            $("#logined_username").html(global_loginuserphone.substr(0,3)+'****'+global_loginuserphone.substr(7,4));
                         } else {
                         }
                     });
@@ -471,7 +484,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     if(data.msg=="登录密码错误"){
                         $(".error_tips_index").show().html("用户名或密码错误，请重新登录");
                     } else if(data.msg=="手机号未注册"){
-                        //$(".error_tips_one").show().html(data.msg);
                         $(".error_tips_one").show().html("用户名或密码错误，请重新登录");
                     } else {
                         $(".autocode_tips").show().html(data.msg);
