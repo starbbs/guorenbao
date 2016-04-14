@@ -78,17 +78,9 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 		//buyaprice=9.1;// TODO 测试
 		//sellaprice=1;// TODO 测试
 		$('#buyonece_price_floor').html(buyaprice.toFixed(2));  //交易市场买一价
-		/*trade.buyaprice=buyaprice;
-		if(buyaprice && buyaprice!=''){
-//        	$('.buying_price').val(buyaprice);
-		}*/
+		trade.buyaprice=buyaprice;      
 		$('#sellonece_price_floor').html(sellaprice.toFixed(2));//交易市场卖一价
-		/*trade.sellaprice=sellaprice;
-		if(sellaprice && sellaprice!=''){
-//        	$('.sellPrice').val(sellaprice);
-		}
-		//console.log(list_buy);
-		//console.log(list_sell);*/
+		trade.sellaprice=sellaprice;
 		var list_sell_html = "";
 		var buy_list_html = "";
 		if(list_buy.length!=0){
