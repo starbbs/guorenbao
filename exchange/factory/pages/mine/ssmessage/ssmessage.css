@@ -54,8 +54,8 @@
 /*---滚动框背景样式--*/
 
 ::-webkit-scrollbar-track-piece {
-    background-color: #fff;
-    -webkit-border-radius: 0;
+    /* background-color: #fff; */
+    /* -webkit-border-radius: 0; */
 }
 
 .wrapper {

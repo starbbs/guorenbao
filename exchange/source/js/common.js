@@ -245,6 +245,8 @@
                         $(".err_tips_one").show().html("用户名或密码错误，请重新登录");
                     } else if(data.msg=="登录密码错误"){
                         $(".error_tips").show().html("用户名或密码错误，请重新登录");
+                    } else if(data.msg=="error"&&data.data.msg=="登录密码错误"){
+                        $(".error_tips").show().html("用户名或密码错误，请重新登录");
                     }
                 } else {
 	            	$(".error_tips").show().html(data.msg);

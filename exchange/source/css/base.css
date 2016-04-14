@@ -181,8 +181,9 @@ table {
 /*---滚动框背景样式--*/
 
 ::-webkit-scrollbar-track-piece {
-    background-color: #fff;
+    /* background-color: #fff; */
     -webkit-border-radius: 0;
+    cursor:pointer;
 }
 
 .topbar {

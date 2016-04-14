@@ -44,7 +44,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
                                 $("#realname").html("未认证").css("color","#ff6600");
                                 $(".lookup").hide();
                                 $(".jumpone,.jumptwo,.jumpthree").on("click",function(){
-                                    $(".popuptips").slideUp();
+                                    $(".popuptips").hide();
                                     $(".popuptips").slideDown();
                                 });
                             }

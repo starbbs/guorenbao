@@ -45,10 +45,6 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pageh
                         $(".operType").filter(":contains('BUY')").text('果仁买入').css("color", "red");
                         $(".operType").filter(":contains('SELL')").text('果仁卖出').css("color", "green");
                         $("td").filter(":contains('undefined')").text('0');
-                        
-                        if(!$('.toFixed').filter(":contains('.')")){
-                             $(this).text() = $(this).text()+'.00';
-                        }
                     }
                 }
             }            
