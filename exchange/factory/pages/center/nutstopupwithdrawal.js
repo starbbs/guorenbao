@@ -145,10 +145,10 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
         var code= $('#gopWithdrawalsCode').val();
         if (!code) {
             btnConfirm3a = false;
-            $('.msg-gopWithdrawalsCode').show().text('请输入短信验证码');
+            $('.msg-gopWithdrawalsCode').text('请输入短信验证码');
         } else {
             btnConfirm3a = true;
-            $('.msg-gopWithdrawalsCode').hide();
+            $('.msg-gopWithdrawalsCode').text('');
         }
     });
     //转出
@@ -171,12 +171,12 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
             }, function(data) {
                 if (data.status == 200) {
                     alert('转出成功');
-                } else if(data.msg = '支付密码错误'){  
+                }/* else if(data.msg == '支付密码错误'){  
                     $('.msg-gopWithdrawalsPayPwd').text('您输入支付密码有误，请重新输入');
-                }else if(data.msg = '验证码错误'){  
+                }else if(data.msg == '验证码错误,请重新发送验证码'){  
                     $('.msg-gopWithdrawalsCode').text('您输入验证码有误，请重新输入');
-                }else{
-                    alert('您的果仁余额不足，暂不能提现');
+                }*/else{
+                    $('.msg-gopWithdrawalsCode').text(data.msg);
                 }
             });
         }

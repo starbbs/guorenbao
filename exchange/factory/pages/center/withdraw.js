@@ -161,7 +161,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         //校验开户支行-人民币提现管理
         $('#subbank').blur(function(){
             var subbank = $.trim($(this).val());
-            var reg = /^[\u4e00-\u9fa5]+$/;   
+            var reg = /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/; 
             if(!subbank || !reg.test(subbank)){
                 btnConfirm = false;
                 $('.msg-subbank').show().text('请输入正确的开户支行地址');
