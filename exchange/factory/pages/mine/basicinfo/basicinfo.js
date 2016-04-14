@@ -23,6 +23,15 @@ require(['api_mkt','cookie'], function(api_mkt) {
                                 $(".verticle_line").show();
                                 $(".verticle_line_id").show();
                                 $("#realname").html(data.data.list.name);
+                                $(".jumpone").on("click",function(){
+                                    location.href = "./modifyloginpassword.html";
+                                });
+                                $(".jumptwo").on("click",function(){
+                                    location.href = "./modifypaymentcode.html";
+                                });
+                                $(".jumpthree").on("click",function(){
+                                    location.href = "./resetpaymentcode.html";
+                                });
                             } else {
                                 $(".unautherized").show();
                             }
@@ -43,6 +52,11 @@ require(['api_mkt','cookie'], function(api_mkt) {
             }
         });
     }
+
+
+
+    
+
     $(".close_btn").on("click",function(){
         $(".popDiv").hide();
         $(".bg").hide();

@@ -324,3 +324,19 @@
 #identificode_value{
     top:8px;
 }
+
+.username_value_i{
+        background: url("../images/mine_certification_already_authentication.png");
+    width: 23px;
+    height: 15px;
+    display: block;
+    background-size: 100%;
+    position: absolute;
+    left: 42px;
+    top: -1px;
+}
+#username_value_one{
+    top: 0px;
+    margin-top: 0px;
+    color: #424242;
+}
