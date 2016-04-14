@@ -87,9 +87,11 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		            		$("#error_four").show().html(data.msg);
 		            	} else if(data.msg=="支付密码长度错误"){
 		            		$("#error_four").show().html(data.msg);
+		            	}else{
+		            		$("#error_four").show().html(data.msg);
 		            	}
 	                } else {
-		            	$("#error_three").show().html(data.msg);
+		            	$("#error_four").show().html(data.msg);
 		            }
 		        });
 	    	}else{

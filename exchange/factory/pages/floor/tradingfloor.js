@@ -563,9 +563,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
           max: 100,
           slide: function( event, ui ) {
                 $( "#amount" ).html( ui.value +  "%" );             
-                if(decimal.toDecimal(mkt_trade.buyaprice)>0){
-                	$('.buying_price').val(decimal.toDecimal(mkt_trade.buyaprice));
-                    $( ".buying_number" ).val( decimal.toDecimal((parseInt(ui.value) * decimal.toDecimal($.cookie('allCNY'))) / 100/decimal.toDecimal(mkt_trade.buyaprice)));
+                if(decimal.toDecimal(mkt_trade.sellaprice)>0){
+                	$('.buying_price').val(decimal.toDecimal(mkt_trade.sellaprice));
+                    $( ".buying_number" ).val( decimal.toDecimal((parseInt(ui.value) * decimal.toDecimal($.cookie('allCNY'))) / 100/decimal.toDecimal(mkt_trade.sellaprice)));
                     $( ".buying_number" ).attr("data-old",$( ".buying_number" ).val());
                     $('.one').val('¥'+ decimal.toDecimal(parseInt(ui.value)*  decimal.toDecimal($.cookie('allCNY'))/100)); 
                 }
@@ -673,8 +673,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                         $( "#amount3" ).html( ui.value +  "%" );
                         $( ".sellAmount" ).val(((decimal.toDecimal(ui.value) * decimal.toDecimal($.cookie('gop')) ) / 100).toFixed(2));
                         $( ".sellAmount" ).attr("data-old",$( ".sellAmount" ).val());
-                        if(decimal.toDecimal(mkt_trade.sellaprice)){
-                            $(".two").val("¥"+decimal.toDecimal(decimal.toDecimal($('.sellAmount').val())*decimal.toDecimal(mkt_trade.sellaprice)));//交易额
+                        if(decimal.toDecimal(mkt_trade.buyaprice)){
+                            $(".two").val("¥"+decimal.toDecimal(decimal.toDecimal($('.sellAmount').val())*decimal.toDecimal(mkt_trade.buyaprice)));//交易额
                         }
                   }
             }); 
@@ -744,9 +744,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 $( "#amount2" ).html( ui.value +  "%" );
                 $( ".sellNumber" ).val(((decimal.toDecimal(ui.value) * decimal.toDecimal($.cookie('gop')) ) / 100).toFixed(2));
                 $( ".sellNumber" ).attr("data-old",$( ".sellNumber" ).val());
-                if(decimal.toDecimal(mkt_trade.sellaprice)>0){
-                	$('.sellPrice').val(decimal.toDecimal(mkt_trade.sellaprice));
-                    $(".two").val("¥"+decimal.toDecimal(decimal.toDecimal($('.sellNumber').val())*decimal.toDecimal(mkt_trade.sellaprice)));//交易额
+                if(decimal.toDecimal(mkt_trade.buyaprice)>0){
+                	$('.sellPrice').val(decimal.toDecimal(mkt_trade.buyaprice));
+                    $(".two").val("¥"+decimal.toDecimal(decimal.toDecimal($('.sellNumber').val())*decimal.toDecimal(mkt_trade.buyaprice)));//交易额
                 }
           }
     });
