@@ -16,7 +16,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
     	$("#currentPayPwd").on("blur",function(){
     		var reg = new RegExp("^[0-9]*$");//纯数字
     		var hanzi = /[\u4e00-\u9fa5]/;//汉字
-    		if($(this).val().indexOf(" ")>0 || $(this).val().length>20||$(this).val().length<8 || reg.test($(this).val()) || hanzi.test($(this).val())){
+    		if($(this).val().indexOf(" ")>=0 || $(this).val().length>20||$(this).val().length<8 || reg.test($(this).val()) || hanzi.test($(this).val())){
 	   			$("#error_one").show().html("请输入8~20位原支付密码");
 	   			checkFlag1= false;
 	   		} else {
@@ -28,7 +28,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
     	$("#newPayPwd").on("blur",function(){
     		var reg = new RegExp("^[0-9]*$");//纯数字
     		var hanzi = /[\u4e00-\u9fa5]/;//汉字
-    		if($(this).val().indexOf(" ")>0 || $(this).val().length>20||$(this).val().length<8 || reg.test($(this).val()) || hanzi.test($(this).val())){
+    		if($(this).val().indexOf(" ")>=0 || $(this).val().length>20||$(this).val().length<8 || reg.test($(this).val()) || hanzi.test($(this).val())){
 	   			$("#error_two").show().html("请输入8~20位新支付密码");
 	   			checkFlag2= false;
 	   			return;

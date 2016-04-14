@@ -79,7 +79,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
     	var reg = new RegExp("^[0-9]*$");//纯数字
 		var hanzi = /[\u4e00-\u9fa5]/;//汉字
 		var pwd=$(this).val();
-		if(pwd.indexOf(" ")>0 || pwd.length<8 || pwd.length>20 || reg.test(pwd) || hanzi.test(pwd)){
+		if(pwd.indexOf(" ")>=0 || pwd.length<8 || pwd.length>20 || reg.test(pwd) || hanzi.test(pwd)){
 			$(".tow_span1").show().html("请输入 8~20位非纯数字字符");
 			checkFlag3 = false;
             return;
@@ -175,7 +175,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                             $('.getauthcode_one').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
                         } else {
                             clearInterval(resend);
-                            $('.getauthcode_one').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).text('获取验证码');
+                            $('.getauthcode_one').attr('disabled',false).css({'cursor':'pointer','backgroundColor':'#0bbeee','color':'#fff'}).text('获取验证码');
                         }
                     }, 1000);
                 } else if (data.status == 400) {

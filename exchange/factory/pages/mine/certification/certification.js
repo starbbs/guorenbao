@@ -45,7 +45,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			    	$.cookie("global_loginusername",$('#realAuthName').val());
 			    	$('#username_value').text($('#realAuthName').val()); 
 			    	var num = $('#realAuthId').val();
-					var numId = num.replace(num.slice(6,14),'********');		        	
+                	var numId = num.replace(num.slice(1,17),'****************');
 			    	$('#identificode_value').text(numId);
 		        	$(".msg-realAuthId").hide().text("");  
 		        }else{
@@ -63,9 +63,9 @@ require(['api_mkt','cookie'], function(api_mkt) {
 				$.cookie("global_loginusername",data.data.list.name);
 				$(".authenticated").show();
 				$(".unautherized").hide();
-				$("#username_value").html(data.data.list.name);
+				$("#username_value_one").html(data.data.list.name);
 				var num = data.data.list.idNumber;
-				var numId = num.replace(num.slice(6,14),'********');
+                var numId = num.replace(num.slice(1,17),'****************');
 				$("#identificode_value").html(numId);
 			} else {
 				$(".unautherized").show();

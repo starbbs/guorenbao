@@ -21,50 +21,26 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
         var sell_list_html = "";
         var buy_list_html = "";
         var buyaprice = "";
-        var sellaprice = "";
-        
+    	var sellaprice = "";
         var listsell_array = [];
         for (var i = 0; i < list_sell.length; i++) {
         	listsell_array.push(list_sell[i][1]);
         }
         var maxsell = Math.max.apply(null, listsell_array);   //求卖出最大值
-
-        //console.log("maxsell"+maxsell);
-
         var listbuy_arry = [];
         for (var i = 0; i < list_buy.length; i++) {
         	listbuy_arry.push(list_buy[i][1]);
         }
         var maxbuy = Math.max.apply(null, listbuy_arry);     //求买入最大值
-
         var myarr = [];
         myarr.push(maxbuy,maxsell);
         var maxval = Math.max.apply(null,myarr);
-
-        //console.log("list_sell"+list_sell);
-        var list_sell_array = [];
-        for (var i = 0; i < list_sell.length; i++) {
-        	list_sell_array.push(list_sell[i][0]);
-        }
-        var maxlist_sell = Math.max.apply(null,list_sell_array);
-        //console.log(maxlist_sell);  //最高卖价
-
-        var list_buy_array = [];
-        for (var i = 0; i < list_buy.length; i++) {
-        	list_buy_array.push(list_buy[i][0]);
-        }
-        var maxlist_buy = Math.min.apply(null,list_buy_array);
-        //console.log(maxlist_buy);   //最低买价
-
-
-
         for (var i = 0; i < list_sell.length; i++) {
         	sellaprice = list_sell[0][0];
         	sell_list_html += "<div class='table_row'>"+
         	"<div class='table_con'>卖"+(i+1)+"</div><div class='table_con'>"+list_sell[i][0].toFixed(2)+"</div>"+
         	"<div class='table_con'>"+list_sell[i][1].toFixed(2)+"</div><progress value='"+(list_sell[i][1]/maxval)*100+"' max='100'></progress></div></div>";
         }
-
         for (var i = 0; i < list_buy.length; i++) {
         	buyaprice = list_buy[0][0];
         	buy_list_html += "<div class='table_row'>"+
@@ -91,8 +67,6 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
         	list_buy_array.push(list_buy[i][0]);
         }
         var maxlist_buy = Math.min.apply(null,list_buy_array);
-        //console.log(maxlist_buy);   //最低买价
-
         var buyaprice = "";
         var sellaprice = "";
         if(list_sell.length!=0){
@@ -104,23 +78,22 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 		//buyaprice=9.1;// TODO 测试
 		//sellaprice=1;// TODO 测试
 		$('#buyonece_price_floor').html(buyaprice.toFixed(2));  //交易市场买一价
-		trade.buyaprice=buyaprice;
+		/*trade.buyaprice=buyaprice;
 		if(buyaprice && buyaprice!=''){
 //        	$('.buying_price').val(buyaprice);
-		}
+		}*/
 		$('#sellonece_price_floor').html(sellaprice.toFixed(2));//交易市场卖一价
-		trade.sellaprice=sellaprice;
+		/*trade.sellaprice=sellaprice;
 		if(sellaprice && sellaprice!=''){
 //        	$('.sellPrice').val(sellaprice);
 		}
 		//console.log(list_buy);
-		//console.log(list_sell);
-		
+		//console.log(list_sell);*/
 		var list_sell_html = "";
 		var buy_list_html = "";
 		if(list_buy.length!=0){
 			if(list_buy.length<=5){
-				$("#wbr_m_best_buy").html(list_buy[0][0]);  //最佳买价
+				$("#wbr_m_best_sell").html(list_buy[0][0]);  //最佳买价
 				for(var i=list_buy.length-1;i>=0;i--){
 		            buy_list_html += "<div class='table_row'>"
 		            +"<div class='table_con buyprice'>买"+(i+1)+"</div>"
@@ -135,7 +108,7 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 				list_buy_five.push(list_buy[2]);
 				list_buy_five.push(list_buy[3]);
 				list_buy_five.push(list_buy[4]);
-				$("#wbr_m_best_buy").html(list_buy[0][0]);  //最佳买价
+				$("#wbr_m_best_sell").html(list_buy[0][0]);  //最佳买价
 				for(var i=list_buy_five.length-1;i>=0;i--){
 		            buy_list_html += "<div class='table_row'>"
 		            +"<div class='table_con buyprice'>买"+(i+1)+"</div>"
@@ -150,7 +123,7 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 
 		if(list_sell.length!=0){
 			if(list_sell.length<=5){
-				$("#wbr_m_best_sell").html(list_sell[0][0]);  //最佳卖价
+				$("#wbr_m_best_buy").html(list_sell[0][0]);  //最佳卖价
 				for(var i=0;i<list_sell.length;i++){
 		            list_sell_html += "<div class='table_row'>"
 		            +"<div class='table_con saleprice'>卖"+(i+1)+"</div>"
@@ -165,7 +138,7 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 				list_sell_five.push(list_sell[2]);
 				list_sell_five.push(list_sell[3]);
 				list_sell_five.push(list_sell[4]);
-				$("#wbr_m_best_sell").html(list_sell_five[0][0]);  //最佳卖价
+				$("#wbr_m_best_buy").html(list_sell_five[0][0]);  //最佳卖价
 				for(var i=0;i<list_sell_five.length;i++){
 		            list_sell_html += "<div class='table_row'>"
 		            +"<div class='table_con saleprice'>卖"+(i+1)+"</div>"
