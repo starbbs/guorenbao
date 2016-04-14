@@ -322,7 +322,6 @@
     //     location.href = "./ssmessage.html";
     // }
     var lookall = function(){
-        alert("d")
         $("#msg_num_top,#newinfor_result").html("0");
         var ff = "myboxclick";
         synchronous(ff);

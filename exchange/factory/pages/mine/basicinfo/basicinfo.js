@@ -33,6 +33,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
                                     location.href = "./resetpaymentcode.html";
                                 });
                             } else {
+                                
                                 $(".unautherized").show();
                             }
                         } else if (data.status == 305) {
@@ -42,6 +43,10 @@ require(['api_mkt','cookie'], function(api_mkt) {
                                 $(".verticle_line_id").hide();
                                 $("#realname").html("未认证").css("color","#ff6600");
                                 $(".lookup").hide();
+                                $(".jumpone,.jumptwo,.jumpthree").on("click",function(){
+                                    $(".popuptips").slideUp();
+                                    $(".popuptips").slideDown();
+                                });
                             }
                         } else {
                         }
