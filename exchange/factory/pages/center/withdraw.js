@@ -435,7 +435,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                                 '<section class="bankIdCard-Code">'+'尾号：'+num.substr(num.length-4)+'</section>'+            
                                 '<section class="bankIdCard-CardAndBg">储蓄卡</section>'+
                                 '<section class="bankIdCard-hr"></section>'+
-                                '<section class="bankIdCard-Name">'+name+'</section>'+
+                                '<section class="bankIdCard-Name">持卡人姓名：'+name.replace(name.substr(0,1),'*')+'</section>'+
                                 '<section class="bankIdCard-del" data-cardId="'+num+'">删除</section>'+
                                 '<section class="bankIdCard-address">'+bankIP+'</section>').appendTo(node);
                 node.insertBefore($('.bankIdCard-add'));

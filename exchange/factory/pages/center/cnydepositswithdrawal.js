@@ -399,7 +399,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             }else if(btnConfirm3 == false){
                 $('.msg-phone').show().text('请输入手机正确手机号码');
             }else{
-                //打开弹出层-生成汇款单 
                 //接口：人民币充值
                 api_mkt.rmbRecharge({          
                     'bankId':$('#bank-idcard').val(),
@@ -408,22 +407,30 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     "bankName":$("#bank").val()     
                 }, function(data) {
                     if (data.status == 200) {
+                        //打开弹出层-生成汇款单 
                         $(".mydiv").css("display","block");
-                        $(".bg").css("display","block");
-                        $(".remittance-id").text('AAAAAAAAA'); 
+                        $(".bg1").css("display","block");
+                        $(".remittance-id").text( data.data.orderNo+ data.data.uid); 
                         $(".money-new").text('¥'+$('#bank-money').val()+'.00');                
-                        $(".remittance-note-numbe-newr").text($('.pUid').val());
+                        $(".remittance-note-numbe-newr").text(data.data.uid);
                         $('.bankName').text($("#bank").val()+'网银');
                     } else {
                         //console.log('err');
                     }
-                }); 
+                }); `
+                //打开弹出层-生成汇款单 
+                $(".mydiv").css("display","block");
+                $(".bg").css("display","block");
+                $(".remittance-id").text( $.cookie('Num')); 
+                $(".money-new").text('¥'+$('#bank-money').val()+'.00');                
+                $(".remittance-note-numbe-newr").text($.cookie('NumUid'));
+                $('.bankName').text($("#bank").val()+'网银');
                 //清空文本框
                 $("#bank-idcard").val('');
                 $("#bank").val('');
                 $("#bank-money").val('');
                 $("#phone").val('');
-                //再次调接口 人民币充值历史（查询最近5条）
+                /*//再次调接口 人民币充值历史（查询最近5条）
                 api_mkt.rmbRechargeHistory({
                     'pageNo':1,
                     'pageSize':5
@@ -470,13 +477,13 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     }else{
                        // console.log('财务中心-人民币充值历史表格，加载失败。');
                     }
-                }); 
+                });*/ 
                 
                 //关闭弹出层 -生成汇款单
                 $(".span-text").click(function(){
                     $(".mydiv").css("display","none");
                     $(".bg").css("display","none");
-                    //window.location.reload();
+                    window.location.reload();
                 });      
             }
         });
