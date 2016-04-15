@@ -17,7 +17,6 @@
     var getTwoPs = function(str){
 		var length = 0;
     	var position = 0;
-    	//String str = bd.toPlainString();
     	if(String(str).indexOf(".") < 0){
     		return str+".00";
     	}
@@ -35,9 +34,7 @@
         var thelatestprice_second;
         if (haha['order']) {
             thelatestprice = JSON.parse(haha['order'][0]).price;
-            //console.log("xxxxxxxxxx"+thelatestprice);
             thelatestprice = getTwoPs(thelatestprice);
-            //console.log("yyyyyyyyyy"+getTwoPs(thelatestprice));
             $('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
             thelatestprice_second = JSON.parse(haha['order'][1]).price;
         }
@@ -48,22 +45,18 @@
         $('#thelatestprice_floor').html(thelatestprice); //交易大厅 最新成交价
         $('#thelatestprice_em').html(thelatestprice); //首页轮播图下面最新成交价
         if (thelatestprice != "" && thelatestprice_second == "") {}
-        console.log("thelatestprice"+thelatestprice);
-        console.log("thelatestprice_second"+thelatestprice_second);
+        // console.log("thelatestprice"+thelatestprice);
+        // console.log("thelatestprice_second"+thelatestprice_second);
         if (thelatestprice != "" && thelatestprice_second != "") {
             if (thelatestprice > thelatestprice_second) {
-            	console.log("红色");
                 $(".quoted_price_first").css("color", "#dd0900"); //红色
                 $("#thelatestprice_em")[0] ? $("#thelatestprice_em")[0].style.backgroundImage = "url(./images/index_arrow_rise.png)" : "";
-                // console.log("aaaaaa");
                 $(".new_color").css("color", "#dd0900");
                 $("#thelatestprice_floor")[0] ? $("#thelatestprice_floor")[0].style.backgroundImage = "url(./images/floor_arrow_rise.png)" : "";
             }
             if (thelatestprice < thelatestprice_second) {
-            	console.log("蓝色");
                 $(".quoted_price_first").css("color", "#00951c"); //蓝色
                 $("#thelatestprice_em")[0] ? $("#thelatestprice_em")[0].style.backgroundImage = "url(./images/index_big_down.png)" : "";
-                // console.log("bbbbbb");
                 $(".new_color").css("color", "#00951c");
                 $("#thelatestprice_floor")[0] ? $("#thelatestprice_floor")[0].style.backgroundImage = "url(./images/floor_big_down.png)" : "";
             }
@@ -77,10 +70,6 @@
         $('#thehighest_price_floor').html(high24.toFixed(2)); //交易大厅 最高价
         $('#thelowest_price_floor').html(low24.toFixed(2)); //交易大厅 最低价
         var total = Number(haha['total']);
-
-        console.log("thelatestprice==========="+thelatestprice);
-        console.log("price24============"+price24);
-
         // price24 = 2;  //最新成交价*(1+x) = 24小时之前价格
         // thelatestprice = 1.2;
         var unknow = Number((thelatestprice - price24)/price24);
