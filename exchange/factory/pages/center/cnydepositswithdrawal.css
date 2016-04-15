@@ -236,13 +236,15 @@
     display:block;
     text-decoration:none;
 }
-.ls_tab_on {
+.ls_tab:hover{
     background-color: #fafafa;
+}
+.ls_tab_on {
+    background-color: #f1f1f1;
     font-weight: 600;
 }
-
 .topline{
-        margin: 28px 0 18px 0;
+    margin: 28px 0 18px 0;
     border-bottom: 2px solid #e6e6e6;
 }
 .rmbxh{
@@ -474,10 +476,6 @@
 .handlingcharget em{
     margin-right:8px;
 }
-.moreCheck{
-    color:blue;
-}
-
 /* 历史记录页面样式 -分页样式 页码样式 */
 .PageCode {
   padding: 15px 20px;

@@ -218,6 +218,20 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
         document.execCommand("Copy");
         alert("已复制好，可贴粘。"); 
     });
+    //hover 效果
+    $('.ls_tab').hover(function(){
+        if($(this).hasClass('ls_tab_on')){
+            $(this).css('backgroundColor','#f1f1f1');
+        }else{
+            $(this).css('backgroundColor','#fafafa');
+        }
+    },function(){
+        if($(this).hasClass('ls_tab_on')){
+            $(this).css('backgroundColor','#f1f1f1');
+        }else{
+            $(this).css('backgroundColor','#fff');
+        }
+    });
 
 
 });

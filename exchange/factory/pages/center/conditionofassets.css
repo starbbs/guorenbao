@@ -227,7 +227,7 @@
     text-decoration:none;
 }
 .ls_tab_on {
-    background-color: #fafafa;
+    background-color: #f1f1f1;
     font-weight: 600;
 }
 
@@ -238,7 +238,7 @@
 }
 /* 账户明细 查看更多 */
 .moreCheck{
-    color:#44C0FD;
+    color:#0bbeee;
     text-decoration: none;
 }
 
@@ -296,6 +296,12 @@
     text-align: center;
     border-radius: 3px;
     margin-right:10px;
+    color: #333;
+}
+.btnA:hover{
+    background-color: #0bbeee;
+    color: #fff;    
+    border: 1px solid #0bbeee;
 }
     
 .usable_cny div:nth-child(4){

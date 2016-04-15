@@ -81,6 +81,20 @@ require(['api_mkt', 'mkt_info','decimal','cookie'], function(api_mkt, mkt_info,d
     });
 });
 
+    //hover 效果
+    $('.ls_tab').hover(function(){
+        if($(this).hasClass('ls_tab_on')){
+            $(this).css('backgroundColor','#f1f1f1');
+        }else{
+            $(this).css('backgroundColor','#fafafa');
+        }
+    },function(){
+        if($(this).hasClass('ls_tab_on')){
+            $(this).css('backgroundColor','#f1f1f1');
+        }else{
+            $(this).css('backgroundColor','#fff');
+        }
+    });
 
 var myfunc = function(str){
     var length = 0;

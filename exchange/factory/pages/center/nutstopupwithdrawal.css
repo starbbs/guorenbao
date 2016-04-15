@@ -235,7 +235,7 @@ position: relative; */
     text-decoration:none;
 }
 .ls_tab_on {
-    background-color: #fafafa;
+    background-color: #f1f1f1;
     font-weight: 600;
 }
 
@@ -523,10 +523,6 @@ position: relative; */
 }
 .aside-table-tbody tr:hover {
     background: #FAFAFA; 
-}
-/* 添加 查看更多 */
-.moreCheck{
-    color:blue;
 }
 /* 历史记录页面样式 -分页样式 页码样式 */
 .PageCode {

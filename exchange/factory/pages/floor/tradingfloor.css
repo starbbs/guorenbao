@@ -1267,8 +1267,11 @@
 }
 .entrust-table-title span:nth-child(2) a, .history-entrust-table-title span:nth-child(2) a{
     text-decoration: none;
-    color:#44C0FD;
+    color:#0bbeee;
     padding-right: 10px;
+}
+.entrust-table-title span:nth-child(2) a:hover, .history-entrust-table-title span:nth-child(2) a:hover{
+    color:#0088cc;
 }
 /*表格样式*/
 .entrust-table{
@@ -1324,7 +1327,7 @@
     border-bottom: 2px solid #bababa;
 }
 .moreCheck{
-    color:#44C0FD;
+    color:#0bbeee;
     text-decoration: none;
     float: right;
     margin:30px 26px 0 0;

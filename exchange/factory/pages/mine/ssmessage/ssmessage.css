@@ -242,10 +242,12 @@
     text-decoration:none;
 }
 .ls_tab_on{
-    background-color: #fafafa;
+    background-color: #f1f1f1;
     font-weight:600;
 }
-
+.tab:hover{
+    color:#0bbeee;
+}
 .rmbxh{
     color: #333333;
     font-size: 1.4rem;
