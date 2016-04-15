@@ -1,5 +1,10 @@
 ﻿require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
-    mkt_info.get();
+
+    if(location.href.indexOf("tradingfloor")===-1){
+        mkt_info.get();
+    } else {
+        
+    }
     var popup_login_times = 0;
     var exchangeToken = $.cookie('exchangeToken');
     var whether_auth = false;
@@ -22,8 +27,15 @@
         var exchangeToken = $.cookie('exchangeToken');
         var ff = $(this).html();
         if (!exchangeToken) {
-            $(".popDiv").show();
-            $(".bg").show();
+            if(location.href.indexOf("/footer.html")===-1){
+            } else {
+                if(ff=="首页"){
+                    location.href="./index.html";
+                } else {
+                    $(".popDiv").show();
+                    $(".bg").show();
+                }
+            }
             if(ff=="首页"){
                 $.cookie("loginfromwhichpage","one");
             } else if(ff=="交易大厅"){
@@ -77,20 +89,20 @@
         return reg.test(inputData) ? reg.test(inputData) : varMes;
     };
 
-    $(".center_content").on("click",function(){
-        if(!exchangeToken){
-            $(".bg").show();
-            $(".login_regist").show();
-            $(".popDiv").show();
-            $(".afterlogin").hide();
-            // return;
-        } else {
-            $(".bg").hide();
-            $(".login_regist").hide();
-            $(".popDiv").hide();
-            $(".afterlogin").hide();
-        }
-    });
+    // $(".center_content").on("click",function(){
+    //     if(!exchangeToken){
+    //         $(".bg").show();
+    //         $(".login_regist").show();
+    //         $(".popDiv").show();
+    //         $(".afterlogin").hide();
+    //         // return;
+    //     } else {
+    //         $(".bg").hide();
+    //         $(".login_regist").hide();
+    //         $(".popDiv").hide();
+    //         $(".afterlogin").hide();
+    //     }
+    // });
 
     $(".ls_tab").on("click",function(){
         if(!exchangeToken){

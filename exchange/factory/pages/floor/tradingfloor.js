@@ -64,10 +64,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     }
     //总资产
     getTotalAssets();
-    
-    
-
-
     mkt_info.get();
     mkt_trade.getfloor();
     var groupingUnits = [
