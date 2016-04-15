@@ -160,13 +160,6 @@ progress::-webkit-progress-value {
     padding-top:16px;
 }
 
-.feature {
-    width: 116px;
-    color: #777777;
-    font-size: 1.6rem;
-    cursor: pointer;
-}
-
 .index_on {
     color: #0bbeee;
 }
@@ -457,11 +450,11 @@ progress::-webkit-progress-value {
 .loginarea,
 .afterlogin {
     width: 286px;
-    height: 320px;
+    height: 326px;
     background-color: #333333;
     z-index: 2;
     position: absolute;
-    top: -377px;
+    top: -384px;
     right: 0;
     opacity: 1;
     font-size:1.2rem;
@@ -617,10 +610,13 @@ progress::-webkit-progress-value {
 }
 
 .loginarea div:nth-child(6) a:nth-child(1) {
-    text-decoration: underline;
+    text-decoration: none;
     float: left;
-    color: #0ab6e5;
+    color: #fff;
     margin-top: 9px;
+}
+.loginarea div:nth-child(6) a:nth-child(1):hover {
+    color: #0ab6e5;
 }
 
 .loginarea div:nth-child(6) a:nth-child(2) {
