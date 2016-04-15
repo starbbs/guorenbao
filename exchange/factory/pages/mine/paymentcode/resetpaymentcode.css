@@ -110,7 +110,7 @@
 }
 
 .left_reg_side {
-    flex: 0.316;
+    width:480px;
     background-color: #0bbeee;
     border-bottom-left-radius: 8px;
     border-top-left-radius: 8px;
@@ -124,7 +124,7 @@
 }
 
 .right_reg_side {
-    flex: 0.684;
+    width:916px;
     text-align: center;
     margin: 0 auto;
     font-size:1.2rem;
@@ -148,7 +148,7 @@
     top: 164px;
     margin: 0 auto;
     width: auto;
-    left: 130px;
+    left: 110px;
     padding: 0 20px;
     background-color: #0bbeee;
     z-index: 10;
@@ -178,19 +178,19 @@
     display: flex;
 }
 .rg_lf_label {
-    flex: 0.36;
+    flex: 0.34;
     position: relative;
 }
 .two_rg_lf_label {
-    flex: 0.36;
+    flex: 0.34;
     position: relative;
 }
 .rg_rg_input {
-    flex: 0.64;
+    flex: 0.66;
     position: relative;
 }
 .two_rg_rg_input{
-    flex: 0.64;
+    flex: 0.66;
     position: relative;
 }
 
@@ -412,5 +412,8 @@
     color: #fff;
     cursor: pointer;
     background-color: #0bbeee;
+}
+#identifyingCode{
+    width:106px;
 }
 

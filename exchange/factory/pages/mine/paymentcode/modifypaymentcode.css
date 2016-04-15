@@ -1,3 +1,4 @@
+body{background:#000000;}
 .wrapper {
     width: 100%;
     height: 100%;
@@ -56,11 +57,12 @@
 
 .bottom {
     width: 100%;
+    height: 68px;
     background-color: #000000;
 }
 
 .bottom_down_down {
-    height: 60px;
+    height: 68px;
     position: relative;
     max-width: 1200px;
     margin: 0 auto;
@@ -68,6 +70,7 @@
 
 .bottom_down_down p {
     color: #666666;
+    line-height: 68px;
     position: relative;
     top: 45px;
     text-align: center;
