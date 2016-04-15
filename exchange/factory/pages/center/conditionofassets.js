@@ -1,4 +1,4 @@
-require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pagehead) { 
+require(['api_mkt', 'mkt_info','decimal','cookie'], function(api_mkt, mkt_info,decimal,cookie) { 
 
     var flag = true;
     $('.messagenum_area').on("click", function() {
@@ -52,28 +52,34 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pageh
             //console.log('财务中心-资产状况-账户明细表格，加载失败。');
         }
     });
+        
     
+
+
     //总资产
     api_mkt.getTotalAssets(function(data) {        
         if (data.status == 200) {
-            //console.log(data);
-            $('#total_assets').text(data.data.cnyBalance.toFixed(2));
-            $('.cnyBalance').text(data.data.cnyBalance.toFixed(2));
-            $('.gopLock').text(data.data.gopLock.toFixed(2));
-            $('.cnyLock').text(data.data.cnyLock.toFixed(2));
-            $('.gopBalance').text(data.data.gopBalance.toFixed(2));
-            
+            var gopBalance = data.data.gopBalance;  //剩余果仁数
+            var cnyBalance = data.data.cnyBalance;  //剩余人民币数
+            var gopLock = data.data.gopLock;  //冻结果仁数
+            var cnyLock = data.data.cnyLock;  //冻结人民币数
             var totalAssets = data.data.cnyBalance + data.data.cnyLock;
             var totalNuts = data.data.gopBalance + data.data.gopLock;
-            //console.log($('#thelatestprice').html());
             var totalvalue = totalNuts*$('#thelatestprice').html()+totalAssets;
-            $('#total_assets').html(totalvalue.toFixed(2));//总资产
-            //$.cookie('allCNY',$('.cnyBalance').text());
-            //$.cookie('gop',$('.gopBalance').text());
+            console.log("decimal.getTwoPs"+String(myfunc(cnyLock)));
+            // console.log(decimal.getTwoPs());
+            $('#total_assets').text(decimal.getTwoPs(totalvalue));
+            $('.cnyBalance').text(decimal.getTwoPs(cnyBalance));
+            $('.gopLock').text(decimal.getTwoPs(gopLock));
+            // console.log("casdfasdfasd"+cnyLock);
+            //console.log("decimal.getTwoPs"+decimal.getTwoPs(cnyLock));
+            $('.cnyLock').text(decimal.getTwoPs(cnyLock));
+            $('.gopBalance').text(decimal.getTwoPs(gopBalance));
         } else {
             console.log(data.msg);
         }
     });
+});
 
     //hover 效果
     $('.ls_tab').hover(function(){
@@ -90,4 +96,18 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pageh
         }
     });
 
-});
+var myfunc = function(str){
+    var length = 0;
+    var position = 0;
+    //String str = bd.toPlainString();
+    if(String(str).indexOf(".") < 0){
+        return str+".00";
+    }
+    length = str.length;
+    position = String(str).indexOf(".");
+    if(length < position + 3){
+        return str + "0";
+    }else{
+        return String(str).substring(0, position + 3);
+    }
+}

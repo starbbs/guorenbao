@@ -46,17 +46,22 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 var totalAssets = data.data.cnyBalance + data.data.cnyLock;
                 var totalNuts = data.data.gopBalance + data.data.gopLock;
                 var totalvalue = totalNuts*$('#thelatestprice').html()+totalAssets;
-                $('.iallshow').html(decimal.toDecimal(totalvalue));//总资产
-                $(".ioneshow").html(decimal.toDecimal(cnyBalance));
-                $(".itwoshow").html(decimal.toDecimal(gopBalance));
-                $(".ithreeshow").html(decimal.toDecimal(cnyLock));
-                $(".ifourshow").html(decimal.toDecimal(gopLock));
+                $('.iallshow').html(decimal.getTwoPs(totalvalue));//总资产
+                $(".ioneshow").html(decimal.getTwoPs(cnyBalance));
+                $(".itwoshow").html(decimal.getTwoPs(gopBalance));
+                $(".ithreeshow").html(decimal.getTwoPs(cnyLock));
+                $(".ifourshow").html(decimal.getTwoPs(gopLock));
                 
                 $.cookie('allCNY',cnyBalance);
                 $.cookie('gop',gopBalance);           
                 $.cookie('allCNY',cnyBalance);
+<<<<<<< HEAD
                 $('.w_b_l_one').html("<em>账户余额：¥ "+decimal.toDecimal(data.data.cnyBalance)+"</em>");
                 $('.w_b_l_two').html("<em>果仁余额：G "+decimal.toDecimal(data.data.gopBalance)+"</em>");
+=======
+                $('.w_b_l_one').html("<em>账户余额："+decimal.getTwoPs(data.data.cnyBalance)+" CNY</em>");
+                $('.w_b_l_two').html("<em>果仁余额："+decimal.getTwoPs(data.data.gopBalance)+" GOP</em>");
+>>>>>>> 5304be6f88554204c9aa8f14291522eab9b94c07
             } else {
                 console.log(data.msg);
             }
@@ -501,9 +506,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     $(".wrapper").on("input propertychange", ".buying_number, .buying_price", function() {
         var num = $(this).val();
         var oldData=$(this).attr("data-old");
-        if((decimal.toDecimal(num) < 0.1) || decimal.getPsercison(num)>2 || decimal.toDecimal(num)>999999.00){
+        if((decimal.getTwoPs(num) < 0.1) || decimal.getPsercison(num)>2 || decimal.getTwoPs(num)>999999.00){
         	//0.01-0.09,大于小数点2位的都禁止输入
-        	if(decimal.toDecimal(num) < 0.1 && decimal.getPsercison(num)<=2){
+        	if(decimal.getTwoPs(num) < 0.1 && decimal.getPsercison(num)<=2){
         		flag = false;
         	}else{
         		$(this).val(oldData?oldData:0.1);       	
@@ -511,13 +516,13 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
         	}            
         }else{
             flag = true;
-            var number = decimal.toDecimal($('.buying_number').val());//购买数量
-            var price=decimal.toDecimal($('.buying_price').val());//购买价格
-            var balance=decimal.toDecimal($.cookie('allCNY'));//账户余额
+            var number = decimal.getTwoPs($('.buying_number').val());//购买数量
+            var price=decimal.getTwoPs($('.buying_price').val());//购买价格
+            var balance=decimal.getTwoPs($.cookie('allCNY'));//账户余额
             var numDeal = price * number;//成交金额
             if(numDeal-balance>0){//成交金额大于账户余额
             	numDeal=balance;
-            	number=decimal.toDecimal(numDeal/price);
+            	number=decimal.getTwoPs(numDeal/price);
             	$('.buying_number').val(number);//重置购买数量
             }
             if($(this).hasClass("buying_price")){
@@ -527,9 +532,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             }
             
                        
-            var percentage =decimal.toDecimal(balance<=0? 0: (numDeal)/balance*100);//购买比例(占总资产)
+            var percentage =decimal.getTwoPs(balance<=0? 0: (numDeal)/balance*100);//购买比例(占总资产)
             $( "#amount" ).text(percentage+'%'); //限价除以人民币账户余额
-            $('.one').val('¥'+ decimal.toDecimal(numDeal)); 
+            $('.one').val('¥'+ decimal.getTwoPs(numDeal)); 
             /*买入-限价 滑块数值*/           
             $( "#red" ).slider({
                   orientation: "horizontal",
@@ -541,8 +546,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                   max: 100,
                   slide: function( event, ui ) {
                         $( "#amount" ).html( ui.value +  "%" );
-                        $('.one').val('¥'+ decimal.toDecimal(parseInt(ui.value)* balance/100)); 
-                        $( ".buying_number" ).val( decimal.toDecimal((parseInt(ui.value) * balance) / (100 *price)));
+                        $('.one').val('¥'+ decimal.getTwoPs(parseInt(ui.value)* balance/100)); 
+                        $( ".buying_number" ).val( decimal.getTwoPs((parseInt(ui.value) * balance) / (100 *price)));
                         $( ".buying_number" ).attr("data-old",$( ".buying_number" ).val());
                   }
             });
@@ -559,11 +564,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
           max: 100,
           slide: function( event, ui ) {
                 $( "#amount" ).html( ui.value +  "%" );             
-                if(decimal.toDecimal(mkt_trade.sellaprice)>0){
-                	$('.buying_price').val(decimal.toDecimal(mkt_trade.sellaprice));
-                    $( ".buying_number" ).val( decimal.toDecimal((parseInt(ui.value) * decimal.toDecimal($.cookie('allCNY'))) / 100/decimal.toDecimal(mkt_trade.sellaprice)));
+                if(decimal.getTwoPs(mkt_trade.sellaprice)>0){
+                	$('.buying_price').val(decimal.getTwoPs(mkt_trade.sellaprice));
+                    $( ".buying_number" ).val( decimal.getTwoPs((parseInt(ui.value) * decimal.getTwoPs($.cookie('allCNY'))) / 100/decimal.getTwoPs(mkt_trade.sellaprice)));
                     $( ".buying_number" ).attr("data-old",$( ".buying_number" ).val());
-                    $('.one').val('¥'+ decimal.toDecimal(parseInt(ui.value)*  decimal.toDecimal($.cookie('allCNY'))/100)); 
+                    $('.one').val('¥'+ decimal.getTwoPs(parseInt(ui.value)*  decimal.getTwoPs($.cookie('allCNY'))/100)); 
                 }
           }
     });     
@@ -572,9 +577,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     $(".wrapper").on("input propertychange", ".marketBuy", function() {
     	var num = $(this).val();
         var oldData=$(this).attr("data-old");
-        if((decimal.toDecimal(num) < 0.1) || decimal.getPsercison(num)>2 || decimal.toDecimal(num)>999999.00){
+        if((decimal.getTwoPs(num) < 0.1) || decimal.getPsercison(num)>2 || decimal.getTwoPs(num)>999999.00){
         	//0.01-0.09,大于小数点2位的都禁止输入
-        	if(decimal.toDecimal(num) < 0.1 && decimal.getPsercison(num)<=2){
+        	if(decimal.getTwoPs(num) < 0.1 && decimal.getPsercison(num)<=2){
         		flag = false;
         	}else{
         		$(this).val(oldData?oldData:0.1);       	
@@ -582,14 +587,14 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
         	}            
         }else{
             flag = true;
-            var numDeal = decimal.toDecimal(num);//购买金额
-            var balance = decimal.toDecimal($.cookie('allCNY'));//人民币余额
+            var numDeal = decimal.getTwoPs(num);//购买金额
+            var balance = decimal.getTwoPs($.cookie('allCNY'));//人民币余额
             if(numDeal-balance>0){//成交金额大于账户余额
             	numDeal=balance;
             	$(this).val(numDeal);//重置购买数量
             }
         	$(this).attr("data-old",numDeal);
-            var percentage =  decimal.toDecimal((numDeal / balance)*100);//购买百分比
+            var percentage =  decimal.getTwoPs((numDeal / balance)*100);//购买百分比
             /*买入-限价 滑块数值*/
             $( "#amount1" ).text(percentage+'%'); //购买百分比
         	$('.onePage').val("¥"+$(this).val());//交易额
@@ -603,7 +608,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                   max: 100,
                   slide: function( event, ui ) {                
                         $( "#amount1" ).html( ui.value +  "%" );
-                        $( ".marketBuy" ).val( ((parseInt(ui.value) * decimal.toDecimal($.cookie('allCNY')) ) / 100).toFixed(2));
+                        $( ".marketBuy" ).val( ((parseInt(ui.value) * decimal.getTwoPs($.cookie('allCNY')) ) / 100).toFixed(2));
                         $( ".marketBuy" ).attr("data-old",$( ".marketBuy" ).val());
                         $('.onePage').val("¥"+$( ".marketBuy" ).val());//交易额
                   }
@@ -623,7 +628,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
           max: 100,
           slide: function( event, ui ) {
                 $( "#amount1" ).html( ui.value +  "%" );
-                $( ".marketBuy" ).val( ((parseInt(ui.value) * decimal.toDecimal($.cookie('allCNY')) ) / 100).toFixed(2));
+                $( ".marketBuy" ).val( ((parseInt(ui.value) * decimal.getTwoPs($.cookie('allCNY')) ) / 100).toFixed(2));
                 $( ".marketBuy" ).attr("data-old",$( ".marketBuy" ).val());
                 $('.onePage').val("¥"+$( ".marketBuy" ).val());//交易额
 
@@ -634,9 +639,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     $(".wrapper").on("input propertychange", ".sellAmount", function() {
     	var num = $(this).val();
         var oldData=$(this).attr("data-old");
-        if((decimal.toDecimal(num) < 0.1) || decimal.getPsercison(num)>2 || decimal.toDecimal(num)>999999.00){
+        if((decimal.getTwoPs(num) < 0.1) || decimal.getPsercison(num)>2 || decimal.getTwoPs(num)>999999.00){
         	//0.01-0.09,大于小数点2位的都禁止输入
-        	if(decimal.toDecimal(num) < 0.1 && decimal.getPsercison(num)<=2){
+        	if(decimal.getTwoPs(num) < 0.1 && decimal.getPsercison(num)<=2){
         		flag = false;
         	}else{
         		$(this).val(oldData?oldData:0.1);       	
@@ -644,18 +649,18 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
         	} 
         }else{
             flag = true;
-            var sellGop = decimal.toDecimal(num);
-            var balanceGop = decimal.toDecimal($.cookie('gop'));
+            var sellGop = decimal.getTwoPs(num);
+            var balanceGop = decimal.getTwoPs($.cookie('gop'));
             if(sellGop-balanceGop>0){//成交金额大于账户余额
             	sellGop=balanceGop;
             	$(this).val(sellGop);//重置购买数量
             }
             $(this).attr("data-old",sellGop);
-            var percentage = decimal.toDecimal((sellGop / balanceGop )*100);
+            var percentage = decimal.getTwoPs((sellGop / balanceGop )*100);
             /*买入-限价 滑块数值*/
             $( "#amount3" ).text( percentage +'%'); //卖出百分比
-            if(decimal.toDecimal(mkt_trade.sellaprice)){
-                $(".two").val("¥"+decimal.toDecimal(sellGop*decimal.toDecimal(mkt_trade.sellaprice)));//交易额
+            if(decimal.getTwoPs(mkt_trade.sellaprice)){
+                $(".two").val("¥"+decimal.getTwoPs(sellGop*decimal.getTwoPs(mkt_trade.sellaprice)));//交易额
             }
             $( "#green1" ).slider({
                   orientation: "horizontal",
@@ -667,10 +672,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                   max: 100,
                   slide: function( event, ui ) {
                         $( "#amount3" ).html( ui.value +  "%" );
-                        $( ".sellAmount" ).val(((decimal.toDecimal(ui.value) * decimal.toDecimal($.cookie('gop')) ) / 100).toFixed(2));
+                        $( ".sellAmount" ).val(((decimal.getTwoPs(ui.value) * decimal.getTwoPs($.cookie('gop')) ) / 100).toFixed(2));
                         $( ".sellAmount" ).attr("data-old",$( ".sellAmount" ).val());
-                        if(decimal.toDecimal(mkt_trade.buyaprice)){
-                            $(".two").val("¥"+decimal.toDecimal(decimal.toDecimal($('.sellAmount').val())*decimal.toDecimal(mkt_trade.buyaprice)));//交易额
+                        if(decimal.getTwoPs(mkt_trade.buyaprice)){
+                            $(".two").val("¥"+decimal.getTwoPs(decimal.getTwoPs($('.sellAmount').val())*decimal.getTwoPs(mkt_trade.buyaprice)));//交易额
                         }
                   }
             }); 
@@ -680,9 +685,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     $(".wrapper").on("input propertychange", ".sellNumber, .sellPrice", function() {
     	var num = $(this).val();
         var oldData=$(this).attr("data-old");
-        if((decimal.toDecimal(num) < 0.1) || decimal.getPsercison(num)>2 || decimal.toDecimal(num)>999999.00){
+        if((decimal.getTwoPs(num) < 0.1) || decimal.getPsercison(num)>2 || decimal.getTwoPs(num)>999999.00){
         	//0.01-0.09,大于小数点2位的都禁止输入
-        	if(decimal.toDecimal(num) < 0.1 && decimal.getPsercison(num)<=2){
+        	if(decimal.getTwoPs(num) < 0.1 && decimal.getPsercison(num)<=2){
         		flag = false;
         	}else{
         		$(this).val(oldData?oldData:0.1);       	
@@ -691,9 +696,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
         }else{
         	$(this).attr("data-old",num);
             flag = true;
-            var sellGop = decimal.toDecimal($('.sellNumber').val());//卖出果仁数
-            var sellPrice = decimal.toDecimal($('.sellPrice').val());//卖出价格
-            var balanceGop = decimal.toDecimal($.cookie('gop'));//果仁余额
+            var sellGop = decimal.getTwoPs($('.sellNumber').val());//卖出果仁数
+            var sellPrice = decimal.getTwoPs($('.sellPrice').val());//卖出价格
+            var balanceGop = decimal.getTwoPs($.cookie('gop'));//果仁余额
             if(sellGop-balanceGop>0){//成交金额大于账户余额
             	sellGop=balanceGop;
             	$(this).val(sellGop);//重置购买数量
@@ -703,8 +708,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
            }else{
            	 $(this).attr("data-old",sellGop);
            }
-            var percentage = decimal.toDecimal((sellGop / balanceGop )*100);
-            $('.two').val('¥'+ decimal.toDecimal(sellGop*sellPrice));
+            var percentage = decimal.getTwoPs((sellGop / balanceGop )*100);
+            $('.two').val('¥'+ decimal.getTwoPs(sellGop*sellPrice));
             /*买入-限价 滑块数值*/
             $( "#amount2" ).text( percentage +'%'); //限价除以总钱数
             $( "#green" ).slider({
@@ -717,10 +722,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                   max: 100,
                   slide: function( event, ui ) {
                         $( "#amount2" ).html( ui.value +  "%" );
-                        $( ".sellNumber" ).val(((parseInt(ui.value) * decimal.toDecimal($.cookie('gop')) ) / 100).toFixed(2));
+                        $( ".sellNumber" ).val(((parseInt(ui.value) * decimal.getTwoPs($.cookie('gop')) ) / 100).toFixed(2));
                         $( ".sellNumber" ).attr("data-old",$( ".sellNumber" ).val());
                         if(sellPrice){
-                            $(".two").val("¥"+decimal.toDecimal(decimal.toDecimal($('.sellNumber').val())*sellPrice));//交易额
+                            $(".two").val("¥"+decimal.getTwoPs(decimal.getTwoPs($('.sellNumber').val())*sellPrice));//交易额
                         }
                   }
             }); 
@@ -738,11 +743,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
           max: 100,
           slide: function( event, ui ) {
                 $( "#amount2" ).html( ui.value +  "%" );
-                $( ".sellNumber" ).val(((decimal.toDecimal(ui.value) * decimal.toDecimal($.cookie('gop')) ) / 100).toFixed(2));
+                $( ".sellNumber" ).val(((decimal.getTwoPs(ui.value) * decimal.getTwoPs($.cookie('gop')) ) / 100).toFixed(2));
                 $( ".sellNumber" ).attr("data-old",$( ".sellNumber" ).val());
-                if(decimal.toDecimal(mkt_trade.buyaprice)>0){
-                	$('.sellPrice').val(decimal.toDecimal(mkt_trade.buyaprice));
-                    $(".two").val("¥"+decimal.toDecimal(decimal.toDecimal($('.sellNumber').val())*decimal.toDecimal(mkt_trade.buyaprice)));//交易额
+                if(decimal.getTwoPs(mkt_trade.buyaprice)>0){
+                	$('.sellPrice').val(decimal.getTwoPs(mkt_trade.buyaprice));
+                    $(".two").val("¥"+decimal.getTwoPs(decimal.getTwoPs($('.sellNumber').val())*decimal.getTwoPs(mkt_trade.buyaprice)));//交易额
                 }
           }
     });
@@ -757,16 +762,16 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
           max: 100,
           slide: function( event, ui ) {
         	  $( "#amount3" ).html( ui.value +  "%" );
-              $( ".sellAmount" ).val(((decimal.toDecimal(ui.value) * decimal.toDecimal($.cookie('gop')) ) / 100).toFixed(2));
+              $( ".sellAmount" ).val(((decimal.getTwoPs(ui.value) * decimal.getTwoPs($.cookie('gop')) ) / 100).toFixed(2));
               $( ".sellAmount" ).attr("data-old",$( ".sellAmount" ).val());
-              if(decimal.toDecimal(mkt_trade.sellaprice)){
-                  $(".two").val("¥"+decimal.toDecimal(decimal.toDecimal($('.sellAmount').val())*decimal.toDecimal(mkt_trade.sellaprice)));//交易额
+              if(decimal.getTwoPs(mkt_trade.sellaprice)){
+                  $(".two").val("¥"+decimal.getTwoPs(decimal.getTwoPs($('.sellAmount').val())*decimal.getTwoPs(mkt_trade.sellaprice)));//交易额
               }
           }
     });
     //买入 卖出 四个按钮 点击弹出框
     $(".buying_btn").click(function(){ 
-        if(flag == false || decimal.toDecimal($('.buying_number').val())<0.1){
+        if(flag == false || decimal.getTwoPs($('.buying_number').val())<0.1){
             alert('请输入完整信息！');
         }else{
             api_mkt.buyBefore({
@@ -788,7 +793,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
         } 
     }); 
     $(".market_price_buying_btn").click(function(){  
-        if(flag == false || decimal.toDecimal($('.marketBuy').val())<0.1){
+        if(flag == false || decimal.getTwoPs($('.marketBuy').val())<0.1){
             alert('请输入完整信息！');
         }else{
             api_mkt.buyBefore({
@@ -810,7 +815,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
         }        
     });
     $(".sale_btn").click(function(){  
-        if(flag == false || decimal.toDecimal($('.sellNumber').val())<0.1){
+        if(flag == false || decimal.getTwoPs($('.sellNumber').val())<0.1){
             alert('请输入完整信息！');
         }else{
            api_mkt.sellBefore({
@@ -832,7 +837,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
         }        
     }); 
     $(".market_price_sale_btn").click(function(){  
-        if(flag == false || decimal.toDecimal($('.sellAmount').val())<0.1){
+        if(flag == false || decimal.getTwoPs($('.sellAmount').val())<0.1){
             alert('请输入完整信息！');
         }else{
             api_mkt.sellBefore({
