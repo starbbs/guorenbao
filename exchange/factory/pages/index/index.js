@@ -11,7 +11,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     var mine_two = $.cookie("mine_two");
     var mine_three = $.cookie("mine_three");
     var mine_four = $.cookie("mine_four");
-
     //$.cookie("asdf","haha",{"expires":"h0.5"},"guorenmarket");
     api_mkt.totalAssets(function(data) {
         if (data.status == 200) {
