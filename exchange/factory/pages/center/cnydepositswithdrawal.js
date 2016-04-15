@@ -399,6 +399,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             }else if(btnConfirm3 == false){
                 $('.msg-phone').show().text('请输入手机正确手机号码');
             }else{
+                //打开弹出层-生成汇款单 
+                $(".mydiv").css("display","block");
+                $(".bg1").css("display","block"); 
+                $(".money-new").text('¥'+$('#bank-money').val()+'.00'); 
+                $('.bankName').text($("#bank").val()+'网银');
                 //接口：人民币充值
                 api_mkt.rmbRecharge({          
                     'bankId':$('#bank-idcard').val(),
@@ -407,24 +412,13 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     "bankName":$("#bank").val()     
                 }, function(data) {
                     if (data.status == 200) {
-                        //打开弹出层-生成汇款单 
-                        $(".mydiv").css("display","block");
-                        $(".bg1").css("display","block");
-                        $(".remittance-id").text( data.data.orderNo+ data.data.uid); 
-                        $(".money-new").text('¥'+$('#bank-money').val()+'.00');                
+                        //打开弹出层-生成汇款单
+                        $(".remittance-id").text( data.data.orderNo);               
                         $(".remittance-note-numbe-newr").text(data.data.uid);
-                        $('.bankName').text($("#bank").val()+'网银');
                     } else {
                         //console.log('err');
                     }
                 });
-                //打开弹出层-生成汇款单 
-                $(".mydiv").css("display","block");
-                $(".bg").css("display","block");
-                $(".remittance-id").text( $.cookie('Num')); 
-                $(".money-new").text('¥'+$('#bank-money').val()+'.00');                
-                $(".remittance-note-numbe-newr").text($.cookie('NumUid'));
-                $('.bankName').text($("#bank").val()+'网银');
                 //清空文本框
                 $("#bank-idcard").val('');
                 $("#bank").val('');

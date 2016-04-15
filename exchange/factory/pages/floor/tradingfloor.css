@@ -439,7 +439,7 @@
     width: 100%;
 }
 .w_b{
-    height: 60px;
+    height: 67px;
     line-height: 60px;
     text-align: center;
 }
@@ -474,7 +474,8 @@
 
 .buyin_limitprices div:nth-child(2) div{
     display: flex;
-    margin-bottom:12px;
+    margin-bottom:22px;
+    height: 35px;
 }
 .buyin_limitprices div:nth-child(2) div div:nth-child(1){
     flex: 0.2;
@@ -1598,4 +1599,13 @@ a {
 #thelatestprice_floor{
     background: url('../images/index_arrow_rise.png') no-repeat center right;
     padding-right: 15px;
+}
+.buying_price, .buying_number, .sellPrice, .sellNumber{
+    width:200px;
+}
+.buying_btn, .sale_btn{
+    width:280px;
+}
+.marketBuy, .sellAmount{
+    width:166px;
 }
