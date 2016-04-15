@@ -1,4 +1,4 @@
-﻿define('mkt_info', ['api_mkt'], function(api_mkt) {
+﻿define('mkt_info', ['api_mkt','decimal'], function(api_mkt,decimal) {
     var price = {
         interval: 1000,
         timer: null,
@@ -13,15 +13,32 @@
             callback && callback(data);
         });
     };
+
+    var getTwoPs = function(str){
+		var length = 0;
+    	var position = 0;
+    	//String str = bd.toPlainString();
+    	if(String(str).indexOf(".") < 0){
+    		return str+".00";
+    	}
+    	length = str.length;
+    	position = String(str).indexOf(".");
+    	if(length < position + 3){
+    		return str + "0";
+    	}else{
+    		return String(str).substring(0, position + 3);
+    	}
+	}
     //首页+交易大厅的价格轮询
     var updateprice = function(haha) {
-        //console.log(JSON.parse(haha['order'][0]));
-        //console.log(JSON.parse(haha['order'][0]).price);
         var thelatestprice;
         var thelatestprice_second;
         if (haha['order']) {
             thelatestprice = JSON.parse(haha['order'][0]).price;
-            $('#thelatestprice').html(thelatestprice.toFixed(2)); //页面顶部 最新成交价
+            //console.log("xxxxxxxxxx"+thelatestprice);
+            thelatestprice = getTwoPs(thelatestprice);
+            //console.log("yyyyyyyyyy"+getTwoPs(thelatestprice));
+            $('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
             thelatestprice_second = JSON.parse(haha['order'][1]).price;
         }
         // thelatestprice = 4;
@@ -29,22 +46,10 @@
         var turnover = Number(haha['24Total']).toFixed(2);
         $('#turnover').html(turnover); //页面顶部 24小时成交量
         $('#thelatestprice_floor').html(thelatestprice); //交易大厅 最新成交价
-        if ($('#thelatestprice_floor').text().length > 5) {
-            $(".quoted_price_firsti").css("right", "36px");
-        } else {
-            $(".quoted_price_firsti").css("right", "45px");
-        }
-
-        if ($("#thelatestprice_em").text().length > 5) {
-            $(".quoted_price_i").css("right", "18px");
-        } else {
-            $(".quoted_price_i").css("right", "32px");
-        }
-
         $('#thelatestprice_em').html(thelatestprice); //首页轮播图下面最新成交价
         if (thelatestprice != "" && thelatestprice_second == "") {}
-        // console.log("thelatestprice"+thelatestprice);
-        // console.log("thelatestprice_second"+thelatestprice_second);
+        console.log("thelatestprice"+thelatestprice);
+        console.log("thelatestprice_second"+thelatestprice_second);
         if (thelatestprice != "" && thelatestprice_second != "") {
             if (thelatestprice > thelatestprice_second) {
             	console.log("红色");
@@ -52,7 +57,7 @@
                 $("#thelatestprice_em")[0] ? $("#thelatestprice_em")[0].style.backgroundImage = "url(./images/index_arrow_rise.png)" : "";
                 // console.log("aaaaaa");
                 $(".new_color").css("color", "#dd0900");
-                $(".thelatestprice_floor")[0] ? $(".thelatestprice_floor")[0].style.backgroundImage = "url(./images/floor_arrow_rise.png)" : "";
+                $("#thelatestprice_floor")[0] ? $("#thelatestprice_floor")[0].style.backgroundImage = "url(./images/floor_arrow_rise.png)" : "";
             }
             if (thelatestprice < thelatestprice_second) {
             	console.log("蓝色");
@@ -60,7 +65,7 @@
                 $("#thelatestprice_em")[0] ? $("#thelatestprice_em")[0].style.backgroundImage = "url(./images/index_big_down.png)" : "";
                 // console.log("bbbbbb");
                 $(".new_color").css("color", "#00951c");
-                $(".thelatestprice_floor")[0] ? $(".thelatestprice_floor")[0].style.backgroundImage = "url(./images/floor_big_down.png)" : "";
+                $("#thelatestprice_floor")[0] ? $("#thelatestprice_floor")[0].style.backgroundImage = "url(./images/floor_big_down.png)" : "";
             }
         }
         var low24 = Number(haha['24low']); //最低价
@@ -72,9 +77,13 @@
         $('#thehighest_price_floor').html(high24.toFixed(2)); //交易大厅 最高价
         $('#thelowest_price_floor').html(low24.toFixed(2)); //交易大厅 最低价
         var total = Number(haha['total']);
+
+        console.log("thelatestprice==========="+thelatestprice);
+        console.log("price24============"+price24);
+
         // price24 = 2;  //最新成交价*(1+x) = 24小时之前价格
         // thelatestprice = 1.2;
-        var unknow = Number((price24 / thelatestprice) - 1).toFixed(2);
+        var unknow = Number((thelatestprice - price24)/price24);
         // console.log("price24"+price24);
         // console.log("thelatestprice"+thelatestprice);
         // console.log("unknow"+unknow);
@@ -83,11 +92,10 @@
         $('#pricechangeratioem_updown').html((unknow * 100).toFixed(2) + "%"); //涨跌幅
         if (unknow < 0) {
             $("#pricechangeratio").css("color", "#00951c");
-            $("#pricechangeratioem_updown")[0] ? $("#pricechangeratioem_updown")[0].style.background = "url(./images/index_arrow_down.png)" : "";
+            $("#pricechangeratioem_updown")[0] ? $("#pricechangeratioem_updown")[0].style.backgroundImage = "url(./images/index_arrow_down.png)" : "";
         } else {
             $("#pricechangeratio").css("color", "#dd0900");
-            //$("#pricechangeratioem_updown")[0] ? $("#pricechangeratioem_updown")[0].style.background = "url(./images/index_sma_top.png)" : "";
-        	// $("#pricechangeratioem_updown")[0].style.background = "url(./images/index_sma_top.png)"
+            $("#pricechangeratioem_updown")[0] ? $("#pricechangeratioem_updown")[0].style.backgroundImage = "url(./images/index_sma_top.png)" : "";
         }
         var bid_history_list_html = "";
         var orderlist = haha['order'];

@@ -181,6 +181,7 @@
     width: 100%;
     height: 372px;
     background-color: #282828;
+    overflow: hidden;
 }
 
 

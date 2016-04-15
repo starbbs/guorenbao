@@ -35,6 +35,9 @@ define('decimal', function() {
 		var str=num.split(".")[1]+"";
 		return str.length;
 	};
+
+
+	
 	
 	return decimal;
 });

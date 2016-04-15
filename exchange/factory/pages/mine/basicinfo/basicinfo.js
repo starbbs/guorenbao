@@ -42,7 +42,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
                                 $(".verticle_line").hide();
                                 $(".verticle_line_id").hide();
                                 $("#realname").html("未认证").css("color","#ff6600");
-                                $(".lookup").hide();
+                                //$(".lookup").hide();
                                 $(".jumpone,.jumptwo,.jumpthree").on("click",function(){
                                     $(".popuptips").hide();
                                     $(".popuptips").slideDown();

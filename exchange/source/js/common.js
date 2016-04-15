@@ -3,7 +3,7 @@
     if(location.href.indexOf("tradingfloor")===-1){
         mkt_info.get();
     } else {
-        
+
     }
     var popup_login_times = 0;
     var exchangeToken = $.cookie('exchangeToken');
@@ -28,6 +28,7 @@
         var ff = $(this).html();
         if (!exchangeToken) {
             if(location.href.indexOf("/footer.html")===-1){
+
             } else {
                 if(ff=="首页"){
                     location.href="./index.html";
@@ -40,10 +41,16 @@
                 $.cookie("loginfromwhichpage","one");
             } else if(ff=="交易大厅"){
                 $.cookie("loginfromwhichpage","two");
+                $(".popDiv").show();
+                $(".bg").show();
             } else if(ff=="财务中心"){
                 $.cookie("loginfromwhichpage","three");
+                $(".popDiv").show();
+                $(".bg").show();
             } else if(ff=="我的账户"){
                 $.cookie("loginfromwhichpage","four");
+                $(".popDiv").show();
+                $(".bg").show();
             }
         } else {
             $(".popDiv").hide();

@@ -43,7 +43,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			    	$('.unautherized').hide();
 			    	$(".popuptips").slideUp();
 			    	$.cookie("global_loginusername",$('#realAuthName').val());
-			    	$('#username_value').text($('#realAuthName').val()); 
+			    	$('#username_value_one').text($('#realAuthName').val()); 
 			    	var num = $('#realAuthId').val();
                 	var numId = num.replace(num.slice(1,17),'****************');
 			    	$('#identificode_value').text(numId);
