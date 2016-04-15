@@ -309,7 +309,7 @@ table {
 
 .bottom {
     width: 100%;
-    height: 372px;
+    height: 322px;
     background-color: #282828;
 }
 
@@ -350,7 +350,6 @@ table {
 .bottom_down {
     max-width: 1200px;
     margin: 0 auto;
-    height: 223px;
     position: relative;
 }
 
@@ -364,7 +363,7 @@ table {
 
 .links div:nth-of-type(1) {
     position: absolute;
-    top: 76px;
+    top: 82px;
 }
 
 .links div:last-child {
@@ -378,30 +377,30 @@ table {
 .second h3,
 .third h3,
 .fourth h3 {
-    margin-top: 40px;
+    margin-top: 38px;
 }
 
 .bottom_down .bottom_down_up div {
     width: 200px;
     float: left;
     margin-top: 24px;
-    color: #666666;
+    color: #999;
 }
 
 .bottom_down_up {
-    height: 100px;
+    height: 80px;
     border-bottom: 1px solid #333;
 }
 
 .bottom_down_down {
-    height: 123px;
+    height: 68px;
     position: relative;
 }
 
 .bottom_down_down p {
-    color: #666666;
+    color: #999;
     position: absolute;
-    top: 24px;
+    top: 22px;
 }
 
 
