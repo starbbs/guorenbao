@@ -181,6 +181,7 @@
 
 .lft_img {
     flex: 0.05;
+    margin-left: 31px;
 }
 
 .lft_img div:nth-child(0) img {
@@ -229,7 +230,7 @@
 }
 
 .rft_content div span:nth-child(1) {
-    margin-left: 20px;
+    margin-left: 10px;
     font-size: 1.4rem;
     color: #333333;
 }
@@ -243,7 +244,7 @@
 }
 
 .rft_content div a:last-child {
-    color: #0088cc;
+    color: #0bbeee;
     text-decoration: none;
     height: 93px;
     line-height: 93px;
@@ -253,9 +254,12 @@
 
 .rft_content div a {
     text-decoration: none;
+    color: #0bbeee;
+}
+.rft_content div a:last-child:hover ,.rft_content div a:hover {
+    text-decoration: none;
     color: #0088cc;
 }
-
 .rft_content div:last-child a:not(:last-child):after {
         content: '|';
     padding: 0 .3em 0 .1em;

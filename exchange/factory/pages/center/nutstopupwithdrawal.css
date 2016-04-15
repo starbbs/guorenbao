@@ -524,10 +524,6 @@ position: relative; */
 .aside-table-tbody tr:hover {
     background: #FAFAFA; 
 }
-/* 添加 查看更多 */
-.moreCheck{
-    color:blue;
-}
 /* 历史记录页面样式 -分页样式 页码样式 */
 .PageCode {
   padding: 15px 20px;

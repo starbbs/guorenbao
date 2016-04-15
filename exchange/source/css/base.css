@@ -554,8 +554,8 @@ table {
 }
 
 .bg {
-    background-color: #333333;
-    opacity: 0.8;
+    background-color: #000;
+    opacity: 0.75;
     z-index: 1;
     position: absolute;
     top: 0;
@@ -657,7 +657,7 @@ table {
     height: 36px;
     color: white;
     position: absolute;
-    top: 252px;
+    top: 247px;
     background: #0bbeee;
     border-radius: 5px;
     font-size: 1.4rem;
@@ -672,20 +672,22 @@ table {
 }
 
 .freesignup {
-    color: #0bbeee;
+    color: #999;
     display: inline-block;
     float: left;
 }
+.freesignup:hover, .forgotpassword:hover {
+    color: #0bbeee;
+}
 
 .forgotpassword {
-    color: #cccccc;
+    color: #999;
     float: right;
     position: relative;
     right: 0px;
     left: 130px;
     display: inline-block;
 }
-
 .turnoverbefore {
     background: url('../images/head_goopal_logo.png') no-repeat 0 0;
     width: 7px;
@@ -733,3 +735,9 @@ input:-ms-input-placeholder {
     left: 0px;
     margin-right: 4px;
 }
+.moreCheck{
+    color:#0bbeee;
+}
+.moreCheck:hover{
+    color:#0088cc;
+};

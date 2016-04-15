@@ -89,6 +89,20 @@ require(['api_mkt','cookie'], function(api_mkt) {
             $(".msg_num").css("color","#cccccc");
         }
     });
+    //hover 效果
+    $('.ls_tab').hover(function(){
+        if($(this).hasClass('ls_tab_on')){
+            $(this).css('backgroundColor','#f1f1f1');
+        }else{
+            $(this).css('backgroundColor','#fafafa');
+        }
+    },function(){
+        if($(this).hasClass('ls_tab_on')){
+            $(this).css('backgroundColor','#f1f1f1');
+        }else{
+            $(this).css('backgroundColor','#fff');
+        }
+    });
 
 });
 function showDiv() {
