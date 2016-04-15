@@ -1,7 +1,7 @@
 require(['api_mkt','cookie'], function(api_mkt) {
 	 		
 	//表单校验password
-	$('.checkPhone, .checkCode-send, .checkpwd, .checkConfirmPwd, .payPwd, .payConfirmPwd, .personName, .personId').focus(function(){
+	$('.checkPhone, .checkpwd, .checkConfirmPwd, .payPwd, .payConfirmPwd, .personName, .personId').focus(function(){
 		$(this).val('');
 	});
 	$(".checkPhone").keyup(function(){

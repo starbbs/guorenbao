@@ -99,18 +99,18 @@
 }
 
 .registercontent {
-    height: 480px;
-    max-width: 1200px;
+    height: 452px;
+    max-width: 996px;
     background-color: #ffffff;
     position: relative;
-    top: 48px;
+    top: 58px;
     border-radius: 8px;
     margin: 0 auto;
     display: flex;
 }
 
 .left_reg_side {
-    flex: 0.316;
+    width:380px;
     background-color: #0bbeee;
     border-bottom-left-radius: 8px;
     border-top-left-radius: 8px;
@@ -122,9 +122,11 @@
     margin-top: 170px;
     width: 70%;
 }
-
+#identifyingCode{
+    width:105px;
+}
 .right_reg_side {
-    flex: 0.684;
+    width:616px;
     text-align: center;
     margin: 0 auto;
     font-size:1.2rem;
@@ -174,12 +176,15 @@
     display: flex;
 }
 .rg_lf_label {
-    flex: 0.36;
+    flex: 0.33;
     position: relative;
 }
 .rg_rg_input {
-    flex: 0.64;
+    flex: 0.67;
     position: relative;
+}
+.rg_lf_labelTwo{
+    top:-40px;
 }
 .label_username,
 .label_idcard {
@@ -363,8 +368,8 @@
 }
 
 .forgotpwd{
-        position: absolute;
-    left: 280px;
+    position: absolute;
+    left: 250px;
     top: 10px;
     color: #0bbeee;
 }

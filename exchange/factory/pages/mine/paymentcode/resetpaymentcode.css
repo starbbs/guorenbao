@@ -99,11 +99,11 @@
 }
 
 .registercontent {
-    height: 480px;
-    max-width: 1200px;
+    height: 452px;
+    max-width: 996px;
     background-color: #ffffff;
     position: relative;
-    top: 48px;
+    top: 58px;
     border-radius: 8px;
     margin: 0 auto;
     display: flex;
