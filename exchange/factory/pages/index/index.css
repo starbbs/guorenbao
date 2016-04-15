@@ -930,7 +930,10 @@ progress::-webkit-progress-value {
 .withdraw {
     background-color: #0bbeee;
 }
-.quoted_price_i{
+
+
+
+/* .quoted_price_i{
     background: url('../images/index_arrow_rise.png') no-repeat 0 0;
     width: 10px;
     background-size: 100% 100%;
@@ -938,8 +941,8 @@ progress::-webkit-progress-value {
     top: 39px;
     height: 22px;
     right: 32px;
-    /* transform:rotate(180deg); */
-}
+    transform:rotate(180deg);
+} */
 .quoted_price_updown {
     background: url('../images/index_arrow_down.png') no-repeat 0 0;
     width: 8px;
@@ -1000,9 +1003,20 @@ progress::-webkit-progress-value {
 }
 
 .bottomimg{
-        position: relative;
+    position: relative;
     top: 4px;
     left: 2px;
     margin-right: 5px;
 }
 
+#pricechangeratioem_updown{
+    background: url('../images/index_sma_top.png') no-repeat center right;
+    width: 200px;
+    height: 18px;
+    padding-right: 10px;
+}
+
+#thelatestprice_em{
+    background: url('../images/index_arrow_rise.png') no-repeat center right;
+    padding-right: 15px;
+}

@@ -417,7 +417,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     } else {
                         //console.log('err');
                     }
-                }); `
+                });
                 //打开弹出层-生成汇款单 
                 $(".mydiv").css("display","block");
                 $(".bg").css("display","block");

@@ -1597,3 +1597,9 @@ a {
 .ui-slider-handle,.ui-state-default,.ui-corner-all{
     z-index:0;
 }
+
+
+#thelatestprice_floor{
+    background: url('../images/index_arrow_rise.png') no-repeat center right;
+    padding-right: 15px;
+}
