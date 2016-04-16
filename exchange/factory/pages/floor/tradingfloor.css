@@ -166,14 +166,6 @@
     position: relative;
     top: 34px;
 }
-.feature {
-    width: 116px;
-    color: #777777;
-    font-size: 1.6rem;
-    cursor: pointer;
-    text-decoration:none;
-    
-}
 .index_on {
     color:#0bbeee;
 }
@@ -181,6 +173,7 @@
     width: 100%;
     height: 372px;
     background-color: #282828;
+    overflow: hidden;
 }
 
 
@@ -446,7 +439,7 @@
     width: 100%;
 }
 .w_b{
-    height: 60px;
+    height: 67px;
     line-height: 60px;
     text-align: center;
 }
@@ -481,7 +474,8 @@
 
 .buyin_limitprices div:nth-child(2) div{
     display: flex;
-    margin-bottom:12px;
+    margin-bottom:22px;
+    height: 35px;
 }
 .buyin_limitprices div:nth-child(2) div div:nth-child(1){
     flex: 0.2;
@@ -1274,8 +1268,11 @@
 }
 .entrust-table-title span:nth-child(2) a, .history-entrust-table-title span:nth-child(2) a{
     text-decoration: none;
-    color:#44C0FD;
+    color:#0bbeee;
     padding-right: 10px;
+}
+.entrust-table-title span:nth-child(2) a:hover, .history-entrust-table-title span:nth-child(2) a:hover{
+    color:#0088cc;
 }
 /*表格样式*/
 .entrust-table{
@@ -1331,7 +1328,7 @@
     border-bottom: 2px solid #bababa;
 }
 .moreCheck{
-    color:#44C0FD;
+    color:#0bbeee;
     text-decoration: none;
     float: right;
     margin:30px 26px 0 0;
@@ -1596,4 +1593,19 @@ a {
 
 .ui-slider-handle,.ui-state-default,.ui-corner-all{
     z-index:0;
+}
+
+
+#thelatestprice_floor{
+    background: url('../images/index_arrow_rise.png') no-repeat center right;
+    padding-right: 15px;
+}
+.buying_price, .buying_number, .sellPrice, .sellNumber{
+    width:200px;
+}
+.buying_btn, .sale_btn{
+    width:280px;
+}
+.marketBuy, .sellAmount{
+    width:166px;
 }

@@ -42,9 +42,9 @@ require(['api_mkt','cookie'], function(api_mkt) {
                                 $(".verticle_line").hide();
                                 $(".verticle_line_id").hide();
                                 $("#realname").html("未认证").css("color","#ff6600");
-                                $(".lookup").hide();
+                                //$(".lookup").hide();
                                 $(".jumpone,.jumptwo,.jumpthree").on("click",function(){
-                                    $(".popuptips").slideUp();
+                                    $(".popuptips").hide();
                                     $(".popuptips").slideDown();
                                 });
                             }
@@ -87,6 +87,20 @@ require(['api_mkt','cookie'], function(api_mkt) {
             $(".popup_message_box").hide("100");
             $(".messagenum_area em").css("color","#cccccc");
             $(".msg_num").css("color","#cccccc");
+        }
+    });
+    //hover 效果
+    $('.ls_tab').hover(function(){
+        if($(this).hasClass('ls_tab_on')){
+            $(this).css('backgroundColor','#f1f1f1');
+        }else{
+            $(this).css('backgroundColor','#fafafa');
+        }
+    },function(){
+        if($(this).hasClass('ls_tab_on')){
+            $(this).css('backgroundColor','#f1f1f1');
+        }else{
+            $(this).css('backgroundColor','#fff');
         }
     });
 

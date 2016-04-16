@@ -1,7 +1,4 @@
-require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pagehead) {
-    //console.log(api_mkt);
-    //console.log(mkt_info);
-    //mkt_info.get();    
+require(['api_mkt', 'mkt_info','decimal','cookie'], function(api_mkt, mkt_info,decimal,cookie) { 
 
     var flag = true;
     $('.messagenum_area').on("click", function() {
@@ -26,18 +23,16 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pageh
             if(data.data){
                 var dlist = data.data.list;
                 if(dlist.length!=0){
-                    //console.log(data);
-                    //console.log(data.data.list[0].createDate);
                     var html = [];
                     var num = data.data.list.length >5 ? 5:data.data.list.length
                     for (var i = 0; i < num; i++) {
                         html.push("<tr>");
                         html.push("<td>" + data.data.list[i].createDate + "</td>");
                         html.push("<td class='operType'>" + data.data.list[i].operType + "</td>");
-                        html.push("<td>" + data.data.list[i].cnyNumber + "</td>");
-                        html.push("<td>" + data.data.list[i].cnyBalance + "</td>");
-                        html.push("<td>" + data.data.list[i].gopNumber + "</td>");
-                        html.push("<td>" + data.data.list[i].gopBalance + "</td>");
+                        html.push("<td class='toFixed'>" + data.data.list[i].cnyNumber + "</td>");
+                        html.push("<td class='toFixed'>" + data.data.list[i].cnyBalance + "</td>");
+                        html.push("<td class='toFixed'>" + data.data.list[i].gopNumber + "</td>");
+                        html.push("<td class='toFixed'>" + data.data.list[i].gopBalance + "</td>");
                         html.push("</tr>");
                         $(".aside-table-tbody").html(""); //添加前清空 
                         $(".aside-table-tbody").append(html.join(""));
@@ -57,64 +52,62 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pageh
             //console.log('财务中心-资产状况-账户明细表格，加载失败。');
         }
     });
+        
+    
 
-    //接口10 账户明细（带分页）
-    $('.moreCheck').click(function() {
-        api_mkt.billListPage({
-            'pageNo': 1,
-            'pageSize': 10
-        }, function(data) {
-            if (data.status == 200) {
-                //console.log(data);
-                var PageNum = 0; //0当前为第一页                    
-                var html = [];
-                for (var i = 0; i < 10; i++) {
-                    html.push("<tr>");
-                    html.push("<td>" + data.data.list[i].createDate + "</td>");
-                    html.push("<td class='operType'>" + data.data.list[i].operType + "</td>");
-                    html.push("<td>" + data.data.list[i].cnyNumber + "</td>");
-                    html.push("<td>" + data.data.list[i].cnyBalance + "</td>");
-                    html.push("<td>" + data.data.list[i].gopNumber + "</td>");
-                    html.push("<td>" + data.data.list[i].gopBalance + "</td>");
-                    html.push("</tr>");
-                    $(".new").html(""); //添加前清空 
-                    $(".new").append(html.join(""));
 
-                    //过滤内容显示不同颜色
-                    $(".operType").filter(":contains('CNYIN')").text('人民币充值');
-                    $(".operType").filter(":contains('CNYOUT')").text('人民币提现');
-                    $(".operType").filter(":contains('GOPIN')").text('果仁充值');
-                    $(".operType").filter(":contains('GOPOUT')").text('果仁提现');
-                    $(".operType").filter(":contains('BUY')").text('果仁买入').css("color", "red");
-                    $(".operType").filter(":contains('SELL')").text('果仁卖出').css("color", "green");
-                    $("td").filter(":contains('undefined')").text('0');
-                }
-            } else {
-                console.log('财务中心-资产状况-账户明细表格(带分页)，加载失败。');
-            }
-        });
-    });
     //总资产
     api_mkt.getTotalAssets(function(data) {        
         if (data.status == 200) {
-            //console.log(data);
-            $('#total_assets').text(data.data.cnyBalance.toFixed(2));
-            $('.cnyBalance').text(data.data.cnyBalance.toFixed(2));
-            $('.gopLock').text(data.data.gopLock.toFixed(2));
-            $('.cnyLock').text(data.data.cnyLock.toFixed(2));
-            $('.gopBalance').text(data.data.gopBalance.toFixed(2));
-            
+            var gopBalance = data.data.gopBalance;  //剩余果仁数
+            var cnyBalance = data.data.cnyBalance;  //剩余人民币数
+            var gopLock = data.data.gopLock;  //冻结果仁数
+            var cnyLock = data.data.cnyLock;  //冻结人民币数
             var totalAssets = data.data.cnyBalance + data.data.cnyLock;
             var totalNuts = data.data.gopBalance + data.data.gopLock;
-            //console.log($('#thelatestprice').html());
             var totalvalue = totalNuts*$('#thelatestprice').html()+totalAssets;
-            $('#total_assets').html(totalvalue.toFixed(2));//总资产
-            //$.cookie('allCNY',$('.cnyBalance').text());
-            //$.cookie('gop',$('.gopBalance').text());
+            console.log("decimal.getTwoPs"+String(myfunc(cnyLock)));
+            // console.log(decimal.getTwoPs());
+            $('#total_assets').text(decimal.getTwoPs(totalvalue));
+            $('.cnyBalance').text(decimal.getTwoPs(cnyBalance));
+            $('.gopLock').text(decimal.getTwoPs(gopLock));
+            // console.log("casdfasdfasd"+cnyLock);
+            //console.log("decimal.getTwoPs"+decimal.getTwoPs(cnyLock));
+            $('.cnyLock').text(decimal.getTwoPs(cnyLock));
+            $('.gopBalance').text(decimal.getTwoPs(gopBalance));
         } else {
             console.log(data.msg);
         }
     });
-
-
 });
+
+    //hover 效果
+    $('.ls_tab').hover(function(){
+        if($(this).hasClass('ls_tab_on')){
+            $(this).css('backgroundColor','#f1f1f1');
+        }else{
+            $(this).css('backgroundColor','#fafafa');
+        }
+    },function(){
+        if($(this).hasClass('ls_tab_on')){
+            $(this).css('backgroundColor','#f1f1f1');
+        }else{
+            $(this).css('backgroundColor','#fff');
+        }
+    });
+
+var myfunc = function(str){
+    var length = 0;
+    var position = 0;
+    //String str = bd.toPlainString();
+    if(String(str).indexOf(".") < 0){
+        return str+".00";
+    }
+    length = str.length;
+    position = String(str).indexOf(".");
+    if(length < position + 3){
+        return str + "0";
+    }else{
+        return String(str).substring(0, position + 3);
+    }
+}

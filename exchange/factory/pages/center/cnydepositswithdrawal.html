@@ -71,7 +71,7 @@
                             </div>
 
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入您想充值的整数金额" onKeyUp="this.value=this.value.replace(/\D/g,'')" id="bank-money"/>
+                                <input class="regist_rg_input" type="text" placeholder="请输入您想充值的整数金额" onKeyUp="this.value=this.value.replace(/\D/g,'')" id="bank-money" maxlength="6"/>
                                 <span class="msg-bank-money"></span>
                             </div>
                             <div class="regist_input_div">
@@ -121,6 +121,11 @@
                                 </thead>
                                 <tbody class="aside-table-tbody cnyInput">
                                     <!-- 载入前五条,如下为临时填充数据 -->
+                                    <tr>
+                                        <td colspan="5" class="no-record-td">
+                                            <section class="no-record-picture">暂无记录</section>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -225,7 +230,11 @@
                                     </tr>
                                 </thead>
                                 <tbody class="aside-table-tbody cnyOutput">
-                                    <!-- 载入前五条,如下为临时填充数据 -->
+                                    <tr>
+                                        <td colspan="5" class="no-record-td">
+                                            <section class="no-record-picture">暂无记录</section>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -243,7 +252,7 @@
                 <li>开户银行</li>
                 <li class="bank-name-new">兴业银行北京东外支行</li>
                 <li>开户姓名</li>
-                <li class="account-name-new">北京果汇科技信息有限公司</li>
+                <li class="account-name-new">北京果汇信息技术有限公司</li>
                 <li>本次充值金额</li>
                 <li class="money-new">¥5000.00</li>
                 <li>汇款备注编号</li>

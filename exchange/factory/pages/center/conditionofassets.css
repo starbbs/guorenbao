@@ -159,92 +159,8 @@
     top: 17px;
 }
 
-.feature {
-    width: 116px;
-    color: #777777;
-    font-size: 1.6rem;
-    cursor: pointer;
-}
 .index_on {
     color:#0bbeee;
-}
-.bottom {
-    width: 100%;
-    height: 372px;
-    background-color: #282828;
-}
-
-.bottom h3 {
-    font-size: 1.6rem;
-    color: #999999;
-}
-.bottom a {
-    text-decoration: none;
-    color: #999999;
-    display: inline-block;
-    width: auto;
-    height: 20px;
-    line-height: 20px;
-    margin-right: 30px;
-    font-size: 1.4rem;
-}
-.bottom_up {
-    height: 148px;
-    border-bottom: 1px solid #333333;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-}
-.bottom_up .links {
-    width: 200px;
-    height: 100%;
-    flex: 1;
-}
-.bottom_down {
-    max-width: 1200px;
-    margin: 0 auto;
-    height: 223px;
-    position: relative;
-}
-.bottom_down h3 {
-    margin-top: 20px;
-}
-.links {
-    position: relative;
-}
-.links div:nth-of-type(1) {
-    position: absolute;
-    top: 76px;
-}
-.links div:last-child {
-    position: absolute;
-    bottom: 18px;
-}
-.bottom h3 {}
-.first h3,
-.second h3,
-.third h3,
-.fourth h3 {
-    margin-top: 40px;
-}
-.bottom_down .bottom_down_up div {
-    width: 200px;
-    float: left;
-    margin-top: 24px;
-    color: #666666;
-}
-.bottom_down_up {
-    height: 100px;
-    border-bottom: 1px solid #333;
-}
-.bottom_down_down {
-    height: 123px;
-    position: relative;
-}
-.bottom_down_down p {
-    color: #666666;
-    position: absolute;
-    top: 24px;
 }
 .quoted_price_top,
 .report_forms {
@@ -311,7 +227,7 @@
     text-decoration:none;
 }
 .ls_tab_on {
-    background-color: #fafafa;
+    background-color: #f1f1f1;
     font-weight: 600;
 }
 
@@ -322,7 +238,7 @@
 }
 /* 账户明细 查看更多 */
 .moreCheck{
-    color:#44C0FD;
+    color:#0bbeee;
     text-decoration: none;
 }
 
@@ -380,6 +296,12 @@
     text-align: center;
     border-radius: 3px;
     margin-right:10px;
+    color: #333;
+}
+.btnA:hover{
+    background-color: #0bbeee;
+    color: #fff;    
+    border: 1px solid #0bbeee;
 }
     
 .usable_cny div:nth-child(4){
@@ -467,3 +389,18 @@ a {
 .btn-fenye {
   cursor: pointer;
   padding: 2px 7px; }
+  /*暂无记录*/
+.no-record-td{
+    height:350px;vertical-align:middle;text-align:center;
+}
+.no-record-td:hover{
+    background: #fff;
+}
+.no-record-picture{
+    background: url(../images/floor_no-record.png) no-repeat left center;
+    padding-left:30px;
+    width:80px;
+    height:50px;
+    line-height: 50px;
+    margin-left:340px;
+}

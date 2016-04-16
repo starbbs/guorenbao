@@ -1,5 +1,10 @@
-﻿require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
-    mkt_info.get();
+﻿require(['api_mkt','mkt_info','cookie']), function(api_mkt,mkt_info) {
+
+    if(location.href.indexOf("tradingfloor")===-1){
+        mkt_info.get();
+    } else {
+
+    }
     var popup_login_times = 0;
     var exchangeToken = $.cookie('exchangeToken');
     var whether_auth = false;
@@ -22,16 +27,30 @@
         var exchangeToken = $.cookie('exchangeToken');
         var ff = $(this).html();
         if (!exchangeToken) {
-            $(".popDiv").show();
-            $(".bg").show();
+            if(location.href.indexOf("/footer.html")===-1){
+
+            } else {
+                if(ff=="首页"){
+                    location.href="./index.html";
+                } else {
+                    $(".popDiv").show();
+                    $(".bg").show();
+                }
+            }
             if(ff=="首页"){
                 $.cookie("loginfromwhichpage","one");
             } else if(ff=="交易大厅"){
                 $.cookie("loginfromwhichpage","two");
+                $(".popDiv").show();
+                $(".bg").show();
             } else if(ff=="财务中心"){
                 $.cookie("loginfromwhichpage","three");
+                $(".popDiv").show();
+                $(".bg").show();
             } else if(ff=="我的账户"){
                 $.cookie("loginfromwhichpage","four");
+                $(".popDiv").show();
+                $(".bg").show();
             }
         } else {
             $(".popDiv").hide();
@@ -77,20 +96,20 @@
         return reg.test(inputData) ? reg.test(inputData) : varMes;
     };
 
-    $(".center_content").on("click",function(){
-        if(!exchangeToken){
-            $(".bg").show();
-            $(".login_regist").show();
-            $(".popDiv").show();
-            $(".afterlogin").hide();
-            // return;
-        } else {
-            $(".bg").hide();
-            $(".login_regist").hide();
-            $(".popDiv").hide();
-            $(".afterlogin").hide();
-        }
-    });
+    // $(".center_content").on("click",function(){
+    //     if(!exchangeToken){
+    //         $(".bg").show();
+    //         $(".login_regist").show();
+    //         $(".popDiv").show();
+    //         $(".afterlogin").hide();
+    //         // return;
+    //     } else {
+    //         $(".bg").hide();
+    //         $(".login_regist").hide();
+    //         $(".popDiv").hide();
+    //         $(".afterlogin").hide();
+    //     }
+    // });
 
     $(".ls_tab").on("click",function(){
         if(!exchangeToken){
@@ -269,11 +288,12 @@
                     } else if(data.msg=="登录密码错误"){
                         $(".error_tips").show().html("用户名或密码错误，请重新登录");
                     }else if(data.data && data.data.num && data.data.num<=10){
-//                    	{"data":{"num":2,"msg":"登录密码错误"},"msg":"error","status":"400"}
                         $(".autocode_tips").show().html("还有次"+(10-data.data.num)+"输入机会");
+                    }else if(data.msg=="error"&&data.data.msg=="登录密码错误"){
+                        $(".error_tips").show().html("用户名或密码错误，请重新登录");
                     }else{
                     	$(".autocode_tips").show().html(data.msg);
-                    }
+                    } 
                 } else {
 	            	$(".autocode_tips").show().html(data.msg);
 	            }
@@ -358,11 +378,11 @@
 
     function synchronous(ff) {
         $("#mybox").html("");
-        if(ff=="myboxclick"){
-            $("#msg_num_top,#newinfor_result").html("0");
-        } else {
-            $("#msg_num_top,#newinfor_result").html("0");
-        }
+        // if(ff=="myboxclick"){
+        //     $("#msg_num_top,#newinfor_result").html("0");
+        // } else {
+        //     $("#msg_num_top,#newinfor_result").html("0");
+        // }
         api_mkt.unReadMessage({
 
         },function(data){
@@ -385,8 +405,9 @@
                     }
                     $(dlisthtml).appendTo("#mybox");
                 }
-            } else {
+            } else if(data.status==400&&data.msg=="无数据"){
                 console.log(data);
+                $("#msg_num_top,#newinfor_result").html("0");
             }
         });
     }

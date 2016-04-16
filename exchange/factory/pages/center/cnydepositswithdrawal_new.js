@@ -48,9 +48,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             $(".mydiv").css("display","block");
                             $(".bg").css("display","block");               
                             $(".remittance-id").text($(this).parent().find('.txid').text());
-                            $(".bank-card-new").text($(this).parent().find('.acnumber').text());
+                            /*$(".bank-card-new").text($(this).parent().find('.acnumber').text());
                             $(".bank-name-new").text($(this).parent().find('.bank').text());
-                            $(".account-name-new").text($(this).parent().find('.name').text());
+                            $(".account-name-new").text($(this).parent().find('.name').text());*/
                             $(".money-new").text($(this).parent().find('.money').text()+'.00');                
                             $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
                             //关闭弹出层 -生成汇款单

@@ -3,18 +3,14 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
     $('.bg').height($(document).height());
     $('.bg').css('left', 0);
     $('.bg').css('top', 0);
-
     $(".feature").removeClass("index_on");
-
     var exchangeToken = $.cookie('exchangeToken');
-
     if (!exchangeToken) {
         //$(".popDiv").show();
         //$(".bg").show();
     } else { //已经实名认证
         //$(".popDiv").hide();
         //$(".bg").hide();
-
         api_mkt.userbasic(function(data) {
             /**
              * address: "56ed0cd2b90b447e8859f6bf0d355c17"
@@ -37,7 +33,6 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
             $("#realname").html(data.data.list.name);
             $("#account_name").html(data.data.list.mobile);
             $("#account_uid").html(data.data.list.uid);
-
             console.log("api_mkt");
         });
 
@@ -62,22 +57,16 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
             $(".msg_num").css("color", "#cccccc");
         }
     });
-
-
-
 });
-
 function showDiv() {
     $("#bg").show();
     //$("#popDiv").fadeIn(500);
     $("#popDiv_role").show();
 }
-
 function closeDiv() {
     $("#popDiv").hide();
     $("#bg").hide();
 }
-
 /*tab*/
 $(function() {
     $(".tabcon:gt(0)").hide();
@@ -87,7 +76,6 @@ $(function() {
         $(".tabcon").eq(liA.index(this)).show().siblings(".tabcon").hide();
     });
 });
-
 $(function() {
     $(".two-right:gt(0)").hide();
     var liA = $(".li_tab");
@@ -104,7 +92,6 @@ $(function() {
         $(".two-right1").eq(liA.index(this)).show().siblings(".two-right1").hide();
     });
 });
-
 //接受跳转参数
 $(function() {
     function getQueryString(name) {

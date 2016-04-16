@@ -161,7 +161,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         //校验开户支行-人民币提现管理
         $('#subbank').blur(function(){
             var subbank = $.trim($(this).val());
-            var reg = /^[\u4e00-\u9fa5]+$/;   
+            var reg = /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/; 
             if(!subbank || !reg.test(subbank)){
                 btnConfirm = false;
                 $('.msg-subbank').show().text('请输入正确的开户支行地址');
@@ -255,12 +255,16 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     	window.location.reload();
                     } else if(data.msg == '验证码错误'){
                         $('.msg-sendCodeByLoginAfter').text('验证码错误');
+                        return;
                     } else if(data.msg == '服务器异常'){
                         $('.msg-sendCodeByLoginAfter').text('服务器异常');
+                        return;
                     } else if(data.msg == '提现银行卡账户名必须与您的实名认证姓名一致'){
                         $('.msg-sendCodeByLoginAfter').text('提现银行卡账户名必须与您的实名认证姓名一致');
+                        return;
                     } else if(data.msg == '支付密码错误'){
                         $('.msg-pay-pwd').text('支付密码错误');
+                        return;
                     }              
                 });
                 
@@ -362,9 +366,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             $('.nut-two').hide();
                         }); 
                         window.location.href='withdraw.html?id=rmbtx'; 
-                    } else if(data.msg = '支付密码错误'){
+                    } else if(data.msg == '支付密码错误'){
                     	$('.msg-nut-paypwd').show().text('请输入正确的支付密码');
-                    }else if(data.msg = '验证码错误'){
+                    }else if(data.msg == '验证码错误'){
                         $('.msg-nut-identifyingCode').show().text('请输入正确的短信验证码');
                     }
                 });
@@ -431,7 +435,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                                 '<section class="bankIdCard-Code">'+'尾号：'+num.substr(num.length-4)+'</section>'+            
                                 '<section class="bankIdCard-CardAndBg">储蓄卡</section>'+
                                 '<section class="bankIdCard-hr"></section>'+
-                                '<section class="bankIdCard-Name">'+name+'</section>'+
+                                '<section class="bankIdCard-Name">持卡人姓名：'+name.replace(name.substr(0,1),'*')+'</section>'+
                                 '<section class="bankIdCard-del" data-cardId="'+num+'">删除</section>'+
                                 '<section class="bankIdCard-address">'+bankIP+'</section>').appendTo(node);
                 node.insertBefore($('.bankIdCard-add'));
@@ -456,6 +460,21 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 });
             });
         } else {
+        }
+    });
+
+    //hover 效果
+    $('.ls_tab').hover(function(){
+        if($(this).hasClass('ls_tab_on')){
+            $(this).css('backgroundColor','#f1f1f1');
+        }else{
+            $(this).css('backgroundColor','#fafafa');
+        }
+    },function(){
+        if($(this).hasClass('ls_tab_on')){
+            $(this).css('backgroundColor','#f1f1f1');
+        }else{
+            $(this).css('backgroundColor','#fff');
         }
     });
 

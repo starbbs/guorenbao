@@ -30,27 +30,6 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
         }
     });
 
-    //果仁提现地址管理(如果有就显示)
-    api_mkt.gopAddressMan({
-        'pageNo': 1,
-        'pageSize': 10
-    }, function(data) {
-        if (data.status == 200) {
-            console.log(data);
-            for (var i = 0; i < data.data.list.length; i++) {
-                //创建节点
-                var Node1 = $('<option></option>');
-                Node1.text(data.data.list[i].name);
-                Node1.val(data.data.list[i].address);
-                $('.regist_rg_input-select').append(Node1);
-
-                $('option:eq(1)').attr('selected',true);
-            }
-        } else {
-            //console.log(err);
-        }
-    });
-
     //果仁(提现)转出记录_只查询成功记录
     api_mkt.transferOutHistory({
         'pageNo': 1,
@@ -79,35 +58,54 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
         }
     });
     //果仁提现-校验
+    var btnConfirm0a = false; //校验表单-变量
     var btnConfirm1a = false; //校验表单-变量
     var btnConfirm2a = false; //校验表单-变量
     var btnConfirm3a = false; //校验表单-变量
+    //果仁提现地址管理(如果有就显示)
+    api_mkt.gopAddressMan({
+        'pageNo': 1,
+        'pageSize': 10
+    }, function(data) {
+        if (data.status == 200) {
+            console.log(data);
+            for (var i = 0; i < data.data.list.length; i++) {
+                //创建节点
+                var Node1 = $('<option></option>');
+                Node1.text(data.data.list[i].name);
+                Node1.val(data.data.list[i].address);
+                $('.regist_rg_input-select').append(Node1);
+
+                $('option:eq(1)').attr('selected',true);
+                btnConfirm0a = true;
+                $('.msg-gopWithdrawalsSelect').text('');
+            }
+        } else {
+            btnConfirm0a = false;
+        }
+    });
     //输入数量校验
     $('#gopWithdrawalsNumber').blur(function() {
         var num = $('#gopWithdrawalsNumber').val();
         if (!num || isNaN(num)) {
             btnConfirm1a = false;
             $('.msg-gopWithdrawalsNumber').text('请输入提取数量');
-        }else if(parseInt(num.length - num.lastIndexOf('.')) > 3){
-            btnConfirm1a = false;
-            $('.msg-gopWithdrawalsNumber').text('果仁提现转出数量最多输入两位小数');
         }else{
             btnConfirm1a = true;
             $('.msg-gopWithdrawalsNumber').text('');
         }
     });
     
-    /*$(".wrapper").on("input propertychange", "#gopWithdrawalsNumber", function() {
+    $(".wrapper").on("input propertychange", "#gopWithdrawalsNumber", function() {
     	var num = $(this).val();
         var oldData=$(this).attr("data-old");
         if(decimal.toDecimal(num) < 0.02||decimal.getPsercison(num)>2 ){
         	//
         	$(this).val(oldData?oldData:0.02);
-            flag = false;
         }else{
         	$(this).attr("data-old",num);
         }
-    });*/
+    });
     
     //校验支付密码
     $('#gopWithdrawalsPayPwd').blur(function() {
@@ -141,10 +139,9 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
                 $('#gopWithdrawalsCodeBtn').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
             }
         }, 1000);
-
     });
     //校验验证码
-    $('#gopWithdrawalsPayPwd').blur(function() {
+    $('#gopWithdrawalsCode').blur(function() {
         var code= $('#gopWithdrawalsCode').val();
         if (!code) {
             btnConfirm3a = false;
@@ -156,12 +153,14 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
     });
     //转出
     $('.gopWithdrawalsBtn').click(function() {
-        if (btnConfirm1a == false) {
+        if (btnConfirm0a == false) {
+            $('.msg-gopWithdrawalsSelect').text('请先添加果仁地址');
+        }else if (btnConfirm1a == false) {
             $('.msg-gopWithdrawalsNumber').text('请输入提取数量');
         } else if (btnConfirm2a == false) {
             $('.msg-gopWithdrawalsPayPwd').text('请输入您的支付密码');
         } else if (btnConfirm3a == false) {
-            $('.msg-gopWithdrawalsCode').text('请输入正确的短信验证码');
+            $('.msg-gopWithdrawalsCode').text('请输入短信验证码');
         } else{
             //果仁提现
             api_mkt.gopWithdrawals({
@@ -171,13 +170,13 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
                 'paypwd': $('#gopWithdrawalsPayPwd').val()
             }, function(data) {
                 if (data.status == 200) {
-                    //$('.msg-gopWithdrawalsNumber').show().text('转出成功');
                     alert('转出成功');
-                } else{                    
-                    //$('.msg-gopWithdrawalsNumber').show().text('您的'+data.msg+'，转出失败');
-                    /*$("#floor_bg").show();
-                    $("#floor_popDiv").fadeIn(500);*/
-                    alert('您的'+data.msg+'，转出失败');
+                }else if(data.msg == '验证码错误,请重新发送验证码'){
+                    $('.msg-gopWithdrawalsCode').text('您输入验证码有误，请重新输入');
+                }else if(data.data.msg == '支付密码错误'){  
+                    $('.msg-gopWithdrawalsPayPwd').text('您输入支付密码有误，请重新输入');
+                }else{
+                    $('.msg-gopWithdrawalsCode').text(data.msg);
                 }
             });
         }
@@ -218,6 +217,20 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
         $('#a').select();  
         document.execCommand("Copy");
         alert("已复制好，可贴粘。"); 
+    });
+    //hover 效果
+    $('.ls_tab').hover(function(){
+        if($(this).hasClass('ls_tab_on')){
+            $(this).css('backgroundColor','#f1f1f1');
+        }else{
+            $(this).css('backgroundColor','#fafafa');
+        }
+    },function(){
+        if($(this).hasClass('ls_tab_on')){
+            $(this).css('backgroundColor','#f1f1f1');
+        }else{
+            $(this).css('backgroundColor','#fff');
+        }
     });
 
 

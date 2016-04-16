@@ -47,8 +47,8 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
         	"<div class='table_con'>买"+(i+1)+"</div><div class='table_con'>"+list_buy[i][0].toFixed(2)+"</div>"+
         	"<div class='table_con'>"+list_buy[i][1].toFixed(2)+"</div><progress value='"+(list_buy[i][1]/maxval)*100+"' max='100'></progress></div></div>";
         }
-        $('#buyonece_price').html(buyaprice.toFixed(2));        //最高卖价
-		$('#sellonece_price').html(sellaprice.toFixed(2));      //最低卖价
+        $('#buyonece_price').html(buyaprice?buyaprice.toFixed(2):"");        //最高卖价
+		$('#sellonece_price').html(sellaprice?sellaprice.toFixed(2):"");      //最低卖价
         $("#table_one").html(buy_list_html);         //买入委托
         $("#table_two").html(sell_list_html);		 //卖出委托
 	}
@@ -77,9 +77,9 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
         }
 		//buyaprice=9.1;// TODO 测试
 		//sellaprice=1;// TODO 测试
-		$('#buyonece_price_floor').html(buyaprice.toFixed(2));  //交易市场买一价
+		$('#buyonece_price_floor').html(buyaprice?buyaprice.toFixed(2):"");  //交易市场买一价
 		trade.buyaprice=buyaprice;      
-		$('#sellonece_price_floor').html(sellaprice.toFixed(2));//交易市场卖一价
+		$('#sellonece_price_floor').html(sellaprice?sellaprice.toFixed(2):"");//交易市场卖一价
 		trade.sellaprice=sellaprice;
 		var list_sell_html = "";
 		var buy_list_html = "";

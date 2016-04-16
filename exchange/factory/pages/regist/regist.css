@@ -1,3 +1,4 @@
+body{background:#000000;}
 .wrapper {
     width: 100%;
     height: 100%;
@@ -87,6 +88,7 @@
 
 .bottom {
     width: 100%;
+    height: 86px;
     background-color: #000000;
 }
 
@@ -123,25 +125,25 @@
 }
 
 .centercontent {
-    background: url("../images/regist_input_bg.png") no-repeat 0 0;
+    background: url("../images/regist_input_bg.jpg") no-repeat 0 0;
     width: 100%;
     background-size: 100% 100%;
     height: 588px;
 }
 
 .registercontent {
-    height: 480px;
-    max-width: 1200px;
+    height: 452px;
+    max-width: 996px;
     background-color: #ffffff;
     position: relative;
-    top: 48px;
+    top: 67px;
     border-radius: 8px;
     margin: 0 auto;
     display: flex;
 }
 
 .left_reg_side {
-    flex: 0.316;
+    width:380px;
     background-color: #0bbeee;
     border-bottom-left-radius: 8px;
     border-top-left-radius: 8px;
@@ -155,7 +157,7 @@
 }
 
 .right_reg_side {
-    flex: 0.684;
+    width:616px;
     text-align: center;
     margin: 0 auto;
     font-size: 1.2rem;
@@ -344,11 +346,14 @@
 }
 
 .rg_lf_label div:first-child {
-    margin-top: 126px;
+    margin-top: 66px;
+}
+.rg_lf_labelTwo{
+    margin-top: 76px;
 }
 
 .rg_rg_input div:first-child {
-    margin-top: 126px;
+    margin-top: 66px;
 }
 
 .regist_input_div {
@@ -381,6 +386,9 @@
     box-sizing: border-box;
     float: left;
 }
+.checkCode-send{
+    border: 1px solid #0bbeee;
+}
 .checkCode{
     margin-right: 10px;
     padding-left: 14px;
@@ -392,10 +400,6 @@
     cursor: pointer;
     background: #0bbeee;
 }
-.checkCode-send:hover{
-    border:1px solid #bbb;
-}
-
 .next_step_btn {
     height: 32px;
     line-height: 32px;
@@ -412,12 +416,12 @@
 .SkipThreeStep{
     color:#0bbeee;
     position: absolute;
-    top: 320px;
+    rigth: 320px;
     background: #fff;
 }
 
 .next_step_sure {
-    top: 398px;
+    top: 338px;
 }
 
 
@@ -508,12 +512,13 @@ legend {
 }
 .custom-checkbox label.focus,
 .custom-radio label.focus {
-    outline: 1px dotted #ccc;
+    outline: 1px dotted #0bbeee;
 }
 .regular-checkbox {
     display: none;
     cursor: pointer;
     border: 1px solid #0bbeee;
+    outline: none;
 }
 .regular-checkbox + label {
     background-color: #0bbeee;
@@ -566,20 +571,21 @@ legend {
     background: url("../images/regist_regist.png") no-repeat;
     position: absolute;
     top:145px;
-    right:430px;
+    right:330px;
 }
 .regist-complete{
     font-size: 2.5rem;
     position: absolute;
     top:145px;
-    right:280px;
+    right:180px;
     color:#0bbeee;
 }
 .toIndex{
+    color:#999;
     float: left;
     position: absolute;
     top:185px;
-    right:285px;
+    right:185px;
 }
 .toIndex a{
     color:#999;
@@ -588,7 +594,7 @@ legend {
     width:100px;
     position: absolute;
     top:210px;
-    right:305px;
+    right:205px;
 }
 .toIndexBtn a{
     color:#fff;
@@ -613,4 +619,8 @@ legend {
 .msg-checked{
     margin:5px 0px;
     text-align: left;
+}
+.four{
+    width:616px;
+    text-align:center;
 }
