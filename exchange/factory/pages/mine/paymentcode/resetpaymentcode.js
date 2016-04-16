@@ -61,6 +61,8 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                         $(".one_span2").show().html(data.msg);
                     } else if(data.msg=="身份证号输入错误"){
                         $(".one_span1").show().html("身份信息有误，请重新输入");
+                    }else{
+                    	$(".one_span2").show().html(data.msg);
                     }
                 } else {
                     $(".one_span2").show().html(data.msg);
@@ -75,6 +77,20 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         }
     });
 
+    /**
+     * 禁止输入框粘贴
+     */
+    $("#password").on("paste",function(e){
+		return false;
+	});
+    
+    $("#password").on("keydown",function(e){
+		var keycode = e.which; 
+		if(keycode!=8 && keycode!=9 &&keycode!=16 &&keycode!=20 && (keycode<33 || keycode>126)){
+			return false;
+		}
+    });
+    
     $("#password").on("blur", function() {
     	var reg = new RegExp("^[0-9]*$");//纯数字
 		var hanzi = /[\u4e00-\u9fa5]/;//汉字
@@ -130,6 +146,8 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                         $(".tow_span1").show().html(data.msg);
                     } else if (data.msg=="验证码错误,请重新发送验证码") {
                         $(".one_span2").show().html("验证码错误,请重新发送验证码");
+                    }else {
+                    	$(".one_span2").show().html(data.msg);
                     }
                 } else {
                     $(".one_span2").show().html(data.msg);
@@ -165,17 +183,18 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         // } else {
             api_mkt.sendCodeByLoginAfter(function(data) {
                 if (data.status == 200) {
+                	$(".one_span2").show().html("");
                     console.log(data);
                     //60秒内只能发送一次
                     var count = 60;
                     var resend = setInterval(function() {
                         count--;
                         if (count > 0) {
-                            $('.getauthcode_one').html(count + 's后重新发送');
+                            $('.getauthcode_one').html(count + 's后重新发送');                           
                             $('.getauthcode_one').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
                         } else {
                             clearInterval(resend);
-                            $('.getauthcode_one').attr('disabled',false).css({'cursor':'pointer','backgroundColor':'#0bbeee','color':'#fff'}).text('获取验证码');
+                            $('.getauthcode_one').attr('disabled',false).css({'cursor':'pointer','backgroundColor':'#0bbeee','color':'#fff'}).text('获取短信验证码');
                         }
                     }, 1000);
                 } else if (data.status == 400) {

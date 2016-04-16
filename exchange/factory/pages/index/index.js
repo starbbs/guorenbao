@@ -12,7 +12,14 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     var mine_two = $.cookie("mine_two");
     var mine_three = $.cookie("mine_three");
     var mine_four = $.cookie("mine_four");
-
+    
+	/**
+     * 禁止输入框粘贴
+     */
+    $("input").on("paste",function(e){
+		return false;
+	});
+    
     //$.cookie("asdf","haha",{"expires":"h0.5"},"guorenmarket");
     api_mkt.totalAssets(function(data) {
         if (data.status == 200) {
@@ -348,6 +355,29 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             }
         }
     };
+    
+    
+    /**
+     * 输入框通用校验
+     */
+	$("input").on("keydown",function(e){
+		//只允许输入 ASCII的33~126的字符
+		var keycode = e.which; 
+		if(keycode!=8 && keycode!=9 &&keycode!=16 &&keycode!=20 && (keycode<33 || keycode>126)){
+			return false;
+		}
+	});
+    
+    /**
+     * 手机号输入框校验
+     */
+    $(".phone_loginarea").on("keydown",function(e){
+		var keycode = e.which; 
+		if((keycode!=8 && keycode!=9 &&keycode!=16 &&keycode!=20 && keycode<48) || (keycode>57 && keycode<96) || keycode>105){
+			return false;
+		}
+    });
+    
     var verify = function(inputData, dataType) {
         var reg = "";
         var varMes = '';

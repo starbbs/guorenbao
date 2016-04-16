@@ -1,12 +1,34 @@
 require(['api_mkt','cookie'], function(api_mkt) {
-	 		
+	 
+	/**
+     * 禁止输入框粘贴
+     */
+    $("input").on("paste",function(e){
+		return false;
+	});
+    
+    /**
+     * 输入框通用校验
+     */
+	$("input").on("keydown",function(e){
+		//只允许输入 ASCII的33~126的字符
+		var keycode = e.which; 
+		if(keycode!=8 && keycode!=9 &&keycode!=16 &&keycode!=20 && (keycode<33 || keycode>126)){
+			return false;
+		}
+	});
+	
 	//表单校验password
 	$('.checkPhone, .checkCode-send, .checkpwd, .checkConfirmPwd, .payPwd, .payConfirmPwd, .personName, .personId').focus(function(){
 		$(this).val('');
 	});
-	$(".checkPhone").keyup(function(){
-        $(this).val($(this).val().replace(/[^0-9$]/g,''));
+	
+	$(".checkPhone").on("keydown",function(e){
+		var keycode = e.which; 
+		if((keycode!=8 && keycode!=9 &&keycode!=16 &&keycode!=20 && keycode<48) || (keycode>57 && keycode<96) || keycode>105){			return false;
+		}
     });
+	
 	//验证手机号
     var btnPhone = false;
 	$(".checkPhone").blur(function(){
@@ -52,6 +74,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		   		'phone':$('.checkPhone').val()	   
 			}, function(data) {
 				if (data.status !== 200) {
+					$('.msg-code').text('');
 					//60秒后重新发送
 			    	var count = 60;
 			    	var resend = setInterval(function(){

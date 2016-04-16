@@ -136,6 +136,29 @@
         $(".popDiv").hide();
         $(".bg").hide();
     }
+    
+    /**
+     * 输入框通用校验
+     */
+	$(".password").on("keydown",function(e){
+		//只允许输入 ASCII的33~126的字符
+		var keycode = e.which; 
+		if(keycode!=8 && keycode!=9 &&keycode!=16 &&keycode!=20 && (keycode<33 || keycode>126)){
+			return false;
+		}
+	});
+	
+
+    /**
+     * 手机号输入框校验
+     */
+    $(".phone").on("keydown",function(e){
+		var keycode = e.which; 
+		if((keycode!=8 && keycode!=9 &&keycode!=16 &&keycode!=20 && keycode<48) || (keycode>57 && keycode<96) || keycode>105){			return false;
+		}
+    });
+    
+    
     //右上角登录按钮点击之后出发的事件
     $(".popup_login_btn").on("click", function() {
         popup_login_times++;
@@ -245,9 +268,14 @@
                         $(".err_tips_one").show().html("用户名或密码错误，请重新登录");
                     } else if(data.msg=="登录密码错误"){
                         $(".error_tips").show().html("用户名或密码错误，请重新登录");
+                    }else if(data.data && data.data.num && data.data.num<=10){
+//                    	{"data":{"num":2,"msg":"登录密码错误"},"msg":"error","status":"400"}
+                        $(".autocode_tips").show().html("还有次"+(10-data.data.num)+"输入机会");
+                    }else{
+                    	$(".autocode_tips").show().html(data.msg);
                     }
                 } else {
-	            	$(".error_tips").show().html(data.msg);
+	            	$(".autocode_tips").show().html(data.msg);
 	            }
                 // if(data.msg=="登录密码错误"){
                 //     $(".error_tips_index").show().html(data.msg);
