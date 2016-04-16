@@ -1,4 +1,4 @@
-﻿require(['api_mkt','mkt_info','cookie']), function(api_mkt,mkt_info) {
+﻿require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 
     if(location.href.indexOf("tradingfloor")===-1){
         mkt_info.get();
