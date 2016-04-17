@@ -1609,3 +1609,10 @@ a {
 .marketBuy, .sellAmount{
     width:166px;
 }
+
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+}
+input::-webkit-outer-spin-button {
+-webkit-appearance: none;
+}

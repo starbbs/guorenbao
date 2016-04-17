@@ -34,7 +34,23 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
         });
     }
 
+    /**
+     * 禁止输入框粘贴
+     */
+    $("input").on("paste",function(e){
+		return false;
+	});
     
+    /**
+     * 输入框通用校验
+     */
+	$("input").on("keydown",function(e){
+		//只允许输入 数字字符
+		var keycode = e.which; 
+		if((keycode!=8 && keycode!=9 && keycode!=16 &&keycode!=20 && keycode<48) || (keycode>57 && keycode<96) || (keycode!=110 && keycode!=190 && keycode>105)){			
+			return false;
+		}
+	});
     
     var getTotalAssets=function(){
     	api_mkt.totalAssets(function(data) {
@@ -59,6 +75,22 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 //$('.w_b_l_two').html("<em>果仁余额：G "+decimal.toDecimal(data.data.gopBalance)+"</em>");
                 $('.w_b_l_one').html("<em>账户余额："+decimal.getTwoPs(data.data.cnyBalance)+" CNY</em>");
                 $('.w_b_l_two').html("<em>果仁余额："+decimal.getTwoPs(data.data.gopBalance)+" GOP</em>");
+                
+               
+                
+                //卖出最大数量
+            	$(".sellNumber").attr("placeholder","最大数量 "+decimal.getTwoPs(data.data.gopBalance)+"G");
+
+            	 var flag=100;
+                 //买入最大数量
+                 while(flag>0){
+                 	if(decimal.getTwoPs(mkt_trade.sellaprice)>0){
+                 		number=decimal.getTwoPs(data.data.cnyBalance/mkt_trade.sellaprice)
+                     	$(".buying_number").attr("placeholder","最大数量 "+number+"G");
+                 	}               	
+                 	flag--;
+                 }
+                 
             } else {
                 console.log(data.msg);
             }
@@ -530,7 +562,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             
                        
             var percentage =decimal.getTwoPs(balance<=0? 0: (numDeal)/balance*100);//购买比例(占总资产)
-            $( "#amount" ).text(percentage+'%'); //限价除以人民币账户余额
+            $( "#amount" ).text(parseInt(percentage)+'%'); //限价除以人民币账户余额
             $('.one').val('¥'+ decimal.getTwoPs(numDeal)); 
             /*买入-限价 滑块数值*/           
             $( "#red" ).slider({
@@ -538,7 +570,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                   range: "min",
                   slide: refreshSwatch,
                   change: refreshSwatch, 
-                  value: percentage,
+                  value: parseInt(percentage),
                   min: 0,
                   max: 100,
                   slide: function( event, ui ) {
@@ -593,14 +625,14 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
         	$(this).attr("data-old",numDeal);
             var percentage =  decimal.getTwoPs((numDeal / balance)*100);//购买百分比
             /*买入-限价 滑块数值*/
-            $( "#amount1" ).text(percentage+'%'); //购买百分比
+            $( "#amount1" ).text(parseInt(percentage)+'%'); //购买百分比
         	$('.onePage').val("¥"+$(this).val());//交易额
             $( "#red1" ).slider({
                   orientation: "horizontal",
                   range: "min",
                   slide: refreshSwatch,
                   change: refreshSwatch, 
-                  value: percentage,
+                  value: parseInt(percentage),
                   min: 0,
                   max: 100,
                   slide: function( event, ui ) {                
@@ -655,7 +687,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             $(this).attr("data-old",sellGop);
             var percentage = decimal.getTwoPs((sellGop / balanceGop )*100);
             /*买入-限价 滑块数值*/
-            $( "#amount3" ).text( percentage +'%'); //卖出百分比
+            $( "#amount3" ).text( parseInt(percentage) +'%'); //卖出百分比
             if(decimal.getTwoPs(mkt_trade.sellaprice)){
                 $(".two").val("¥"+decimal.getTwoPs(sellGop*decimal.getTwoPs(mkt_trade.sellaprice)));//交易额
             }
@@ -664,7 +696,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                   range: "min",
                   slide: refreshSwatch,
                   change: refreshSwatch, 
-                  value: percentage,
+                  value: parseInt(percentage),
                   min: 0,
                   max: 100,
                   slide: function( event, ui ) {
@@ -708,13 +740,13 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             var percentage = decimal.getTwoPs((sellGop / balanceGop )*100);
             $('.two').val('¥'+ decimal.getTwoPs(sellGop*sellPrice));
             /*买入-限价 滑块数值*/
-            $( "#amount2" ).text( percentage +'%'); //限价除以总钱数
+            $( "#amount2" ).text( parseInt(percentage) +'%'); //限价除以总钱数
             $( "#green" ).slider({
                   orientation: "horizontal",
                   range: "min",
                   slide: refreshSwatch,
                   change: refreshSwatch, 
-                  value: percentage,
+                  value: parseInt(percentage),
                   min: 0,
                   max: 100,
                   slide: function( event, ui ) {
