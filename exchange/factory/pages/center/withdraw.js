@@ -66,12 +66,18 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         }
                     });         
                 });
+
                 //果仁提现地址修改
                 $('.nutOutputManager-modify').click(function(){
-                    $(this).parent().find('.nutIdName').removeClass('input');
-                    var Node = $('<input type="button" class="sureBtn" value="确认" /><input type="button" class="cancleBtn" value="取消" />');
-                    Node.addClass('confirmUpdate');
-                    Node.insertAfter($(this).parent().find('.nutIdName'));                    
+                    if($(this).parent().find('.cancleBtn').length >0){
+                        
+                    }else{
+                       $(this).parent().find('.nutIdName').removeClass('input');
+                        var Node = $('<input type="button" class="sureBtn" value="确认" /><input type="button" class="cancleBtn" value="取消" />');
+                        Node.addClass('confirmUpdate');
+                        Node.insertAfter($(this).parent().find('.nutIdName'));  
+                    }
+
                     //确认修改
                     $('.sureBtn').click(function(){
                         api_mkt.gopAddressManUpdate({          
