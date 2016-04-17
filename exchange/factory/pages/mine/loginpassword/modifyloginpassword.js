@@ -16,12 +16,29 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         $("#who_account").html(global_loginuserphone.substr(0, 3) + '****' + global_loginuserphone.substr(7, 4));
     }
 
+    /**
+     * 禁止输入框粘贴
+     */
+    $("input").on("paste",function(e){
+		return false;
+	});
+    
+    /**
+     * 输入框通用校验
+     */
+    $("input").on("keydown",function(e){
+		//只允许输入 ASCII的33~126的字符
+		var keycode = e.which; 
+		if(keycode!=8 && keycode!=9 &&keycode!=16 &&keycode!=20 && (keycode<33 || keycode>126)){
+			return false;
+		}
+	});
     
     $(".currentPwd").on("blur", function() {
     	var reg = new RegExp("^[0-9]*$");//纯数字
 		var hanzi = /[\u4e00-\u9fa5]/;//汉字
 		if($(this).val().indexOf(" ")>=0 || $(this).val().length>20||$(this).val().length<6 || reg.test($(this).val()) || hanzi.test($(this).val())){
-            $("#one_span").show().html("请输入6~20位非纯数字字符");
+            $("#one_span").show().html("原密码错误");
             checkFlag1 = false;
         }else{
         	$("#one_span").show().html("");
@@ -40,12 +57,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         }
     });
     $(".confirmNewPwd").on("blur", function() {
-    	var reg = new RegExp("^[0-9]*$");//纯数字
-		var hanzi = /[\u4e00-\u9fa5]/;//汉字
-		if($(this).val().indexOf(" ")>=0 || $(this).val().length>20||$(this).val().length<6 || reg.test($(this).val()) || hanzi.test($(this).val())){
-            $("#three_span").show().html("请输入6~20位非纯数字字符");
-            checkFlag3 = false;
-        }else if($(this).val()!=$(".newPwd").val()){
+		if($(this).val()!=$(".newPwd").val()){
         	$("#three_span").show().html("两次密码输入不一致");
         	checkFlag3 = false;
         }else{
