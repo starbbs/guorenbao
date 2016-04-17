@@ -1,4 +1,4 @@
-require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pagehead) {
+require(['api_mkt', 'mkt_info','decimal', 'cookie'], function(api_mkt, mkt_info,decimal, mkt_pagehead) {
 
     //接口9 账户明细（分页）
     api_mkt.billList({
@@ -12,10 +12,10 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pageh
                 html.push("<tr>");
                 html.push("<td>" + data.data.list[i].createDate + "</td>");
                 html.push("<td class='operType'>" + data.data.list[i].operType + "</td>");
-                html.push("<td>" + data.data.list[i].cnyNumber + "</td>");
-                html.push("<td>" + data.data.list[i].cnyBalance + "</td>");
-                html.push("<td>" + data.data.list[i].gopNumber + "</td>");
-                html.push("<td>" + data.data.list[i].gopBalance + "</td>");
+                html.push("<td class='toFixed'>" + decimal.getTwoPs(data.data.list[i].cnyNumber) + "</td>");
+                html.push("<td class='toFixed'>" + decimal.getTwoPs(data.data.list[i].cnyBalance) + "</td>");
+                html.push("<td class='toFixed'>" + decimal.getTwoPs(data.data.list[i].gopNumber) + "</td>");
+                html.push("<td class='toFixed'>" + decimal.getTwoPs(data.data.list[i].gopBalance) + "</td>");
                 html.push("</tr>");
                 $(".aside-table-tbody").html(""); //添加前清空 
                 $(".aside-table-tbody").append(html.join(""));
@@ -33,6 +33,5 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info, mkt_pageh
             //console.log('财务中心-资产状况-账户明细表格，加载失败。');
         }
     }); 
-
 
 });

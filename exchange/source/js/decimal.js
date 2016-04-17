@@ -43,7 +43,7 @@ define('decimal', function() {
     	if(String(str).indexOf(".") < 0){
     		return str+".00";
     	}
-    	length = str.length;
+    	length = String(str).length;
     	position = String(str).indexOf(".");
 
     	if(length < position + 3){

@@ -48,7 +48,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     }                   
                 } 
                 //再次添加果仁地址
-                $('.nutOutputManager-add').click(function(){
+                $('.nutOutputManager-addBtn').click(function(){
                     $('.nut-one').show();
                     $('.nut-two').hide();
                 });
@@ -68,11 +68,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 //果仁提现地址修改
                 $('.nutOutputManager-modify').click(function(){
                     $(this).parent().find('.nutIdName').removeClass('input');
-                    var Node = $('<input type="button" value="确认修改" />');
+                    var Node = $('<input type="button" class="sureBtn" value="确认" /><input type="button" class="cancleBtn" value="取消" />');
                     Node.addClass('confirmUpdate');
                     Node.insertAfter($(this).parent().find('.nutIdName'));                    
-
-                    $('.confirmUpdate').click(function(){
+                    //确认修改
+                    $('.sureBtn').click(function(){
                         api_mkt.gopAddressManUpdate({          
                             'id':data.data.list[$(this).parent().parent().index()].id,
                             'name':$(this).parent().find('.nutIdName').val()
@@ -83,6 +83,12 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             	alert(data.msg);
                             }
                         });
+                    }); 
+                    //取消修改
+                    $('.cancleBtn').click(function(){
+                        $(this).parent().find('.nutIdName').addClass('input');
+                        $(this).parent().find('.confirmUpdate').remove();
+                        $(this).remove();
                     });         
                 });                
             } else {
