@@ -55,13 +55,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 $.cookie('allCNY',cnyBalance);
                 $.cookie('gop',gopBalance);           
                 $.cookie('allCNY',cnyBalance);
-<<<<<<< HEAD
-                $('.w_b_l_one').html("<em>账户余额：¥ "+decimal.toDecimal(data.data.cnyBalance)+"</em>");
-                $('.w_b_l_two').html("<em>果仁余额：G "+decimal.toDecimal(data.data.gopBalance)+"</em>");
-=======
+                // $('.w_b_l_one').html("<em>账户余额：¥ "+decimal.toDecimal(data.data.cnyBalance)+"</em>");
+                // $('.w_b_l_two').html("<em>果仁余额：G "+decimal.toDecimal(data.data.gopBalance)+"</em>");
                 $('.w_b_l_one').html("<em>账户余额："+decimal.getTwoPs(data.data.cnyBalance)+" CNY</em>");
                 $('.w_b_l_two').html("<em>果仁余额："+decimal.getTwoPs(data.data.gopBalance)+" GOP</em>");
->>>>>>> 5304be6f88554204c9aa8f14291522eab9b94c07
             } else {
                 console.log(data.msg);
             }
@@ -217,7 +214,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 type: 'area'
             },
             title: {
-                text: '果仁市场深度图'
+                text: ''//果仁市场深度图
             },
             xAxis: {
                 allowDecimals: false,
