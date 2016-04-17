@@ -18,7 +18,6 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                 'pageNo':1,
                 'pageSize':10
             },function(data) {
-                //alert(data.msg);
                 if (data.status == 200) {
                     var html = [];
                     var num = data.data.list.length < 10?data.data.list.length:10;

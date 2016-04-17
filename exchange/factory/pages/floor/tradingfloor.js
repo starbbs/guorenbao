@@ -424,7 +424,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             var html = [];
             var num = data.data.list.length < 5?data.data.list.length:5;
             for(var i=0; i<num;i++){
-                html.push("<tr>");                                        
+                html.push("<tr>");                                      
                 html.push("<td>"+ data.data.list[i].createDate +"</td>");
                 html.push("<td class='tradeGopType'>"+ data.data.list[i].tradeGopType +"</td>");
                 html.push("<td>"+ decimal.getTwoPs(data.data.list[i].price) +"</td>");
@@ -767,7 +767,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     //买入 卖出 四个按钮 点击弹出框
     $(".buying_btn").click(function(){ 
         if(flag == false || decimal.getTwoPs($('.buying_number').val())<0.1){
-            alert('请输入完整信息！');
+            showWarnWin('请完善填写信息！',1e3);
         }else{
             api_mkt.buyBefore({
                 'price':$('.buying_price').val(),
@@ -782,14 +782,14 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     $("#floor_popDiv").fadeIn(500);   
                     $('#hideSection').val('1');         
                 }else if(data.status == 400){
-                    alert('账户余额不足');
+                    showWarnWin('账户余额不足',1e3);
                 }
             }); 
         } 
     }); 
     $(".market_price_buying_btn").click(function(){  
         if(flag == false || decimal.getTwoPs($('.marketBuy').val())<0.1){
-            alert('请输入完整信息！');
+            showWarnWin('请完善填写信息！',1e3);
         }else{
             api_mkt.buyBefore({
                 'price':$('.marketBuy').val(),
@@ -804,14 +804,14 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     $("#floor_popDiv").fadeIn(500);
                     $('#hideSection').val('2');               
                 }else if(data.status == 400){
-                    alert('账户余额不足');
+                    showWarnWin('账户余额不足',1e3);
                 }
             }); 
         }        
     });
     $(".sale_btn").click(function(){  
         if(flag == false || decimal.getTwoPs($('.sellNumber').val())<0.1){
-            alert('请输入完整信息！');
+            showWarnWin('请完善填写信息！',1e3);
         }else{
            api_mkt.sellBefore({
                 'price':$('.sellPrice').val(),
@@ -833,7 +833,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     }); 
     $(".market_price_sale_btn").click(function(){  
         if(flag == false || decimal.getTwoPs($('.sellAmount').val())<0.1){
-            alert('请输入完整信息！');
+            showWarnWin('请完善填写信息！',1e3);
         }else{
             api_mkt.sellBefore({
                 'number':$('.sellAmount').val(),
@@ -874,7 +874,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     $("#floor_popDiv").hide();
                     $("#floor_bg").hide();
                     //getTotalAssets();
-                    alert('买入成功');                     
+                    showWarnWin('买入成功！',1e3);                    
                     window.location.reload();
                 }else{
                 	console.log(data);
@@ -902,7 +902,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     $("#floor_popDiv").hide();
                     $("#floor_bg").hide();
                     //getTotalAssets();
-                    alert('买入成功');
+                    showWarnWin('买入成功！',1e3); 
                     window.location.reload();               
                 }else{
                     console.log(data);
@@ -922,7 +922,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     $("#floor_popDiv").hide();
                     $("#floor_bg").hide();
                     getTotalAssets();
-                    alert('卖出成功');  
+                    showWarnWin('卖出成功！',1e3); 
                     window.location.reload();                
                 }else{
                     console.log(data);
@@ -941,7 +941,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     $("#floor_popDiv").hide();
                     $("#floor_bg").hide();
                     getTotalAssets();
-                    alert('卖出成功');  
+                    showWarnWin('卖出成功！',1e3); 
                     window.location.reload();               
                 }else{
                     console.log(data);

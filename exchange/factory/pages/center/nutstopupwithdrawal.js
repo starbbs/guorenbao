@@ -174,13 +174,14 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
                 'paypwd': $('#gopWithdrawalsPayPwd').val()
             }, function(data) {
                 if (data.status == 200) {
-                    alert('转出成功');
+                    showWarnWin('转出成功',1e3);
                 }else if(data.msg == '验证码错误,请重新发送验证码'){
                     $('.msg-gopWithdrawalsCode').text('您输入验证码有误，请重新输入');
                 }else if(data.data.msg == '支付密码错误'){  
                     $('.msg-gopWithdrawalsPayPwd').text('您输入支付密码有误，请重新输入');
                 }else{
-                    $('.msg-gopWithdrawalsCode').text(data.msg);
+                    //$('.msg-gopWithdrawalsCode').text(data.msg);
+                    showWarnWin(data.msg,1e3);
                 }
             });
         }
@@ -220,7 +221,8 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
     $('.imgCopy').click(function(){
         $('#a').select();  
         document.execCommand("Copy");
-        alert("已复制好，可贴粘。"); 
+        //alert("已复制好，可贴粘。");
+        showWarnWin('已复制，可以贴粘。',1e3); 
     });
     //hover 效果
     $('.ls_tab').hover(function(){

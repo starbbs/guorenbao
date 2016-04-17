@@ -61,7 +61,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         if (data.status == 200) {
                           window.location.href='withdraw.html?id=rmbtx';
                         } else {
-                            alert(data.msg);
+                            //alert(data.msg);
+                            showWarnWin(data.msg,1e3);
                         }
                     });         
                 });
@@ -80,7 +81,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             if (data.status == 200) {
                                 window.location.href = 'withdraw.html?id=rmbtx';
                             } else {
-                            	alert(data.msg);
+                            	showWarnWin(data.msg,1e3);
                             }
                         });
                     }); 
@@ -205,7 +206,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         //获取验证码-人民币提现管理
         $('#sendCodeByLoginAfterBtn, #nut-identifyingCodeBtn').click(function(){
             if(btnConfirm == false){
-                alert('请完善填写信息！');
+                showWarnWin('请完善填写信息！',1e3);
             }
             else{
                 api_mkt.sendCodeByLoginAfter(function(data) {
@@ -238,7 +239,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         //人民币提现管理添加 点击-确认添加银行卡
         $('.confirmAdd').click(function(){
             if(btnConfirm == false || $('#sendCodeByLoginAfter').val() ==''){
-                alert('请填写完整信息');
+                showWarnWin('请完善填写信息！',1e3);
             }else{       
             	//中国工商银行，中国建设银行，中国农业银行，中国交通银行，中国邮政储蓄银行，招商银行
             	if($('#bank').val()!='中国工商银行' && $('#bank').val()!='中国建设银行' && $('#bank').val()!='中国农业银行' 

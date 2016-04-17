@@ -23,10 +23,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 html.push("<td class='id' style='display:none'>"+ data.data.list[i].id +"</td>");
                 html.push("<td class='tradeGopType'>"+ data.data.list[i].tradeGopType +"</td>");
                 html.push("<td class='tradeGopFlag' style='display:none'>"+ data.data.list[i].tradeGopFlag +"</td>");                    
-                html.push("<td class='price'>"+ data.data.list[i].price +"</td>");
-                html.push("<td class='numTotal'>"+ data.data.list[i].numTotal +"</td>");
-                html.push("<td>"+ toFixedNum(data.data.list[i].numTotal - data.data.list[i].numOver) + "</td>");
-                html.push("<td>"+ data.data.list[i].numOver +"</td>");
+                html.push("<td class='price'>"+ decimal.getTwoPs(data.data.list[i].price) +"</td>");
+                html.push("<td class='numTotal'>"+ decimal.getTwoPs(data.data.list[i].numTotal) +"</td>");
+                html.push("<td>"+ decimal.getTwoPs(data.data.list[i].numTotal - data.data.list[i].numOver) + "</td>");
+                html.push("<td>"+ decimal.getTwoPs(data.data.list[i].numOver) +"</td>");
                 html.push("<td><p class='saDan'>撤单</p></td>");
                 html.push("</tr>");
                 $(".tradeGopCurrentListTable").html("");  //添加前清空 
@@ -95,14 +95,14 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 var html = [];
                 var num = data.data.list.length < 10?data.data.list.length:10;
                 for(var i=0; i<num;i++){
-                    html.push("<tr>");                                        
+                    html.push("<tr>");                                       
                     html.push("<td>"+ data.data.list[i].createDate +"</td>");
                     html.push("<td class='tradeGopType'>"+ data.data.list[i].tradeGopType +"</td>");
-                    html.push("<td>"+ data.data.list[i].price +"</td>");
-                    html.push("<td>"+ data.data.list[i].numTotal +"</td>");
-                    html.push("<td>"+ toFixedNum(data.data.list[i].totalTraded / data.data.list[i].numTotal) + "</td>");
-                    html.push("<td>"+ data.data.list[i].numOver +"</td>");
-                    html.push("<td>"+ data.data.list[i].totalTraded +"</td>");
+                    html.push("<td>"+ decimal.getTwoPs(data.data.list[i].price) +"</td>");
+                    html.push("<td>"+ decimal.getTwoPs(data.data.list[i].numTotal) +"</td>");
+                    html.push("<td class='priceAver'>"+ decimal.getTwoPs(data.data.list[i].totalTraded / data.data.list[i].numTotal) + "</td>");
+                    html.push("<td>"+ decimal.getTwoPs(data.data.list[i].numOver) +"</td>");
+                    html.push("<td>"+ decimal.getTwoPs(data.data.list[i].totalTraded) +"</td>");
                     html.push("<td class='tradeGopStatus'>"+ data.data.list[i].tradeGopStatus +"</td>");
                     html.push("</tr>");
                     $(".tradeGopHistoryListTable").html("");  //添加前清空 
@@ -116,7 +116,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     $(".priceAver").filter(":contains('Infinity')").text('0'); 
                 }                      
             }else{
-                console.log(data);
+                //console.log(data);
             }
         });
        //接受跳转参数
@@ -160,24 +160,5 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             }
             
         })
-
-
-    //toFixed 不 四舍五入
-    var toFixedNum = function(num){
-        var bb = num+"";  
-        var dian = bb.indexOf('.');  
-        var result = "";  
-        if(dian == -1){  
-            result =  num.toFixed(2);  
-        }else{  
-            var cc = bb.substring(dian+1,bb.length);  
-            if(cc.length >=3){  
-                result =  (Number(num.toFixed(2)));  
-            }else{  
-                result =  num.toFixed(2)-0.01;  
-            }  
-        } 
-        return result; 
-    }
 
 });
