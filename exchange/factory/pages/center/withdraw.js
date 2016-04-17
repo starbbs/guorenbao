@@ -66,12 +66,18 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         }
                     });         
                 });
+
                 //果仁提现地址修改
                 $('.nutOutputManager-modify').click(function(){
-                    $(this).parent().find('.nutIdName').removeClass('input');
-                    var Node = $('<input type="button" class="sureBtn" value="确认" /><input type="button" class="cancleBtn" value="取消" />');
-                    Node.addClass('confirmUpdate');
-                    Node.insertAfter($(this).parent().find('.nutIdName'));                    
+                    if($(this).parent().find('.cancleBtn').length >0){
+                        
+                    }else{
+                       $(this).parent().find('.nutIdName').removeClass('input');
+                        var Node = $('<input type="button" class="sureBtn" value="确认" /><input type="button" class="cancleBtn" value="取消" />');
+                        Node.addClass('confirmUpdate');
+                        Node.insertAfter($(this).parent().find('.nutIdName'));  
+                    }
+
                     //确认修改
                     $('.sureBtn').click(function(){
                         api_mkt.gopAddressManUpdate({          
@@ -262,17 +268,17 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     	window.location.reload();
                     } else if(data.msg == '验证码错误'){
                         $('.msg-sendCodeByLoginAfter').text('验证码错误');
-                        return;
                     } else if(data.msg == '服务器异常'){
                         $('.msg-sendCodeByLoginAfter').text('服务器异常');
-                        return;
                     } else if(data.msg == '提现银行卡账户名必须与您的实名认证姓名一致'){
                         $('.msg-sendCodeByLoginAfter').text('提现银行卡账户名必须与您的实名认证姓名一致');
-                        return;
                     } else if(data.msg == '支付密码错误'){
                         $('.msg-pay-pwd').text('支付密码错误');
-                        return;
-                    }              
+                    } else if(data.msg == '同一用户不能添加相同银行卡'){
+                        showWarnWin('同一用户不能添加相同银行卡',1e3);
+                    } else{
+                        showWarnWin(data.msg,1e3);
+                    }             
                 });
                 
             }            

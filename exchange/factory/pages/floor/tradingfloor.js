@@ -796,6 +796,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     });
     //买入 卖出 四个按钮 点击弹出框
     $(".buying_btn").click(function(){ 
+    	if(global.payLocked){
+    		window.location.reload();
+    		$(window).scrollTop(0);
+    		return false;
+    	}
         if(flag == false || decimal.getTwoPs($('.buying_number').val())<0.1){
             showWarnWin('请完善填写信息！',1e3);
         }else{
@@ -817,7 +822,12 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             }); 
         } 
     }); 
-    $(".market_price_buying_btn").click(function(){  
+    $(".market_price_buying_btn").click(function(){ 
+    	if(global.payLocked){
+    		window.location.reload();
+    		$(window).scrollTop(0);
+    		return false;
+    	}
         if(flag == false || decimal.getTwoPs($('.marketBuy').val())<0.1){
             showWarnWin('请完善填写信息！',1e3);
         }else{
@@ -840,6 +850,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
         }        
     });
     $(".sale_btn").click(function(){  
+    	if(global.payLocked){
+    		window.location.reload();
+    		$(window).scrollTop(0);
+    		return false;
+    	}
         if(flag == false || decimal.getTwoPs($('.sellNumber').val())<0.1){
             showWarnWin('请完善填写信息！',1e3);
         }else{
@@ -861,7 +876,12 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             });   
         }        
     }); 
-    $(".market_price_sale_btn").click(function(){  
+    $(".market_price_sale_btn").click(function(){ 
+    	if(global.payLocked){
+    		window.location.reload();
+    		$(window).scrollTop(0);
+    		return false;
+    	}
         if(flag == false || decimal.getTwoPs($('.sellAmount').val())<0.1){
             showWarnWin('请完善填写信息！',1e3);
         }else{
@@ -891,7 +911,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     });
 
     //单击弹出框 确认按钮判断   买入 > 限价 市价 判断  卖出 > 限价 市价 判断
-    $('.sure_btn').click(function(){       
+    $('.sure_btn').click(function(){
         if( $('#hideSection').val() == 1){//限价买入
             api_mkt.buy({
                 'price':$('.buying_price').val(),
@@ -914,6 +934,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 			$(".payment_error").html("还有"+(3-num)+"次输入机会");
                 		}else{
                 			$(".payment_error").html(data.msg);	
+                		}
+                		if(data.msg.indexOf("已被锁定")>0){
+                			window.location.reload();
                 		}
                 	}else{
                 		$(".payment_error").html(data.msg);

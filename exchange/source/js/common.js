@@ -1,5 +1,11 @@
-﻿require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
+﻿var global = {
+			payLocked : false, //支付密码锁定状态
+	};
 
+require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
+
+	
+	
     if(location.href.indexOf("tradingfloor")===-1){
         mkt_info.get();
     } else {
@@ -26,6 +32,7 @@
 	            if(data.status==200){	                
 	               // $(".popuptips").slideUp();
 	            } else{
+	            	global.payLocked=true;
 	                console.log(data);
 	                $(".popuptips").html("为保证资金安全，您的支付密码已被锁定，请找回支付密码");
 	            	$(".popuptips").slideDown();
@@ -33,7 +40,7 @@
 	        });
 	}
 	
-	isPayLocked();
+	
 	
     $(".logoimg").on("click",function(){
         location.href="./index.html";
@@ -171,6 +178,7 @@
 	    }
         $(".popDiv").hide();
         $(".bg").hide();
+        isPayLocked();//验证支付密码是否锁定
     }
     
     /**
@@ -451,6 +459,7 @@
             $(".msg_num").css("color","#cccccc");
         }
     });
+    
 });
 
 
