@@ -1,4 +1,4 @@
-require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
+require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,decimal) {
 
         $('.rmbxh').on('click',function(){
             $(this).addClass('bottomon');
@@ -49,7 +49,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     html.push("<tr>");                                        
                     html.push("<td>"+ data.data.list[i].updateDate +"</td>");
                     html.push("<td class='bank'>"+ data.data.list[i].bank +"</td>");
-                    html.push("<td class='money'>"+ data.data.list[i].money +"</td>");                    
+                    html.push("<td class='money'>"+ decimal.getTwoPs(data.data.list[i].money) +"</td>");                    
                     html.push("<td style='display:none' class='txid'>"+ data.data.list[i].txid +"</td>");
                     html.push("<td style='display:none' class='name'>"+ data.data.list[i].name +"</td>");  
                     html.push("<td style='display:none' class='uid'>"+ data.data.list[i].uid +"</td>");                   
@@ -98,8 +98,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     html.push("<tr>");                                        
                     html.push("<td>"+ data.data.list[i].updateDate +"</td>");
                     html.push("<td>"+ data.data.list[i].bank +"</td>");
-                    html.push("<td>"+ data.data.list[i].pay +"</td>");                    
-                    html.push("<td>"+ data.data.list[i].fee +"</td>");
+                    html.push("<td>"+ decimal.getTwoPs(data.data.list[i].pay) +"</td>");                    
+                    html.push("<td>"+ decimal.getTwoPs(data.data.list[i].fee) +"</td>");
                     html.push("<td class='status'>"+ data.data.list[i].transferCnyStatus +"</td>");
                     html.push("</tr>");
                     $(".cnyOutput").html("");  //添加前清空 
@@ -288,12 +288,14 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         }, function(data) {
                             if (data.status == 200) {                              
                                 window.location.reload();
-                            } else if(data.msg == '验证码错误'){
-                                alert('验证码错误');
+                            } else if(data.msg == '验证码错误，请重新发送验证码'){
+                                $('.msg-VerificationCode').text('验证码错误，请重新输入');
                             }else if(data.msg == '账户余额不足'){
-                                alert('账户余额不足');
+                                $('.msg-WithdrawalsAmount').text('账户余额不足');
                             }else if(data.msg == '支付密码错误'){
-                                alert('支付密码错误');
+                                $('.msg-WithdrawalsPayPwd').text('支付密码错误');
+                            }else if(data.msg == '每日提现金额不能超过50万'){
+                                $('.msg-WithdrawalsAmount').text('每日提现金额不能超过50万');
                             }
                         });                       
                     });                         
@@ -539,7 +541,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 $('.recharge').hide();
                 $('.withdraw_deposit').show();
             }
-        }); 
-
+        });
         
 });

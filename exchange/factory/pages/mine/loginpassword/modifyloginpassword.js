@@ -82,7 +82,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                     $(".rg_rg_input").hide();
                     toIndex();
                 } else if (data.status == 305) {
-                    alert(data.msg);
+                    showWarnWin(data.msg,1e3);
                 } else if (data.status == 400) {
                     if (data.msg == "原密码错误") {
                         $("#one_span").show().html(data.msg);

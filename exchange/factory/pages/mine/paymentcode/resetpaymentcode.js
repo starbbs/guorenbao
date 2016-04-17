@@ -53,7 +53,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                     $(".rg_rg_input").hide();
                     $(".two_rg_rg_input").show();
                 } else if (data.status == 305) {
-                    alert(data.msg);
+                    showWarnWin(data.msg,1e3);
                 } else if (data.status == 400) {
                     if (data.msg == "验证码错误") {
                         $(".one_span2").show().html(data.msg);
@@ -138,7 +138,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                     $(".two_rg_rg_input").hide();
                     toIndex();
                 } else if (data.status == 305) {
-                    alert(data.msg);
+                    showWarnWin(data.msg,1e3);
                 } else if (data.status == 400) {
                     if (data.msg == "验证码错误") {
                         $(".one_span2").show().html(data.msg);

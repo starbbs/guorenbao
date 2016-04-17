@@ -37,15 +37,17 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
         var maxval = Math.max.apply(null,myarr);
         for (var i = 0; i < list_sell.length; i++) {
         	sellaprice = list_sell[0][0];
+        	var progressval = (list_sell[i][1]/maxval)*100>=0.4?(list_sell[i][1]/maxval)*100:0.4;
         	sell_list_html += "<div class='table_row'>"+
         	"<div class='table_con'>卖"+(i+1)+"</div><div class='table_con'>"+list_sell[i][0].toFixed(2)+"</div>"+
-        	"<div class='table_con'>"+list_sell[i][1].toFixed(2)+"</div><progress value='"+(list_sell[i][1]/maxval)*100+"' max='100'></progress></div></div>";
+        	"<div class='table_con'>"+list_sell[i][1].toFixed(2)+"</div><progress value='"+progressval+"' max='100'></progress></div></div>";
         }
         for (var i = 0; i < list_buy.length; i++) {
         	buyaprice = list_buy[0][0];
+        	var progressval = (list_buy[i][1]/maxval)*100>=0.4?(list_buy[i][1]/maxval)*100:0.4;
         	buy_list_html += "<div class='table_row'>"+
         	"<div class='table_con'>买"+(i+1)+"</div><div class='table_con'>"+list_buy[i][0].toFixed(2)+"</div>"+
-        	"<div class='table_con'>"+list_buy[i][1].toFixed(2)+"</div><progress value='"+(list_buy[i][1]/maxval)*100+"' max='100'></progress></div></div>";
+        	"<div class='table_con'>"+list_buy[i][1].toFixed(2)+"</div><progress value='"+progressval+"' max='100'></progress></div></div>";
         }
         $('#buyonece_price').html(buyaprice?buyaprice.toFixed(2):"");        //最高卖价
 		$('#sellonece_price').html(sellaprice?sellaprice.toFixed(2):"");      //最低卖价

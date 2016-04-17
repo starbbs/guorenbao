@@ -6,7 +6,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
             obj.category = gaga;
         }
         api_mkt.message(obj, function(data) {
-            //console.log(data.data.list);
+            //console.log(data.data.list);  right_reg_side_content  message_cont
             var messagehtml = "";
             if (data) {
                 if (data.data) {
@@ -29,6 +29,9 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                             }
                         }
                     }
+                } else {
+                    $(".right_reg_side_content").css("border-bottom","none");
+                    $(".holder").hide();
                 }
             }
             $("#itemContainer").append(messagehtml);

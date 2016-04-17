@@ -29,10 +29,10 @@ require(['api_mkt', 'mkt_info','decimal','cookie'], function(api_mkt, mkt_info,d
                         html.push("<tr>");
                         html.push("<td>" + data.data.list[i].createDate + "</td>");
                         html.push("<td class='operType'>" + data.data.list[i].operType + "</td>");
-                        html.push("<td class='toFixed'>" + data.data.list[i].cnyNumber + "</td>");
-                        html.push("<td class='toFixed'>" + data.data.list[i].cnyBalance + "</td>");
-                        html.push("<td class='toFixed'>" + data.data.list[i].gopNumber + "</td>");
-                        html.push("<td class='toFixed'>" + data.data.list[i].gopBalance + "</td>");
+                        html.push("<td class='toFixed'>" + decimal.getTwoPs(data.data.list[i].cnyNumber) + "</td>");
+                        html.push("<td class='toFixed'>" + decimal.getTwoPs(data.data.list[i].cnyBalance) + "</td>");
+                        html.push("<td class='toFixed'>" + decimal.getTwoPs(data.data.list[i].gopNumber) + "</td>");
+                        html.push("<td class='toFixed'>" + decimal.getTwoPs(data.data.list[i].gopBalance) + "</td>");
                         html.push("</tr>");
                         $(".aside-table-tbody").html(""); //添加前清空 
                         $(".aside-table-tbody").append(html.join(""));
@@ -66,7 +66,7 @@ require(['api_mkt', 'mkt_info','decimal','cookie'], function(api_mkt, mkt_info,d
             var totalAssets = data.data.cnyBalance + data.data.cnyLock;
             var totalNuts = data.data.gopBalance + data.data.gopLock;
             var totalvalue = totalNuts*$('#thelatestprice').html()+totalAssets;
-            console.log("decimal.getTwoPs"+String(myfunc(cnyLock)));
+            //console.log("decimal.getTwoPs"+String(myfunc(cnyLock)));
             // console.log(decimal.getTwoPs());
             $('#total_assets').text(decimal.getTwoPs(totalvalue));
             $('.cnyBalance').text(decimal.getTwoPs(cnyBalance));
@@ -79,8 +79,7 @@ require(['api_mkt', 'mkt_info','decimal','cookie'], function(api_mkt, mkt_info,d
             console.log(data.msg);
         }
     });
-});
-
+    
     //hover 效果
     $('.ls_tab').hover(function(){
         if($(this).hasClass('ls_tab_on')){
@@ -96,18 +95,6 @@ require(['api_mkt', 'mkt_info','decimal','cookie'], function(api_mkt, mkt_info,d
         }
     });
 
-var myfunc = function(str){
-    var length = 0;
-    var position = 0;
-    //String str = bd.toPlainString();
-    if(String(str).indexOf(".") < 0){
-        return str+".00";
-    }
-    length = str.length;
-    position = String(str).indexOf(".");
-    if(length < position + 3){
-        return str + "0";
-    }else{
-        return String(str).substring(0, position + 3);
-    }
-}
+});
+
+    

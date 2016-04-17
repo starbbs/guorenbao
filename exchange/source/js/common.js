@@ -452,3 +452,46 @@
         }
     });
 });
+
+
+var showWarnWin = function(mes, time) {
+    var htmlStr = "<div class='warnWin'><span class='warn_font'>" + mes + "</span></div>";
+    var time = time ? time : 1e3;
+    if (!$(".warnWin").length) {
+        $("body").append(htmlStr);
+        $(".warnWin").css({
+            position: "fixed",
+            top: "40%",
+            left: "50%",
+            width: "auto",
+            height: "40px",
+            "line-height": "20px",
+            margin: "-20px 0px 0px -75px",
+            "border-radius": "5px",
+            "vertical-align": "middle",
+            background: "#000000",
+            color: "#fff",
+            "text-align": "center",
+            opacity: "0.7",
+            "z-index":1000,
+            padding: "0px 15px"
+        });
+        $(".warn_icon").css({
+            display: "block",
+            width: "32px",
+            height: "32px",
+            "text-align": "center",
+            margin: "10px auto 0",
+            "font-size": "30px"
+        });
+        $(".warn_font").css({
+            display: "block",
+            "font-family": "黑体",
+            "margin-top": "10px",
+            "font-size": "15px"
+        });
+        setTimeout(function() {
+            $(".warnWin").remove();
+        }, time);
+    }
+};

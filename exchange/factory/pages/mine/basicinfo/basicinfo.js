@@ -70,7 +70,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
     $(".sure_btn").on("click",function(){
         $(".popDiv").hide();
         $(".bg").hide();
-        alert("修改成功");
+        showWarnWin("修改成功",1e3);
     });
 
     var flag = true;

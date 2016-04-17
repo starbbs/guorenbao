@@ -1,4 +1,4 @@
-require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(api_mkt, mkt_info,decimal) {
+require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt_info,decimal) {
     //console.log(api_mkt);
     //console.log(mkt_info);
     //mkt_info.get();
@@ -42,7 +42,7 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
                 html.push("<tr>");
                 html.push("<td>" + data.data.list[i].createDate + "</td>");
                 html.push("<td>" + data.data.list[i].wallet + "</td>");
-                html.push("<td>" + data.data.list[i].number + "</td>");
+                html.push("<td>" + decimal.getTwoPs(data.data.list[i].number) + "</td>");
                 html.push("<td class='status'>" + data.data.list[i].transferGopStatus + "</td>");
                 html.push("</tr>");
                 $(".guorenOutput").html(""); //添加前清空 
@@ -50,7 +50,8 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
 
                 //过滤内容显示不同颜色
                 $(".status").filter(":contains('SUCCESS')").text('已到账').css("color", "#999");                
-                $(".status").filter(":contains('PROCESSING')").text('进行中').css("color", "orange");
+                $(".status").filter(":contains('PROCESSING')").text('进行中').css("color", "orange");           
+                $(".status").filter(":contains('FAILURE')").text('失败').css("color", "#999");
             
             }
         } else {
@@ -90,6 +91,9 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
         if (!num || isNaN(num)) {
             btnConfirm1a = false;
             $('.msg-gopWithdrawalsNumber').text('请输入提取数量');
+        }else if(num <0.02){
+            btnConfirm1a = false;
+            $('.msg-gopWithdrawalsNumber').text('转出数量最少为0.02');
         }else{
             btnConfirm1a = true;
             $('.msg-gopWithdrawalsNumber').text('');
@@ -170,13 +174,14 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
                 'paypwd': $('#gopWithdrawalsPayPwd').val()
             }, function(data) {
                 if (data.status == 200) {
-                    alert('转出成功');
+                    showWarnWin('转出成功',1e3);
                 }else if(data.msg == '验证码错误,请重新发送验证码'){
                     $('.msg-gopWithdrawalsCode').text('您输入验证码有误，请重新输入');
                 }else if(data.data.msg == '支付密码错误'){  
                     $('.msg-gopWithdrawalsPayPwd').text('您输入支付密码有误，请重新输入');
                 }else{
-                    $('.msg-gopWithdrawalsCode').text(data.msg);
+                    //$('.msg-gopWithdrawalsCode').text(data.msg);
+                    showWarnWin(data.msg,1e3);
                 }
             });
         }
@@ -194,7 +199,7 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
                 html.push("<tr>");
                 html.push("<td>" + data.data.list[i].createDate + "</td>");
                 html.push("<td>" + data.data.list[i].wallet + "</td>");
-                html.push("<td>" + data.data.list[i].number + "</td>");
+                html.push("<td>" + decimal.getTwoPs(data.data.list[i].number) + "</td>");
                 html.push("<td class='status'>" + data.data.list[i].transferGopStatus + "</td>");
                 html.push("</tr>");
                 $(".guorenInput").html(""); //添加前清空 
@@ -216,7 +221,8 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
     $('.imgCopy').click(function(){
         $('#a').select();  
         document.execCommand("Copy");
-        alert("已复制好，可贴粘。"); 
+        //alert("已复制好，可贴粘。");
+        showWarnWin('已复制，可以贴粘。',1e3); 
     });
     //hover 效果
     $('.ls_tab').hover(function(){
@@ -232,6 +238,5 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie','decimal'], function(ap
             $(this).css('backgroundColor','#fff');
         }
     });
-
 
 });

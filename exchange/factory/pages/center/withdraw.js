@@ -48,7 +48,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     }                   
                 } 
                 //再次添加果仁地址
-                $('.nutOutputManager-add').click(function(){
+                $('.nutOutputManager-addBtn').click(function(){
                     $('.nut-one').show();
                     $('.nut-two').hide();
                 });
@@ -61,18 +61,19 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         if (data.status == 200) {
                           window.location.href='withdraw.html?id=rmbtx';
                         } else {
-                            alert(data.msg);
+                            //alert(data.msg);
+                            showWarnWin(data.msg,1e3);
                         }
                     });         
                 });
                 //果仁提现地址修改
                 $('.nutOutputManager-modify').click(function(){
                     $(this).parent().find('.nutIdName').removeClass('input');
-                    var Node = $('<input type="button" value="确认修改" />');
+                    var Node = $('<input type="button" class="sureBtn" value="确认" /><input type="button" class="cancleBtn" value="取消" />');
                     Node.addClass('confirmUpdate');
                     Node.insertAfter($(this).parent().find('.nutIdName'));                    
-
-                    $('.confirmUpdate').click(function(){
+                    //确认修改
+                    $('.sureBtn').click(function(){
                         api_mkt.gopAddressManUpdate({          
                             'id':data.data.list[$(this).parent().parent().index()].id,
                             'name':$(this).parent().find('.nutIdName').val()
@@ -80,9 +81,15 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             if (data.status == 200) {
                                 window.location.href = 'withdraw.html?id=rmbtx';
                             } else {
-                            	alert(data.msg);
+                            	showWarnWin(data.msg,1e3);
                             }
                         });
+                    }); 
+                    //取消修改
+                    $('.cancleBtn').click(function(){
+                        $(this).parent().find('.nutIdName').addClass('input');
+                        $(this).parent().find('.confirmUpdate').remove();
+                        $(this).remove();
                     });         
                 });                
             } else {
@@ -199,7 +206,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         //获取验证码-人民币提现管理
         $('#sendCodeByLoginAfterBtn, #nut-identifyingCodeBtn').click(function(){
             if(btnConfirm == false){
-                alert('请完善填写信息！');
+                showWarnWin('请完善填写信息！',1e3);
             }
             else{
                 api_mkt.sendCodeByLoginAfter(function(data) {
@@ -232,7 +239,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         //人民币提现管理添加 点击-确认添加银行卡
         $('.confirmAdd').click(function(){
             if(btnConfirm == false || $('#sendCodeByLoginAfter').val() ==''){
-                alert('请填写完整信息');
+                showWarnWin('请完善填写信息！',1e3);
             }else{       
             	//中国工商银行，中国建设银行，中国农业银行，中国交通银行，中国邮政储蓄银行，招商银行
             	if($('#bank').val()!='中国工商银行' && $('#bank').val()!='中国建设银行' && $('#bank').val()!='中国农业银行' 

@@ -121,7 +121,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                     //     location.href = "./index.html";
                     // }, 1000);
                 } else if (data.status == 305) {
-                    alert(data.msg);
+                    showWarnWin(data.msg,1e3);
                 } else if (data.status == 400) {
                     if (data.msg == "验证码错误") {
                         $("#error_four").show().html(data.msg);

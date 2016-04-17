@@ -1,4 +1,4 @@
-require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt_info) {
+require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt_info,decimal) {
     $('.rmbxh').on('click', function() {
         $(this).addClass('bottomon');
         $('.rmbtx').removeClass('bottomon');
@@ -24,7 +24,7 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
                 html.push("<tr>");
                 html.push("<td>" + data.data.list[i].createDate + "</td>");
                 html.push("<td>" + data.data.list[i].wallet + "</td>");
-                html.push("<td>" + data.data.list[i].number + "</td>");
+                html.push("<td>" + decimal.getTwoPs(data.data.list[i].number) + "</td>");
                 html.push("<td class='status'>" + data.data.list[i].transferGopStatus + "</td>");
                 html.push("</tr>");
                 $(".guorenOutput").html(""); //添加前清空 
@@ -32,7 +32,8 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
 
                 //过滤内容显示不同颜色
                 $(".status").filter(":contains('SUCCESS')").text('已到账').css("color", "#999");                
-                $(".status").filter(":contains('PROCESSING')").text('进行中').css("color", "orange");
+                $(".status").filter(":contains('PROCESSING')").text('进行中').css("color", "orange");          
+                $(".status").filter(":contains('FAILURE')").text('失败').css("color", "#999");
             
             }
         } else {
@@ -52,7 +53,7 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
                 html.push("<tr>");
                 html.push("<td>" + data.data.list[i].createDate + "</td>");
                 html.push("<td>" + data.data.list[i].wallet + "</td>");
-                html.push("<td>" + data.data.list[i].number + "</td>");
+                html.push("<td>" + decimal.getTwoPs(data.data.list[i].number) + "</td>");
                 html.push("<td class='status'>" + data.data.list[i].transferGopStatus + "</td>");
                 html.push("</tr>");
                 $(".guorenInput").html(""); //添加前清空 
@@ -61,7 +62,7 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
                 //过滤内容显示不同颜色
                 $(".status").filter(":contains('SUCCESS')").text('已到账').css("color", "#999");                
                 $(".status").filter(":contains('PROCESSING')").text('进行中').css("color", "orange");
-            
+
             }
         } else {
             
@@ -109,6 +110,5 @@ require(['api_mkt', 'mkt_info', 'mkt_pagehead', 'cookie'], function(api_mkt, mkt
         }
         
     })
-
-
+            
 });
