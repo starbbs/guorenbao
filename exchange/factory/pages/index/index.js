@@ -1,7 +1,7 @@
 require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_info, mkt_trade) {
     //mkt_info.get();
     mkt_trade.get();
-    showWarnWin("互联网万维联盟", 1e3);
+    // showWarnWin("互联网万维联盟", 1e3);
     var exchangeToken = $.cookie('exchangeToken');
     var global_loginuserphone = $.cookie("global_loginuserphone");
     var global_loginusername = $.cookie("global_loginusername");

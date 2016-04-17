@@ -19,21 +19,21 @@
     /**
      * 支付密码锁定校验
      */
-	// var isPayLocked=function(){
-	// 	 api_mkt.isPayLocked({
+	var isPayLocked=function(){
+		 api_mkt.isPayLocked({
 
-	//         },function(data){
-	//             if(data.status==200){	                
-	//                // $(".popuptips").slideUp();
-	//             } else{
-	//                 console.log(data);
-	//                 $(".popuptips").html("为保证资金安全，您的支付密码已被锁定，请找回支付密码");
-	//             	$(".popuptips").slideDown();
-	//             }
-	//         });
-	// }
+	        },function(data){
+	            if(data.status==200){	                
+	               // $(".popuptips").slideUp();
+	            } else{
+	                console.log(data);
+	                $(".popuptips").html("为保证资金安全，您的支付密码已被锁定，请找回支付密码");
+	            	$(".popuptips").slideDown();
+	            }
+	        });
+	}
 	
-	// isPayLocked();
+	isPayLocked();
 	
     $(".logoimg").on("click",function(){
         location.href="./index.html";
