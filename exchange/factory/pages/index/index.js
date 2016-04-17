@@ -10,8 +10,14 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     var mine_one = $.cookie("mine_one");
     var mine_two = $.cookie("mine_two");
     var mine_three = $.cookie("mine_three");
-    var mine_four = $.cookie("mine_four");
-    //$.cookie("asdf","haha",{"expires":"h0.5"},"guorenmarket");
+    var mine_four = $.cookie("mine_four");    
+	/**
+     * 禁止输入框粘贴
+     */
+    $("input").on("paste",function(e){
+		return false;
+	});
+
     api_mkt.totalAssets(function(data) {
         if (data.status == 200) {
             var totalAssets = data.data.cnyBalance + data.data.cnyLock;
@@ -338,6 +344,29 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             }
         }
     };
+    
+    
+    /**
+     * 输入框通用校验
+     */
+	$("input").on("keydown",function(e){
+		//只允许输入 ASCII的33~126的字符
+		var keycode = e.which; 
+		if(keycode!=8 && keycode!=9 &&keycode!=16 &&keycode!=20 && (keycode<33 || keycode>126)){
+			return false;
+		}
+	});
+    
+    /**
+     * 手机号输入框校验
+     */
+    $(".phone_loginarea").on("keydown",function(e){
+		var keycode = e.which; 
+		if((keycode!=8 && keycode!=9 &&keycode!=16 &&keycode!=20 && keycode<48) || (keycode>57 && keycode<96) || keycode>105){
+			return false;
+		}
+    });
+    
     var verify = function(inputData, dataType) {
         var reg = "";
         var varMes = '';
@@ -476,8 +505,14 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     } else if (data.msg == "手机号未注册") {
                         $(".error_tips_one").show().html("用户名或密码错误，请重新登录");
                     } else if (data.data && data.data.num && data.data.num <= 10) {
-                        //                      {"data":{"num":2,"msg":"登录密码错误"},"msg":"error","status":"400"}
-                        $(".autocode_tips").show().html("还有次" + (10 - data.data.num) + "输入机会");
+                        //{"data":{"num":2,"msg":"登录密码错误"},"msg":"error","status":"400"}
+                        console.log("data.data.num"+data.data.num);
+                        if(data.data.num>=5){
+                            $(".error_tips_index").show().html("还有" + (10 - data.data.num) + "次输入机会");
+                        } else if(data.data.num<5&&data.data.msg=="登录密码错误"){
+                            $(".error_tips_index").show().html("用户名或密码错误，请重新登录");
+                            //$(".autocode_tips").show().html("还有" + (10 - data.data.num) + "次输入机会");
+                        }
                     } else if (data.msg == "error" && data.data.msg == "登录密码错误") {
                         $(".error_tips").show().html("用户名或密码错误，请重新登录");
                     } else {

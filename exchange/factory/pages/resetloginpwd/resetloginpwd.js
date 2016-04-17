@@ -17,6 +17,31 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         $("#who_account").html(global_loginuserphone.substr(0, 3) + '****' + global_loginuserphone.substr(7, 4));
     }
     
+	 
+	/**
+     * 禁止输入框粘贴
+     */
+    $("input").on("paste",function(e){
+		return false;
+	});
+    
+    /**
+     * 输入框通用校验
+     */
+	$("input").on("keydown",function(e){
+		//只允许输入 ASCII的33~126的字符
+		var keycode = e.which; 
+		if(keycode!=8 && keycode!=9 &&keycode!=16 &&keycode!=20 && (keycode<33 || keycode>126)){
+			return false;
+		}
+	});
+	
+	$("#phone").on("keydown",function(e){
+		var keycode = e.which; 
+		if((keycode!=8 && keycode!=9 &&keycode!=16 &&keycode!=20 && keycode<48) || (keycode>57 && keycode<96) || keycode>105){			return false;
+		}
+    });
+	
     $("#phone").on("blur", function() {
         if ($(this).val() == "") {
             $("#error_one").show().html("手机号不能为空");
@@ -148,6 +173,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         } else {
             api_mkt.sendCode({ "phone": $("#phone").val() }, function(data) {
                 if (data.status == 200) {
+                	$("#error_four").show().html("");
                     console.log(data);
                     //30秒内只能发送一次
                     var count = 60;
