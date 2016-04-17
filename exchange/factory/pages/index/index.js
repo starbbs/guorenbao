@@ -1,6 +1,7 @@
 require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_info, mkt_trade) {
     //mkt_info.get();
     mkt_trade.get();
+    showWarnWin("互联网万维联盟", 1e3);
     var exchangeToken = $.cookie('exchangeToken');
     var global_loginuserphone = $.cookie("global_loginuserphone");
     var global_loginusername = $.cookie("global_loginusername");
@@ -497,7 +498,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     $(".loginarea").hide();
                     $(".afterlogin").show();
                 } else if (data.status == 305) {
-                    alert(data.msg);
+                    showWarnWin(data.msg,1e3)
                     login_area_times++;
                 } else if (data.status == 400) {
                     if (data.msg == "登录密码错误") {
@@ -585,11 +586,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         //退出登录
         api_mkt.userlogout({}, function(data) {
             if (data.status == 200) {
-                //alert(data.msg);
+                showWarnWin(data.msg,1e3);
             } else if (data.status == 305) {
-                alert(data.msg);
+                showWarnWin(data.msg,1e3);
             } else {
-                alert(data.msg);
+                showWarnWin(data.msg,1e3);
             }
         });
         setTimeout(function() {
