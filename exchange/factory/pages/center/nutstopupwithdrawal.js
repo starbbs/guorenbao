@@ -157,6 +157,11 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
     });
     //转出
     $('.gopWithdrawalsBtn').click(function() {
+    	if(global.payLocked){
+    		window.location.reload();
+    		$(window).scrollTop(0);
+    		return false;
+    	}
         if (btnConfirm0a == false) {
             $('.msg-gopWithdrawalsSelect').text('请先添加果仁地址');
         }else if (btnConfirm1a == false) {
@@ -177,9 +182,14 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
                     showWarnWin('转出成功',1e3);
                 }else if(data.msg == '验证码错误,请重新发送验证码'){
                     $('.msg-gopWithdrawalsCode').text('您输入验证码有误，请重新输入');
-                }else if(data.data.msg == '支付密码错误'){  
-                    $('.msg-gopWithdrawalsPayPwd').text('您输入支付密码有误，请重新输入');
-                }else{
+                }else if(data.data && data.data.num){
+        			var num=data.data?data.data.num:data.date.num;
+        			$('.msg-gopWithdrawalsCode').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
+        		}else if(data.msg.indexOf('锁定')>0){
+        			$('.msg-gopWithdrawalsCode').show().text(data.msg);
+        			window.location.reload();
+            		$(window).scrollTop(0);
+        		}else{
                     //$('.msg-gopWithdrawalsCode').text(data.msg);
                     showWarnWin(data.msg,1e3);
                 }

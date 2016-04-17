@@ -27,6 +27,11 @@ require(['api_mkt','cookie'], function(api_mkt) {
                                     location.href = "./modifyloginpassword.html";
                                 });
                                 $(".jumptwo").on("click",function(){
+                                	if(global.payLocked){
+                                		window.location.reload();
+                                		$(window).scrollTop(0);
+                                		return false;
+                                	}
                                     location.href = "./modifypaymentcode.html";
                                 });
                                 $(".jumpthree").on("click",function(){
