@@ -143,5 +143,11 @@ $(function() {
         $(".tab").eq(3).addClass("tab_on").siblings(".tab").removeClass("tab_on");
         $('.tabcon').hide();
         $('.tab_four').show();
+    } else if(fval=="e"){ //注册页的服务条款
+        $(".tab").eq(1).addClass("tab_on").siblings(".tab").removeClass("tab_on");
+        $('.tabcon').hide();
+        $('.tab_two').show();
+        $('.li_tab:eq(1)').show().addClass('li_tab_active').siblings(".li_tab").removeClass("li_tab_active");
+        $('.two-right:eq(1)').show().siblings(".two-right").hide();
     }
 });
