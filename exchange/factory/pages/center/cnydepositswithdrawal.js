@@ -260,13 +260,20 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                    $('.addBankCard').html('<a href="withdraw.html" style="color:#0bbeee;">+ 添加银行卡</a><span style="color:red;margin-left:25px;"> 请点击添加银行卡</span>');
                 }else{ 
                     //弹出层理面的内容
+                    $(".mydiv1").css("display","block");
+                    $(".bg1").css("display","block");
                     $(".WithdrawalsCard").text($.cookie('bankNum'));
                     $(".WithdrawalsBank").text($.cookie('bankName'));
                     $(".WithdrawalsName").text($.cookie('bankUserName'));
                     var amount = parseInt($("#WithdrawalsAmount").val());
                     var Fee = parseInt($('.WithdrawalsFee').text());
                     $(".WithdrawalsAmount").text('¥'+amount+'.00');
-                    $(".WithdrawalsRealAmount").text('¥'+(amount - Fee)+'.00');                    
+                    $(".WithdrawalsRealAmount").text('¥'+(amount - Fee)+'.00');
+                }
+                //关闭弹出层 -生成汇款单
+                $(".span-btn1").click(function(){
+                    $(".mydiv1").css("display","none");
+                    $(".bg1").css("display","none"); 
                     //接口：人民币提现
                     api_mkt.rmbWithdrawals({          
                         'bankId':$.cookie('bankNum'),
@@ -277,11 +284,8 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                         'acName':data.data.list[0].name,
                         'paypwd':$('#WithdrawalsPayPwd').val() 
                     }, function(data) {
-                        if (data.status == 200) {                              
-                            
-                            $(".mydiv1").css("display","block");
-                            $(".bg1").css("display","block");
-
+                        if (data.status == 200) { 
+                            window.location.href = "cnydepositswithdrawal.html?whichtab='withdraw'";
                         }else if(data.msg == '验证码错误，请重新发送验证码'){
                             $('.msg-VerificationCode').text('验证码错误，请重新输入');
                         }else if(data.msg == '账户余额不足'){
@@ -291,38 +295,30 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                         }else if(data.msg == '每日提现金额不能超过50万'){
                             $('.msg-WithdrawalsAmount').text('每日提现金额不能超过50万');
                         }else if(data.data && data.data.num){
-                			var num=data.data?data.data.num:data.date.num;
+                            var num=data.data?data.data.num:data.date.num;
                             if(3-num > 0 ){
                                 $('.msg-WithdrawalsPayPwd').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
                             }else{                                
                                 $('.msg-WithdrawalsPayPwd').show().html("提示为保证资金安全，您的支付密码已被锁定，请<a href='resetpaymentcode.html' class='moreCheck'>找回支付密码</a>");
                             }
-                		}else if(data.msg.indexOf('锁定')>0){
-                			$('.msg-VerificationCode').show().text(data.msg);
-                			window.location.reload();
-                    		$(window).scrollTop(0);
-                		}else{
-                			$('.msg-VerificationCode').show().text(data.msg);
-                		}
+                        }else if(data.msg.indexOf('锁定')>0){
+                            $('.msg-VerificationCode').show().text(data.msg);
+                            window.location.reload();
+                            $(window).scrollTop(0);
+                        }else{
+                            $('.msg-VerificationCode').show().text(data.msg);
+                        }
                     }); 
-
-                    
-                    //关闭弹出层 -生成汇款单
-                    $(".span-btn1").click(function(){
-                        $(".mydiv1").css("display","none");
-                        $(".bg1").css("display","none"); 
-                        
-                    }); 
-                }
+                });
+                //只关闭
+                $(".textBtn1").click(function(){
+                    $(".mydiv1").css("display","none");
+                    $(".bg1").css("display","none");
+                    $("#WithdrawalsAmount").val("");
+                    $("#WithdrawalsPayPwd").val("");
+                    $("#VerificationCode").val("");
+                });
             });            
-        });
-        //只关闭
-        $(".textBtn1").click(function(){
-            $(".mydiv1").css("display","none");
-            $(".bg1").css("display","none");
-            $("#WithdrawalsAmount").val("");
-            $("#WithdrawalsPayPwd").val("");
-            $("#VerificationCode").val("");
         });
 
         //实名认证用户充值-显示/隐藏-提示文本内容

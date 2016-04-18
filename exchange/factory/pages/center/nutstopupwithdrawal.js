@@ -171,7 +171,11 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
         if (btnConfirm0a == false) {
             $('.msg-gopWithdrawalsSelect').text('请先添加果仁地址');
         }else if (btnConfirm1a == false) {
-            $('.msg-gopWithdrawalsNumber').text('请输入提取数量');
+            if($('#gopWithdrawalsNumber').val() == 0.01){
+                $('.msg-gopWithdrawalsNumber').text('提取数量最小为0.02');
+            }else{
+                $('.msg-gopWithdrawalsNumber').text('请输入提取数量');
+            }
         } else if (btnConfirm2a == false) {
             $('.msg-gopWithdrawalsPayPwd').text('请输入您的支付密码');
         } else if (btnConfirm3a == false) {
