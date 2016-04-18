@@ -592,15 +592,17 @@
     color: white;
     text-align: center;
     font-size: 1.4rem;
-    cursor: pointer;
-    top: 380px;
+    cursor: pointer;    
     position: absolute;
+    top: 380px;
+    margin-top:30px;
 }
 
 .market_price_sale_btn{
-        position: relative;
-    top: 28px;
-    background-color: #00951c;
+    position: relative;
+    top: 21px;
+    background-color: #00951c;    
+    margin-top:0px;
 }
 
 #slider_marketprice_value,#sale_slider_marketprice_value{
@@ -664,7 +666,10 @@
     padding-right: 20px;
     margin: 12px 0;
 }
-
+.form_wrapper_leftdiv div:nth-child(1),.form_wrapper_rightdiv div:nth-child(1){
+    margin:0;
+    color:#999;
+}
 
 #sale_slider_marketprice_value{
     position: absolute;
@@ -1580,14 +1585,14 @@ a {
     position: absolute;
     width:220px;
     height:50px;
-    top:262px;
+    top:296px;
     left:122px;
 }
 .slider_container-pos1{
     position: absolute;
     width:220px;
     height:50px;
-    top:262px;
+    top:296px;
     left:114px;
 }
 
