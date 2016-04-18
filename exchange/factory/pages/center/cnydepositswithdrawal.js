@@ -257,65 +257,66 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                 }else if(flag3 == false){
                    $('.msg-VerificationCode').text('请输入正确的短信验证码');
                 }else if($('.checkBankCard').length == 0){
-                    $('.addBankCard').html('<a href="withdraw.html" style="color:#0bbeee;">+ 添加银行卡</a><span style="color:red;margin-left:25px;"> 请点击添加银行卡</span>');
-                }else{  
-                    $(".mydiv1").css("display","block");
-                    $(".bg1").css("display","block"); 
-                    //勾选弹出框 选择内容
-                         
-                    //弹出层理面的内容
-                    $(".WithdrawalsCard").text($.cookie('bankNum'));
-                    $(".WithdrawalsBank").text($.cookie('bankName'));
-                    $(".WithdrawalsName").text($.cookie('bankUserName'));
-                    var amount = parseInt($("#WithdrawalsAmount").val());
-                    var Fee = parseInt($('.WithdrawalsFee').text());
-                    $(".WithdrawalsAmount").text('¥'+amount+'.00');
-                    $(".WithdrawalsRealAmount").text('¥'+(amount - Fee)+'.00');
+                   $('.addBankCard').html('<a href="withdraw.html" style="color:#0bbeee;">+ 添加银行卡</a><span style="color:red;margin-left:25px;"> 请点击添加银行卡</span>');
+                }else{                     
+                    //接口：人民币提现
+                    api_mkt.rmbWithdrawals({          
+                        'bankId':data.data.list[0].acnumber,
+                        'money':amount,
+                        'identifyingCode':$('#VerificationCode').val(),
+                        'fee':Fee,
+                        'bankName':data.data.list[0].bank,
+                        'acName':data.data.list[0].name,
+                        'paypwd':$('#WithdrawalsPayPwd').val() 
+                    }, function(data) {
+                        if (data.status == 200) {                              
+                            
+                            $(".mydiv1").css("display","block");
+                            $(".bg1").css("display","block"); 
+                            //勾选弹出框 选择内容
+                                 
+                            //弹出层理面的内容
+                            $(".WithdrawalsCard").text($.cookie('bankNum'));
+                            $(".WithdrawalsBank").text($.cookie('bankName'));
+                            $(".WithdrawalsName").text($.cookie('bankUserName'));
+                            var amount = parseInt($("#WithdrawalsAmount").val());
+                            var Fee = parseInt($('.WithdrawalsFee').text());
+                            $(".WithdrawalsAmount").text('¥'+amount+'.00');
+                            $(".WithdrawalsRealAmount").text('¥'+(amount - Fee)+'.00');
 
-                    //只关闭
-                    $(".span-text1").click(function(){
-                        $(".mydiv1").css("display","none");
-                        $(".bg1").css("display","none");
-                        $("#WithdrawalsAmount").val("");
-                        $("#WithdrawalsPayPwd").val("");
-                        $("#VerificationCode").val("");
-                    }); 
-                    //关闭弹出层 -生成汇款单
-                    $(".span-btn1").click(function(){
-                        $(".mydiv1").css("display","none");
-                        $(".bg1").css("display","none"); 
-                        //接口：人民币提现
-                        api_mkt.rmbWithdrawals({          
-                            'bankId':data.data.list[0].acnumber,
-                            'money':amount,
-                            'identifyingCode':$('#VerificationCode').val(),
-                            'fee':Fee,
-                            'bankName':data.data.list[0].bank,
-                            'acName':data.data.list[0].name,
-                            'paypwd':$('#WithdrawalsPayPwd').val() 
-                        }, function(data) {
-                            if (data.status == 200) {                              
-                                window.location.href="cnydepositswithdrawal.html?whichtab='withdraw'";
-                            } else if(data.msg == '验证码错误，请重新发送验证码'){
-                                $('.msg-VerificationCode').text('验证码错误，请重新输入');
-                            }else if(data.msg == '账户余额不足'){
-                                $('.msg-WithdrawalsAmount').text('账户余额不足');
-                            }else if(data.msg == '支付密码错误'){
-                                $('.msg-WithdrawalsPayPwd').text('支付密码错误');
-                            }else if(data.msg == '每日提现金额不能超过50万'){
-                                $('.msg-WithdrawalsAmount').text('每日提现金额不能超过50万');
-                            }else if(data.data && data.data.num){
-                    			var num=data.data?data.data.num:data.date.num;
-                    			$('.msg-VerificationCode').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
-                    		}else if(data.msg.indexOf('锁定')>0){
-                    			$('.msg-VerificationCode').show().text(data.msg);
-                    			window.location.reload();
-                        		$(window).scrollTop(0);
-                    		}else{
-                    			$('.msg-VerificationCode').show().text(data.msg);
-                    		}
-                        });                       
-                    });                         
+                            //只关闭
+                            $(".span-text1").click(function(){
+                                $(".mydiv1").css("display","none");
+                                $(".bg1").css("display","none");
+                                $("#WithdrawalsAmount").val("");
+                                $("#WithdrawalsPayPwd").val("");
+                                $("#VerificationCode").val("");
+                            }); 
+                            //关闭弹出层 -生成汇款单
+                            $(".span-btn1").click(function(){
+                                $(".mydiv1").css("display","none");
+                                $(".bg1").css("display","none"); 
+                            });
+
+                        }else if(data.msg == '验证码错误，请重新发送验证码'){
+                            $('.msg-VerificationCode').text('验证码错误，请重新输入');
+                        }else if(data.msg == '账户余额不足'){
+                            $('.msg-WithdrawalsAmount').text('账户余额不足');
+                        }else if(data.msg == '支付密码错误'){
+                            $('.msg-WithdrawalsPayPwd').text('支付密码错误');
+                        }else if(data.msg == '每日提现金额不能超过50万'){
+                            $('.msg-WithdrawalsAmount').text('每日提现金额不能超过50万');
+                        }else if(data.data && data.data.num){
+                			var num=data.data?data.data.num:data.date.num;
+                			$('.msg-WithdrawalsPayPwd').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
+                		}else if(data.msg.indexOf('锁定')>0){
+                			$('.msg-VerificationCode').show().text(data.msg);
+                			window.location.reload();
+                    		$(window).scrollTop(0);
+                		}else{
+                			$('.msg-VerificationCode').show().text(data.msg);
+                		}
+                    });                       
                 }
             });            
         });

@@ -42,8 +42,8 @@ require(['api_mkt', 'mkt_info','decimal','cookie'], function(api_mkt, mkt_info,d
                         $(".operType").filter(":contains('CNYOUT')").text('人民币提现');
                         $(".operType").filter(":contains('GOPIN')").text('果仁充值');
                         $(".operType").filter(":contains('GOPOUT')").text('果仁提现');
-                        $(".operType").filter(":contains('BUY')").text('果仁买入').css("color", "red");
-                        $(".operType").filter(":contains('SELL')").text('果仁卖出').css("color", "green");
+                        $(".operType").filter(":contains('BUY')").text('买入').css("color", "red");
+                        $(".operType").filter(":contains('SELL')").text('卖出').css("color", "green");
                         $("td").filter(":contains('undefined')").text('0');
                     }
                 }

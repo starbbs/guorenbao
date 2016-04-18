@@ -100,16 +100,15 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
         }
     });
     
-    $(".wrapper").on("input propertychange", "#gopWithdrawalsNumber", function() {
+    /*$(".wrapper").on("input propertychange", "#gopWithdrawalsNumber", function() {
     	var num = $(this).val();
         var oldData=$(this).attr("data-old");
         if(decimal.toDecimal(num) < 0.02||decimal.getPsercison(num)>2 ){
-        	//
-        	$(this).val(oldData?oldData:0.02);
+        	//$(this).val(oldData?oldData:0.02);
         }else{
         	$(this).attr("data-old",num);
         }
-    });
+    });*/
     
     //校验支付密码
     $('#gopWithdrawalsPayPwd').blur(function() {

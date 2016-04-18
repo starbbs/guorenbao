@@ -279,7 +279,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     } else if(data.msg == '提现银行卡账户名必须与您的实名认证姓名一致'){
                         $('.msg-sendCodeByLoginAfter').show().text('提现银行卡账户名必须与您的实名认证姓名一致');
                     } else if(data.msg == '同一用户不能添加相同银行卡'){
-                        showWarnWin('同一用户不能添加相同银行卡',1e3);
+                        //showWarnWin('同一用户不能添加相同银行卡',1e3);
+                        $('.msg-bank-idcard').text('同一用户不能添加相同银行卡');
                     }else if(data.data && data.data.num){
             			var num=data.data?data.data.num:data.date.num;
             			$('.msg-sendCodeByLoginAfter').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
