@@ -71,7 +71,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                         $(".mydiv").css("display","block");
                         $(".bg1").css("display","block");               
                         $(".remittance-id").text($(this).parent().find('.txid').text());
-                        $(".money-new").text('¥'+$(this).parent().find('.money').text()+'.00');                
+                        $(".money-new").text('¥'+$(this).parent().find('.money').text());                
                         $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
                         $('.bankName').text($(this).parent().find('.bank').text() +'网银');
                         //关闭弹出层 -生成汇款单
@@ -276,6 +276,9 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                     $(".span-text1").click(function(){
                         $(".mydiv1").css("display","none");
                         $(".bg1").css("display","none");
+                        $("#WithdrawalsAmount").val("");
+                        $("#WithdrawalsPayPwd").val("");
+                        $("#VerificationCode").val("");
                     }); 
                     //关闭弹出层 -生成汇款单
                     $(".span-btn1").click(function(){
@@ -292,7 +295,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                             'paypwd':$('#WithdrawalsPayPwd').val() 
                         }, function(data) {
                             if (data.status == 200) {                              
-                                window.location.reload();
+                                window.location.href="cnydepositswithdrawal.html?whichtab='withdraw'";
                             } else if(data.msg == '验证码错误，请重新发送验证码'){
                                 $('.msg-VerificationCode').text('验证码错误，请重新输入');
                             }else if(data.msg == '账户余额不足'){
@@ -418,7 +421,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                 //打开弹出层-生成汇款单 
                 $(".mydiv").css("display","block");
                 $(".bg1").css("display","block"); 
-                $(".money-new").text('¥'+$('#bank-money').val()+'.00'); 
+                $(".money-new").text('¥'+decimal.getTwoPs($('#bank-money').val())); 
                 $('.bankName').text($("#bank").val()+'网银');
                 //接口：人民币充值
                 api_mkt.rmbRecharge({          
