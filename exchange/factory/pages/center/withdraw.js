@@ -407,7 +407,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             if(3-num > 0 ){
                                 $('.msg-nut-paypwd').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
                             }else{                                
-                                $('.msg-nut-paypwd')show().html("提示为保证资金安全，您的支付密码已被锁定，请<a href='resetpaymentcode.html' class='moreCheck'>找回支付密码</a>");
+                                $('.msg-nut-paypwd').show().html("提示为保证资金安全，您的支付密码已被锁定，请<a href='resetpaymentcode.html' class='moreCheck'>找回支付密码</a>");
                             }
             		}else if(data.msg.indexOf('锁定')>0){
             			$('.msg-nut-identifyingCode').show().text(data.msg);

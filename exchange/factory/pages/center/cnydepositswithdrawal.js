@@ -280,25 +280,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                         if (data.status == 200) {                              
                             
                             $(".mydiv1").css("display","block");
-                            $(".bg1").css("display","block"); 
-                            //勾选弹出框 选择内容
-
-                            //只关闭
-                            $(".span-text1").click(function(){
-                                $(".mydiv1").css("display","none");
-                                $(".bg1").css("display","none");
-                                $("#WithdrawalsAmount").val("");
-                                $("#WithdrawalsPayPwd").val("");
-                                $("#VerificationCode").val("");
-                            }); 
-                            //关闭弹出层 -生成汇款单
-                            $(".span-btn1").click(function(){
-                                $(".mydiv1").css("display","none");
-                                $(".bg1").css("display","none"); 
-                                $("#WithdrawalsAmount").val("");
-                                $("#WithdrawalsPayPwd").val("");
-                                $("#VerificationCode").val("");
-                            });
+                            $(".bg1").css("display","block");
 
                         }else if(data.msg == '验证码错误，请重新发送验证码'){
                             $('.msg-VerificationCode').text('验证码错误，请重新输入');
@@ -322,9 +304,25 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                 		}else{
                 			$('.msg-VerificationCode').show().text(data.msg);
                 		}
-                    });                       
+                    }); 
+
+                    
+                    //关闭弹出层 -生成汇款单
+                    $(".span-btn1").click(function(){
+                        $(".mydiv1").css("display","none");
+                        $(".bg1").css("display","none"); 
+                        
+                    }); 
                 }
             });            
+        });
+        //只关闭
+        $(".textBtn1").click(function(){
+            $(".mydiv1").css("display","none");
+            $(".bg1").css("display","none");
+            $("#WithdrawalsAmount").val("");
+            $("#WithdrawalsPayPwd").val("");
+            $("#VerificationCode").val("");
         });
 
         //实名认证用户充值-显示/隐藏-提示文本内容
