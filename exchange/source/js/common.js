@@ -184,12 +184,11 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
     /**
      * 输入框通用校验
      */
-    $(".password").on("keydown", function(e) {
-        //只允许输入 ASCII的33~126的字符
-        var keycode = e.which;
-        if (keycode != 8 && keycode != 9 && keycode != 16 && keycode != 20 && (keycode < 33 || keycode > 126)) {
-            return false;
-        }
+    $(".password").on("keyup", function(e) {
+    	//只允许输入 ASCII的33~126的字符
+		if(this.value.charCodeAt()<33 || this.value.charCodeAt()>126){
+			$(this).val($(this).val().replace(this.value,""));
+		}
     });
 
 
