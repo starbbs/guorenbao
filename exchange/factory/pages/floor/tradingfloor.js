@@ -855,6 +855,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     $("#floor_popDiv").fadeIn(500);   
                     $('#hideSection').val('1');         
                 }else if(data.status == 400){
+                	if(data.msg.indexOf('未实名认证')>=0){
+                		window.location.reload();
+                		$(window).scrollTop(0);
+                		return false;
+                	}
                     showWarnWin('账户余额不足',1e3);
                 }
             }); 
