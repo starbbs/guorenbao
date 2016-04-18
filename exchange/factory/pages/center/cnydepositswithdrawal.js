@@ -245,6 +245,11 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             
             //人民币提现申请 弹出层        
             $(".Withdrawalsbtn").click(function(){
+            	if(global.payLocked){
+            		window.location.reload();
+            		$(window).scrollTop(0);
+            		return false;
+            	}
                 if(flag1 == false){
                    $('.msg-WithdrawalsAmount').text('提现金额为100元至50000元之间');
                 }else if(flag2 == false){
@@ -296,7 +301,16 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                                 $('.msg-WithdrawalsPayPwd').text('支付密码错误');
                             }else if(data.msg == '每日提现金额不能超过50万'){
                                 $('.msg-WithdrawalsAmount').text('每日提现金额不能超过50万');
-                            }
+                            }else if(data.data && data.data.num){
+                    			var num=data.data?data.data.num:data.date.num;
+                    			$('.msg-VerificationCode').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
+                    		}else if(data.msg.indexOf('锁定')>0){
+                    			$('.msg-VerificationCode').show().text(data.msg);
+                    			window.location.reload();
+                        		$(window).scrollTop(0);
+                    		}else{
+                    			$('.msg-VerificationCode').show().text(data.msg);
+                    		}
                         });                       
                     });                         
                 }

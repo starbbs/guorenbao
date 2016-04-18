@@ -244,6 +244,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 
         //人民币提现管理添加 点击-确认添加银行卡
         $('.confirmAdd').click(function(){
+        	if(global.payLocked){
+        		window.location.reload();
+        		$(window).scrollTop(0);
+        		return false;
+        	}
             if(btnConfirm == false || $('#sendCodeByLoginAfter').val() ==''){
                 showWarnWin('请完善填写信息！',1e3);
             }else{       
@@ -264,19 +269,25 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     'payPwd':$('#pay-pwd').val(),
                     'identifyingCode':$('#sendCodeByLoginAfter').val()
                 }, function(data) {
+                	$('.msg-sendCodeByLoginAfter').text('');
                     if (data.status == 200) {  
                     	window.location.reload();
                     } else if(data.msg == '验证码错误'){
-                        $('.msg-sendCodeByLoginAfter').text('验证码错误');
+                        $('.msg-sendCodeByLoginAfter').show().text('验证码错误');
                     } else if(data.msg == '服务器异常'){
-                        $('.msg-sendCodeByLoginAfter').text('服务器异常');
+                        $('.msg-sendCodeByLoginAfter').show().text('服务器异常');
                     } else if(data.msg == '提现银行卡账户名必须与您的实名认证姓名一致'){
-                        $('.msg-sendCodeByLoginAfter').text('提现银行卡账户名必须与您的实名认证姓名一致');
-                    } else if(data.msg == '支付密码错误'){
-                        $('.msg-pay-pwd').text('支付密码错误');
+                        $('.msg-sendCodeByLoginAfter').show().text('提现银行卡账户名必须与您的实名认证姓名一致');
                     } else if(data.msg == '同一用户不能添加相同银行卡'){
                         showWarnWin('同一用户不能添加相同银行卡',1e3);
-                    } else{
+                    }else if(data.data && data.data.num){
+            			var num=data.data?data.data.num:data.date.num;
+            			$('.msg-sendCodeByLoginAfter').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
+            		}else if(data.msg.indexOf('锁定')>0){
+            			$('.msg-sendCodeByLoginAfter').show().text(data.msg);
+            			window.location.reload();
+                		$(window).scrollTop(0);
+            		}else{
                         showWarnWin(data.msg,1e3);
                     }             
                 });
@@ -336,6 +347,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
 
         //果仁提现地址管理添加
         $('.gopAddressManAdd, .del').click(function(){
+        	if(global.payLocked){
+        		window.location.reload();
+        		$(window).scrollTop(0);
+        		return false;
+        	}
             if(btnNut1 == false){
                 $('.msg-nut-name').show().text('请输入地址备注');
             }else if(btnNut2 == false){
@@ -379,11 +395,16 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             $('.nut-two').hide();
                         }); 
                         window.location.href='withdraw.html?id=rmbtx'; 
-                    } else if(data.msg == '支付密码错误'){
-                    	$('.msg-nut-paypwd').show().text('请输入正确的支付密码');
                     }else if(data.msg == '验证码错误'){
                         $('.msg-nut-identifyingCode').show().text('请输入正确的短信验证码');
-                    }
+                    }else if(data.data && data.data.num){
+            			var num=data.data?data.data.num:data.date.num;
+            			$('.msg-nut-identifyingCode').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
+            		}else if(data.msg.indexOf('锁定')>0){
+            			$('.msg-nut-identifyingCode').show().text(data.msg);
+            			window.location.reload();
+                		$(window).scrollTop(0);
+            		}
                 });
             }            
         });        

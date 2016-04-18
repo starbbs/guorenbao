@@ -44,14 +44,25 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     /**
      * 输入框通用校验
      */
-	$("input").on("keydown",function(e){
+    $("#sel_div_password").on("keydown",function(e){
+		//只允许输入 数字字符
+		var keycode = e.which; 
+		if(keycode!=8 && keycode!=9 &&keycode!=16 &&keycode!=20 && (keycode<33 || keycode>126)){
+			return false;
+		}
+	});
+    
+	$(".buying_price,.buying_number,.marketBuy,.sellPrice,.sellNumber,.sellAmount").on("keydown",function(e){
 		//只允许输入 数字字符
 		var keycode = e.which; 
 		if((keycode!=8 && keycode!=9 && keycode!=16 &&keycode!=20 && keycode<48) || (keycode>57 && keycode<96) || (keycode!=110 && keycode!=190 && keycode>105)){			
 			return false;
 		}
+		
 	});
-    
+	
+	
+	
     var getTotalAssets=function(){
     	api_mkt.totalAssets(function(data) {
             if (data.status == 200) {
@@ -380,100 +391,128 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
         if (data.status == 200 && data.data.list.length >0) {
             var html = [];
             var num = data.data.list.length < 5?data.data.list.length:5;
+            $(".tradeGopCurrentListTable").html("");  //添加前清空 
             for(var i=0; i<num;i++){
                 html.push("<tr>");                                        
                 html.push("<td>"+ data.data.list[i].createDate +"</td>");                
                 html.push("<td class='id' style='display:none'>"+ data.data.list[i].id +"</td>");
                 html.push("<td class='tradeGopType'>"+ data.data.list[i].tradeGopType +"</td>");
                 html.push("<td class='tradeGopFlag' style='display:none'>"+ data.data.list[i].tradeGopFlag +"</td>");                    
-                html.push("<td class='price'>"+ decimal.getTwoPs(data.data.list[i].price) +"</td>");
-                html.push("<td class='numTotal'>"+ decimal.getTwoPs(data.data.list[i].numTotal) +"</td>");
+                if(data.data.list[i].tradeGopFlag=='MARKET'){
+                	//市价
+                    html.push("<td class='price'>市价</td>");
+                	if(data.data.list[i].tradeGopType=='SELL'){
+                        html.push("<td class='numTotal'>"+ decimal.getTwoPs(data.data.list[i].numTotal) +"</td>");
+                	}else{
+                        html.push("<td class='numTotal'>"+ decimal.getTwoPs(data.data.list[i].market) +"</td>");
+                	}
+                }else{
+                	//限价
+                    html.push("<td class='price'>"+ decimal.getTwoPs(data.data.list[i].price) +"</td>");
+                    html.push("<td class='numTotal'>"+ decimal.getTwoPs(data.data.list[i].numTotal) +"</td>");
+                }
                 html.push("<td>"+ decimal.getTwoPs(data.data.list[i].numTotal - data.data.list[i].numOver) + "</td>");
                 html.push("<td>"+ decimal.getTwoPs(data.data.list[i].numOver) +"</td>");
                 html.push("<td><p class='saDan'>撤单</p></td>");
-                html.push("</tr>");
-                $(".tradeGopCurrentListTable").html("");  //添加前清空 
-                $(".tradeGopCurrentListTable").append(html.join(""));  
-                //过滤内容显示不同颜色
-                $(".tradeGopType").filter(":contains('BUY')").text('买入').css("color","red");                    
-                $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green");  
-                //撤单
-                $('.saDan').click(function(){                    
-                    var text = $(this).parent().parent().find('.id').text();
-                    $("#floor_bg").show();
-                    $("#sel_div_password").val("");
-                    $(".payment_error").hide();
-                    $("#floor_popDiv").fadeIn(500);
-                    //变为 撤单 确认框
-                    $('.h3_1').css('display','none');
-                    $('.sure_btn').css('display','none');
-                    $('#sel_div_password').css('display','none');
-                    $('.h3_2').css('display','block');
-                    $('.sure_btn1').css('display','block');
-                
-                    //确认撤单
-                    $('.confirm').click(function(){                        
-                        api_mkt.tradeGopCancelByid({
-                            'id':text
-                        },function(data) {        
-                            //恢复为 买入卖出 确认框
-                            $("#floor_popDiv").hide(500);
-                            $("#floor_bg").hide();
-                            $('.h3_1').css('display','block');
-                            $('.sure_btn').css('display','block');
-                            $('#sel_div_password').css('display','block');
-                            $('.h3_2').css('display','none');
-                            $('.sure_btn1').css('display','none');
-                            window.location.reload();
-                        });
-                    }); 
-                    //取消撤单
-                    $('.cancle').click(function(){
-                        $("#floor_bg").hide();
-                        $("#floor_popDiv").hide(500);
-                        //恢复为 买入卖出 确认框
-                        $("#floor_popDiv").hide(500);
-                        $("#floor_bg").hide();
-                        $('.h3_1').css('display','block');
-                        $('.sure_btn').css('display','block');
-                        $('#sel_div_password').css('display','block');
-                        $('.h3_2').css('display','none');
-                        $('.sure_btn1').css('display','none');
-                    }); 
-                });             
-            }               
+                html.push("</tr>");                        
+            }  
+            $(".tradeGopCurrentListTable").append(html.join(""));  
+            //过滤内容显示不同颜色
+            $(".tradeGopType").filter(":contains('BUY')").text('买入').css("color","red");                    
+            $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green");  
         }else{
             //console.log(data);
         }
     });    
 
-   
+    var text;//撤单用的全局变量
+    //撤单
+    $(".wrapper").on("click", ".saDan", function() {
+        text = $(this).parent().parent().find('.id').text();
+        $("#floor_bg").show();
+        $("#sel_div_password").val("");
+        $(".payment_error").hide();
+        $("#floor_popDiv").fadeIn(500);
+        //变为 撤单 确认框
+        $('.h3_1').css('display','none');
+        $('.sure_btn').css('display','none');
+        $('#sel_div_password').css('display','none');
+        $('.h3_2').css('display','block');
+        $('.sure_btn1').css('display','block');
+    
+        
+    }); 
+    
+    //确认撤单
+    $("#floor_popDiv").on("click", ".confirm", function() {
+        api_mkt.tradeGopCancelByid({
+            'id':text
+        },function(data) {        
+            
+        });
+        //恢复为 买入卖出 确认框
+        $("#floor_popDiv").hide(500);
+        $("#floor_bg").hide();
+        $('.h3_1').css('display','block');
+        $('.sure_btn').css('display','block');
+        $('#sel_div_password').css('display','block');
+        $('.h3_2').css('display','none');
+        $('.sure_btn1').css('display','none');
+        window.location.reload();
+    }); 
+    
+    //取消撤单
+    $("#floor_popDiv").on("click", ".cancle", function() {
+        $("#floor_bg").hide();
+        $("#floor_popDiv").hide(500);
+        //恢复为 买入卖出 确认框
+        $("#floor_popDiv").hide(500);
+        $("#floor_bg").hide();
+        $('.h3_1').css('display','block');
+        $('.sure_btn').css('display','block');
+        $('#sel_div_password').css('display','block');
+        $('.h3_2').css('display','none');
+        $('.sure_btn1').css('display','none');
+    });
+    
     //历史委托（不传参数查询最近5条）
     api_mkt.tradeGopHistoryList(function(data) {
         if (data.status == 200) {
             var html = [];
             var num = data.data.list.length < 5?data.data.list.length:5;
+            $(".tradeGopHistoryListTable").html("");  //添加前清空 
             for(var i=0; i<num;i++){
                 html.push("<tr>");                                      
                 html.push("<td>"+ data.data.list[i].createDate +"</td>");
                 html.push("<td class='tradeGopType'>"+ data.data.list[i].tradeGopType +"</td>");
-                html.push("<td>"+ decimal.getTwoPs(data.data.list[i].price) +"</td>");
-                html.push("<td>"+ decimal.getTwoPs(data.data.list[i].numTotal) +"</td>");
-                html.push("<td class='priceAver'>"+ decimal.getTwoPs(data.data.list[i].totalTraded / data.data.list[i].numTotal) + "</td>");
-                html.push("<td>"+ decimal.getTwoPs(data.data.list[i].numOver) +"</td>");
+                if(data.data.list[i].tradeGopFlag=='MARKET'){
+                	//市价
+                    html.push("<td>市价</td>");
+                	if(data.data.list[i].tradeGopType=='SELL'){
+                        html.push("<td>"+ decimal.getTwoPs(data.data.list[i].numTotal) +"</td>");
+                	}else{
+                        html.push("<td>"+ decimal.getTwoPs(data.data.list[i].market) +"</td>");
+                	}
+                }else{
+                	//限价
+                    html.push("<td>"+ decimal.getTwoPs(data.data.list[i].price) +"</td>");
+                    html.push("<td>"+ decimal.getTwoPs(data.data.list[i].numTotal) +"</td>");
+                }
+
+                html.push("<td class='priceAver'>"+ decimal.getTwoPs(data.data.list[i].tradedGop<=0?0:data.data.list[i].totalTraded / data.data.list[i].tradedGop) + "</td>");
+                html.push("<td>"+ decimal.getTwoPs(data.data.list[i].tradedGop) +"</td>");
                 html.push("<td>"+ decimal.getTwoPs(data.data.list[i].totalTraded) +"</td>");
                 html.push("<td class='tradeGopStatus'>"+ data.data.list[i].tradeGopStatus +"</td>");
-                html.push("</tr>");
-                $(".tradeGopHistoryListTable").html("");  //添加前清空 
-                $(".tradeGopHistoryListTable").append(html.join(""));
+                html.push("</tr>");               
+            }  
+            $(".tradeGopHistoryListTable").append(html.join(""));
 
-                //过滤内容显示不同颜色
-                $(".tradeGopType").filter(":contains('BUY')").text('买入').css("color","red");                    
-                $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green");
-                $(".tradeGopStatus").filter(":contains('SUCCESS')").text('已成交').css("color","orange");                    
-                $(".tradeGopStatus").filter(":contains('CANCEL')").text('已撤销').css("color","#999");                                     
-                $(".priceAver").filter(":contains('Infinity')").text('0'); 
-            }       
+            //过滤内容显示不同颜色
+            $(".tradeGopType").filter(":contains('BUY')").text('买入').css("color","red");                    
+            $(".tradeGopType").filter(":contains('SELL')").text('卖出').css("color","green");
+            $(".tradeGopStatus").filter(":contains('SUCCESS')").text('已成交').css("color","orange");                    
+            $(".tradeGopStatus").filter(":contains('CANCEL')").text('已撤销').css("color","#999");                                     
+            $(".priceAver").filter(":contains('Infinity')").text('0'); 
         }else{
         }
     });
@@ -931,7 +970,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 	if(data.status==400){
                 		if((data.date && data.date.num) || (data.data && data.data.num)){
                 			var num=data.data?data.data.num:data.date.num;
-                			$(".payment_error").html("还有"+(3-num)+"次输入机会");
+                			$(".payment_error").html("支付密码错误，您还有"+(3-num)+"次输入机会");
                 		}else{
                 			$(".payment_error").html(data.msg);	
                 		}
@@ -959,8 +998,20 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     window.location.reload();               
                 }else{
                     console.log(data);
+                    if(data.status==400){
+                		if((data.date && data.date.num) || (data.data && data.data.num)){
+                			var num=data.data?data.data.num:data.date.num;
+                			$(".payment_error").html("支付密码错误，您还有"+(3-num)+"次输入机会");
+                		}else{
+                			$(".payment_error").html(data.msg);	
+                		}
+                		if(data.msg.indexOf("已被锁定")>0){
+                			window.location.reload();
+                		}
+                	}else{
+                		$(".payment_error").html(data.msg);
+                	}
                     $(".payment_error").show();
-                    $(".payment_error").html(data.msg);
                 }
             });
         }else if( $('#hideSection').val() == 3){//限价卖出
@@ -979,8 +1030,20 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     window.location.reload();                
                 }else{
                     console.log(data);
+                    if(data.status==400){
+                		if((data.date && data.date.num) || (data.data && data.data.num)){
+                			var num=data.data?data.data.num:data.date.num;
+                			$(".payment_error").html("支付密码错误，您还有"+(3-num)+"次输入机会");
+                		}else{
+                			$(".payment_error").html(data.msg);	
+                		}
+                		if(data.msg.indexOf("已被锁定")>0){
+                			window.location.reload();
+                		}
+                	}else{
+                		$(".payment_error").html(data.msg);
+                	}
                     $(".payment_error").show();
-                    $(".payment_error").html(data.msg);
                 }
             });
         }else if( $('#hideSection').val() == 4){//市价卖出
@@ -998,8 +1061,20 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     window.location.reload();               
                 }else{
                     console.log(data);
+                    if(data.status==400){
+                		if((data.date && data.date.num) || (data.data && data.data.num)){
+                			var num=data.data?data.data.num:data.date.num;
+                			$(".payment_error").html("支付密码错误，您还有"+(3-num)+"次输入机会");
+                		}else{
+                			$(".payment_error").html(data.msg);	
+                		}
+                		if(data.msg.indexOf("已被锁定")>0){
+                			window.location.reload();
+                		}
+                	}else{
+                		$(".payment_error").html(data.msg);
+                	}
                     $(".payment_error").show();
-                    $(".payment_error").html(data.msg);
                 }
             });
         }       
