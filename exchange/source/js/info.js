@@ -103,7 +103,7 @@
                 }
                 bid_history_list_html += "<div class='table_row'>" +
                     "<div class='table_con'>" + timestr + "</div><div class='table_con " + sell_color + "'>" + buyorsell + "</div>" +
-                    "<div class='table_con'>" + orderliststr.price + "</div><div class='table_con'>" + decimal.getTwoPs(orderliststr.num) + "</div>" +
+                    "<div class='table_con'>" + decimal.getTwoPs(orderliststr.price) + "</div><div class='table_con'>" + decimal.getTwoPs(orderliststr.num) + "</div>" +
                     "</div>";
             }
         }
