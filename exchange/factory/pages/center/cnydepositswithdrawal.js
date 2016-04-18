@@ -71,7 +71,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                         $(".mydiv").css("display","block");
                         $(".bg1").css("display","block");               
                         $(".remittance-id").text($(this).parent().find('.txid').text());
-                        $(".money-new").text('¥'+$(this).parent().find('.money').text()+'.00');                
+                        $(".money-new").text('¥'+$(this).parent().find('.money').text());                
                         $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
                         $('.bankName').text($(this).parent().find('.bank').text() +'网银');
                         //关闭弹出层 -生成汇款单
@@ -418,7 +418,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                 //打开弹出层-生成汇款单 
                 $(".mydiv").css("display","block");
                 $(".bg1").css("display","block"); 
-                $(".money-new").text('¥'+$('#bank-money').val()+'.00'); 
+                $(".money-new").text('¥'+decimal.getTwoPs($('#bank-money').val())); 
                 $('.bankName').text($("#bank").val()+'网银');
                 //接口：人民币充值
                 api_mkt.rmbRecharge({          
