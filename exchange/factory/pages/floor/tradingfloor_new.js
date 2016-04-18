@@ -87,7 +87,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                     html.push("<td class='price'>"+ decimal.getTwoPs(data.data.list[i].price) +"</td>");
                     html.push("<td class='numTotal'>"+ decimal.getTwoPs(data.data.list[i].numTotal) +"</td>");
                 }
-                html.push("<td>"+ decimal.getTwoPs(data.data.list[i].numTotal - data.data.list[i].numOver) + "</td>");
+                html.push("<td>"+ decimal.getTwoPs(data.data.list[i].tradedGop) + "</td>");
                 html.push("<td>"+ decimal.getTwoPs(data.data.list[i].numOver) +"</td>");
                 html.push("<td><p class='saDan'>撤单</p></td>");
                 html.push("</tr>");                  
@@ -128,7 +128,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                         html.push("<td>"+ decimal.getTwoPs(data.data.list[i].price) +"</td>");
                         html.push("<td>"+ decimal.getTwoPs(data.data.list[i].numTotal) +"</td>");
                     }
-                    html.push("<td class='priceAver'>"+ decimal.getTwoPs(data.data.list[i].tradedGop<=0?0:data.data.list[i].totalTraded / data.data.list[i].tradedGop) + "</td>");
+                    html.push("<td class='priceAver'>"+ decimal.getTwoPs(data.data.list[i].tradedGop<=0?0:(data.data.list[i].totalTraded*100) / (data.data.list[i].tradedGop*100)) + "</td>");
                     html.push("<td>"+ decimal.getTwoPs(data.data.list[i].tradedGop) +"</td>");
                     html.push("<td>"+ decimal.getTwoPs(data.data.list[i].totalTraded) +"</td>");
                     html.push("<td class='tradeGopStatus'>"+ data.data.list[i].tradeGopStatus +"</td>");
