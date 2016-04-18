@@ -258,10 +258,18 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                    $('.msg-VerificationCode').text('请输入正确的短信验证码');
                 }else if($('.checkBankCard').length == 0){
                    $('.addBankCard').html('<a href="withdraw.html" style="color:#0bbeee;">+ 添加银行卡</a><span style="color:red;margin-left:25px;"> 请点击添加银行卡</span>');
-                }else{                     
+                }else{ 
+                    //弹出层理面的内容
+                    $(".WithdrawalsCard").text($.cookie('bankNum'));
+                    $(".WithdrawalsBank").text($.cookie('bankName'));
+                    $(".WithdrawalsName").text($.cookie('bankUserName'));
+                    var amount = parseInt($("#WithdrawalsAmount").val());
+                    var Fee = parseInt($('.WithdrawalsFee').text());
+                    $(".WithdrawalsAmount").text('¥'+amount+'.00');
+                    $(".WithdrawalsRealAmount").text('¥'+(amount - Fee)+'.00');                    
                     //接口：人民币提现
                     api_mkt.rmbWithdrawals({          
-                        'bankId':data.data.list[0].acnumber,
+                        'bankId':$.cookie('bankNum'),
                         'money':amount,
                         'identifyingCode':$('#VerificationCode').val(),
                         'fee':Fee,
@@ -274,15 +282,6 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                             $(".mydiv1").css("display","block");
                             $(".bg1").css("display","block"); 
                             //勾选弹出框 选择内容
-                                 
-                            //弹出层理面的内容
-                            $(".WithdrawalsCard").text($.cookie('bankNum'));
-                            $(".WithdrawalsBank").text($.cookie('bankName'));
-                            $(".WithdrawalsName").text($.cookie('bankUserName'));
-                            var amount = parseInt($("#WithdrawalsAmount").val());
-                            var Fee = parseInt($('.WithdrawalsFee').text());
-                            $(".WithdrawalsAmount").text('¥'+amount+'.00');
-                            $(".WithdrawalsRealAmount").text('¥'+(amount - Fee)+'.00');
 
                             //只关闭
                             $(".span-text1").click(function(){
