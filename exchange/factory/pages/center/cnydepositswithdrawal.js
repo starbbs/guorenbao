@@ -295,6 +295,9 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                             $(".span-btn1").click(function(){
                                 $(".mydiv1").css("display","none");
                                 $(".bg1").css("display","none"); 
+                                $("#WithdrawalsAmount").val("");
+                                $("#WithdrawalsPayPwd").val("");
+                                $("#VerificationCode").val("");
                             });
 
                         }else if(data.msg == '验证码错误，请重新发送验证码'){
@@ -307,7 +310,11 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                             $('.msg-WithdrawalsAmount').text('每日提现金额不能超过50万');
                         }else if(data.data && data.data.num){
                 			var num=data.data?data.data.num:data.date.num;
-                			$('.msg-WithdrawalsPayPwd').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
+                            if(3-num > 0 ){
+                                $('.msg-WithdrawalsPayPwd').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
+                            }else{                                
+                                $('.msg-WithdrawalsPayPwd').show().html("提示为保证资金安全，您的支付密码已被锁定，请<a href='resetpaymentcode.html' class='moreCheck'>找回支付密码</a>");
+                            }
                 		}else if(data.msg.indexOf('锁定')>0){
                 			$('.msg-VerificationCode').show().text(data.msg);
                 			window.location.reload();

@@ -94,12 +94,19 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
         }else if(num <0.02){
             btnConfirm1a = false;
             $('.msg-gopWithdrawalsNumber').text('转出数量最少为0.02');
-        }else{
+        }else{  
             btnConfirm1a = true;
             $('.msg-gopWithdrawalsNumber').text('');
         }
     });
-    
+    $('#gopWithdrawalsNumber').on('input',function(){
+        var num = $('#gopWithdrawalsNumber').val();
+        var oldData=$(this).attr("data-old");
+        if(decimal.getPsercison(num)>=2){
+            //大于小数点2位的都禁止输入
+            $(this).val(oldData?oldData:decimal.getTwoPs(num));  
+        }
+    });
     /*$(".wrapper").on("input propertychange", "#gopWithdrawalsNumber", function() {
     	var num = $(this).val();
         var oldData=$(this).attr("data-old");
@@ -183,7 +190,11 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
                     $('.msg-gopWithdrawalsCode').text('您输入验证码有误，请重新输入');
                 }else if(data.data && data.data.num){
         			var num=data.data?data.data.num:data.date.num;
-        			$('.msg-gopWithdrawalsCode').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
+                    if(3-num > 0 ){
+                        $('.msg-gopWithdrawalsPayPwd').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
+                    }else{                                
+                        $('.msg-gopWithdrawalsPayPwd').show().html("提示为保证资金安全，您的支付密码已被锁定，请<a href='resetpaymentcode.html' class='moreCheck'>找回支付密码</a>");
+                    }
         		}else if(data.msg.indexOf('锁定')>0){
         			$('.msg-gopWithdrawalsCode').show().text(data.msg);
         			window.location.reload();

@@ -83,13 +83,10 @@ video {
     padding: 0;
     border: 0;
     font-size: 100%;
-    font-family: 'yahei';
-    font-family:"微软雅黑"!important;
     font: inherit;
     vertical-align: baseline;
     box-sizing: border-box;
     text-decoration: none;
-    font-size: 12px;
 }
 
 
@@ -114,8 +111,6 @@ html {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     font-size: 62.5%;
-    font-family: 'yahei';
-    font-family:"微软雅黑"!important;
 }
 
 body {

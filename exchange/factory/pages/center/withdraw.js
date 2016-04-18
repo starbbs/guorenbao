@@ -275,15 +275,19 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     } else if(data.msg == '验证码错误'){
                         $('.msg-sendCodeByLoginAfter').show().text('验证码错误');
                     } else if(data.msg == '服务器异常'){
-                        $('.msg-sendCodeByLoginAfter').show().text('服务器异常');
+                        showWarnWin('服务器异常',1e3);
                     } else if(data.msg == '提现银行卡账户名必须与您的实名认证姓名一致'){
-                        $('.msg-sendCodeByLoginAfter').show().text('提现银行卡账户名必须与您的实名认证姓名一致');
+                        $('.msg-bank-idcard').show().text('提现银行卡账户名必须与您的实名认证姓名一致');
                     } else if(data.msg == '同一用户不能添加相同银行卡'){
                         //showWarnWin('同一用户不能添加相同银行卡',1e3);
                         $('.msg-bank-idcard').text('同一用户不能添加相同银行卡');
                     }else if(data.data && data.data.num){
             			var num=data.data?data.data.num:data.date.num;
-            			$('.msg-sendCodeByLoginAfter').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
+                        if(3-num > 0 ){
+                            $('.msg-sendCodeByLoginAfter').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
+                        }else{                                
+                            $('.msg-sendCodeByLoginAfter').show().html("提示为保证资金安全，您的支付密码已被锁定，请<a href='resetpaymentcode.html' class='moreCheck'>找回支付密码</a>");
+                        }
             		}else if(data.msg.indexOf('锁定')>0){
             			$('.msg-sendCodeByLoginAfter').show().text(data.msg);
             			window.location.reload();
@@ -400,7 +404,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $('.msg-nut-identifyingCode').show().text('请输入正确的短信验证码');
                     }else if(data.data && data.data.num){
             			var num=data.data?data.data.num:data.date.num;
-            			$('.msg-nut-identifyingCode').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
+                            if(3-num > 0 ){
+                                $('.msg-nut-paypwd').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
+                            }else{                                
+                                $('.msg-nut-paypwd')show().html("提示为保证资金安全，您的支付密码已被锁定，请<a href='resetpaymentcode.html' class='moreCheck'>找回支付密码</a>");
+                            }
             		}else if(data.msg.indexOf('锁定')>0){
             			$('.msg-nut-identifyingCode').show().text(data.msg);
             			window.location.reload();
