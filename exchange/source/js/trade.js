@@ -88,13 +88,21 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 		if(list_buy.length!=0){
 			if(list_buy.length<=5){
 				$("#wbr_m_best_sell").html(list_buy[0][0]);  //最佳买价
-				for(var i=list_buy.length-1;i>=0;i--){
+				for(var i=0;i<list_buy.length;i++){
 		            buy_list_html += "<div class='table_row'>"
 		            +"<div class='table_con buyprice'>买"+(i+1)+"</div>"
 		            +"<div class='table_con'>¥"+list_buy[i][0].toFixed(2)+"</div>"
 		            +"<div class='table_con'>"+list_buy[i][1].toFixed(2)+"</div>"
 		            +"<div class='table_con'>¥"+(list_buy[i][0]*list_buy[i][1]).toFixed(2)+"</div></div>";
 				}
+
+				// for(var i=list_buy.length-1;i>=0;i--){
+		  //           buy_list_html += "<div class='table_row'>"
+		  //           +"<div class='table_con buyprice'>买"+(i+1)+"</div>"
+		  //           +"<div class='table_con'>¥"+list_buy[i][0].toFixed(2)+"</div>"
+		  //           +"<div class='table_con'>"+list_buy[i][1].toFixed(2)+"</div>"
+		  //           +"<div class='table_con'>¥"+(list_buy[i][0]*list_buy[i][1]).toFixed(2)+"</div></div>";
+				// }
 			} else {
 				var list_buy_five = [];
 				list_buy_five.push(list_buy[0]);
@@ -112,7 +120,7 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 				}
 			}
 			$(".table_row_line").show();
-			$(".buysec").html(buy_list_html);
+			$("#sellseccon").html(buy_list_html);
 		}
 
 		if(list_sell.length!=0){
@@ -142,7 +150,7 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 				}
 			}
 			$(".table_row_line").show();
-			$(".sellseccon").html(list_sell_html);
+			$("#buysec").html(list_sell_html);
 		}
 		
 	}
