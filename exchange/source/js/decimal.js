@@ -47,7 +47,6 @@ define('decimal', function() {
     	position = String(str).indexOf(".");
 
     	if(length < position + 3){
-    		console.log(str);
     		return str + "0";
     	}else{
     		return String(str).substring(0, position + 3);

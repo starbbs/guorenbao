@@ -72,7 +72,7 @@ define('api_mkt', ['cookie'], function() {
                 dataType: 'json',
                 timeout: 500000,
                 success: function(data) {
-                    console.log(data);
+                    //console.log(data);
                     if (!data) {
                         // alert('1:' + name + ';' + $.cookie('gopToken'));
                         return goIndex(true);
