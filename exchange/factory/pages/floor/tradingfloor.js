@@ -25,11 +25,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     /**
      * 输入框通用校验
      */
-    $("#sel_div_password").on("keydown",function(e){
-		//只允许输入 数字字符
-		var keycode = e.which; 
-		if(keycode!=8 && keycode!=9 &&keycode!=16 &&keycode!=20 && (keycode<33 || keycode>126)){
-			return false;
+    $("#sel_div_password").on("keyup",function(e){
+    	//只允许输入 ASCII的33~126的字符
+		if(this.value.charCodeAt()<33 || this.value.charCodeAt()>126){
+			$(this).val($(this).val().replace(this.value,""));
 		}
 	});
     

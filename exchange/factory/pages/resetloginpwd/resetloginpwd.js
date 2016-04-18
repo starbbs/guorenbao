@@ -28,11 +28,10 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
     /**
      * 输入框通用校验
      */
-	$("input").on("keydown",function(e){
+	$("input").on("keyup",function(e){
 		//只允许输入 ASCII的33~126的字符
-		var keycode = e.which; 
-		if(keycode!=8 && keycode!=9 &&keycode!=16 &&keycode!=20 && (keycode<33 || keycode>126)){
-			return false;
+		if(this.value.charCodeAt()<33 || this.value.charCodeAt()>126){
+			$(this).val($(this).val().replace(this.value,""));
 		}
 	});
 	
