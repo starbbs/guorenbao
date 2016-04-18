@@ -131,7 +131,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                 //手续费校验
                 var Fee =$('.WithdrawalsFee');
                 if(WithdrawalsAmount >= 400 ){
-                    Fee.text(WithdrawalsAmount*0.005+' CNY');                    
+                    Fee.text((WithdrawalsAmount*0.005).toFixed(2)+' CNY');                    
                 }else{
                     Fee.text('2 CNY');
                 }

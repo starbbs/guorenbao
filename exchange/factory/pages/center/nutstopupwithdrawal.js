@@ -186,6 +186,9 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
             }, function(data) {
                 if (data.status == 200) {
                     showWarnWin('转出成功',1e3);
+                    $('#gopWithdrawalsNumber').val('');
+                    $('#gopWithdrawalsPayPwd').val('');
+                    $('#gopWithdrawalsCode').val('');
                 }else if(data.msg == '验证码错误,请重新发送验证码'){
                     $('.msg-gopWithdrawalsCode').text('您输入验证码有误，请重新输入');
                 }else if(data.data && data.data.num){
