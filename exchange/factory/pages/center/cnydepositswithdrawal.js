@@ -276,6 +276,9 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                     $(".span-text1").click(function(){
                         $(".mydiv1").css("display","none");
                         $(".bg1").css("display","none");
+                        $("#WithdrawalsAmount").val("");
+                        $("#WithdrawalsPayPwd").val("");
+                        $("#VerificationCode").val("");
                     }); 
                     //关闭弹出层 -生成汇款单
                     $(".span-btn1").click(function(){
@@ -292,7 +295,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                             'paypwd':$('#WithdrawalsPayPwd').val() 
                         }, function(data) {
                             if (data.status == 200) {                              
-                                window.location.reload();
+                                window.location.href="cnydepositswithdrawal.html?whichtab='withdraw'";
                             } else if(data.msg == '验证码错误，请重新发送验证码'){
                                 $('.msg-VerificationCode').text('验证码错误，请重新输入');
                             }else if(data.msg == '账户余额不足'){
