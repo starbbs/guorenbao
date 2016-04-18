@@ -50,7 +50,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
     		var reg = new RegExp("^[0-9]*$");//纯数字
     		var hanzi = /[\u4e00-\u9fa5]/;//汉字
     		if($(this).val().indexOf(" ")>=0 || $(this).val().length>20||$(this).val().length<8 || reg.test($(this).val()) || hanzi.test($(this).val())){
-	   			$("#error_two").show().html("请输入8~20位原支付密码");
+	   			$("#error_two").show().html("请输入8~20位新支付密码");
 	   			checkFlag2= false;
 	   			return;
 	   		}  else {
@@ -101,7 +101,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		            	if(data.msg=="验证码错误"){
 		            		$("#error_four").show().html(data.msg);
 		            	} else if(data.msg=="密码长度错误"){
-		            		$("#error_four").show().html(data.msg);
+		            		$("#error_one").show().html(data.msg);
 		            	} else if(data.msg=="原支付密码输入错误"){
 		            		$("#error_one").show().html(data.msg);
 		            	} else if(data.msg=="支付密码必须为数字"){
@@ -110,7 +110,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		            		$("#error_four").show().html(data.msg);
 		            	}else if(data.data && data.data.num){
                 			var num=data.data?data.data.num:data.date.num;
-                			$("#error_four").show().html("还有"+(3-num)+"次输入机会");
+                			$("#error_one").show().html("原支付密码错误,还有"+(3-num)+"次输入机会");
                 		}else{
                 			$("#error_four").show().html(data.msg);	
                 		}

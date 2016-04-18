@@ -29,10 +29,10 @@ define('decimal', function() {
 	 */
 	decimal.getPsercison = function(num) {
 		var f = parseFloat(num);
-		if (isNaN(f) || num.split(".").length <= 1) {
+		if (isNaN(f) || (num+"").split(".").length <= 1) {
 			return 0;
 		}
-		var str = num.split(".")[1] + "";
+		var str = (num+"").split(".")[1] + "";
 		return str.length;
 	};
 

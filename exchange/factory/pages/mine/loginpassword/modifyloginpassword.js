@@ -87,7 +87,12 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                         $("#one_span").show().html(data.msg);
                     } else if (data.msg == "密码长度错误") {
                         $("#three_span").show().html(data.msg);
-                    }
+                    }else if(data.data && data.data.num){
+            			var num=data.data?data.data.num:data.date.num;
+            			$("#one_span").show().html("原登录密码错误,还有"+(10-num)+"次输入机会");
+            		}else{
+            			$("#error_four").show().html(data.msg);	
+            		}
                 } else {
                     $("#three_span").show().html(data.msg);
                 }
@@ -114,7 +119,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                 $("#howmanysecond").text(count);
             } else {
                 clearInterval(timer);
-                location.href = "./index.html";
+                location.href = "./basicinfo.html";
             }
         }, 1000);
     }

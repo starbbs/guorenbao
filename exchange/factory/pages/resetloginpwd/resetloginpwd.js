@@ -168,7 +168,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
     //获取短信验证码
     $('.getauthcode').click(function() {
         if (!checkFlag1) {
-            $("#error_two").show().html("请输入手机号");
+            $("#error_one").show().html("请输入手机号");
         } else {
             api_mkt.sendCode({ "phone": $("#phone").val() }, function(data) {
                 if (data.status == 200) {
