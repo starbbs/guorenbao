@@ -1,4 +1,4 @@
-+-<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -32,36 +32,37 @@
                 </div>
                 <div class="right_reg_side_content" style="display: block;">
                     <span href="javascript:void(0);" class="msg_span">消息筛选</span>
-                    <a href="javascript:void(0);" class="one tab choosed_on_mes">全部</a>
-                    <a href="javascript:void(0);" class="two tab">系统</a>
-                    <a href="javascript:void(0);" class="three tab">安全</a>
-                    <a href="javascript:void(0);" class="four tab">资产</a>
+                    <a data-category="ALL" href="javascript:void(0);" class="one tab choosed_on_mes">全部</a>
+                    <a data-category="SYSTEM" href="javascript:void(0);" class="two tab">系统</a>
+                    <a data-category="SECURITY" href="javascript:void(0);" class="three tab">安全</a>
+                    <a data-category="ASSETS" href="javascript:void(0);" class="four tab">资产</a>
                 </div>
                 <div class="message_cont">
                     <div id="content" class="defaults">
                         <ul id="itemContainer">
                             <li>
-                                <div class="message_cont_box color_let">
+                                <!-- <div class="message_cont_box color_let">
                                     <span>系统</span><span>2016年3月13日17:27:50</span>
                                     <div>yyyyyyyyyyyyyyy</div>
-                                </div>
+                                </div> -->
                             </li>
-                            <!-- 分页 --> 
-                            <div class="PageCode">
-                                <span id="div1">
-                                    <a href="#3">上一页</a>
+                            
+                        </ul>
+                        <!-- 分页 --> 
+                        <div class="PageCode">
+                                <span class="messagePage">
+                                    <!-- <a href="#3">上一页</a>
                                     <a href="#2">2</a>
                                     <a href="#3">3</a>
                                     <a href="#4" style="color:blue;">4</a>
                                     <a href="#5">5</a>
                                     <a href="#6">6</a>
-                                    <a href="#5">下一页</a>
+                                    <a href="#5">下一页</a> -->
                                 </span>
                                 <input type="text" class="inputNum"/> / 
                                 <span class="allNum"></span>
                                 <span class="btn-fenye">确定</span>
-                            </div>
-                        </ul>
+                          </div>    
                         <div class="holder"></div>
                     </div>
                 </div>
