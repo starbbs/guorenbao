@@ -919,10 +919,10 @@ progress{
     padding-right: 15px;
 }
 .imgOne{
-    position: relative;
-    left:50%;
-    margin:0px 0px 0px -960px;
+    width:100%;
+    height: 440px;
     cursor: pointer;
+    background: url('../images/index_index_banner.png') no-repeat center center;
 }
 
 .no-record-picture1,.no-record-picture2,.no-record-picture3{

@@ -298,11 +298,14 @@ table {
 
 .feature {
     width: 138px;
-    color: #777777;
-    font-size: 1.6rem;
+    /*color: #777777;*/
+    /*font-size: 1.6rem;*/
+    font-size: 16px;
+    -webkit-text-size-adjust: none;
     cursor: pointer;
     text-decoration: none;
     text-align: right;
+    font-weight: normal;
 }
 
 .index_on {
