@@ -12,63 +12,167 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
         $('.withdraw_deposit').show();
     });
 
-    //果仁(提现)转出记录_
-    api_mkt.transferOutHistory({
-        'pageNo': 1,
-        'pageSize': 10
-    }, function(data) {
-        if (data.status == 200) {
-            var html = [];
-            var num = data.data.list.length < 10?data.data.list.length:10;
-            for(var i=0; i<num;i++){
-                html.push("<tr>");
-                html.push("<td>" + data.data.list[i].createDate + "</td>");
-                html.push("<td>" + data.data.list[i].wallet + "</td>");
-                html.push("<td>" + decimal.getTwoPs(data.data.list[i].number) + "</td>");
-                html.push("<td class='status'>" + data.data.list[i].transferGopStatus + "</td>");
-                html.push("</tr>");
-                $(".guorenOutput").html(""); //添加前清空 
-                $(".guorenOutput").append(html.join(""));
-
-                //过滤内容显示不同颜色
-                $(".status").filter(":contains('SUCCESS')").text('已到账').css("color", "#999");                
-                $(".status").filter(":contains('PROCESSING')").text('进行中').css("color", "orange");          
-                $(".status").filter(":contains('FAILURE')").text('失败').css("color", "#999");
-            
-            }
-        } else {
-            
+    $(".wrapper").on("click", ".nustInBtn", function() {
+        var pageNo=$(".nutsInInput").val();
+        transferInHistory(parseInt(pageNo),10);
+    });
+    
+    $(".wrapper").on("keyup", ".nutsInInput", function(e) {
+        var pageNo=$(this).val();
+        if(this.value.charCodeAt()<48 || this.value.charCodeAt()>57){
+			$(this).val($(this).val().replace(this.value,""));
+		}else if(e.keyCode==13){
+			transferInHistory(parseInt(pageNo),10);
         }
     });
-
-    //果仁(充值)转出记录_只查询成功记录
-    api_mkt.transferInHistory({
-        'pageNo': 1,
-        'pageSize': 10
-    }, function(data) {
-        if (data.status == 200) {
-            var html = [];
-            var num = data.data.list.length < 10?data.data.list.length:10;
-            for(var i=0; i<num;i++){
-                html.push("<tr>");
-                html.push("<td>" + data.data.list[i].createDate + "</td>");
-                html.push("<td>" + data.data.list[i].wallet + "</td>");
-                html.push("<td>" + decimal.getTwoPs(data.data.list[i].number) + "</td>");
-                html.push("<td class='status'>" + data.data.list[i].transferGopStatus + "</td>");
-                html.push("</tr>");
+    
+    /**
+     * 分页标签
+     */
+    $(".wrapper").on("click", ".nutsInPageNo", function() {
+        var pageNo=$(this).attr("data-pageno");
+        transferInHistory(parseInt(pageNo),10);
+    });
+    
+    //==============================
+    
+    $(".wrapper").on("click", ".nutsOutBtn", function() {
+        var pageNo=$(".nutsOutInput").val();
+        transferOutHistory(parseInt(pageNo),10);
+    });
+    
+    $(".wrapper").on("keyup", ".nutsOutInput", function(e) {
+        var pageNo=$(this).val();
+        if(this.value.charCodeAt()<48 || this.value.charCodeAt()>57){
+			$(this).val($(this).val().replace(this.value,""));
+		}else if(e.keyCode==13){
+			transferOutHistory(parseInt(pageNo),10);
+        }
+    });
+    
+    /**
+     * 分页标签
+     */
+    $(".wrapper").on("click", ".nutsOutPageNo", function() {
+        var pageNo=$(this).attr("data-pageno");
+        transferOutHistory(parseInt(pageNo),10);
+    });
+   
+    /**
+     * 果仁充值分页查询
+     */
+    var transferInHistory=function(pageNo,pageSize){
+        api_mkt.transferInHistory({
+            'pageNo': pageNo,
+            'pageSize': pageSize
+        }, function(data) {
+            if (data.status == 200) {
+                var html = [];
+                var num = data.data.list.length;
                 $(".guorenInput").html(""); //添加前清空 
+                for(var i=0; i<num;i++){
+                    html.push("<tr>");
+                    html.push("<td>" + data.data.list[i].createDate + "</td>");
+                    html.push("<td>" + data.data.list[i].wallet + "</td>");
+                    html.push("<td>" + decimal.getTwoPs(data.data.list[i].number) + "</td>");
+                    html.push("<td class='status'>" + data.data.list[i].transferGopStatus + "</td>");
+                    html.push("</tr>");     
+                }
                 $(".guorenInput").append(html.join(""));
 
                 //过滤内容显示不同颜色
                 $(".status").filter(":contains('SUCCESS')").text('已到账').css("color", "#999");                
                 $(".status").filter(":contains('PROCESSING')").text('进行中').css("color", "orange");
 
+                var htmlPage = [];
+                var pageNum=data.data.pageNum;
+	            $(".nutsInPage").html(""); 
+	            var start=pageNo>3?(pageNo-3):1;
+	            var end=(pageNum-start)>=6?(start+6):pageNum;
+	            if(end==pageNum){
+	            	start=(pageNum-6)>1?(pageNum-6):1;
+	            }
+	            for(var i=start;i<=end;i++){
+	            	if(i==start && pageNo!=start){
+	            		htmlPage.push('<a class="nutsInPageNo" href="javascript:void(0);" data-pageno="'+i+'">上一页</a>');  
+	            	}else if(i==end && pageNo!=end){
+	            		htmlPage.push('<a class="nutsInPageNo" href="javascript:void(0);" data-pageno="'+i+'">下一页</a>');  
+	            	}else if(i==pageNo){
+	            		htmlPage.push('<a class="nutsInPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
+	            	}else{
+	            		htmlPage.push('<a class="nutsInPageNo" href="javascript:void(0);" data-pageno="'+i+'">'+i+'</a>');  
+	            	}
+	            }
+	            $(".nutsInPage").html(htmlPage.join(""));
+	            $(window).scrollTop(0);
+	            if(pageNum>0){
+	            	$(".nutsIn").show();
+   	            }else{
+   	            	$(".nutsIn").hide();
+   	            }
             }
-        } else {
+        });
+    }
+    
+    /**
+     * 果仁提现分页查询
+     */
+    var transferOutHistory=function(pageNo,pageSize){
+        api_mkt.transferOutHistory({
+            'pageNo': pageNo,
+            'pageSize': pageSize
+        }, function(data) {
+            if (data.status == 200) {
+                var html = [];
+                var num = data.data.list.length;
+                $(".guorenOutput").html(""); //添加前清空 
+                for(var i=0; i<num;i++){
+                    html.push("<tr>");
+                    html.push("<td>" + data.data.list[i].createDate + "</td>");
+                    html.push("<td>" + data.data.list[i].wallet + "</td>");
+                    html.push("<td>" + decimal.getTwoPs(data.data.list[i].number) + "</td>");
+                    html.push("<td class='status'>" + data.data.list[i].transferGopStatus + "</td>");
+                    html.push("</tr>");               
+                }
+                $(".guorenOutput").append(html.join(""));
+                //过滤内容显示不同颜色
+                $(".status").filter(":contains('SUCCESS')").text('已到账').css("color", "#999");                
+                $(".status").filter(":contains('PROCESSING')").text('进行中').css("color", "orange");          
+                $(".status").filter(":contains('FAILURE')").text('失败').css("color", "#999");
             
-        }
-    });
-
+                var htmlPage = [];
+                var pageNum=data.data.pageNum;
+	            $(".nutsOutPage").html(""); 
+	            var start=pageNo>3?(pageNo-3):1;
+	            var end=(pageNum-start)>=6?(start+6):pageNum;
+	            if(end==pageNum){
+	            	start=(pageNum-6)>1?(pageNum-6):1;
+	            }
+	            for(var i=start;i<=end;i++){
+	            	if(i==start && pageNo!=start){
+	            		htmlPage.push('<a class="nutsOutPageNo" href="javascript:void(0);" data-pageno="'+i+'">上一页</a>');  
+	            	}else if(i==end && pageNo!=end){
+	            		htmlPage.push('<a class="nutsOutPageNo" href="javascript:void(0);" data-pageno="'+i+'">下一页</a>');  
+	            	}else if(i==pageNo){
+	            		htmlPage.push('<a class="nutsOutPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
+	            	}else{
+	            		htmlPage.push('<a class="nutsOutPageNo" href="javascript:void(0);" data-pageno="'+i+'">'+i+'</a>');  
+	            	}
+	            }
+	            $(".nutsOutPage").html(htmlPage.join(""));
+	            $(window).scrollTop(0);
+	            if(pageNum>0){
+	            	$(".nutsOut").show();
+   	            }else{
+   	            	$(".nutsOut").hide();
+   	            }
+            }
+        });
+    }
+    
+    transferOutHistory(1,10);
+    transferInHistory(1,10);
+    
     //接受跳转参数
     $(function(){
         function getQueryString(name) {
