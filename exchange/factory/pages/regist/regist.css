@@ -422,6 +422,7 @@ body{background:#000000;}
     right: 250px;
     background: #fff;
     top:280px;
+    cursor: pointer;
 }
 
 .next_step_sure {
