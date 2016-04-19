@@ -391,9 +391,6 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         if($('.nutOutputManager').length % 2 == 0){
                             Node1.addClass('nutOutputManager-even');
                         }
-                        for(var i=0, length=$('.nutOutputManager').length;i<length;i++){
-                            $('.nutOutputManager-del').addClass('i++');
-                        }
                         //再次添加果仁地址
                         $('.nutOutputManager-add').click(function(){
                             $('.nut-one').show();
