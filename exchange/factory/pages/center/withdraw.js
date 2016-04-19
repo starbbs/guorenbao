@@ -24,7 +24,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         //果仁提现地址管理(如果有就显示)            
         api_mkt.gopAddressMan({          
             'pageNo':1,
-            'pageSize':10
+            'pageSize':200
         }, function(data) {
             if (data.status == 200) {
                 //果仁市场添加
