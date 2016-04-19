@@ -18,8 +18,13 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
     });
     
     $(".wrapper").on("keyup", ".nutsInInput", function(e) {
-        var pageNo=$(this).val();
-        if(this.value.charCodeAt()<48 || this.value.charCodeAt()>57){
+    	var pageNo=$(this).val();
+        var pageNum=$(this).attr("data-pagenum");
+        if(pageNo>pageNum){
+        	$(this).val(pageNum);
+        }else if(pageNo==0){
+        	$(this).val(1);
+        }else if(this.value.charCodeAt()<48 || this.value.charCodeAt()>57){
 			$(this).val($(this).val().replace(this.value,""));
 		}else if(e.keyCode==13){
 			transferInHistory(parseInt(pageNo),10);
@@ -42,8 +47,13 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
     });
     
     $(".wrapper").on("keyup", ".nutsOutInput", function(e) {
-        var pageNo=$(this).val();
-        if(this.value.charCodeAt()<48 || this.value.charCodeAt()>57){
+    	var pageNo=$(this).val();
+        var pageNum=$(this).attr("data-pagenum");
+        if(pageNo>pageNum){
+        	$(this).val(pageNum);
+        }else if(pageNo==0){
+        	$(this).val(1);
+        }else if(this.value.charCodeAt()<48 || this.value.charCodeAt()>57){
 			$(this).val($(this).val().replace(this.value,""));
 		}else if(e.keyCode==13){
 			transferOutHistory(parseInt(pageNo),10);
@@ -86,6 +96,7 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
 
                 var htmlPage = [];
                 var pageNum=data.data.pageNum;
+                $(".nutsInInput").attr("data-pagenum",pageNum);
 	            $(".nutsInPage").html(""); 
 	            var start=pageNo>3?(pageNo-3):1;
 	            var end=(pageNum-start)>=6?(start+6):pageNum;
@@ -93,9 +104,9 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
 	            	start=(pageNum-6)>1?(pageNum-6):1;
 	            }
 	            for(var i=start;i<=end;i++){
-	            	if(i==start && pageNo!=start){
+	            	if(i==start && pageNo!=start && i!=1){
 	            		htmlPage.push('<a class="nutsInPageNo" href="javascript:void(0);" data-pageno="'+i+'">上一页</a>');  
-	            	}else if(i==end && pageNo!=end){
+	            	}else if(i==end && pageNo!=end && i!=pageNum){
 	            		htmlPage.push('<a class="nutsInPageNo" href="javascript:void(0);" data-pageno="'+i+'">下一页</a>');  
 	            	}else if(i==pageNo){
 	            		htmlPage.push('<a class="nutsInPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
@@ -143,15 +154,16 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
                 var htmlPage = [];
                 var pageNum=data.data.pageNum;
 	            $(".nutsOutPage").html(""); 
+	            $(".nutsOutInput").attr("data-pagenum",pageNum);
 	            var start=pageNo>3?(pageNo-3):1;
 	            var end=(pageNum-start)>=6?(start+6):pageNum;
 	            if(end==pageNum){
 	            	start=(pageNum-6)>1?(pageNum-6):1;
 	            }
 	            for(var i=start;i<=end;i++){
-	            	if(i==start && pageNo!=start){
+	            	if(i==start && pageNo!=start && i!=1){
 	            		htmlPage.push('<a class="nutsOutPageNo" href="javascript:void(0);" data-pageno="'+i+'">上一页</a>');  
-	            	}else if(i==end && pageNo!=end){
+	            	}else if(i==end && pageNo!=end && i!=pageNum){
 	            		htmlPage.push('<a class="nutsOutPageNo" href="javascript:void(0);" data-pageno="'+i+'">下一页</a>');  
 	            	}else if(i==pageNo){
 	            		htmlPage.push('<a class="nutsOutPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
