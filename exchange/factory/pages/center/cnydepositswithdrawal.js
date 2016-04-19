@@ -296,7 +296,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                             if(3-num > 0 ){
                                 $('.msg-WithdrawalsPayPwd').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
                             }else{                                
-                                $('.msg-WithdrawalsPayPwd').show().html("提示为保证资金安全，您的支付密码已被锁定，请<a href='resetpaymentcode.html' class='moreCheck'>找回支付密码</a>");
+                                $('.msg-WithdrawalsPayPwd').show().html("为保证资金安全，您的支付密码已被锁定，请<a href='resetpaymentcode.html' class='moreCheck'>找回支付密码</a>");
                             }
                         }else if(data.msg.indexOf('锁定')>0){
                             $('.msg-VerificationCode').show().text(data.msg);
