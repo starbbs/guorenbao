@@ -1,6 +1,6 @@
 require(['api_mkt', 'cookie'], function(api_mkt) {
 	var category="ALL";//消息类型
-	var pageSize=1;//分页数量
+	var pageSize=10;//分页数量
 	var pageNum=0;
 	$(".wrapper").on("click", ".btn-fenye", function() {
         var pageNo=$(".inputNum").val();
@@ -66,7 +66,8 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                     }
                     $("#itemContainer").html(messagehtml);
                     var htmlPage = [];
-                    pageNum=data.data.pageNum;    	            
+                    pageNum=data.data.pageNum; 
+                    $(".allNum").html(pageNum);
     	            var start=pageNo>3?(pageNo-3):1;
     	            var end=(pageNum-start)>=6?(start+6):pageNum;
     	            if(end==pageNum){
@@ -93,6 +94,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                 } else {
                     $(".right_reg_side_content").css("border-bottom","none");
                     $(".holder").hide();
+                    $(".PageCode").hide();
                 }
                 
             }

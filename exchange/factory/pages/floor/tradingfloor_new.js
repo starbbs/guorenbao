@@ -158,6 +158,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 var pageNum=data.data.pageNum;
 	            $(".currentPage").html(""); 
 	            $(".inputCurrentNum").attr("data-pagenum",pageNum);
+	            $(".currentAllNum").html(pageNum);
 	            var start=pageNo>3?(pageNo-3):1;
 	            var end=(pageNum-start)>=6?(start+6):pageNum;
 	            if(end==pageNum){
@@ -176,13 +177,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
 	            }
 	            $(".currentPage").html(htmlPage.join(""));
 	            $(window).scrollTop(0);
-	            if(pageNum>0){
-	            	$(".current").show();
-	            }else{
-	            	$(".current").hide();
-	            }
+	            $(".current").show();
             }else{
                 //console.log(data);
+            	$(".current").hide();
             }
         });   
     }
@@ -236,6 +234,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                  var pageNum=data.data.pageNum;
  	            $(".historyPage").html(""); 
  	            $(".inputHistroyNum").attr("data-pagenum",pageNum);
+ 	            $(".historyAllNum").html(pageNum);
  	            var start=pageNo>3?(pageNo-3):1;
  	            var end=(pageNum-start)>=6?(start+6):pageNum;
  	            if(end==pageNum){
@@ -254,14 +253,12 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
  	            }
  	            $(".historyPage").html(htmlPage.join(""));
  	            $(window).scrollTop(0);
- 	           if(pageNum>0){
-	            	$(".history").show();
-	            }else{
-	            	$(".history").hide();
-	            }
+ 	           $(".history").show();
              }else{
                  //console.log(data);
+            	 $(".history").hide();
              }
+             
          });
     }
      

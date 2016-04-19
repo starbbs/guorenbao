@@ -124,6 +124,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                         var pageNum=data.data.pageNum;
         	            $(".cnydepostisPage").html(""); 
         	            $(".cnydepostisInput").attr("data-pagenum",pageNum);
+        	            $(".cnydepostisAllNum").html(pageNum);
         	            var start=pageNo>3?(pageNo-3):1;
         	            var end=(pageNum-start)>=6?(start+6):pageNum;
         	            if(end==pageNum){
@@ -150,6 +151,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
         	            
                     }else{
                         //console.log('财务中心-人民币充值历史表格，加载失败。');
+                    	$(".cnydepostis").hide();
                     }
                 });
         }
@@ -185,6 +187,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                     var pageNum=data.data.pageNum;
     	            $(".cnywithdrawPage").html(""); 
     	            $(".cnywithdrawInput").attr("data-pagenum",pageNum);
+    	            $(".cnywithdrawAllNum").html(pageNum);
     	            var start=pageNo>3?(pageNo-3):1;
     	            var end=(pageNum-start)>=6?(start+6):pageNum;
     	            if(end==pageNum){
@@ -210,6 +213,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
 	   	            }
                 }else{
                    // console.log('财务中心-人民币提现历史表格，加载失败。');
+                	$(".cnywithdraw").hide();
                 }
             });
         }
