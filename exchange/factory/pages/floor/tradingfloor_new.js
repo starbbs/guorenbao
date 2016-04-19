@@ -136,16 +136,21 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                         html.push("<td class='price'>市价</td>");
                     	if(data.data.list[i].tradeGopType=='SELL'){
                             html.push("<td class='numTotal'>"+ decimal.getTwoPs(data.data.list[i].numTotal) +"</td>");
+                            html.push("<td>"+ decimal.getTwoPs(data.data.list[i].tradedGop) + "</td>");
+                            html.push("<td>"+ decimal.getTwoPs(data.data.list[i].numOver) +"</td>");
                     	}else{
                             html.push("<td class='numTotal'>"+ decimal.getTwoPs(data.data.list[i].market) +"</td>");
+                            html.push("<td>"+ decimal.getTwoPs(data.data.list[i].totalTraded) + "</td>");
+                            html.push("<td>"+ decimal.getTwoPs(data.data.list[i].marketOver) +"</td>");
                     	}
                     }else{
                     	//限价
                         html.push("<td class='price'>"+ decimal.getTwoPs(data.data.list[i].price) +"</td>");
                         html.push("<td class='numTotal'>"+ decimal.getTwoPs(data.data.list[i].numTotal) +"</td>");
+                        html.push("<td>"+ decimal.getTwoPs(data.data.list[i].tradedGop) + "</td>");
+                        html.push("<td>"+ decimal.getTwoPs(data.data.list[i].numOver) +"</td>");
                     }
-                    html.push("<td>"+ decimal.getTwoPs(data.data.list[i].tradedGop) + "</td>");
-                    html.push("<td>"+ decimal.getTwoPs(data.data.list[i].numOver) +"</td>");
+
                     html.push("<td><p class='saDan'>撤单</p></td>");
                     html.push("</tr>");                  
                 } 
