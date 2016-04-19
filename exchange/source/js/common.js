@@ -21,6 +21,26 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
     $('.bg').css('left', 0);
     $('.bg').css('top', 0);
 
+    
+
+    api_mkt.realAuth(function(data){
+        if(data.status=="200"){
+            
+            $(".quoted_price_top").css("margin-top","14px");
+            $(".center_content").css("margin-top","14px");
+        } else if(data.status=="400") {
+            if(data.msg=="用户未实名认证"){
+                if (location.href.indexOf("/index.html") === -1) {
+                    $(".popuptips").slideDown();
+                } else {
+                }
+                $(".quoted_price_top").css("margin-top","0px");
+                $(".center_content").css("margin-top","0px");
+            }
+        } else {
+
+        }
+    });
 
     /**
      * 支付密码锁定校验

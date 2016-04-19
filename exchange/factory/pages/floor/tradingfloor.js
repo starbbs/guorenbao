@@ -119,9 +119,32 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             on_page_load = true;
         }
     }
-    api_mkt.homepage_tradingfloor_kline(function(data) {
-        klineapply(data);
-    });
+    var gettradefloorkline = function() {
+        api_mkt.homepage_tradingfloor_kline(function(data) {
+            klineapply(data);
+        });
+    }
+    gettradefloorkline();
+    window.setInterval(gettradefloorkline, 300000); //轮询首页的k线图
+
+
+    // var arealineapply = function(data){
+    //     api_mkt.homepagekline(function(data) {
+    //         klineapply(data);
+    //     });
+    // }
+    // 
+    var obj1;
+    var obj2;
+    var gettradefloorarealine = function() {
+        api_mkt.depthchart(function(data) {
+            obj1 = data[0].sort(function(t,a){return t[0]>a[0]?1:t[0]<a[0]?-1:0});
+            obj2 = data[1];
+            depthchart_painting(obj1,obj2);
+        });
+    }
+    gettradefloorarealine();
+    window.setInterval(gettradefloorarealine, 3000); //轮询首页的深度图
     var highcharts_Rendering = function(whichday, groupingUnits) {
         Highcharts.theme = {
             colors: ["#ee6259", "#bee8d0", "#ED561B", "#DDDF00", "#24CBE5", "#64E572", "#FF9655", "#FFF263", "#6AF9C4"],
@@ -226,9 +249,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             ]
         });
     }
-    api_mkt.depthchart(function(data){
-        var obj1 = data[0].sort(function(t,a){return t[0]>a[0]?1:t[0]<a[0]?-1:0});
-        var obj2 = data[1];
+    var depthchart_painting = function(ojb1,obj2){
         $('#deepmap_container').highcharts({
             chart: {
                 type: 'area'
@@ -237,7 +258,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 text: ''//果仁市场深度图
             },
             xAxis: {
-                allowDecimals: false,
+                allowDecimals: true,
                 title:{text:'价格'},
                 labels: {
                     formatter: function() {
@@ -258,8 +279,13 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             },
             tooltip: {
                 //pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
-                pointFormat: "¥"+"{point.x} <br />{series.name}:{point.y}"
+                // valuePrefix: '￥dsd',
+                // valueSuffix: '元',
+                useHTML: true,
+                borderWidth: 1,
+                pointFormat: "委托价:¥{point.x}</br>{series.name}<img src='./images/floor_g_deal_logo.png' style='position:relative;top:2px;'></img>:{point.y}"
             },
+            exporting: { enabled: false, buttons: { exportButton: { enabled: false }, printButton: { enabled: true } } },
             plotOptions: {
                 area: {
                     pointStart: 0,
@@ -277,13 +303,19 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             },
             series: [{
                 name: '累计买单',
+                color:'red',
                 data: obj1
             }, {
                 name: '累计卖单',
+                color:'green',
                 data: obj2
             }]
         });
-    });
+    }
+    // api_mkt.depthchart(function(data){
+    //     var obj1 = data[0].sort(function(t,a){return t[0]>a[0]?1:t[0]<a[0]?-1:0});
+    //     var obj2 = data[1];
+    // });
     $(".leftchart").on("click",function(){
         //分时图
         $(".timeshareblock").show();

@@ -73,15 +73,32 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 if (global_loginusername && global_loginusername != "") {
                     $("#whether_auth").html(global_loginusername);
                     $(".bottom_em_i")[0].style.background = "url(./images/index_already_authentication.png)";
-
+                    // console.log("已认证");
+                    $(".recharge").on("click", function() {
+                            location.href = "./cnydepositswithdrawal.html";
+                        });
+                        $(".withdraw").on("click", function() {
+                            location.href = "./cnydepositswithdrawal.html?formindex='index'";
+                        });
                 } else {
                     $("#whether_auth").html("未认证");
                     $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
+                    // console.log("未认证");
+                    
                 }
+
             } else if (data.status == 305) {} else if (data.status == 400) {
                 whether_auth = false;
                 $("#whether_auth").html("未认证");
+                // console.log("未认证");
                 $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
+                $(".recharge").on("click", function() {
+                            location.href = "./conditionofassets.html";
+                        });
+                        $(".withdraw").on("click", function() {
+                            location.href = "./conditionofassets.html";
+                        });
+
             } else {}
         });
 
@@ -98,11 +115,14 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 if (data.data.list.name != "") {
                     $("#logined_username").html(data.data.list.name);
                 } else {
+                    console.log("supin")
                     $("#logined_username").html(global_loginuserphone.substr(0, 3) + '****' + global_loginuserphone.substr(7, 4));
                 }
             } else if (data.status == 305) {} else if (data.status == 400) {
                 $("#logined_username").html(global_loginuserphone.substr(0, 3) + '****' + global_loginuserphone.substr(7, 4));
-            } else {}
+            } else {
+
+            }
         });
 
         /*if(global_loginusername!=""&&global_loginusername){
@@ -484,6 +504,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     });
                     api_mkt.realAuth({}, function(data) {
                         if (data.status == 200) {
+                            console.log("xxx")
                             if (data.data.list.name != "") {
                                 $("#logined_username").html(data.data.list.name);
                             } else {
@@ -494,9 +515,23 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                         } else {}
                     });
                     if (global_loginusername) {
+                        $(".recharge").on("click", function() {
+                            location.href = "./cnydepositswithdrawal.html";
+                        });
+                        $(".withdraw").on("click", function() {
+                            location.href = "./cnydepositswithdrawal.html?formindex='index'";
+                        });
                         $("#whether_auth").html(global_loginusername);
                         $(".bottom_em_i")[0].style.background = "url(./images/index_already_authentication.png)";
                     } else {
+
+                        $(".recharge").on("click", function() {
+                            location.href = "./conditionofassets.html";
+                        });
+                        $(".withdraw").on("click", function() {
+                            location.href = "./conditionofassets.html";
+                        });
+                        // console.log("haha")
                         $("#whether_auth").html("未认证");
                         $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
                     }
@@ -542,12 +577,12 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         //     $(".index_bottom_btna").css("top", "216px");
         // }
     });
-    $(".recharge").on("click", function() {
-        location.href = "./cnydepositswithdrawal.html";
-    });
-    $(".withdraw").on("click", function() {
-        location.href = "./cnydepositswithdrawal.html?formindex='index'";
-    });
+    // $(".recharge").on("click", function() {
+    //     location.href = "./cnydepositswithdrawal.html";
+    // });
+    // $(".withdraw").on("click", function() {
+    //     location.href = "./cnydepositswithdrawal.html?formindex='index'";
+    // });
     $(".imgOne").on("click",function(){
         location.href = "./footer.html";
     });
