@@ -119,9 +119,9 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 			if(list_sell.length<=5){
 				$("#wbr_m_best_buy").html(list_sell[0][0]);  //最佳卖价
 				// console.log(list_sell);
-				for(var i=list_sell.length-1;i>0;i--){
+				for(var i=list_sell.length-1;i>=0;i--){
 		            list_sell_html += "<div class='table_row'>"
-		            +"<div class='table_con saleprice'>卖"+(i)+"</div>"
+		            +"<div class='table_con saleprice'>卖"+(i+1)+"</div>"
 		            +"<div class='table_con'>¥"+list_sell[i][0].toFixed(2)+"</div>"
 		            +"<div class='table_con'>"+list_sell[i][1].toFixed(2)+"</div>"
 		            +"<div class='table_con'>¥"+(list_sell[i][0]*list_sell[i][1]).toFixed(2)+"</div></div>";

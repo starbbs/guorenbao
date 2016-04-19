@@ -396,6 +396,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     };
     var login_area_times = 0;
     $(".indexpage_loginarea_btn").on("click", function() {
+        $(".loc_img").click();
         var phone = $(".phone_loginarea").val();
         var password = $(".password_loginarea").val();
         var flag = verify(phone, "tel");
@@ -516,6 +517,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                         }
                     } else if (data.msg == "error" && data.data.msg == "登录密码错误") {
                         $(".error_tips").show().html("用户名或密码错误，请重新登录");
+                    } else if (data.msg=="密码长度错误"){
+                        $(".error_tips").show().html("用户名或密码错误，请重新登录");
                     } else {
                         $(".autocode_tips").show().html(data.msg);
                     }
@@ -539,7 +542,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         location.href = "./cnydepositswithdrawal.html";
     });
     $(".withdraw").on("click", function() {
-        location.href = "./cnydepositswithdrawal.html?formindex='index'";
+        location.href = "./nutstopupwithdrawal.html?formindex='index'";
     });
     var fflat = true;
     $(".eye_i").on("click", function() {
