@@ -416,8 +416,9 @@ body{background:#000000;}
 .SkipThreeStep{
     color:#0bbeee;
     position: absolute;
-    rigth: 320px;
+    right: 250px;
     background: #fff;
+    top:310px;
 }
 
 .next_step_sure {
@@ -601,9 +602,9 @@ legend {
 }
 .nut-text{
     position: absolute;
-    right:130px;
+    right:50px;
     bottom:28px;
-    width:560px;
+    width:520px;
     line-height: 23px;
     padding:10px;
     text-align: left;

@@ -206,8 +206,9 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
         			$('.msg-gopWithdrawalsCode').show().text(data.msg);
         			window.location.reload();
             		$(window).scrollTop(0);
-        		}else{
-                    //$('.msg-gopWithdrawalsCode').text(data.msg);
+        		}else if(data.msg == '账户果仁不足'){
+                    $('.msg-gopWithdrawalsNumber').text('您的账户果仁不足');
+                }else{
                     showWarnWin(data.msg,1e3);
                 }
             });
