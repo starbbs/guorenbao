@@ -108,7 +108,8 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                     //过滤内容显示不同颜色
                     $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");
                     $(".status").filter(":contains('PROCESSING')").text('进行中').css("color","orange");
-                    $(".status").filter(":contains('SUCCESS')").text('提现成功').css("color","#ccc");                    
+                    $(".status").filter(":contains('SUCCESS')").text('提现成功').css("color","#ccc");  
+                    $(".status").filter(":contains('CANCEL')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('已关闭');                  
                 }
             }else{
                // console.log('财务中心-人民币提现历史表格，加载失败。');

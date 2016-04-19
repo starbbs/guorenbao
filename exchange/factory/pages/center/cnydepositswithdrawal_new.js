@@ -168,7 +168,8 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                     $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");
                     $(".status").filter(":contains('PROCESSING')").text('进行中').css("color","orange");
                     $(".status").filter(":contains('SUCCESS')").text('提现成功').css("color","#ccc");  
-                    
+                    $(".status").filter(":contains('CANCEL')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('已关闭');                  
+
                     var htmlPage = [];
                     var pageNum=data.data.pageNum;
     	            $(".cnywithdrawPage").html(""); 
