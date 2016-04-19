@@ -351,7 +351,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         });
         //获取验证码-人民币提现管理
         $('#nut-identifyingCodeBtn').click(function(){
-            if(btnNut4 == false){
+            if(btnNut3 == false){
                 showWarnWin('请完善填写信息！',1e3);
             }
             else{

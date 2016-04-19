@@ -163,6 +163,7 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
     });
     //转出
     $('.gopWithdrawalsBtn').click(function() {
+        
     	if(global.payLocked){
     		window.location.reload();
     		$(window).scrollTop(0);
@@ -208,13 +209,20 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
             		$(window).scrollTop(0);
         		}else if(data.msg == '账户果仁不足'){
                     $('.msg-gopWithdrawalsNumber').text('您的账户果仁不足');
+                }else if(data.msg == '转出成功'){
+                    $('.mydiv').show();
+                    $('.bg').show();
                 }else{
                     showWarnWin(data.msg,1e3);
                 }
             });
         }
     });
-
+    //关闭转出成功弹出层
+    $('.mydiv_4').click(function(){
+        $('.mydiv').hide();
+        $('.bg').hide();
+    });
     //果仁(充值)转出记录_只查询成功记录
     api_mkt.transferInHistory({
         'pageNo': 1,
