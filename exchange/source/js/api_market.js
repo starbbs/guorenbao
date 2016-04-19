@@ -1,9 +1,8 @@
 define('api_mkt', ['cookie'], function() {
     //var basePath = 'http://localhost/';
     //var basePath = 'http://localhost:8089/';
-	var basePath = 'http://10.23.0.123/';
-    //var basePath = './';
-    //var basePath = 'http://localhost:8089/';
+	//var basePath = 'http://10.23.0.123/';
+    var basePath = './';
     var api = {};
     api.basePath2 = 'http://116.213.142.89:8080/common/checkBankCard';
     var goIndex = function(useURL) { //返回首页
@@ -90,6 +89,7 @@ define('api_mkt', ['cookie'], function() {
                             goIndex(true);
                         }
                         if(data.msg=="用户未实名认证"){
+                        	$(".popuptips").attr("data-authed","false");
                             var loginfromwhichpage = $.cookie("loginfromwhichpage");
                             $(".quoted_price_top").css("margin-top","0px");
                             $(".center_content").css("margin-top","0px");

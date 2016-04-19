@@ -121,6 +121,8 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
    	            }else{
    	            	$(".nutsIn").hide();
    	            }
+            }else{
+            	$(".nutsIn").hide();
             }
         });
     }
@@ -178,6 +180,8 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
    	            }else{
    	            	$(".nutsOut").hide();
    	            }
+            }else{
+            	$(".nutsOut").hide();
             }
         });
     }

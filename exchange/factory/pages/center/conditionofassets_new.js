@@ -65,6 +65,7 @@ require(['api_mkt', 'mkt_info','decimal', 'cookie'], function(api_mkt, mkt_info,
                 var pageNum=data.data.pageNum;
 	            $(".billPage").html(""); 
 	            $(".inputNum").attr("data-pagenum",pageNum);
+	            $(".allNum").html(pageNum);
 	            var start=pageNo>3?(pageNo-3):1;
 	            var end=(pageNum-start)>=6?(start+6):pageNum;
 	            if(end==pageNum){
@@ -90,6 +91,7 @@ require(['api_mkt', 'mkt_info','decimal', 'cookie'], function(api_mkt, mkt_info,
    	            }
 	        } else {
 	            //console.log('财务中心-资产状况-账户明细表格，加载失败。');
+	        	$(".bill").hide();
 	        }
 	    }); 
 	};
