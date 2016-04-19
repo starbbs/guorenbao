@@ -107,7 +107,12 @@
                     "</div>";
             }
         }
-        $("#table_three").html(bid_history_list_html);
+        if(bid_history_list_html==""){
+            $(".no-record-picture3").show();
+        } else {
+            $(".no-record-picture3").hide();
+            $("#table_three").html(bid_history_list_html);
+        }
     }
     var get = price.get = function() {
         once(function(next) {

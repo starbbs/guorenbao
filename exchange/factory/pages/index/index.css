@@ -312,6 +312,7 @@ progress::-webkit-progress-value {
     overflow-y: scroll;
     width: 100%;
     max-height: 1100px;
+    height:1100px;
 }
 .scrollY{
     overflow-y: scroll;
@@ -922,4 +923,16 @@ progress{
     left:50%;
     margin:0px 0px 0px -960px;
     cursor: pointer;
+}
+
+.no-record-picture1,.no-record-picture2,.no-record-picture3{
+    background: url('../images/index_no-record.png') no-repeat center left;
+    width: 100px;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    margin-left: 150px;
+    display:none;
 }

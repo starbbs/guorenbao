@@ -51,8 +51,23 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
         }
         $('#buyonece_price').html(buyaprice?buyaprice.toFixed(2):"");        //最高卖价
 		$('#sellonece_price').html(sellaprice?sellaprice.toFixed(2):"");      //最低卖价
-        $("#table_one").html(buy_list_html);         //买入委托
-        $("#table_two").html(sell_list_html);		 //卖出委托
+
+
+        if(buy_list_html==""){
+            $(".no-record-picture1").show();
+        } else {
+            $(".no-record-picture1").hide();
+            $("#table_one").html(buy_list_html);
+        }
+
+        if(sell_list_html==""){
+            $(".no-record-picture2").show();
+        } else {
+            $(".no-record-picture2").hide();
+            $("#table_two").html(sell_list_html);
+        }
+        //$("#table_one").html(buy_list_html);         //买入委托
+        // $("#table_two").html(sell_list_html);		 //卖出委托
 	}
 	//交易大厅轮询更新价格
 	var updatebuy_sell_floor = function(haha){
