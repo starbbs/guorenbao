@@ -47,7 +47,9 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			    	var num = $('#realAuthId').val();
                 	var numId = num.replace(num.slice(1,17),'****************');
 			    	$('#identificode_value').text(numId);
-		        	$(".msg-realAuthId").hide().text("");  
+		        	$(".msg-realAuthId").hide().text("");
+		        	$(".quoted_price_top").css("margin-top","14px");
+                    $(".center_content").css("margin-top","14px");
 		        }else{
 		        	$(".msg-realAuthId").show().text(data.msg);
 		        }
