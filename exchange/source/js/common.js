@@ -34,8 +34,11 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
             } else {
                 global.payLocked = true;
                 console.log(data);
+                $(".quoted_price_top").css("margin-top","0px");
+                $(".center_content").css("margin-top","0px");
                 $(".popuptips").html("为保证资金安全，您的支付密码已被锁定，请找回支付密码");
                 $(".popuptips").slideDown();
+
             }
         });
     }
@@ -205,7 +208,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
 
     //右上角登录按钮点击之后出发的事件
     $(".popup_login_btn").on("click", function() {
-        $(".loc_img_topbar").click();
+        
         popup_login_times++;
         var phone = $(".phone").val();
         var password = $(".password").val();
@@ -238,6 +241,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                 password: password,
                 code: authcode_common
             }, function(data) {
+                $(".loc_img_topbar").click();
                 if (data.status == 200) {
                     //$.cookie('exchangeToken', 'logined',{"expires":"h0.5"},"guorenmarket");
                     $.cookie('exchangeToken', 'logined');

@@ -91,6 +91,8 @@ define('api_mkt', ['cookie'], function() {
                         }
                         if(data.msg=="用户未实名认证"){
                             var loginfromwhichpage = $.cookie("loginfromwhichpage");
+                            $(".quoted_price_top").css("margin-top","0px");
+                            $(".center_content").css("margin-top","0px");
                             if(loginfromwhichpage=="one"){
                                 $(".popuptips").slideUp();
                             } else if(loginfromwhichpage=="two"){

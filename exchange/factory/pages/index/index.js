@@ -400,7 +400,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     };
     var login_area_times = 0;
     $(".indexpage_loginarea_btn").on("click", function() {
-        $(".loc_img").click();
+        
         var phone = $(".phone_loginarea").val();
         var password = $(".password_loginarea").val();
         var flag = verify(phone, "tel");
@@ -430,6 +430,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 password: password,
                 code: authcode_index
             }, function(data) {
+                $(".loc_img").click();
                 if (data.status == 200) {
                     $.cookie("loginfromwhichpage", "");
                     // $.cookie('exchangeToken', 'logined',{"expires":"h0.5"},"guorenmarket");
@@ -528,7 +529,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     }
                 } else {
                     login_area_times++;
-                    alert("asfasffads"); //
                     $(".error_tips_index").show().html(data.msg);
                 }
             });
@@ -546,7 +546,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         location.href = "./cnydepositswithdrawal.html";
     });
     $(".withdraw").on("click", function() {
-        location.href = "./nutstopupwithdrawal.html?formindex='index'";
+        location.href = "./cnydepositswithdrawal.html?formindex='index'";
+    });
+    $(".imgOne").on("click",function(){
+        location.href = "./footer.html";
     });
     var fflat = true;
     $(".eye_i").on("click", function() {
