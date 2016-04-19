@@ -107,7 +107,7 @@ section {
 }
 
 html {
-    font-family: "Microsoft Yahei, Helvetica, STHeiTi, Arial, sans-serif";
+    font-family: "Microsoft Yahei, sans-serif, Arial,Verdana,Helvetica, STHeiTi, sans-serif";
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     font-size: 62.5%;
@@ -122,7 +122,7 @@ body {
     height: 100%;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
-    font-family: "Microsoft Yahei";
+    font-family: "Microsoft Yahei, sans-serif, Arial,Verdana,Helvetica, STHeiTi, sans-serif";
 }
 
 ol,

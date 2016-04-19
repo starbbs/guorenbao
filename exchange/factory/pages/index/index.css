@@ -395,11 +395,14 @@ progress{
 
 .error_tips_index{
     top: 38px;
+    left:0px;
     display: none;
     position: absolute;
     height: 22px;
     color: #ff6600;
     line-height: 22px;
+    float:left;
+    width:320px;
 }
 
 .table_header {
@@ -542,11 +545,14 @@ progress{
 .autocode_tips{
     top: 40px;
     height: 20px;
+    left:0px;
     line-height: 20px;
     display:none;
+    float:left;
+    width: 120px;
 }
 .loc_img_popup{
-        width: 36%;
+    width: 36%;
     float: left;
     margin-left: 4%;
     padding-top: 0px;

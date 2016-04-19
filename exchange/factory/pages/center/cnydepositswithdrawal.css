@@ -733,8 +733,9 @@ a {
 }
 .checkDeal{
     cursor: pointer;
+    color:#0bbeee;
 }
-.checkDeal:hover{color:#0bbeee;
+.checkDeal:hover{color:#0088cc;
 }
 .divFixed{
     width:255px;
