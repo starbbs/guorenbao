@@ -154,7 +154,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         fifteenm = JSON.parse(data['15m']);
         thirtym = JSON.parse(data['30m']);
         sixtym = JSON.parse(data['60m']);
-        oned = JSON.parse(data['1d']);
+        if(data['1d']){
+            oned = JSON.parse(data['1d']);
+        }
+        //oned = JSON.parse(data['1d']);
+
         if (!on_page_load) {
             $(".fivteenminute").click();
             on_page_load = true;
