@@ -16,6 +16,8 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			$(this).val($(this).val().replace(this.value,""));
 		}
 	});
+
+	$(".personName").off("keyup");
 	
 	//表单校验password
 	/*$('.checkPhone, .checkpwd, .checkConfirmPwd, .payPwd, .payConfirmPwd, .personName, .personId').focus(function(){
@@ -57,9 +59,6 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			$('.msg-code').text('');
 			btnCode = true;
 		}
-	});
-	$(".checkCode").focus(function(){
-		$(this).val('');
 	});
 	//获取验证码
 	$('.checkCode-send').click(function(){
@@ -158,10 +157,11 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	            	//$('.oneStep').css({'cursor':'not-allowed','backgroundColor':'#eee'});
 	            	$('.oneStep').unbind('click');
 	            	$('.msg-code').text('');
-	            }else if(data.status == 200){
-	                $(".two").css('display','flex');
+	            }else if(data.status == 200){  
+	            	//window.location.href = "regist.html?Step=one";
+		            $(".two").css('display','flex');
 					$(".one").css('display','none'); 
-	            	$('.msg-code').text('');               
+		        	$('.msg-code').text('');            
 	            }else if(data.msg == '验证码错误'){
 	            	//alert('您输入的验证码有误，请重新输入！');
 	            	$('.msg-code').text('请输入正确的验证码');
@@ -216,9 +216,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		   		'comfirmPayPwd':$('.payConfirmPwd').val()	   
 			}, function(data) {
 				if (data.status == 200) {
-					$('.msg-payConfirmPwd').hide();
-					$(".three").css('display','flex');
-					$(".two").css('display','none');			
+					window.location.href = "regist.html?Step=two"; 			
 				}else{
 	            	$('.msg-payConfirmPwd').show().text(data.msg);
 	            }
@@ -230,7 +228,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
     var btnConfirm1 = false;
 	$(".personName").blur(function(){
 		var personName = $.trim($(".personName").val());
-		var reg=/^[\u4e00-\u9fa5]{0,}$/;
+		var reg=/[\u4e00-\u9fa5]/;//汉字
 		if(!reg.exec(personName)){
 			btnConfirm1 = false;
 			$('.msg-personName').show().text('请填写您的姓名');
@@ -264,27 +262,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 			   	'idNumber':$('.personId').val()	   
 			}, function(data) {
 				if (data.status == 200) {
-					$('.msg-personId').hide();
-					//进入注册完成页
-					$(".four").css('display','flex');
-					$(".three").css('display','none');
-					//$('.threeStep').css({'cursor':'pointer','backgroundColor':'#0bbeee'});
-					// api_mkt.login({
-			  //           phone: phone,
-			  //           password: password,
-		   //              code:authcode_common
-			  //       }, function(data) {
-			  //           if (data.status == 200) {
-			                
-			  //           } else if (data.status == 305) {
-			  //               alert(data.msg);
-			  //           } else if (data.status==400) {
-		   //                  $(".autocode_tips").show().html(data.msg);
-		   //              } else {
-			  //           	$(".error_tips").show().html(data.msg);
-			  //           }
-			  //       });
-					toIndex();
+					window.location.href = "regist.html?Step=three";					
 				}else{
 					$('.msg-personId').show().text(data.msg);
 				}
@@ -294,9 +272,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 
     //跳过实名验证
     $('.SkipThreeStep').click(function(){
-    	$(".four").css('display','flex');
-		$(".three").css('display','none');
-		toIndex();		
+    	window.location.href = "regist.html?Step=three";		
     })
     function toIndex(){
 			var count = 3;
@@ -310,5 +286,54 @@ require(['api_mkt','cookie'], function(api_mkt) {
 				}
 			},1000);		
 	}
+	//接受跳转参数
+	$(function() {
+	    function getQueryString(name) {
+	        href = decodeURIComponent(location.href);
+	        // 如果链接没有参数，或者链接中不存在我们要获取的参数，直接返回空
+	        if (href.indexOf("?") == -1 || href.indexOf(name + '=') == -1) {
+	            return '';
+	        }
+	        // 获取链接中参数部分
+	        var queryString = href.substring(href.indexOf("?") + 1);
+	        // 分离参数对 ?key=value&key2=value2
+	        var parameters = queryString.split("&");
+	        var pos, paraName, paraValue;
+	        for (var i = 0; i < parameters.length; i++) {
+	            // 获取等号位置
+	            pos = parameters[i].indexOf('=');
+	            if (pos == -1) {
+	                continue;
+	            }
+	            // 获取name 和 value
+	            paraName = parameters[i].substring(0, pos);
+	            paraValue = parameters[i].substring(pos + 1);
+	            // 如果查询的name等于当前name，就返回当前值，同时，将链接中的+号还原成空格
+	            if (paraName == name) {
+	                return unescape(paraValue.replace(/\+/g, " "));
+	            }
+	        }
+	        return '';
+	    };
+	    var fval = getQueryString("Step");
+	    if (fval=="one") {
+            $(".two").css('display','flex');
+			$(".one").css('display','none'); 
+        	$('.msg-code').text('');
+	    } else if(fval=="two"){
+			$('.msg-payConfirmPwd').hide();
+            $(".two").css('display','none');
+			$(".one").css('display','none'); 
+			$(".three").css('display','flex');
+			$(".four").css('display','none');
+	    } else if(fval=="three"){
+	    	$('.msg-personId').hide();
+            $(".two").css('display','none');
+			$(".one").css('display','none'); 
+			$(".three").css('display','none');
+			$(".four").css('display','flex');
+			toIndex();
+	    }
+	});
 
 });

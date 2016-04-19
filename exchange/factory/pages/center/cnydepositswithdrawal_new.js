@@ -13,27 +13,95 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             $('.withdraw_deposit').show();
         });    
 
-        //接口 人民币充值历史（查询最近5条）
-        api_mkt.rmbRechargeHistory({
-                'pageNo':1,
-                'pageSize':10
-            },function(data) {
-                if (data.status == 200) {
-                    var html = [];
-                    var num = data.data.list.length < 10?data.data.list.length:10;
-                    for(var i=0; i<num;i++){
-                        html.push("<tr>");                                        
-                        html.push("<td>"+ data.data.list[i].updateDate +"</td>");
-                        html.push("<td class='bank'>"+ data.data.list[i].bank +"</td>");
-                        html.push("<td class='money'>"+ decimal.getTwoPs(data.data.list[i].money) +"</td>");                    
-                        html.push("<td style='display:none' class='txid'>"+ data.data.list[i].txid +"</td>");
-                        html.push("<td style='display:none' class='name'>"+ data.data.list[i].name +"</td>");  
-                        html.push("<td style='display:none' class='uid'>"+ data.data.list[i].uid +"</td>");                   
-                        html.push("<td style='display:none' class='acnumber'>"+ data.data.list[i].acnumber +"</td>");
-                        html.push("<td class='status'>"+ data.data.list[i].transferCnyStatus +"</td>");
-                        html.push("<td class='checkDeal'>查看此笔充值单</td>");
-                        html.push("</tr>");
+        
+        $(".wrapper").on("click", ".cnydepostisBtn", function() {
+            var pageNo=$(".cnydepostisInput").val();
+            rmbRechargeHistory(parseInt(pageNo),10);
+        });
+        
+        $(".wrapper").on("keyup", ".cnydepostisInput", function(e) {
+            var pageNo=$(this).val();
+            if(this.value.charCodeAt()<48 || this.value.charCodeAt()>57){
+    			$(this).val($(this).val().replace(this.value,""));
+    		}else if(e.keyCode==13){
+    			rmbRechargeHistory(parseInt(pageNo),10);
+            }
+        });
+        
+        /**
+         * 分页标签
+         */
+        $(".wrapper").on("click", ".cnydepostisPageNo", function() {
+            var pageNo=$(this).attr("data-pageno");
+            rmbWithdrawalsHistory(parseInt(pageNo),10);
+        });
+        
+        $(".wrapper").on("click", ".cnywithdrawBtn", function() {
+            var pageNo=$(".cnywithdrawInput").val();
+            rmbWithdrawalsHistory(parseInt(pageNo),10);
+        });
+        
+        $(".wrapper").on("keyup", ".cnywithdrawInput", function(e) {
+            var pageNo=$(this).val();
+            if(this.value.charCodeAt()<48 || this.value.charCodeAt()>57){
+    			$(this).val($(this).val().replace(this.value,""));
+    		}else if(e.keyCode==13){
+    			rmbWithdrawalsHistory(parseInt(pageNo),10);
+            }
+        });
+        
+        /**
+         * 分页标签
+         */
+        $(".wrapper").on("click", ".cnywithdrawPageNo", function() {
+            var pageNo=$(this).attr("data-pageno");
+            rmbWithdrawalsHistory(parseInt(pageNo),10);
+        });
+        
+        /**
+         * 查看此笔充值单
+         */
+        $(".wrapper").on("click", ".checkDeal", function() {
+            //打开弹出层-生成汇款单
+            $(".mydiv").css("display","block");
+            $(".bg").css("display","block");               
+            $(".remittance-id").text($(this).parent().find('.txid').text());
+            $(".money-new").text($(this).parent().find('.money').text()+'.00');                
+            $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
+            //关闭弹出层 -生成汇款单
+            $(".span-text").click(function(){
+                $(".mydiv").css("display","none");
+                $(".bg").css("display","none");
+            });  
+        });
+        
+        /**
+         * 人民币充值分页查询
+         */
+        var rmbRechargeHistory=function(pageNo,pageSize){
+            api_mkt.rmbRechargeHistory({
+                    'pageNo':pageNo,
+                    'pageSize':pageSize
+                },function(data) {
+                    if (data.status == 200) {
+                        var html = [];
+                        var num = data.data.list.length;
                         $(".cnyInput").html("");  //添加前清空 
+                        for(var i=0; i<num;i++){
+                            html.push("<tr>");                                        
+                            html.push("<td>"+ data.data.list[i].updateDate +"</td>");
+                            html.push("<td class='bank'>"+ data.data.list[i].bank +"</td>");
+                            html.push("<td class='money'>"+ decimal.getTwoPs(data.data.list[i].money) +"</td>");                    
+                            html.push("<td style='display:none' class='txid'>"+ data.data.list[i].txid +"</td>");
+                            html.push("<td style='display:none' class='name'>"+ data.data.list[i].name +"</td>");  
+                            html.push("<td style='display:none' class='uid'>"+ data.data.list[i].uid +"</td>");                   
+                            html.push("<td style='display:none' class='acnumber'>"+ data.data.list[i].acnumber +"</td>");
+                            html.push("<td class='status'>"+ data.data.list[i].transferCnyStatus +"</td>");
+                            html.push("<td class='checkDeal'>查看此笔充值单</td>");
+                            html.push("</tr>");
+
+                            
+                        }
                         $(".cnyInput").append(html.join(""));
 
                         //过滤内容显示不同颜色
@@ -41,37 +109,51 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                         $(".status").filter(":contains('CANCEL')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('已关闭');                  
                         $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('已完成');                                      
                         $(".status").filter(":contains('CLOSED')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('已关闭');
-                        //查看此笔充值单
-                        $('.checkDeal').click(function(){
-                            //打开弹出层-生成汇款单
-                            $(".mydiv").css("display","block");
-                            $(".bg").css("display","block");               
-                            $(".remittance-id").text($(this).parent().find('.txid').text());
-                            /*$(".bank-card-new").text($(this).parent().find('.acnumber').text());
-                            $(".bank-name-new").text($(this).parent().find('.bank').text());
-                            $(".account-name-new").text($(this).parent().find('.name').text());*/
-                            $(".money-new").text($(this).parent().find('.money').text()+'.00');                
-                            $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
-                            //关闭弹出层 -生成汇款单
-                            $(".span-text").click(function(){
-                                $(".mydiv").css("display","none");
-                                $(".bg").css("display","none");
-                            });  
-                        });
+                        
+                        var htmlPage = [];
+                        var pageNum=data.data.pageNum;
+        	            $(".cnydepostisPage").html(""); 
+        	            var start=pageNo>3?(pageNo-3):1;
+        	            var end=(pageNum-start)>=6?(start+6):pageNum;
+        	            if(end==pageNum){
+        	            	start=(pageNum-6)>1?(pageNum-6):1;
+        	            }
+        	            for(var i=start;i<=end;i++){
+        	            	if(i==start && pageNo!=start){
+        	            		htmlPage.push('<a class="cnydepostisPageNo" href="javascript:void(0);" data-pageno="'+i+'">上一页</a>');  
+        	            	}else if(i==end && pageNo!=end){
+        	            		htmlPage.push('<a class="cnydepostisPageNo" href="javascript:void(0);" data-pageno="'+i+'">下一页</a>');  
+        	            	}else if(i==pageNo){
+        	            		htmlPage.push('<a class="cnydepostisPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
+        	            	}else{
+        	            		htmlPage.push('<a class="cnydepostisPageNo" href="javascript:void(0);" data-pageno="'+i+'">'+i+'</a>');  
+        	            	}
+        	            }
+        	            $(".cnydepostisPage").html(htmlPage.join(""));
+        	            $(window).scrollTop(0);
+        	            if(pageNum>0){
+        	            	$(".cnydepostis").show();
+    	   	            }else{
+    	   	            	$(".cnydepostis").hide();
+    	   	            }
+        	            
+                    }else{
+                        //console.log('财务中心-人民币充值历史表格，加载失败。');
                     }
-                }else{
-                    //console.log('财务中心-人民币充值历史表格，加载失败。');
-                }
-            });
-            //人民币提现 带分页
+                });
+        }
+       
+        var rmbWithdrawalsHistory=function(pageNo,pageSize){
+        	 //人民币提现 带分页
             api_mkt.rmbWithdrawalsHistory({
-                'pageNo':1,
-                'pageSize':10
+                'pageNo':pageNo,
+                'pageSize':pageSize
             },function(data) {
                 if (data.status == 200 && data.data.list.length > 0) {
                     //console.log(data);
                     var html = [];
-                    var num = data.data.list.length < 10?data.data.list.length:10;
+                    var num = data.data.list.length;
+                    $(".cnyOutput").html("");  //添加前清空 
                     for(var i=0; i<num;i++){
                         html.push("<tr>");                                        
                         html.push("<td>"+ data.data.list[i].updateDate +"</td>");
@@ -79,19 +161,46 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                         html.push("<td>"+ decimal.getTwoPs(data.data.list[i].pay) +"</td>");                    
                         html.push("<td>"+ decimal.getTwoPs(data.data.list[i].fee) +"</td>");
                         html.push("<td class='status'>"+ data.data.list[i].transferCnyStatus +"</td>");
-                        html.push("</tr>");
-                        $(".cnyOutput").html("");  //添加前清空 
-                        $(".cnyOutput").append(html.join(""));
-
-                        //过滤内容显示不同颜色
-                        $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");
-                        $(".status").filter(":contains('PROCESSING')").text('进行中').css("color","orange");
-                        $(".status").filter(":contains('SUCCESS')").text('提现成功').css("color","#ccc");                     
+                        html.push("</tr>");                   
                     }
+                    $(".cnyOutput").append(html.join(""));
+                    //过滤内容显示不同颜色
+                    $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");
+                    $(".status").filter(":contains('PROCESSING')").text('进行中').css("color","orange");
+                    $(".status").filter(":contains('SUCCESS')").text('提现成功').css("color","#ccc");  
+                    
+                    var htmlPage = [];
+                    var pageNum=data.data.pageNum;
+    	            $(".cnywithdrawPage").html(""); 
+    	            var start=pageNo>3?(pageNo-3):1;
+    	            var end=(pageNum-start)>=6?(start+6):pageNum;
+    	            if(end==pageNum){
+    	            	start=(pageNum-6)>1?(pageNum-6):1;
+    	            }
+    	            for(var i=start;i<=end;i++){
+    	            	if(i==start && pageNo!=start){
+    	            		htmlPage.push('<a class="cnywithdrawPageNo" href="javascript:void(0);" data-pageno="'+i+'">上一页</a>');  
+    	            	}else if(i==end && pageNo!=end){
+    	            		htmlPage.push('<a class="cnywithdrawPageNo" href="javascript:void(0);" data-pageno="'+i+'">下一页</a>');  
+    	            	}else if(i==pageNo){
+    	            		htmlPage.push('<a class="cnywithdrawPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
+    	            	}else{
+    	            		htmlPage.push('<a class="cnywithdrawPageNo" href="javascript:void(0);" data-pageno="'+i+'">'+i+'</a>');  
+    	            	}
+    	            }
+    	            $(".cnywithdrawPage").html(htmlPage.join(""));
+    	            $(window).scrollTop(0);
+    	            if(pageNum>0){
+    	            	$(".cnywithdraw").show();
+	   	            }else{
+	   	            	$(".cnywithdraw").hide();
+	   	            }
                 }else{
                    // console.log('财务中心-人民币提现历史表格，加载失败。');
                 }
             });
+        }
+           
 
         //生成汇款单校验
         //开户人姓名校验
@@ -121,6 +230,10 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             $("#bank-money").val('');
         });        
 
+        
+        rmbRechargeHistory(1,10);
+        rmbWithdrawalsHistory(1,10);
+        
         //接受跳转参数
         $(function() {
             function getQueryString(name) {
