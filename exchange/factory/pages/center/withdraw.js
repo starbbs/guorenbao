@@ -210,7 +210,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             }
         });
         //获取验证码-人民币提现管理
-        $('#sendCodeByLoginAfterBtn, #nut-identifyingCodeBtn').click(function(){
+        $('#sendCodeByLoginAfterBtn').click(function(){
             if(btnConfirm == false){
                 showWarnWin('请完善填写信息！',1e3);
             }
@@ -230,11 +230,11 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 var resend = setInterval(function(){
                         count--;
                         if(count > 0){
-                            $('#sendCodeByLoginAfterBtn, #nut-identifyingCodeBtn').val(count+'s后重新发送');
-                            $('#sendCodeByLoginAfterBtn, #nut-identifyingCodeBtn').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
+                            $('#sendCodeByLoginAfterBtn').val(count+'s后重新发送');
+                            $('#sendCodeByLoginAfterBtn').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
                         }else{
                             clearInterval(resend);
-                            $('#sendCodeByLoginAfterBtn, #nut-identifyingCodeBtn').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
+                            $('#sendCodeByLoginAfterBtn').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
                         }
                         
                     },1000); 
@@ -349,7 +349,38 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 btnNut4 = true;
             }
         });
-
+        //获取验证码-人民币提现管理
+        $('#nut-identifyingCodeBtn').click(function(){
+            if(btnConfirm == false){
+                showWarnWin('请完善填写信息！',1e3);
+            }
+            else{
+                api_mkt.sendCodeByLoginAfter(function(data) {
+                    if (data.status == 200) {
+                        $('.msg-sendCodeByLoginAfter').text('');
+                        $('.msg-nut-identifyingCode').text('');
+                    } else {
+                        $('.msg-sendCodeByLoginAfter').text('请输入正确的验证码');                        
+                        $('.msg-nut-identifyingCode').text('请输入正确的验证码');
+                    }
+                });
+                
+                //30秒内只能发送一次
+                var count = 60;
+                var resend = setInterval(function(){
+                        count--;
+                        if(count > 0){
+                            $('#nut-identifyingCodeBtn').val(count+'s后重新发送');
+                            $('#nut-identifyingCodeBtn').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
+                        }else{
+                            clearInterval(resend);
+                            $('#nut-identifyingCodeBtn').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
+                        }
+                        
+                    },1000); 
+            }
+            
+        });
         //果仁提现地址管理添加
         $('.gopAddressManAdd, .del').click(function(){
         	if(global.payLocked){

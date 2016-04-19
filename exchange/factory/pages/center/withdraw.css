@@ -689,3 +689,15 @@
   text-decoration: none;
   background-color: #eee;
   color: #000; }
+
+a {
+  text-decoration: none; }
+
+.inputNum {
+  width: 20px;
+  text-align: center;
+  font-size: 7px; }
+
+.btn-fenye {
+  cursor: pointer;
+  padding: 2px 7px; }

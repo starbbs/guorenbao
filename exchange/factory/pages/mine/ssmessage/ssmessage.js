@@ -1,5 +1,5 @@
 require(['api_mkt', 'cookie'], function(api_mkt) {
-    var mymessage = function(gaga) {
+    /*var mymessage = function(gaga) {
         $("#itemContainer").html("");
         var obj = {};
         if (gaga == "ALL") {} else {
@@ -46,7 +46,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                 next: "→"
             });
         });
-    }
+    }*/
 
     api_mkt.realAuth({
     }, function(data) {
@@ -57,7 +57,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         }
     });
 
-    mymessage("ALL"); //默认是全部选中
+    /*mymessage("ALL"); //默认是全部选中*/
     $(".tab").on("click", function() {
         var messageonehtml = "";
         $(this).siblings().removeClass("choosed_on_mes");
