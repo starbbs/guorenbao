@@ -280,7 +280,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $('.msg-bank-idcard').show().text('提现银行卡账户名必须与您的实名认证姓名一致');
                     } else if(data.msg == '同一用户不能添加相同银行卡'){
                         //showWarnWin('同一用户不能添加相同银行卡',1e3);
-                        $('.msg-bank-idcard').text('同一用户不能添加相同银行卡');
+                        $('.msg-bank-idcard').show().text('同一用户不能添加相同银行卡');
                     }else if(data.data && data.data.num){
             			var num=data.data?data.data.num:data.date.num;
                         if(3-num > 0 ){
