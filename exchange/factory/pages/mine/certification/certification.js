@@ -2,6 +2,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	
 	//我的账户-实名验证校验
 	var BtnConfirm = false;
+	var BtnConfirm1 = false;
 	//校验姓名
 	$('#realAuthName').blur(function(){
 		var realAuthName = $(this).val();
@@ -19,16 +20,16 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		var realAuthId = $(this).val();
 		var reg = /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/;   
         if(!reg.test(realAuthId)){
-			BtnConfirm = false;
+        	BtnConfirm1 = false;
 			//$('.msg-realAuthId').text('请输入正确的身份证号');
 		}else{
-			BtnConfirm = true;
+			BtnConfirm1 = true;
 			$('.msg-realAuthId').text('');
 		}
 	});
 
 	$('.realAuthBtn').click(function(){
-		if(BtnConfirm == false){
+		if(!BtnConfirm || !BtnConfirm1){
 			//alert('请填写正确姓名和身份证号');
 			$(".msg-realAuthId").show().text("身份信息输入有误，请重新填写");
 		}else{
