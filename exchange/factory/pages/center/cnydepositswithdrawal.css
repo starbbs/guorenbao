@@ -767,3 +767,11 @@ a {
     line-height: 50px;
     margin-left:340px;
 }
+.spanTextOne{
+    color:orange;
+    width:470px;
+    float: left;
+    text-align: left;
+    margin-left: 90px;
+    margin-top: 25px;
+}

@@ -245,8 +245,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             tooltip: { xDateFormat: '%Y-%m-%d %H:%M %A', color: '#f0f', changeDecimals: 4, borderColor: '#058dc7' },
             plotOptions: { candlestick: { color: '#e55600', upColor: '#669900' } },
             yAxis: [
-                { labels: { style: { color: '#4572A7' } }, title: { text: '成交量 [GOP]', style: { color: '#4572A7' } }, offset: 0, top: 280, height: 34, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true },
-                { labels: { style: { color: '#e55600' } }, title: { text: '价格 [RMB]', style: { color: '#e55600' } }, height: 160, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true }
+                { labels: { style: { color: '#e55600' } }, title: { text: '价格 [RMB]', style: { color: '#e55600' } }, height: 160, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true },
+                { labels: { style: { color: '#4572A7' } }, title: { text: '成交量 [GOP]', style: { color: '#4572A7' } }, offset: 0, top: 280, height: 34, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true }
             ],
             tooltip: {
                 formatter: function() {
@@ -396,6 +396,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     };
     var login_area_times = 0;
     $(".indexpage_loginarea_btn").on("click", function() {
+        $(".loc_img").click();
         var phone = $(".phone_loginarea").val();
         var password = $(".password_loginarea").val();
         var flag = verify(phone, "tel");
@@ -516,6 +517,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                         }
                     } else if (data.msg == "error" && data.data.msg == "登录密码错误") {
                         $(".error_tips").show().html("用户名或密码错误，请重新登录");
+                    } else if (data.msg=="密码长度错误"){
+                        $(".error_tips").show().html("用户名或密码错误，请重新登录");
                     } else {
                         $(".autocode_tips").show().html(data.msg);
                     }
@@ -539,7 +542,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         location.href = "./cnydepositswithdrawal.html";
     });
     $(".withdraw").on("click", function() {
-        location.href = "./cnydepositswithdrawal.html?formindex='index'";
+        location.href = "./nutstopupwithdrawal.html?formindex='index'";
     });
     var fflat = true;
     $(".eye_i").on("click", function() {

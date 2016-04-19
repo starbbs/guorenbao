@@ -1,25 +1,6 @@
 require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_mkt, mkt_info, mkt_trade,decimal) {
-    //console.log(api_mkt);
-    //console.log(mkt_info);
-    //$("#floor_popDiv").width($(document).width());
-    //$('#floor_popDiv').height($(document).height());
     $('#floor_bg').css('left', 0);
     $('#floor_bg').css('top', 0);
-
-    // var exchangeToken = $.cookie('exchangeToken');
-    // console.log(exchangeToken);
-    // var global_loginusername = "";
-    // if (!exchangeToken) {
-    //     $(".login_regist").show();
-    // } else {
-    //     $(".login_regist").hide();
-    //     $(".login_header").show();
-    //     $("#logined_username").html(global_loginusername);
-    //     $(".popDiv").hide();
-    //     $(".bg").hide();
-    // }
-    
-
     var exchangeToken = $.cookie('exchangeToken');
     if (!exchangeToken) {
        $('.eye_i').trigger("click");
@@ -58,8 +39,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
 		}
 		
 	});
-	
-	
 	
     var getTotalAssets=function(){
     	api_mkt.totalAssets(function(data) {
@@ -208,7 +187,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             credits: { enabled: false },
             colors: ['#000000', '#0000ff', '#ff00ff', '#f7a35c', '#8085e9'],
             title: {
-                text: '果仁市场K线图'
+                text: ''
             },
             xAxis: {
                 type: 'dataTime'
@@ -217,8 +196,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             tooltip: { xDateFormat: '%Y-%m-%d %H:%M %A', color: '#f0f', changeDecimals: 4, borderColor: '#058dc7' },
             plotOptions: { candlestick: { color: '#e55600', upColor: '#669900' } },
             yAxis: [
-                { labels: { style: { color: '#4572A7' } }, title: { text: '成交量 [GOP]', style: { color: '#4572A7' } }, offset: 0, top: 280, height: 34, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true },
-                { labels: { style: { color: '#e55600' } }, title: { text: '价格 [RMB]', style: { color: '#e55600' } }, height: 160, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true }
+                { labels: { style: { color: '#e55600' } }, title: { text: '价格 [RMB]', style: { color: '#e55600' } }, height: 160, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true },
+                { labels: { style: { color: '#4572A7' } }, title: { text: '成交量 [GOP]', style: { color: '#4572A7' } }, offset: 0, top: 280, height: 34, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true }
             ],
             tooltip: {
                 formatter: function() {
@@ -439,8 +418,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
         $('#sel_div_password').css('display','none');
         $('.h3_2').css('display','block');
         $('.sure_btn1').css('display','block');
-    
-        
     }); 
     
     //确认撤单

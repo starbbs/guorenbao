@@ -37,14 +37,14 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
         var maxval = Math.max.apply(null,myarr);
         for (var i = 0; i < list_sell.length; i++) {
         	sellaprice = list_sell[0][0];
-        	var progressval = (list_sell[i][1]/maxval)*100>=0.4?(list_sell[i][1]/maxval)*100:0.4;
+        	var progressval = (list_sell[i][1]/maxval)*100>=0.4?(list_sell[i][1]/maxval)*100:0.5;
         	sell_list_html += "<div class='table_row'>"+
         	"<div class='table_con'>卖"+(i+1)+"</div><div class='table_con'>"+list_sell[i][0].toFixed(2)+"</div>"+
         	"<div class='table_con'>"+list_sell[i][1].toFixed(2)+"</div><progress value='"+progressval+"' max='100'></progress></div></div>";
         }
         for (var i = 0; i < list_buy.length; i++) {
         	buyaprice = list_buy[0][0];
-        	var progressval = (list_buy[i][1]/maxval)*100>=0.4?(list_buy[i][1]/maxval)*100:0.4;
+        	var progressval = (list_buy[i][1]/maxval)*100>=0.4?(list_buy[i][1]/maxval)*100:0.5;
         	buy_list_html += "<div class='table_row'>"+
         	"<div class='table_con'>买"+(i+1)+"</div><div class='table_con'>"+list_buy[i][0].toFixed(2)+"</div>"+
         	"<div class='table_con'>"+list_buy[i][1].toFixed(2)+"</div><progress value='"+progressval+"' max='100'></progress></div></div>";
@@ -95,14 +95,6 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 		            +"<div class='table_con'>"+list_buy[i][1].toFixed(2)+"</div>"
 		            +"<div class='table_con'>¥"+(list_buy[i][0]*list_buy[i][1]).toFixed(2)+"</div></div>";
 				}
-
-				// for(var i=list_buy.length-1;i>=0;i--){
-		  //           buy_list_html += "<div class='table_row'>"
-		  //           +"<div class='table_con buyprice'>买"+(i+1)+"</div>"
-		  //           +"<div class='table_con'>¥"+list_buy[i][0].toFixed(2)+"</div>"
-		  //           +"<div class='table_con'>"+list_buy[i][1].toFixed(2)+"</div>"
-		  //           +"<div class='table_con'>¥"+(list_buy[i][0]*list_buy[i][1]).toFixed(2)+"</div></div>";
-				// }
 			} else {
 				var list_buy_five = [];
 				list_buy_five.push(list_buy[0]);
@@ -111,7 +103,7 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 				list_buy_five.push(list_buy[3]);
 				list_buy_five.push(list_buy[4]);
 				$("#wbr_m_best_sell").html(list_buy[0][0]);  //最佳买价
-				for(var i=list_buy_five.length-1;i>=0;i--){
+				for(var i=0;i<list_buy_five.length;i++){
 		            buy_list_html += "<div class='table_row'>"
 		            +"<div class='table_con buyprice'>买"+(i+1)+"</div>"
 		            +"<div class='table_con'>¥"+list_buy_five[i][0].toFixed(2)+"</div>"
@@ -126,7 +118,8 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 		if(list_sell.length!=0){
 			if(list_sell.length<=5){
 				$("#wbr_m_best_buy").html(list_sell[0][0]);  //最佳卖价
-				for(var i=0;i<list_sell.length;i++){
+				// console.log(list_sell);
+				for(var i=list_sell.length-1;i>=0;i--){
 		            list_sell_html += "<div class='table_row'>"
 		            +"<div class='table_con saleprice'>卖"+(i+1)+"</div>"
 		            +"<div class='table_con'>¥"+list_sell[i][0].toFixed(2)+"</div>"
@@ -141,7 +134,7 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 				list_sell_five.push(list_sell[3]);
 				list_sell_five.push(list_sell[4]);
 				$("#wbr_m_best_buy").html(list_sell_five[0][0]);  //最佳卖价
-				for(var i=0;i<list_sell_five.length;i++){
+				for(var i=list_sell_five.length-1;i>=0;i--){
 		            list_sell_html += "<div class='table_row'>"
 		            +"<div class='table_con saleprice'>卖"+(i+1)+"</div>"
 		            +"<div class='table_con'>¥"+list_sell_five[i][0].toFixed(2)+"</div>"

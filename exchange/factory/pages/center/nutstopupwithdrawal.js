@@ -94,12 +94,19 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
         }else if(num <0.02){
             btnConfirm1a = false;
             $('.msg-gopWithdrawalsNumber').text('转出数量最少为0.02');
-        }else{
+        }else{  
             btnConfirm1a = true;
             $('.msg-gopWithdrawalsNumber').text('');
         }
     });
-    
+    $('#gopWithdrawalsNumber').on('input',function(){
+        var num = $('#gopWithdrawalsNumber').val();
+        var oldData=$(this).attr("data-old");
+        if(decimal.getPsercison(num)>=2){
+            //大于小数点2位的都禁止输入
+            $(this).val(oldData?oldData:decimal.getTwoPs(num));  
+        }
+    });
     /*$(".wrapper").on("input propertychange", "#gopWithdrawalsNumber", function() {
     	var num = $(this).val();
         var oldData=$(this).attr("data-old");
@@ -131,7 +138,7 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
         });
 
         //30秒内只能发送一次
-        var count = 30;
+        var count = 60;
         var resend = setInterval(function() {
             count--;
             if (count > 0) {
@@ -164,7 +171,11 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
         if (btnConfirm0a == false) {
             $('.msg-gopWithdrawalsSelect').text('请先添加果仁地址');
         }else if (btnConfirm1a == false) {
-            $('.msg-gopWithdrawalsNumber').text('请输入提取数量');
+            if($('#gopWithdrawalsNumber').val() == 0.01){
+                $('.msg-gopWithdrawalsNumber').text('提取数量最小为0.02');
+            }else{
+                $('.msg-gopWithdrawalsNumber').text('请输入提取数量');
+            }
         } else if (btnConfirm2a == false) {
             $('.msg-gopWithdrawalsPayPwd').text('请输入您的支付密码');
         } else if (btnConfirm3a == false) {
@@ -179,17 +190,25 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
             }, function(data) {
                 if (data.status == 200) {
                     showWarnWin('转出成功',1e3);
+                    $('#gopWithdrawalsNumber').val('');
+                    $('#gopWithdrawalsPayPwd').val('');
+                    $('#gopWithdrawalsCode').val('');
                 }else if(data.msg == '验证码错误,请重新发送验证码'){
                     $('.msg-gopWithdrawalsCode').text('您输入验证码有误，请重新输入');
                 }else if(data.data && data.data.num){
         			var num=data.data?data.data.num:data.date.num;
-        			$('.msg-gopWithdrawalsCode').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
+                    if(3-num > 0 ){
+                        $('.msg-gopWithdrawalsPayPwd').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
+                    }else{                                
+                        $('.msg-gopWithdrawalsPayPwd').show().html("提示为保证资金安全，您的支付密码已被锁定，请<a href='resetpaymentcode.html' class='moreCheck'>找回支付密码</a>");
+                    }
         		}else if(data.msg.indexOf('锁定')>0){
         			$('.msg-gopWithdrawalsCode').show().text(data.msg);
         			window.location.reload();
             		$(window).scrollTop(0);
-        		}else{
-                    //$('.msg-gopWithdrawalsCode').text(data.msg);
+        		}else if(data.msg == '账户果仁不足'){
+                    $('.msg-gopWithdrawalsNumber').text('您的账户果仁不足');
+                }else{
                     showWarnWin(data.msg,1e3);
                 }
             });

@@ -205,6 +205,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
 
     //右上角登录按钮点击之后出发的事件
     $(".popup_login_btn").on("click", function() {
+        $(".loc_img_topbar").click();
         popup_login_times++;
         var phone = $(".phone").val();
         var password = $(".password").val();
@@ -318,6 +319,8 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                             $(".error_tips").show().html("用户名或密码错误，请重新登录");
                         }
                     } else if (data.msg == "error" && data.data.msg == "登录密码错误") {
+                        $(".error_tips").show().html("用户名或密码错误，请重新登录");
+                    } else if (data.msg=="密码长度错误"){
                         $(".error_tips").show().html("用户名或密码错误，请重新登录");
                     } else {
                         $(".autocode_tips").show().html(data.msg);
