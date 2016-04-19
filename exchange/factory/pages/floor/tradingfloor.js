@@ -838,7 +838,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     });
     //买入 卖出 四个按钮 点击弹出框
     $(".buying_btn").click(function(){ 
-    	if(global.payLocked){
+    	if(global.payLocked || $(".popuptips").attr("data-authed")=="false"){
     		window.location.reload();
     		$(window).scrollTop(0);
     		return false;
@@ -870,7 +870,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
         } 
     }); 
     $(".market_price_buying_btn").click(function(){ 
-    	if(global.payLocked){
+    	if(global.payLocked || $(".popuptips").attr("data-authed")=="false"){
     		window.location.reload();
     		$(window).scrollTop(0);
     		return false;
@@ -897,7 +897,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
         }        
     });
     $(".sale_btn").click(function(){  
-    	if(global.payLocked){
+    	if(global.payLocked || $(".popuptips").attr("data-authed")=="false"){
     		window.location.reload();
     		$(window).scrollTop(0);
     		return false;
@@ -924,7 +924,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
         }        
     }); 
     $(".market_price_sale_btn").click(function(){ 
-    	if(global.payLocked){
+    	if(global.payLocked || $(".popuptips").attr("data-authed")=="false"){
     		window.location.reload();
     		$(window).scrollTop(0);
     		return false;
