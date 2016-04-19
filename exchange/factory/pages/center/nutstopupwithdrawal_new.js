@@ -103,17 +103,16 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
 	            if(end==pageNum){
 	            	start=(pageNum-6)>1?(pageNum-6):1;
 	            }
+        		htmlPage.push('<a class="nutsInPageNo" href="javascript:void(0);" data-pageno="'+(start>1?(start-1):1)+'">上一页</a>');  
 	            for(var i=start;i<=end;i++){
-	            	if(i==start && pageNo!=start && i!=1){
-	            		htmlPage.push('<a class="nutsInPageNo" href="javascript:void(0);" data-pageno="'+i+'">上一页</a>');  
-	            	}else if(i==end && pageNo!=end && i!=pageNum){
-	            		htmlPage.push('<a class="nutsInPageNo" href="javascript:void(0);" data-pageno="'+i+'">下一页</a>');  
-	            	}else if(i==pageNo){
+	            	if(i==pageNo){
 	            		htmlPage.push('<a class="nutsInPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
 	            	}else{
 	            		htmlPage.push('<a class="nutsInPageNo" href="javascript:void(0);" data-pageno="'+i+'">'+i+'</a>');  
 	            	}
 	            }
+        		htmlPage.push('<a class="nutsInPageNo" href="javascript:void(0);" data-pageno="'+(end<pageNum?(end+1):pageNum)+'">下一页</a>');  
+
 	            $(".nutsInPage").html(htmlPage.join(""));
 	            $(window).scrollTop(0);
 	            if(pageNum>0){
@@ -162,16 +161,14 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
 	            if(end==pageNum){
 	            	start=(pageNum-6)>1?(pageNum-6):1;
 	            }
+	            htmlPage.push('<a class="nutsOutPageNo" href="javascript:void(0);" data-pageno="'+(start>1?(start-1):1)+'">上一页</a>');
 	            for(var i=start;i<=end;i++){
-	            	if(i==start && pageNo!=start && i!=1){
-	            		htmlPage.push('<a class="nutsOutPageNo" href="javascript:void(0);" data-pageno="'+i+'">上一页</a>');  
-	            	}else if(i==end && pageNo!=end && i!=pageNum){
-	            		htmlPage.push('<a class="nutsOutPageNo" href="javascript:void(0);" data-pageno="'+i+'">下一页</a>');  
-	            	}else if(i==pageNo){
+	            	if(i==pageNo){
 	            		htmlPage.push('<a class="nutsOutPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
 	            	}else{
 	            		htmlPage.push('<a class="nutsOutPageNo" href="javascript:void(0);" data-pageno="'+i+'">'+i+'</a>');  
 	            	}
+	            	htmlPage.push('<a class="nutsOutPageNo" href="javascript:void(0);" data-pageno="'+(end<pageNum?(end+1):pageNum)+'">下一页</a>');
 	            }
 	            $(".nutsOutPage").html(htmlPage.join(""));
 	            $(window).scrollTop(0);
