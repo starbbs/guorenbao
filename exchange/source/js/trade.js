@@ -14,6 +14,23 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 			callback && callback(data);
 		});
 	};
+
+	var getTwoPs = function(str){
+		var length = 0;
+    	var position = 0;
+    	if(String(str).indexOf(".") < 0){
+    		return str+".00";
+    	}
+    	length = String(str).length;
+    	position = String(str).indexOf(".");
+    	if(length < position + 3){
+    		return str + "0";
+    	}else{
+    		return String(str).substring(0, position + 3);
+    	}
+	}
+
+
 	//首页轮询更新买入委托、卖出委托
 	var updatebuy_sell = function(haha){
         var list_sell = JSON.parse(haha['sell']);
@@ -39,18 +56,18 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
         	sellaprice = list_sell[0][0];
         	var progressval = (list_sell[i][1]/maxval)*100>=0.4?(list_sell[i][1]/maxval)*100:0.5;
         	sell_list_html += "<div class='table_row'>"+
-        	"<div class='table_con'>卖"+(i+1)+"</div><div class='table_con'>"+list_sell[i][0].toFixed(2)+"</div>"+
-        	"<div class='table_con'>"+list_sell[i][1].toFixed(2)+"</div><progress value='"+progressval+"' max='100'></progress></div></div>";
+        	"<div class='table_con'>卖"+(i+1)+"</div><div class='table_con'>"+getTwoPs(list_sell[i][0])+"</div>"+
+        	"<div class='table_con'>"+getTwoPs(list_sell[i][1])+"</div><progress value='"+progressval+"' max='100'></progress></div></div>";
         }
         for (var i = 0; i < list_buy.length; i++) {
         	buyaprice = list_buy[0][0];
         	var progressval = (list_buy[i][1]/maxval)*100>=0.4?(list_buy[i][1]/maxval)*100:0.5;
         	buy_list_html += "<div class='table_row'>"+
-        	"<div class='table_con'>买"+(i+1)+"</div><div class='table_con'>"+list_buy[i][0].toFixed(2)+"</div>"+
-        	"<div class='table_con'>"+list_buy[i][1].toFixed(2)+"</div><progress value='"+progressval+"' max='100'></progress></div></div>";
+        	"<div class='table_con'>买"+(i+1)+"</div><div class='table_con'>"+getTwoPs(list_buy[i][0])+"</div>"+
+        	"<div class='table_con'>"+getTwoPs(list_buy[i][1])+"</div><progress value='"+progressval+"' max='100'></progress></div></div>";
         }
-        $('#buyonece_price').html(buyaprice?buyaprice.toFixed(2):"");        //最高卖价
-		$('#sellonece_price').html(sellaprice?sellaprice.toFixed(2):"");      //最低卖价
+        $('#buyonece_price').html(buyaprice?getTwoPs(buyaprice):"");        //最高卖价
+		$('#sellonece_price').html(sellaprice?getTwoPs(sellaprice):"");      //最低卖价
 
 
         if(buy_list_html==""){
@@ -94,9 +111,9 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
         }
 		//buyaprice=9.1;// TODO 测试
 		//sellaprice=1;// TODO 测试
-		$('#buyonece_price_floor').html(buyaprice?buyaprice.toFixed(2):"");  //交易市场买一价
+		$('#buyonece_price_floor').html(buyaprice?getTwoPs(buyaprice):"");  //交易市场买一价
 		trade.buyaprice=buyaprice;      
-		$('#sellonece_price_floor').html(sellaprice?sellaprice.toFixed(2):"");//交易市场卖一价
+		$('#sellonece_price_floor').html(sellaprice?getTwoPs(sellaprice):"");//交易市场卖一价
 		trade.sellaprice=sellaprice;
 		var list_sell_html = "";
 		var buy_list_html = "";
@@ -109,9 +126,9 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 				for(var i=0;i<list_buy.length;i++){
 		            buy_list_html += "<div class='table_row'>"
 		            +"<div class='table_con buyprice'>买"+(i+1)+"</div>"
-		            +"<div class='table_con'>¥"+list_buy[i][0].toFixed(2)+"</div>"
-		            +"<div class='table_con'>"+list_buy[i][1].toFixed(2)+"</div>"
-		            +"<div class='table_con'>¥"+(list_buy[i][0]*list_buy[i][1]).toFixed(2)+"</div></div>";
+		            +"<div class='table_con'>¥"+getTwoPs(list_buy[i][0])+"</div>"
+		            +"<div class='table_con'>"+getTwoPs(list_buy[i][1])+"</div>"
+		            +"<div class='table_con'>¥"+getTwoPs(list_buy[i][0]*list_buy[i][1])+"</div></div>";
 				}
 			} else {
 				var list_buy_five = [];
@@ -124,9 +141,9 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 				for(var i=0;i<list_buy_five.length;i++){
 		            buy_list_html += "<div class='table_row'>"
 		            +"<div class='table_con buyprice'>买"+(i+1)+"</div>"
-		            +"<div class='table_con'>¥"+list_buy_five[i][0].toFixed(2)+"</div>"
-		            +"<div class='table_con'>"+list_buy_five[i][1].toFixed(2)+"</div>"
-		            +"<div class='table_con'>¥"+(list_buy_five[i][0]*list_buy_five[i][1]).toFixed(2)+"</div></div>";
+		            +"<div class='table_con'>¥"+getTwoPs(list_buy_five[i][0])+"</div>"
+		            +"<div class='table_con'>"+getTwoPs(list_buy_five[i][1])+"</div>"
+		            +"<div class='table_con'>¥"+getTwoPs(list_buy_five[i][0]*list_buy_five[i][1])+"</div></div>";
 				}
 			}
 			$(".table_row_line").show();
@@ -141,9 +158,9 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 				for(var i=list_sell.length-1;i>=0;i--){
 		            list_sell_html += "<div class='table_row'>"
 		            +"<div class='table_con saleprice'>卖"+(i+1)+"</div>"
-		            +"<div class='table_con'>¥"+list_sell[i][0].toFixed(2)+"</div>"
-		            +"<div class='table_con'>"+list_sell[i][1].toFixed(2)+"</div>"
-		            +"<div class='table_con'>¥"+(list_sell[i][0]*list_sell[i][1]).toFixed(2)+"</div></div>";
+		            +"<div class='table_con'>¥"+getTwoPs(list_sell[i][0])+"</div>"
+		            +"<div class='table_con'>"+getTwoPs(list_sell[i][1])+"</div>"
+		            +"<div class='table_con'>¥"+getTwoPs(list_sell[i][0]*list_sell[i][1])+"</div></div>";
 				}
 			} else {
 				var list_sell_five = [];
@@ -156,9 +173,9 @@ define('mkt_trade', ['api_mkt'], function(api_mkt) {
 				for(var i=list_sell_five.length-1;i>=0;i--){
 		            list_sell_html += "<div class='table_row'>"
 		            +"<div class='table_con saleprice'>卖"+(i+1)+"</div>"
-		            +"<div class='table_con'>¥"+list_sell_five[i][0].toFixed(2)+"</div>"
-		            +"<div class='table_con'>"+list_sell_five[i][1].toFixed(2)+"</div>"
-		            +"<div class='table_con'>¥"+(list_sell_five[i][0]*list_sell_five[i][1]).toFixed(2)+"</div></div>";
+		            +"<div class='table_con'>¥"+getTwoPs(list_sell_five[i][0])+"</div>"
+		            +"<div class='table_con'>"+getTwoPs(list_sell_five[i][1])+"</div>"
+		            +"<div class='table_con'>¥"+getTwoPs(list_sell_five[i][0]*list_sell_five[i][1])+"</div></div>";
 				}
 			}
 			$(".table_row_line").show();
