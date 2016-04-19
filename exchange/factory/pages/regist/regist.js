@@ -272,9 +272,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 
     //跳过实名验证
     $('.SkipThreeStep').click(function(){
-    	$(".four").css('display','flex');
-		$(".three").css('display','none');
-		toIndex();		
+    	window.location.href = "regist.html?Step=three";		
     })
     function toIndex(){
 			var count = 3;
