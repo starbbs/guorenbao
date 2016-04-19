@@ -6,8 +6,13 @@ require(['api_mkt', 'mkt_info','decimal', 'cookie'], function(api_mkt, mkt_info,
 	    });
 	    
 	    $(".wrapper").on("keyup", ".inputNum", function(e) {
-	        var pageNo=$(this).val();
-	        if(this.value.charCodeAt()<48 || this.value.charCodeAt()>57){
+	    	var pageNo=$(this).val();
+            var pageNum=$(this).attr("data-pagenum");
+            if(pageNo>pageNum){
+            	$(this).val(pageNum);
+            }else if(pageNo==0){
+            	$(this).val(1);
+            }else if(this.value.charCodeAt()<48 || this.value.charCodeAt()>57){
 				$(this).val($(this).val().replace(this.value,""));
 			}else if(e.keyCode==13){
 				billList(parseInt(pageNo),10);
@@ -59,15 +64,17 @@ require(['api_mkt', 'mkt_info','decimal', 'cookie'], function(api_mkt, mkt_info,
                 var htmlPage = [];
                 var pageNum=data.data.pageNum;
 	            $(".billPage").html(""); 
+	            $(".inputNum").attr("data-pagenum",pageNum);
+	            $(".allNum").html(pageNum);
 	            var start=pageNo>3?(pageNo-3):1;
 	            var end=(pageNum-start)>=6?(start+6):pageNum;
 	            if(end==pageNum){
 	            	start=(pageNum-6)>1?(pageNum-6):1;
 	            }
 	            for(var i=start;i<=end;i++){
-	            	if(i==start && pageNo!=start){
+	            	if(i==start && pageNo!=start && i!=1){
 	            		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+i+'">上一页</a>');  
-	            	}else if(i==end && pageNo!=end){
+	            	}else if(i==end && pageNo!=end && i!=pageNum){
 	            		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+i+'">下一页</a>');  
 	            	}else if(i==pageNo){
 	            		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
@@ -84,6 +91,7 @@ require(['api_mkt', 'mkt_info','decimal', 'cookie'], function(api_mkt, mkt_info,
    	            }
 	        } else {
 	            //console.log('财务中心-资产状况-账户明细表格，加载失败。');
+	        	$(".bill").hide();
 	        }
 	    }); 
 	};

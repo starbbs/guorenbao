@@ -720,6 +720,12 @@ a {
 }
 .td-top{
     vertical-align:top;
+    position: relative;
+}
+.posWithdrawals{
+    position: absolute;
+    top:18px;
+    left:7px;
 }
 .Withdrawal td:nth-child(odd){
     padding:8px;
