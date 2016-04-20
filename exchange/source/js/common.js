@@ -9,7 +9,6 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
     if (location.href.indexOf("tradingfloor") === -1) {
         mkt_info.get();
     } else {
-
     }
     var popup_login_times = 0;
     var exchangeToken = $.cookie('exchangeToken');
