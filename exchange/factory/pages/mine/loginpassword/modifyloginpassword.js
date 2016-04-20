@@ -90,6 +90,20 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                     }else if(data.data && data.data.num){
             			var num=data.data?data.data.num:data.date.num;
             			$("#one_span").show().html("原登录密码错误,还有"+(10-num)+"次输入机会");
+            		}else if(data.msg.indexOf("锁定")>=0){
+            			$("#error_four").show().html(data.msg);
+            			$.cookie('exchangeToken', '');
+            	        $.cookie("global_loginuserphone", '');
+            	        $.cookie("global_loginusername", '');
+            	        $.cookie("global_loginuseruid", '');
+            	        $.cookie("totalAssets", "");
+            	        $.cookie("totalNuts", "");
+            	        $.cookie("mine_one", "");
+            	        $.cookie("mine_two", "");
+            	        $.cookie("mine_three", "");
+            	        $.cookie("mine_four", "");
+            	        $.cookie("loginfromwhichpage", "");
+            	        window.location.href = "index.html";
             		}else{
             			$("#error_four").show().html(data.msg);	
             		}
