@@ -279,7 +279,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             },
             exporting: { enabled: false, buttons: { exportButton: { enabled: false }, printButton: { enabled: true } } },
             tooltip: { xDateFormat: '%Y-%m-%d %H:%M %A', color: '#f0f', changeDecimals: 4, borderColor: '#058dc7' },
-            plotOptions: { candlestick: { color: 'blue', upColor: 'red' } },
+            plotOptions: { candlestick: { color: 'green', upColor: 'red' } },
             yAxis: [
                 { labels: { style: { color: '#e55600' } }, title: { text: '价格 [RMB]', style: { color: '#e55600' } }, height: 160, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true },
                 { labels: { style: { color: '#4572A7' } }, title: { text: '成交量 [GOP]', style: { color: '#4572A7' } },top: '80%',
