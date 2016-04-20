@@ -81,10 +81,11 @@ define('api_mkt', ['cookie'], function() {
                         goIndex(true);
                     } else if (data.status == 304 && options.ignoreStatus && options.ignoreStatus.indexOf(304) === -1) { // {msg: "服务器异常", status: "304"}
                         //$.alert('服务器异常, 请联系后台人员!');
-                        alert('服务器异常');
+                        showWarnWin('服务器异常',1e3);
                     } else if(data.status==400){
                         if(data.msg == "系统已经退出了"){
-                            alert("登录超时");
+                            // alert("登录超时");
+                            showWarnWin("登录超时",1e3);
                             clearcookie();
                             goIndex(true);
                         }

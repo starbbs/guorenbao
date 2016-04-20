@@ -323,7 +323,8 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                         } else if (data.status == 305) {} else if (data.status == 400) {} else {}
                     });
                 } else if (data.status == 305) {
-                    alert(data.msg);
+                    // alert(data.msg);
+                    showWarnWin(data.msg,1e3);
                 } else if (data.status == 400) {
                     if (data.msg == "验证码错误") {
                         $(".autocode_tips").show().html(data.msg);
