@@ -372,6 +372,7 @@ progress::-webkit-progress-value {
 }
 progress{
     width:120px;
+    margin-right:2px;
 }
 .quoted_price_first {
     height: 100px;
@@ -812,7 +813,15 @@ progress{
     border-radius: 2px;
     left: 32px;
     cursor: pointer;
+    color: #333;
 }
+.recharge:hover,
+.withdraw:hover{
+    background-color: #0bbeee;
+    color: #fff;
+    border: 1px solid #0bbeee;
+}
+
 .bottom_em_wraper:after {
     content: '';
     border: 1px solid #ffffff;
@@ -829,7 +838,7 @@ progress{
     color: black;
 }
 .withdraw {
-    background-color: #0bbeee;
+    background-color: #ffffff;
 }
 
 
