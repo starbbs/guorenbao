@@ -386,9 +386,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
             
         });
         //果仁提现地址管理添加
-        $('.gopAddressManAdd, .del').click(function(){
+        $('.gopAddressManAdd').click(function(){
         	if(global.payLocked){
-        		window.location.reload();
+        		location.href = "withdraw.html?id=rmbtx ";
         		$(window).scrollTop(0);
         		return false;
         	}
@@ -430,6 +430,10 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $('.nutOutputManager-add').click(function(){
                             $('.nut-one').show();
                             $('.nut-two').hide();
+                            $('#nut-paypwd').val('');
+                            $('#nut-identifyingCode').val('');
+                            $('#nut-name').val('');
+                            $('#nut-address').val('');
                         }); 
                         window.location.href='withdraw.html?id=rmbtx'; 
                     }else if(data.msg == '验证码错误'){
@@ -443,9 +447,13 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             }
             		}else if(data.msg.indexOf('锁定')>0){
             			$('.msg-nut-identifyingCode').show().text(data.msg);
-            			window.location.reload();
+            			window.location.href='withdraw.html?id=rmbtx'; 
                 		$(window).scrollTop(0);
-            		}
+            		}else if(data.msg == '果仁提现地址管理添加错误'){
+                        $('.msg-nut-address').show().text('非法地址');
+                    }else{
+                        showWarnWin(data.msg,1e3);
+                    }
                 });
             }            
         });        

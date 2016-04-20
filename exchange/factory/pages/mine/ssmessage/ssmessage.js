@@ -58,9 +58,9 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                                 categoryname_showvalue = "系统";
                             }
                             if (i%2== 0) {
-                                messagehtml += "<li><div class='message_cont_box color_let'><span>" + categoryname_showvalue + "</span><span>" + dlist[i]['createDate'] + "</span><div>" + dlist[i]['content'] + "</div></div></li>";
+                                messagehtml += "<li><div class='message_cont_box color_let'><span>" + categoryname_showvalue + "</span><span>" + dlist[i]['createDate'] + "</span><div class='messageDiv'>" + dlist[i]['content'] + "</div></div></li>";
                             } else {
-                                messagehtml += "<li><div class='message_cont_box'><span>" + categoryname_showvalue + "</span><span>" + dlist[i]['createDate'] + "</span><div>" + dlist[i]['content'] + "</div></div></li>";
+                                messagehtml += "<li><div class='message_cont_box'><span>" + categoryname_showvalue + "</span><span>" + dlist[i]['createDate'] + "</span><div class='messageDiv'>" + dlist[i]['content'] + "</div></div></li>";
                             }
                         }
                     }
@@ -143,5 +143,14 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         }else{
             $(this).css('backgroundColor','#fff');
         }
+    });
+
+    //消息列表 hover 显示滚动条
+    $('.messageDiv').hover(function(){
+        if($(this).text().length > 100){
+           $(this).addClass('scrollY');
+        }
+    },function(){
+        $(this).removeClass('scrollY');
     });
 });

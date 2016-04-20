@@ -402,15 +402,17 @@
 .message_cont_box span:nth-child(2){
     margin-left: 20px;
 }
-.message_cont_box div{
-        margin-top: 10px;
+.messageDiv{
+    margin-top: 10px;
     line-height: 15px;
-    max-width: 83%;
+    max-width: 840px;
     max-height: 56px;
+}
+.scrollY{
     overflow-y: scroll;
 }
 .message_cont_box img{
-        position: absolute;
+    position: absolute;
     right: 30px;
     cursor:pointer;
     top: 45px;

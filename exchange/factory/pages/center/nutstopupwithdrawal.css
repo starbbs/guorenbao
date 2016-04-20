@@ -563,6 +563,7 @@ a {
     outline: none;
     color:#fff;
      resize : none;
+     overflow: hidden;
 }
 
 #floor_popDiv {
