@@ -22,7 +22,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
         $(".wrapper").on("keyup", ".cnydepostisInput", function(e) {
             var pageNo=$(this).val();
             var pageNum=$(this).attr("data-pagenum");
-            if(pageNo>pageNum){
+            if(parseInt(pageNo)>parseInt(pageNum)){
             	$(this).val(pageNum);
             }else if(pageNo==0){
             	$(this).val(1);
@@ -49,7 +49,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
         $(".wrapper").on("keyup", ".cnywithdrawInput", function(e) {
         	var pageNo=$(this).val();
             var pageNum=$(this).attr("data-pagenum");
-            if(pageNo>pageNum){
+            if(parseInt(pageNo)>parseInt(pageNum)){
             	$(this).val(pageNum);
             }else if(pageNo==0){
             	$(this).val(1);
@@ -126,7 +126,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
         	            $(".cnydepostisInput").attr("data-pagenum",pageNum);
         	            $(".cnydepostisAllNum").html(pageNum);
         	            var start=pageNo>3?(pageNo-3):1;
-        	            var end=(pageNum-start)>=6?(start+6):pageNum;
+        	            var end=(pageNum-start)>=9?(start+9):pageNum;
         	            if(end==pageNum){
         	            	start=(pageNum-6)>1?(pageNum-6):1;
         	            }      	            
@@ -187,7 +187,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
     	            $(".cnywithdrawInput").attr("data-pagenum",pageNum);
     	            $(".cnywithdrawAllNum").html(pageNum);
     	            var start=pageNo>3?(pageNo-3):1;
-    	            var end=(pageNum-start)>=6?(start+6):pageNum;
+    	            var end=(pageNum-start)>=9?(start+9):pageNum;
     	            if(end==pageNum){
     	            	start=(pageNum-6)>1?(pageNum-6):1;
     	            }
