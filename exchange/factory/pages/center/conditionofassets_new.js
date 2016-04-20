@@ -8,7 +8,7 @@ require(['api_mkt', 'mkt_info','decimal', 'cookie'], function(api_mkt, mkt_info,
 	    $(".wrapper").on("keyup", ".inputNum", function(e) {
 	    	var pageNo=$(this).val();
             var pageNum=$(this).attr("data-pagenum");
-            if(pageNo>pageNum){
+            if(parseInt(pageNo)>parseInt(pageNum)){
             	$(this).val(pageNum);
             }else if(pageNo==0){
             	$(this).val(1);
@@ -67,9 +67,9 @@ require(['api_mkt', 'mkt_info','decimal', 'cookie'], function(api_mkt, mkt_info,
 	            $(".inputNum").attr("data-pagenum",pageNum);
 	            $(".allNum").html(pageNum);
 	            var start=pageNo>3?(pageNo-3):1;
-	            var end=(pageNum-start)>=6?(start+6):pageNum;
+	            var end=(pageNum-start)>=9?(start+9):pageNum;
 	            if(end==pageNum){
-	            	start=(pageNum-6)>1?(pageNum-6):1;
+	            	start=(pageNum-9)>1?(pageNum-9):1;
 	            }
         		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+(start>1?(start-1):1)+'">上一页</a>');  
 

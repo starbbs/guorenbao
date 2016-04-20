@@ -40,6 +40,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     var Node4 = $('<span class="nutOutputManager-modify"></span>').appendTo(Node1); 
                     var Node5 = $('<span class="nutOutputManager-del"></span>').appendTo(Node1);
                     Node2_1.val(data.data.list[i].name);
+                    Node2_1.attr('dataId',data.data.list[i].name);
                     Node3.text(data.data.list[i].address);
                     //$('.nut-two').appendBefore(Node1);
                     Node1.insertBefore($('.nutOutputManager-add'));
@@ -97,9 +98,12 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     }); 
                     //取消修改
                     $('.cancleBtn').click(function(){
+                        var  a = $(this).parent().find('.nutIdName').attr('dataId');
+                        //alert($(this).parent().find('.nutIdName').attr('dataId'));
                         $(this).parent().find('.nutIdName').addClass('input');
                         $(this).parent().find('.confirmUpdate').remove();
                         $(this).remove();
+                        $('.nutIdName').val(a);
                     });         
                 });                
             } else {
@@ -176,15 +180,18 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         first("selectp","selectc","form1",0,0);
         
         //校验开户支行-人民币提现管理
+        var subbankBtn = false;
         $('#subbank').blur(function(){
             var subbank = $.trim($(this).val());
             var reg = /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/; 
             if(!subbank || !reg.test(subbank)){
                 btnConfirm = false;
                 $('.msg-subbank').show().text('请输入正确的开户支行地址');
+                subbankBtn = false;
             }else{
                 btnConfirm = true;
                 $('.msg-subbank').hide();
+                subbankBtn = true;
             }
         });
         //校验支付密码-人民币提现管理
@@ -217,6 +224,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         $('#sendCodeByLoginAfterBtn').click(function(){
             if(btnConfirm == false){
                 showWarnWin('请完善填写信息！',1e3);
+            }else if(subbankBtn == false){
+                $('.msg-subbank').show().text('请输入您的开户支行地址');
             }
             else{
                 api_mkt.sendCodeByLoginAfter(function(data) {
@@ -254,7 +263,14 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         		return false;
         	}
             if(btnConfirm == false || $('#sendCodeByLoginAfter').val() ==''){
-                showWarnWin('请完善填写信息！',1e3);
+//                showWarnWin('请完善填写信息！',1e3);
+            	$('#subbank').focus();
+            	$('.pay-pwd').focus();
+            	$('#sendCodeByLoginAfter, #nut-identifyingCode').focus();
+            	
+            	$('#subbank').blur();
+            	$('.pay-pwd').blur();
+            	$('#sendCodeByLoginAfter, #nut-identifyingCode').blur();
             }else{       
             	//中国工商银行，中国建设银行，中国农业银行，中国交通银行，中国邮政储蓄银行，招商银行
             	if($('#bank').val()!='中国工商银行' && $('#bank').val()!='中国建设银行' && $('#bank').val()!='中国农业银行' 
@@ -451,6 +467,8 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 		$(window).scrollTop(0);
             		}else if(data.msg == '果仁提现地址管理添加错误'){
                         $('.msg-nut-address').show().text('非法地址');
+                    }else if(data.msg == '钱包地址格式错误'){
+                        $('.msg-nut-address').show().text('钱包地址格式错误');
                     }else{
                         showWarnWin(data.msg,1e3);
                     }

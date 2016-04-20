@@ -11,7 +11,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
         var pageNo=$(this).val();
         if(this.value.charCodeAt()<48 || this.value.charCodeAt()>57){
 			$(this).val($(this).val().replace(this.value,""));
-		}else if(pageNo>pageNum){
+		}else if(parseInt(pageNo)>parseInt(pageNum)){
 			pageNo=pageNum;
 			$(this).val(pageNo);
 		}else if(parseInt(pageNo)==0){
@@ -69,9 +69,9 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                     pageNum=data.data.pageNum; 
                     $(".allNum").html(pageNum);
     	            var start=pageNo>3?(pageNo-3):1;
-    	            var end=(pageNum-start)>=6?(start+6):pageNum;
+    	            var end=(pageNum-start)>=9?(start+9):pageNum;
     	            if(end==pageNum){
-    	            	start=(pageNum-6)>1?(pageNum-6):1;
+    	            	start=(pageNum-9)>1?(pageNum-9):1;
     	            }
     	            htmlPage.push('<a class="messagePageNo" href="javascript:void(0);" data-pageno="'+(start>1?(start-1):1)+'">上一页</a>');
     	            for(var i=start;i<=end;i++){
