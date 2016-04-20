@@ -628,6 +628,7 @@ table {
     top: -26px;
     color: #ff6600;
     display: none;
+    float: left;
 }
 
 #authcode {
@@ -648,10 +649,12 @@ table {
 .error_tips {
     position: absolute;
     top: 48px;
+    left:0px;
     height: 20px;
     color: #ff6600;
     line-height: 20px;
     display: none;
+    float: left;
 }
 
 .autocode_tips {
@@ -659,6 +662,7 @@ table {
     position: absolute;
     left: 0px;
     top: 32px;
+    float: left;
 }
 
 .popup_login_btn {
