@@ -107,12 +107,10 @@ section {
 }
 
 html {
-    font-family: "Microsoft Yahei, hiragino sansgb, sans-serif, Arial,Verdana,Helvetica, STHeiTi, sans-serif";
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     font-size: 62.5%;
-    -webkit-font-smoothing: antialiased; // 抗锯齿
-    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased; 
 }
 
 body {
@@ -123,10 +121,9 @@ body {
     background-color: white;
     height: 100%;
     overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-    font-family: "Microsoft Yahei, hiragino sansgb, sans-serif, Arial,Verdana,Helvetica, STHeiTi, sans-serif";
-    -webkit-font-smoothing: antialiased; // 抗锯齿
-    -moz-osx-font-smoothing: grayscale;
+    font-family:'Microsoft YaHei','hiragino sans gb','Arial',tahoma,stheiti,'wenquanyi micro hei',\5FAE\8F6F\96C5\9ED1,\5B8B\4F53,sans-serif;
+    -webkit-font-smoothing: antialiased; 
+    text-rendering:optimizeSpeed;
 }
 
 ol,

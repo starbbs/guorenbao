@@ -1096,5 +1096,12 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     $('.sel_div_password').focus(function(){
         $(this).val('');
     });
-
+    //显示垂直滚动条
+    $('.order_record').hover(function(){
+        if($(this).children().children().children('.table_row').length > 10){
+           $(this).addClass('orderlist');
+        }
+    },function(){
+        $(this).removeClass('orderlist');
+    });
 });

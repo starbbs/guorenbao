@@ -534,6 +534,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                     $(".mydiv").css("display","none");
                     $(".bg").css("display","none");
                     window.location.reload();
+                    $("#phonePos").attr('checked',false);
                 });      
             }
         });
