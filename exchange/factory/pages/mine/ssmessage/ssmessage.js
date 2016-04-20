@@ -80,8 +80,8 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
     	            	}else{
     	            		htmlPage.push('<a class="messagePageNo" href="javascript:void(0);" data-pageno="'+i+'">'+i+'</a>');  
     	            	}
-    	            	htmlPage.push('<a class="messagePageNo" href="javascript:void(0);" data-pageno="'+(end<pageNum?(end+1):pageNum)+'">下一页</a>');
     	            }
+	            	htmlPage.push('<a class="messagePageNo" href="javascript:void(0);" data-pageno="'+(end<pageNum?(end+1):pageNum)+'">下一页</a>');
     	            $(".messagePage").html(htmlPage.join(""));
     	            $(window).scrollTop(0);
     	           if(pageNum>0){

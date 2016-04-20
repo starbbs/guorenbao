@@ -168,8 +168,8 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
 	            	}else{
 	            		htmlPage.push('<a class="nutsOutPageNo" href="javascript:void(0);" data-pageno="'+i+'">'+i+'</a>');  
 	            	}
-	            	htmlPage.push('<a class="nutsOutPageNo" href="javascript:void(0);" data-pageno="'+(end<pageNum?(end+1):pageNum)+'">下一页</a>');
 	            }
+            	htmlPage.push('<a class="nutsOutPageNo" href="javascript:void(0);" data-pageno="'+(end<pageNum?(end+1):pageNum)+'">下一页</a>');
 	            $(".nutsOutPage").html(htmlPage.join(""));
 	            $(window).scrollTop(0);
 	            if(pageNum>0){
