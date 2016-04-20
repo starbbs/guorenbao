@@ -302,7 +302,7 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
         };
         var c = getQueryString("whichtab");
         if(c&&c=="rmbtx"){
-            $(this).addClass('bottomon');
+            $(".rmbtx").addClass('bottomon');
             $('.rmbxh').removeClass('bottomon');
             $('.recharge').hide();
             $('.withdraw_deposit').show();

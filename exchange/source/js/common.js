@@ -411,7 +411,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         console.log("clcccc")
         $("#msg_num_top,#newinfor_result").html("0");
         var ff = "myboxclick";
-        synchronous(ff);
+        //synchronous(ff);
         location.href = "./ssmessage.html";
     });
 
@@ -425,7 +425,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
     var lookall = function() {
         $("#msg_num_top,#newinfor_result").html("0");
         var ff = "myboxclick";
-        synchronous(ff);
+        //synchronous(ff);
         location.href = "./ssmessage.html";
     }
 

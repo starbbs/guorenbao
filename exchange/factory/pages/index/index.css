@@ -314,6 +314,7 @@ progress::-webkit-progress-value {
     max-height: 1100px;
     height:1100px;
     overflow: hidden;
+    position:relative;
 }
 .scrollY{
     overflow-y: scroll;
@@ -936,4 +937,6 @@ progress{
     line-height: 50px;
     margin-left: 150px;
     display:none;
+    position:absolute;
+    top:200px;
 }
