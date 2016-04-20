@@ -84,7 +84,12 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     $("#whether_auth").html("未认证");
                     $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
                     // console.log("未认证");
-                    
+                    $(".recharge").on("click", function() {
+                            location.href = "./conditionofassets.html";
+                        });
+                        $(".withdraw").on("click", function() {
+                            location.href = "./conditionofassets.html";
+                        });
                 }
 
             } else if (data.status == 305) {} else if (data.status == 400) {
@@ -420,6 +425,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     String.prototype.trim = function() {
         return this.replace(/(^\s*)|(\s*$)/g, '');
     };
+
+    $(".popuptips").hide();
+
     var login_area_times = 0;
     $(".indexpage_loginarea_btn").on("click", function() {
         

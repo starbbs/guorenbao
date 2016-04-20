@@ -407,6 +407,9 @@
     line-height: 15px;
     max-width: 840px;
     max-height: 56px;
+    white-space: nowrap;
+    overflow: hidden;
+    word-break: break-all;
 }
 .scrollY{
     overflow-y: scroll;
