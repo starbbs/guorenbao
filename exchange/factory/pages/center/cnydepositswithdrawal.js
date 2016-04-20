@@ -275,8 +275,8 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                         'money':amount,
                         'identifyingCode':$('#VerificationCode').val(),
                         'fee':Fee,
-                        'bankName':data.data.list[0].bank,
-                        'acName':data.data.list[0].name,
+                        'bankName':$.cookie('bankName'),
+                        'acName':$.cookie('bankUserName'),
                         'paypwd':$('#WithdrawalsPayPwd').val() 
                     }, function(data) {
                         if (data.status == 200) { 
