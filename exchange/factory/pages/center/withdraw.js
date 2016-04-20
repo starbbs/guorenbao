@@ -103,7 +103,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $(this).parent().find('.nutIdName').addClass('input');
                         $(this).parent().find('.confirmUpdate').remove();
                         $(this).remove();
-                        $('.nutIdName').val(a);
+                        $(this).parent().find('.nutIdName').val(a);
                     });         
                 });                
             } else {
