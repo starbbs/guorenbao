@@ -132,9 +132,78 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
         api_mkt.depthchart(function(data) {
             obj1 = data[0].sort(function(t,a){return t[0]>a[0]?1:t[0]<a[0]?-1:0});
             obj2 = data[1];
-            depthchart_painting(obj1,obj2);
+            console.log("```````````")
+            console.log(obj1);
+            console.log(obj2);
+            
+        });
+        depthchart_painting(obj1,obj2);
+    }
+
+    var depthchart_painting = function(ojb1,obj2){
+        $('#deepmap_container').highcharts({
+            chart: {
+                type: 'area'
+            },
+            title: {
+                text: ''//果仁市场深度图
+            },
+            xAxis: {
+                allowDecimals: true,
+                title:{text:'价格'},
+                labels: {
+                    formatter: function() {
+                        return '¥'+this.value; // clean, unformatted number for year
+                    }
+                }
+            },
+            yAxis: {
+                title: {
+                    text: '数量'
+                }
+                // ,
+                // labels: {
+                //     formatter: function() {
+                //         return this.value / 1000 + 'k';
+                //     }
+                // }
+            },
+            tooltip: {
+                //pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+                // valuePrefix: '￥dsd',
+                // valueSuffix: '元',
+                useHTML: true,
+                borderWidth: 1,
+                pointFormat: "委托价:¥{point.x}</br>{series.name}<img src='./images/floor_g_deal_logo.png' style='position:relative;top:2px;'></img>:{point.y}"
+            },
+            exporting: { enabled: false, buttons: { exportButton: { enabled: false }, printButton: { enabled: true } } },
+            plotOptions: {
+                area: {
+                    pointStart: 0,
+                    marker: {
+                        enabled: false,
+                        symbol: 'circle',
+                        radius: 2,
+                        states: {
+                            hover: {
+                                enabled: true
+                            }
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: '累计买单',
+                color:'red',
+                data: obj1
+            }, {
+                name: '累计卖单',
+                color:'green',
+                data: obj2
+            }]
         });
     }
+    depthchart_painting(obj1,obj2);
     gettradefloorarealine();
     window.setInterval(gettradefloorarealine, 3000); //轮询首页的深度图
     var highcharts_Rendering = function(whichday, groupingUnits) {
@@ -241,73 +310,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             ]
         });
     }
-    var depthchart_painting = function(ojb1,obj2){
-        $('#deepmap_container').highcharts({
-            chart: {
-                type: 'area'
-            },
-            title: {
-                text: ''//果仁市场深度图
-            },
-            xAxis: {
-                allowDecimals: true,
-                title:{text:'价格'},
-                labels: {
-                    formatter: function() {
-                        return '¥'+this.value; // clean, unformatted number for year
-                    }
-                }
-            },
-            yAxis: {
-                title: {
-                    text: '数量'
-                }
-                // ,
-                // labels: {
-                //     formatter: function() {
-                //         return this.value / 1000 + 'k';
-                //     }
-                // }
-            },
-            tooltip: {
-                //pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
-                // valuePrefix: '￥dsd',
-                // valueSuffix: '元',
-                useHTML: true,
-                borderWidth: 1,
-                pointFormat: "委托价:¥{point.x}</br>{series.name}<img src='./images/floor_g_deal_logo.png' style='position:relative;top:2px;'></img>:{point.y}"
-            },
-            exporting: { enabled: false, buttons: { exportButton: { enabled: false }, printButton: { enabled: true } } },
-            plotOptions: {
-                area: {
-                    pointStart: 0,
-                    marker: {
-                        enabled: false,
-                        symbol: 'circle',
-                        radius: 2,
-                        states: {
-                            hover: {
-                                enabled: true
-                            }
-                        }
-                    }
-                }
-            },
-            series: [{
-                name: '累计买单',
-                color:'red',
-                data: obj1
-            }, {
-                name: '累计卖单',
-                color:'green',
-                data: obj2
-            }]
-        });
-    }
-    // api_mkt.depthchart(function(data){
-    //     var obj1 = data[0].sort(function(t,a){return t[0]>a[0]?1:t[0]<a[0]?-1:0});
-    //     var obj2 = data[1];
-    // });
+    
     $(".leftchart").on("click",function(){
         //分时图
         $(".timeshareblock").show();

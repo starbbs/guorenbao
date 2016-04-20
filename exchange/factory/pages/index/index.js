@@ -75,9 +75,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     $(".bottom_em_i")[0].style.background = "url(./images/index_already_authentication.png)";
                     // console.log("已认证");
                     $(".recharge").on("click", function() {
+                        $.cookie("loginfromwhichpage","three");
                             location.href = "./cnydepositswithdrawal.html";
                         });
                         $(".withdraw").on("click", function() {
+                            $.cookie("loginfromwhichpage","three");
                             location.href = "./cnydepositswithdrawal.html?formindex='index'";
                         });
                 } else {
@@ -85,9 +87,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
                     // console.log("未认证");
                     $(".recharge").on("click", function() {
+                        $.cookie("loginfromwhichpage","three");
                             location.href = "./conditionofassets.html";
                         });
                         $(".withdraw").on("click", function() {
+                            $.cookie("loginfromwhichpage","three");
                             location.href = "./conditionofassets.html";
                         });
                 }
@@ -98,9 +102,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 // console.log("未认证");
                 $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
                 $(".recharge").on("click", function() {
+                    $.cookie("loginfromwhichpage","three");
                             location.href = "./conditionofassets.html";
                         });
                         $(".withdraw").on("click", function() {
+                            $.cookie("loginfromwhichpage","three");
                             location.href = "./conditionofassets.html";
                         });
 
@@ -526,9 +532,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     });
                     if (global_loginusername) {
                         $(".recharge").on("click", function() {
+                            $.cookie("loginfromwhichpage","three");
                             location.href = "./cnydepositswithdrawal.html";
                         });
                         $(".withdraw").on("click", function() {
+                            $.cookie("loginfromwhichpage","three");
                             location.href = "./cnydepositswithdrawal.html?formindex='index'";
                         });
                         $("#whether_auth").html(global_loginusername);
@@ -536,9 +544,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     } else {
 
                         $(".recharge").on("click", function() {
+                            $.cookie("loginfromwhichpage","three");
                             location.href = "./conditionofassets.html";
                         });
                         $(".withdraw").on("click", function() {
+                            $.cookie("loginfromwhichpage","three");
                             location.href = "./conditionofassets.html";
                         });
                         // console.log("haha")

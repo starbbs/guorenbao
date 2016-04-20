@@ -47,7 +47,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                 if (location.href.indexOf("/index.html") === -1) {
                     $(".popuptips").slideDown();
                 } else {
-                    $(".popuptips").slideUp();
+                    $(".popuptips").hide();
                 }
                 $(".quoted_price_top").css("margin-top","0px");
                 $(".center_content").css("margin-top","0px");
