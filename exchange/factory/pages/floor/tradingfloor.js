@@ -129,21 +129,43 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     var obj1;
     var obj2;
     var gettradefloorarealine = function() {
-        api_mkt.depthchart(function(data) {
-            obj1 = data[0].sort(function(t,a){return t[0]>a[0]?1:t[0]<a[0]?-1:0});
-            obj2 = data[1];
-            console.log("```````````")
-            console.log(obj1);
-            console.log(obj2);
-            
-        });
-        depthchart_painting(obj1,obj2);
+        // api_mkt.depthchart(function(data) {
+        //     obj1 = data[0].sort(function(t,a){return t[0]>a[0]?1:t[0]<a[0]?-1:0});
+        //     obj2 = data[1];
+        //     console.log("```````````")
+        //     console.log(obj1);
+        //     console.log(obj2);
+
+        // });
+        // depthchart_painting(obj1,obj2);
     }
 
     var depthchart_painting = function(ojb1,obj2){
         $('#deepmap_container').highcharts({
             chart: {
-                type: 'area'
+                type: 'area',
+                events: {
+                    load: function () {
+                        // set up the updating of the chart each second
+                        var series0 = this.series[0];
+                        var series1 = this.series[1];
+                        setInterval(function () {
+                            // var x = (new Date()).getTime(), // current time
+                            //     y = Math.random();
+                            // series.addPoint([x, y], true, true);
+                            api_mkt.depthchart(function(data) {
+                                obj1 = data[0].sort(function(t,a){return t[0]>a[0]?1:t[0]<a[0]?-1:0});
+                                obj2 = data[1];
+                                console.log("```````````")
+                                console.log(obj1);
+                                console.log(obj2);
+                                //depthchart_painting(obj1,obj2);
+                                series0.setData(obj1);
+                                series1.setData(obj2);
+                            });
+                        }, 1000);
+                    }
+                }
             },
             title: {
                 text: ''//果仁市场深度图
@@ -1099,12 +1121,5 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     $('.sel_div_password').focus(function(){
         $(this).val('');
     });
-    //显示垂直滚动条
-    $('.order_record').hover(function(){
-        if($(this).children().children().children('.table_row').length > 10){
-           $(this).addClass('orderlist');
-        }
-    },function(){
-        $(this).removeClass('orderlist');
-    });
+
 });
