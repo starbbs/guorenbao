@@ -644,4 +644,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             location.reload(true);
         }, 100);
     });
+    //显示垂直滚动条
+    $('.tbone').hover(function(){
+        if($(this).children('.table_row').length > 30){
+           $(this).toggleClass('scrollY');
+        }
+    });
 });
