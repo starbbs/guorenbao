@@ -477,40 +477,8 @@
 .handlingcharget em{
     margin-right:8px;
 }
-/* 历史记录页面样式 -分页样式 页码样式 */
-.PageCode {
-  padding: 15px 20px;
-  color: #000;
-  text-align: right;
-  font-size: 13px; }
 
-.PageCode a {
-  display: inline-block;
-  color: #000000;
-  height: 25px;
-  line-height: 25px;
-  padding: 0 10px;
-  margin: 0 2px;
-  border-radius: 4px; }
-
-.PageCode a:hover {
-  text-decoration: none;
-  background-color: #eee;
-  color: #000; }
-
-a {
-  text-decoration: none; }
-
-.inputNum {
-  width: 20px;
-  text-align: center;
-  font-size: 7px; }
-
-.btn-fenye {
-  cursor: pointer;
-  padding: 2px 7px; }
-
-  /*弹出层样式表*/
+/*弹出层样式表*/
   .mydiv {
   background-color: #fff;
   border: 1px solid #ccc;

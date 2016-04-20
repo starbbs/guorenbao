@@ -72,7 +72,10 @@
         var total = Number(haha['total']);
         // price24 = 2;  //最新成交价*(1+x) = 24小时之前价格
         // thelatestprice = 1.2;
-        var unknow = Number((thelatestprice - price24)/price24);
+        var unknow = 0;
+        if(price24!=0){
+            var unknow = Number((thelatestprice - price24)/price24);
+        }
         // console.log("price24"+price24);
         // console.log("thelatestprice"+thelatestprice);
         // console.log("unknow"+unknow);
@@ -108,6 +111,7 @@
             }
         }
         if(bid_history_list_html==""){
+            console.log("xxxxxxxxxxxx")
             $(".no-record-picture3").show();
         } else {
             $(".no-record-picture3").hide();

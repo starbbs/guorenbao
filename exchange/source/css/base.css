@@ -107,10 +107,12 @@ section {
 }
 
 html {
-    font-family: "Microsoft Yahei, sans-serif, Arial,Verdana,Helvetica, STHeiTi, sans-serif";
+    font-family: "Microsoft Yahei, hiragino sansgb, sans-serif, Arial,Verdana,Helvetica, STHeiTi, sans-serif";
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     font-size: 62.5%;
+    -webkit-font-smoothing: antialiased; // 抗锯齿
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -122,7 +124,9 @@ body {
     height: 100%;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
-    font-family: "Microsoft Yahei, sans-serif, Arial,Verdana,Helvetica, STHeiTi, sans-serif";
+    font-family: "Microsoft Yahei, hiragino sansgb, sans-serif, Arial,Verdana,Helvetica, STHeiTi, sans-serif";
+    -webkit-font-smoothing: antialiased; // 抗锯齿
+    -moz-osx-font-smoothing: grayscale;
 }
 
 ol,
@@ -609,7 +613,7 @@ table {
     line-height: 32px;
     width: 220px;
     padding-left: 15px;
-    font-family: "Microsoft Yahei";
+    font-family: "Microsoft Yahei, hiragino sansgb, sans-serif";
 }
 
 .first_input_div {
@@ -628,6 +632,7 @@ table {
     top: -26px;
     color: #ff6600;
     display: none;
+    float: left;
 }
 
 #authcode {
@@ -642,16 +647,18 @@ table {
     width: 51%;
     float: left;
     padding-left: 5%;
-    font-family: "Microsoft Yahei";
+    font-family: "Microsoft Yahei, hiragino sansgb, sans-serif";
 }
 
 .error_tips {
     position: absolute;
     top: 48px;
+    left:0px;
     height: 20px;
     color: #ff6600;
     line-height: 20px;
     display: none;
+    float: left;
 }
 
 .autocode_tips {
@@ -659,6 +666,7 @@ table {
     position: absolute;
     left: 0px;
     top: 32px;
+    float: left;
 }
 
 .popup_login_btn {
@@ -750,3 +758,37 @@ input:-ms-input-placeholder {
 .moreCheck:hover{
     color:#0088cc;
 };
+/* 查看更多页面 -分页样式 页码样式 */
+.PageCode {
+  padding: 15px 20px;
+  color: #000;
+  text-align: right;
+  font-size: 13px; }
+
+.PageCode a {
+  display: inline-block;
+  color: #000000;
+  height: 25px;
+  line-height: 25px;
+  padding: 0 10px;
+  margin: 0 2px;
+  border-radius: 4px; }
+
+.PageCode a:hover {
+  text-decoration: none;
+  background-color: #eee;
+  color: #000; }
+
+a {
+  text-decoration: none; }
+
+.inputNum {
+  width: 20px;
+  height: 18px;
+  text-align: center;
+  font-size: 12px; 
+}
+
+.btn-fenye {
+  cursor: pointer;
+  padding: 2px 7px; }

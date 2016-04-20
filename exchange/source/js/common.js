@@ -9,7 +9,6 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
     if (location.href.indexOf("tradingfloor") === -1) {
         mkt_info.get();
     } else {
-
     }
     var popup_login_times = 0;
     var exchangeToken = $.cookie('exchangeToken');
@@ -25,14 +24,30 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
 
     api_mkt.realAuth(function(data){
         if(data.status=="200"){
-            
+            $(".recharge").on("click", function() {
+                $.cookie("loginfromwhichpage","three");
+                location.href = "./cnydepositswithdrawal.html";
+            });
+            $(".withdraw").on("click", function() {
+                $.cookie("loginfromwhichpage","three");
+                location.href = "./cnydepositswithdrawal.html?formindex='index'";
+            });
             $(".quoted_price_top").css("margin-top","14px");
             $(".center_content").css("margin-top","14px");
         } else if(data.status=="400") {
             if(data.msg=="用户未实名认证"){
+                $(".recharge").on("click", function() {
+                    $.cookie("loginfromwhichpage","three");
+                    location.href = "./conditionofassets.html";
+                });
+                $(".withdraw").on("click", function() {
+                    $.cookie("loginfromwhichpage","three");
+                    location.href = "./conditionofassets.html";
+                });
                 if (location.href.indexOf("/index.html") === -1) {
                     $(".popuptips").slideDown();
                 } else {
+                    $(".popuptips").slideUp();
                 }
                 $(".quoted_price_top").css("margin-top","0px");
                 $(".center_content").css("margin-top","0px");
@@ -253,7 +268,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
             $(".autocode_tips").show().html("请输入验证码");
             return;
         }
-        if (flag == true && password != "" && password.length >= 6 && password.length < 12 && authcode_common != "") {
+        if (flag == true && password != "" && password.length >= 6 && password.length < 20 && authcode_common != "") {
             $(".error_tips").hide();
             $(".autocode_tips").hide();
             api_mkt.login({
@@ -291,9 +306,27 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                     $(".top_em").html(global_loginuserphone.substr(0, 3) + '****' + global_loginuserphone.substr(7, 4));
                     var whether_auth_val = "";
                     if (whether_auth) {
+                        $(".recharge").on("click", function() {
+                            $.cookie("loginfromwhichpage","three");
+                            location.href = "./cnydepositswithdrawal.html";
+                        });
+                        $(".withdraw").on("click", function() {
+                            $.cookie("loginfromwhichpage","three");
+                            location.href = "./cnydepositswithdrawal.html?formindex='index'";
+                        });
+
                         whether_auth_val = global_loginusername;
                         $(".bottom_em_i")[0] ? $(".bottom_em_i")[0].style.background = "url(./images/index_already_authentication.png)" : "";
                     } else {
+                        $(".recharge").on("click", function() {
+                            $.cookie("loginfromwhichpage","three");
+                            location.href = "./conditionofassets.html";
+                        });
+                        $(".withdraw").on("click", function() {
+                            $.cookie("loginfromwhichpage","three");
+                            location.href = "./conditionofassets.html";
+                        });
+
                         whether_auth_val = '未认证';
                         $(".bottom_em_i")[0] ? $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)" : "";
                     }
@@ -324,7 +357,8 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                         } else if (data.status == 305) {} else if (data.status == 400) {} else {}
                     });
                 } else if (data.status == 305) {
-                    alert(data.msg);
+                    // alert(data.msg);
+                    showWarnWin(data.msg,1e3);
                 } else if (data.status == 400) {
                     if (data.msg == "验证码错误") {
                         $(".autocode_tips").show().html(data.msg);
@@ -412,7 +446,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         console.log("clcccc")
         $("#msg_num_top,#newinfor_result").html("0");
         var ff = "myboxclick";
-        synchronous(ff);
+        //synchronous(ff);
         location.href = "./ssmessage.html";
     });
 
@@ -426,7 +460,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
     var lookall = function() {
         $("#msg_num_top,#newinfor_result").html("0");
         var ff = "myboxclick";
-        synchronous(ff);
+        //synchronous(ff);
         location.href = "./ssmessage.html";
     }
 

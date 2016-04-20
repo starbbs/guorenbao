@@ -99,7 +99,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                         $(".cnyInput").html("");  //添加前清空 
                         for(var i=0; i<num;i++){
                             html.push("<tr>");                                        
-                            html.push("<td>"+ data.data.list[i].updateDate +"</td>");
+                            html.push("<td>"+ data.data.list[i].createDate +"</td>");
                             html.push("<td class='bank'>"+ data.data.list[i].bank +"</td>");
                             html.push("<td class='money'>"+ decimal.getTwoPs(data.data.list[i].money) +"</td>");                    
                             html.push("<td style='display:none' class='txid'>"+ data.data.list[i].txid +"</td>");
@@ -116,9 +116,9 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
 
                         //过滤内容显示不同颜色
                         $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");                                      
-                        $(".status").filter(":contains('CANCEL')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('已关闭');                  
-                        $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('已完成');                                      
-                        $(".status").filter(":contains('CLOSED')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('已关闭');
+                        $(".status").filter(":contains('CANCEL')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('');                  
+                        $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('');                                      
+                        $(".status").filter(":contains('CLOSED')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('');
                         
                         var htmlPage = [];
                         var pageNum=data.data.pageNum;

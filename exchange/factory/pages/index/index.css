@@ -309,10 +309,12 @@ progress::-webkit-progress-value {
 
 .tbone{
     border: 1px solid #e6e6e6;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
     width: 100%;
     max-height: 1100px;
     height:1100px;
+    overflow: hidden;
+    position:relative;
 }
 .scrollY{
     overflow-y: scroll;
@@ -369,6 +371,7 @@ progress::-webkit-progress-value {
 }
 progress{
     width:120px;
+    margin-right:2px;
 }
 .quoted_price_first {
     height: 100px;
@@ -809,7 +812,15 @@ progress{
     border-radius: 2px;
     left: 32px;
     cursor: pointer;
+    color: #333;
 }
+.recharge:hover,
+.withdraw:hover{
+    background-color: #0bbeee;
+    color: #fff;
+    border: 1px solid #0bbeee;
+}
+
 .bottom_em_wraper:after {
     content: '';
     border: 1px solid #ffffff;
@@ -826,7 +837,7 @@ progress{
     color: black;
 }
 .withdraw {
-    background-color: #0bbeee;
+    background-color: #ffffff;
 }
 
 
@@ -935,4 +946,6 @@ progress{
     line-height: 50px;
     margin-left: 150px;
     display:none;
+    position:absolute;
+    top:200px;
 }
