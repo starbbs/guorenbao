@@ -103,6 +103,7 @@ define('api_mkt', ['cookie'], function() {
                                 if(location.href.indexOf('/conditionofassets.html') != -1){
                                 } else {
                                     location.href="./conditionofassets.html";
+                                    $(".popuptips").slideDown();
                                 }
                             } else if(loginfromwhichpage=="four"){
                                 if(location.href.indexOf('/basicinfo.html')!=-1){
@@ -117,7 +118,7 @@ define('api_mkt', ['cookie'], function() {
                         }
                     } else if(data.status==444){
                         clearcookie();
-                        goIndex(true);
+                        //goIndex(true);
                     }
                     options.callback && options.callback.call(this, data);
                     success && success.call(this, data);
