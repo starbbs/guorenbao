@@ -47,7 +47,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                 var num = data.data.list.length < 5?data.data.list.length:5;
                 for(var i=0; i<num;i++){
                     html.push("<tr>");                                        
-                    html.push("<td>"+ data.data.list[i].updateDate +"</td>");
+                    html.push("<td>"+ data.data.list[i].createDate +"</td>");
                     html.push("<td class='bank'>"+ data.data.list[i].bank +"</td>");
                     html.push("<td class='money'>"+ decimal.getTwoPs(data.data.list[i].money) +"</td>");                    
                     html.push("<td style='display:none' class='txid'>"+ data.data.list[i].txid +"</td>");
@@ -275,8 +275,8 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                         'money':amount,
                         'identifyingCode':$('#VerificationCode').val(),
                         'fee':Fee,
-                        'bankName':data.data.list[0].bank,
-                        'acName':data.data.list[0].name,
+                        'bankName':$.cookie('bankName'),
+                        'acName':$.cookie('bankUserName'),
                         'paypwd':$('#WithdrawalsPayPwd').val() 
                     }, function(data) {
                         if (data.status == 200) { 

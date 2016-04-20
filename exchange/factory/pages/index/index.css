@@ -309,10 +309,11 @@ progress::-webkit-progress-value {
 
 .tbone{
     border: 1px solid #e6e6e6;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
     width: 100%;
     max-height: 1100px;
     height:1100px;
+    overflow: hidden;
 }
 .scrollY{
     overflow-y: scroll;

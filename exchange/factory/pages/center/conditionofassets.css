@@ -404,3 +404,6 @@ a {
     line-height: 50px;
     margin-left:340px;
 }
+.nutAmount1, .nutAmount2{
+    background: url(../images/center_bgNut.png) no-repeat 63px 17px;
+}

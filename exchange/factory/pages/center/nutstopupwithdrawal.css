@@ -767,4 +767,7 @@ a {
     color: #ffffff;
     cursor: pointer;
 }
+.nutAmount1{
+    background: url(../images/center_bgNut.png) no-repeat 41px 17px;
+}
 

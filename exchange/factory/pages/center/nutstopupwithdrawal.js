@@ -190,7 +190,9 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
                 'paypwd': $('#gopWithdrawalsPayPwd').val()
             }, function(data) {
                 if (data.status == 200) {
-                    showWarnWin('转出成功',1e3);
+                    //showWarnWin('转出成功',1e3);
+                    $('.mydiv').show();
+                    $('.bg').show();
                     $('#gopWithdrawalsNumber').val('');
                     $('#gopWithdrawalsPayPwd').val('');
                     $('#gopWithdrawalsCode').val('');
@@ -209,9 +211,6 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
             		$(window).scrollTop(0);
         		}else if(data.msg == '账户果仁不足'){
                     $('.msg-gopWithdrawalsNumber').text('您的账户果仁不足');
-                }else if(data.msg == '转出成功'){
-                    $('.mydiv').show();
-                    $('.bg').show();
                 }else{
                     showWarnWin(data.msg,1e3);
                 }

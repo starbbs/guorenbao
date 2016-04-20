@@ -51,6 +51,10 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 $('.nutOutputManager-addBtn').click(function(){
                     $('.nut-one').show();
                     $('.nut-two').hide();
+                    $('#nut-paypwd').val('');
+                    $('#nut-name').val('');
+                    $('#nut-address').val('');
+                    $('#nut-identifyingCode').val('');
                 });
                 //果仁提现地址管理删除
                 $('.nutOutputManager-del').click(function(){
