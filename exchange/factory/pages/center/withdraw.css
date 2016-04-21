@@ -669,6 +669,6 @@
 .nutIdName, .sureBtn, .cancleBtn{
     margin-right: 5px;
 }
-.msg-sendCodeByLoginAfter{
+.msg-sendCodeByLoginAfter, .msg-pay-pwd{
     width:400px;
 }

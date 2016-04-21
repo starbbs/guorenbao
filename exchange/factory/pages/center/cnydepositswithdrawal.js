@@ -121,11 +121,11 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
         $('#WithdrawalsAmount').blur(function(){
             var WithdrawalsAmount = $(this).val();
             if(!WithdrawalsAmount || isNaN(WithdrawalsAmount) || WithdrawalsAmount <10 ||String(WithdrawalsAmount).substr(0, 1) == 0){
-                $('.msg-WithdrawalsAmount').text('最低提现金额为10元');
+                $('.msg-WithdrawalsAmount').text('单笔最低提现金额为10元');
                 $('.WithdrawalsFee').text('0 CNY');
                 flag1 = false;
             }else if(WithdrawalsAmount > 50000){
-                $('.msg-WithdrawalsAmount').text('最大提现金额不能超过50000元');
+                $('.msg-WithdrawalsAmount').text('单笔最大提现金额不能超过5万元');
                 flag1 = false;
             }else{
                 flag1 = true;
