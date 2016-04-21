@@ -439,6 +439,10 @@ table {
     line-height: 16px;
 }
 
+.message_flow :hover{
+    color:#0ca8d2;
+}
+
 .message_flow {
     height: 52px;
 }
