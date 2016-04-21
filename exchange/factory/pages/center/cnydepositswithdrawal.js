@@ -367,9 +367,9 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
         var btnConfirm1 = false;
         $("#bank-money").blur(function(){
             var bankmoney = $("#bank-money").val();
-            if(bankmoney < 100 || isNaN(bankmoney)){
+            if(bankmoney < 10 || isNaN(bankmoney)){
                 btnConfirm1 = false;
-                $('.msg-bank-money').show().text('最小充值金额为100元');
+                $('.msg-bank-money').show().text('最小充值金额为10元');
             }else{
                 $('.msg-bank-money').hide();
                 btnConfirm1 = true;

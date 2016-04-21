@@ -1595,3 +1595,6 @@ input::-webkit-outer-spin-button {
 .ionehide,.itwohide,.ithreehide,.ifourhide{
     left:66px;
 }
+.dotted_input{
+    font-family:'Microsoft YaHei','hiragino sans gb',sans-serif;
+}
