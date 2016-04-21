@@ -506,7 +506,7 @@ progress{
     border: none;
     overflow: hidden;
     color:#333;
-    font-family: "Microsoft Yahei";
+    font-family: Microsoft Yahei;
 }
 
 .loginarea div:nth-child(2) {
