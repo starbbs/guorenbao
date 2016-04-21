@@ -62,7 +62,7 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    font-family: "微软雅黑";
+    font-family:'Microsoft YaHei','hiragino sans gb','Arial',tahoma,stheiti,'wenquanyi micro hei',\5FAE\8F6F\96C5\9ED1,\5B8B\4F53,sans-serif;
     background-color: #f6f6f6;
 }
 
@@ -407,8 +407,8 @@
     line-height: 15px;
     max-width: 840px;
     max-height: 56px;
-    white-space: nowrap;
-    overflow: hidden;
+   /*  white-space: nowrap;
+   overflow: hidden; */
     word-break: break-all;
 }
 .scrollY{
