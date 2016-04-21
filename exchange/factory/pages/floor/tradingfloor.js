@@ -118,8 +118,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     }
     gettradefloorkline();
     window.setInterval(gettradefloorkline, 300000); //轮询首页的k线图
-
-
     // var arealineapply = function(data){
     //     api_mkt.homepagekline(function(data) {
     //         klineapply(data);
@@ -146,20 +144,12 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
                 type: 'area',
                 events: {
                     load: function () {
-                        // set up the updating of the chart each second
                         var series0 = this.series[0];
                         var series1 = this.series[1];
                         setInterval(function () {
-                            // var x = (new Date()).getTime(), // current time
-                            //     y = Math.random();
-                            // series.addPoint([x, y], true, true);
                             api_mkt.depthchart(function(data) {
                                 obj1 = data[0].sort(function(t,a){return t[0]>a[0]?1:t[0]<a[0]?-1:0});
                                 obj2 = data[1];
-                                console.log("```````````")
-                                console.log(obj1);
-                                console.log(obj2);
-                                //depthchart_painting(obj1,obj2);
                                 series0.setData(obj1);
                                 series1.setData(obj2);
                             });
@@ -332,7 +322,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
             ]
         });
     }
-    
     $(".leftchart").on("click",function(){
         //分时图
         $(".timeshareblock").show();
