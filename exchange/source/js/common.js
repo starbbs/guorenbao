@@ -240,7 +240,12 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         }
     });
 
-
+    $(".loc_img_topbar").on("click", function() {
+        $("#one2").html("");
+        $("<img id='topbar_img'/>").attr("src", "/exchangeApi/code/getCode?v=" + Math.random()).appendTo($("#one2"));
+        return false;
+    });
+    
     //右上角登录按钮点击之后出发的事件
     $(".popup_login_btn").on("click", function() {
         
@@ -268,7 +273,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
             $(".autocode_tips").show().html("请输入验证码");
             return;
         }
-        if (flag == true && password != "" && password.length >= 6 && password.length < 20 && authcode_common != "") {
+        if (flag == true && password != "" && password.length >= 6 && password.length <= 20 && authcode_common != "") {
             $(".error_tips").hide();
             $(".autocode_tips").hide();
             api_mkt.login({

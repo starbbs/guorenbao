@@ -609,7 +609,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     var fflat = true;
     $(".eye_i").on("click", function() {
         if (fflat) {
-            $(this)[0].style.background = "url(./images/floor_no_eye.png)";
+            $(this)[0].style.background = "url(./images/index_no_eye.png)";
             fflat = false;
             $(".lf_asset_center").hide();
             $(".lf_asset_center_none").show();
