@@ -146,7 +146,7 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
                 $('#gopWithdrawalsCodeBtn').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
             } else {
                 clearInterval(resend);
-                $('#gopWithdrawalsCodeBtn').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
+                $('#gopWithdrawalsCodeBtn').attr('disabled',false).css({'cursor':'pointer','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
             }
         }, 1000);
     });
@@ -204,6 +204,7 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
                         $('.msg-gopWithdrawalsPayPwd').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
                     }else{                                
                         $('.msg-gopWithdrawalsPayPwd').show().html("提示为保证资金安全，您的支付密码已被锁定，请<a href='resetpaymentcode.html' class='moreCheck'>找回支付密码</a>");
+                        window.location.reload();
                     }
         		}else if(data.msg.indexOf('锁定')>0){
         			$('.msg-gopWithdrawalsCode').show().text(data.msg);

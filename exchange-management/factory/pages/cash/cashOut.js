@@ -116,6 +116,7 @@ require(['api_mkt_management'],function(api_mkt_management){
         var html = [];
         $.cookie('pageTotal',data.data.pageNum);
         var len = data.data.list.length < 10?data.data.list.length:10;
+        $(".aside-table-tbody").html("");
         for(var i=0; i<len;i++){
         	if(data.data.list[i].transferCnyStatus=='PROCESSING'){
         		//进行中            		
@@ -133,20 +134,22 @@ require(['api_mkt_management'],function(api_mkt_management){
         	}
             html.push("<td class='idNum'>"+ data.data.list[i].id +"</a></td>");
             html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
-            html.push("<td class='mobile'>"+ data.data.list[i].mobile +"</td>");
             html.push("<td>"+ data.data.list[i].money +"</td>");
             html.push("<td>"+ data.data.list[i].pay +"</td>");
             html.push("<td>"+ data.data.list[i].bank +"</td>");
             html.push("<td>"+ data.data.list[i].acnumber +"</td>");
             html.push("<td>"+ data.data.list[i].name +"</td>");
-            html.push("<td>"+ data.data.list[i].msg +"</td>");
             html.push("<td class='status'>"+ data.data.list[i].transferCnyStatus +"</td>");
             html.push("<td class='createTime'>"+ data.data.list[i].createDate +"</td>");
             html.push("<td class='updateTimed'>"+ data.data.list[i].updateDate +"</td>");
             html.push("</tr>");
-            $(".aside-table-tbody").html(html.join(""));
         }
-    
+        $(".aside-table-tbody").html(html.join(""));
+        //过滤内容显示不同颜色
+        $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");                                      
+        $(".status").filter(":contains('CANCEL')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('');                  
+        $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('');                                      
+        $(".status").filter(":contains('CLOSED')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('');
     };
     
     

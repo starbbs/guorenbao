@@ -1,15 +1,5 @@
 require(['api_mkt_management'], function(api_mkt_management) {
 
-    api_mkt_management.login({
-        'phone':'',
-        'password':''
-    }, function(data) {
-        if (data.status == 444) {
-            window.location.href="login.html";
-        } else {
-            console.log(data);
-        }
-    });
 
     $('.div-2-name').text($.cookie('name'));
     $('.div-2-btn').click(function(){
@@ -22,12 +12,7 @@ require(['api_mkt_management'], function(api_mkt_management) {
             }
         });
     });
-    api_mkt_management.login(function(data) {
-        if (data.status == 444) {         
-            window.location.href="login.html";
-        } else {
-        }
-    });
+
       
     //左侧导航  
     $(".div2").click(function() {

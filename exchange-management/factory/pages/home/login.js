@@ -7,10 +7,11 @@ require(['api_mkt_management'],function(api_mkt_management){
         }, function(data) {
             if (data.status == 200) {
                 console.log(data);
-                window.location.href="home.html";
                 $.cookie('name',data.data.opName); 
                 $.cookie('uid',data.data.uid);                
                 $.cookie('phone',$('.container-section-inputOne').val());
+                window.location.href="home.html";
+
             } else {
                 console.log(data);
                 alert('登录失败，请重新登录。');
