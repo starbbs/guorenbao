@@ -183,8 +183,9 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         var subbankBtn = false;
         $('#subbank').blur(function(){
             var subbank = $.trim($(this).val());
-            var reg = /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/; 
-            if(!subbank || !reg.test(subbank)){
+            var reg = /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/;
+            
+            if(!subbank || !reg.test(subbank) || $(".select-area").val()=="0"  || $(".select-city").val()=="0"){
                 btnConfirm = false;
                 $('.msg-subbank').show().text('请输入正确的开户支行地址');
                 subbankBtn = false;
@@ -194,6 +195,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                 subbankBtn = true;
             }
         });
+        
         //校验支付密码-人民币提现管理
         $('.pay-pwd').blur(function(){
             var reg = new RegExp("^[0-9]*$");//纯数字
@@ -222,37 +224,29 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         });
         //获取验证码-人民币提现管理
         $('#sendCodeByLoginAfterBtn').click(function(){
-            if(btnConfirm == false){
-                showWarnWin('请完善填写信息！',1e3);
-            }else if(subbankBtn == false){
-                $('.msg-subbank').show().text('请输入您的开户支行地址');
-            }
-            else{
-                api_mkt.sendCodeByLoginAfter(function(data) {
-                    if (data.status == 200) {
-                        $('.msg-sendCodeByLoginAfter').text('');
-                        $('.msg-nut-identifyingCode').text('');
-                    } else {
-                        $('.msg-sendCodeByLoginAfter').text('请输入正确的验证码');                        
-                        $('.msg-nut-identifyingCode').text('请输入正确的验证码');
-                    }
-                });
-                
-                //30秒内只能发送一次
-                var count = 60;
-                var resend = setInterval(function(){
-                        count--;
-                        if(count > 0){
-                            $('#sendCodeByLoginAfterBtn').val(count+'s后重新发送');
-                            $('#sendCodeByLoginAfterBtn').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
-                        }else{
-                            clearInterval(resend);
-                            $('#sendCodeByLoginAfterBtn').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
-                        }
-                        
-                    },1000); 
-            }
+            api_mkt.sendCodeByLoginAfter(function(data) {
+                if (data.status == 200) {
+                    $('.msg-sendCodeByLoginAfter').text('');
+                    $('.msg-nut-identifyingCode').text('');
+                } else {
+                    $('.msg-sendCodeByLoginAfter').text('请输入正确的验证码');                        
+                    $('.msg-nut-identifyingCode').text('请输入正确的验证码');
+                }
+            });
             
+            //30秒内只能发送一次
+            var count = 60;
+            var resend = setInterval(function(){
+                    count--;
+                    if(count > 0){
+                        $('#sendCodeByLoginAfterBtn').val(count+'s后重新发送');
+                        $('#sendCodeByLoginAfterBtn').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
+                    }else{
+                        clearInterval(resend);
+                        $('#sendCodeByLoginAfterBtn').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
+                    }
+                    
+                },1000);     
         });
 
         //人民币提现管理添加 点击-确认添加银行卡
@@ -264,10 +258,12 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         	}
             if(btnConfirm == false || $('#sendCodeByLoginAfter').val() ==''){
 //                showWarnWin('请完善填写信息！',1e3);
+            	$("#bank-idcard").focus();
             	$('#subbank').focus();
             	$('.pay-pwd').focus();
             	$('#sendCodeByLoginAfter, #nut-identifyingCode').focus();
             	
+            	$("#bank-idcard").blur();
             	$('#subbank').blur();
             	$('.pay-pwd').blur();
             	$('#sendCodeByLoginAfter, #nut-identifyingCode').blur();
