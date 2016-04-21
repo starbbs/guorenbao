@@ -273,7 +273,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
             $(".autocode_tips").show().html("请输入验证码");
             return;
         }
-        if (flag == true && password != "" && password.length >= 6 && password.length < 20 && authcode_common != "") {
+        if (flag == true && password != "" && password.length >= 6 && password.length <= 20 && authcode_common != "") {
             $(".error_tips").hide();
             $(".autocode_tips").hide();
             api_mkt.login({

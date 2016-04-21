@@ -1305,7 +1305,7 @@
     background: #fff;
 }
 .no-record-picture{
-    background: url(../images/floor_no-record.png) no-repeat left center;
+    background: url('../images/floor_no-record.png') no-repeat left center;
     padding-left:30px;
     width:80px;
     height:50px;
@@ -1594,4 +1594,7 @@ input::-webkit-outer-spin-button {
 
 .ionehide,.itwohide,.ithreehide,.ifourhide{
     left:66px;
+}
+.dotted_input{
+    font-family:'Microsoft YaHei','hiragino sans gb',sans-serif;
 }

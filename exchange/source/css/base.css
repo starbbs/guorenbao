@@ -274,7 +274,7 @@ table {
     display: none;
     margin-bottom: -4px;
     margin: 0 auto;
-    background-color: #f6f6f6;
+    background-color: #fef3ec;
     font-size: 12px;
     color: #ff6600;
     background: url('../images/laba.png') no-repeat center left;
@@ -568,7 +568,8 @@ table {
 .bg {
     background-color: #000;
     opacity: 0.75;
-    z-index: 1;
+    width:100%;
+    height: 100%;
     position: absolute;
     top: 0;
     z-index: 100;
@@ -612,7 +613,7 @@ table {
     line-height: 32px;
     width: 220px;
     padding-left: 15px;
-    font-family: "Microsoft Yahei, hiragino sansgb, sans-serif";
+    font-family: Microsoft Yahei, hiragino sansgb, sans-serif;
 }
 
 .first_input_div {
@@ -646,7 +647,7 @@ table {
     width: 51%;
     float: left;
     padding-left: 5%;
-    font-family: "Microsoft Yahei, hiragino sansgb, sans-serif";
+    font-family: Microsoft Yahei, hiragino sansgb, sans-serif;
 }
 
 .error_tips {
@@ -758,12 +759,16 @@ input:-ms-input-placeholder {
     color:#0088cc;
 };
 /* 查看更多页面 -分页样式 页码样式 */
-.PageCode {
+.PageCode{
   padding: 15px 20px;
-  color: #000;
+  color: #000;color:red;
   text-align: right;
-  font-size: 13px; }
-
+  font-size: 13px; 
+}
+.floatRight{
+    float: right;
+    margin-top: 10px;
+}
 .PageCode a {
   display: inline-block;
   color: #000000;
