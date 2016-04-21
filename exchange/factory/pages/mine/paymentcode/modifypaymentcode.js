@@ -114,10 +114,10 @@ require(['api_mkt','cookie'], function(api_mkt) {
                 			var num=data.data?data.data.num:data.date.num;
                 			if(3-num > 0){
                 				$("#error_one").show().html("原支付密码错误,还有"+(3-num)+"次输入机会");
-                			}else{
-                				$("#error_one").show().html("提示为保证资金安全，您的支付密码已被锁定，请<a href='resetpaymentcode.html' class='moreCheck'>找回支付密码</a>");
-                				window.location.reload();
                 			}
+                		} else if(data.msg.indexOf("锁定")){
+            				$("#error_four").show().html("提示为保证资金安全，您的支付密码已被锁定，请<a href='resetpaymentcode.html' class='moreCheck'>找回支付密码</a>");
+            				setTimeout("window.location.href='resetpaymentcode.html'", 3000 );
                 		}else{
                 			$("#error_four").show().html(data.msg);	
                 		}
