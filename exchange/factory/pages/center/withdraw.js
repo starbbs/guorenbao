@@ -40,7 +40,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     var Node4 = $('<span class="nutOutputManager-modify"></span>').appendTo(Node1); 
                     var Node5 = $('<span class="nutOutputManager-del"></span>').appendTo(Node1);
                     Node2_1.val(data.data.list[i].name);
-                    Node2_1.attr('dataId',data.data.list[i].name);
+                    Node2_1.attr('dataid',data.data.list[i].name);
                     Node3.text(data.data.list[i].address);
                     //$('.nut-two').appendBefore(Node1);
                     Node1.insertBefore($('.nutOutputManager-add'));
@@ -98,12 +98,12 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                     }); 
                     //取消修改
                     $('.cancleBtn').click(function(){
-                        var  a = $(this).parent().find('.nutIdName').attr('dataId');
-                        //alert($(this).parent().find('.nutIdName').attr('dataId'));
+                        var  a = $(this).parent().find('.nutIdName').attr('dataid');
+                        $(this).parent().find('.nutIdName').val(a);
                         $(this).parent().find('.nutIdName').addClass('input');
                         $(this).parent().find('.confirmUpdate').remove();
                         $(this).remove();
-                        $(this).parent().find('.nutIdName').val(a);
+                        
                     });         
                 });                
             } else {
