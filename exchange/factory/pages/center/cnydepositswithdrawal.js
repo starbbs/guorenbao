@@ -120,8 +120,9 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
         var flag1 = false;
         $('#WithdrawalsAmount').blur(function(){
             var WithdrawalsAmount = $(this).val();
-            if(!WithdrawalsAmount || isNaN(WithdrawalsAmount) || WithdrawalsAmount <100){
-                $('.msg-WithdrawalsAmount').text('最低提现金额为100元');
+            if(!WithdrawalsAmount || isNaN(WithdrawalsAmount) || WithdrawalsAmount <10 ||String(WithdrawalsAmount).substr(0, 1) == 0){
+                $('.msg-WithdrawalsAmount').text('最低提现金额为10元');
+                $('.WithdrawalsFee').text('0 CNY');
                 flag1 = false;
             }else if(WithdrawalsAmount > 50000){
                 $('.msg-WithdrawalsAmount').text('最大提现金额不能超过50000元');
@@ -133,6 +134,8 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                 var Fee =$('.WithdrawalsFee');
                 if(WithdrawalsAmount >= 400 ){
                     Fee.text((WithdrawalsAmount*0.005).toFixed(2)+' CNY');                    
+                }else if(WithdrawalsAmount < 10){
+                    Fee.text('0 CNY');
                 }else{
                     Fee.text('2 CNY');
                 }
@@ -367,9 +370,9 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
         var btnConfirm1 = false;
         $("#bank-money").blur(function(){
             var bankmoney = $("#bank-money").val();
-            if(bankmoney < 10 || isNaN(bankmoney)){
+            if(bankmoney < 100 || isNaN(bankmoney) ||String(bankmoney).substring(0,1) == 0){
                 btnConfirm1 = false;
-                $('.msg-bank-money').show().text('最小充值金额为10元');
+                $('.msg-bank-money').show().text('最小充值金额为100元');
             }else{
                 $('.msg-bank-money').hide();
                 btnConfirm1 = true;
