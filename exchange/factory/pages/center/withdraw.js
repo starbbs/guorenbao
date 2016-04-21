@@ -210,7 +210,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
         //校验验证码-人民币提现管理
         $('#sendCodeByLoginAfter, #nut-identifyingCode').blur(function(){
             var code = $.trim($(this).val());
-            if(isNaN(code)){
+            if(isNaN(code) || code==""){
                 btnConfirm = false;
                 $('.msg-sendCodeByLoginAfter').show().text('请输入正确的验证码');
                 $('.msg-nut-identifyingCode').show().text('请输入正确的验证码');
