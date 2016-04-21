@@ -116,6 +116,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
                 				$("#error_one").show().html("原支付密码错误,还有"+(3-num)+"次输入机会");
                 			}else{
                 				$("#error_one").show().html("提示为保证资金安全，您的支付密码已被锁定，请<a href='resetpaymentcode.html' class='moreCheck'>找回支付密码</a>");
+                				window.location.reload();
                 			}
                 		}else{
                 			$("#error_four").show().html(data.msg);	
@@ -160,7 +161,7 @@ require(['api_mkt','cookie'], function(api_mkt) {
 		                        $('.getauthcode').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
 		                    }else{
 		                        clearInterval(resend);
-		                        $('.getauthcode').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).text('获取验证码');
+		                        $('.getauthcode').attr('disabled',false).css({'cursor':'pointer','backgroundColor':'#0bbeee','color':'#fff'}).text('获取验证码');
 		                    }
 		                },1000);
                     } else {

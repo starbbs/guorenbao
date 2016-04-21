@@ -243,7 +243,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                         $('#sendCodeByLoginAfterBtn').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
                     }else{
                         clearInterval(resend);
-                        $('#sendCodeByLoginAfterBtn').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
+                        $('#sendCodeByLoginAfterBtn').attr('disabled',false).css({'cursor':'pointer','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
                     }
                     
                 },1000);     
@@ -390,7 +390,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                             $('#nut-identifyingCodeBtn').attr('disabled',true).css({'cursor':'not-allowed','backgroundColor':'#eee','color':'#999'});
                         }else{
                             clearInterval(resend);
-                            $('#nut-identifyingCodeBtn').attr('disabled',false).css({'cursor':'not-allowed','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
+                            $('#nut-identifyingCodeBtn').attr('disabled',false).css({'cursor':'pointer','backgroundColor':'#0bbeee','color':'#fff'}).val('获取验证码');
                         }
                         
                     },1000); 
@@ -456,6 +456,7 @@ require(['api_mkt','mkt_info','cookie'], function(api_mkt,mkt_info) {
                                 $('.msg-nut-paypwd').show().text("支付密码错误，您还有"+(3-num)+"次输入机会");
                             }else{                                
                                 $('.msg-nut-paypwd').show().html("提示为保证资金安全，您的支付密码已被锁定，请<a href='resetpaymentcode.html' class='moreCheck'>找回支付密码</a>");
+                                window.location.reload();
                             }
             		}else if(data.msg.indexOf('锁定')>0){
             			$('.msg-nut-identifyingCode').show().text(data.msg);
