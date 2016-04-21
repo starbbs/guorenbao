@@ -669,3 +669,6 @@
 .nutIdName, .sureBtn, .cancleBtn{
     margin-right: 5px;
 }
+.msg-sendCodeByLoginAfter{
+    width:400px;
+}
