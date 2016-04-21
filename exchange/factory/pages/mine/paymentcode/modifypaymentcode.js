@@ -81,6 +81,8 @@ require(['api_mkt','cookie'], function(api_mkt) {
 
 	    $(".next_step_btn_one").on("click",function(){
 	    	//
+	    	$("#error_one").hide().html("");
+	    	$("#error_four").hide().html("");
 	    	if(checkFlag1 && checkFlag2 && checkFlag3 && checkFlag4){
 	    		api_mkt.setpaypwd({
 		            currentPayPwd: $("#currentPayPwd").val(),

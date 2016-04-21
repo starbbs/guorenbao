@@ -240,7 +240,12 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         }
     });
 
-
+    $(".loc_img_topbar").on("click", function() {
+        $("#one2").html("");
+        $("<img id='topbar_img'/>").attr("src", "/exchangeApi/code/getCode?v=" + Math.random()).appendTo($("#one2"));
+        return false;
+    });
+    
     //右上角登录按钮点击之后出发的事件
     $(".popup_login_btn").on("click", function() {
         
