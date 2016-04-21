@@ -433,7 +433,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         $.cookie("loginfromwhichpage", "");
         api_mkt.userlogout({}, function(data) {
             if (data.status == 200) {
-                showWarnWin(data.msg,1e3);
+                showWarnWin("退出成功",1e3);
                 window.location.href = "index.html";
             } else if (data.status == 305) {
                 showWarnWin(data.msg,1e3);
@@ -507,8 +507,10 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
     if (!exchangeToken) {
 
     } else {
-        synchronous();
-        setInterval(synchronous, 60000);
+        setTimeout(function(){
+            synchronous();
+            setInterval(synchronous, 60000);
+        },200);
     }
 
     var flag = true;
