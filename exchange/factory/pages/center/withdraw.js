@@ -253,6 +253,10 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
             document.documentElement.scrollTop = 0;
             return false;
         }
+        if($("#subbank").val()==""){
+            showWarnWin('开户支行地址不能为空', 1e3);
+            return;
+        }
         if (btnConfirm == false || $('#sendCodeByLoginAfter').val() == '') {
             //                showWarnWin('请完善填写信息！',1e3);
             $("#bank-idcard").focus();
