@@ -38,6 +38,18 @@
             $('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
             thelatestprice_second = JSON.parse(haha['order'][1]).price;
         }
+        var floor_two = $("#floor_two").val();     //剩余人民币数
+        var floor_four = $("#floor_four").val();   //冻结人民币数
+        var floor_one = $("#floor_one").val();     //剩余果仁数
+        var floor_three = $("#floor_three").val(); //冻结果仁数
+        // console.log("floor_two"+floor_two);
+        // console.log("floor_four"+floor_four);
+        // console.log("floor_one"+floor_one);
+        // console.log("floor_three"+floor_three);
+        var totalAssets = decimal.floatAdd(floor_two, floor_four);
+        var totalNuts = decimal.floatAdd(floor_one, floor_three);
+        var totalvalue = decimal.floatAdd(decimal.floatMulti(totalNuts, thelatestprice), totalAssets);
+        $('.iallshow').html(decimal.getTwoPs(totalvalue)); //总资产
         // thelatestprice = 4;
         // thelatestprice_second = 1;
         var turnover = Number(haha['24Total']).toFixed(2);

@@ -1,4 +1,4 @@
-define('mkt_trade', ['api_mkt'], function(api_mkt) {
+define('mkt_trade', ['api_mkt','decimal'], function(api_mkt,decimal) {
 	var trade = {
 		interval: 1000, // 请求间隔
 		timer: null, // 定时器

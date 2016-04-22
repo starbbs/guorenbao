@@ -19,18 +19,24 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
 		return false;
 	});
 
-    api_mkt.totalAssets(function(data) {
-        if (data.status == 200) {
-            var totalAssets = data.data.cnyBalance + data.data.cnyLock;
-            var totalNuts = data.data.gopBalance + data.data.gopLock;
-            //console.log($('#thelatestprice').html());
-            var totalvalue = totalNuts * $('#thelatestprice').html() + totalAssets;
-            $('.lf_asset_center').html(totalvalue.toFixed(2)); //总资产
-            $('.rg_asset_center').html(totalNuts.toFixed(2)); //总果仁
-        } else {
-            console.log(data.msg);
-        }
-    });
+    var getTotalAssets = function(){
+        api_mkt.totalAssets(function(data) {
+            if (data.status == 200) {
+                var totalAssets = data.data.cnyBalance + data.data.cnyLock;
+                var totalNuts = data.data.gopBalance + data.data.gopLock;
+                //console.log($('#thelatestprice').html());
+                var totalvalue = totalNuts * $('#thelatestprice').html() + totalAssets;
+                $('.lf_asset_center').html(totalvalue.toFixed(2)); //总资产
+                $('.rg_asset_center').html(totalNuts.toFixed(2)); //总果仁
+            } else {
+                console.log(data.msg);
+            }
+        });
+    }
+
+    getTotalAssets();
+    setInterval(getTotalAssets,60000);
+    
 
     var synchronous = function() {
         console.log("synchronous_index");
@@ -646,12 +652,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         $.cookie("mine_two", "");
         $.cookie("mine_three", "");
         $.cookie("mine_four", "");
-
         $.cookie("loginfromwhichpage", "");
-        //退出登录
         api_mkt.userlogout({}, function(data) {
             if (data.status == 200) {
-                showWarnWin(data.msg,1e3);
+                showWarnWin("退出成功",1e3);
+                window.location.href = "index.html";
             } else if (data.status == 305) {
                 showWarnWin(data.msg,1e3);
             } else {
@@ -660,7 +665,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         });
         setTimeout(function() {
             location.reload(true);
-        }, 100);
+        }, 1000);
     });
     //显示垂直滚动条
     $('.tbone').hover(function(){

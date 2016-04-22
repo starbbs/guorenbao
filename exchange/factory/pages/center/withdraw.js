@@ -478,7 +478,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         });
 
         //果仁提现地址管理添加
-        $('.gopAddressManAdd').click(function() {
+        /*$('.gopAddressManAdd').click(function() {
             if (global.payLocked) {
                 location.href = "withdraw.html?id=rmbtx ";
                 $(window).scrollTop(0);
@@ -551,7 +551,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                     }
                 });
             }
-        });
+        });*/
 
         //接受跳转参数
         $(function() {

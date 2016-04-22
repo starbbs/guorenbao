@@ -51,6 +51,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
                     $(".ithreeshow").html(decimal.getTwoPs(cnyLock));
                     $(".ifourshow").html(decimal.getTwoPs(gopLock));
 
+                    $("#floor_one").val(gopBalance); //剩余果仁数
+                    $("#floor_two").val(cnyBalance); //剩余人民币数
+                    $("#floor_three").val(gopLock);  //冻结果仁数
+                    $("#floor_four").val(cnyLock);   //冻结人民币数
+
                     $.cookie('allCNY', cnyBalance);
                     $.cookie('gop', gopBalance);
                     $.cookie('allCNY', cnyBalance);
@@ -71,6 +76,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
         }
         //总资产
     getTotalAssets();
+    // setInterval(getTotalAssets, 60000);
+
+
     mkt_info.get();
     mkt_trade.getfloor();
     var groupingUnits = [

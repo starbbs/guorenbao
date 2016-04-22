@@ -187,7 +187,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                         }
                     }, 1000);
                 } else {
-
+                    $("#error_two").show().text(data.msg);
                 }
             });
         }
