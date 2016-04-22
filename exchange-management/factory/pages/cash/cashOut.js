@@ -174,7 +174,7 @@ require(['api_mkt_management'],function(api_mkt_management){
     });
 
     $('.aside-table-thead-select').change(function(){
-        var optionSel = $(this).find('option:selected').text();
+        var optionSel = $(this).find('option:selected').attr("data-status");
         //console.log(optionSel);
         $(".aside-table-tbody").html('');
         if(optionSel === 'ALL'){
@@ -339,7 +339,6 @@ require(['api_mkt_management'],function(api_mkt_management){
    //表格 select -> onchange -> filter
     $(".aside-table-thead-select").change(function(){
         var oVal =  $(".aside-table-thead-select").find("option:selected").text(); 
-        
             /*if(oVal === "成功"){
                 $(".aside-table-tbody tr").each(function(){ 
                     $(this).hide();

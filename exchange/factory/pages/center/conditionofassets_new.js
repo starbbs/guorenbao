@@ -71,7 +71,7 @@ require(['api_mkt', 'mkt_info','decimal', 'cookie'], function(api_mkt, mkt_info,
 	            if(end==pageNum){
 	            	start=(pageNum-9)>1?(pageNum-9):1;
 	            }
-        		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+(start>1?(start-1):1)+'">上一页</a>');  
+        		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+(pageNo>1?(pageNo-1):1)+'">上一页</a>');  
 
 	            for(var i=start;i<=end;i++){
 	            	if(i==pageNo){
@@ -80,7 +80,7 @@ require(['api_mkt', 'mkt_info','decimal', 'cookie'], function(api_mkt, mkt_info,
 	            		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+i+'">'+i+'</a>');  
 	            	}
 	            }
-        		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+(end<pageNum?(end+1):pageNum)+'">下一页</a>');  
+        		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+(pageNo<pageNum?(pageNo+1):pageNum)+'">下一页</a>');  
 
 	            $(".billPage").html(htmlPage.join(""));
 	            $(window).scrollTop(0);
