@@ -4,8 +4,12 @@ require(['api_mkt_management'],function(api_mkt_management){
     //分页开始-jxn
     var page_size = 10; //每页条数
     var optionStatus = ''; //当前状态，"显示全部"时为''
+    var pageTotle;
     $(document).on("click", ".btn-fenye", function() {
         var pageNo=$(".inputNum").val();
+        if(pageNo > pageTotle){
+        	$(".inputNum").val(pageTotle);
+        }
         cashInList(parseInt(pageNo),page_size,optionStatus);
     });
     
@@ -190,6 +194,7 @@ require(['api_mkt_management'],function(api_mkt_management){
      */
     var initTransferOutList=function(data){     
         var html = [];
+        pageTotle = data.data.pageNum;
         $.cookie('pageTotal',data.data.pageNum);
         var len = data.data.list.length < 10?data.data.list.length:10;
         $(".aside-table-tbody").html("");

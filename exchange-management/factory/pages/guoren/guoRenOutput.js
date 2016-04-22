@@ -3,8 +3,12 @@ require(['api_mkt_management'],function(api_mkt_management){
     //分页开始-jxn
     var page_size = 2; //每页条数
     var optionStatus = ''; //当前状态，"显示全部"时为''
+    var pageTotle;
     $(document).on("click", ".btn-fenye", function() {
         var pageNo=$(".inputNum").val();
+        if(pageNo > pageTotle){
+        	$(".inputNum").val(pageTotle);
+        }
         guoRenOutList(parseInt(pageNo),page_size,optionStatus);
     });
     
@@ -29,7 +33,6 @@ require(['api_mkt_management'],function(api_mkt_management){
         guoRenOutList(parseInt(pageNo),page_size,optionStatus);
     });
     var guoRenOutList = function(pageNo,pageSize,status){
-    	alert(status);
 		api_mkt_management.transferGopOutput({
             'id':'',
             'uid':'',
@@ -44,6 +47,7 @@ require(['api_mkt_management'],function(api_mkt_management){
              	if(data.data.list.length > 0){
              		var html = [];
                     $.cookie('pageTotalOutput',data.data.pageNum);
+                    pageTotle = data.data.pageNum;
                     var len = data.data.list.length < 10?data.data.list.length:10;
                     for(var i=0; i<len;i++){
                        html.push("<tr>");

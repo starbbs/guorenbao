@@ -44,18 +44,18 @@
                     <td>剩余量</td>
                     <td style="width:110px;">
                         <label for="selectStatus">买卖:</label>
-                        <select class="aside-table-thead-select" name="selectStatus">
-                            <option>BUY</option>
-                            <option>SELL</option>
-                            <option selected="selected">ALL</option>
+                        <select class="aside-table-thead-select-type" name="selectStatus">
+                            <option data-type="BUY">BUY</option>
+                            <option data-type="SELL">SELL</option>
+                            <option data-type="ALL" selected="selected">ALL</option>
                         </select>
                     </td>
                     <td style="width:110px;">
                         <label for="selectStatus">状态:</label>
-                        <select class="aside-table-thead-select" name="selectStatus">
-                            <option data-status="SUCCESS" selected="selected">已成功</option>
-                            <option data-status="CANCLE">已关闭</option>
-                            <option data-status="ALL">显示全部</option>
+                        <select class="aside-table-thead-select-status" name="selectStatus">
+                            <option data-status="SUCCESS">已成功</option>
+                            <option data-status="CANCEL">已关闭</option>
+                            <option data-status="ALL" selected="selected">显示全部</option>
                         </select>
                     </td>
                     <td>挂单类型</td>

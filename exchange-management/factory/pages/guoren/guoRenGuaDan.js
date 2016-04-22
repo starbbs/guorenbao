@@ -2,9 +2,14 @@ require(['api_mkt_management'],function(api_mkt_management){
     //分页开始-jxn
     var page_size = 10; //每页条数
     var optionStatus = ''; //当前状态，"显示全部"时为''
+    var optionType = ''; //当前买卖类型
+    var pageTotle; //总页数
     $(document).on("click", ".btn-fenye", function() {
         var pageNo=$(".inputNum").val();
-        guoRenGuaDanList(parseInt(pageNo),page_size,optionStatus);
+        if(pageNo > pageTotle){
+        	$(".inputNum").val(pageTotle);
+        }
+        guoRenGuaDanList(parseInt(pageNo),page_size,optionStatus,optionType);
     });
     
     $(document).on("keyup", ".inputNum", function(e) {
@@ -17,7 +22,7 @@ require(['api_mkt_management'],function(api_mkt_management){
         }else if(this.value.charCodeAt()<48 || this.value.charCodeAt()>57){
 			$(this).val($(this).val().replace(this.value,""));
 		}else if(e.keyCode==13){
-			guoRenGuaDanList(parseInt(pageNo),page_size,optionStatus);
+			guoRenGuaDanList(parseInt(pageNo),page_size,optionStatus,optionType);
         }
     });
     /**
@@ -25,16 +30,14 @@ require(['api_mkt_management'],function(api_mkt_management){
      */
     $(document).on("click", ".billPageNo", function() {
         var pageNo=$(this).attr("data-pageno");
-        guoRenGuaDanList(parseInt(pageNo),page_size,optionStatus);
+        guoRenGuaDanList(parseInt(pageNo),page_size,optionStatus,optionType);
     });
-    var guoRenGuaDanList = function(pageNo,pageSize,status){
+    var guoRenGuaDanList = function(pageNo,pageSize,status,type){
 		api_mkt_management.trade({
             'id':'',
             'uid':'',
             'phone':'',
-            'optType':'IN',
-            'name':'',
-            'msg':'',
+            'type':type,
             'status':status,
             'pageNo':pageNo,
             'pageSize':pageSize
@@ -42,8 +45,10 @@ require(['api_mkt_management'],function(api_mkt_management){
              if (data.status == 200) {          
              	if(data.data.list.length > 0){
              		$.cookie('pageTotalGaDan',data.data.pageNum);
+             		pageTotle = data.data.pageNum;
                     var html = [];
-                    for(var i=0; i<10;i++){
+                    var len = data.data.list.length < 10?data.data.list.length:10;
+                    for(var i=0; i<len;i++){
                        html.push("<tr>");
                         html.push("<td>"+ data.data.list[i].id +"</td>");
                         html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
@@ -93,7 +98,8 @@ require(['api_mkt_management'],function(api_mkt_management){
 		            	}
 		            }
 	        		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+(pageNo<pageNum?(pageNo+1):pageNum)+'">下一页</a>'); 
-             		$(".paging").html(htmlPage.join(""));  
+             		$(".paging").html("");
+             		$(".paging").html(htmlPage.join(""));
              	}else{
              		$(".aside-table-tbody").html("");  //添加前，先清空 
                     $(".aside-table-tbody").append("");
@@ -103,12 +109,19 @@ require(['api_mkt_management'],function(api_mkt_management){
         });  
     }
     //分页结束-jxn
-    guoRenGuaDanList(1,page_size,optionStatus);
-    $('.aside-table-thead-select').change(function(){
+    guoRenGuaDanList(1,page_size,optionStatus,optionType);
+    $('.aside-table-thead-select-status').change(function(){
     	$(".inputNum").val(""); //清空页码输入框的数据
         var optionSel = $(this).find('option:selected').attr("data-status");
         optionStatus = (optionSel == "ALL"?"": optionSel);
-        guoRenGuaDanList(1,page_size,optionStatus);
+        guoRenGuaDanList(1,page_size,optionStatus,optionType);
+    });
+    
+    $('.aside-table-thead-select-type').change(function(){
+    	$(".inputNum").val(""); //清空页码输入框的数据
+        var optionSelType = $(this).find('option:selected').attr("data-type");
+        optionType = (optionSelType == "ALL"?"": optionSelType);
+        guoRenGuaDanList(1,page_size,optionStatus,optionType);
     });
     
 });
