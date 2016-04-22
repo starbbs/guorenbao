@@ -118,13 +118,20 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
 
         //人民币提现表单校验
         var flag1 = false;
+        $("#WithdrawalsAmount").keyup(function(){
+            var bankmoney = $.trim($("#WithdrawalsAmount").val());
+            if(String(bankmoney).substring(0,1) == 0){
+                $("#WithdrawalsAmount").val('');
+            }
+        });
         $('#WithdrawalsAmount').blur(function(){
             var WithdrawalsAmount = $(this).val();
-            if(!WithdrawalsAmount || isNaN(WithdrawalsAmount) || WithdrawalsAmount <100){
-                $('.msg-WithdrawalsAmount').text('最低提现金额为100元');
+            if(!WithdrawalsAmount || isNaN(WithdrawalsAmount) || WithdrawalsAmount <10){
+                $('.msg-WithdrawalsAmount').text('单笔最低提现金额为10元');
+                $('.WithdrawalsFee').text('0 CNY');
                 flag1 = false;
             }else if(WithdrawalsAmount > 50000){
-                $('.msg-WithdrawalsAmount').text('最大提现金额不能超过50000元');
+                $('.msg-WithdrawalsAmount').text('单笔最大提现金额不能超过5万元');
                 flag1 = false;
             }else{
                 flag1 = true;
@@ -133,6 +140,8 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                 var Fee =$('.WithdrawalsFee');
                 if(WithdrawalsAmount >= 400 ){
                     Fee.text((WithdrawalsAmount*0.005).toFixed(2)+' CNY');                    
+                }else if(WithdrawalsAmount < 10){
+                    Fee.text('0 CNY');
                 }else{
                     Fee.text('2 CNY');
                 }
@@ -251,8 +260,10 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             		$(window).scrollTop(0);
             		return false;
             	}
-                if(flag1 == false){
-                   $('.msg-WithdrawalsAmount').text('提现金额为100元至50000元之间');
+                if($('#WithdrawalsAmount').val()< 10){
+                    $('.msg-WithdrawalsAmount').text('单笔最低提现金额为10元');
+                }else if(flag1 == false){
+                   $('.msg-WithdrawalsAmount').text('提现金额为10元至50000元之间');
                 }else if(flag2 == false){
                    $('.msg-WithdrawalsPayPwd').text('请输入正确的支付密码');
                 }else if(flag3 == false){
@@ -365,14 +376,27 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
         //生成汇款单校验
         //充值金额校验
         var btnConfirm1 = false;
+        $("#bank-money").keyup(function(){
+            var bankmoney = $.trim($("#bank-money").val());
+            if(String(bankmoney).substring(0,1) == 0){
+                $("#bank-money").val('');
+            }
+        });
         $("#bank-money").blur(function(){
-            var bankmoney = $("#bank-money").val();
-            if(bankmoney < 10 || isNaN(bankmoney)){
+            var bankmoney = $.trim($("#bank-money").val());
+            if(bankmoney < 100 || isNaN(bankmoney)){
                 btnConfirm1 = false;
-                $('.msg-bank-money').show().text('最小充值金额为10元');
-            }else{
+                $('.msg-bank-money').show().text('最小充值金额为100元');
+            }else {
                 $('.msg-bank-money').hide();
                 btnConfirm1 = true;
+            }
+        });
+        //第一个不能输入0
+        $("#bank-money").keyup(function(){
+            var bankmoney = $.trim($("#bank-money").val());
+            if(String(bankmoney).substring(0,1) == 0){
+                bankmoney = 0;
             }
         });
         //银行账号校验
