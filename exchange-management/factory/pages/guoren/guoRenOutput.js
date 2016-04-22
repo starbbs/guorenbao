@@ -56,13 +56,16 @@ require(['api_mkt_management'],function(api_mkt_management){
                         /*html.push("<td>"+ data.data.list[i].phone +"</td>");*/
                         html.push("<td>"+ data.data.list[i].wallet +"</td>");
                         html.push("<td>"+ data.data.list[i].number +"</td>");
-                        html.push("<td>"+ data.data.list[i].transferGopStatus +"</td>");
+                        html.push("<td class='status'>"+ data.data.list[i].transferGopStatus +"</td>");
                         html.push("<td>"+ data.data.list[i].msg +"</td>");
                         html.push("<td class='createTime'>"+ data.data.list[i].createDate +"</td>");
                         html.push("<td class='updateTimed'>"+ data.data.list[i].updateDate +"</td>");
                         html.push("</tr>");
                         $(".aside-table-tbody").html("");  //添加前，先清空 
                         $(".aside-table-tbody").append(html.join("")); 
+						//过滤内容显示不同颜色
+	                    $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");                                      
+	                    $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                                      
 
                         //用户详情
                         $('.toUidInfo').click(function(){

@@ -84,6 +84,7 @@ require(['api_mkt_management'],function(api_mkt_management){
     
     //点击锁定/接触锁定
     $("#tobody-json").on("click", ".aa", function() {
+    	var currentClass = this;
         if($(this).hasClass("icon-unlocked")){
 	            //人民币提现锁定
 	            api_mkt_management.lockTransfer({
@@ -91,7 +92,13 @@ require(['api_mkt_management'],function(api_mkt_management){
 	                'ip':''
 	            }, function(data) {
 	                if (data.status == 200) {
-	                	 window.location.reload();
+	                	$(currentClass).removeClass("icon-unlocked");
+	                	$(currentClass).addClass("icon-lock");
+	                	$(currentClass).siblings(".bb").removeClass("icon-undo");
+	                	$(currentClass).siblings(".bb").addClass("icon-checkmark");
+	                	$(currentClass).parent().parent("tr").css("background-color","yellow");
+	                	$(currentClass).parent().siblings(".status").html("转账中");
+	                	 //window.location.reload();
 	                    console.log(data);
 	                } else {
 	                	alert(data.msg);
@@ -106,7 +113,13 @@ require(['api_mkt_management'],function(api_mkt_management){
             }, function(data) {
                 if (data.status == 200) {
                     console.log(data);
-                    window.location.reload();
+                   // window.location.reload();
+                   $(currentClass).addClass("icon-unlocked");
+	               $(currentClass).removeClass("icon-lock");
+	               $(currentClass).siblings(".bb").addClass("icon-undo");
+                	$(currentClass).siblings(".bb").removeClass("icon-checkmark");
+                	$(currentClass).parent().parent("tr").css("background-color","white");
+                	$(currentClass).parent().siblings(".status").html("进行中");
                 } else {
                 	alert(data.msg);
                     console.log(data);

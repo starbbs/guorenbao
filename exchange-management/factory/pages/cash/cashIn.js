@@ -61,7 +61,7 @@ require(['api_mkt_management'],function(api_mkt_management){
                         html.push("<td>"+ data.data.list[i].acnumber +"</td>");
                         html.push("<td>"+ data.data.list[i].name +"</td>");
                         html.push("<td>"+ data.data.list[i].msg +"</td>");
-                        html.push("<td>"+ data.data.list[i].transferCnyStatus +"</td>");
+                        html.push("<td class='status'>"+ data.data.list[i].transferCnyStatus +"</td>");
                         html.push("<td class='createTime'>"+ data.data.list[i].createDate +"</td>");
                         html.push("<td class='updateTimed'>"+ data.data.list[i].updateDate +"</td>");
                         html.push("</tr>");
@@ -70,6 +70,10 @@ require(['api_mkt_management'],function(api_mkt_management){
                         //时间戳转时间格式
                         /*$('.createTime').text(unix_to_datetime(data.data.list[i].createDate));
                         $('.updateTimed').text(unix_to_datetime(data.data.list[i].updateDate));*/
+						//过滤内容显示不同颜色
+	                    $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");                                      
+	                    $(".status").filter(":contains('CANCEL')").text('已取消').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                  
+	                    $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                                      
 
                         //用户详情
                         $('.toUidInfo').click(function(){

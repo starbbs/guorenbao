@@ -55,15 +55,23 @@ require(['api_mkt_management'],function(api_mkt_management){
                         html.push("<td>"+ data.data.list[i].price +"</td>");
                         html.push("<td>"+ data.data.list[i].numTotal +"</td>");
                         html.push("<td>"+ data.data.list[i].numOver +"</td>");
-                        html.push("<td>"+ data.data.list[i].tradeGopType +"</td>");
-                        html.push("<td>"+ data.data.list[i].tradeGopStatus +"</td>");
+                        html.push("<td class='type'>"+ data.data.list[i].tradeGopType +"</td>");
+                        html.push("<td class='status'>"+ data.data.list[i].tradeGopStatus +"</td>");
                         html.push("<td>"+ data.data.list[i].tradeGopFlag +"</td>");
                         html.push("<td class='createTime'>"+ data.data.list[i].createDate +"</td>");
                         html.push("<td class='updateTimed'>"+ data.data.list[i].updateDate +"</td>");
                         html.push("</tr>");
                         $(".aside-table-tbody").html("");  //添加前，先清空 
                         $(".aside-table-tbody").append(html.join(""));                 
-
+						//过滤内容显示不同颜色
+	                    $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange"); 
+	                    $(".status").filter(":contains('PROCESSING')").text('进行中').css("color","orange");
+	                    $(".status").filter(":contains('CANCEL')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                  
+	                    $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                                      
+	                    $(".status").filter(":contains('CLOSED')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');
+						//买卖状态
+						$(".type").filter(":contains('SELL')").text('卖');
+						$(".type").filter(":contains('BUY')").text('买');
                         //用户详情
                         $('.toUidInfo').click(function(){
                             $.cookie('userUid',$(this).children().text());
