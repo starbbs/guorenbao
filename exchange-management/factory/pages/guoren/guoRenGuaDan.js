@@ -107,6 +107,7 @@ require(['api_mkt_management'],function(api_mkt_management){
 		            }
 	        		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+(pageNo<pageNum?(pageNo+1):pageNum)+'">下一页</a>'); 
              		$(".paging").html("");
+             		$(".PageCode").html('<span class="paging"></span><input type="text" class="inputNum"/><span class="allNum"></span><span class="btn-fenye">确定</span>');
              		$(".paging").html(htmlPage.join(""));
              	}else{
              		$(".aside-table-tbody").html("");  //添加前，先清空 
