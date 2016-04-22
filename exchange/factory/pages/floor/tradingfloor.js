@@ -592,6 +592,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
     var flag = false;
 
     $(".wrapper").on("input propertychange", ".buying_number, .buying_price", function() {
+        $(this).parent().parent().siblings(".a_onetips,.b_onetips").hide();
         var num = $(this).val();
         var oldData = $(this).attr("data-old");
         if ((decimal.getTwoPs(num) < 0.1) || decimal.getPsercison(num) > 2 || decimal.getTwoPs(num) > 999999.00) {
@@ -664,6 +665,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
 
     //买入 市价 滑块
     $(".wrapper").on("input propertychange", ".marketBuy", function() {
+        $(this).parent().siblings(".c_onetips").hide();
         var num = $(this).val();
         var oldData = $(this).attr("data-old");
         if ((decimal.getTwoPs(num) < 0.1) || decimal.getPsercison(num) > 2 || decimal.getTwoPs(num) > 999999.00) {
@@ -730,6 +732,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
 
     //卖出 市价 滑块
     $(".wrapper").on("input propertychange", ".sellAmount", function() {
+        $(this).parent().siblings(".c1_onetips").hide();
         var num = $(this).val();
         var oldData = $(this).attr("data-old");
         if ((decimal.getTwoPs(num) < 0.1) || decimal.getPsercison(num) > 2 || decimal.getTwoPs(num) > 999999.00) {
@@ -780,6 +783,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
     });
 
     $(".wrapper").on("input propertychange", ".sellNumber, .sellPrice", function() {
+        $(this).parent().siblings(".a1_onetips,.b1_onetips").hide();
         var num = $(this).val();
         var oldData = $(this).attr("data-old");
         if ((decimal.getTwoPs(num) < 0.1) || decimal.getPsercison(num) > 2 || decimal.getTwoPs(num) > 999999.00) {
@@ -878,22 +882,22 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
             return false;
         }
         if($('.buying_price').val()==''){
-            showWarnWin('买入价格不能为空', 1e3);
+            $('.a_onetips').show().text("买入价格不能为空");
             return;
         } else if(Number($('.buying_price').val())==0){
-            showWarnWin('买入价格不能为0', 1e3);
+            $('.a_onetips').show().text("买入价格不能为0");
             return;
         } else if(Number($('.buying_price').val())<0.1){
-            showWarnWin('买入价格不能小于0.1', 1e3);
+            $('.a_onetips').show().text("买入价格不能小于0.1");
             return;
         } else if($('.buying_number').val()==''){
-            showWarnWin('买入数量不能为空', 1e3);
+            $('.b_onetips').show().text("买入数量不能为空");
             return;
         } else if(Number($('.buying_number').val())==0){
-            showWarnWin('买入数量不能为0', 1e3);
+            $('.b_onetips').show().text("买入数量不能为0");
             return;
         } else if(Number($('.buying_number').val())<0.1){
-            showWarnWin('买入数量不能小于0.1', 1e3);
+            $('.b_onetips').show().text("买入数量不能小于0.1");
             return;
         } else if (flag == false || decimal.getTwoPs($('.buying_number').val()) < 0.1) {
             showWarnWin('请完善填写信息！', 1e3);
@@ -928,13 +932,13 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
             return false;
         }
         if($('.marketBuy').val()==''){
-            showWarnWin('买入金额不能为空', 1e3);
+            $('.c_onetips').show().text("买入金额不能为空");
             return;
         } else if(Number($('.marketBuy').val())==0){
-            showWarnWin('买入金额不能为0', 1e3);
+            $('.c_onetips').show().text("买入数量不能小于0.1");
             return;
         } else if(Number($('.marketBuy').val())<0.1){
-            showWarnWin('买入金额不能小于0.1', 1e3);
+            $('.c_onetips').show().text("买入数量不能小于0.1");
             return;
         } else if (flag == false || decimal.getTwoPs($('.marketBuy').val()) < 0.1) {
             showWarnWin('请完善填写信息！', 1e3);
@@ -964,22 +968,22 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
             return false;
         }
         if($('.sellPrice').val()==''){
-            showWarnWin('卖出价格不能为空', 1e3);
+            $('.a1_onetips').show().text("卖出价格不能为空");
             return;
         } else if(Number($('.sellPrice').val())==0){
-            showWarnWin('卖出价格不能为0', 1e3);
+            $('.a1_onetips').show().text("卖出价格不能为0");
             return;
         } else if(Number($('.sellPrice').val())<0.1){
-            showWarnWin('卖出价格不能小于0.1', 1e3);
+            $('.a1_onetips').show().text("卖出价格不能小于0.1");
             return;
         } else if($('.sellNumber').val()==''){
-            showWarnWin('卖出数量不能为空', 1e3);
+            $('.b1_onetips').show().text("卖出数量不能为空");
             return;
         } else if(Number($('.sellNumber').val())==0){
-            showWarnWin('卖出数量不能为0', 1e3);
+            $('.b1_onetips').show().text("卖出数量不能为0");
             return;
         } else if(Number($('.sellNumber').val())<0.1){
-            showWarnWin('卖出数量不能小于0.1', 1e3);
+            $('.b1_onetips').show().text("卖出数量不能小于0.1");
             return;
         } else if (flag == false || decimal.getTwoPs($('.sellNumber').val()) < 0.1) {
             showWarnWin('请完善填写信息！', 1e3);
@@ -1009,13 +1013,13 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
             return false;
         }
         if($('.sellAmount').val()==''){
-            showWarnWin('卖出数量不能为空', 1e3);
+            $('.c1_onetips').show().text("卖出数量不能为空");
             return;
         } else if(Number($('.sellAmount').val())==0){
-            showWarnWin('卖出数量不能为0', 1e3);
+            $('.c1_onetips').show().text("卖出数量不能为0");
             return;
         } else if(Number($('.sellAmount').val())<0.1){
-            showWarnWin('卖出数量不能小于0.1', 1e3);
+            $('.c1_onetips').show().text("卖出数量不能小于0.1");
             return;
         } else if (flag == false || decimal.getTwoPs($('.sellAmount').val()) < 0.1) {
             showWarnWin('请完善填写信息！', 1e3);
