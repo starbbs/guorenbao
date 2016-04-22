@@ -16,6 +16,9 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
         
         $(".wrapper").on("click", ".cnydepostisBtn", function() {
             var pageNo=$(".cnydepostisInput").val();
+            if(!pageNo || pageNo<0){
+            	return false;
+            }
             rmbRechargeHistory(parseInt(pageNo),10);
         });
         
@@ -43,6 +46,9 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
         
         $(".wrapper").on("click", ".cnywithdrawBtn", function() {
             var pageNo=$(".cnywithdrawInput").val();
+            if(!pageNo || pageNo<0){
+            	return false;
+            }
             rmbWithdrawalsHistory(parseInt(pageNo),10);
         });
         

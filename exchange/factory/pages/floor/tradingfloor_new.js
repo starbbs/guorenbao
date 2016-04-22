@@ -61,6 +61,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     
     $(".wrapper").on("click", ".btn-current-fenye", function() {
         var pageNo=$(".inputCurrentNum").val();
+        if(!pageNo || pageNo<0){
+        	return false;
+        }
         tradeGopCurrentList(parseInt(pageNo),10);
     });
     
@@ -91,6 +94,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
      */
     $(".wrapper").on("click", ".historyPageNo", function() {
         var pageNo=$(this).attr("data-pageno");
+        if(!pageNo || pageNo<0){
+        	return false;
+        }
         tradeGopHistoryList(parseInt(pageNo),10);
     });
     
