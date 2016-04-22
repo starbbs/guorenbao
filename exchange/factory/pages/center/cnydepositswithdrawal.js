@@ -262,6 +262,8 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             	}
                 if($('#WithdrawalsAmount').val()< 10){
                     $('.msg-WithdrawalsAmount').text('单笔最低提现金额为10元');
+                }else if($('#WithdrawalsAmount').val() >50000){
+                    $('.msg-WithdrawalsAmount').text('单笔最大提现金额不能超过5万元');
                 }else if(flag1 == false){
                    $('.msg-WithdrawalsAmount').text('提现金额为10元至50000元之间');
                 }else if(flag2 == false){
