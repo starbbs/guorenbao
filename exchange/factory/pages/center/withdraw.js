@@ -385,11 +385,11 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                 var resend = setInterval(function() {
                     count--;
                     if (count > 0) {
-                        $('#sendCodeByLoginAfterBtn').val(count + 's后重新发送');
-                        $('#sendCodeByLoginAfterBtn').attr('disabled', true).css({ 'cursor': 'not-allowed', 'backgroundColor': '#eee', 'color': '#999' });
+                        $('#nut-identifyingCodeBtn').val(count + 's后重新发送');
+                        $('#nut-identifyingCodeBtn').attr('disabled', true).css({ 'cursor': 'not-allowed', 'backgroundColor': '#eee', 'color': '#999' });
                     } else {
                         clearInterval(resend);
-                        $('#sendCodeByLoginAfterBtn').attr('disabled', false).css({ 'cursor': 'pointer', 'backgroundColor': '#0bbeee', 'color': '#fff' }).val('获取验证码');
+                        $('#nut-identifyingCodeBtn').attr('disabled', false).css({ 'cursor': 'pointer', 'backgroundColor': '#0bbeee', 'color': '#fff' }).val('获取验证码');
                     }
 
                 }, 1000);
