@@ -144,7 +144,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
                         setInterval(function() {
                             api_mkt.depthchart(function(data) {
                                 obj1 = data[0].sort(function(t, a) {
-                                    return t[0] > a[0] ? 1 : t[0] < a[0] ? -1 : 0 });
+                                    return t[0] > a[0] ? 1 : t[0] < a[0] ? -1 : 0
+                                });
                                 obj2 = data[1];
                                 series0.setData(obj1);
                                 series1.setData(obj2);
@@ -294,9 +295,16 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
             tooltip: { xDateFormat: '%Y-%m-%d %H:%M %A', color: '#f0f', changeDecimals: 4, borderColor: '#058dc7' },
             plotOptions: { candlestick: { color: 'green', upColor: 'red' } },
             yAxis: [
-                { labels: { style: { color: '#e55600' } }, title: { text: '价格 [RMB]', style: { color: '#e55600' } }, height: 160, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true },
-                { labels: { style: { color: '#4572A7' } }, title: { text: '成交量 [GOP]', style: { color: '#4572A7' } }, top: '80%',
-                height: '18%', offset: 0/*, top: 280, height: 14*/, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true }
+                { labels: { style: { color: '#e55600' } }, title: { text: '价格 [RMB]', style: { color: '#e55600' } }, height: 160, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true }, {
+                    labels: { style: { color: '#4572A7' } },
+                    title: { text: '成交量 [GOP]', style: { color: '#4572A7' } },
+                    top: '80%',
+                    height: '18%',
+                    offset: 0 /*, top: 280, height: 14*/ ,
+                    lineWidth: 2,
+                    gridLineDashStyle: 'Dash',
+                    showLastLabel: true
+                }
             ],
             tooltip: {
                 formatter: function() {
@@ -584,6 +592,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
     var flag = false;
 
     $(".wrapper").on("input propertychange", ".buying_number, .buying_price", function() {
+        $(this).parent().parent().siblings(".a_onetips,.b_onetips").hide();
         var num = $(this).val();
         var oldData = $(this).attr("data-old");
         if ((decimal.getTwoPs(num) < 0.1) || decimal.getPsercison(num) > 2 || decimal.getTwoPs(num) > 999999.00) {
@@ -656,6 +665,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
 
     //买入 市价 滑块
     $(".wrapper").on("input propertychange", ".marketBuy", function() {
+        $(this).parent().siblings(".c_onetips").hide();
         var num = $(this).val();
         var oldData = $(this).attr("data-old");
         if ((decimal.getTwoPs(num) < 0.1) || decimal.getPsercison(num) > 2 || decimal.getTwoPs(num) > 999999.00) {
@@ -722,6 +732,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
 
     //卖出 市价 滑块
     $(".wrapper").on("input propertychange", ".sellAmount", function() {
+        $(this).parent().siblings(".c1_onetips").hide();
         var num = $(this).val();
         var oldData = $(this).attr("data-old");
         if ((decimal.getTwoPs(num) < 0.1) || decimal.getPsercison(num) > 2 || decimal.getTwoPs(num) > 999999.00) {
@@ -772,6 +783,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
     });
 
     $(".wrapper").on("input propertychange", ".sellNumber, .sellPrice", function() {
+        $(this).parent().siblings(".a1_onetips,.b1_onetips").hide();
         var num = $(this).val();
         var oldData = $(this).attr("data-old");
         if ((decimal.getTwoPs(num) < 0.1) || decimal.getPsercison(num) > 2 || decimal.getTwoPs(num) > 999999.00) {
@@ -869,7 +881,25 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
             $(window).scrollTop(0);
             return false;
         }
-        if (flag == false || decimal.getTwoPs($('.buying_number').val()) < 0.1) {
+        if($('.buying_price').val()==''){
+            $('.a_onetips').show().text("买入价格不能为空");
+            return;
+        } else if(Number($('.buying_price').val())==0){
+            $('.a_onetips').show().text("买入价格不能为0");
+            return;
+        } else if(Number($('.buying_price').val())<0.1){
+            $('.a_onetips').show().text("买入价格不能小于0.1");
+            return;
+        } else if($('.buying_number').val()==''){
+            $('.b_onetips').show().text("买入数量不能为空");
+            return;
+        } else if(Number($('.buying_number').val())==0){
+            $('.b_onetips').show().text("买入数量不能为0");
+            return;
+        } else if(Number($('.buying_number').val())<0.1){
+            $('.b_onetips').show().text("买入数量不能小于0.1");
+            return;
+        } else if (flag == false || decimal.getTwoPs($('.buying_number').val()) < 0.1) {
             showWarnWin('请完善填写信息！', 1e3);
         } else {
             api_mkt.buyBefore({
@@ -901,7 +931,16 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
             $(window).scrollTop(0);
             return false;
         }
-        if (flag == false || decimal.getTwoPs($('.marketBuy').val()) < 0.1) {
+        if($('.marketBuy').val()==''){
+            $('.c_onetips').show().text("买入金额不能为空");
+            return;
+        } else if(Number($('.marketBuy').val())==0){
+            $('.c_onetips').show().text("买入数量不能小于0.1");
+            return;
+        } else if(Number($('.marketBuy').val())<0.1){
+            $('.c_onetips').show().text("买入数量不能小于0.1");
+            return;
+        } else if (flag == false || decimal.getTwoPs($('.marketBuy').val()) < 0.1) {
             showWarnWin('请完善填写信息！', 1e3);
         } else {
             api_mkt.buyBefore({
@@ -928,7 +967,25 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
             $(window).scrollTop(0);
             return false;
         }
-        if (flag == false || decimal.getTwoPs($('.sellNumber').val()) < 0.1) {
+        if($('.sellPrice').val()==''){
+            $('.a1_onetips').show().text("卖出价格不能为空");
+            return;
+        } else if(Number($('.sellPrice').val())==0){
+            $('.a1_onetips').show().text("卖出价格不能为0");
+            return;
+        } else if(Number($('.sellPrice').val())<0.1){
+            $('.a1_onetips').show().text("卖出价格不能小于0.1");
+            return;
+        } else if($('.sellNumber').val()==''){
+            $('.b1_onetips').show().text("卖出数量不能为空");
+            return;
+        } else if(Number($('.sellNumber').val())==0){
+            $('.b1_onetips').show().text("卖出数量不能为0");
+            return;
+        } else if(Number($('.sellNumber').val())<0.1){
+            $('.b1_onetips').show().text("卖出数量不能小于0.1");
+            return;
+        } else if (flag == false || decimal.getTwoPs($('.sellNumber').val()) < 0.1) {
             showWarnWin('请完善填写信息！', 1e3);
         } else {
             api_mkt.sellBefore({
@@ -955,7 +1012,16 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
             $(window).scrollTop(0);
             return false;
         }
-        if (flag == false || decimal.getTwoPs($('.sellAmount').val()) < 0.1) {
+        if($('.sellAmount').val()==''){
+            $('.c1_onetips').show().text("卖出数量不能为空");
+            return;
+        } else if(Number($('.sellAmount').val())==0){
+            $('.c1_onetips').show().text("卖出数量不能为0");
+            return;
+        } else if(Number($('.sellAmount').val())<0.1){
+            $('.c1_onetips').show().text("卖出数量不能小于0.1");
+            return;
+        } else if (flag == false || decimal.getTwoPs($('.sellAmount').val()) < 0.1) {
             showWarnWin('请完善填写信息！', 1e3);
         } else {
             api_mkt.sellBefore({

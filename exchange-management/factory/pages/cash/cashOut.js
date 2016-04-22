@@ -146,10 +146,12 @@ require(['api_mkt_management'],function(api_mkt_management){
         }
         $(".aside-table-tbody").html(html.join(""));
         //过滤内容显示不同颜色
-        $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");                                      
+        $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange"); 
+        $(".status").filter(":contains('PROCESSING')").text('转账中').css("color","orange");  
         $(".status").filter(":contains('CANCEL')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('');                  
         $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('');                                      
         $(".status").filter(":contains('CLOSED')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('');
+    	
     };
     
     
@@ -172,7 +174,7 @@ require(['api_mkt_management'],function(api_mkt_management){
     });
 
     $('.aside-table-thead-select').change(function(){
-        var optionSel = $(this).find('option:selected').text();
+        var optionSel = $(this).find('option:selected').attr("data-status");
         //console.log(optionSel);
         $(".aside-table-tbody").html('');
         if(optionSel === 'ALL'){
@@ -182,7 +184,7 @@ require(['api_mkt_management'],function(api_mkt_management){
                 'pageNo':1,
                 'pageSize':10
             },function(data){   
-                if (data.status == 200 && data.data.list.length > 1) {
+                if (data.status == 200 && data.data.list.length > 0) {
                 	initTransferOutList(data); 
                 }
             }); 
@@ -193,7 +195,7 @@ require(['api_mkt_management'],function(api_mkt_management){
                 'pageNo':1,
                 'pageSize':10
             },function(data){   
-                if (data.status == 200 && data.data.list.length > 1) {
+                if (data.status == 200 && data.data.list.length > 0) {
                 	initTransferOutList(data); 
                 }
             });
@@ -337,7 +339,6 @@ require(['api_mkt_management'],function(api_mkt_management){
    //表格 select -> onchange -> filter
     $(".aside-table-thead-select").change(function(){
         var oVal =  $(".aside-table-thead-select").find("option:selected").text(); 
-        
             /*if(oVal === "成功"){
                 $(".aside-table-tbody tr").each(function(){ 
                     $(this).hide();

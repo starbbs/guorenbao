@@ -97,35 +97,35 @@ require(['api_mkt_management'], function(api_mkt_management) {
 
     //操作框架
     $(".liCashIn").click(function() {
-        $(".frameHtml").attr("src", "cashIn.html");
+        $(".frameHtml").attr("src", "cashIn.html?version="+Date.parse(new Date()));
     });
     $(".liCashOut").click(function() {
-        $(".frameHtml").attr("src", "cashOut.html");
+        $(".frameHtml").attr("src", "cashOut.html?version="+Date.parse(new Date()));
     });
     $(".liguoRenDeal").click(function() {
-        $(".frameHtml").attr("src", "guoRenDeal.html");
+        $(".frameHtml").attr("src", "guoRenDeal.html?version="+Date.parse(new Date()));
     });
     $(".liguoRenKaDan").click(function() {
-        $(".frameHtml").attr("src", "guoRenKaDan.html");
+        $(".frameHtml").attr("src", "guoRenKaDan.html?version="+Date.parse(new Date()));
     });
     $(".liguoRenInput").click(function() {
-        $(".frameHtml").attr("src", "guoRenInput.html");
+        $(".frameHtml").attr("src", "guoRenInput.html?version="+Date.parse(new Date()));
     });
     $(".liguoRenOutput").click(function() {
-        $(".frameHtml").attr("src", "guoRenOutput.html");
+        $(".frameHtml").attr("src", "guoRenOutput.html?version="+Date.parse(new Date()));
     });
     $(".liguoRenGuaDan").click(function() {
-        $(".frameHtml").attr("src", "guoRenGuaDan.html");
+        $(".frameHtml").attr("src", "guoRenGuaDan.html?version="+Date.parse(new Date()));
     });
     $(".liuser").click(function() {
-        $(".frameHtml").attr("src", "user.html");
+        $(".frameHtml").attr("src", "user.html?version="+Date.parse(new Date()));
     });
     $(".liuser-info").click(function() {
-        $(".frameHtml").attr("src", "user-info.html");
+        $(".frameHtml").attr("src", "user-info.html?version="+Date.parse(new Date()));
     });
 
     $(".ContrllPanel").click(function() {
-        $(".frameHtml").attr("src", "controllPanel.html");
+        $(".frameHtml").attr("src", "controllPanel.html?version="+Date.parse(new Date()));
     });
 
 

@@ -169,7 +169,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
 	            if(end==pageNum){
 	            	start=(pageNum-9)>1?(pageNum-9):1;
 	            }
-	            htmlPage.push('<a class="currentPageNo" href="javascript:void(0);" data-pageno="'+(start>1?(start-1):1)+'">上一页</a>');
+	            htmlPage.push('<a class="currentPageNo" href="javascript:void(0);" data-pageno="'+(pageNo>1?(pageNo-1):1)+'">上一页</a>');
 	            for(var i=start;i<=end;i++){
 	            	if(i==pageNo){
 	            		htmlPage.push('<a class="currentPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
@@ -177,7 +177,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
 	            		htmlPage.push('<a class="currentPageNo" href="javascript:void(0);" data-pageno="'+i+'">'+i+'</a>');  
 	            	}
 	            }
-	            htmlPage.push('<a class="currentPageNo" href="javascript:void(0);" data-pageno="'+(end<pageNum?(end+1):pageNum)+'">下一页</a>');
+	            htmlPage.push('<a class="currentPageNo" href="javascript:void(0);" data-pageno="'+(pageNo<pageNum?(pageNo+1):pageNum)+'">下一页</a>');
 	            $(".currentPage").html(htmlPage.join(""));
 	            $(window).scrollTop(0);
 	            $(".current").show();
@@ -243,7 +243,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
  	            if(end==pageNum){
  	            	start=(pageNum-9)>1?(pageNum-9):1;
  	            }
- 	            htmlPage.push('<a class="historyPageNo" href="javascript:void(0);" data-pageno="'+(start>1?(start-1):1)+'">上一页</a>');
+ 	            htmlPage.push('<a class="historyPageNo" href="javascript:void(0);" data-pageno="'+(pageNo>1?(pageNo-1):1)+'">上一页</a>');
  	            for(var i=start;i<=end;i++){
  	            	if(i==pageNo){
  	            		htmlPage.push('<a class="historyPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
@@ -251,7 +251,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
  	            		htmlPage.push('<a class="historyPageNo" href="javascript:void(0);" data-pageno="'+i+'">'+i+'</a>');  
  	            	}
  	            }
-	            htmlPage.push('<a class="historyPageNo" href="javascript:void(0);" data-pageno="'+(end<pageNum?(end+1):pageNum)+'">下一页</a>');
+	            htmlPage.push('<a class="historyPageNo" href="javascript:void(0);" data-pageno="'+(pageNo<pageNum?(pageNo+1):pageNum)+'">下一页</a>');
  	            $(".historyPage").html(htmlPage.join(""));
  	            $(window).scrollTop(0);
  	           $(".history").show();

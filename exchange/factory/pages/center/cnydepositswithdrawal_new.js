@@ -130,7 +130,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
         	            if(end==pageNum){
         	            	start=(pageNum-6)>1?(pageNum-6):1;
         	            }      	            
-	            		htmlPage.push('<a class="cnydepostisPageNo" href="javascript:void(0);" data-pageno="'+(start>1?(start-1):1)+'">上一页</a>');  
+	            		htmlPage.push('<a class="cnydepostisPageNo" href="javascript:void(0);" data-pageno="'+(pageNo>1?(pageNo-1):1)+'">上一页</a>');  
 	            		for(var i=start;i<=end;i++){
         	            	if(i==pageNo){
         	            		htmlPage.push('<a class="cnydepostisPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
@@ -138,7 +138,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
         	            		htmlPage.push('<a class="cnydepostisPageNo" href="javascript:void(0);" data-pageno="'+i+'">'+i+'</a>');  
         	            	}
         	            }
-	            		htmlPage.push('<a class="cnydepostisPageNo" href="javascript:void(0);" data-pageno="'+(end<pageNum?(end+1):pageNum)+'">下一页</a>');  
+	            		htmlPage.push('<a class="cnydepostisPageNo" href="javascript:void(0);" data-pageno="'+(pageNo<pageNum?(pageNo+1):pageNum)+'">下一页</a>');  
         	            $(".cnydepostisPage").html(htmlPage.join(""));
         	            $(window).scrollTop(0);
         	            if(pageNum>0){
@@ -169,7 +169,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                         html.push("<tr>");                                        
                         html.push("<td>"+ data.data.list[i].updateDate +"</td>");
                         html.push("<td>"+ data.data.list[i].bank +"</td>");
-                        html.push("<td>"+ decimal.getTwoPs(data.data.list[i].pay) +"</td>");                    
+                        html.push("<td>"+ decimal.getTwoPs(data.data.list[i].money) +"</td>");                    
                         html.push("<td>"+ decimal.getTwoPs(data.data.list[i].fee) +"</td>");
                         html.push("<td class='status'>"+ data.data.list[i].transferCnyStatus +"</td>");
                         html.push("</tr>");                   
@@ -191,7 +191,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
     	            if(end==pageNum){
     	            	start=(pageNum-6)>1?(pageNum-6):1;
     	            }
-            		htmlPage.push('<a class="cnywithdrawPageNo" href="javascript:void(0);" data-pageno="'+(start>1?(start-1):1)+'">上一页</a>');  
+            		htmlPage.push('<a class="cnywithdrawPageNo" href="javascript:void(0);" data-pageno="'+(pageNo>1?(pageNo-1):1)+'">上一页</a>');  
     	            for(var i=start;i<=end;i++){
     	            	if(i==pageNo){
     	            		htmlPage.push('<a class="cnywithdrawPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
@@ -199,7 +199,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
     	            		htmlPage.push('<a class="cnywithdrawPageNo" href="javascript:void(0);" data-pageno="'+i+'">'+i+'</a>');  
     	            	}
     	            }
-            		htmlPage.push('<a class="cnywithdrawPageNo" href="javascript:void(0);" data-pageno="'+(end<pageNum?(end+1):pageNum)+'">下一页</a>');  
+            		htmlPage.push('<a class="cnywithdrawPageNo" href="javascript:void(0);" data-pageno="'+(pageNo<pageNum?(pageNo+1):pageNum)+'">下一页</a>');  
 
     	            $(".cnywithdrawPage").html(htmlPage.join(""));
     	            $(window).scrollTop(0);

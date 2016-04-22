@@ -990,7 +990,7 @@ body .ui-tooltip {
 .ui-widget-header .ui-state-focus {
     /* border: 1px solid #cccccc; */
     border:none;
-    background: #cccccc url("images/ui-bg_glass_100_fdf5ce_1x400.png") 50% 50% repeat-x;
+    /* background: #cccccc url("images/ui-bg_glass_100_fdf5ce_1x400.png") 50% 50% repeat-x; */
     font-weight: bold;
     color: #cccccc;
 }
@@ -1011,7 +1011,7 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
     border: 1px solid #cccccc;
-    background: #fff url("images/ui-bg_glass_65_ffffff_1x400.png") 50% 50% repeat-x;
+    /* background: #fff url("images/ui-bg_glass_65_ffffff_1x400.png") 50% 50% repeat-x; */
     font-weight: bold;
     color: #cccccc;
 }

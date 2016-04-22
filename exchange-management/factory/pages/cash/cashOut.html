@@ -54,11 +54,11 @@
                     <td style="width:105px;">
                         <label for="selectStatus">状态:</label>
                         <select class="aside-table-thead-select" name="selectStatus">
-                            <option selected="selected">WAIT</option>
-                            <option>PROCESSING</option>
-                            <option>SUCCESS</option>
-                            <option>CANCEL</option>
-                            <option>ALL</option>
+                            <option data-status="WAIT">进行中</option>
+                            <option data-status="PROCESSING">转账中</option>
+                            <option data-status="SUCCESS">已完成</option>
+                            <option data-status="CANCEL">已关闭</option>
+                            <option data-status="ALL" selected="selected">显示全部</option>
                         </select>
                     </td>
                     <td width="125px">创建于</td>

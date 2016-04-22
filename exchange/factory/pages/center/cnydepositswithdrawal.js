@@ -128,7 +128,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             var WithdrawalsAmount = $(this).val();
             if(!WithdrawalsAmount || isNaN(WithdrawalsAmount) || WithdrawalsAmount <10){
                 $('.msg-WithdrawalsAmount').text('单笔最低提现金额为10元');
-                $('.WithdrawalsFee').text('0 CNY');
+                $('.WithdrawalsFee').text('0.00 CNY');
                 flag1 = false;
             }else if(WithdrawalsAmount > 50000){
                 $('.msg-WithdrawalsAmount').text('单笔最大提现金额不能超过5万元');
@@ -139,11 +139,11 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                 //手续费校验
                 var Fee =$('.WithdrawalsFee');
                 if(WithdrawalsAmount >= 400 ){
-                    Fee.text((WithdrawalsAmount*0.005).toFixed(2)+' CNY');                    
+                    Fee.text(decimal.getTwoPs(decimal.floatMulti(WithdrawalsAmount,0.005))+' CNY');                    
                 }else if(WithdrawalsAmount < 10){
-                    Fee.text('0 CNY');
+                    Fee.text('0.00 CNY');
                 }else{
-                    Fee.text('2 CNY');
+                    Fee.text('2.00 CNY');
                 }
             }
         });
@@ -256,8 +256,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             //人民币提现申请 弹出层        
             $(".Withdrawalsbtn").click(function(){
             	if(global.payLocked){
-            		window.location.reload();
-            		$(window).scrollTop(0);
+            		window.location.href="./cnydepositswithdrawal.html?formindex=1";
             		return false;
             	}
                 if($('#WithdrawalsAmount').val()< 10){
@@ -342,7 +341,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                                 html.push("<tr>");                                        
                                 html.push("<td>"+ data.data.list[i].updateDate +"</td>");
                                 html.push("<td>"+ data.data.list[i].bank +"</td>");
-                                html.push("<td>"+ decimal.getTwoPs(data.data.list[i].pay) +"</td>");                    
+                                html.push("<td>"+ decimal.getTwoPs(data.data.list[i].money) +"</td>");                    
                                 html.push("<td>"+ decimal.getTwoPs(data.data.list[i].fee) +"</td>");
                                 html.push("<td class='status'>"+ data.data.list[i].transferCnyStatus +"</td>");
                                 html.push("</tr>");
@@ -474,6 +473,10 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
 
         //生成汇款单里的填充文本        
         $(".build-remit-layer").click(function(){
+        	if(global.payLocked){
+        		window.location.href="./cnydepositswithdrawal.html?whichtab=1";
+        		return false;
+        	}
             if(btnConfirm1 == false){
                 $('.msg-bank-money').show().text('最小充值金额为100元');
             }else if(btnConfirm2 == false){
@@ -617,10 +620,10 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             }
             var c = getQueryString("whichtab");
             if(c){
-                $('.rmbxh').removeClass('bottomon');
-                $('.rmbtx').addClass('bottomon');
-                $('.recharge').hide();
-                $('.withdraw_deposit').show();
+                $('.rmbtx').removeClass('bottomon');
+                $('.rmbxh').addClass('bottomon');
+                $('.recharge').show();
+                $('.withdraw_deposit').hide();
             }
         });
         

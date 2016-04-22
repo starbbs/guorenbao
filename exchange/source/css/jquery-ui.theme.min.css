@@ -21,7 +21,7 @@
 
 .ui-widget-content {
     border: 1px solid #ddd;
-    background: #eee url("images/ui-bg_highlight-soft_100_eeeeee_1x100.png") 50% top repeat-x;
+    /* background: #eee url("images/ui-bg_highlight-soft_100_eeeeee_1x100.png") 50% top repeat-x; */
     color: #333
 }
 
@@ -63,7 +63,7 @@
 .ui-widget-header .ui-state-focus {
     border: 1px solid #cccccc;
     border-radius:50%;
-    background: #cccccc url("images/ui-bg_glass_100_fdf5ce_1x400.png") 50% 50% repeat-x;
+    /* background: #cccccc url("images/ui-bg_glass_100_fdf5ce_1x400.png") 50% 50% repeat-x; */
     font-weight: bold;
     color: #cccccc;
     border-radius:50%;
@@ -85,7 +85,7 @@
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
     border: 1px solid #cccccc;
-    background: #fff url("images/ui-bg_glass_65_ffffff_1x400.png") 50% 50% repeat-x;
+    /* background: #fff url("images/ui-bg_glass_65_ffffff_1x400.png") 50% 50% repeat-x; */
     font-weight: bold;
     color: #cccccc;
 }
