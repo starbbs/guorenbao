@@ -462,9 +462,14 @@
     color: #777777;
 }
 .w_b_r em{
-    margin-right:4px;
+    /* margin-right:4px; */
     color: #dd0900;
 }
+
+.w_b_r em:nth-of-type(3){
+    margin-left:0px;
+}
+
 .w_b_r em:nth-child(1){
     float:left;
     margin-left:5px;

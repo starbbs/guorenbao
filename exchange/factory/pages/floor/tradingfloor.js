@@ -144,7 +144,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
                         setInterval(function() {
                             api_mkt.depthchart(function(data) {
                                 obj1 = data[0].sort(function(t, a) {
-                                    return t[0] > a[0] ? 1 : t[0] < a[0] ? -1 : 0 });
+                                    return t[0] > a[0] ? 1 : t[0] < a[0] ? -1 : 0
+                                });
                                 obj2 = data[1];
                                 series0.setData(obj1);
                                 series1.setData(obj2);
@@ -294,9 +295,16 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
             tooltip: { xDateFormat: '%Y-%m-%d %H:%M %A', color: '#f0f', changeDecimals: 4, borderColor: '#058dc7' },
             plotOptions: { candlestick: { color: 'green', upColor: 'red' } },
             yAxis: [
-                { labels: { style: { color: '#e55600' } }, title: { text: '价格 [RMB]', style: { color: '#e55600' } }, height: 160, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true },
-                { labels: { style: { color: '#4572A7' } }, title: { text: '成交量 [GOP]', style: { color: '#4572A7' } }, top: '80%',
-                height: '18%', offset: 0/*, top: 280, height: 14*/, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true }
+                { labels: { style: { color: '#e55600' } }, title: { text: '价格 [RMB]', style: { color: '#e55600' } }, height: 160, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true }, {
+                    labels: { style: { color: '#4572A7' } },
+                    title: { text: '成交量 [GOP]', style: { color: '#4572A7' } },
+                    top: '80%',
+                    height: '18%',
+                    offset: 0 /*, top: 280, height: 14*/ ,
+                    lineWidth: 2,
+                    gridLineDashStyle: 'Dash',
+                    showLastLabel: true
+                }
             ],
             tooltip: {
                 formatter: function() {
