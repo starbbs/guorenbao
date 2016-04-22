@@ -261,6 +261,8 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             	}
                 if($('#WithdrawalsAmount').val()< 10){
                     $('.msg-WithdrawalsAmount').text('单笔最低提现金额为10元');
+                }else if($('#WithdrawalsAmount').val() >50000){
+                    $('.msg-WithdrawalsAmount').text('单笔最大提现金额不能超过5万元');
                 }else if(flag1 == false){
                    $('.msg-WithdrawalsAmount').text('提现金额为10元至50000元之间');
                 }else if(flag2 == false){
@@ -339,7 +341,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                                 html.push("<tr>");                                        
                                 html.push("<td>"+ data.data.list[i].updateDate +"</td>");
                                 html.push("<td>"+ data.data.list[i].bank +"</td>");
-                                html.push("<td>"+ decimal.getTwoPs(data.data.list[i].pay) +"</td>");                    
+                                html.push("<td>"+ decimal.getTwoPs(data.data.list[i].money) +"</td>");                    
                                 html.push("<td>"+ decimal.getTwoPs(data.data.list[i].fee) +"</td>");
                                 html.push("<td class='status'>"+ data.data.list[i].transferCnyStatus +"</td>");
                                 html.push("</tr>");
