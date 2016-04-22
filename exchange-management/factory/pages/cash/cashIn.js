@@ -94,7 +94,11 @@ require(['api_mkt_management'],function(api_mkt_management){
                     var len = data.data.list.length < 10?data.data.list.length:10;
                     for(var i=0; i<len;i++){
                        html.push("<tr>");
-                        html.push("<td><span class='icon-cny btnConfirm'></span></td>");
+                       if(data.data.list[i].transferCnyStatus == "SUCCESS" || data.data.list[i].transferCnyStatus == "CANCEL"){
+                                html.push("<td></td>");
+                           }else{
+                                html.push("<td><span class='icon-cny btnConfirm'></span></td>");
+                           }
                         html.push("<td class='uidNum'>"+ data.data.list[i].id +"</td>");
                         html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
                         html.push("<td class='mobile'>"+ data.data.list[i].mobile +"</td>");
@@ -124,7 +128,11 @@ require(['api_mkt_management'],function(api_mkt_management){
                     var len = data.data.list.length < 10?data.data.list.length:10;
                     for(var i=0; i<len;i++){
                        html.push("<tr>");
-                        html.push("<td><span class='icon-cny btnConfirm'></span></td>");
+                       if(data.data.list[i].transferCnyStatus == "SUCCESS" || data.data.list[i].transferCnyStatus == "CANCEL"){
+                            html.push("<td></td>");
+                       }else{
+                            html.push("<td><span class='icon-cny btnConfirm'></span></td>");
+                       }
                         html.push("<td class='uidNum'>"+ data.data.list[i].id +"</td>");
                         html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
                         html.push("<td class='mobile'>"+ data.data.list[i].mobile +"</td>");

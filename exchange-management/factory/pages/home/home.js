@@ -12,7 +12,11 @@ require(['api_mkt_management'], function(api_mkt_management) {
             }
         });
     });
-
+    $(function(){
+        if($('.div-2-name').text() == ''){
+            window.location.href="login.html";
+        }
+    });
       
     //左侧导航  
     $(".div2").click(function() {
