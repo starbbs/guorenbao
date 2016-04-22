@@ -36,8 +36,9 @@ require(['api_mkt_management'],function(api_mkt_management){
             'pageNo':pageNo,
             'pageSize':pageSize
         },function(data){ 
-             if (data.status == 200 && data.data.list.length > 0) {                             
-                    var html = [];
+             if (data.status == 200) {          
+             	if(data.data.list.length > 0){
+             		var html = [];
                     $.cookie('pageTotal',data.data.pageNum);
                     var len = data.data.list.length < 10?data.data.list.length:10;
                     for(var i=0; i<len;i++){
@@ -106,6 +107,11 @@ require(['api_mkt_management'],function(api_mkt_management){
 		            }
 	        		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+(pageNo<pageNum?(pageNo+1):pageNum)+'">下一页</a>'); 
              		$(".paging").html(htmlPage.join(""));  
+             	}else{
+             		$(".aside-table-tbody").html("");  //添加前，先清空 
+                    $(".aside-table-tbody").append("");
+                    $(".PageCode").html("");
+             	}
              }
         });  
     }

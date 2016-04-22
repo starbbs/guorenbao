@@ -37,26 +37,32 @@ require(['api_mkt_management'],function(api_mkt_management){
             'pageNo':pageNo,
             'pageSize':pageSize
         },function(data){   
-            if (data.status == 200 && data.data.list.length > 1) {
-            	initTransferOutList(data); 
-            	var htmlPage = [];
-	            var pageNum = data.data.pageNum;
-				var start=pageNo>3?(pageNo-3):1;
-	            var end=(pageNum-start)>=9?(start+9):pageNum;
-	            if(end==pageNum){
-	            	start=(pageNum-9)>1?(pageNum-9):1;
-	            }
-	    		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+(pageNo>1?(pageNo-1):1)+'">上一页</a>');  
-	
-	            for(var i=start;i<=end;i++){
-	            	if(i==pageNo){
-	            		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
-	            	}else{
-	            		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+i+'">'+i+'</a>');  
-	            	}
-	            }
-	    		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+(pageNo<pageNum?(pageNo+1):pageNum)+'">下一页</a>'); 
-	     		$(".paging").html(htmlPage.join("")); 
+            if (data.status == 200) {
+            	if(data.data.list.length > 0){
+            		initTransferOutList(data); 
+	            	var htmlPage = [];
+		            var pageNum = data.data.pageNum;
+					var start=pageNo>3?(pageNo-3):1;
+		            var end=(pageNum-start)>=9?(start+9):pageNum;
+		            if(end==pageNum){
+		            	start=(pageNum-9)>1?(pageNum-9):1;
+		            }
+		    		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+(pageNo>1?(pageNo-1):1)+'">上一页</a>');  
+		
+		            for(var i=start;i<=end;i++){
+		            	if(i==pageNo){
+		            		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
+		            	}else{
+		            		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+i+'">'+i+'</a>');  
+		            	}
+		            }
+		    		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+(pageNo<pageNum?(pageNo+1):pageNum)+'">下一页</a>'); 
+		     		$(".paging").html(htmlPage.join("")); 
+            	}else{
+            		$(".aside-table-tbody").html("");
+        			$(".aside-table-tbody").append(""); 
+        			$(".PageCode").html("");
+            	}
              }
         });
     }
