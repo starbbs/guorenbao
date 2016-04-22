@@ -131,16 +131,20 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
 
     //校验银行账户
     var btnConfirm = false;
+    var cardConfirm=false;//银行卡校验
+    var subbankConfirm = false;//开户行校验
+    var paypwdConfirm=false;//支付密码校验
+    var codeConfirm=false;//短息验证码校验
     //银行账号校验-人民币提现管理
     $("#bank-idcard").blur(function() {
         var bankIdcard = $("#bank-idcard").val();
         var reg = /^(\d{16}|\d{19})$/;
         if (!bankIdcard || !reg.exec(bankIdcard)) {
-            btnConfrim = false;
+        	cardConfirm = false;
             $('.msg-bank-idcard').show().text('请输入正确的银行账号');
         } else {
             $('.msg-bank-idcard').hide();
-            btnConfrim = true;
+            
             //接口 银行卡识别
             $.ajax({
                 type: "POST",
@@ -151,6 +155,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                 }),
                 cache: false,
                 success: function(data) {
+                	cardConfirm = false;
                     if (data.msg = '无法识别此卡') {
                         $('.msg-bank-idcard').show().text('您输入的银行账号有误，请重新输入');
                     } else {
@@ -166,9 +171,10 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                     } else {
                         $("#bank").val(data.data.bankName);
                         $('.msg-bank-idcard').hide();
+                        cardConfirm = true;
                     }
                 },
-                error: function() {}
+                error: function() {cardConfirm = false;}
             });
         }
     });
@@ -183,13 +189,11 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         var reg = /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/;
 
         if (!subbank || !reg.test(subbank) || $(".select-area").val() == "0" || $(".select-city").val() == "0") {
-            btnConfirm = false;
             $('.msg-subbank').show().text('请输入正确的开户支行地址');
-            subbankBtn = false;
+            subbankConfirm = false;
         } else {
-            btnConfirm = true;
             $('.msg-subbank').hide();
-            subbankBtn = true;
+            subbankConfirm = true;
         }
     });
 
@@ -198,10 +202,10 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         var reg = new RegExp("^[0-9]*$"); //纯数字
         var hanzi = /[\u4e00-\u9fa5]/; //汉字
         if ($(this).val().indexOf(" ") > 0 || $(this).val().length > 20 || $(this).val().length < 8 || reg.test($(this).val()) || hanzi.test($(this).val())) {
-            btnConfirm = false;
+        	paypwdConfirm = false;
             $('.msg-pay-pwd').show().text('请输入正确的支付密码');
         } else {
-            btnConfirm = true;
+        	paypwdConfirm = true;
             $('.msg-pay-pwd').hide();
         }
     });
@@ -210,11 +214,13 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
     $('#sendCodeByLoginAfter, #nut-identifyingCode').blur(function() {
         var code = $.trim($(this).val());
         if (isNaN(code) || code == "") {
-            btnConfirm = false;
+        	codeConfirm = false;
+        	codeConfirm =false;
             $('.msg-sendCodeByLoginAfter').show().text('请输入正确的验证码');
             $('.msg-nut-identifyingCode').show().text('请输入正确的验证码');
         } else {
             btnConfirm = true;
+            codeConfirm=true;
             $('.msg-sendCodeByLoginAfter').hide();
             $('.msg-nut-identifyingCode').hide();
         }
@@ -240,7 +246,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                 $('#sendCodeByLoginAfterBtn').attr('disabled', true).css({ 'cursor': 'not-allowed', 'backgroundColor': '#eee', 'color': '#999' });
             } else {
                 clearInterval(resend);
-                $('#sendCodeByLoginAfterBtn').attr('disabled', false).css({ 'cursor': 'not-allowed', 'backgroundColor': '#0bbeee', 'color': '#fff' }).val('获取验证码');
+                $('#sendCodeByLoginAfterBtn').attr('disabled', false).css({ 'cursor': 'pointer', 'backgroundColor': '#0bbeee', 'color': '#fff' }).val('获取验证码');
             }
 
         }, 1000);
@@ -253,11 +259,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
             document.documentElement.scrollTop = 0;
             return false;
         }
-        if($("#subbank").val()==""){
-            showWarnWin('开户支行地址不能为空', 1e3);
-            return;
-        }
-        if (btnConfirm == false || $('#sendCodeByLoginAfter').val() == '') {
+        if(!cardConfirm ||!subbankConfirm || !paypwdConfirm || !codeConfirm || $('#sendCodeByLoginAfter').val() ==''){
             //                showWarnWin('请完善填写信息！',1e3);
             $("#bank-idcard").focus();
             $('#subbank').focus();
