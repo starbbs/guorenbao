@@ -69,11 +69,14 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
             } else {
                 global.payLocked = true;
                 console.log(data);
-                $(".quoted_price_top").css("margin-top","0px");
-                $(".center_content").css("margin-top","0px");
-                $(".popuptips").html("为保证资金安全，您的支付密码已被锁定，请找回支付密码");
-                $(".popuptips").slideDown();
-
+                if(location.href.indexOf('/index.html')===-1){
+                   $(".quoted_price_top").css("margin-top","0px");
+                    $(".center_content").css("margin-top","0px");
+                    $(".popuptips").html("为保证资金安全，您的支付密码已被锁定，请找回支付密码");
+                    $(".popuptips").slideDown(); 
+                } else {
+                    $(".popuptips").hide();
+                }
             }
         });
     }

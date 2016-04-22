@@ -118,9 +118,15 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
 
         //人民币提现表单校验
         var flag1 = false;
+        $("#WithdrawalsAmount").keyup(function(){
+            var bankmoney = $.trim($("#WithdrawalsAmount").val());
+            if(String(bankmoney).substring(0,1) == 0){
+                $("#WithdrawalsAmount").val('');
+            }
+        });
         $('#WithdrawalsAmount').blur(function(){
             var WithdrawalsAmount = $(this).val();
-            if(!WithdrawalsAmount || isNaN(WithdrawalsAmount) || WithdrawalsAmount <10 ||String(WithdrawalsAmount).substr(0, 1) == 0){
+            if(!WithdrawalsAmount || isNaN(WithdrawalsAmount) || WithdrawalsAmount <10){
                 $('.msg-WithdrawalsAmount').text('单笔最低提现金额为10元');
                 $('.WithdrawalsFee').text('0 CNY');
                 flag1 = false;
@@ -370,14 +376,27 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
         //生成汇款单校验
         //充值金额校验
         var btnConfirm1 = false;
+        $("#bank-money").keyup(function(){
+            var bankmoney = $.trim($("#bank-money").val());
+            if(String(bankmoney).substring(0,1) == 0){
+                $("#bank-money").val('');
+            }
+        });
         $("#bank-money").blur(function(){
-            var bankmoney = $("#bank-money").val();
-            if(bankmoney < 100 || isNaN(bankmoney) ||String(bankmoney).substring(0,1) == 0){
+            var bankmoney = $.trim($("#bank-money").val());
+            if(bankmoney < 100 || isNaN(bankmoney)){
                 btnConfirm1 = false;
                 $('.msg-bank-money').show().text('最小充值金额为100元');
-            }else{
+            }else {
                 $('.msg-bank-money').hide();
                 btnConfirm1 = true;
+            }
+        });
+        //第一个不能输入0
+        $("#bank-money").keyup(function(){
+            var bankmoney = $.trim($("#bank-money").val());
+            if(String(bankmoney).substring(0,1) == 0){
+                bankmoney = 0;
             }
         });
         //银行账号校验
