@@ -1,6 +1,6 @@
 require(['api_mkt', 'cookie'], function(api_mkt) {
 	var category="ALL";//消息类型
-	var pageSize=10;//分页数量
+	var pageSize=1;//分页数量
 	var pageNum=0;
 	$(".wrapper").on("click", ".btn-fenye", function() {
         var pageNo=$(".inputNum").val();
@@ -73,7 +73,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
     	            if(end==pageNum){
     	            	start=(pageNum-9)>1?(pageNum-9):1;
     	            }
-    	            htmlPage.push('<a class="messagePageNo" href="javascript:void(0);" data-pageno="'+(start>1?(start-1):1)+'">上一页</a>');
+    	            htmlPage.push('<a class="messagePageNo" href="javascript:void(0);" data-pageno="'+(pageNo>1?(pageNo-1):1)+'">上一页</a>');
     	            for(var i=start;i<=end;i++){
     	            	if(i==pageNo){
     	            		htmlPage.push('<a class="messagePageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
@@ -81,7 +81,7 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
     	            		htmlPage.push('<a class="messagePageNo" href="javascript:void(0);" data-pageno="'+i+'">'+i+'</a>');  
     	            	}
     	            }
-	            	htmlPage.push('<a class="messagePageNo" href="javascript:void(0);" data-pageno="'+(end<pageNum?(end+1):pageNum)+'">下一页</a>');
+	            	htmlPage.push('<a class="messagePageNo" href="javascript:void(0);" data-pageno="'+(pageNo<pageNum?(pageNo+1):pageNum)+'">下一页</a>');
     	            $(".messagePage").html(htmlPage.join(""));
     	            $(window).scrollTop(0);
     	           if(pageNum>0){
