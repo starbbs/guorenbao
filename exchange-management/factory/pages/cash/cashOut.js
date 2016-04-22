@@ -1,6 +1,76 @@
 require(['api_mkt_management'],function(api_mkt_management){   
     //人民币充值/提现查询
-    $("#div1").html("");   //添加前，先清空 
+    
+    //分页开始-jxn
+    var page_size = 10; //每页条数
+    var optionStatus = ''; //当前状态，"显示全部"时为''
+    $(document).on("click", ".btn-fenye", function() {
+        var pageNo=$(".inputNum").val();
+        cashInList(parseInt(pageNo),page_size,optionStatus);
+    });
+    
+    $(document).on("keyup", ".inputNum", function(e) {
+    	var pageNo=$(this).val();
+        var pageNum=$(this).attr("data-pagenum");
+        if(parseInt(pageNo)>parseInt(pageNum)){
+        	$(this).val(pageNum);
+        }else if(pageNo==0){
+        	$(this).val(1);
+        }else if(this.value.charCodeAt()<48 || this.value.charCodeAt()>57){
+			$(this).val($(this).val().replace(this.value,""));
+		}else if(e.keyCode==13){
+			cashInList(parseInt(pageNo),page_size,optionStatus);
+        }
+    });
+    /**
+     * 分页标签
+     */
+    $(document).on("click", ".billPageNo", function() {
+        var pageNo=$(this).attr("data-pageno");
+        cashInList(parseInt(pageNo),page_size,optionStatus);
+    });
+    
+    var cashInList = function(pageNo,pageSize,status){
+    	api_mkt_management.transfer({
+    		'status':status,
+            'optType':'OUT',
+            'pageNo':pageNo,
+            'pageSize':pageSize
+        },function(data){   
+            if (data.status == 200 && data.data.list.length > 1) {
+            	initTransferOutList(data); 
+            	var htmlPage = [];
+	            var pageNum = data.data.pageNum;
+				var start=pageNo>3?(pageNo-3):1;
+	            var end=(pageNum-start)>=9?(start+9):pageNum;
+	            if(end==pageNum){
+	            	start=(pageNum-9)>1?(pageNum-9):1;
+	            }
+	    		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+(pageNo>1?(pageNo-1):1)+'">上一页</a>');  
+	
+	            for(var i=start;i<=end;i++){
+	            	if(i==pageNo){
+	            		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
+	            	}else{
+	            		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+i+'">'+i+'</a>');  
+	            	}
+	            }
+	    		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+(pageNo<pageNum?(pageNo+1):pageNum)+'">下一页</a>'); 
+	     		$(".paging").html(htmlPage.join("")); 
+             }
+        });
+    }
+    //分页结束-jxn
+    cashInList(1,page_size,optionStatus);
+    $('.aside-table-thead-select').change(function(){
+    	$(".inputNum").val(""); //清空页码输入框的数据
+        var optionSel = $(this).find('option:selected').attr("data-status");
+        optionStatus = (optionSel == "ALL"?"": optionSel);
+        cashInList(1,page_size,optionStatus);
+    });
+    
+    
+    
     
     //点击锁定/接触锁定
     $("#tobody-json").on("click", ".aa", function() {
@@ -153,213 +223,6 @@ require(['api_mkt_management'],function(api_mkt_management){
         $(".status").filter(":contains('CLOSED')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('');
     	
     };
-    
-    
-    page({            
-        id : 'div1',
-        nowNum : 1,
-        allNum : $.cookie('pageTotal'), // Math.ceil(data.data.list.length/10),
-        callBack : function(now,all){
-            //alert(now);
-            api_mkt_management.transfer({
-                'optType':'OUT',
-                'pageNo':now,
-                'pageSize':10
-            },function(data){   
-                 if (data.status == 200 && data.data.list.length > 1) {
-                	 initTransferOutList(data); 
-                 }
-            });   
-        }
-    });
-
-    $('.aside-table-thead-select').change(function(){
-        var optionSel = $(this).find('option:selected').attr("data-status");
-        //console.log(optionSel);
-        $(".aside-table-tbody").html('');
-        if(optionSel === 'ALL'){
-            api_mkt_management.transfer({
-                'status':'',
-                'optType':'OUT',
-                'pageNo':1,
-                'pageSize':10
-            },function(data){   
-                if (data.status == 200 && data.data.list.length > 0) {
-                	initTransferOutList(data); 
-                }
-            }); 
-        }else{
-            api_mkt_management.transfer({
-                'status':optionSel,
-                'optType':'OUT',
-                'pageNo':1,
-                'pageSize':10
-            },function(data){   
-                if (data.status == 200 && data.data.list.length > 0) {
-                	initTransferOutList(data); 
-                }
-            });
-        }          
-    });
-    
-    //分页 
-    function page(opt){
-
-        if(!opt.id){return false};
-        
-        var obj = document.getElementById(opt.id);
-
-        var nowNum = opt.nowNum || 1;
-        var allNum = opt.allNum || 5;
-        var callBack = opt.callBack || function(){};
-        
-        if( nowNum>=4 && allNum>=6 ){ 
-        
-            var oA = document.createElement('a');
-            oA.href = '#1';
-            oA.innerHTML = '首页';;
-            obj.appendChild(oA);
-        
-        }
-        
-        if(nowNum>=2){
-            var oA = document.createElement('a');
-            oA.href = '#' + (nowNum - 1);
-            oA.innerHTML = '上一页';
-            obj.appendChild(oA);
-        }
-        
-        if(allNum<=5){
-            for(var i=1;i<=allNum;i++){
-                var oA = document.createElement('a');
-                oA.href = '#' + i;
-                if(nowNum == i){
-                    oA.innerHTML = '[ '+ i +' ]';
-                }
-                else{
-                    oA.innerHTML = i;
-                }
-                obj.appendChild(oA);
-            }   
-        }
-        else
-        {
-            for(var i=1;i<=5;i++){
-                var oA = document.createElement('a');
-                
-                if(nowNum == 1 || nowNum == 2){
-                    
-                    oA.href = '#' + i;
-                    if(nowNum == i){
-                        oA.innerHTML = '[ '+ i +' ]';
-                    }
-                    else{
-                        oA.innerHTML = i;
-                    }
-                    
-                }
-                else if( (allNum - nowNum) == 0 || (allNum - nowNum) == 1 ){
-                
-                    oA.href = '#' + (allNum - 5 + i);
-                    
-                    if((allNum - nowNum) == 0 && i==5){
-                        oA.innerHTML = '[ '+ (allNum - 5 + i) +' ]';
-                    }
-                    else if((allNum - nowNum) == 1 && i==4){
-                        oA.innerHTML ='[ '+ (allNum - 5 + i) +' ]';
-                    }
-                    else{
-                        oA.innerHTML = (allNum - 5 + i);
-                    }
-                
-                }
-                else{
-                    oA.href = '#' + (nowNum - 3 + i);
-                    
-                    if(i==3){
-                        oA.innerHTML = '[ '+ (nowNum - 3 + i) +' ]';
-                    }
-                    else{
-                        oA.innerHTML = (nowNum - 3 + i);
-                    }
-                }
-                obj.appendChild(oA);
-                
-            }
-        
-        }
-        
-        if( (allNum - nowNum) >= 1 ){
-
-            var oA = document.createElement('a');
-            oA.href = '#' + (nowNum + 1);
-            oA.innerHTML = '下一页';
-            obj.appendChild(oA);
-        }
-        
-        if( (allNum - nowNum) >= 3 && allNum>=6 ){
-        
-            var oA = document.createElement('a');
-            oA.href = '#' + allNum;
-            oA.innerHTML = '尾页';
-            obj.appendChild(oA);
-        
-        }
-        
-        callBack(nowNum,allNum);
-        
-        var aA = obj.getElementsByTagName('a');
-        
-            for(var i=0;i<aA.length;i++){
-                aA[i].onclick = function(){
-
-                    this.style.background = 'blue';
-                    
-                    var nowNum = parseInt(this.getAttribute('href').substring(1));
-
-                    obj.innerHTML = '';
-                    
-                    page({
-                    
-                        id : opt.id,
-                        nowNum : nowNum,
-                        allNum : allNum,
-                        callBack : callBack
-                    
-                    });
-                    
-                    return false;
-                    
-                };
-            }
-    //end 符号
-    }
-    //分页 结束
-
-   //表格 select -> onchange -> filter
-    $(".aside-table-thead-select").change(function(){
-        var oVal =  $(".aside-table-thead-select").find("option:selected").text(); 
-            /*if(oVal === "成功"){
-                $(".aside-table-tbody tr").each(function(){ 
-                    $(this).hide();
-                    $(this).filter(":contains('成功')").show().css('padding','10px');
-                });
-            }else if(oVal === "等待"){
-                $(".aside-table-tbody tr").each(function(){
-                    $(this).hide();
-                    $(this).filter(":contains('等待')").show();
-                });
-            }else if(oVal === "已取消"){
-                $(".aside-table-tbody tr").each(function(){
-                    $(this).hide();
-                    $(this).filter(":contains('已取消')").show();
-                });
-            }else{
-                $(this).parent().show();
-            }*/
-            
-    });
-
         
         //搜索
         $('.aside-div-searchBtn').click(function(){
