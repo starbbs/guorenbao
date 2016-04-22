@@ -612,9 +612,11 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                     '<section class="bankIdCard-Code">' + '尾号：' + num.substr(num.length - 4) + '</section>' +
                     '<section class="bankIdCard-CardAndBg">储蓄卡</section>' +
                     '<section class="bankIdCard-hr"></section>' +
-                    '<section class="bankIdCard-Name">持卡人姓名：' + name.replace(name.substr(0, 1), '*') + '</section>' +
-                    '<section class="bankIdCard-del" data-cardId="' + num + '">删除</section>' +
-                    '<section class="bankIdCard-address">' + bankIP + '</section>').appendTo(node);
+                    '<section class="bankIdCard-Name">持卡人姓名：' + name.replace(name.substr(0, 1), '*') + '</section>').appendTo(node);
+                if(data.data.list.length>1){
+                	$('<section class="bankIdCard-del" data-cardId="' + num + '">删除</section>').appendTo(node);
+                }
+                $('<section class="bankIdCard-address">' + bankIP + '</section>').appendTo(node);
                 node.insertBefore($('.bankIdCard-add'));
                 //判断显示银行logo
                 $('.bankName').filter(":contains('中国工商银行')").addClass('ICBC').text('');

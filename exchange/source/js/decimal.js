@@ -41,7 +41,7 @@ define('decimal', function() {
 		var position = 0;
 		// String str = bd.toPlainString();
 		if(!str || str==""){
-			return 0.00;
+			return "0.00";
 		}
 		if (String(str).indexOf(".") < 0) {
 			return str + ".00";
