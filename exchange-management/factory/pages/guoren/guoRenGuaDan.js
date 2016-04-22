@@ -4,7 +4,7 @@ require(['api_mkt_management'],function(api_mkt_management){
     page({            
         id : 'div1',
         nowNum : 1,
-        allNum : $.cookie('pageTotal'), 
+        allNum : $.cookie('pageTotalGaDan'), 
         callBack : function(now,all){
             //人民币充值/提现查询
             api_mkt_management.trade({
@@ -19,7 +19,7 @@ require(['api_mkt_management'],function(api_mkt_management){
                 'pageSize':10
             },function(data){
                 if (data.status == 200) {
-                    $.cookie('pageTotal',data.data.pageNum);
+                    $.cookie('pageTotalGaDan',data.data.pageNum);
                     var html = [];
                     for(var i=0; i<10;i++){
                        html.push("<tr>");
@@ -69,7 +69,7 @@ require(['api_mkt_management'],function(api_mkt_management){
         var obj = document.getElementById(opt.id);
 
         var nowNum = opt.nowNum || 1;
-        var allNum = opt.allNum || 5;
+        var allNum = opt.allNum;
         var callBack = opt.callBack || function(){};
         
         if( nowNum>=4 && allNum>=6 ){ 

@@ -5,7 +5,7 @@ require(['api_mkt_management'],function(api_mkt_management){
     page({            
         id : 'div1',
         nowNum : 1,
-        allNum : $.cookie('pageTotal'), 
+        allNum : $.cookie('pageTotalOutput'), 
         callBack : function(now,all){
             //alert(now);
             api_mkt_management.transferGopOutput({
@@ -18,10 +18,9 @@ require(['api_mkt_management'],function(api_mkt_management){
                 'pageNo':now,
                 'pageSize':10
             },function(data){   
-                 if (data.status == 200 && data.data.list.length > 1) {                             
+                 if (data.status == 200 && data.data.list.length > 0) {                             
                         var html = [];
-
-                        $.cookie('pageTotal',data.data.pageNum);
+                        $.cookie('pageTotalOutput',data.data.pageNum);
                         var len = data.data.list.length < 10?data.data.list.length:10;
                         for(var i=0; i<len;i++){
                            html.push("<tr>");
@@ -67,7 +66,7 @@ require(['api_mkt_management'],function(api_mkt_management){
         var obj = document.getElementById(opt.id);
 
         var nowNum = opt.nowNum || 1;
-        var allNum = opt.allNum || 5;
+        var allNum = opt.allNum;
         var callBack = opt.callBack || function(){};
         
         if( nowNum>=4 && allNum>=6 ){ 

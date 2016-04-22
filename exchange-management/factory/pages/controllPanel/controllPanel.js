@@ -5,7 +5,6 @@ require(['api_mkt_management'], function(api_mkt_management) {
         'pageSize':10
     },function(data) {
             if (data.status == 200) {
-                console.log(data);
                 var html = [];
                 var num = data.data.list.length < 10?data.data.list.length:10;
                 for(var i=0;i<num;i++){
@@ -18,9 +17,14 @@ require(['api_mkt_management'], function(api_mkt_management) {
                         'adminId':parseInt($('.btnLockManager').find('option:selected').val())
                     },function(data) {
                         if (data.status == 200) {
-                            console.log(data);
+                            var html = [];
+                            var num = data.data.list.length < 10?data.data.list.length:10;
+                            for(var i=0;i<num;i++){
+                                html.push('<option value='+data.data.list[i].uid+'>'+ data.data.list[i].mobile+'</option>');
+                                $('.btnLockManager').html(html);
+                            }
+                            window.location.href="home.html";
                         } else {
-                            //alert('输入原密码有误！');
                             console.log(data.msg);
                         }
                     });
@@ -31,7 +35,13 @@ require(['api_mkt_management'], function(api_mkt_management) {
                         'adminId':$('.btnUnlockManager').find('option:selected').text()
                     },function(data) {
                         if (data.status == 200) {
-                            console.log(data);
+                            var html = [];
+                            var num = data.data.list.length < 10?data.data.list.length:10;
+                            for(var i=0;i<num;i++){
+                                html.push('<option value='+data.data.list[i].uid+'>'+ data.data.list[i].mobile+'</option>');
+                                $('.btnUnlockManager').html(html);
+                            }
+                            window.location.href="home.html";
                         } else {
                             console.log(data.msg);
                         }
@@ -50,7 +60,7 @@ require(['api_mkt_management'], function(api_mkt_management) {
             if (data.status == 200) {
                 console.log(data);
                 //$.cookie('key','');
-                window.location.href="controllPanel.html";
+                window.location.href="home.html";
             } else {
                 alert('输入原密码有误！');
                 console.log(data.msg);
@@ -63,15 +73,17 @@ require(['api_mkt_management'], function(api_mkt_management) {
         api_mkt_management.create({
             'userName':$('#CreateManagerUserName').val(),
             'password':$('#CreateManagerPwd').val(),
-            'role':$('.selectRole').find('option:selected').text(),
+            'role':$('.selectRole').find('option:selected').val(),
             'phone':$('#CreateManagerPhone').val()
         },function(data) {
             if (data.status == 200) {
                 console.log(data);
                 $('.msg_complete').text('创建成功').css('color','green');
-                //window.location.href="controllPanel.html";
-            } else {
-                console.log(data.msg);
+                setTimeout(function(){
+                    window.location.href="controllPanel.html";
+                },3000);
+            } else{
+                $('.msg_complete').text(data.msg).css('color','red');
             }
         });
     });    
