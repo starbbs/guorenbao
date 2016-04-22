@@ -10,7 +10,6 @@ require(['api_mkt_management'],function(api_mkt_management){
         if(pageNo > pageTotle){
         	$(".inputNum").val(pageTotle);
         }
-        cashInList(parseInt(pageNo),page_size,optionStatus);
     });
     
     $(document).on("keyup", ".inputNum", function(e) {
@@ -49,9 +48,9 @@ require(['api_mkt_management'],function(api_mkt_management){
                     for(var i=0; i<len;i++){
                        html.push("<tr>");
                        if(data.data.list[i].transferCnyStatus == "SUCCESS" || data.data.list[i].transferCnyStatus == "CANCEL"){
-                       		html.push("<td></td>");
+                            html.push("<td></td>");
                        }else{
-                       		html.push("<td><span class='icon-cny btnConfirm'></span></td>");
+                            html.push("<td><span class='icon-cny btnConfirm'></span></td>");
                        }
                         html.push("<td class='uidNum'>"+ data.data.list[i].id +"</td>");
                         html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");

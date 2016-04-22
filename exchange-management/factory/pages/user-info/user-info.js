@@ -1,6 +1,6 @@
 require(['api_mkt_management'], function(api_mkt_management) {
 
-    avalon.ready(function(){
+    /*avalon.ready(function(){
         var vm = avalon.define({
             $id:'test',
             NoName:'匿名',
@@ -16,7 +16,7 @@ require(['api_mkt_management'], function(api_mkt_management) {
             }
         });
         avalon.scan();
-    });
+    });*/
     //控制面板右侧 常用 的显示隐藏
         $(".aside-div-spanRight").hover(function(){
             $(".aside-div-spanRight-div").show();
@@ -51,13 +51,15 @@ require(['api_mkt_management'], function(api_mkt_management) {
             var html = [];
                 html.push("<tr>");
                 html.push("<td>"+ data.data.name +"</td>");
-                html.push("<td>"+ data.data.idType +"</td>");
+                html.push("<td class='idType'>"+ data.data.idType +"</td>");
                 html.push("<td>"+ data.data.idNumber +"</td>");
                 html.push("<td>"+ data.data.motime +"</td>");
                 html.push("<td>"+ data.data.idAuthip +"</td>");
                 html.push("</tr>");
                 $(".userInfo").html("");  //添加前，先清空 
                 $(".userInfo").append(html.join("")); 
+
+                $('.idType').filter(':contains("false")').text('身份证号');
         }else{
             var html = [];
             html.push("<tr><td colspan='5'>"+ data.msg +"</td></tr>");

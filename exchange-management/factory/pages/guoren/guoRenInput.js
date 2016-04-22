@@ -1,7 +1,6 @@
 require(['api_mkt_management'],function(api_mkt_management){
     
     //人民币充值/提现查询
-    
     //分页开始-jxn
     var page_size = 10; //每页条数
     var optionStatus = ''; //当前状态，"显示全部"时为''
@@ -123,6 +122,8 @@ require(['api_mkt_management'],function(api_mkt_management){
         optionStatus = (optionSel == "ALL"?"": optionSel);
         guoRenInList(1,page_size,optionStatus);
     });
+    //分页 结束
+
 });
 
 

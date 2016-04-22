@@ -9,8 +9,7 @@ require(['api_mkt_management'],function(api_mkt_management){
         var pageNo=$(".inputNum").val();
         if(pageNo > pageTotle){
         	$(".inputNum").val(pageTotle);
-        }
-        guoRenDealList(parseInt(pageNo),page_size,optionStatus);
+    	}
     });
     
     $(document).on("keyup", ".inputNum", function(e) {
