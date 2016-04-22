@@ -1,6 +1,6 @@
 require(['api_mkt', 'cookie'], function(api_mkt) {
 	var category="ALL";//消息类型
-	var pageSize=1;//分页数量
+	var pageSize=10;//分页数量
 	var pageNum=0;
 	$(".wrapper").on("click", ".btn-fenye", function() {
         var pageNo=$(".inputNum").val();
