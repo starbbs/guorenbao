@@ -10,6 +10,7 @@ require(['api_mkt_management'],function(api_mkt_management){
         if(pageNo > pageTotle){
         	$(".inputNum").val(pageTotle);
         }
+        cashInList(parseInt(pageNo),page_size,optionStatus);
     });
     
     $(document).on("keyup", ".inputNum", function(e) {
