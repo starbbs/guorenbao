@@ -246,7 +246,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                 $('#sendCodeByLoginAfterBtn').attr('disabled', true).css({ 'cursor': 'not-allowed', 'backgroundColor': '#eee', 'color': '#999' });
             } else {
                 clearInterval(resend);
-                $('#sendCodeByLoginAfterBtn').attr('disabled', false).css({ 'cursor': 'not-allowed', 'backgroundColor': '#0bbeee', 'color': '#fff' }).val('获取验证码');
+                $('#sendCodeByLoginAfterBtn').attr('disabled', false).css({ 'cursor': 'pointer', 'backgroundColor': '#0bbeee', 'color': '#fff' }).val('获取验证码');
             }
 
         }, 1000);
