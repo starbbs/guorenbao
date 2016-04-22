@@ -35,9 +35,7 @@ require(['api_mkt_management'],function(api_mkt_management){
                             html.push("<td class='createDate'>"+ data.data.list[i].createDate +"</td>");
                             html.push("</tr>");
                             $(".aside-table-tbody").html("");  //添加前，先清空 
-                            $(".aside-table-tbody").append(html.join(""));
-
-                            /*$('.createDate').text(unix_to_datetime(data.data.list[i].createDate));*/                            
+                            $(".aside-table-tbody").append(html.join(""));                          
                         }
                     }
             });   

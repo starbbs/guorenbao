@@ -19,50 +19,54 @@ require(['api_mkt_management'],function(api_mkt_management){
                 'pageSize':10
             },function(data){   
                  if (data.status == 200 && data.data.list.length > 1) {                             
-                        var html = [];
-                        $.cookie('pageTotal',data.data.pageNum);
-                        var len = data.data.list.length < 10?data.data.list.length:10;
-                        for(var i=0; i<len;i++){
-                           html.push("<tr>");
-                            html.push("<td>"+ data.data.list[i].id +"</td>");
-                            html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
-                            html.push("<td>"+ data.data.list[i].phone +"</td>");
-                            html.push("<td>"+ data.data.list[i].wallet +"</td>");
-                            html.push("<td>"+ data.data.list[i].number +"</td>");
-                            html.push("<td class='status'>"+ data.data.list[i].transferGopStatus +"</td>");
-                            html.push("<td>"+ data.data.list[i].msg +"</td>");
-                            html.push("<td class='createTime'>"+ data.data.list[i].createDate +"</td>");
-                            html.push("<td class='updateTimed'>"+ data.data.list[i].updateDate +"</td>");
-                            html.push("</tr>");
-                            $(".aside-table-tbody").html("");  //添加前，先清空 
-                            $(".aside-table-tbody").append(html.join("")); 
-
-						
-							//过滤内容显示不同颜色
-		                    $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");                                      
-		                    $(".status").filter(":contains('CANCEL')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                  
-		                    $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                                      
-		                    $(".status").filter(":contains('CLOSED')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');
-                            //用户详情
-                            $('.toUidInfo').click(function(){
-                                $.cookie('userUid',$(this).children().text());
-                                $.cookie('userUidMobile',$(this).parent().find('.mobile').text());
-                                api_mkt_management.userInfo({
-                                    'uId':$(this).children().text()
-                                },function(data) {
-                                    if (data.status == 200) {
-                                        console.log(data);
-                                        window.location.href='user-info.html';
-                                    } else {
-                                        console.log(data.msg);
-                                    }
-                                });
-                            }); 
-                        }
+                        guoRenInputNum(data);
                     }
             });   
         }
     });  
+
+    var  guoRenInputNum = function(data){
+        var html = [];
+        $.cookie('pageTotal',data.data.pageNum);
+        var len = data.data.list.length < 10?data.data.list.length:10;
+        for(var i=0; i<len;i++){
+           html.push("<tr>");
+            html.push("<td>"+ data.data.list[i].id +"</td>");
+            html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
+            html.push("<td>"+ data.data.list[i].phone +"</td>");
+            html.push("<td>"+ data.data.list[i].wallet +"</td>");
+            html.push("<td>"+ data.data.list[i].number +"</td>");
+            html.push("<td class='status'>"+ data.data.list[i].transferGopStatus +"</td>");
+            html.push("<td>"+ data.data.list[i].msg +"</td>");
+            html.push("<td class='createTime'>"+ data.data.list[i].createDate +"</td>");
+            html.push("<td class='updateTimed'>"+ data.data.list[i].updateDate +"</td>");
+            html.push("</tr>");
+            $(".aside-table-tbody").html("");  //添加前，先清空 
+            $(".aside-table-tbody").append(html.join("")); 
+
+        
+            //过滤内容显示不同颜色
+            $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");                                      
+            $(".status").filter(":contains('CANCEL')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                  
+            $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                                      
+            $(".status").filter(":contains('CLOSED')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');
+            //用户详情
+            $('.toUidInfo').click(function(){
+                $.cookie('userUid',$(this).children().text());
+                $.cookie('userUidMobile',$(this).parent().find('.mobile').text());
+                api_mkt_management.userInfo({
+                    'uId':$(this).children().text()
+                },function(data) {
+                    if (data.status == 200) {
+                        console.log(data);
+                        window.location.href='user-info.html';
+                    } else {
+                        console.log(data.msg);
+                    }
+                });
+            }); 
+        }
+    }
     
     //分页 
     function page(opt){
@@ -197,7 +201,56 @@ require(['api_mkt_management'],function(api_mkt_management){
     }
     //分页 结束
 
-
+    //数据筛选
+    $('.aside-table-thead-select').change(function(){
+        var optionSel = $(this).find('option:selected').text();
+        //console.log(optionSel);
+        if(optionSel === '已完成'){
+            api_mkt_management.transferGopInput({
+                'transferGopStatus':'SUCCESS',
+                'optType':'IN',
+                'pageNo':1,
+                'pageSize':10
+            },function(data){   
+                if (data.status == 200 && data.data.list.length > 1) {                             
+                    guoRenInputNum(data);
+                }
+            });
+        }else if(optionSel === '进行中'){
+            api_mkt_management.transferGopInput({
+                'transferGopStatus':'WAIT',
+                'optType':'IN',
+                'pageNo':1,
+                'pageSize':10
+            },function(data){   
+                if (data.status == 200 && data.data.list.length > 1) {                             
+                    guoRenInputNum(data);
+                }
+            });
+        }else if(optionSel === '已关闭'){
+            api_mkt_management.transferGopInput({
+                'transferGopStatus':'CLOSED',
+                'optType':'IN',
+                'pageNo':1,
+                'pageSize':10
+            },function(data){   
+                if (data.status == 200 && data.data.list.length > 1) {                             
+                    guoRenInputNum(data);
+                }
+            });
+        }else{
+            api_mkt_management.transferGopInput({
+                'transferGopStatus':'',
+                'optType':'IN',
+                'pageNo':1,
+                'pageSize':10
+            },function(data){   
+                if (data.status == 200 && data.data.list.length > 1) {                             
+                    guoRenInputNum(data);
+                }
+            });
+        }          
+    });
 
 //end
 });
