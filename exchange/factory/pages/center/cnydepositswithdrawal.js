@@ -256,8 +256,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             //人民币提现申请 弹出层        
             $(".Withdrawalsbtn").click(function(){
             	if(global.payLocked){
-            		window.location.reload();
-            		$(window).scrollTop(0);
+            		window.location.href="./cnydepositswithdrawal.html?formindex=1";
             		return false;
             	}
                 if($('#WithdrawalsAmount').val()< 10){
@@ -472,6 +471,10 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
 
         //生成汇款单里的填充文本        
         $(".build-remit-layer").click(function(){
+        	if(global.payLocked){
+        		window.location.href="./cnydepositswithdrawal.html?whichtab=1";
+        		return false;
+        	}
             if(btnConfirm1 == false){
                 $('.msg-bank-money').show().text('最小充值金额为100元');
             }else if(btnConfirm2 == false){
@@ -615,10 +618,10 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             }
             var c = getQueryString("whichtab");
             if(c){
-                $('.rmbxh').removeClass('bottomon');
-                $('.rmbtx').addClass('bottomon');
-                $('.recharge').hide();
-                $('.withdraw_deposit').show();
+                $('.rmbtx').removeClass('bottomon');
+                $('.rmbxh').addClass('bottomon');
+                $('.recharge').show();
+                $('.withdraw_deposit').hide();
             }
         });
         
