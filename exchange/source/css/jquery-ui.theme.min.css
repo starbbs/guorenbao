@@ -63,7 +63,7 @@
 .ui-widget-header .ui-state-focus {
     border: 1px solid #cccccc;
     border-radius:50%;
-    background: #cccccc url("images/ui-bg_glass_100_fdf5ce_1x400.png") 50% 50% repeat-x;
+    /* background: #cccccc url("images/ui-bg_glass_100_fdf5ce_1x400.png") 50% 50% repeat-x; */
     font-weight: bold;
     color: #cccccc;
     border-radius:50%;
