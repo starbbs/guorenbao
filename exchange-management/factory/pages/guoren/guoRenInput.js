@@ -26,7 +26,6 @@ require(['api_mkt_management'],function(api_mkt_management){
                            html.push("<tr>");
                             html.push("<td>"+ data.data.list[i].id +"</td>");
                             html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
-                            html.push("<td>"+ data.data.list[i].phone +"</td>");
                             html.push("<td>"+ data.data.list[i].wallet +"</td>");
                             html.push("<td>"+ data.data.list[i].number +"</td>");
                             html.push("<td class='status'>"+ data.data.list[i].transferGopStatus +"</td>");

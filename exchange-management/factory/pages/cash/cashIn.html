@@ -74,10 +74,10 @@
                     <td style="width:95px;">
                         <label for="selectStatus">状态:</label>
                         <select class="aside-table-thead-select" name="selectStatus">
-                            <option>WAIT</option>
-                            <option>SUCCESS</option>
-                            <option>CANCEL</option>
-                            <option selected="selected">ALL</option>
+                            <option data-status="WAIT">进行中</option>
+                            <option data-status="SUCCESS">已完成</option>
+                            <option data-status="CANCEL">已取消</option>
+                            <option data-status="ALL" selected="selected">显示全部</option>
                         </select>
                     </td>
                     <td width="125px">创建于</td>
@@ -99,6 +99,10 @@
             <a href="#6">[6]</a>
             <a href="#5">下一页</a>
             <a href="#10">尾页</a> -->
+            <span class="paging"></span>
+            <input type="text" class="inputNum"/>
+            <span class="allNum"></span>
+            <span class="btn-fenye">确定</span>
         </div>
     </aside>
 <!-- 弹出框内容 -->
