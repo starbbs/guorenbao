@@ -53,9 +53,9 @@
                     <td style="width:110px;">
                         <label for="selectStatus">状态:</label>
                         <select class="aside-table-thead-select" name="selectStatus">
-                            <option selected="selected">SUCCESS</option>
-                            <option>CANCLE</option>
-                            <option>ALL</option>
+                            <option data-status="SUCCESS" selected="selected">已成功</option>
+                            <option data-status="CANCLE">已关闭</option>
+                            <option data-status="ALL">显示全部</option>
                         </select>
                     </td>
                     <td>挂单类型</td>
@@ -78,6 +78,10 @@
                 <a href="#6">[6]</a>
                 <a href="#5">下一页</a>
                 <a href="#10">尾页</a> -->
+            <span class="paging"></span>
+            <input type="text" class="inputNum"/>
+            <span class="allNum"></span>
+            <span class="btn-fenye">确定</span>
         </div>
     </aside>
 <!-- 弹出框内容 -->
