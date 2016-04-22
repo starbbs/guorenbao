@@ -73,13 +73,13 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
                 confirmNewPwd: $("#confirmNewPwd").val()
             }, function(data) {
                 if (data.status == 200) {
-                    $(".reset_login_password_step_1").hide();
-                    $(".reset_login_password_step_2").show();
-
-                    $(".correct").show();
-                    $(".rg_lf_label").hide();
-                    $(".rg_rg_input").hide();
-                    toIndex();
+//                  $(".reset_login_password_step_1").hide();
+//                  $(".reset_login_password_step_2").show();
+//
+//                  $(".correct").show();
+//                  $(".rg_lf_label").hide();
+//                  $(".rg_rg_input").hide();
+//                  toIndex();
                 } else if (data.status == 305) {
                     showWarnWin(data.msg,1e3);
                 } else if (data.status == 400) {

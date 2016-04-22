@@ -33,6 +33,7 @@
     "gulp-sprite-generator": "^0.2.3",
     "gulp-uglify": "^1.2.0",
     "react": "^0.13.3",
+    "rename": "^1.0.3",
     "vinyl-source-stream": "^1.1.0"
   },
   "scripts": {
