@@ -288,6 +288,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                 'identifyingCode': $('#sendCodeByLoginAfter').val()
             }, function(data) {
                 $('.msg-sendCodeByLoginAfter').text('');
+                $('.msg-pay-pwd').text('');
                 if (data.status == 200) {
                     window.location.reload(true);
                 } else if (data.msg == '验证码错误') {
