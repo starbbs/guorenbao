@@ -281,6 +281,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                     var Fee = parseInt($('.WithdrawalsFee').text());
                     $(".WithdrawalsAmount").text('¥'+amount+'.00');
                     $(".WithdrawalsRealAmount").text('¥'+(amount - Fee)+'.00');
+                    $('.msg-WithdrawalsPayPwd').text("");
                     //接口：人民币提现
                     api_mkt.rmbWithdrawals({          
                         'bankId':$.cookie('bankNum'),
