@@ -2,6 +2,9 @@ require(['api_mkt', 'mkt_info','decimal', 'cookie'], function(api_mkt, mkt_info,
 	
 	 	$(".wrapper").on("click", ".btn-fenye", function() {
 	        var pageNo=$(".inputNum").val();
+	        if(!pageNo || pageNo<0){
+            	return false;
+            }
 	        billList(parseInt(pageNo),10);
 	    });
 	    

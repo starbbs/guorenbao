@@ -14,6 +14,9 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
 
     $(".wrapper").on("click", ".nustInBtn", function() {
         var pageNo=$(".nutsInInput").val();
+        if(!pageNo || pageNo<0){
+        	return false;
+        }
         transferInHistory(parseInt(pageNo),10);
     });
     
@@ -36,6 +39,9 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
      */
     $(".wrapper").on("click", ".nutsInPageNo", function() {
         var pageNo=$(this).attr("data-pageno");
+        if(!pageNo || pageNo<0){
+        	return false;
+        }
         transferInHistory(parseInt(pageNo),10);
     });
     

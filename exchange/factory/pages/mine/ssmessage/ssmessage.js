@@ -4,6 +4,9 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
 	var pageNum=0;
 	$(".wrapper").on("click", ".btn-fenye", function() {
         var pageNo=$(".inputNum").val();
+        if(!pageNo || pageNo<0){
+        	return false;
+        }
         mymessage(parseInt(pageNo),pageSize);
     });
     

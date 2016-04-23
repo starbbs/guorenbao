@@ -60,7 +60,9 @@ define('decimal', function() {
 	 * 获取小数的整数形式
 	 */
 	decimal._getIntFromFloat = function(arg) {
-		if (arg.toString().indexOf(".") == -1) {
+		if(!arg){
+			return 0;
+		}else if (arg.toString().indexOf(".") == -1) {
 			return arg;
 		} else {
 			return Number(arg.toString().replace(".", ""));
