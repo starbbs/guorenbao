@@ -1166,7 +1166,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
                     $("#floor_bg").hide();
                     getTotalAssets();
                     showWarnWin('卖出成功！', 1e3);
-                    window.location.reload();
+                    window.location.reload(true);
                 } else {
                     console.log(data);
                     if (data.status == 400) {
@@ -1177,7 +1177,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
                             $(".payment_error").html(data.msg);
                         }
                         if (data.msg.indexOf("已被锁定") > 0) {
-                            window.location.reload();
+                            window.location.reload(true);
                         }
                     } else {
                         $(".payment_error").html(data.msg);
