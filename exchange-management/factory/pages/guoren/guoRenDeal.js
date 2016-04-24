@@ -12,6 +12,11 @@ require(['api_mkt_management'],function(api_mkt_management){
     	}
     });
     
+    
+    $(document).on("click", ".aside-div-searchBtn", function() {
+    	guoRenDealList(1,page_size,optionStatus);
+    });
+    
     $(document).on("keyup", ".inputNum", function(e) {
     	var pageNo=$(this).val();
         var pageNum=$(this).attr("data-pagenum");
@@ -33,23 +38,20 @@ require(['api_mkt_management'],function(api_mkt_management){
         guoRenDealList(parseInt(pageNo),page_size,optionStatus);
     });
     var guoRenDealList = function(pageNo,pageSize,status){
-		api_mkt_management.order({
-            'id':'',
-            'uid':'',
-            'phone':'',
-            'optType':'IN',
-            'name':'',
-            'msg':'',
-            'status':status,
-            'pageNo':pageNo,
-            'pageSize':pageSize
-        },function(data){ 
+    	var param={};
+    	param.pageNo=pageNo;
+    	param.pageSize=pageSize;
+    	if($(".aside-div-input").val()){
+    		param[$(".aside-div-select").val()]=$(".aside-div-input").val();
+    	}
+		api_mkt_management.order(param,function(data){ 
              if (data.status == 200) {          
              	if(data.data.list.length > 0){
              		$.cookie('pageTotalDeal',data.data.pageNum);
              		pageTotle = data.data.pageNum;
                     var html = [];
-                    var len = data.data.list.length < 10?data.data.list.length:10;
+                    var len = data.data.list.length;
+                    $(".aside-table-tbody").html("");  //添加前，先清空 
                     for(var i=0; i<len;i++){
                        html.push("<tr>");
                        html.push("<td>"+ data.data.list[i].id +"</td>");               
@@ -61,11 +63,11 @@ require(['api_mkt_management'],function(api_mkt_management){
                         html.push("<td>"+ data.data.list[i].sellUid +"</td>");
                         html.push("<td class='createDate'>"+ data.data.list[i].createDate +"</td>");
                         html.push("</tr>");
-                        $(".aside-table-tbody").html("");  //添加前，先清空 
-                        $(".aside-table-tbody").append(html.join(""));
 
                         /*$('.createDate').text(unix_to_datetime(data.data.list[i].createDate));*/                            
                     }
+                    $(".aside-table-tbody").append(html.join(""));
+
                     var htmlPage = [];
                     var pageNum = data.data.pageNum;
 					var start=pageNo>3?(pageNo-3):1;

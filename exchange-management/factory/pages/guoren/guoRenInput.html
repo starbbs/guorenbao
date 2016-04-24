@@ -30,11 +30,11 @@
             <span class="aside-div-spanRight">
                 <input type="text" placeholder="按类别搜索信息" class="aside-div-input"/>
                 <select class="aside-div-select">
-                    <option selected="selected">用户ID</option>
-                    <option>ID</option>
-                    <option>姓名</option>
-                    <option>手机</option>
-                    <option>附言</option>
+                    <option value="id" selected="selected">ID</option>
+                    <option value="uId">用户ID</option>
+                    <option value="phone">手机号</option>
+                    <option value="address">地址</option>
+                    <option value="phone">附言</option>
                 </select>
                 <input type="button" value="搜索" class="aside-div-searchBtn" />
             </span>
@@ -47,13 +47,13 @@
                     <td style="width:300px;">钱包地址</td>
                     <td>数量</td>
                     <td style="width:130px;">
-                        <label for="selectStatus">状态:</label>
-                        <select class="aside-table-thead-select" name="selectStatus">
+                        <label for="selectStatus">状态</label>
+                        <!-- <select class="aside-table-thead-select" name="selectStatus">
                         	<option data-status="SUCCESS">已完成</option>
                             <option data-status="PROCESSING">进行中</option>
                             <option data-status="CANCEL">已关闭</option>
                             <option data-status="ALL" selected="selected">显示全部</option>
-                        </select>
+                        </select> -->
                     </td>
                     <td>附言</td>
                     <td width="140px">创建于</td>

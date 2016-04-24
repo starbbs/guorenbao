@@ -25,9 +25,9 @@
             <span class="aside-div-spanRight">
                 <input type="text" placeholder="按类别搜索信息" class="aside-div-input"/>
                 <select class="aside-div-select">
-                    <option selected="selected">uid</option>
-                    <option>手机号</option>
-                    <option>真实姓名</option>
+                    <option value="uId" selected="selected">uid</option>
+                    <option value="phone">手机号</option>
+                    <option value="name">真实姓名</option>
                 </select>
                 <input type="button" value="搜索" class="aside-div-searchBtn" />
             </span>
@@ -48,15 +48,19 @@
         </table>
         <!-- 分页 -->
         <div id="div1" class="PageCode">
-            <!--<a href="#1">首页</a>
-                <a href="#3">上一页</a>
-                <a href="#2">[2]</a>
-                <a href="#3">[3]</a>
-                <a href="#4">4</a>
-                <a href="#5">[5]</a>
-                <a href="#6">[6]</a>
-                <a href="#5">下一页</a>
-                <a href="#10">尾页</a>-->
+            <!-- <a href="#1">首页</a>
+            <a href="#3">上一页</a>
+            <a href="#2">[2]</a>
+            <a href="#3">[3]</a>
+            <a href="#4">4</a>
+            <a href="#5">[5]</a>
+            <a href="#6">[6]</a>
+            <a href="#5">下一页</a>
+            <a href="#10">尾页</a> -->
+            <span class="paging"></span>
+            <input type="text" class="inputNum"/>
+            <span class="allNum"></span>
+            <span class="btn-fenye">确定</span>
         </div>
     </aside>
 <script src="./js/user.js"></script>

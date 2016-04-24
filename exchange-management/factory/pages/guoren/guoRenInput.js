@@ -13,6 +13,10 @@ require(['api_mkt_management'],function(api_mkt_management){
         guoRenInList(parseInt(pageNo),page_size,optionStatus);
     });
     
+    $(document).on("click", ".aside-div-searchBtn", function() {
+    	guoRenInList(1,page_size,optionStatus);
+    });
+    
     $(document).on("keyup", ".inputNum", function(e) {
     	var pageNo=$(this).val();
         var pageNum=$(this).attr("data-pagenum");
@@ -34,24 +38,39 @@ require(['api_mkt_management'],function(api_mkt_management){
         guoRenInList(parseInt(pageNo),page_size,optionStatus);
     });
     
+  //用户详情
+    $(document).on("click", ".toUidInfo", function() {
+        $.cookie('userUid',$(this).children().text());
+        $.cookie('userUidMobile',$(this).parent().find('.mobile').text());
+        api_mkt_management.userInfo({
+            'uId':$(this).children().text()
+        },function(data) {
+            if (data.status == 200) {
+                console.log(data);
+                window.location.href='user-info.html';
+            } else {
+                console.log(data.msg);
+            }
+        });
+    }); 
     
     var guoRenInList = function(pageNo,pageSize,status){
-		api_mkt_management.transferGopInput({
-            'id':'',
-            'uid':'',
-            'phone':'',
-            'optType':'IN',
-            'address':'',
-            'status':status,
-            'pageNo':pageNo,
-            'pageSize':pageSize
-        },function(data){ 
+    	var param={};
+    	param.status=status;
+    	param.optType='IN';
+    	param.pageNo=pageNo;
+    	param.pageSize=pageSize;
+    	if($(".aside-div-input").val()){
+    		param[$(".aside-div-select").val()]=$(".aside-div-input").val();
+    	}
+		api_mkt_management.transferGopInput(param,function(data){ 
         	if (data.status == 200 ) {       
         		if(data.data.list.length > 0){
         			var html = [];
         			pageTotle = data.data.pageNum;
 	                $.cookie('pageTotal',data.data.pageNum);
-	                var len = data.data.list.length < 10?data.data.list.length:10;
+	                var len = data.data.list.length;
+	                $(".aside-table-tbody").html("");  //添加前，先清空 
 	                for(var i=0; i<len;i++){
 	                   html.push("<tr>");
 	                    html.push("<td>"+ data.data.list[i].id +"</td>");
@@ -63,31 +82,18 @@ require(['api_mkt_management'],function(api_mkt_management){
 	                    html.push("<td class='createTime'>"+ data.data.list[i].createDate +"</td>");
 	                    html.push("<td class='updateTimed'>"+ data.data.list[i].updateDate +"</td>");
 	                    html.push("</tr>");
-	                    $(".aside-table-tbody").html("");  //添加前，先清空 
-	                    $(".aside-table-tbody").append(html.join("")); 
-	
-					
-						//过滤内容显示不同颜色
-	                    $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");                                      
-	                    $(".status").filter(":contains('CANCEL')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                  
-	                    $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                                      
-	                    $(".status").filter(":contains('CLOSED')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');
-	                    //用户详情
-	                    $('.toUidInfo').click(function(){
-	                        $.cookie('userUid',$(this).children().text());
-	                        $.cookie('userUidMobile',$(this).parent().find('.mobile').text());
-	                        api_mkt_management.userInfo({
-	                            'uId':$(this).children().text()
-	                        },function(data) {
-	                            if (data.status == 200) {
-	                                console.log(data);
-	                                window.location.href='user-info.html';
-	                            } else {
-	                                console.log(data.msg);
-	                            }
-	                        });
-	                    }); 
+	                   
+	                   
 	                }
+	                $(".aside-table-tbody").append(html.join("")); 
+	            	
+					
+					//过滤内容显示不同颜色
+                    $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");                                      
+                    $(".status").filter(":contains('CANCEL')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                  
+                    $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                                      
+                    $(".status").filter(":contains('CLOSED')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');
+                    
 	                var htmlPage = [];
 	                var pageNum = data.data.pageNum;
 					var start=pageNo>3?(pageNo-3):1;

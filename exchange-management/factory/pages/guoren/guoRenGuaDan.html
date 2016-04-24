@@ -25,11 +25,8 @@
             <span class="aside-div-spanRight">
                 <input type="text" placeholder="按类别搜索信息" class="aside-div-input"/>
                 <select class="aside-div-select">
-                    <option selected="selected">用户ID</option>
-                    <option>ID</option>
-                    <option>姓名</option>
-                    <option>手机</option>
-                    <option>附言</option>
+                    <option value="id" selected="selected">ID</option>
+                    <option value="uId">UID</option>
                 </select>
                 <input type="button" value="搜索" class="aside-div-searchBtn" />
             </span>
@@ -55,6 +52,7 @@
                         <select class="aside-table-thead-select-status" name="selectStatus">
                             <option data-status="SUCCESS">已成功</option>
                             <option data-status="CANCEL">已关闭</option>
+                            <option data-status="PROCESSING">进行中</option>
                             <option data-status="ALL" selected="selected">显示全部</option>
                         </select>
                     </td>
