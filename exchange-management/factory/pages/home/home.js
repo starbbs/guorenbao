@@ -1,5 +1,17 @@
 require(['api_mkt_management'], function(api_mkt_management) {
-
+	var role=$.cookie('role');
+	if(role){
+		$(".accountantPanel").hide();
+		$(".customServicePanel").hide();
+		if(role=='ADMIN'){//管理员
+			$(".accountantPanel").show();
+			$(".customServicePanel").show();
+		}else if(role=='ACCOUNTANT'){//财务
+			$(".accountantPanel").show();
+		}else if(role=='CUSTOM_SERVICE'){//客服
+			$(".customServicePanel").show();
+		}
+	}
 
     $('.div-2-name').text($.cookie('name'));
     $('.div-2-btn').click(function(){
