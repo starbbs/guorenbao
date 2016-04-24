@@ -71,6 +71,8 @@ define('api_mkt_management', ['cookie'], function() {
 					} else if (data.status == 304 && options.ignoreStatus && options.ignoreStatus.indexOf(304) === -1) { // {msg: "服务器异常", status: "304"}
 						//$.alert('服务器异常, 请联系后台人员!');
 						alert('服务器异常');
+					}else if(data.status==444){
+						parent.location.href="./login.html";
 					}
 					options.callback && options.callback.call(this, data);
 					success && success.call(this, data);
