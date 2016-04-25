@@ -175,7 +175,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                         html.push("<tr>");                                        
                         html.push("<td>"+ data.data.list[i].updateDate +"</td>");
                         html.push("<td>"+ data.data.list[i].bank +"</td>");
-                        html.push("<td>"+ decimal.getTwoPs(data.data.list[i].money) +"</td>");                    
+                        html.push("<td>"+ decimal.getTwoPs(data.data.list[i].pay) +"</td>");                 
                         html.push("<td>"+ decimal.getTwoPs(data.data.list[i].fee) +"</td>");
                         html.push("<td class='status'>"+ data.data.list[i].transferCnyStatus +"</td>");
                         html.push("</tr>");                   

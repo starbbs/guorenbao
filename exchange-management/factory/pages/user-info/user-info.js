@@ -59,7 +59,7 @@ require(['api_mkt_management'], function(api_mkt_management) {
                 $(".userInfo").html("");  //添加前，先清空 
                 $(".userInfo").append(html.join("")); 
 
-                $('.idType').filter(':contains("false")').text('身份证号');
+                $('.idType').filter(':contains("false")').text('身份证');
         }else{
             var html = [];
             html.push("<tr><td colspan='5'>"+ data.msg +"</td></tr>");

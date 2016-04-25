@@ -572,11 +572,13 @@ table {
 .bg {
     background-color: #000;
     opacity: 0.75;
-    width:100%;
+    width:5000px;
     height: 100%;
     position: absolute;
     top: 0;
     z-index: 100;
+   left: 0;
+   position: fixed !important;
 }
 
 .popup_loginarea {
