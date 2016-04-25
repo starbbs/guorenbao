@@ -300,15 +300,14 @@ table {
 }
 
 .feature {
-    width: 138px;
-    /*color: #777777;*/
-    /*font-size: 1.6rem;*/
+    color: #777777;
     font-size: 16px;
     -webkit-text-size-adjust: none;
     cursor: pointer;
     text-decoration: none;
     text-align: right;
     font-weight: normal;
+    float: right;
 }
 
 .index_on {
@@ -802,3 +801,7 @@ a {
 .btn-fenye {
   cursor: pointer;
   padding: 2px 7px; }
+
+.awraper{
+    width:138px;
+}

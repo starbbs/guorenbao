@@ -10,10 +10,10 @@ var imagemin = require('gulp-imagemin');
 gulp.task('exchange-management-js', function() {
 	return gulp.src(path.join(paths.build, '/js/*.js'))
 		//.pipe(uglify())
-		.pipe(gulp.dest(paths.public + '/js'))
+		.pipe(gulp.dest(path.join(paths.public, '/js')))
 });
 
-gulp.task('exchange-management-rjs',/* ['exchange-management-js'],*/ function() {
+gulp.task('exchange-management-rjs',['exchange-management-js'], function() {
 	return gulp.src([
 
 		path.join(paths.build, '/js/cashIn.js'),

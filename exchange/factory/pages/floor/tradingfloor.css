@@ -450,20 +450,27 @@
     -webkit-box-sizing:border-box; /* Safari */
     float: left;
     margin-left:12px;
+    position:relative;
 }
 .w_b_l em{
     margin-right:4px;
     color: #333333;
 }
 .w_b_l em:nth-child(1){
-    float:left;
+    float:right;
     margin-left:5px;
     margin-right:0px;
     color: #777777;
+    padding-right: 34px;
 }
 .w_b_r em{
     /* margin-right:4px; */
-    color: #dd0900;
+    /* color: #dd0900; */
+    margin-left: -4px;
+}
+
+.red_m{
+    color:red;
 }
 
 .w_b-left{
@@ -484,7 +491,7 @@
     display:none;
 }
 .w_b_r em:nth-of-type(2){
-    margin-left:0px;
+    margin-left:2px;
 }
 .c_onetips,.c1_onetips{
     /*     position: absolute;
@@ -494,8 +501,79 @@
     display:none;
 }
 
-.w_b_r em:nth-of-type(3){
-    margin-left:0px;
+/* .w_b_r em:nth-of-type(3) {
+    display: inline-block;
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border: 1px solid red;
+} */
+
+.sell_g{
+    color:#00951C;
+}
+
+.mm1{
+    display: inline-block;
+    background: url("../images/sy_ding.png") no-repeat 14px 26px;
+    width: 22px;
+    height: 12px;
+    margin-left: -4px;
+    margin-top: -1px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    display: inline-table; 
+}
+
+.mm2{
+    background: url("../images/sy_ding_green.png") no-repeat 14px 26px;
+    width: 22px;
+    height: 12px;
+    margin-left: -4px;
+    margin-top: -1px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    display: inline-table; 
+}
+
+/* .w_b_r em:nth-of-type(3){
+    background: url("../images/sy_ding_green.png") no-repeat 14px 26px;
+    width: 22px;
+    height: 12px;
+    margin-left: -4px;
+    margin-top: -1px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    display: inline-table;
+} */
+.p1_holder{
+    background: url("../images/floor_g_deal_logo.png") no-repeat 48px 13px;
+    padding-right: 15px;
+}
+.p2_holder{
+        background: url("../images/floor_g_deal_logo.png") no-repeat 72px 3px;
+    padding-right: 16px;
+}
+.pp1_holder{
+    background: url("../images/black.png") no-repeat 0px 25px;
+    margin-right: 1px;
+    width: 80px;
+    padding-left: 12px;
+}
+}
+.p1_holder_money_2{
+        background: url("../images/floor_cny_money_logo.png") no-repeat 72px 2px;
+    padding-right: 16px;
+}
+.p1_holder_money{
+    background: url("../images/floor_cny_money_logo.png") no-repeat 47px 12px;
+    padding-right: 15px;
 }
 
 .w_b_r em:nth-child(1){
@@ -511,11 +589,11 @@
     height: 35px;
 }
 .buyin_limitprices div:nth-child(2) div div:nth-child(1){
-    flex: 0.2;
+        flex: 0.28;
     margin-left: 30px;
     height: 36px;
     line-height: 36px;
-    position:relative;
+    position: relative;
 }
 
 .buyin_limitprices div:nth-child(2) div div:nth-child(1) label{
@@ -533,6 +611,7 @@
 
 .buyin_limitprices div:nth-child(2) div div:nth-child(2) input{
     padding-left: 14px;
+        font-family: Microsoft yahei;
 }
 #sale_scale_limited,#slider_marketprice_sale{
     height: 8px;
@@ -685,6 +764,7 @@
 .form_wrapper_rightdiv div input{
     padding-left:14px;
     height:30px;
+        font-family: Microsoft yahei;
 }
 .jyeinput{
     border: none;
@@ -887,6 +967,7 @@
 .loginarea div:nth-child(3) input {
     width: 95%;
     padding-left: 5%;
+        font-family: Microsoft yahei;
 }
 
 .loginarea div:nth-child(3) {
@@ -915,6 +996,7 @@
     width: 51%;
     float: left;
     padding-left: 5%;
+        font-family: Microsoft yahei;
 }
 
 .loginarea div:nth-child(4) span {
@@ -1610,7 +1692,7 @@
     padding-right: 15px;
 }
 .buying_price, .buying_number, .sellPrice, .sellNumber{
-    width:200px;
+    width:180px;
 }
 .buying_btn, .sale_btn{
     width:280px;

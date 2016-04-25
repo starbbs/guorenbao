@@ -125,13 +125,13 @@
                                     <em>账户余额</em><em id="wbl_m"></em><em>CNY</em>
                                 </div>
                                 <div class="w_b_r">
-                                    <em>最佳买价¥</em><em id="wbr_m_best_buy"></em><em>/G</em>
+                                    <em>最佳买价：¥</em><em id="wbr_m_best_buy" class="red_m"></em><em class="red_m mm1">/</em>
                                 </div>
                             </div>
                             <div class="w_b-left">
                                 <div>
                                     <div>
-                                        <label for="">买入价格</label>
+                                        <label for="" class="p1_holder_money">买入价格</label>
                                     </div>
                                     <div>
                                         <input class="buying_price" type="text" placeholder="输入希望买入的价格" />
@@ -140,10 +140,11 @@
                                 <span class="a_onetips"></span>
                                 <div>
                                     <div>
-                                        <label for="">买入数量</label>
+                                        <label for="" class="p1_holder">买入数量</label>
                                     </div>
                                     <div>
-                                        <input class="buying_number" type="text" placeholder="最大数量 --G" />
+                                        <input class="buying_number" type="text" placeholder="最大数量" />
+                                        <!-- <i class="p1_holder"></i> -->
                                     </div>
                                 </div>
                                 <span class="b_onetips"></span>
@@ -184,7 +185,9 @@
                                 </div>
                                 <div class="form_wrapper_rightdiv">
                                     <div>
-                                        	最大买入金额 ¥ <span class="max_buy_num">11111</span>
+                                            <!--<label for="" class="p2_holder">最大卖出数量</label>-->
+                                            <label for="" class="p1_holder_money_2">最大买入金额</label>
+                                        	<span class="max_buy_num">11111</span>
                                     </div>
                                     <div style="margin-bottom: 2px;">
                                         <input class="marketBuy" type="text" placeholder="以市场最优价格买入">
@@ -211,16 +214,16 @@
                         <section class="buyin_limitprices sale_limitprices" style="display: block;">
                             <div class="w_b">
                                 <div class="w_b_l w_b_l_two">
-                                    <em>果仁余额</em><em id="wbl_m"></em><em>GOP</em>
+                                    <em>果仁余额</em><em id="wbl_m" class="pp1_holder"></em><em>GOP</em>
                                 </div>
                                 <div class="w_b_r">
-                                    <em>最佳卖价 ¥</em><em id="wbr_m_best_sell"></em><em>/G</em>
+                                    <em>最佳卖价： ¥</em><em id="wbr_m_best_sell" class="sell_g"></em><em class="sell_g mm2">/</em>
                                 </div>
                             </div>
                             <div class="w_b-left">
                                 <div>
                                     <div>
-                                        <label for="">卖出价格</label>
+                                        <label for="" class="p1_holder_money">卖出价格</label>
                                     </div>
                                     <div>
                                         <input class="sellPrice" type="text" placeholder="输入希望买入的价格" />
@@ -229,7 +232,7 @@
                                 </div>
                                 <div>
                                     <div>
-                                        <label for="">卖出数量</label>
+                                        <label for="" class="p1_holder">卖出数量</label>
                                     </div>
                                     <div>
                                         <input class="sellNumber" type="text" placeholder="最大数量" />
@@ -273,7 +276,8 @@
                                 </div>
                                 <div class="form_wrapper_rightdiv">                                    
                                     <div>
-                                        	最大卖出数量 G <span class="max_sell_num"></span>
+                                            <label for="" class="p2_holder">最大卖出数量</label>
+                                        	<span class="max_sell_num "></span>
                                     </div>
                                     <div style="margin-bottom:2px;">
                                         <input class="sellAmount" type="text" placeholder="以市场最优价格卖出">
