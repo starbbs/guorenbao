@@ -119,7 +119,7 @@ require(['api_mkt_management'], function(api_mkt_management) {
 
 	            for(var i=start;i<=end;i++){
 	            	if(i==pageNo){
-	            		htmlPage.push('<a class="pageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
+	            		htmlPage.push('<a class="pageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:red;">'+pageNo+'</a>');
 	            	}else{
 	            		htmlPage.push('<a class="pageNo" href="javascript:void(0);" data-pageno="'+i+'">'+i+'</a>');  
 	            	}
