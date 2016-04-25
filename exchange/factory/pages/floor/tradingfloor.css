@@ -457,14 +457,20 @@
     color: #333333;
 }
 .w_b_l em:nth-child(1){
-    float:left;
+    float:right;
     margin-left:5px;
     margin-right:0px;
     color: #777777;
+    padding-right: 34px;
 }
 .w_b_r em{
     /* margin-right:4px; */
-    color: #dd0900;
+    /* color: #dd0900; */
+    margin-left: -4px;
+}
+
+.red_m{
+    color:red;
 }
 
 .w_b-left{
@@ -506,7 +512,36 @@
     border: 1px solid red;
 } */
 
-.w_b_r em:nth-of-type(3){
+.sell_g{
+    color:#00951C;
+}
+
+.mm1{
+    display: inline-block;
+    background: url("../images/sy_ding.png") no-repeat 14px 26px;
+    width: 22px;
+    height: 12px;
+    margin-left: -4px;
+    margin-top: -1px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    display: inline-table; 
+}
+
+.mm2{
+    background: url("../images/sy_ding_green.png") no-repeat 14px 26px;
+    width: 22px;
+    height: 12px;
+    margin-left: -4px;
+    margin-top: -1px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    display: inline-table; 
+}
+
+/* .w_b_r em:nth-of-type(3){
     background: url("../images/sy_ding_green.png") no-repeat 14px 26px;
     width: 22px;
     height: 12px;
@@ -516,10 +551,25 @@
     top: 0px;
     left: 0px;
     display: inline-table;
-}
+} */
 .p1_holder{
     background: url("../images/floor_g_deal_logo.png") no-repeat 48px 13px;
     padding-right: 15px;
+}
+.p2_holder{
+        background: url("../images/floor_g_deal_logo.png") no-repeat 72px 3px;
+    padding-right: 16px;
+}
+.pp1_holder{
+    background: url("../images/black.png") no-repeat 0px 25px;
+    margin-right: 1px;
+    width: 80px;
+    padding-left: 12px;
+}
+}
+.p1_holder_money_2{
+        background: url("../images/floor_cny_money_logo.png") no-repeat 72px 2px;
+    padding-right: 16px;
 }
 .p1_holder_money{
     background: url("../images/floor_cny_money_logo.png") no-repeat 47px 12px;

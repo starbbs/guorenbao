@@ -68,7 +68,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
 
 
                     $('.w_b_l_one').html("<em>账户余额：¥ " + decimal.getTwoPs(data.data.cnyBalance) + "</em>");
-                    $('.w_b_l_two').html("<em>果仁余额：G " + decimal.getTwoPs(data.data.gopBalance) + "</em>");
+                    $('.w_b_l_two').html("果仁余额：<em class='pp1_holder'>" + decimal.getTwoPs(data.data.gopBalance) + "</em>");
                 } else {
                     console.log(data.msg);
                 }
