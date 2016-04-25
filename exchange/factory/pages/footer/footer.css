@@ -149,11 +149,10 @@
     background: url('../images/footer_banner_footer.png') no-repeat center center;
     height: 258px;
     background-size: 100% 100%;
-    position: relative;
 }
 .topbanner span{
     position: absolute;
-    left:440px;
+    left:470px;
     top:70px;
     font-size: 2.0rem;
     color:#fff;
@@ -164,7 +163,7 @@
     top:125px;
     font-size: 1rem;
     color:#fff;
-    width:960px;
+    width:1060px;
     line-height: 25px;
 }
 .topbanner p span{
