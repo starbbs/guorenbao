@@ -21,6 +21,11 @@
     align-items: center;
 }
 
+.money_j{
+        background: url("../images/floor_cny_money_logo.png") no-repeat 72px 2px;
+    padding-right: 16px;
+}
+
 
 /*---滚动条默认显示样式--*/
 
