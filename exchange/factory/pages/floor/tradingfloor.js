@@ -61,7 +61,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
                     $.cookie('allCNY', cnyBalance);
 
                     //卖出最大数量
-                    $(".sellNumber").attr("placeholder", "最大数量 " + decimal.getTwoPs(data.data.gopBalance) + "G");
+                    $(".sellNumber").attr("placeholder", "最大数量 " + decimal.getTwoPs(data.data.gopBalance));
 
                     $(".max_buy_num").html(decimal.getTwoPs(cnyBalance));
                     $(".max_sell_num").html(decimal.getTwoPs(gopBalance));
@@ -317,7 +317,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
             tooltip: {
                 formatter: function() {
                     var s = Highcharts.dateFormat('<span> %Y-%m-%d %H:%M:%S</span><br/>', this.x);
-                    s += "成交数量" + this.points[1].y;
+                    s += "成交数量:" + this.points[1].y;
                     s += '<br />开盘:<b>' + this.points[0].point.open + '</b><br />最高:<b>' + this.points[0].point.high + '</b><br />最低:<b>' + this.points[0].point.low + '</b><br />收盘:<b>' + this.points[0].point.close + '</b>';
                     return s;
                 },
@@ -1059,6 +1059,10 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
 
     //单击弹出框 确认按钮判断   买入 > 限价 市价 判断  卖出 > 限价 市价 判断
     $('.sure_btn').click(function() {
+        if($("#sel_div_password").val()==""){
+            $(".payment_error").show().html("请输入支付密码");
+            return;
+        }
         if ($('#hideSection').val() == 1) { //限价买入
             api_mkt.buy({
                 'price': $('.buying_price').val(),
