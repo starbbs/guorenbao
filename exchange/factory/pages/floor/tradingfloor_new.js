@@ -102,6 +102,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_m
     
     $(".wrapper").on("click", ".btn-history-fenye", function() {
         var pageNo=$(".inputHistroyNum").val();
+        if(!pageNo || pageNo<0){
+        	return false;
+        }
         tradeGopHistoryList(parseInt(pageNo),10);
     });
     
