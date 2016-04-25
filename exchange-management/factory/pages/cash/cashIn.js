@@ -13,6 +13,10 @@ require(['api_mkt_management'],function(api_mkt_management){
         cashInList(parseInt(pageNo),page_size,optionStatus);
     });
     
+    $(document).on("click", ".aside-div-searchBtn", function() {
+        cashInList(1,page_size,optionStatus);
+    });
+
     $(document).on("keyup", ".inputNum", function(e) {
     	var pageNo=$(this).val();
         var pageNum=$(this).attr("data-pagenum");
@@ -33,19 +37,47 @@ require(['api_mkt_management'],function(api_mkt_management){
         var pageNo=$(this).attr("data-pageno");
         cashInList(parseInt(pageNo),page_size,optionStatus);
     });
+    
+    //用户详情
+    $(document).on("click", ".toUidInfo", function() {
+        $.cookie('userUid',$(this).children().text());
+        $.cookie('userUidMobile',$(this).parent().find('.mobile').text());
+        api_mkt_management.userInfo({
+            'uId':$(this).children().text()
+        },function(data) {
+            if (data.status == 200) {
+                console.log(data);
+                window.location.href='user-info.html';
+            } else {
+                console.log(data.msg);
+            }
+        });
+    }); 
+    
+    $(document).on("click", ".btnConfirm", function() {
+        $(".mydiv").css("display","block");
+        $(".bg").css("display","block");
+        $('.btn-a').val('');
+        //传值
+        $('.cashInUid').val($(this).parent().parent().find('.uidNum').text());
+    }); 
+    
     var cashInList = function(pageNo,pageSize,status){
-		api_mkt_management.transfer({
-            'status':status,
-            'optType':'IN',
-            'pageNo':pageNo,
-            'pageSize':pageSize
-        },function(data){ 
+    	var param={};
+    	param.status=status;
+    	param.optType='IN';
+    	param.pageNo=pageNo;
+    	param.pageSize=pageSize;
+    	if($(".aside-div-input").val()){
+    		param[$(".aside-div-select").val()]=$(".aside-div-input").val();
+    	}
+		api_mkt_management.transfer(param,function(data){ 
              if (data.status == 200) {          
              	if(data.data.list.length > 0){
              		var html = [];
              		pageTotle = data.data.pageNum;
                     $.cookie('pageTotal',data.data.pageNum);
-                    var len = data.data.list.length < 10?data.data.list.length:10;
+                    var len = data.data.list.length;
                     for(var i=0; i<len;i++){
                        html.push("<tr>");
                        if(data.data.list[i].transferCnyStatus == "SUCCESS" || data.data.list[i].transferCnyStatus == "CANCEL"){
@@ -60,44 +92,19 @@ require(['api_mkt_management'],function(api_mkt_management){
                         html.push("<td>"+ data.data.list[i].bank +"</td>");
                         html.push("<td>"+ data.data.list[i].acnumber +"</td>");
                         html.push("<td>"+ data.data.list[i].name +"</td>");
-                        html.push("<td>"+ data.data.list[i].msg +"</td>");
+                        html.push("<td>"+ data.data.list[i].uid +"</td>");
                         html.push("<td class='status'>"+ data.data.list[i].transferCnyStatus +"</td>");
                         html.push("<td class='createTime'>"+ data.data.list[i].createDate +"</td>");
                         html.push("<td class='updateTimed'>"+ data.data.list[i].updateDate +"</td>");
                         html.push("</tr>");
-                        $(".aside-table-tbody").html("");  //添加前，先清空 
-                        $(".aside-table-tbody").append(html.join("")); 
-                        //时间戳转时间格式
-                        /*$('.createTime').text(unix_to_datetime(data.data.list[i].createDate));
-                        $('.updateTimed').text(unix_to_datetime(data.data.list[i].updateDate));*/
-						//过滤内容显示不同颜色
-	                    $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");                                      
-	                    $(".status").filter(":contains('CANCEL')").text('已取消').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                  
-	                    $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                                      
-
-                        //用户详情
-                        $('.toUidInfo').click(function(){
-                            $.cookie('userUid',$(this).children().text());
-                            $.cookie('userUidMobile',$(this).parent().find('.mobile').text());
-                            api_mkt_management.userInfo({
-                                'uId':$(this).children().text()
-                            },function(data) {                                    
-                                if (data.status == 200) {
-                                    console.log(data);
-                                    window.location.href='user-info.html';
-                                } else {
-                                    console.log(data.msg);
-                                }
-                            });
-                        });
-                        $(".btnConfirm").click(function(){
-                            $(".mydiv").css("display","block");
-                            $(".bg").css("display","block");
-                            $('.btn-a').val('');
-                            //传值
-                            $('.cashInUid').val($(this).parent().parent().find('.uidNum').text());
-                        }); 
                     }
+                    
+                    $(".aside-table-tbody").html(html.join("")); 
+                    $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");                                      
+                    $(".status").filter(":contains('CANCEL')").text('已取消').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                  
+                    $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                                      
+
+                    
                     var htmlPage = [];
                     var pageNum = data.data.pageNum;
 					var start=pageNo>3?(pageNo-3):1;
@@ -109,7 +116,7 @@ require(['api_mkt_management'],function(api_mkt_management){
 	
 		            for(var i=start;i<=end;i++){
 		            	if(i==pageNo){
-		            		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
+		            		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:red;">'+pageNo+'</a>');
 		            	}else{
 		            		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+i+'">'+i+'</a>');  
 		            	}

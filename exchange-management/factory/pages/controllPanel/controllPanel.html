@@ -42,7 +42,7 @@
                 </tr>
             </thead>
             <tbody class="aside-table-tbody" id="tobody-json">
-                <tr>
+                <tr class="normalController" style="display:none;">
                     <td>后台重置密码</td>
                     <td colspan="5">
                         <label for="oldPwd">原密码：</label><input type="password" id="oldPwd"/>
@@ -51,7 +51,7 @@
                         <input type="button" value="确 认" id="btnResetPwd" />
                     </td>
                 </tr>
-                <tr>
+                <tr class="adminController" style="display:none;">
                     <td>后台创建管理员</td>
                     <td colspan="5">
                         <label for="CreateManagerUserName">用户名：</label>
@@ -67,22 +67,22 @@
                         <span class="msg_complete"></span>
                     </td>
                 </tr>
-                <tr>
+                <tr class="adminController" style="display:none;">
                     <td>后台锁定管理员</td>
                     <td colspan="5">
                         <select class="selectManager btnLockManager">
                             <option>后台锁定管理员</option>
                         </select> 
-                        <input type="button" value="锁 定" id="btnLock" />
+                        <input type="button" value="解 锁" id="btnUnlock" />                       
                     </td>
                 </tr>
-                <tr>
+                <tr class="adminController" style="display:none;">
                     <td>后台解锁管理员</td>
                     <td colspan="5">
                         <select class="selectManager btnUnlockManager">
                             <option>后台解锁管理员</option>
                         </select>
-                        <input type="button" value="解 锁" id="btnUnlock" />
+                        <input type="button" value="锁 定" id="btnLock" />                   
                     </td>
                 </tr>
             </tbody>

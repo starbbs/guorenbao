@@ -13,6 +13,11 @@ require(['api_mkt_management'],function(api_mkt_management){
         cashInList(parseInt(pageNo),page_size,optionStatus);
     });
     
+    
+    $(document).on("click", ".aside-div-searchBtn", function() {
+        cashInList(1,page_size,optionStatus);
+    });
+    
     $(document).on("keyup", ".inputNum", function(e) {
     	var pageNo=$(this).val();
         var pageNum=$(this).attr("data-pagenum");
@@ -35,12 +40,15 @@ require(['api_mkt_management'],function(api_mkt_management){
     });
     
     var cashInList = function(pageNo,pageSize,status){
-    	api_mkt_management.transfer({
-    		'status':status,
-            'optType':'OUT',
-            'pageNo':pageNo,
-            'pageSize':pageSize
-        },function(data){   
+    	var param={};
+    	param.status=status;
+    	param.optType='OUT';
+    	param.pageNo=pageNo;
+    	param.pageSize=pageSize;
+    	if($(".aside-div-input").val()){
+    		param[$(".aside-div-select").val()]=$(".aside-div-input").val();
+    	}
+    	api_mkt_management.transfer(param,function(data){   
             if (data.status == 200) {
             	if(data.data.list.length > 0){
             		initTransferOutList(data); 
@@ -55,7 +63,7 @@ require(['api_mkt_management'],function(api_mkt_management){
 		
 		            for(var i=start;i<=end;i++){
 		            	if(i==pageNo){
-		            		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
+		            		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:red;">'+pageNo+'</a>');
 		            	}else{
 		            		htmlPage.push('<a class="billPageNo" href="javascript:void(0);" data-pageno="'+i+'">'+i+'</a>');  
 		            	}

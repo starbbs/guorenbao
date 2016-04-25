@@ -8,7 +8,8 @@ require(['api_mkt_management'],function(api_mkt_management){
             if (data.status == 200) {
                 console.log(data);
                 $.cookie('name',data.data.opName); 
-                $.cookie('uid',data.data.uid);                
+                $.cookie('uid',data.data.uid); 
+                $.cookie('role',data.data.role);
                 $.cookie('phone',$('.container-section-inputOne').val());
                 window.location.href="home.html";
 
