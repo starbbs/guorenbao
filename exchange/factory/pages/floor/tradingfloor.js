@@ -603,7 +603,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
         $(this).parent().parent().siblings(".a_onetips,.b_onetips").hide();
         var num = $(this).val();
         var oldData = $(this).attr("data-old");
-        if ((decimal.getTwoPs(num) < 0.1) || decimal.getPsercison(num) > 2 || decimal.getTwoPs(num) > 999999.00) {
+        if ((decimal.getTwoPs(num) < 0.1) || decimal.getPsercison(num) > 2 || decimal.getTwoPs(num) > 99999.99) {
             //0.01-0.09,大于小数点2位的都禁止输入
             if (decimal.getTwoPs(num) < 0.1 && decimal.getPsercison(num) <= 2) {
                 flag = false;
@@ -627,7 +627,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
         if ($(this).hasClass("buying_price")) {
             $(this).attr("data-old", num);
             number = (price <= 0 ? "--" : decimal.getTwoPs(decimal.floatDiv(balance, price)));
-            $(".buying_number").attr("placeholder", "最大数量 " + number + "G");
+            $(".buying_number").attr("placeholder", "最大数量 " + number);
 
         } else {
             $(this).attr("data-old", number);
@@ -676,7 +676,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
         $(this).parent().siblings(".c_onetips").hide();
         var num = $(this).val();
         var oldData = $(this).attr("data-old");
-        if ((decimal.getTwoPs(num) < 0.1) || decimal.getPsercison(num) > 2 || decimal.getTwoPs(num) > 999999.00) {
+        if ((decimal.getTwoPs(num) < 0.1) || decimal.getPsercison(num) > 2 || decimal.getTwoPs(num) > 99999.99) {
             //0.01-0.09,大于小数点2位的都禁止输入
             if (decimal.getTwoPs(num) < 0.1 && decimal.getPsercison(num) <= 2) {
                 flag = false;
@@ -743,7 +743,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
         $(this).parent().siblings(".c1_onetips").hide();
         var num = $(this).val();
         var oldData = $(this).attr("data-old");
-        if ((decimal.getTwoPs(num) < 0.1) || decimal.getPsercison(num) > 2 || decimal.getTwoPs(num) > 999999.00) {
+        if ((decimal.getTwoPs(num) < 0.1) || decimal.getPsercison(num) > 2 || decimal.getTwoPs(num) > 99999.99) {
             //0.01-0.09,大于小数点2位的都禁止输入
             if (decimal.getTwoPs(num) < 0.1 && decimal.getPsercison(num) <= 2) {
                 flag = false;
@@ -794,7 +794,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
         $(this).parent().siblings(".a1_onetips,.b1_onetips").hide();
         var num = $(this).val();
         var oldData = $(this).attr("data-old");
-        if ((decimal.getTwoPs(num) < 0.1) || decimal.getPsercison(num) > 2 || decimal.getTwoPs(num) > 999999.00) {
+        if ((decimal.getTwoPs(num) < 0.1) || decimal.getPsercison(num) > 2 || decimal.getTwoPs(num) > 99999.99) {
             //0.01-0.09,大于小数点2位的都禁止输入
             if (decimal.getTwoPs(num) < 0.1 && decimal.getPsercison(num) <= 2) {
                 flag = false;

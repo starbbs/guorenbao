@@ -63,9 +63,9 @@ require(['api_mkt', 'mkt_info','decimal','cookie'], function(api_mkt, mkt_info,d
             var cnyBalance = data.data.cnyBalance;  //剩余人民币数
             var gopLock = data.data.gopLock;  //冻结果仁数
             var cnyLock = data.data.cnyLock;  //冻结人民币数
-            var totalAssets = data.data.cnyBalance + data.data.cnyLock;
-            var totalNuts = data.data.gopBalance + data.data.gopLock;
-            var totalvalue = totalNuts*$('#thelatestprice').html()+totalAssets;
+            var totalAssets = decimal.getTwoPs(decimal.floatAdd(data.data.cnyBalance , data.data.cnyLock));
+            var totalNuts = decimal.getTwoPs(decimal.floatAdd(data.data.gopBalance , data.data.gopLock));
+            var totalvalue = decimal.getTwoPs(decimal.floatAdd(decimal.floatMulti(totalNuts,$('#thelatestprice').html()),totalAssets));
             //console.log("decimal.getTwoPs"+String(myfunc(cnyLock)));
             // console.log(decimal.getTwoPs());
             $('#total_assets').text(decimal.getTwoPs(totalvalue));
