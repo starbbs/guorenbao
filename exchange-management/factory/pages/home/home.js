@@ -13,7 +13,7 @@ require(['api_mkt_management'], function(api_mkt_management) {
 		}
 	}
 
-    $('.div-2-name').text($.cookie('name'));
+    $('.div-2-name').html($.cookie('name'));
     $('.div-2-btn').click(function(){
         api_mkt_management.logout(function(data) {
             if (data.status == 200) {
