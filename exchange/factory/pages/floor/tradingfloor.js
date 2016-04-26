@@ -627,13 +627,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
         if ($(this).hasClass("buying_price")) {
             $(this).attr("data-old", num);
             number = (price <= 0 ? "--" : decimal.getTwoPs(decimal.floatDiv(balance, price)));
-<<<<<<< HEAD
-            // $(".buying_number").attr("placeholder", "最大数量 " + number + "G");
             $(".buying_number").attr("placeholder", "最大数量 " + number);
-=======
-            $(".buying_number").attr("placeholder", "最大数量 " + number);
-
->>>>>>> 6e751eeb130e4a3b024e18f90334e8012c30522a
         } else {
             $(this).attr("data-old", number);
         }
