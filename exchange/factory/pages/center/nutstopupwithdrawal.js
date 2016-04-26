@@ -87,6 +87,12 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
     });
     //输入数量校验
     $('#gopWithdrawalsNumber').blur(function() {
+        if($(this).val()!=""){
+            if($(this).val()[0]=="."){
+                btnConfirm1a = false;
+                $(".msg-gopWithdrawalsNumber").text("转出数量不能以.开头");
+            }
+        }
         var num = $('#gopWithdrawalsNumber').val();
         if (!num || isNaN(num)) {
             btnConfirm1a = false;
@@ -94,6 +100,9 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
         }else if(num <0.02){
             btnConfirm1a = false;
             $('.msg-gopWithdrawalsNumber').text('转出数量最少为0.02');
+        }else if($(this).val()[0]=="."){
+            btnConfirm1a = false;
+            $(".msg-gopWithdrawalsNumber").text("转出数量不能以.开头");
         }else{  
             btnConfirm1a = true;
             $('.msg-gopWithdrawalsNumber').text('');
@@ -102,6 +111,11 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
     $('#gopWithdrawalsNumber').on('input',function(){
         var num = $('#gopWithdrawalsNumber').val();
         var oldData=$(this).attr("data-old");
+        if($(this).val()!=""){
+            if($(this).val()[0]=="."){
+                $(".msg-gopWithdrawalsNumber").text("转出数量不能以.开头");
+            }
+        }
         if(decimal.getPsercison(num)>=2){
             //大于小数点2位的都禁止输入
             $(this).val(oldData?oldData:decimal.getTwoPs(num));  

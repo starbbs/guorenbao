@@ -708,7 +708,7 @@ progress{
     left: 8px;
     position: relative;
     font-size: 1.6rem;
-    cursor: pointer;
+    /* cursor: pointer; */
     top: 3px;
 }
 
