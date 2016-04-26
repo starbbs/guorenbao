@@ -195,6 +195,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
                 // valueSuffix: '元',
                 useHTML: true,
                 borderWidth: 1,
+                enabled: true,
                 pointFormat: "委托价:¥{point.x}</br>{series.name}<img src='./images/floor_g_deal_logo.png' style='position:relative;top:2px;'></img>:{point.y}"
             },
             exporting: { enabled: false, buttons: { exportButton: { enabled: false }, printButton: { enabled: true } } },

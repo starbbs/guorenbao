@@ -122,7 +122,8 @@ body {
     color: #333333;
     background-color: white;
     height: 100%;
-    overflow-x: hidden;
+    min-width:1200px;
+    /* overflow-x: hidden; */
     font-family:'Microsoft YaHei','hiragino sans gb','Arial',tahoma,stheiti,'wenquanyi micro hei',\5FAE\8F6F\96C5\9ED1,\5B8B\4F53,sans-serif;
     -webkit-font-smoothing: antialiased; 
     text-rendering:optimizeSpeed;
