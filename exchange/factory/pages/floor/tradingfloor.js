@@ -627,8 +627,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
         if ($(this).hasClass("buying_price")) {
             $(this).attr("data-old", num);
             number = (price <= 0 ? "--" : decimal.getTwoPs(decimal.floatDiv(balance, price)));
-            $(".buying_number").attr("placeholder", "最大数量 " + number + "G");
-
+            // $(".buying_number").attr("placeholder", "最大数量 " + number + "G");
+            $(".buying_number").attr("placeholder", "最大数量 " + number);
         } else {
             $(this).attr("data-old", number);
         }
@@ -897,6 +897,9 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
             return;
         } else if(Number($('.buying_price').val())<0.1){
             $('.a_onetips').show().text("买入价格不能小于0.1");
+            return;
+        } else if(Number($('.buying_price').val())>99999.99){
+            $('.a_onetips').show().text("买入价格必须小于99999.99");
             return;
         } else if($('.buying_number').val()==''){
             $('.b_onetips').show().text("买入数量不能为空");
