@@ -109,7 +109,7 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
 	            if(end==pageNum){
 	            	start=(pageNum-9)>1?(pageNum-9):1;
 	            }
-        		htmlPage.push('<a class="nutsInPageNo" href="javascript:void(0);" data-pageno="'+(start>1?(start-1):1)+'">上一页</a>');  
+        		htmlPage.push('<a class="nutsInPageNo" href="javascript:void(0);" data-pageno="'+(pageNo>1?(pageNo-1):1)+'">上一页</a>');  
 	            for(var i=start;i<=end;i++){
 	            	if(i==pageNo){
 	            		htmlPage.push('<a class="nutsInPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');
@@ -167,7 +167,7 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
 	            if(end==pageNum){
 	            	start=(pageNum-9)>1?(pageNum-9):1;
 	            }
-	            htmlPage.push('<a class="nutsOutPageNo" href="javascript:void(0);" data-pageno="'+(start>1?(start-1):1)+'">上一页</a>');
+	            htmlPage.push('<a class="nutsOutPageNo" href="javascript:void(0);" data-pageno="'+(pageNo>1?(pageNo-1):1)+'">上一页</a>');
 	            for(var i=start;i<=end;i++){
 	            	if(i==pageNo){
 	            		htmlPage.push('<a class="nutsOutPageNo" href="javascript:void(0);" data-pageno="'+i+'" style="color:blue;">'+pageNo+'</a>');

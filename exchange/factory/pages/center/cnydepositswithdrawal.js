@@ -323,21 +323,22 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                 }
                 //关闭弹出层 -生成汇款单
                 $(".span-btn1").click(function(){
-                    $(".mydiv1").css("display","none");
-                    $(".bg1").css("display","none");
-                    $("#WithdrawalsAmount").val("");
-                    $("#WithdrawalsPayPwd").val("");
-                    $("#VerificationCode").val("");
-                    $(".WithdrawalsFee").text("0 CNY"); 
-                    //再次调提现接口
-                    api_mkt.rmbWithdrawalsHistory({
-                        'pageNo':1,
-                        'pageSize':5
-                    },function(data) {
-                        if (data.status == 200 && data.data.list.length > 0) {  
-                            rmbWithdrawalsHistory(data);
-                        }
-                    }); 
+//                    $(".mydiv1").css("display","none");
+//                    $(".bg1").css("display","none");
+//                    $("#WithdrawalsAmount").val("");
+//                    $("#WithdrawalsPayPwd").val("");
+//                    $("#VerificationCode").val("");
+//                    $(".WithdrawalsFee").text("0 CNY"); 
+//                    //再次调提现接口
+//                    api_mkt.rmbWithdrawalsHistory({
+//                        'pageNo':1,
+//                        'pageSize':5
+//                    },function(data) {
+//                        if (data.status == 200 && data.data.list.length > 0) {  
+//                            rmbWithdrawalsHistory(data);
+//                        }
+//                    });                    
+                    window.location.href="cnydepositswithdrawal.html?whichtab='withdraw'";
                 });
                 //只关闭
                 /*$(".textBtn1").click(function(){
