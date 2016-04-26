@@ -80,7 +80,6 @@ require(['api_mkt_management'],function(api_mkt_management){
 	                    html.push("<td class='status'>"+ data.data.list[i].transferGopStatus +"</td>");
 	                    html.push("<td>"+ data.data.list[i].msg +"</td>");
 	                    html.push("<td class='createTime'>"+ data.data.list[i].createDate +"</td>");
-	                    html.push("<td class='updateTimed'>"+ data.data.list[i].updateDate +"</td>");
 	                    html.push("</tr>");
 	                   
 	                   
