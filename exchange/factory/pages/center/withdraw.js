@@ -264,12 +264,12 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
             $("#bank-idcard").focus();
             $('#subbank').focus();
             $('.pay-pwd').focus();
-            $('#sendCodeByLoginAfter, #nut-identifyingCode').focus();
+            $('#sendCodeByLoginAfter').focus();
 
             $("#bank-idcard").blur();
             $('#subbank').blur();
             $('.pay-pwd').blur();
-            $('#sendCodeByLoginAfter, #nut-identifyingCode').blur();
+            $('#sendCodeByLoginAfter').blur();
         } else {
             //中国工商银行，中国建设银行，中国农业银行，中国交通银行，中国邮政储蓄银行，招商银行
             if ($('#bank').val() != '中国工商银行' && $('#bank').val() != '中国建设银行' && $('#bank').val() != '中国农业银行' && $('#bank').val() != '交通银行' && $('#bank').val() != '中国邮政储蓄银行' && $('#bank').val() != '招商银行') {
