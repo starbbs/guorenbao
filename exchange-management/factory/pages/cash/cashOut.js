@@ -10,12 +10,12 @@ require(['api_mkt_management'],function(api_mkt_management){
         if(pageNo > pageTotle){
         	$(".inputNum").val(pageTotle);
         }
-        cashInList(parseInt(pageNo),page_size,optionStatus);
+        cashOutList(parseInt(pageNo),page_size,optionStatus);
     });
     
     
     $(document).on("click", ".aside-div-searchBtn", function() {
-        cashInList(1,page_size,optionStatus);
+        cashOutList(1,page_size,optionStatus);
     });
     
     $(document).on("keyup", ".inputNum", function(e) {
@@ -28,7 +28,7 @@ require(['api_mkt_management'],function(api_mkt_management){
         }else if(this.value.charCodeAt()<48 || this.value.charCodeAt()>57){
 			$(this).val($(this).val().replace(this.value,""));
 		}else if(e.keyCode==13){
-			cashInList(parseInt(pageNo),page_size,optionStatus);
+			cashOutList(parseInt(pageNo),page_size,optionStatus);
         }
     });
     /**
@@ -36,10 +36,10 @@ require(['api_mkt_management'],function(api_mkt_management){
      */
     $(document).on("click", ".billPageNo", function() {
         var pageNo=$(this).attr("data-pageno");
-        cashInList(parseInt(pageNo),page_size,optionStatus);
+        cashOutList(parseInt(pageNo),page_size,optionStatus);
     });
     
-    var cashInList = function(pageNo,pageSize,status){
+    var cashOutList = function(pageNo,pageSize,status){
     	var param={};
     	param.status=status;
     	param.optType='OUT';
@@ -80,12 +80,12 @@ require(['api_mkt_management'],function(api_mkt_management){
         });
     }
     //分页结束-jxn
-    cashInList(1,page_size,optionStatus);
+    cashOutList(1,page_size,optionStatus);
     $('.aside-table-thead-select').change(function(){
     	$(".inputNum").val(""); //清空页码输入框的数据
         var optionSel = $(this).find('option:selected').attr("data-status");
         optionStatus = (optionSel == "ALL"?"": optionSel);
-        cashInList(1,page_size,optionStatus);
+        cashOutList(1,page_size,optionStatus);
     });
     
     
@@ -258,41 +258,41 @@ require(['api_mkt_management'],function(api_mkt_management){
     };
         
         //搜索
-        $('.aside-div-searchBtn').click(function(){
-            var sel = $('.aside-div-select').find('option:selected').text();
-            var val = $('.aside-div-input').val();
-            /*alert(sel);
-            alert(val);*/
-            if(sel == 'ID'){
-                api_mkt_management.transfer({
-                    'id':val,
-                    'pageNo':1,
-                    'optType':'IN', //类型必须加上
-                    'pageSize':10
-                },function(data) {
-                    if (data.status == 200) {
-                        console.log(data);
-                    } else {
-                        console.log(data.msg);
-                    }
-                });
-            }
-            if(sel == '用户ID'){
-                api_mkt_management.transfer({
-                    'id':val,
-                    'pageNo':1,
-                    'optType':'IN', //类型必须加上
-                    'pageSize':10
-                },function(data) {
-                    if (data.status == 200) {
-                        console.log(data);
-                    } else {
-                        console.log(data.msg);
-                    }
-                });
-            }
-            
-        });   
+//        $('.aside-div-searchBtn').click(function(){
+//            var sel = $('.aside-div-select').find('option:selected').text();
+//            var val = $('.aside-div-input').val();
+//            /*alert(sel);
+//            alert(val);*/
+//            if(sel == 'ID'){
+//                api_mkt_management.transfer({
+//                    'id':val,
+//                    'pageNo':1,
+//                    'optType':'OUT', //类型必须加上
+//                    'pageSize':10
+//                },function(data) {
+//                    if (data.status == 200) {
+//                        console.log(data);
+//                    } else {
+//                        console.log(data.msg);
+//                    }
+//                });
+//            }
+//            if(sel == '用户ID'){
+//                api_mkt_management.transfer({
+//                    'id':val,
+//                    'pageNo':1,
+//                    'optType':'IN', //类型必须加上
+//                    'pageSize':10
+//                },function(data) {
+//                    if (data.status == 200) {
+//                        console.log(data);
+//                    } else {
+//                        console.log(data.msg);
+//                    }
+//                });
+//            }
+//            
+//        });   
 
 //end
 });

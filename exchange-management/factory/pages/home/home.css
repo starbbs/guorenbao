@@ -204,7 +204,7 @@ Progress Bars
 .nav {
   float: left;
   background-color: #3D3D3D;
-  width: 220px;
+  width: 140px;
   height: 553px;
   padding-bottom: 2000px;
   margin-bottom: -2000px;
@@ -352,7 +352,7 @@ Progress Bars
 
 .frameHtml {
   margin-left: 23px;
-  width: 80%;
+  width: 85%;
   float: left; }
 
 @media screen and (max-width: 1280px) {
