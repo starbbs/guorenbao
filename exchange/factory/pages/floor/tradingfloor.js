@@ -256,34 +256,90 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
         ohlc = [];
         volume = [];
         if (whichday == "one") {
-            for (var i = 0; i < onem.length; i++) {
+            for (var i = 0; i < onem.length; i++){
                 ohlc.push([onem[i][0], onem[i][2], onem[i][3], onem[i][4], onem[i][5]]);
                 volume.push([onem[i][0], onem[i][1]]);
+                if (i < onem.length - 1) {
+                    var j=onem[i][0]+60000;
+                    while (j < onem[i + 1][0]) {
+                        ohlc.push([j, 0, 0, 0, 0]);
+                        volume.push([j, 0]);
+                        j+=60000;
+                    }
+                }
             }
+            // for (var i = 0; i < onem.length; i++) {
+            //     ohlc.push([onem[i][0], onem[i][2], onem[i][3], onem[i][4], onem[i][5]]);
+            //     volume.push([onem[i][0], onem[i][1]]);
+            // }
         } else if (whichday == "five") {
             for (var i = 0; i < fivem.length; i++) {
                 ohlc.push([fivem[i][0], fivem[i][2], fivem[i][3], fivem[i][4], fivem[i][5]]);
                 volume.push([fivem[i][0], fivem[i][1]]);
+                if (i < fivem.length - 1) {
+                    var j=fivem[i][0]+5*60000;
+                    while (j < fivem[i + 1][0]) {
+                        ohlc.push([j, 0, 0, 0, 0]);
+                        volume.push([j, 0]);
+                        j+=5*60000;
+                    }
+                }
             }
         } else if (whichday == "fivteen") {
             for (var i = 0; i < fifteenm.length; i++) {
                 ohlc.push([fifteenm[i][0], fifteenm[i][2], fifteenm[i][3], fifteenm[i][4], fifteenm[i][5]]);
                 volume.push([fifteenm[i][0], fifteenm[i][1]]);
+                if (i < fifteenm.length - 1) {
+                    var j=fifteenm[i][0]+15*60000;
+                    while (j < fifteenm[i + 1][0]) {
+                        ohlc.push([j, 0, 0, 0, 0]);
+                        volume.push([j, 0]);
+                        j+=15*60000;
+                    }
+                }
             }
         } else if (whichday == "thirty") {
             for (var i = 0; i < thirtym.length; i++) {
                 ohlc.push([thirtym[i][0], thirtym[i][2], thirtym[i][3], thirtym[i][4], thirtym[i][5]]);
                 volume.push([thirtym[i][0], thirtym[i][1]]);
+                if (i < thirtym.length - 1) {
+                    var j=thirtym[i][0]+30*60000;
+                    while (j < thirtym[i + 1][0]) {
+                        ohlc.push([j, 0, 0, 0, 0]);
+                        volume.push([j, 0]);
+                        j+=30*60000;
+                    }
+                }
             }
         } else if (whichday == "sixty") {
             for (var i = 0; i < sixtym.length; i++) {
                 ohlc.push([sixtym[i][0], sixtym[i][2], sixtym[i][3], sixtym[i][4], sixtym[i][5]]);
                 volume.push([sixtym[i][0], sixtym[i][1]]);
+                if (i < sixtym.length - 1) {
+                    var j=sixtym[i][0]+60*60000;
+                    while (j < sixtym[i + 1][0]) {
+                        ohlc.push([j, 0, 0, 0, 0]);
+                        volume.push([j, 0]);
+                        j+=60*60000;
+                    }
+                }
             }
         } else if (whichday == "oneday") {
+            // for (var i = 1; i < 10; i++) {
+            //       ohlc.push([oned[0][0]-i*60*24*60000, oned[0][2], oned[0][3], oned[0][4], oned[0][5]]);
+            //     volume.push([oned[0][0]-i*60*24*60000, oned[0][1]]);
+            // }
             for (var i = 0; i < oned.length; i++) {
                 ohlc.push([oned[i][0], oned[i][2], oned[i][3], oned[i][4], oned[i][5]]);
                 volume.push([oned[i][0], oned[i][1]]);
+                if (i < oned.length - 1) {
+                    var j=oned[i][0]+(60*24*60000);
+                    while (j < oned[i + 1][0]) {
+                        ohlc.push([j, 0, 0, 0, 0]);
+                        volume.push([j, 0]);
+                        j+=(60*24*60000);
+                    }
+                }
             }
         }
         $('#timeshare_container').highcharts('StockChart', {

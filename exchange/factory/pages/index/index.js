@@ -11,15 +11,15 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     var mine_one = $.cookie("mine_one");
     var mine_two = $.cookie("mine_two");
     var mine_three = $.cookie("mine_three");
-    var mine_four = $.cookie("mine_four");    
-	/**
+    var mine_four = $.cookie("mine_four");
+    /**
      * 禁止输入框粘贴
      */
-    $("input").on("paste",function(e){
-		return false;
-	});
+    $("input").on("paste", function(e) {
+        return false;
+    });
 
-    var getTotalAssets = function(){
+    var getTotalAssets = function() {
         api_mkt.totalAssets(function(data) {
             if (data.status == 200) {
                 var totalAssets = data.data.cnyBalance + data.data.cnyLock;
@@ -35,8 +35,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     }
 
     getTotalAssets();
-    setInterval(getTotalAssets,60000);
-    
+    setInterval(getTotalAssets, 60000);
+
 
     var synchronous = function() {
         console.log("synchronous_index");
@@ -81,25 +81,25 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     $(".bottom_em_i")[0].style.background = "url(./images/index_already_authentication.png)";
                     // console.log("已认证");
                     $("#goone").on("click", function() {
-                        $.cookie("loginfromwhichpage","three");
-                            location.href = "./cnydepositswithdrawal.html";
-                        });
-                        $("#gotwo").on("click", function() {
-                            $.cookie("loginfromwhichpage","three");
-                            location.href = "./cnydepositswithdrawal.html?formindex='index'";
-                        });
+                        $.cookie("loginfromwhichpage", "three");
+                        location.href = "./cnydepositswithdrawal.html";
+                    });
+                    $("#gotwo").on("click", function() {
+                        $.cookie("loginfromwhichpage", "three");
+                        location.href = "./cnydepositswithdrawal.html?formindex='index'";
+                    });
                 } else {
                     $("#whether_auth").html("未认证");
                     $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
                     // console.log("未认证");
                     $("#goone").on("click", function() {
-                        $.cookie("loginfromwhichpage","three");
-                            location.href = "./conditionofassets.html";
-                        });
-                        $("#gotwo").on("click", function() {
-                            $.cookie("loginfromwhichpage","three");
-                            location.href = "./conditionofassets.html";
-                        });
+                        $.cookie("loginfromwhichpage", "three");
+                        location.href = "./conditionofassets.html";
+                    });
+                    $("#gotwo").on("click", function() {
+                        $.cookie("loginfromwhichpage", "three");
+                        location.href = "./conditionofassets.html";
+                    });
                 }
 
             } else if (data.status == 305) {} else if (data.status == 400) {
@@ -108,13 +108,13 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 // console.log("未认证");
                 $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
                 $("#goone").on("click", function() {
-                    $.cookie("loginfromwhichpage","three");
-                            location.href = "./conditionofassets.html";
-                        });
-                        $("#gotwo").on("click", function() {
-                            $.cookie("loginfromwhichpage","three");
-                            location.href = "./conditionofassets.html";
-                        });
+                    $.cookie("loginfromwhichpage", "three");
+                    location.href = "./conditionofassets.html";
+                });
+                $("#gotwo").on("click", function() {
+                    $.cookie("loginfromwhichpage", "three");
+                    location.href = "./conditionofassets.html";
+                });
 
             } else {}
         });
@@ -191,7 +191,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         fifteenm = JSON.parse(data['15m']);
         thirtym = JSON.parse(data['30m']);
         sixtym = JSON.parse(data['60m']);
-        if(data['1d']){
+        if (data['1d']) {
             oned = JSON.parse(data['1d']);
         }
         //oned = JSON.parse(data['1d']);
@@ -233,34 +233,90 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         ohlc = [];
         volume = [];
         if (whichday == "one") {
-            for (var i = 0; i < onem.length; i++) {
+            for (var i = 0; i < onem.length; i++){
                 ohlc.push([onem[i][0], onem[i][2], onem[i][3], onem[i][4], onem[i][5]]);
                 volume.push([onem[i][0], onem[i][1]]);
+                if (i < onem.length - 1) {
+                    var j=onem[i][0]+60000;
+                    while (j < onem[i + 1][0]) {
+                        ohlc.push([j, 0, 0, 0, 0]);
+                        volume.push([j, 0]);
+                        j+=60000;
+                    }
+                }
             }
+            // for (var i = 0; i < onem.length; i++) {
+            //     ohlc.push([onem[i][0], onem[i][2], onem[i][3], onem[i][4], onem[i][5]]);
+            //     volume.push([onem[i][0], onem[i][1]]);
+            // }
         } else if (whichday == "five") {
             for (var i = 0; i < fivem.length; i++) {
                 ohlc.push([fivem[i][0], fivem[i][2], fivem[i][3], fivem[i][4], fivem[i][5]]);
                 volume.push([fivem[i][0], fivem[i][1]]);
+                if (i < fivem.length - 1) {
+                    var j=fivem[i][0]+5*60000;
+                    while (j < fivem[i + 1][0]) {
+                        ohlc.push([j, 0, 0, 0, 0]);
+                        volume.push([j, 0]);
+                        j+=5*60000;
+                    }
+                }
             }
         } else if (whichday == "fivteen") {
             for (var i = 0; i < fifteenm.length; i++) {
                 ohlc.push([fifteenm[i][0], fifteenm[i][2], fifteenm[i][3], fifteenm[i][4], fifteenm[i][5]]);
                 volume.push([fifteenm[i][0], fifteenm[i][1]]);
+                if (i < fifteenm.length - 1) {
+                    var j=fifteenm[i][0]+15*60000;
+                    while (j < fifteenm[i + 1][0]) {
+                        ohlc.push([j, 0, 0, 0, 0]);
+                        volume.push([j, 0]);
+                        j+=15*60000;
+                    }
+                }
             }
         } else if (whichday == "thirty") {
             for (var i = 0; i < thirtym.length; i++) {
                 ohlc.push([thirtym[i][0], thirtym[i][2], thirtym[i][3], thirtym[i][4], thirtym[i][5]]);
                 volume.push([thirtym[i][0], thirtym[i][1]]);
+                if (i < thirtym.length - 1) {
+                    var j=thirtym[i][0]+30*60000;
+                    while (j < thirtym[i + 1][0]) {
+                        ohlc.push([j, 0, 0, 0, 0]);
+                        volume.push([j, 0]);
+                        j+=30*60000;
+                    }
+                }
             }
         } else if (whichday == "sixty") {
             for (var i = 0; i < sixtym.length; i++) {
                 ohlc.push([sixtym[i][0], sixtym[i][2], sixtym[i][3], sixtym[i][4], sixtym[i][5]]);
                 volume.push([sixtym[i][0], sixtym[i][1]]);
+                if (i < sixtym.length - 1) {
+                    var j=sixtym[i][0]+60*60000;
+                    while (j < sixtym[i + 1][0]) {
+                        ohlc.push([j, 0, 0, 0, 0]);
+                        volume.push([j, 0]);
+                        j+=60*60000;
+                    }
+                }
             }
         } else if (whichday == "oneday") {
+            // for (var i = 1; i < 10; i++) {
+            //       ohlc.push([oned[0][0]-i*60*24*60000, oned[0][2], oned[0][3], oned[0][4], oned[0][5]]);
+            //     volume.push([oned[0][0]-i*60*24*60000, oned[0][1]]);
+            // }
             for (var i = 0; i < oned.length; i++) {
                 ohlc.push([oned[i][0], oned[i][2], oned[i][3], oned[i][4], oned[i][5]]);
                 volume.push([oned[i][0], oned[i][1]]);
+                if (i < oned.length - 1) {
+                    var j=oned[i][0]+(60*24*60000);
+                    while (j < oned[i + 1][0]) {
+                        ohlc.push([j, 0, 0, 0, 0]);
+                        volume.push([j, 0]);
+                        j+=(60*24*60000);
+                    }
+                }
             }
         }
         $('#container').highcharts('StockChart', {
@@ -287,9 +343,16 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             tooltip: { xDateFormat: '%Y-%m-%d %H:%M %A', color: '#f0f', changeDecimals: 4, borderColor: '#058dc7' },
             plotOptions: { candlestick: { color: 'green', upColor: 'red' } },
             yAxis: [
-                { labels: { style: { color: '#e55600' } }, title: { text: '价格 [RMB]', style: { color: '#e55600' } }, height: 160, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true },
-                { labels: { style: { color: '#4572A7' } }, title: { text: '成交量 [GOP]', style: { color: '#4572A7' } },top: '80%',
-                height: '18%', offset: 0/*, top: 280, height: 14*/, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true }
+                { labels: { style: { color: '#e55600' } }, title: { text: '价格 [RMB]', style: { color: '#e55600' } }, height: 160, lineWidth: 2, gridLineDashStyle: 'Dash', showLastLabel: true }, {
+                    labels: { style: { color: '#4572A7' } },
+                    title: { text: '成交量 [GOP]', style: { color: '#4572A7' } },
+                    top: '80%',
+                    height: '18%',
+                    offset: 0 /*, top: 280, height: 14*/ ,
+                    lineWidth: 2,
+                    gridLineDashStyle: 'Dash',
+                    showLastLabel: true
+                }
             ],
             tooltip: {
                 formatter: function() {
@@ -388,28 +451,28 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             }
         }
     };
-    
-    
+
+
     /**
      * 输入框通用校验
      */
-	$("input").on("keyup",function(e){
-		//只允许输入 ASCII的33~126的字符
-		if(this.value.charCodeAt()<33 || this.value.charCodeAt()>126){
-			$(this).val($(this).val().replace(this.value,""));
-		}
-	});
-    
+    $("input").on("keyup", function(e) {
+        //只允许输入 ASCII的33~126的字符
+        if (this.value.charCodeAt() < 33 || this.value.charCodeAt() > 126) {
+            $(this).val($(this).val().replace(this.value, ""));
+        }
+    });
+
     /**
      * 手机号输入框校验
      */
-    $(".phone_loginarea").on("keydown",function(e){
-		var keycode = e.which; 
-		if((keycode!=8 && keycode!=9 &&keycode!=16 &&keycode!=20 && keycode<48) || (keycode>57 && keycode<96) || keycode>105){
-			return false;
-		}
+    $(".phone_loginarea").on("keydown", function(e) {
+        var keycode = e.which;
+        if ((keycode != 8 && keycode != 9 && keycode != 16 && keycode != 20 && keycode < 48) || (keycode > 57 && keycode < 96) || keycode > 105) {
+            return false;
+        }
     });
-    
+
     var verify = function(inputData, dataType) {
         var reg = "";
         var varMes = '';
@@ -442,7 +505,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
 
     var login_area_times = 0;
     $(".indexpage_loginarea_btn").on("click", function() {
-        
+
         var phone = $(".phone_loginarea").val();
         var password = $(".password_loginarea").val();
         var flag = verify(phone, "tel");
@@ -538,11 +601,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     });
                     if (global_loginusername) {
                         $("#goone").on("click", function() {
-                            $.cookie("loginfromwhichpage","three");
+                            $.cookie("loginfromwhichpage", "three");
                             location.href = "./cnydepositswithdrawal.html";
                         });
                         $("#gotwo").on("click", function() {
-                            $.cookie("loginfromwhichpage","three");
+                            $.cookie("loginfromwhichpage", "three");
                             location.href = "./cnydepositswithdrawal.html?formindex='index'";
                         });
                         $("#whether_auth").html(global_loginusername);
@@ -550,11 +613,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     } else {
 
                         $("#goone").on("click", function() {
-                            $.cookie("loginfromwhichpage","three");
+                            $.cookie("loginfromwhichpage", "three");
                             location.href = "./conditionofassets.html";
                         });
                         $("#gotwo").on("click", function() {
-                            $.cookie("loginfromwhichpage","three");
+                            $.cookie("loginfromwhichpage", "three");
                             location.href = "./conditionofassets.html";
                         });
                         // console.log("haha")
@@ -564,7 +627,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     $(".loginarea").hide();
                     $(".afterlogin").show();
                 } else if (data.status == 305) {
-                    showWarnWin(data.msg,1e3)
+                    showWarnWin(data.msg, 1e3)
                     login_area_times++;
                 } else if (data.status == 400) {
                     if (data.msg == "登录密码错误") {
@@ -572,18 +635,18 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     } else if (data.msg == "手机号未注册") {
                         $(".error_tips_one").show().html("用户名或密码错误，请重新登录");
                     } else if (data.data && data.data.num && data.data.num <= 10) {
-                        if(data.data.num>=5){
-                            if(data.data.num==10){
+                        if (data.data.num >= 5) {
+                            if (data.data.num == 10) {
                                 $(".error_tips_index").show().html("帐号已经锁定，请找回您的登录密码");
                             } else {
                                 $(".error_tips_index").show().html("还有" + (10 - data.data.num) + "次输入机会");
                             }
-                        } else if(data.data.num<5&&data.data.msg=="登录密码错误"){
+                        } else if (data.data.num < 5 && data.data.msg == "登录密码错误") {
                             $(".error_tips_index").show().html("用户名或密码错误，请重新登录");
                         }
                     } else if (data.msg == "error" && data.data.msg == "登录密码错误") {
                         $(".error_tips").show().html("用户名或密码错误，请重新登录");
-                    } else if (data.msg=="密码长度错误"){
+                    } else if (data.msg == "密码长度错误") {
                         $(".error_tips").show().html("用户名或密码错误，请重新登录");
                     } else {
                         $(".autocode_tips").show().html(data.msg);
@@ -609,7 +672,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     // $("#gotwo").on("click", function() {
     //     location.href = "./cnydepositswithdrawal.html?formindex='index'";
     // });
-    $(".imgOne").on("click",function(){
+    $(".imgOne").on("click", function() {
         location.href = "./footer.html";
     });
     var fflat = true;
@@ -655,12 +718,12 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         $.cookie("loginfromwhichpage", "");
         api_mkt.userlogout({}, function(data) {
             if (data.status == 200) {
-                showWarnWin("退出成功",1e3);
+                showWarnWin("退出成功", 1e3);
                 window.location.href = "index.html";
             } else if (data.status == 305) {
-                showWarnWin(data.msg,1e3);
+                showWarnWin(data.msg, 1e3);
             } else {
-                showWarnWin(data.msg,1e3);
+                showWarnWin(data.msg, 1e3);
             }
         });
         setTimeout(function() {
@@ -668,11 +731,11 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
         }, 1000);
     });
     //显示垂直滚动条
-    $('.tbone').hover(function(){
-        if($(this).children('.table_row').length > 30){
-           $(this).addClass('scrollY');
+    $('.tbone').hover(function() {
+        if ($(this).children('.table_row').length > 30) {
+            $(this).addClass('scrollY');
         }
-    },function(){
+    }, function() {
         $(this).removeClass('scrollY');
     });
 });
