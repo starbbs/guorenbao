@@ -36,12 +36,15 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                 Node1.addClass('nutOutputManager');
                 var Node2 = $('<p>地址：</p>').appendTo(Node1);
                 var Node2_1 = $('<input type="text" class="nutIdName input" value="" />').appendTo(Node2);
-                var Node3 = $('<p class="nutIdAddress"></p>').appendTo(Node1);
+                var Node3 = $('<p class="nutIdAddress" data-gid=""></p>').appendTo(Node1);
                 var Node4 = $('<span class="nutOutputManager-modify"></span>').appendTo(Node1);
                 var Node5 = $('<span class="nutOutputManager-del"></span>').appendTo(Node1);
                 Node2_1.val(data.data.list[i].name);
                 Node2_1.attr('dataid', data.data.list[i].name);
                 Node3.text(data.data.list[i].address);
+                //data-gid
+                Node3.attr('data-gid',data.data.list[i].id);
+
                 //$('.nut-two').appendBefore(Node1);
                 Node1.insertBefore($('.nutOutputManager-add'));
                 if ($('.nutOutputManager').length % 2 == 0) {
@@ -61,7 +64,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
             $('.nutOutputManager-del').click(function() {
                 $(this).parent().remove();
                 api_mkt.gopAddressManDel({
-                    'wallet': ($(this).parent().find('.nutIdAddress').text())
+                    'id': ($(this).parent().find('.nutIdAddress').attr('data-gid'))
                 }, function(data) {
                     if (data.status == 200) {
                         window.location.href = 'withdraw.html?id=rmbtx';
@@ -603,6 +606,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
     }, function(data) {
         if (data.status == 200) {
             for (var i = 0; i < data.data.list.length; i++) {
+                var numId = data.data.list[i].id;
                 var name = data.data.list[i].name;
                 var num = data.data.list[i].acnumber; //银行卡号
                 var bankName = data.data.list[i].bank; //所属银行
@@ -615,7 +619,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                     '<section class="bankIdCard-hr"></section>' +
                     '<section class="bankIdCard-Name">持卡人姓名：' + name.replace(name.substr(0, 1), '*') + '</section>').appendTo(node);
                 if(data.data.list.length>1){
-                	$('<section class="bankIdCard-del" data-cardId="' + num + '">删除</section>').appendTo(node);
+                	$('<section class="bankIdCard-del" data-cardId="' + numId + '">删除</section>').appendTo(node);
                 }
                 $('<section class="bankIdCard-address">' + bankIP + '</section>').appendTo(node);
                 node.insertBefore($('.bankIdCard-add'));
@@ -631,7 +635,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
             //删除银行卡
             $('.bankIdCard-del').click(function() {
                 api_mkt.rmbWithdrawalsManageDel({
-                    'bankId': $(this).attr('data-cardId')
+                    'id': $(this).attr('data-cardId')
                 }, function(data) {
                     if (data.status == 200) {
                         window.location.reload(true);

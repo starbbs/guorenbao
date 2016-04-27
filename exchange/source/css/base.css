@@ -806,3 +806,15 @@ a {
 .awraper{
     width:138px;
 }
+
+.hzhbimg{
+    background: url('../images/footer_hzhb.png') no-repeat 0 0;
+    display: block;
+    width: 64px;
+    height: 22px;
+    cursor:pointer;
+}
+
+.hzhbimg:hover{
+    background:url('../images/footer_hzhb_hover.png') no-repeat 0 0;
+}

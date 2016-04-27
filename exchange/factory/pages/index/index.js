@@ -226,10 +226,42 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 numericSymbols: ['k', 'M', 'G', 'T', 'P', 'E'],
                 resetZoom: 'Reset zoom',
                 resetZoomTitle: 'Reset zoom level 1:1',
+                lang: {
+                    decimalPoint: '\u066B',
+                    thousandsSeparator: '\u066C'
+                },
                 thousandsSep: ','
             },
+
             credits: { enabled: false }
         });
+
+        if(whichday=="one"){
+            Highcharts.setOptions({
+                rangeSelector: { buttons: [{ type: 'minute', count: 60, text: '1h' }, { type: 'minute', count: 120, text: '2h' }, { type: 'minute', count: 360, text: '6h' }, { type: 'minute', count: 720, text: '12h' }, { type: 'day', count: 1, text: '1d' }, { type: 'week', count: 1, text: '1w' }, { type: 'all', text: '所有' }], selected: 2, inputEnabled: false },
+            });
+
+        } else if(whichday=="five"){
+            Highcharts.setOptions({
+                rangeSelector: { buttons: [{ type: 'minute', count: 60, text: '1h' }, { type: 'minute', count: 120, text: '2h' }, { type: 'minute', count: 360, text: '6h' }, { type: 'minute', count: 720, text: '12h' }, { type: 'day', count: 1, text: '1d' }, { type: 'week', count: 1, text: '1w' }, { type: 'all', text: '所有' }], selected: 2, inputEnabled: false },
+            });
+        } else if(whichday=="fivteen"){
+            Highcharts.setOptions({
+                rangeSelector: { buttons: [{ type: 'minute', count: 60, text: '1h' }, { type: 'minute', count: 120, text: '2h' }, { type: 'minute', count: 360, text: '6h' }, { type: 'minute', count: 720, text: '12h' }, { type: 'day', count: 1, text: '1d' }, { type: 'week', count: 1, text: '1w' }, { type: 'all', text: '所有' }], selected: 2, inputEnabled: false },
+            });
+        } else if(whichday=="thirty"){
+           Highcharts.setOptions({
+                rangeSelector: { buttons: [{ type: 'minute', count: 60, text: '1h' }, { type: 'minute', count: 120, text: '2h' }, { type: 'minute', count: 360, text: '6h' }, { type: 'minute', count: 720, text: '12h' }, { type: 'day', count: 1, text: '1d' }, { type: 'week', count: 1, text: '1w' }, { type: 'all', text: '所有' }], selected: 2, inputEnabled: false },
+            }); 
+        } else if(whichday=="sixty"){
+            Highcharts.setOptions({
+                rangeSelector: { buttons: [{ type: 'minute', count: 60, text: '1h' }, { type: 'minute', count: 120, text: '2h' }, { type: 'minute', count: 360, text: '6h' }, { type: 'minute', count: 720, text: '12h' }, { type: 'day', count: 1, text: '1d' }, { type: 'week', count: 1, text: '1w' }, { type: 'all', text: '所有' }], selected: 2, inputEnabled: false },
+            });
+        } else if (whichday == "oneday") {
+            Highcharts.setOptions({
+                rangeSelector: { buttons: [{ type: 'minute', count: 60, text: '1h' }, { type: 'minute', count: 120, text: '2h' }, { type: 'minute', count: 360, text: '6h' }, { type: 'minute', count: 720, text: '12h' }, { type: 'day', count: 1, text: '1d' }, { type: 'week', count: 1, text: '1w' }, { type: 'all', text: '所有' }], selected: 'all', inputEnabled: false },
+            });
+        };
         ohlc = [];
         volume = [];
         if (whichday == "one") {
@@ -245,10 +277,6 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                     }
                 }
             }
-            // for (var i = 0; i < onem.length; i++) {
-            //     ohlc.push([onem[i][0], onem[i][2], onem[i][3], onem[i][4], onem[i][5]]);
-            //     volume.push([onem[i][0], onem[i][1]]);
-            // }
         } else if (whichday == "five") {
             for (var i = 0; i < fivem.length; i++) {
                 ohlc.push([fivem[i][0], fivem[i][2], fivem[i][3], fivem[i][4], fivem[i][5]]);
@@ -302,7 +330,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 }
             }
         } else if (whichday == "oneday") {
-            // for (var i = 1; i < 10; i++) {
+            // for (var i = 1; i < 23; i++) {
             //       ohlc.push([oned[0][0]-i*60*24*60000, oned[0][2], oned[0][3], oned[0][4], oned[0][5]]);
             //     volume.push([oned[0][0]-i*60*24*60000, oned[0][1]]);
             // }
@@ -320,7 +348,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
             }
         }
         $('#container').highcharts('StockChart', {
-            rangeSelector: { buttons: [{ type: 'minute', count: 60, text: '1h' }, { type: 'minute', count: 120, text: '2h' }, { type: 'minute', count: 360, text: '6h' }, { type: 'minute', count: 720, text: '12h' }, { type: 'day', count: 1, text: '1d' }, { type: 'week', count: 1, text: '1w' }, { type: 'all', text: '所有' }], selected: 2, inputEnabled: false },
+            // rangeSelector: { buttons: [{ type: 'minute', count: 60, text: '1h' }, { type: 'minute', count: 120, text: '2h' }, { type: 'minute', count: 360, text: '6h' }, { type: 'minute', count: 720, text: '12h' }, { type: 'day', count: 1, text: '1d' }, { type: 'week', count: 1, text: '1w' }, { type: 'all', text: '所有' }], selected: 'all', inputEnabled: false },
             global: {
                 useUTC: false
             },
@@ -337,7 +365,8 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                 type: 'dataTime',
                 style: {
                     font: 'normal 14px Microsoft yahei'
-                }
+                },
+                tickLength: 1
             },
             exporting: { enabled: false, buttons: { exportButton: { enabled: false }, printButton: { enabled: true } } },
             tooltip: { xDateFormat: '%Y-%m-%d %H:%M %A', color: '#f0f', changeDecimals: 4, borderColor: '#058dc7' },

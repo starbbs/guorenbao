@@ -502,7 +502,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                     $(dlisthtml).appendTo("#mybox");
                 }
             } else if (data.status == 400 && data.msg == "无数据") {
-                console.log(data);
+                // console.log(data);
                 $("#msg_num_top,#newinfor_result").html("0");
             }
         });
