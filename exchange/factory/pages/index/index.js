@@ -1,4 +1,16 @@
 require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_info, mkt_trade) {
+    
+    function isIE() {
+        if (window.navigator.userAgent.indexOf("MSIE") >= 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    if (isIE()) {
+        showWarnWin("如您是IE10及以下版本，请换到IE11或其它浏览器浏览本网站。", 100000);
+    } else {}   
+
     //mkt_info.get();
     mkt_trade.get();
     // showWarnWin("互联网万维联盟", 1e3);

@@ -2,22 +2,12 @@
     payLocked: false, //支付密码锁定状态
 };
 
+
+
 require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
-    function isIE(){
-        if (window.navigator.userAgent.indexOf("MSIE")>=1){
-            return true;    
-        } else {
-            return false;
-        }
-    }
-    if(isIE()){
-        showWarnWin("如您是IE10及以下版本，请换到IE11或其它浏览器浏览本网站。",100000);
-    } else{
-    }
     if (location.href.indexOf("tradingfloor") === -1) {
         mkt_info.get();
-    } else {
-    }
+    } else {}
     var popup_login_times = 0;
     var exchangeToken = $.cookie('exchangeToken');
     var whether_auth = false;
@@ -28,28 +18,28 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
     $('.bg').css('left', 0);
     $('.bg').css('top', 0);
 
-    
 
-    api_mkt.realAuth(function(data){
-        if(data.status=="200"){
+
+    api_mkt.realAuth(function(data) {
+        if (data.status == "200") {
             $("#goone").on("click", function() {
-                $.cookie("loginfromwhichpage","three");
+                $.cookie("loginfromwhichpage", "three");
                 location.href = "./cnydepositswithdrawal.html";
             });
             $("#gotwo").on("click", function() {
-                $.cookie("loginfromwhichpage","three");
+                $.cookie("loginfromwhichpage", "three");
                 location.href = "./cnydepositswithdrawal.html?formindex='index'";
             });
-            $(".quoted_price_top").css("margin-top","14px");
-            $(".center_content").css("margin-top","14px");
-        } else if(data.status=="400") {
-            if(data.msg=="用户未实名认证"){
+            $(".quoted_price_top").css("margin-top", "14px");
+            $(".center_content").css("margin-top", "14px");
+        } else if (data.status == "400") {
+            if (data.msg == "用户未实名认证") {
                 $("#goone").on("click", function() {
-                    $.cookie("loginfromwhichpage","three");
+                    $.cookie("loginfromwhichpage", "three");
                     location.href = "./conditionofassets.html";
                 });
                 $("#gotwo").on("click", function() {
-                    $.cookie("loginfromwhichpage","three");
+                    $.cookie("loginfromwhichpage", "three");
                     location.href = "./conditionofassets.html";
                 });
                 if (location.href.indexOf("/index.html") === -1) {
@@ -57,8 +47,8 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                 } else {
                     $(".popuptips").hide();
                 }
-                $(".quoted_price_top").css("margin-top","0px");
-                $(".center_content").css("margin-top","0px");
+                $(".quoted_price_top").css("margin-top", "0px");
+                $(".center_content").css("margin-top", "0px");
             }
         } else {
 
@@ -77,11 +67,11 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
             } else {
                 global.payLocked = true;
                 console.log(data);
-                if(location.href.indexOf('/index.html')===-1){
-                   $(".quoted_price_top").css("margin-top","0px");
-                    $(".center_content").css("margin-top","0px");
+                if (location.href.indexOf('/index.html') === -1) {
+                    $(".quoted_price_top").css("margin-top", "0px");
+                    $(".center_content").css("margin-top", "0px");
                     $(".popuptips").html("为保证资金安全，您的支付密码已被锁定，请找回支付密码");
-                    $(".popuptips").slideDown(); 
+                    $(".popuptips").slideDown();
                 } else {
                     $(".popuptips").hide();
                 }
@@ -234,10 +224,10 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
      * 输入框通用校验
      */
     $(".password").on("keyup", function(e) {
-    	//只允许输入 ASCII的33~126的字符
-		if(this.value.charCodeAt()<33 || this.value.charCodeAt()>126){
-			$(this).val($(this).val().replace(this.value,""));
-		}
+        //只允许输入 ASCII的33~126的字符
+        if (this.value.charCodeAt() < 33 || this.value.charCodeAt() > 126) {
+            $(this).val($(this).val().replace(this.value, ""));
+        }
     });
 
 
@@ -256,10 +246,10 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         $("<img id='topbar_img'/>").attr("src", "/exchangeApi/code/getCode?v=" + Math.random()).appendTo($("#one2"));
         return false;
     });
-    
+
     //右上角登录按钮点击之后出发的事件
     $(".popup_login_btn").on("click", function() {
-        
+
         popup_login_times++;
         var phone = $(".phone").val();
         var password = $(".password").val();
@@ -323,11 +313,11 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                     var whether_auth_val = "";
                     if (whether_auth) {
                         $("#goone").on("click", function() {
-                            $.cookie("loginfromwhichpage","three");
+                            $.cookie("loginfromwhichpage", "three");
                             location.href = "./cnydepositswithdrawal.html";
                         });
                         $("#gotwo").on("click", function() {
-                            $.cookie("loginfromwhichpage","three");
+                            $.cookie("loginfromwhichpage", "three");
                             location.href = "./cnydepositswithdrawal.html?formindex='index'";
                         });
 
@@ -335,11 +325,11 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                         $(".bottom_em_i")[0] ? $(".bottom_em_i")[0].style.background = "url(./images/index_already_authentication.png)" : "";
                     } else {
                         $("#goone").on("click", function() {
-                            $.cookie("loginfromwhichpage","three");
+                            $.cookie("loginfromwhichpage", "three");
                             location.href = "./conditionofassets.html";
                         });
                         $("#gotwo").on("click", function() {
-                            $.cookie("loginfromwhichpage","three");
+                            $.cookie("loginfromwhichpage", "three");
                             location.href = "./conditionofassets.html";
                         });
 
@@ -374,7 +364,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                     });
                 } else if (data.status == 305) {
                     // alert(data.msg);
-                    showWarnWin(data.msg,1e3);
+                    showWarnWin(data.msg, 1e3);
                 } else if (data.status == 400) {
                     if (data.msg == "验证码错误") {
                         $(".autocode_tips").show().html(data.msg);
@@ -383,18 +373,18 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                     } else if (data.msg == "登录密码错误") {
                         $(".error_tips").show().html("用户名或密码错误，请重新登录");
                     } else if (data.data && data.data.num && data.data.num <= 10) {
-                        if(data.data.num>=5){
-                            if(data.data.num==10){
+                        if (data.data.num >= 5) {
+                            if (data.data.num == 10) {
                                 $(".error_tips").show().html("帐号已经锁定，请找回您的登录密码");
                             } else {
                                 $(".error_tips").show().html("还有" + (10 - data.data.num) + "次输入机会");
                             }
-                        } else if(data.data.num<5&&data.data.msg=="登录密码错误"){
+                        } else if (data.data.num < 5 && data.data.msg == "登录密码错误") {
                             $(".error_tips").show().html("用户名或密码错误，请重新登录");
                         }
                     } else if (data.msg == "error" && data.data.msg == "登录密码错误") {
                         $(".error_tips").show().html("用户名或密码错误，请重新登录");
-                    } else if (data.msg=="密码长度错误"){
+                    } else if (data.msg == "密码长度错误") {
                         $(".error_tips").show().html("用户名或密码错误，请重新登录");
                     } else {
                         $(".autocode_tips").show().html(data.msg);
@@ -444,12 +434,12 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         $.cookie("loginfromwhichpage", "");
         api_mkt.userlogout({}, function(data) {
             if (data.status == 200) {
-                showWarnWin("退出成功",1e3);
+                showWarnWin("退出成功", 1e3);
                 window.location.href = "index.html";
             } else if (data.status == 305) {
-                showWarnWin(data.msg,1e3);
+                showWarnWin(data.msg, 1e3);
             } else {
-                showWarnWin(data.msg,1e3);
+                showWarnWin(data.msg, 1e3);
             }
         });
         setTimeout(function() {
@@ -518,10 +508,10 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
     if (!exchangeToken) {
 
     } else {
-        setTimeout(function(){
+        setTimeout(function() {
             synchronous();
             setInterval(synchronous, 60000);
-        },200);
+        }, 200);
     }
 
     var flag = true;
