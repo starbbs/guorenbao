@@ -1,4 +1,4 @@
-require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_info, mkt_trade) {
+require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_mkt, mkt_info,decimal, mkt_trade) {
     
     function isIE() {
         if (window.navigator.userAgent.indexOf("MSIE") >= 1) {
@@ -34,12 +34,17 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
     var getTotalAssets = function() {
         api_mkt.totalAssets(function(data) {
             if (data.status == 200) {
-                var totalAssets = data.data.cnyBalance + data.data.cnyLock;
-                var totalNuts = data.data.gopBalance + data.data.gopLock;
+                // var totalAssets = data.data.cnyBalance + data.data.cnyLock;
+                // var totalNuts = data.data.gopBalance + data.data.gopLock;
                 //console.log($('#thelatestprice').html());
-                var totalvalue = totalNuts * $('#thelatestprice').html() + totalAssets;
-                $('.lf_asset_center').html(totalvalue.toFixed(2)); //总资产
-                $('.rg_asset_center').html(totalNuts.toFixed(2)); //总果仁
+                // var totalvalue = totalNuts * $('#thelatestprice').html() + totalAssets;
+
+                var totalAssets = decimal.getTwoPs(decimal.floatAdd(data.data.cnyBalance , data.data.cnyLock));
+                var totalNuts = decimal.getTwoPs(decimal.floatAdd(data.data.gopBalance , data.data.gopLock));
+                var totalvalue = decimal.getTwoPs(decimal.floatAdd(decimal.floatMulti(totalNuts,$('#thelatestprice').html()),totalAssets));
+
+                $('.lf_asset_center').html(decimal.getTwoPs(totalvalue)); //总资产
+                $('.rg_asset_center').html(decimal.getTwoPs(totalNuts)); //总果仁
             } else {
                 console.log(data.msg);
             }
@@ -617,8 +622,14 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'cookie'], function(api_mkt, mkt_in
                             var totalNuts = data.data.gopBalance + data.data.gopLock;
                             //$('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
                             var totalvalue = totalNuts * $('#thelatestprice').html() + totalAssets;
-                            $('.lf_asset_center').html(totalvalue.toFixed(2)); //总资产
-                            $('.rg_asset_center').html(totalNuts.toFixed(2)); //总果仁
+                            //$('.lf_asset_center').html(totalvalue.toFixed(2)); //总资产
+                            //$('.rg_asset_center').html(totalNuts.toFixed(2)); //总果仁
+                            var totalAssets = decimal.getTwoPs(decimal.floatAdd(data.data.cnyBalance , data.data.cnyLock));
+                            var totalNuts = decimal.getTwoPs(decimal.floatAdd(data.data.gopBalance , data.data.gopLock));
+                            var totalvalue = decimal.getTwoPs(decimal.floatAdd(decimal.floatMulti(totalNuts,$('#thelatestprice').html()),totalAssets));
+
+                            $('.lf_asset_center').html(decimal.getTwoPs(totalvalue)); //总资产
+                            $('.rg_asset_center').html(decimal.getTwoPs(totalNuts)); //总果仁
 
                         } else if (data.status == 305) {
 
