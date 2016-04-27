@@ -148,6 +148,7 @@
 .topbanner {
     background: url('../images/footer_banner_footer.png') no-repeat center center;
     height: 258px;
+    text-align: center;
     background-size: 100% 100%;
 }
 .topbanner span{
