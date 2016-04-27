@@ -3,9 +3,17 @@
 };
 
 require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
-
-
-
+    function isIE(){
+        if (window.navigator.userAgent.indexOf("MSIE")>=1){
+            return true;    
+        } else {
+            return false;
+        }
+    }
+    if(isIE()){
+        showWarnWin("如您是IE10及以下版本，请换到IE11或其它浏览器浏览本网站。",100000);
+    } else{
+    }
     if (location.href.indexOf("tradingfloor") === -1) {
         mkt_info.get();
     } else {
