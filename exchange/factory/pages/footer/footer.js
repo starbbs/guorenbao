@@ -122,24 +122,19 @@ $(function() {
         return '';
     };
     var fval = getQueryString("f");
-    console.log(fval);
     if (fval=="a") {
-        console.log("a");
         $(".tab").eq(0).addClass("tab_on").siblings(".tab").removeClass("tab_on");
         $('.tabcon').hide();
         $('.tab_one').show();
     } else if(fval=="b"){
-        console.log("b");
         $(".tab").eq(1).addClass("tab_on").siblings(".tab").removeClass("tab_on");
         $('.tabcon').hide();
         $('.tab_two').show();
     } else if(fval=="c"){
-        console.log("c");
         $(".tab").eq(2).addClass("tab_on").siblings(".tab").removeClass("tab_on");
         $('.tabcon').hide();
         $('.tab_three').show();
     } else if(fval=="d"){
-        console.log("d");
         $(".tab").eq(3).addClass("tab_on").siblings(".tab").removeClass("tab_on");
         $('.tabcon').hide();
         $('.tab_four').show();

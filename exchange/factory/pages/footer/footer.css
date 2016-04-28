@@ -148,24 +148,27 @@
 .topbanner {
     background: url('../images/footer_banner_footer.png') no-repeat center center;
     height: 258px;
-    text-align: center;
     background-size: 100% 100%;
 }
 .topbanner span{
-    position: absolute;
-    left:470px;
-    top:70px;
+    position: relative;
+    top: 70px;
     font-size: 2.0rem;
-    color:#fff;
+    color: #fff;
+    margin: 0 auto;
+    display: inline-block;
+    text-align: center;
+    display: block;
 }
 .topbanner p{
-    position: absolute;
-    left:160px;
-    top:125px;
+    position: relative;
+    top: 125px;
     font-size: 1rem;
-    color:#fff;
-    width:1060px;
+    color: #fff;
     line-height: 25px;
+    margin: 0 auto;
+    word-wrap: normal;
+    max-width: 1200px;
 }
 .topbanner p span{
     font-size: 2rem;
