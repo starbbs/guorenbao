@@ -2,9 +2,9 @@ define('api_mkt', ['cookie'], function() {
       //var basePath = 'http://localhost:8080/';
     //var basePath = 'http://localhost:8089/';
 	//var basePath = 'http://10.23.0.123/';
-    var basePath = './';
+    var basePath = '//endpoint.goopal.net.cn';
     var api = {};
-    api.basePath2 = 'http://116.213.142.89:8080/common/checkBankCard';
+    api.basePath2 = 'https://endpoint.goopal.com.cn/common/checkBankCard';
     var goIndex = function(useURL) { //返回首页
         if (useURL) {}
         if (window.location.href.indexOf('/index.html') === -1) {
