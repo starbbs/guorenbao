@@ -11,7 +11,7 @@ require(['api_mkt_management'],function(api_mkt_management){
                 $.cookie('uid',data.data.uid); 
                 $.cookie('role',data.data.role);
                 $.cookie('phone',$('.container-section-inputOne').val());
-                window.location.href="home.html";
+                window.location.href="./home.html";
 
             } else {
                 console.log(data);

@@ -1,7 +1,7 @@
 define('api_mkt_management', ['cookie'], function() {
 	//var basePath = 'http://172.16.33.2:8080/exchange_manager';
 	//var basePath = 'http://localhost:8080/exchange_manager';
-    var basePath = '//192.168.60.72:9080';
+    var basePath = '//manager.goopal.net.cn/exchange_manager';
 	//var basePath = 'http://10.23.1.138/';
 
 	var api = {};
