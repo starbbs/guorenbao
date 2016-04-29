@@ -897,6 +897,7 @@ progress{
     height: 22px;
     color: #ff6600;
     line-height: 22px;
+    left:0px;
     display:none;
 }
 .grfhafter:after{

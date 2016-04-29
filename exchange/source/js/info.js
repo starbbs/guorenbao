@@ -123,7 +123,6 @@
             }
         }
         if(bid_history_list_html==""){
-            console.log("xxxxxxxxxxxx")
             $(".no-record-picture3").show();
         } else {
             $(".no-record-picture3").hide();

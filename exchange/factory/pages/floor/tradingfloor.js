@@ -695,7 +695,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
         var oldData = $(this).attr("data-old");
 
         if($(this).val()!=""){
-            if($(this).val()[0]=="."||$(this).val()[0]=="0"){
+            if($(this).val()[0]=="."){
                 $(this).val("");
             }
         }
@@ -774,7 +774,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
         var oldData = $(this).attr("data-old");
 
         if($(this).val()!=""){
-            if($(this).val()[0]=="."||$(this).val()[0]=="0"){
+            if($(this).val()[0]=="."){
                 $(this).val("");
             }
         }
@@ -840,7 +840,12 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
             flag = true;
         }
     });
-
+    $(".sellAmount,.sellPrice,.sellNumber,.buying_price,.buying_number,.marketBuy").on("blur",function(){
+        if($(this).val()[0]=="0"&&$(this).val()[1]=="."){
+        } else {
+            $(this).val($(this).val().replace(/\b(0+)/gi,""));
+        }
+    });
     //卖出 市价 滑块
     $(".wrapper").on("input propertychange", ".sellAmount", function() {
         $(this).parent().siblings(".c1_onetips").hide();
@@ -848,7 +853,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
         var oldData = $(this).attr("data-old");
 
         if($(this).val()!=""){
-            if($(this).val()[0]=="."||$(this).val()[0]=="0"){
+            if($(this).val()[0]=="."){
                 $(this).val("");
             }
         }
@@ -906,7 +911,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
         var oldData = $(this).attr("data-old");
 
         if($(this).val()!=""){
-            if($(this).val()[0]=="."||$(this).val()[0]=="0"){
+            if($(this).val()[0]=="."){
                 $(this).val("");
             }
         }

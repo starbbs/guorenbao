@@ -1,8 +1,9 @@
 define('api_mkt', ['cookie'], function() {
       //var basePath = 'http://localhost:8080/';
     //var basePath = 'http://localhost:8089/';
-	//var basePath = 'http://10.23.0.123/';
-    var basePath = '//endpoint.goopal.net.cn/';
+	// var basePath = 'http://10.23.0.123/';
+    // var basePath = '//endpoint.goopal.net.cn/';
+    var basePath = './';
     var api = {};
     api.basePath2 = 'https://endpoint.goopal.com.cn/common/checkBankCard';
     var goIndex = function(useURL) { //返回首页
@@ -95,7 +96,8 @@ define('api_mkt', ['cookie'], function() {
                             $(".quoted_price_top").css("margin-top","0px");
                             $(".center_content").css("margin-top","0px");
                             if(loginfromwhichpage=="one"){
-                                $(".popuptips").slideUp();
+                                // $(".popuptips").slideUp();
+                                $(".popuptips").hide();
                             } else if(loginfromwhichpage=="two"){
                                 $(".popuptips").slideDown();
                             } else if(loginfromwhichpage=="three"){
