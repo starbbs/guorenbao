@@ -14,8 +14,6 @@ define('api_mkt', ['cookie'], function() {
             //alert('无法获得用户信息');
         }
     };
-
-
     var clearcookie = function(){
         $.cookie('exchangeToken', '');
         $.cookie("global_loginuserphone",'');

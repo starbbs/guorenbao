@@ -1,11 +1,8 @@
 ﻿var global = {
     payLocked: false, //支付密码锁定状态
 };
-
-
-
 require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
-    if (location.href.indexOf("tradingfloor") === -1) {
+    if (location.href.indexOf("/tradingfloor.html") === -1) {
         mkt_info.get();
     } else {}
     var popup_login_times = 0;
@@ -17,7 +14,6 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
     $('#floor_bg').css('top', 0);
     $('.bg').css('left', 0);
     $('.bg').css('top', 0);
-
 
 
     api_mkt.realAuth(function(data) {
