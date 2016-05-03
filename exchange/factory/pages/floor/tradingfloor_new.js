@@ -1,4 +1,5 @@
 require(['api_mkt', 'mkt_info', 'mkt_trade','decimal', 'cookie'], function(api_mkt, mkt_info, mkt_trade,decimal) {
+    mkt_info.get();
     /*当前委托-历史委托 new 页面 tab*/
     $(function(){
         $(".entrust-side-table:gt(0)").hide();
