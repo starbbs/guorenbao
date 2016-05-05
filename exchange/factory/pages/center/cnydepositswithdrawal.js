@@ -120,6 +120,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
         //人民币提现表单校验
         var flag1 = false;
         $("#WithdrawalsAmount").keyup(function(){
+        	$(this).val($(this).val().replace(/[^\d.]/g, ""));
             var bankmoney = $.trim($("#WithdrawalsAmount").val());
             if(String(bankmoney).substring(0,1) == 0){
                 $("#WithdrawalsAmount").val('');
@@ -278,10 +279,10 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                     $(".WithdrawalsCard").text($.cookie('bankNum'));
                     $(".WithdrawalsBank").text($.cookie('bankName'));
                     $(".WithdrawalsName").text($.cookie('bankUserName'));
-                    var amount = parseInt($("#WithdrawalsAmount").val());
+                    var amount = decimal.getTwoPs($("#WithdrawalsAmount").val());
                     var Fee = decimal.getTwoPs($('.WithdrawalsFee').text());
-                    $(".WithdrawalsAmount").text('¥'+amount+'.00');
-                    $(".WithdrawalsRealAmount").text('¥'+(amount - Fee));
+                    $(".WithdrawalsAmount").text('¥'+amount);
+                    $(".WithdrawalsRealAmount").text('¥'+decimal.floatSubtract(amount , Fee));
                     $('.msg-WithdrawalsPayPwd').text("");
                     //接口：人民币提现
                     api_mkt.rmbWithdrawals({          

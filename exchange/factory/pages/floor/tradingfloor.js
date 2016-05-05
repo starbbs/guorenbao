@@ -29,9 +29,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
 
     $(".buying_price,.buying_number,.marketBuy,.sellPrice,.sellNumber,.sellAmount").on("keyup", function(e) {
         //只允许输入 数字字符
-        if ((this.value.charCodeAt() != 46 && this.value.charCodeAt() < 48) || this.value.charCodeAt() > 57) {
-            $(this).val($(this).val().replace(this.value, ""));
-        }
+    	$(this).val($(this).val().replace(/[^\d.]/g, ""));
 
     });
 

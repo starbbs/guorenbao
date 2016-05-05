@@ -7,7 +7,6 @@ var paths = require('./exchange-paths');
 var uglify = require('gulp-uglify');
 var rjs = require('gulp-requirejs');
 var imagemin = require('gulp-imagemin');
-var replace = require('gulp-replace');
 gulp.task('exchange-js', function() {
 	return gulp.src(path.join(paths.build, '/js/*.js'))
 		// .pipe(uglify())
@@ -72,8 +71,8 @@ gulp.task('exchange-rjs', ['exchange-js'], function() {
 gulp.task('exchange-html', function() {
 	return tools.html(paths.build + '/*.html', paths.public, {
 		remove: '<script type="text/javascript" src="./js/config.js"></script>',
-		oldChar: './',
-		newChar: '//static.goopal.net.cn/'
+		//oldChar: './',
+		//newChar: '//static.goopal.net.cn/'
 	});
 });
 
