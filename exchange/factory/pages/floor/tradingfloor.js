@@ -27,6 +27,15 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
         }
     });
 
+    $(".buying_price,.buying_number,.marketBuy,.sellPrice,.sellNumber,.sellAmount").on("keydown", function(e) {
+        //只允许输入 数字字符
+    	if($(this).val().indexOf(".")>0 || $(this).val()===''){
+    		if(e.keyCode==190 || e.keyCode==110){
+    			return false;
+    		}
+    	}
+    });
+    
     $(".buying_price,.buying_number,.marketBuy,.sellPrice,.sellNumber,.sellAmount").on("keyup", function(e) {
         //只允许输入 数字字符
     	$(this).val($(this).val().replace(/[^\d.]/g, ""));
@@ -838,12 +847,12 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
             flag = true;
         }
     });
-    $(".sellAmount,.sellPrice,.sellNumber,.buying_price,.buying_number,.marketBuy").on("blur",function(){
-        if($(this).val()[0]=="0"&&$(this).val()[1]=="."){
-        } else {
-            $(this).val($(this).val().replace(/\b(0+)/gi,""));
-        }
-    });
+//    $(".sellAmount,.sellPrice,.sellNumber,.buying_price,.buying_number,.marketBuy").on("blur",function(){
+//        if($(this).val()[0]=="0"&&$(this).val()[1]=="."){
+//        } else {
+//            $(this).val($(this).val().replace(/\b(0+)/gi,""));
+//        }
+//    });
     //卖出 市价 滑块
     $(".wrapper").on("input propertychange", ".sellAmount", function() {
         $(this).parent().siblings(".c1_onetips").hide();

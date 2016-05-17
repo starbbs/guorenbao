@@ -36,7 +36,9 @@
             thelatestprice = JSON.parse(haha['order'][0]).price;
             thelatestprice = getTwoPs(thelatestprice);
             $('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
-            thelatestprice_second = JSON.parse(haha['order'][1]).price;
+            if(haha['order'][1]){
+                thelatestprice_second = JSON.parse(haha['order'][1]).price;
+            }
         }
         var floor_two = $("#floor_two").val();     //剩余人民币数
         var floor_four = $("#floor_four").val();   //冻结人民币数
