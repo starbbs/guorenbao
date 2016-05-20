@@ -8,8 +8,11 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_m
         }
     }
     if (isIE()) {
+        window.location.href="./low.html";
         showWarnWin("如您是IE10及以下版本，请换到IE11或其它浏览器浏览本网站。", 100000);
-    } else {}   
+    } else {
+        
+    }
 
     //mkt_info.get();
     mkt_trade.get();

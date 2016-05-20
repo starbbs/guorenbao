@@ -1,11 +1,14 @@
 define('api_mkt', ['cookie'], function() {
       //var basePath = 'http://localhost:8080/';
 	//var basePath = 'http://localhost:8089/';
-	// var basePath = 'http://10.23.0.123/';
+	// var basePath = 'http://10.23.3.116/';
     // var basePath = '//endpoint.goopal.net.cn/';
-	var basePath = './';
+    
+    //var basePath = 'www.goopal.net.cn'; //正式环境
+	var basePath = './';  //测试环境
     var api = {};
-    api.basePath2 = 'https://endpoint.goopal.com.cn/common/checkBankCard';
+    //api.basePath2 = 'https://endpoint.goopal.com.cn/common/checkBankCard';  //线上环境
+    api.basePath2 = 'http://goopal.xiaojian.me/common/checkBankCard'; //测试环境
     var goIndex = function(useURL) { //返回首页
         if (useURL) {}
         if (window.location.href.indexOf('/index.html') === -1) {
@@ -102,8 +105,12 @@ define('api_mkt', ['cookie'], function() {
                                 $(".popuptips").slideDown();
                                 if(location.href.indexOf('/conditionofassets.html') != -1){
                                 } else {
-                                    location.href="./conditionofassets.html";
-                                    $(".popuptips").slideDown();
+                                    if(location.href.indexOf('./index.html') != -1){
+
+                                    } else {
+                                        location.href="./conditionofassets.html";
+                                        $(".popuptips").slideDown();
+                                    }
                                 }
                             } else if(loginfromwhichpage=="four"){
                                 if(location.href.indexOf('/basicinfo.html')!=-1){
