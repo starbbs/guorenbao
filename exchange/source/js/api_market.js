@@ -4,11 +4,11 @@ define('api_mkt', ['cookie'], function() {
 	// var basePath = 'http://10.23.3.116/';
     // var basePath = '//endpoint.goopal.net.cn/';
     
-    //var basePath = 'www.goopal.net.cn'; //正式环境
+    // var basePath = 'https://www.goopal.net.cn/'; //正式环境
 	var basePath = './';  //测试环境
     var api = {};
-    //api.basePath2 = 'https://endpoint.goopal.com.cn/common/checkBankCard';  //线上环境
-    api.basePath2 = 'http://goopal.xiaojian.me/common/checkBankCard'; //测试环境
+    api.basePath2 = 'https://endpoint.goopal.com.cn/common/checkBankCard';  //线上环境
+    // api.basePath2 = 'http://goopal.xiaojian.me/common/checkBankCard'; //测试环境
     var goIndex = function(useURL) { //返回首页
         if (useURL) {}
         if (window.location.href.indexOf('/index.html') === -1) {
