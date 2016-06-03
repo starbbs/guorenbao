@@ -25,6 +25,10 @@ module.exports = function(input, output, options) {
 	var stream = gulp.src(input)
 		.pipe(replace(options.remove, ''))
 		.pipe(replace(options.oldChar,options.newChar))
+		.pipe(replace(options.oldChar1,options.newChar1))
+		.pipe(replace(options.oldChar2,options.newChar2))
+		.pipe(replace(options.oldChar3,options.newChar3))
+		.pipe(replace(options.oldChar4,options.newChar4))
 		.pipe(minifyHtml({
 			empty: true, // 保留空属性
 			cdata: false, // 保留scripts标签的CDATA
