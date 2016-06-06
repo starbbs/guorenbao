@@ -5,28 +5,36 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/guoRenGuaDan.css">
+    <link rel="stylesheet" href="./css/guoRenHumanReview.css">
     <script type="text/javascript" src="./js/require.js"></script>
     <script type="text/javascript" src="./js/avalon.js"></script>
     <script type="text/javascript" src="./js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="./js/config.js"></script>
     <title>果仁市场控制中心</title>
+    <style>
+    td {
+      white-space:nowrap;overflow:hidden;text-overflow: ellipsis;
+    }
+    </style>
 </head>
 <body ms-controller="test">
     <aside class="aside" id="aside" ms-include-src="htmlFiles">
-        <h1>财务中心<small> -> 果仁 -> 挂单</small></h1>
+        <h1>财务中心<small> -> 果仁 -> 果仁提现人工审核</small></h1>
         <hr />
         <div class="aside-div">
             <span class="aside-div-spanLeft">
                 <a href="controllPanel.html">主页</a> > 
                 <a href="">后台</a> > 
-                <a href="">果仁挂单</a>
+                <a href="">果仁提现人工审核</a>
             </span>
             <span class="aside-div-spanRight">
                 <input type="text" placeholder="按类别搜索信息" class="aside-div-input"/>
                 <select class="aside-div-select">
                     <option value="id" selected="selected">ID</option>
-                    <option value="uId">UID</option>
+                    <option value="uId">用户ID</option>
+                    <option value="phone">手机号</option>
+                    <option value="address">地址</option>
+                    <option value="phone">附言</option>
                 </select>
                 <input type="button" value="搜索" class="aside-div-searchBtn" />
             </span>
@@ -34,31 +42,23 @@
         <table class="aside-table" border="1" width="100%">
             <thead class="aside-table-thead">
                 <tr>
-                    <td>id</td>
-                    <td>uid</td>
-                    <td>价格</td>
-                    <td>总量</td>
-                    <td>剩余量</td>
-                    <td style="width:110px;">
-                        <label for="selectStatus">买卖:</label>
-                        <select class="aside-table-thead-select aside-table-thead-select-type" name="selectStatus">
-                            <option data-type="BUY">买</option>
-                            <option data-type="SELL">卖</option>
-                            <option data-type="ALL" selected="selected">显示全部</option>
-                        </select>
-                    </td>
-                    <td style="width:110px;">
-                        <label for="selectStatus">状态:</label>
-                        <select class="aside-table-thead-select aside-table-thead-select-status" name="selectStatus">
-                            <option data-status="SUCCESS">已成功</option>
-                            <option data-status="CANCEL">已关闭</option>
+                    <td width="60px">操作</td>
+                    <td width="30px">id</td>
+                    <td width="80px">uid</td>
+                    <!-- <td>手机</td> -->
+                    <td style="width:500px;">钱包地址</td>
+                    <td style="width:30px;">数量</td>
+                    <td style="width:40px;">
+                        <label for="selectStatus">状态<!-- : --></label>
+                        <!-- <select class="aside-table-thead-select" name="selectStatus">
                             <option data-status="PROCESSING">进行中</option>
+                            <option data-status="SUCCESS">已完成</option>
+                            <option>已取消</option>
                             <option data-status="ALL" selected="selected">显示全部</option>
-                        </select>
+                        </select> -->
                     </td>
-                    <td>挂单类型</td>
-                    <td width="140px">创建于</td>
-                    <td width="140px">更新于</td>
+                    <td>创建于</td>
+                    <td>更新于</td>
                 </tr>
             </thead>
             <tbody class="aside-table-tbody" id="tobody-json">
@@ -67,7 +67,7 @@
         </table>
         <!-- 分页 -->
         <div id="div1" class="PageCode">
-            <!-- <a href="#1">首页</a>
+            <!--<a href="#1">首页</a>
                 <a href="#3">上一页</a>
                 <a href="#2">[2]</a>
                 <a href="#3">[3]</a>
@@ -75,11 +75,11 @@
                 <a href="#5">[5]</a>
                 <a href="#6">[6]</a>
                 <a href="#5">下一页</a>
-                <a href="#10">尾页</a> -->
-            <span class="paging"></span>
-            <input type="text" class="inputNum"/>
-            <span class="allNum"></span>
-            <span class="btn-fenye">确定</span>
+                <a href="#10">尾页</a>-->
+                <span class="paging"></span>
+                <input type="text" class="inputNum"/>
+                <span class="allNum"></span>
+                <span class="btn-fenye">确定</span>
         </div>
     </aside>
 <!-- 弹出框内容 -->
@@ -94,7 +94,9 @@
         <span class="icon-cross"></span>
     <span>
 </div>
+<!-- 遮罩全屏的背景层 -->
 <div class="bg" style="display:none;"></div>
-<script src="./js/guoRenGuaDan.js"></script>
+<!-- 弹出框内容 end -->
+<script src="./js/guoRenHumanReview.js"></script>
 </body>
 </html>

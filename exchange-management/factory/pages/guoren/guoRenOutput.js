@@ -89,8 +89,9 @@ require(['api_mkt_management'],function(api_mkt_management){
                     $(".status").filter(":contains('PROCESSING')").text('进行中').css("color","orange");                                      
                     $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                                      
 
-                   
-                    
+                    $(".status").filter(":contains('WAITING')").text('待审核');
+                    $(".status").filter(":contains('FAILURE')").text('失败');
+                    $(".status").filter(":contains('REFUSE')").text('已拒绝');
                     var htmlPage = [];
                     var pageNum = data.data.pageNum;
 					var start=pageNo>3?(pageNo-3):1;

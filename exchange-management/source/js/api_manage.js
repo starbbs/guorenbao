@@ -1,7 +1,10 @@
 define('api_mkt_management', ['cookie'], function() {
 	//var basePath = 'http://172.16.33.2:8080/exchange_manager';
-	//var basePath = 'http://localhost:8080/exchange_manager';
-    var basePath = '//manager.goopal.net.cn/exchange_manager';
+	
+	//var basePath = 'http://10.23.3.33:8080/exchange_manager';
+
+	var basePath = 'http://localhost/exchange_manager';
+    // var basePath = '//manager.goopal.net.cn/exchange_manager';
 	//var basePath = 'http://10.23.1.138/';
 
 	var api = {};
@@ -72,7 +75,8 @@ define('api_mkt_management', ['cookie'], function() {
 						//$.alert('服务器异常, 请联系后台人员!');
 						alert('服务器异常');
 					}else if(data.status==444){
-						parent.location.href="./login.html";
+						// alert("asfd")
+						// parent.location.href="./login.html";
 					}
 					options.callback && options.callback.call(this, data);
 					success && success.call(this, data);
@@ -138,10 +142,13 @@ define('api_mkt_management', ['cookie'], function() {
 	add('transferGopInput','/gop/transfer');
 	//果仁转出查询
 	add('transferGopOutput','/gop/transfer');
+	//果仁转入转出查询
+	add('transferGop','/gop/transfer');
 	//果仁挂单查询
 	add('trade','/gop/trade');
 	//果仁成交查询
 	add('order','/gop/order');
+	add('confirmGop','/gop/confirmGop');
 	//用户列表
 	add('userList','/user/userList');
 	//用户_基本信息

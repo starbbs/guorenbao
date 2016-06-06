@@ -10,7 +10,7 @@
     <script type="text/javascript" src="./js/avalon.js"></script>
     <script type="text/javascript" src="./js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="./js/config.js"></script>
-    <title>控制面板</title>
+    <title>果仁市场控制中心</title>
     <style>
      .td-1{width:20px}
      td {
@@ -41,15 +41,15 @@
         <table class="aside-table" border="1" width="100%">
             <thead class="aside-table-thead">
                 <tr>
-                    <td width="36px">btn</td>
+                    <td width="36px">操作</td>
                     <td width="30px">id</td>
-                    <td width="30px">uid</td>
-                    <td>申请金额</td>
-                    <td>实付金额</td>
+                    <td width="44px">uid</td>
+                    <td width="64px">申请金额</td>
+                    <td width="64px">实付金额</td>
                     <td width="85px">银行名</td>
                     <td width="135px">卡号</td>
-                    <td>姓名</td>
-                    <td style="width:105px;">
+                    <td width="40px">姓名</td>
+                    <td style="width:95px;">
                         <label for="selectStatus">状态:</label>
                         <select class="aside-table-thead-select" name="selectStatus">
                             <option data-status="WAIT">进行中</option>
@@ -59,8 +59,8 @@
                             <option data-status="ALL" selected="selected">显示全部</option>
                         </select>
                     </td>
-                    <td width="125px">创建于</td>
-                    <td width="125px">更新于</td>
+                    <td width="115px">创建于</td>
+                    <td width="115px">更新于</td>
                 </tr>
             </thead>
             <tbody class="aside-table-tbody" id="tobody-json">

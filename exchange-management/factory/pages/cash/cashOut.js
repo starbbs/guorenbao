@@ -236,7 +236,7 @@ require(['api_mkt_management'],function(api_mkt_management){
                 html.push("<td class='firstBtn'>已取消</td>");
         	}
             html.push("<td class='idNum'>"+ data.data.list[i].id +"</a></td>");
-            html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
+            html.push("<td class='toUidInfo' style='padding:10px 0 10px 5px;'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
             html.push("<td>"+ data.data.list[i].money +"</td>");
             html.push("<td>"+ data.data.list[i].pay +"</td>");
             html.push("<td>"+ data.data.list[i].bank +"</td>");
