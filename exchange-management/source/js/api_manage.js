@@ -158,5 +158,8 @@ define('api_mkt_management', ['cookie'], function() {
 	//后台管理员列表
 	add('adminList','/login/adminList');
 
+	add('refundTransfer','/cny/refundTransfer');
+
+	add('cibPay','/cny/cibPay');
 	return api;
 });

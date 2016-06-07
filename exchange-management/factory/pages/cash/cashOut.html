@@ -20,7 +20,7 @@
 </head>
 <body ms-controller="test">
     <aside class="aside" id="aside" ms-include-src="htmlFiles">
-        <h1>财务中心<small> -> 人民币 -> 提现</small></h1>
+        <h1>财务中心<small> -> 人民币 -> 提现(超级代付)</small></h1>
         <hr />
         <div class="aside-div">
             <span class="aside-div-spanLeft">
@@ -41,26 +41,27 @@
         <table class="aside-table" border="1" width="100%">
             <thead class="aside-table-thead">
                 <tr>
-                    <td width="36px">操作</td>
+                    <td width="86px">操作</td>
                     <td width="30px">id</td>
                     <td width="44px">uid</td>
                     <td width="64px">申请金额</td>
                     <td width="64px">实付金额</td>
                     <td width="85px">银行名</td>
-                    <td width="135px">卡号</td>
+                    <td width="130px">卡号</td>
                     <td width="40px">姓名</td>
-                    <td style="width:95px;">
+                    <td style="width:90px;">
                         <label for="selectStatus">状态:</label>
                         <select class="aside-table-thead-select" name="selectStatus">
-                            <option data-status="WAIT">进行中</option>
-                            <option data-status="PROCESSING">转账中</option>
-                            <option data-status="SUCCESS">已完成</option>
-                            <option data-status="CANCEL">已关闭</option>
+                            <option data-status="WAIT">等待</option>
+                            <option data-status="PROCESSING">进行中</option>
+                            <option data-status="SUCCESS">提现成功</option>
+                            <option data-status="CANCEL">已撤销</option>
+                            <option data-status="FAILURE">已退款</option>
                             <option data-status="ALL" selected="selected">显示全部</option>
                         </select>
                     </td>
-                    <td width="115px">创建于</td>
-                    <td width="115px">更新于</td>
+                    <td width="110px">创建于</td>
+                    <td width="110px">更新于</td>
                 </tr>
             </thead>
             <tbody class="aside-table-tbody" id="tobody-json">
