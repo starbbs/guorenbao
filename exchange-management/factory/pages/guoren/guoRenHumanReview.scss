@@ -164,6 +164,9 @@ dd{
 .btn-b{
     width:70px;height:30px;background:#0362FD;outline: none; border:0;color:#fff;cursor: pointer;
 }
+.btn-c{
+    width:70px;height:30px;background:#0362FD;outline:none;border:0;color:#fff;cursor:pointer;
+}
 .btnClose{
     @include widthAndHeight(15px,15px);
     @include PosTopRight(absolute, 10px, 10Px);

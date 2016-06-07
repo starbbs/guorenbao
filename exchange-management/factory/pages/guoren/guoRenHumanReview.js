@@ -76,7 +76,7 @@ require(['api_mkt_management'],function(api_mkt_management){
                         html.push("<tr>");
                         html.push("<td class='agree_refuse'><span class='agree'>同意</span><span class='refuse'>拒绝</span></td>");
                         // html.push("<td>"+data.data.list[i].id+"</td>");
-                        html.push("<td>"+ data.data.list[i].id +"</td>");
+                        html.push("<td class='idNum'>"+ data.data.list[i].id +"</td>");
                         html.push("<td class='toUidInfo'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
                         /*html.push("<td>"+ data.data.list[i].phone +"</td>");*/
                         html.push("<td>"+ data.data.list[i].wallet +"</td>");
@@ -91,6 +91,55 @@ require(['api_mkt_management'],function(api_mkt_management){
                     //过滤内容显示不同颜色
                     $(".status").filter(":contains('WAITING')").text('待审核');                                     
                     //$(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                                      
+                    
+                    //同意
+                    $(".agree").on("click",function(){
+                        $(".mydiv").css("display","block");
+                        $(".bg").css("display","block");
+                        $(".btn-a").val('');
+                        $(".cashInUid").val($(this).parent().parent().find('.idNum').text());
+                        
+                        //提示框确定按钮
+                        $(".btnTrue").on("click",function(){
+                            api_mkt_management.confirmGop({
+                                'id' : $(".cashInUid").val() ,
+                                'confirm' : "ADOPT"
+                            },function(data){
+                                $(".mydiv").css("display","none");
+                                $(".bg").css("display","none");
+                                console.log("gmmbtntrue");
+                                console.log(pageNo);
+                                
+                                guoRenHomeReview(parseInt(pageNo),page_size,optionStatus);
+                            });
+                        });
+
+                    });
+
+                    //拒绝
+                    $(".refuse").on("click",function(){
+                        $(".mydiv").css("display","block");
+                        $(".bg").css("display","block");
+                        $(".btn-a").val('');
+                        $(".cashInUid").val($(this).parent().parent().find('.idNum').text());
+
+                        $(".btnRefuse").on("click",function(){
+
+                            api_mkt_management.confirmGop({
+                                'id' : $(".cashInUid").val() ,
+                                'confirm' : "REFUSE"
+                            },function(data){
+                                $(".mydiv").css("display","none");
+                                $(".bg").css("display","none");
+                                console.log("gmmbtnrefuse");
+                                console.log(pageNo);
+                                guoRenHomeReview(parseInt(pageNo),page_size,optionStatus);
+                            });
+                        });
+
+                    });
+
+
                     var htmlPage = [];
                     var pageNum = data.data.pageNum;
                     var start=pageNo>3?(pageNo-3):1;
@@ -127,6 +176,20 @@ require(['api_mkt_management'],function(api_mkt_management){
         guoRenHomeReview(1,page_size,optionStatus);
     });
     //分页结束-jxn
+
+
+
+    //提示框处理
+    $(".btnClose").on("click",function(){
+        $(".mydiv").css("display","none");
+        $(".bg").css("display","none");
+        var pageNo=$(".billPageNo").attr("data-pageno");
+            console.log("gmm");
+            console.log(pageNo);
+    });
+
+    
+
 });
 
 
