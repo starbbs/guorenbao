@@ -99,6 +99,11 @@ require(['api_mkt_management'],function(api_mkt_management){
                         $(".btn-a").val('');
                         $(".cashInUid").val($(this).parent().parent().find('.idNum').text());
                         
+                        var btn = [];
+                        $(".mydivadd").empty();
+                        btn.push("<input class='btn-b btnTrue' type='button' value='同意' />");
+
+                        $(".mydivadd").append(btn.join(""));
                         //提示框确定按钮
                         $(".btnTrue").on("click",function(){
                             api_mkt_management.confirmGop({
@@ -122,6 +127,11 @@ require(['api_mkt_management'],function(api_mkt_management){
                         $(".bg").css("display","block");
                         $(".btn-a").val('');
                         $(".cashInUid").val($(this).parent().parent().find('.idNum').text());
+
+                        var btn = [];
+                        $(".mydivadd").empty();
+                        btn.push("<input class='btn-b btnRefuse' type='button' value='拒绝' />");
+                        $(".mydivadd").append(btn.join(""));
 
                         $(".btnRefuse").on("click",function(){
 
