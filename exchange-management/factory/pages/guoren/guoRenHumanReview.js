@@ -106,17 +106,32 @@ require(['api_mkt_management'],function(api_mkt_management){
                         $(".mydivadd").append(btn.join(""));
                         //提示框确定按钮
                         $(".btnTrue").on("click",function(){
-                            api_mkt_management.confirmGop({
-                                'id' : $(".cashInUid").val() ,
-                                'confirm' : "ADOPT"
-                            },function(data){
-                                $(".mydiv").css("display","none");
-                                $(".bg").css("display","none");
-                                console.log("gmmbtntrue");
-                                console.log(pageNo);
+                            var passWord = $(".passWord").val();
+                            if(passWord=="")
+                            {
+                                alert("密码为空,请重新输入");
+                            }
+                            else
+                            {
+                                api_mkt_management.confirmGop({
+                                    'id' : $(".cashInUid").val(),
+                                    'password': $(".passWord").val(),
+                                    'confirm' : "ADOPT"
+                                },function(data){
+                                    if (data.status == 200)
+                                    {
+                                        $(".mydiv").css("display","none");
+                                        $(".bg").css("display","none");                                  
+                                        guoRenHomeReview(parseInt(pageNo),page_size,optionStatus);
+                                    }
+                                    else
+                                    {
+                                        alert("密码错误");
+                                    }
+                                });
                                 
-                                guoRenHomeReview(parseInt(pageNo),page_size,optionStatus);
-                            });
+                            }
+
                         });
 
                     });
@@ -134,17 +149,32 @@ require(['api_mkt_management'],function(api_mkt_management){
                         $(".mydivadd").append(btn.join(""));
 
                         $(".btnRefuse").on("click",function(){
-
-                            api_mkt_management.confirmGop({
-                                'id' : $(".cashInUid").val() ,
-                                'confirm' : "REFUSE"
-                            },function(data){
-                                $(".mydiv").css("display","none");
-                                $(".bg").css("display","none");
-                                console.log("gmmbtnrefuse");
-                                console.log(pageNo);
-                                guoRenHomeReview(parseInt(pageNo),page_size,optionStatus);
-                            });
+                            var passWord = $(".passWord").val();
+                            if(passWord=="")
+                            {
+                                alert("密码为空,请重新输入");
+                            }
+                            else
+                            {
+                                
+                                api_mkt_management.confirmGop({
+                                    'id' : $(".cashInUid").val() ,
+                                    'password': $(".passWord").val(),
+                                    'confirm' : "REFUSE"
+                                },function(data){
+                                    if (data.status == 200)
+                                    {
+                                        $(".mydiv").css("display","none");
+                                        $(".bg").css("display","none");
+                                        guoRenHomeReview(parseInt(pageNo),page_size,optionStatus);
+                                    }
+                                    else
+                                    {
+                                        alert("密码错误");
+                                    }
+                                });
+                                
+                            }
                         });
 
                     });
