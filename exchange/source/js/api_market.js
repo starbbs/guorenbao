@@ -1,11 +1,12 @@
 define('api_mkt', ['cookie'], function() {
-      //var basePath = 'http://localhost:8080/';
+    var basePath = 'http://localhost/';
 	//var basePath = 'http://localhost:8089/';
 	// var basePath = 'http://10.23.3.116/';
     // var basePath = '//endpoint.goopal.net.cn/';
     
     // var basePath = 'https://www.goopal.net.cn/'; //正式环境
-	var basePath = './';  //测试环境
+	
+    //var basePath = './';  //测试环境
     var api = {};
     api.basePath2 = 'https://endpoint.goopal.com.cn/common/checkBankCard';  //线上环境
     // api.basePath2 = 'http://goopal.xiaojian.me/common/checkBankCard'; //测试环境

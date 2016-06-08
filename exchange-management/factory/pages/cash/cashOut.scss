@@ -1,4 +1,9 @@
 @import 'cashhome';
+
+.firstBtn{
+    padding:0;
+}
+
 .aside{
     height: auto;
     & h1{
@@ -207,3 +212,4 @@ _top:       expression(eval(document.compatMode &&
 .icon-checkmark{
     cursor: pointer;
 }
+

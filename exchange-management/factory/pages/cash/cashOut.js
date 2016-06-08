@@ -89,8 +89,8 @@ require(['api_mkt_management'],function(api_mkt_management){
     });
     
     // $("#tobody-json").on("click",".cc",function(){
-    //     if($(this).text()=="超级代付"){
-    //         // alert("超级代付")
+    //     if($(this).text()=="超代"){
+    //         // alert("超代")
     //     } else if($(this).text()=="退款"){
             
     //     }
@@ -112,7 +112,7 @@ require(['api_mkt_management'],function(api_mkt_management){
 	                	$(currentClass).siblings(".bb").addClass("icon-checkmark");
 	                	$(currentClass).parent().parent("tr").css("background-color","yellow");
 	                	$(currentClass).parent().siblings(".status").html("进行中");
-                        $(currentClass).siblings(".cc").text("退款").attr("title","退款");
+                        $(currentClass).siblings(".cc").text("退款").attr("title","退款").removeClass("cjdf").addClass("tk");
 	                	 //window.location.reload();
                         // $(currentClass).addClass("");
 	                    console.log(data);
@@ -136,7 +136,7 @@ require(['api_mkt_management'],function(api_mkt_management){
                 	$(currentClass).siblings(".bb").removeClass("icon-checkmark");
                 	$(currentClass).parent().parent("tr").css("background-color","white");
                 	$(currentClass).parent().siblings(".status").html("等待");
-                    $(currentClass).siblings(".cc").text("超级代付").attr("title","超级代付");
+                    $(currentClass).siblings(".cc").text("超代").attr("title","超代").removeClass("tk").addClass("cjdf");
                 } else {
                 	alert(data.msg);
                     console.log(data);
@@ -164,12 +164,13 @@ require(['api_mkt_management'],function(api_mkt_management){
     $("#tobody-json").on("click",".cc",function(){
         $(".mydiv").css("display","block");
         $(".bg").css("display","block");
+        $(".js-password").val("");
         $(".btnTrue").attr("data-id",$(this).parent().parent().find('.idNum').text());
         if($(this).hasClass("tk")){
             $(".js-msg").html("您确定要退款?");
             $(".btnTrue").attr("data-operation","tk");
         }else if($(this).hasClass("cjdf")){
-            $(".js-msg").html("确认进行超级代付");
+            $(".js-msg").html("确认进行超代");
             $(".btnTrue").attr("data-operation","cjdf");
         }
     });
@@ -275,22 +276,30 @@ require(['api_mkt_management'],function(api_mkt_management){
         	if(data.data.list[i].transferCnyStatus=='PROCESSING'){
         		//进行中            		
                 html.push('<tr style="background-color: yellow;">');
-                html.push("<td class='firstBtn'><span class='aa icon-lock' title='解锁'></span>&nbsp;&nbsp;&nbsp;<span class='bb icon-checkmark' title='确定'></span><span class='cc tk' title='退款'>退款</span></td>");
+                html.push("<td class='firstBtn' style='padding:0 0 0 10px;'><span class='aa icon-lock' title='解锁'></span>&nbsp;&nbsp;&nbsp;<span class='bb icon-checkmark' title='确定'></span><span class='cc tk' title='退款'>退款</span></td>");
         	}else if(data.data.list[i].transferCnyStatus=='WAIT'){  //
                 html.push("<tr>");
-                html.push("<td class='firstBtn'><span class='aa icon-unlocked' title='锁定'></span>&nbsp;&nbsp;&nbsp;<span class='bb icon-undo' title='撤销'></span><span class='cc cjdf' title='超级代付'>超级代付</span></td>");
+                html.push("<td class='firstBtn' style='padding:0 0 0 10px;'><span class='aa icon-unlocked' title='锁定'></span>&nbsp;&nbsp;&nbsp;<span class='bb icon-undo' title='撤销'></span><span class='cc cjdf' title='超代'>超代</span></td>");
         	}else if(data.data.list[i].transferCnyStatus=='SUCCESS'){
                 html.push("<tr>");
-                html.push("<td class='firstBtn'><!--已成功--></td>");
+                html.push("<td class='firstBtn' style='padding:0 0 0 10px;'><!--已成功--></td>");
         	}else if(data.data.list[i].transferCnyStatus=='CANCEL'){
                 html.push("<tr>");
-                html.push("<td class='firstBtn'><!--已取消--></td>");
+                html.push("<td class='firstBtn' style='padding:0 0 0 10px;'><!--已取消--></td>");
         	} else {
                 html.push("<tr>");
-                html.push("<td class='firstBtn'></td>");
+                html.push("<td class='firstBtn' style='padding:0 0 0 10px;'></td>");
             }
             html.push("<td class='idNum'>"+ data.data.list[i].id +"</a></td>");
             html.push("<td class='toUidInfo' style='padding:10px 0 10px 5px;'><a href='javascript:;'>"+ data.data.list[i].uid +"</td>");
+            if(data.data.list[i].transferCnyPayMode=="OFFLINE"){
+                html.push("<td>线下</td>");
+            } else if(data.data.list[i].transferCnyPayMode=="SUPERPAY"){
+                html.push("<td>超代</td>");
+            } else {
+                html.push("<td></td>");
+            }
+
             html.push("<td>"+ data.data.list[i].money +"</td>");
             html.push("<td>"+ data.data.list[i].pay +"</td>");
             html.push("<td>"+ data.data.list[i].bank +"</td>");
