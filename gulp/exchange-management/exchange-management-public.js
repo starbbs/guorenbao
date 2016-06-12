@@ -24,7 +24,7 @@ gulp.task('exchange-management-rjs',['exchange-management-js'], function() {
 		path.join(paths.build, '/js/guorenInput.js'),
 		path.join(paths.build, '/js/guorenKaDan.js'),
 		path.join(paths.build, '/js/guorenOutput.js'),
-		
+		path.join(paths.build, '/js/guoRenHumanReview.js'),
 		path.join(paths.build, '/js/home.js'),
 		path.join(paths.build, '/js/login.js'),
 		path.join(paths.build, '/js/user-info.js'),
