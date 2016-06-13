@@ -98,7 +98,10 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
 
                 //过滤内容显示不同颜色
                 $(".status").filter(":contains('SUCCESS')").text('已到账').css("color", "#999");                
-                $(".status").filter(":contains('PROCESSING')").text('进行中').css("color", "orange");
+                $(".status").filter(":contains('PROCESSING')").text('进行中').css("color", "orange");          
+                $(".status").filter(":contains('FAILURE')").text('失败').css("color", "#999");
+                $(".status").filter(":contains('WAITING')").text('等待').css("color", "#999");
+                $(".status").filter(":contains('REFUSE')").text('存在风险，已拒绝!').css("color", "red");
 
                 var htmlPage = [];
                 var pageNum=data.data.pageNum;
@@ -157,7 +160,8 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
                 $(".status").filter(":contains('SUCCESS')").text('已到账').css("color", "#999");                
                 $(".status").filter(":contains('PROCESSING')").text('进行中').css("color", "orange");          
                 $(".status").filter(":contains('FAILURE')").text('失败').css("color", "#999");
-            
+                $(".status").filter(":contains('WAITING')").text('等待').css("color", "#999");
+                $(".status").filter(":contains('REFUSE')").text('存在风险，已拒绝!').css("color", "red");
                 var htmlPage = [];
                 var pageNum=data.data.pageNum;
 	            $(".nutsOutPage").html(""); 

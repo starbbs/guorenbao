@@ -121,6 +121,9 @@ require(['api_mkt_management'], function(api_mkt_management) {
     $(".liguoRenDeal").click(function() {
         $(".frameHtml").attr("src", "guoRenDeal.html?version="+Date.parse(new Date()));
     });
+    $(".liguoRenHumanReview").click(function(){
+        $(".frameHtml").attr("src", "guoRenHumanReview.html?version="+Date.parse(new Date()));
+    });
     $(".liguoRenKaDan").click(function() {
         $(".frameHtml").attr("src", "guoRenKaDan.html?version="+Date.parse(new Date()));
     });
