@@ -1,9 +1,4 @@
 @import 'cashhome';
-
-.firstBtn{
-    padding:0;
-}
-
 .aside{
     height: auto;
     & h1{
@@ -196,20 +191,3 @@ _top:       expression(eval(document.compatMode &&
 .icon-lock{
     color:red;cursor: pointer;
 }
-
-.cc{
-    margin-left: 8px;
-    cursor:pointer;
-}
-
-.js-password{
-   margin-right: 20px;
-    height: 22px;
-    line-height: 22px;
-    margin-left: -10px; 
-}
-
-.icon-checkmark{
-    cursor: pointer;
-}
-
