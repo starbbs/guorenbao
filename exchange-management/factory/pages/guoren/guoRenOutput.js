@@ -87,10 +87,10 @@ require(['api_mkt_management'],function(api_mkt_management){
                     $(".aside-table-tbody").append(html.join("")); 
 					//过滤内容显示不同颜色
                     $(".status").filter(":contains('PROCESSING')").text('进行中').css("color","orange");                                      
-                    $(".status").filter(":contains('SUCCESS')").text('已完成').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                                      
-
-                   
-                    
+                    $(".status").filter(":contains('SUCCESS')").text('已到账').css("color","green").parent().find('.checkDeal').removeClass('checkDeal').text(' ');                                      
+                    $(".status").filter(":contains('WAITING')").text('待审核').css("color","orange");
+                    $(".status").filter(":contains('FAILURE')").text('失败').css("color","#E91E63");
+                    $(".status").filter(":contains('REFUSE')").text('已拒绝').css("color","red");
                     var htmlPage = [];
                     var pageNum = data.data.pageNum;
 					var start=pageNo>3?(pageNo-3):1;

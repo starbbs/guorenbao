@@ -794,3 +794,12 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_m
         $(this).removeClass('scrollY');
     });
 });
+
+
+window.addEventListener("keyup",function(){
+    if (event.keyCode == 13) {
+        event.returnValue = false;
+        event.cancel = true;
+        $(".indexpage_loginarea_btn").click();
+    }
+});

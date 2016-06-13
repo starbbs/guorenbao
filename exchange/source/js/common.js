@@ -571,3 +571,12 @@ var showWarnWin = function(mes, time) {
         }, time);
     }
 };
+
+
+window.addEventListener("keyup",function(){
+    if (event.keyCode == 13) {
+        event.returnValue = false;
+        event.cancel = true;
+        $(".popup_login_btn").click();
+    }
+});

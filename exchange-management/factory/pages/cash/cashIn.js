@@ -170,5 +170,11 @@ require(['api_mkt_management'],function(api_mkt_management){
 //end
 });
 
-
+window.addEventListener("keydown", function(){
+    if (event.keyCode == 13) {
+        event.returnValue = false;
+        event.cancel = true;
+        $(".btnTrue").click();
+    }
+});
 
