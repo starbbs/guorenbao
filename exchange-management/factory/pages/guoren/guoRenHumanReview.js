@@ -227,10 +227,17 @@ require(['api_mkt_management'],function(api_mkt_management){
             console.log("gmm");
             console.log(pageNo);
     });
-
-    
-
 });
-
+window.addEventListener("keydown", function(){
+    if (event.keyCode == 13) {
+        event.returnValue = false;
+        event.cancel = true;
+        if($(".btn-b").hasClass("btnRefuse")){
+            $(".btnRefuse").click();
+        } else if($(".btn-b").hasClass("btnTrue")){
+            $(".btnTrue").click();
+        }
+    }
+});
 
 

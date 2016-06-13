@@ -43,16 +43,18 @@
             <thead class="aside-table-thead">
                 <tr>
                     <td width="30px">id</td>
-                    <td width="60px">uid</td>
+                    <td width="55px">uid</td>
                     <!-- <td>手机</td> -->
-                    <td style="width:500px;">钱包地址</td>
-                    <td style="width:40px;">数量</td>
+                    <td style="width:490px;">钱包地址</td>
+                    <td style="width:55px;">数量</td>
                     <td style="width:100px;">
                         <label for="selectStatus">状态:</label>
                         <select class="aside-table-thead-select" name="selectStatus">
+                            <option data-status="WAITING">待审核</option>
                             <option data-status="PROCESSING">进行中</option>
-                            <option data-status="SUCCESS">已完成</option>
-                            <!-- <option>已取消</option> -->
+                            <option data-status="SUCCESS">已到账</option>
+                            <option data-status="FAILURE">失败</option>
+                            <option data-status="REFUSE">已拒绝</option>
                             <option data-status="ALL" selected="selected">显示全部</option>
                         </select>
                     </td>
