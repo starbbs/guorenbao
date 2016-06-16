@@ -156,5 +156,7 @@ define('api_mkt_management', ['cookie'], function() {
 	add('refundTransfer','/cny/refundTransfer');
 
 	add('cibPay','/cny/cibPay');
+
+	add('qdbPay','/cny/qdbPay');
 	return api;
 });

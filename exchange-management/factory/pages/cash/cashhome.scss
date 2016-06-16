@@ -53,6 +53,16 @@ $fontSize:16px;
     font-style: normal;
 }
 
+// IcoMoon-Free.ttf
+@font-face {
+    font-family: 'icomoon1';
+    src:url('fonts/IcoMoon-Free.ttf?ei70u9') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
 [class^="icon-"], [class*=" icon-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
     font-family: 'icomoon' !important;
@@ -67,6 +77,9 @@ $fontSize:16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+
+
 
 .icon-cny:before {
     content: "\e902";
@@ -104,6 +117,79 @@ $fontSize:16px;
 .icon-exit:before {
     content: "\e906";
 }
+/* .icon-tk:before {
+    content: "\e906";
+} */
+.icon-tk{
+    background: url("../images/x.png") no-repeat 0 0px;
+    background-size: 13px 13px;
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    position: relative;
+    top: 2px;
+    cursor: pointer; 
+}
 
+/* .icon-cjdf:before{
+    content:"\e900";
+} */
 
+.icon-cjdf{
+      background: url("../images/s.png") no-repeat 0 0px;
+    background-size: 14px 14px;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    position: relative;
+    top: 2px;
+    cursor: pointer;  
+}
 
+.icon-qdbdf{
+    /* font-family: 'icomoon1' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: pointer; */
+
+        background: url("../images/q.png") no-repeat 0 0px;
+    background-size: 14px 14px;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    position: relative;
+    top: 2px;
+    cursor: pointer;
+
+}
+.icon-qdbdf:before{
+    /* content:"\e9a8"; */
+}
+
+.dimg{
+    display: inline;
+    width: 400px;
+    height: auto;
+    margin-left: 150px;
+}
+.d1{
+    width: 150px;
+    display: inline-block;    
+}
+.d2{
+    width: 150px;
+    display: inline-block;
+}
+.d1 img,.d2 img{
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+    width: 14px;
+    height: 14px;
+}
