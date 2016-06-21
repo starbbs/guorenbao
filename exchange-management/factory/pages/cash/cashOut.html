@@ -10,7 +10,7 @@
     <script type="text/javascript" src="./js/avalon.js"></script>
     <script type="text/javascript" src="./js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="./js/config.js"></script>
-    <title>控制面板</title>
+    <title>果仁市场控制中心</title>
     <style>
      .td-1{width:20px}
      td {
@@ -20,7 +20,7 @@
 </head>
 <body ms-controller="test">
     <aside class="aside" id="aside" ms-include-src="htmlFiles">
-        <h1>财务中心<small> -> 人民币 -> 提现</small></h1>
+        <h1>财务中心<small> -> 人民币 -> 提现(超级代付)</small></h1>
         <hr />
         <div class="aside-div">
             <span class="aside-div-spanLeft">
@@ -28,6 +28,10 @@
                 <a href="">后台</a> > 
                 <a href="">人民币</a>
             </span>
+            <div class="dimg">
+                <div class="d1"><img src="./images/s.png"/>超级代付</div>
+                <div class="d2"><img src="./images/q.png"/>钱袋宝代付</div>
+            </div>
             <span class="aside-div-spanRight">
                 <input type="text" placeholder="按类别搜索信息" class="aside-div-input"/>
                 <select class="aside-div-select">
@@ -41,21 +45,23 @@
         <table class="aside-table" border="1" width="100%">
             <thead class="aside-table-thead">
                 <tr>
-                    <td width="36px">btn</td>
+                    <td width="76px">操作</td>
                     <td width="30px">id</td>
-                    <td width="65px">uid</td>
-                    <td>申请金额</td>
-                    <td>实付金额</td>
-                    <td width="80px">银行名</td>
+                    <td width="54px">uid</td>
+                    <td width="50px">途径</td>
+                    <td width="60px">申请金额</td>
+                    <td width="56px">实付金额</td>
+                    <td width="78px">银行名</td>
                     <td width="135px">卡号</td>
-                    <td width="45px">姓名</td>
-                    <td style="width:100px;">
+                    <td width="40px">姓名</td>
+                    <td style="width:90px;">
                         <label for="selectStatus">状态:</label>
                         <select class="aside-table-thead-select" name="selectStatus">
-                            <option data-status="WAIT">进行中</option>
-                            <option data-status="PROCESSING">转账中</option>
-                            <option data-status="SUCCESS">已完成</option>
-                            <option data-status="CANCEL">已关闭</option>
+                            <option data-status="WAIT">等待</option>
+                            <option data-status="PROCESSING">进行中</option>
+                            <option data-status="SUCCESS">提现成功</option>
+                            <option data-status="CANCEL">已撤销</option>
+                            <option data-status="FAILURE">已退款</option>
                             <option data-status="ALL" selected="selected">显示全部</option>
                         </select>
                     </td>

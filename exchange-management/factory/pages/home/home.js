@@ -25,6 +25,9 @@ require(['api_mkt_management'], function(api_mkt_management) {
         });
     });
     $(function(){
+        if($.cookie('key')==''){
+            location.href = "login.html";
+        }
         if($('.div-2-name').text() == ''){
             window.location.href="login.html";
         }
