@@ -1,6 +1,7 @@
 define('api_mkt_management', ['cookie'], function() {
-	var basePath = 'http://172.16.33.2:8080/exchange_manager';//测试环境
+	// var basePath = 'http://172.16.33.2:8080/exchange_manager';//测试环境
 	// var basePath = 'http://localhost/exchange_manager';  //本地环境
+	var basePath = './exchange_manager';
     // var basePath = '//manager.goopal.net.cn/exchange_manager';  //线上环境
 	var api = {};
 	var goIndex = function(useURL) {		//返回首页
