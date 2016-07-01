@@ -182,7 +182,7 @@
                                     <label for="WithdrawalsAmount">转出金额</label>
                                 </td>
                                 <td style="position: relative;">
-                                    <input class="regist_rg_input" type="text" placeholder="CNY" id="WithdrawalsAmount" maxlength="8" />
+                                    <input class="regist_rg_input" type="text" placeholder="CNY" id="WithdrawalsAmount" maxlength="8" oninput="this.value=(this.value.match(/\d+(\.\d{0,2})?/)||[''])[0];" onblur="if(this.value[this.value.length-1]=='.'){this.value=this.value.substr(0,this.value.length-1)}"/>
                                     <span class="WithdrawalsAmount_tips">当前可提现金额：RMB&nbsp;<b id="money_rmb"></b></span>
                                     <div class="regist_rg_input bankcard">
                                         <span class="msg msg-WithdrawalsAmount"></span>

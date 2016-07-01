@@ -1020,3 +1020,13 @@ canvas{
   background-position: 50% 50%;
   background-repeat: no-repeat;
 }
+
+.imgbanner{
+    background: url('../images/index_tu.png') no-repeat 0 0;
+    height: 270px;
+    position: relative;
+    display: flex;
+    top: -336px;
+    max-width: 1200px;
+    margin: 0 auto;
+}

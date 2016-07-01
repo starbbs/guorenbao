@@ -4,6 +4,9 @@ require(['api_mkt', 'cookie'], function(api_mkt) {
     $('.bg').css('left', 0);
     $('.bg').css('top', 0);
     $(".feature").removeClass("index_on");
+
+    $(".popuptips").hide();
+
     var exchangeToken = $.cookie('exchangeToken');
     if (!exchangeToken) {
         //$(".popDiv").show();

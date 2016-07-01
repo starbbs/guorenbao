@@ -48,10 +48,22 @@ require(['api_mkt','cookie'], function(api_mkt) {
                                 $(".verticle_line_id").hide();
                                 $("#realname").html("未认证").css("color","#ff6600");
                                 //$(".lookup").hide();
-                                $(".jumpone,.jumptwo,.jumpthree").on("click",function(){
-                                    $(".popuptips").hide();
-                                    $(".popuptips").slideDown();
+                                // $(".jumpone,.jumptwo,.jumpthree").on("click",function(){
+                                //     $(".popuptips").hide();
+                                //     $(".popuptips").slideDown();
+                                // });
+                                $(".jumpone").on("click",function(){
+                                    location.href = "./modifyloginpassword.html";
                                 });
+                                $(".jumptwo").on("click",function(){
+                                    if(global.payLocked){
+                                        window.location.reload();
+                                        $(window).scrollTop(0);
+                                        return false;
+                                    }
+                                    location.href = "./modifypaymentcode.html";
+                                });
+                                $(".jumpthree").css("color","#cccccc");
                             }
                         } else {
                         }

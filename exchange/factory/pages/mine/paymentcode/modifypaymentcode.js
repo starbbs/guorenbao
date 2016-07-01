@@ -5,6 +5,15 @@ require(['api_mkt','cookie'], function(api_mkt) {
 	var checkFlag2=false;//校验通过标志
 	var checkFlag3=false;//校验通过标志
 	var checkFlag4=false;//校验通过标志
+	api_mkt.realAuth({}, function(data) {
+        if (data.status == 200) {
+        	$(".forgotpwd").show();
+        } else if (data.status == 305) {} else if (data.status == 400) {
+        	$(".forgotpwd").hide();
+        } else {
+
+        }
+    });
 	if (!exchangeToken) {
         $(".popDiv").show();
         $(".bg").show();
