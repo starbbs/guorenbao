@@ -21,7 +21,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         }
 
     });
-    //果仁提现地址管理(如果有就显示)            
+    //果仁转出地址管理(如果有就显示)            
     api_mkt.gopAddressMan({
         'pageNo': 1,
         'pageSize': 200
@@ -60,7 +60,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                 $('#nut-address').val('');
                 $('#nut-identifyingCode').val('');
             });
-            //果仁提现地址管理删除
+            //果仁转出地址管理删除
             $('.nutOutputManager-del').click(function() {
                 $(this).parent().remove();
                 api_mkt.gopAddressManDel({
@@ -75,7 +75,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                 });
             });
 
-            //果仁提现地址修改
+            //果仁转出地址修改
             $('.nutOutputManager-modify').click(function() {
                 if ($(this).parent().find('.cancleBtn').length > 0) {
 
@@ -135,10 +135,10 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
     //校验银行账户
     var btnConfirm = false;
     var cardConfirm=false;//银行卡校验
-    var subbankConfirm = false;//开户行校验
+    // var subbankConfirm = false;//开户行校验
     var paypwdConfirm=false;//支付密码校验
     var codeConfirm=false;//短息验证码校验
-    //银行账号校验-人民币提现管理
+    //银行账号校验-人民币转出管理
     $("#bank-idcard").blur(function() {
         var bankIdcard = $("#bank-idcard").val();
         var reg = /^(\d{16}|\d{19})$/;
@@ -166,11 +166,11 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                     }
 
                     //所属银行自动添加
-                    if (data.data.bankName != '中国工商银行' && data.data.bankName != '中国建设银行' && data.data.bankName != '中国农业银行' && data.data.bankName != '交通银行' && data.data.bankName != '中国邮政储蓄银行' && data.data.bankName != '招商银行') {
+                    if (data.data.bankName != '中国工商银行' && data.data.bankName != '中国建设银行' && data.data.bankName != '中国农业银行' && data.data.bankName != '交通银行' && data.data.bankName != '中国邮政储蓄银行' && data.data.bankName != '招商银行' && data.data.bankName != '中国银行' && data.data.bankName != '上海浦东发展银行') {
                         $("#bank").val('暂不支持(' + data.data.bankName + ')');
                         $('.msg-bank-idcard').hide();
                     } else if (data.data.cardType == 'CREDIT_CARD') {
-                        $('.msg-bank-idcard').show().text('仅支持储蓄卡提现');
+                        $('.msg-bank-idcard').show().text('仅支持储蓄卡转出');
                     } else {
                         $("#bank").val(data.data.bankName);
                         $('.msg-bank-idcard').hide();
@@ -182,25 +182,25 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         }
     });
 
-    //全国省市二级联动下拉选择菜单-人民币提现管理
-    first("selectp", "selectc", "form1", 0, 0);
+    //全国省市二级联动下拉选择菜单-人民币转出管理
+    // first("selectp", "selectc", "form1", 0, 0);
 
-    //校验开户支行-人民币提现管理
+    //校验开户支行-人民币转出管理
     var subbankBtn = false;
-    $('#subbank').blur(function() {
-        var subbank = $.trim($(this).val());
-        var reg = /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/;
+    // $('#subbank').blur(function() {
+    //     var subbank = $.trim($(this).val());
+    //     var reg = /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/;
 
-        if (!subbank || !reg.test(subbank) || $(".select-area").val() == "0" || $(".select-city").val() == "0") {
-            $('.msg-subbank').show().text('请输入正确的开户支行地址');
-            subbankConfirm = false;
-        } else {
-            $('.msg-subbank').hide();
-            subbankConfirm = true;
-        }
-    });
+    //     if (!subbank || !reg.test(subbank) || $(".select-area").val() == "0" || $(".select-city").val() == "0") {
+    //         $('.msg-subbank').show().text('请输入正确的开户支行地址');
+    //         subbankConfirm = false;
+    //     } else {
+    //         $('.msg-subbank').hide();
+    //         subbankConfirm = true;
+    //     }
+    // });
 
-    //校验支付密码-人民币提现管理
+    //校验支付密码-人民币转出管理
     $('.pay-pwd').blur(function() {
         var reg = new RegExp("^[0-9]*$"); //纯数字
         var hanzi = /[\u4e00-\u9fa5]/; //汉字
@@ -213,7 +213,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         }
     });
 
-    //校验验证码-人民币提现管理
+    //校验验证码-人民币转出管理
     $('#sendCodeByLoginAfter, #nut-identifyingCode').blur(function() {
         var code = $.trim($(this).val());
         if (isNaN(code) || code == "") {
@@ -228,7 +228,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
             $('.msg-nut-identifyingCode').hide();
         }
     });
-    //获取验证码-人民币提现管理
+    //获取验证码-人民币转出管理
     $('#sendCodeByLoginAfterBtn').click(function() {
         api_mkt.sendCodeByLoginAfter(function(data) {
             if (data.status == 200) {
@@ -255,27 +255,27 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         }, 1000);
     });
 
-    //人民币提现管理添加 点击-确认添加银行卡
+    //人民币转出管理添加 点击-确认添加银行卡
     $('.confirmAdd').click(function() {
         if (global.payLocked) {
             window.location.reload(true);
             document.documentElement.scrollTop = 0;
             return false;
         }
-        if(!cardConfirm ||!subbankConfirm || !paypwdConfirm || !codeConfirm || $('#sendCodeByLoginAfter').val() ==''){
+        if(!cardConfirm ||/*!subbankConfirm ||*/ !paypwdConfirm || !codeConfirm || $('#sendCodeByLoginAfter').val() ==''){
             //                showWarnWin('请完善填写信息！',1e3);
             $("#bank-idcard").focus();
-            $('#subbank').focus();
+            // $('#subbank').focus();
             $('.pay-pwd').focus();
             $('#sendCodeByLoginAfter').focus();
 
             $("#bank-idcard").blur();
-            $('#subbank').blur();
+            // $('#subbank').blur();
             $('.pay-pwd').blur();
             $('#sendCodeByLoginAfter').blur();
         } else {
             //中国工商银行，中国建设银行，中国农业银行，中国交通银行，中国邮政储蓄银行，招商银行
-            if ($('#bank').val() != '中国工商银行' && $('#bank').val() != '中国建设银行' && $('#bank').val() != '中国农业银行' && $('#bank').val() != '交通银行' && $('#bank').val() != '中国邮政储蓄银行' && $('#bank').val() != '招商银行') {
+            if ($('#bank').val() != '中国工商银行' && $('#bank').val() != '中国建设银行' && $('#bank').val() != '中国农业银行' && $('#bank').val() != '交通银行' && $('#bank').val() != '中国邮政储蓄银行' && $('#bank').val() != '招商银行' && $('#bank').val() != '中国银行' && $('#bank').val() != '上海浦东发展银行') {
                 $('.msg-bank').show().text('暂不支持此银行');
                 return false;
             }
@@ -284,9 +284,9 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                 'name': auth_name,
                 'bank': $('#bank').val(),
                 'bankId': $('#bank-idcard').val(),
-                'bankProvince': $('.select-area').find('option:selected').text(),
-                'bankCity': $('.select-city').find('option:selected').text(),
-                'subbank': $('#subbank').val(),
+                // 'bankProvince': $('.select-area').find('option:selected').text(),
+                // 'bankCity': $('.select-city').find('option:selected').text(),
+                // 'subbank': $('#subbank').val(),
                 'payPwd': $('#pay-pwd').val(),
                 'identifyingCode': $('#sendCodeByLoginAfter').val()
             }, function(data) {
@@ -298,8 +298,8 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                     $('.msg-sendCodeByLoginAfter').show().text('验证码错误');
                 } else if (data.msg == '服务器异常') {
                     showWarnWin('服务器异常', 1e3);
-                } else if (data.msg == '提现银行卡账户名必须与您的实名认证姓名一致') {
-                    $('.msg-bank-idcard').show().text('提现银行卡账户名必须与您的实名认证姓名一致');
+                } else if (data.msg == '转出银行卡账户名必须与您的实名认证姓名一致') {
+                    $('.msg-bank-idcard').show().text('转出银行卡账户名必须与您的实名认证姓名一致');
                 } else if (data.msg == '同一用户不能添加相同银行卡') {
                     //showWarnWin('同一用户不能添加相同银行卡',1e3);
                     $('.msg-bank-idcard').show().text('同一用户不能添加相同银行卡');
@@ -326,7 +326,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         }
     });
 
-    //果仁提现地址备注-校验
+    //果仁转出地址备注-校验
     $('.msg-nut-name').show().html('<p style="color:#999;">果仁市场内互转即时极速到账</p>');
     var btnNut1 = false;
     $('#nut-name').blur(function() {
@@ -339,7 +339,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
             $('.msg-nut-name').show().html('<p style="color:#999;">地址备注完成：果仁市场内互转即时极速到账</p>');
         }
     });
-    //果仁提现地址-校验
+    //果仁转出地址-校验
     var btnNut2 = false;
     $('#nut-address').blur(function() {
         var address = $(this).val();
@@ -375,7 +375,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
             btnNut4 = true;
         }
     });
-    //获取验证码-人民币提现管理
+    //获取验证码-人民币转出管理
     $('#nut-identifyingCodeBtn').click(function() {
             if (btnNut3 == false) {
                 showWarnWin('请完善填写信息！', 1e3);
@@ -406,7 +406,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
             }
         });
 
-        //果仁提现地址管理添加
+        //果仁转出地址管理添加
         $('.gopAddressManAdd').click(function() {
             if (global.payLocked) {
                 location.href = "withdraw.html?id=rmbtx ";
@@ -470,7 +470,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                         $('.msg-nut-identifyingCode').show().text(data.msg);
                         window.location.href = 'withdraw.html?id=rmbtx';
                         document.documentElement.scrollTop = 0;
-                    } else if (data.msg == '果仁提现地址管理添加错误') {
+                    } else if (data.msg == '果仁转出地址管理添加错误') {
                         $('.msg-nut-address').show().text('非法地址');
                     } else if (data.msg == '钱包地址格式错误') {
                         $('.msg-nut-address').show().text('钱包地址格式错误');
@@ -481,7 +481,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
             }
         });
 
-        //果仁提现地址管理添加
+        //果仁转出地址管理添加
         /*$('.gopAddressManAdd').click(function() {
             if (global.payLocked) {
                 location.href = "withdraw.html?id=rmbtx ";
@@ -546,7 +546,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                         $('.msg-nut-identifyingCode').show().text(data.msg);
                         window.location.href = 'withdraw.html?id=rmbtx';
                         $(window).scrollTop(0);
-                    } else if (data.msg == '果仁提现地址管理添加错误') {
+                    } else if (data.msg == '果仁转出地址管理添加错误') {
                         $('.msg-nut-address').show().text('非法地址');
                     } else if (data.msg == '钱包地址格式错误') {
                         $('.msg-nut-address').show().text('钱包地址格式错误');
@@ -605,23 +605,32 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         'pageSize': 10
     }, function(data) {
         if (data.status == 200) {
+            // console.log(data.data.list.length)
             for (var i = 0; i < data.data.list.length; i++) {
                 var numId = data.data.list[i].id;
                 var name = data.data.list[i].name;
                 var num = data.data.list[i].acnumber; //银行卡号
                 var bankName = data.data.list[i].bank; //所属银行
-                var bankIP = data.data.list[i].province + data.data.list[i].city + data.data.list[i].subbank; //支行
-
+                // var bankIP = data.data.list[i].province + data.data.list[i].city + data.data.list[i].subbank; //支行
+                // console.log(data.data.list[i].province);
+                // console.log(data.data.list[i].city);
+                // console.log(data.data.list[i].subbank);
                 var node = $('<div></div>').addClass('bankIdCard addBankCard newCard');
+                var strx = '';
+                for (var j = 0; j < num.length; j++) {
+                    strx += '*';
+                }
                 var nodeList = $('<section class="bankIdCard-bankLogoName bankName">' + bankName + '</section>' +
-                    '<section class="bankIdCard-Code">' + '尾号：' + num.substr(num.length - 4) + '</section>' +
+                    // '<section class="bankIdCard-Code">' + '尾号：' + num.substr(num.length - 4) + '</section>' +
                     '<section class="bankIdCard-CardAndBg">储蓄卡</section>' +
-                    '<section class="bankIdCard-hr"></section>' +
+                    '<section class="banknumid">'+num.replace(num.slice(0,num.length-4),strx)+'</section>'+
+                    '<div class="bgColor"><section class="bankIdCard-hr"></section>' +
                     '<section class="bankIdCard-Name">持卡人姓名：' + name.replace(name.substr(0, 1), '*') + '</section>').appendTo(node);
                 if(data.data.list.length>1){
-                	$('<section class="bankIdCard-del" data-cardId="' + numId + '">删除</section>').appendTo(node);
+                	$('<section class="bankIdCard-del" data-cardId="' + numId + '">删除</section></div>').appendTo(node);
                 }
-                $('<section class="bankIdCard-address">' + bankIP + '</section>').appendTo(node);
+                // console.log(bankIP);
+                // $('<section class="bankIdCard-address">' + bankIP + '</section>').appendTo(node);
                 node.insertBefore($('.bankIdCard-add'));
                 //判断显示银行logo
                 $('.bankName').filter(":contains('中国工商银行')").addClass('ICBC').text('');
@@ -630,6 +639,9 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                 $('.bankName').filter(":contains('招商银行')").addClass('CMB').text('');
                 $('.bankName').filter(":contains('中国邮政储蓄银行')").addClass('PSBC').text('');
                 $('.bankName').filter(":contains('中国农业银行')").addClass('ABC').text('');
+
+                $('.bankName').filter(":contains('中国银行')").addClass('chinabank').text('');
+                $('.bankName').filter(":contains('上海浦东发展银行')").addClass('pfyh').text('');
             }
 
             //删除银行卡

@@ -6,8 +6,8 @@
     <title>果仁市场</title>
     <link rel="stylesheet" type="text/css" href="./css/base.css">
     <link rel="stylesheet" type="text/css" href="./css/index.css">
-    <link rel="stylesheet" type="text/css" href="./css/swiper.min.css">
-    <script type="text/javascript" src="./js/swiper.min.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="./css/swiper.min.css"> -->
+    <!-- <script type="text/javascript" src="./js/swiper.min.js"></script> -->
     <script type="text/javascript" src="./js/jquery-1.12.1.min.js"></script>
     <script type="text/javascript" src="./js/require.js"></script>
     <script type="text/javascript" src="./js/config.js"></script>
@@ -17,17 +17,20 @@
 <body>
     <div class="wrapper">
         @@include('../../includes/top/topbar.html') @@include('../../includes/top/topnav.html',{"feature_on":"index"})
-        <div class="topbanner">
-            <div class="swiper-container">
+        <div class="topbanner" >
+            <div id="particles-js" class="imgOne">
+                <!-- <div class="imgOne"></div> -->
+            </div>
+            <!-- <div class="swiper-container">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="imgOne">
-                            <!-- <img class="imgOne" src="./images/index_index_banner.png" /> -->
+                            <img class="imgOne" src="./images/index_index_banner.png" />
                         </div>
                     </div>
                 </div>
                 <div class="swiper-pagination"></div>
-            </div>
+            </div> -->
         </div>
         <div class="loginarea_maxwidth">
             <div class="loginarea" style="display: none;">
@@ -40,7 +43,7 @@
                     <input type="password" placeholder="请输入密码" class="password_loginarea"></input>
                     <span class="error_tips_index"></span>
                 </div>
-                <div id="authcode_page" style="display: block;">
+                <div id="authcode_page" style="display: none;">
                     <input placeholder="请输入验证码" class="authcode_index"></input>
                     <a href="javascript:void(0);" class="loc_img"><div id="one1"><img  id="topbar_img" src="/exchangeApi/code/getCode"></div></a>
                     <span class="autocode_tips">不正确</span>
@@ -79,7 +82,7 @@
                             <span class="rg_asset_center_none" style="display: none;">
                                 ---
                             </span>
-                            <div class="rg_asset_bottom withdraw" id="gotwo">提现</div>
+                            <div class="rg_asset_bottom withdraw" id="gotwo">转出</div>
                         </div>
                     </div>
                 </div>
@@ -202,6 +205,9 @@
     <script src="./js/highcharts-more.js"></script>
     <script type="text/javascript" src="./js/no-data-to-display.js"></script>
     <script src="./js/exporting.js"></script>
+    <script type="text/javascript" src="./js/particles.js"></script>
+    <script type="text/javascript" src="./js/app.js"></script>
+    <script type="text/javascript" src="./js/stats.js"></script>
 
     <script type="text/javascript" src="./js/index.js"></script>
     <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1259059869'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1259059869' type='text/javascript'%3E%3C/script%3E"));</script>

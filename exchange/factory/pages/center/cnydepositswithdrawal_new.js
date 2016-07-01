@@ -36,6 +36,10 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             }
         });
         
+        $(".iknow").on("click",function(){
+            $(".mydiv").hide();
+            $(".bg").hide();
+        });
         /**
          * 分页标签
          */
@@ -161,7 +165,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
         }
        
         var rmbWithdrawalsHistory=function(pageNo,pageSize){
-        	 //人民币提现 带分页
+        	 //人民币转出 带分页
             api_mkt.rmbWithdrawalsHistory({
                 'pageNo':pageNo,
                 'pageSize':pageSize
@@ -182,11 +186,17 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                     }
                     $(".cnyOutput").append(html.join(""));
                     //过滤内容显示不同颜色
-                    $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");
-                    $(".status").filter(":contains('PROCESSING')").text('进行中').css("color","orange");
-                    $(".status").filter(":contains('SUCCESS')").text('提现成功').css("color","#ccc");  
-                    $(".status").filter(":contains('CANCEL')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('已关闭');                  
+                    // $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");
+                    // $(".status").filter(":contains('PROCESSING')").text('进行中').css("color","orange");
+                    // $(".status").filter(":contains('SUCCESS')").text('转出成功').css("color","#ccc");  
+                    // $(".status").filter(":contains('CANCEL')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('已关闭');                  
 
+                    $(".status").filter(":contains('WAIT')").text('等待').css("color","orange");
+                $(".status").filter(":contains('PROCESSING')").text('进行中').css("color","orange");
+                $(".status").filter(":contains('SUCCESS')").text('转出成功').css("color","#ccc");
+                $(".status").filter(":contains('FAILURE')").text('已退款').css("color","#ccc");
+                $(".status").filter(":contains('CANCEL')").text('已撤销').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('已关闭');
+                    
                     var htmlPage = [];
                     var pageNum=data.data.pageNum;
     	            $(".cnywithdrawPage").html(""); 
@@ -215,7 +225,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
 	   	            	$(".cnywithdraw").hide();
 	   	            }
                 }else{
-                   // console.log('财务中心-人民币提现历史表格，加载失败。');
+                   // console.log('财务中心-人民币转出历史表格，加载失败。');
                 	$(".cnywithdraw").hide();
                 }
             });

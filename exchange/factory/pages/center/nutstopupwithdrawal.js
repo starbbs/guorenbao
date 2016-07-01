@@ -30,7 +30,7 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
         }
     });
 
-    //果仁(提现)转出记录_只查询成功记录
+    //果仁(转出)转出记录_只查询成功记录
     api_mkt.transferOutHistory({
         'pageNo': 1,
         'pageSize': 5
@@ -59,12 +59,12 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
             
         }
     });
-    //果仁提现-校验
+    //果仁转出-校验
     var btnConfirm0a = false; //校验表单-变量
     var btnConfirm1a = false; //校验表单-变量
     var btnConfirm2a = false; //校验表单-变量
     var btnConfirm3a = false; //校验表单-变量
-    //果仁提现地址管理(如果有就显示)
+    //果仁转出地址管理(如果有就显示)
     api_mkt.gopAddressMan({
         'pageNo': 1,
         'pageSize': 10
@@ -197,7 +197,7 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
         } else if (btnConfirm3a == false) {
             $('.msg-gopWithdrawalsCode').text('请输入短信验证码');
         } else{
-            //果仁提现
+            //果仁转出
             api_mkt.gopWithdrawals({
                 'number': $('#gopWithdrawalsNumber').val(),
                 'toWallet': $('#gopWithdrawalsSelect').find('option:selected').val(),

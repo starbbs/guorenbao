@@ -1,49 +1,55 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>人民币充值/提现</title>
+    <title>人民币充值/转出</title>
     <link rel="stylesheet" type="text/css" href="./css/base.css">
     <link rel="stylesheet" type="text/css" href="./css/jquery-ui.theme.min.css">
     <link rel="stylesheet" type="text/css" href="./css/jquery-ui.min.css">
     <link rel="stylesheet" type="text/css" href="./css/cnydepositswithdrawal.css">
     <script type="text/javascript" src="./js/jquery-1.12.1.min.js"></script>
     <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="./js/bigGlass.js"></script>
+    <script type="text/javascript" src="./js/bigGlass2.js"></script>
     <script type="text/javascript" src="./js/require.js"></script>
-    
 </head>
+
 <body>
     <div class="wrapper">
-        @@include('../../includes/top/topbar.html')
-        @@include('../../includes/top/topnav.html',{"feature_on":"center"})
+        @@include('../../includes/top/topbar.html') @@include('../../includes/top/topnav.html',{"feature_on":"center"})
         <div class="center_content">
             <div class="leftside">
                 <a class="ls_tab" href="conditionofassets.html">资产状况</a>
-                <a class="ls_tab ls_tab_on" href="cnydepositswithdrawal.html">人民币充值/提现</a>
-                <a class="ls_tab" href="nutstopupwithdrawal.html">果仁充值/提现</a>
-                <a class="ls_tab" href="withdraw.html">提现管理</a>
+                <a class="ls_tab ls_tab_on" href="cnydepositswithdrawal.html">人民币充值/转出</a>
+                <a class="ls_tab" href="nutstopupwithdrawal.html">果仁充值/转出</a>
+                <a class="ls_tab" href="withdraw.html">转出管理</a>
             </div>
             <div class="rightside">
                 <div class="topline">
                     <div class="rmbxh bottomon">人民币充值</div>
-                    <div class="rmbtx">人民币提现</div>
+                    <div class="rmbtx">人民币转出</div>
                 </div>
                 <div class="recharge">
                     <div class="intro">
                         <p>
-                            <em>充值须知：</em>您需要先填写下方充值信息，填好后通过银行网银向我方指定银行账户进行<em>手动打款</em><br>
-                            在收到汇款后，我方会根据您所填写的汇款信息与实际情况进行校验，确认无误后进行到账，因此请您认真填写。<br>
-                            金额：<em>100元</em>及以上的整数金额<br>
-                            到账时间：果仁市场收到汇款后，<em>30分钟内到账</em><br>
-                            充值时间：<em>工作日9:00~16:00</em><br>
-                            充值手续费：<em>免费</em><br>
-                            客服热线：<em>010-59725386</em>
+                            <em>充值须知：</em>您需要先填写下方充值信息，填好后通过银行网银向我方指定银行账户进行<em>手动打款</em>
+                            <br> 在收到汇款后，我方会根据您所填写的汇款信息与实际情况进行校验，确认无误后进行到账，因此请您认真填写。
+                            <br> 金额：
+                            <em>100元</em>及以上的整数金额，单笔最高2万元。
+                            <br> 到账时间：果仁市场收到汇款后，
+                            <em>30分钟内到账</em>
+                            <br> 充值时间：
+                            <em>工作日9:00~16:00</em>
+                            <br> 充值手续费：
+                            <em>免费</em>
+                            <br> 客服热线：
+                            <em>010-59725386</em>
                         </p>
                         <p></p>
                     </div>
                     <div class="right_reg_side_content" style="display: flex;">
-                        
                         <div class="rg_lf_label">
                             <div class="label_div">
                                 <label for="bank-username">开户人姓名</label>
@@ -66,22 +72,22 @@
                                 <input class="regist_rg_input" type="text" placeholder="请输入开户人姓名" id="bank-username" readonly="readonly" />
                                 <span class="msg-bank-username"></span>
                             </div>
-
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入您想充值的整数金额" onKeyUp="this.value=this.value.replace(/\D/g,'')" id="bank-money" maxlength="6"/>
+                                <input class="regist_rg_input" type="text" placeholder="请输入您想充值的整数金额" onKeyUp="this.value=this.value.replace(/\D/g,'')" id="bank-money" maxlength="6" />
+                                <span class="msg-more-tips">单笔最大金额2万元</span>
                                 <span class="msg-bank-money"></span>
                             </div>
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入银行账号" id="bank-idcard"/>
+                                <input class="regist_rg_input" type="text" placeholder="请输入银行账号" id="bank-idcard" maxlength="20" />
                                 <span class="msg-bank-idcard"></span>
                             </div>
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="根据卡号返回所属银行" id="bank" readonly="readonly"/>
+                                <input class="regist_rg_input" type="text" placeholder="根据卡号返回所属银行" id="bank" readonly="readonly" style="border:none;" />
                                 <span class="msg-bank"></span>
                             </div>
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入与银行卡对应的手机号" id="phone" maxlength="11"/>
-                                <input type="text" class="pUid" style="display:none"/>
+                                <input class="regist_rg_input" type="text" placeholder="请输入与银行卡对应的手机号" id="phone" maxlength="11" />
+                                <input type="text" class="pUid" style="display:none" />
                                 <span class="phonePos">
                                     <input type="checkbox" id="phonePos"/>
                                     <label for="phonePos">使用绑定手机</label>
@@ -96,7 +102,6 @@
                             </div>
                             <div class="tipscontent" style="display:none;">
                                 为了保证您的资金安全，果仁市场只接受实名充值。请您汇款前确保您所使用的银行卡开户姓名与您的实名认证信息一致，以免影响您的资金到账。
-
                             </div>
                         </div>
                         <div class="aside-table-div">
@@ -131,11 +136,15 @@
                 <div class="withdraw_deposit" style="display:none;">
                     <div class="intro">
                         <p>
-                            <em>提现须知：</em>果仁市场人民币提现金额不得超过<em>5万元</em>，不得低于<em>10元</em>，<br>
-                            提现费率0.5%，最低手续费为<em>2元</em>。<br>
-                            人民币提现时间为<em>工作日9:00~16:00</em>。<br/>
-                            提现申请成功提交后<em>24小时</em>内到账。提现银行卡必须与果仁市场实名认证信息保持一致，若信息无法匹配，您的申请可能会被驳回，提现金额返还至人民币账户。<br/>
-                            客服热线：<em>010-59725386</em>
+                            <em>转出须知：</em>果仁市场人民币转出金额不得超过<em>5万元</em>，不得低于<em>10元</em>，
+                            <br> 转出费率0.5%，最低手续费为
+                            <em>2元</em>。
+                            <br> 人民币转出时间为
+                            <em>工作日9:00~16:00</em>。
+                            <br/> 转出申请成功提交后
+                            <em>24小时</em>内到账。转出银行卡必须与果仁市场实名认证信息保持一致，若信息无法匹配，您的申请可能会被驳回，转出金额返还至人民币账户。
+                            <br/> 客服热线：
+                            <em>010-59725386</em>
                         </p>
                         <p></p>
                     </div>
@@ -143,12 +152,14 @@
                     <div class="right_reg_side_content" style="display: flex;">
                         <table class="Withdrawal">
                             <tr>
-                                <td width="80px"><label for="WithdrawalsMode">提现方式</label></td>
+                                <td width="80px">
+                                    <label for="WithdrawalsMode">转出方式</label>
+                                </td>
                                 <td>银行卡</td>
                             </tr>
                             <tr>
                                 <td class="td-top" valign="top">
-                                    <label for="WithdrawalsAccount"><span class="posWithdrawals">提现账户</span></label>
+                                    <label for="WithdrawalsAccount"><span class="posWithdrawals">转出账户</span></label>
                                 </td>
                                 <td class="fixedWH">
                                     <!-- <div>
@@ -167,36 +178,45 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><label for="WithdrawalsAmount">提现金额</label></td>
                                 <td>
-                                    <input class="regist_rg_input" type="text" placeholder="CNY" id="WithdrawalsAmount" maxlength="8"/>
+                                    <label for="WithdrawalsAmount">转出金额</label>
+                                </td>
+                                <td style="position: relative;">
+                                    <input class="regist_rg_input" type="text" placeholder="CNY" id="WithdrawalsAmount" maxlength="8" />
+                                    <span class="WithdrawalsAmount_tips">当前可提现金额：RMB&nbsp;<b id="money_rmb"></b></span>
                                     <div class="regist_rg_input bankcard">
                                         <span class="msg msg-WithdrawalsAmount"></span>
-                                    </div>                                    
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label for="WithdrawalsFee">手续费</label></td>
-                                <td>
-                                    <div class="regist_rg_input handlingcharget WithdrawalsFee">
-                                    0.00 CNY
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td><label for="WithdrawalsPayPwd">支付密码</label></td>
                                 <td>
-                                    <input class="regist_rg_input" type="password" placeholder="请输入支付密码" id="WithdrawalsPayPwd"/>
-                                    <div class="regist_rg_input bankcard">
-                                        <span class="msg msg-WithdrawalsPayPwd"></span>
-                                    </div> 
+                                    <label for="WithdrawalsFee">手续费</label>
+                                </td>
+                                <td>
+                                    <div class="regist_rg_input handlingcharget WithdrawalsFee">
+                                        0.00 CNY
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td><label for="VerificationCode">手机验证</label></td>
                                 <td>
-                                    <input class="regist_rg_input-VerificationCode" type="text" placeholder="" id="VerificationCode"/>
-                                    <input class="regist_rg_input-btn" type="button" value="获取验证码" id="VerificationCodeBtn"/>
+                                    <label for="WithdrawalsPayPwd">支付密码</label>
+                                </td>
+                                <td>
+                                    <input class="regist_rg_input" type="password" placeholder="请输入支付密码" id="WithdrawalsPayPwd" />
+                                    <div class="regist_rg_input bankcard">
+                                        <span class="msg msg-WithdrawalsPayPwd"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="VerificationCode">手机验证</label>
+                                </td>
+                                <td>
+                                    <input class="regist_rg_input-VerificationCode" type="text" placeholder="" id="VerificationCode" />
+                                    <input class="regist_rg_input-btn" type="button" value="获取验证码" id="VerificationCodeBtn" />
                                     <div class="regist_rg_input bankcard">
                                         <span class="msg msg-VerificationCode"></span>
                                     </div>
@@ -205,13 +225,13 @@
                             <tr>
                                 <td></td>
                                 <td>
-                                    <div class="build_remit_btn Withdrawalsbtn">提现</div>
+                                    <div class="build_remit_btn Withdrawalsbtn">转出</div>
                                 </td>
                             </tr>
                         </table>
                         <div class="aside-table-div Withdrawalstable">
                             <div class="renMinBiInput">
-                                <span>人民币提现历史</span>
+                                <span>人民币转出历史</span>
                                 <span>
                                     <a href="cnydepositswithdrawal_new.html?formindex=cnyFrawl" class="moreCheck">查看更多</a>
                                 </span>
@@ -221,7 +241,7 @@
                                     <tr>
                                         <td>时间</td>
                                         <td>银行</td>
-                                        <td>提现金额(¥)</td>
+                                        <td>转出金额(¥)</td>
                                         <td>手续费(¥)</td>
                                         <td>进程</td>
                                     </tr>
@@ -241,7 +261,7 @@
         </div>
         <!-- 弹出框内容 -->
         <div class="mydiv" style="display:none;">
-            <ul class="mydiv-ul-1">
+            <!-- <ul class="mydiv-ul-1">
                 <li>您的汇款单</li>
                 <li>汇款单号：<span class="remittance-id">用户账号</span></li>
                 <li>银行账号</li>
@@ -258,27 +278,89 @@
             <span class="spanTextOne">(为确保您及时到账，请务必在汇款时填写此汇款编号)</span>
             <p>请使用<span class="bankName">招商银行网银</span>对上述账户进行转账（或前往柜台进行汇款）</p>
             <div>
-                <!-- <span class="span-btn">前往<span class="bankName">招商银行网银</span>进行汇款</span> -->
                 <span class="span-btn span-text">我知道了</span>
+            </div> -->
+            <div id="headertipwrapper">
+                <div class="tip1">您的汇款单</div>
+                <div class="tip2">汇款单号：<span class="remittance-id" style="margin-right: -55px;">用户账号</span></div>
             </div>
+            <table id="customers">
+                <tr class="gdh">
+                    <td>收款银行账号</td>
+                    <td style="padding-right:10px;" class="bank-card-new">4367420019835644153465132</td>
+                </tr>
+                <tr class="gdh alt">
+                    <td>收款方</td>
+                    <td style="padding-right:10px;" class="bank-name-new">北京果汇信息技术有限公司</td>
+                </tr>
+                <tr class="gdh">
+                    <td>收款银行</td>
+                    <td style="padding-right:10px;" class="account-name-new">兴业银行北京东外支行</td>
+                </tr>
+                <tr class="gdh">
+                    <td>本次充值金额</td>
+                    <td style="padding-right:10px;font-weight: 600;" class="money-new">
+                        <!-- ¥500.07 -->
+                    </td>
+                </tr>
+                <tr class="gdh">
+                    <td class="leftnone bottomnone">转账附言</td>
+                    <td class="rightnone bottomnone remittance-note-numbe-newr" style="padding-right:10px;color: #ff6600;
+    font-weight: 600;">
+                        <!-- 11408 -->
+                    </td>
+                </tr>
+                <tr class="gdh">
+                    <td class="leftnone topnone" colspan="2" style="line-height: 16px;">*为确保您及时到账，请注意在汇款时填写转账附言</td>
+                    <td class="rightnone topnone"></td>
+                </tr>
+            </table>
+            <div class="tipsfooter">
+                <b class="sthours">充值单72小时内有效，</b>请在有效时间内使用<b class="zsyhwy">招商银行网银</b>向以上银行账户进行转账 果仁市场在收到您的汇款后会在30分钟内为您到账。
+            </div>
+            <div><a href="javascript:void(0);" class="iknow">我知道了</a></div>
         </div>
         <div class="mydiv1" style="display:none;">
             <ul class="mydiv1-ul-1">
-                <li>人民币提现申请</li>
-                <li></li>
-                <li>提现账号</li>
-                <li class="WithdrawalsCard"></li>
+                <div id="table_header" class="table_header">人民币转出申请</div>
+                <table class="gridtable">
+                    <tr>
+                        <td>转出账号</td>
+                        <td class="WithdrawalsCard"></td>
+                    </tr>
+                    <tr>
+                        <td>所属银行</td>
+                        <td class="WithdrawalsBank"></td>
+                    </tr>
+                    <tr>
+                        <td>开户姓名</td>
+                        <td class="WithdrawalsName"></td>
+                    </tr>
+                    <tr>
+                        <td>转出金额</td>
+                        <td class="WithdrawalsAmount" style="color:#565656;font-weight: 600;"></td>
+                    </tr>
+                    <tr>
+                        <td>实取金额</td>
+                        <td class="WithdrawalsRealAmount" style="color:#ff6600;font-weight: 600;"></td>
+                    </tr>
+                </table>
+                <!--
+                <li>人民币转出申请</li>
+                <li style="width: 50%;height: 43px;"></li>
+                <li>转出账号</li>
+                <li class="WithdrawalsCard">xxxxxxxxxxxxxxxxx</li>
                 <li>所属银行</li>
-                <li class="WithdrawalsBank"></li>
+                <li class="WithdrawalsBank">xxxxxxxxxxxx</li>
                 <li>开户姓名</li>
-                <li class="WithdrawalsName"></li>
-                <li>提现金额</li>
-                <li class="WithdrawalsAmount"></li>
+                <li class="WithdrawalsName">xxxxxxx</li>
+                <li>转出金额</li>
+                <li class="WithdrawalsAmount">xxxxxxxxxx</li>
                 <li>实取金额</li>
-                <li class="WithdrawalsRealAmount"></li>
+                <li class="WithdrawalsRealAmount">xxxxxxxxxx</li>
+                -->
             </ul>
-            <p></p>
-            <div>
+            <div class="surebtn">
                 <span class="span-btn1">确&nbsp;&nbsp;认</span>
                 <!-- <span class="span-text1 textBtn1">返回</span> -->
             </div>
@@ -294,12 +376,20 @@
     <script type="text/javascript" src="./js/judge_certification.js"></script>
     <script type="text/javascript" src="js/cnydepositswithdrawal.js"></script>
     <div id="bg" class="bg" style="display:none;">这里是遮罩层</div>
-
-    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1259059869'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1259059869' type='text/javascript'%3E%3C/script%3E"));</script>
     <script type="text/javascript">
-        // $(function(){
-        //     $("span[id^='cnzz_stat_icon_1259059869']").hide();
-        // })
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan id='cnzz_stat_icon_1259059869'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1259059869' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    // $(function(){
+    //     $("span[id^='cnzz_stat_icon_1259059869']").hide();
+    // })
+    // 
+    $(function() {
+        $("#bank-money").bigGlass(2);
+        $("#bank-idcard").bigGlass2(1);
+    });
     </script>
 </body>
+
 </html>

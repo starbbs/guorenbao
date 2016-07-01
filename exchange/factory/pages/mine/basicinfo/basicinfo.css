@@ -206,10 +206,15 @@
 
 .lft_img div:nth-child(4) img {
     position: relative;
-    top: 6px;
+    top: 4px;
 }
 
 .lft_img div:nth-child(5) img {
+    position: relative;
+    top: 7px;
+}
+
+.lft_img div:nth-child(6) img {
     position: relative;
     top: 8px;
 }
@@ -417,4 +422,14 @@
     left: 350px;
     height: 90px;
     line-height: 90px;
+}
+
+#account_address {
+    color: #999999;
+    position: absolute;
+    left: 300px;
+    top: 36px;
+    width:444px;
+    border: none;
+    outline: none;
 }

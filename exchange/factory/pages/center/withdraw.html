@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>提现管理</title>
+    <title>转出管理</title>
     <link rel="stylesheet" type="text/css" href="./css/base.css">
     <link rel="stylesheet" type="text/css" href="./css/jquery-ui.theme.min.css">
     <link rel="stylesheet" type="text/css" href="./css/jquery-ui.min.css">
@@ -20,14 +20,14 @@
         <div class="center_content">
             <div class="leftside">
                 <a class="ls_tab" href="conditionofassets.html">资产状况</a>
-                <a class="ls_tab" href="cnydepositswithdrawal.html">人民币充值/提现</a>
-                <a class="ls_tab" href="nutstopupwithdrawal.html">果仁充值/提现</a>
-                <a class="ls_tab ls_tab_on" href="withdraw.html">提现管理</a>
+                <a class="ls_tab" href="cnydepositswithdrawal.html">人民币充值/转出</a>
+                <a class="ls_tab" href="nutstopupwithdrawal.html">果仁充值/转出</a>
+                <a class="ls_tab ls_tab_on" href="withdraw.html">转出管理</a>
             </div>
             <div class="rightside">
                 <div class="topline">
-                    <div class="rmbxh bottomon">人民币提现管理</div>
-                    <div class="rmbtx">果仁提现管理</div>
+                    <div class="rmbxh bottomon">人民币转出管理</div>
+                    <div class="rmbtx">果仁转出管理</div>
                     <span class="moreCheck two twoBackOne" style="display: none;">< 返回</span>
                 </div>
                 <div class="recharge">
@@ -40,7 +40,7 @@
                     <!-- 2 添加银行卡表单 -->
                     <div class="intro two" style="display: none;">
                         <p>
-                            您将添加<em>人民币提现账户</em>（目前支持的提现银行：<em>中国工商银行，中国建设银行，中国农业银行，交通银行，中国邮政储蓄银行，招商银行</em>） 
+                            您将添加<em>人民币转出账户</em>（目前支持的转出银行：<em>中国工商银行，中国建设银行，中国银行，中国农业银行，交通银行，中国邮政储蓄银行，招商银行，浦发银行</em>） 
                         </p>
                     </div>                    
                     
@@ -52,9 +52,9 @@
                             <div class="label_div">
                                 <label for="bankAccount">所属银行</label>
                             </div>
-                            <div class="label_div">
+                            <!-- <div class="label_div">
                                 <label for="subbank">开户支行</label>
-                            </div>
+                            </div> -->
                             <div class="label_div">
                                 <label for="payPwdRmbWithdrawals">支付密码</label>
                             </div>
@@ -74,7 +74,7 @@
                                 <input class="regist_rg_input" type="text" placeholder="根据卡号返回所属银行" id="bank" style="border:none;" readonly="true"/>
                                 <span class="msg-bank"></span>
                             </div>
-                            <div class="regist_input_div">
+                            <!-- <div class="regist_input_div">
                                 <form action="" method=post name=form1>
                                     <select class="regist_rg_input-select select-area" name="selectp" onChange="selectcityarea('selectp','selectc','form1');">
                                         <option value="0" selected>选择省份</option>
@@ -85,7 +85,7 @@
                                 </form>
                                 <input class="regist_rg_input bankIp-select" type="text" placeholder="请输入您的开户支行地址" id="subbank"/>
                                 <span class="msg-subbank"></span>
-                            </div>
+                            </div> -->
                             <div class="regist_input_div">
                                 <input class="regist_rg_input pay-pwd" type="password" placeholder="" id="pay-pwd"/>
                                 <span class="msg-pay-pwd"></span>
@@ -143,7 +143,7 @@
                     <!-- 添加果仁地址 -->
                     <div class="intro nut-one">
                         <p>
-                            您将添加<em>果仁提现地址</em>
+                            您将添加<em>果仁转出地址</em>
                         </p>
                     </div>
                     <div class="right_reg_side_content nut-one">

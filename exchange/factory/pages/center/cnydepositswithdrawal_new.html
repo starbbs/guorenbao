@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>人民币充值/提现</title>
+    <title>人民币充值/转出</title>
     <link rel="stylesheet" type="text/css" href="./css/base.css">
     <link rel="stylesheet" type="text/css" href="./css/jquery-ui.theme.min.css">
     <link rel="stylesheet" type="text/css" href="./css/jquery-ui.min.css">
@@ -20,14 +20,14 @@
         <div class="center_content">
             <div class="leftside">
                 <a class="ls_tab" href="conditionofassets.html">资产状况</a>
-                <a class="ls_tab ls_tab_on" href="cnydepositswithdrawal.html">人民币充值/提现</a>
-                <a class="ls_tab" href="nutstopupwithdrawal.html">果仁充值/提现</a>
-                <a class="ls_tab" href="withdraw.html">提现管理</a>
+                <a class="ls_tab ls_tab_on" href="cnydepositswithdrawal.html">人民币充值/转出</a>
+                <a class="ls_tab" href="nutstopupwithdrawal.html">果仁充值/转出</a>
+                <a class="ls_tab" href="withdraw.html">转出管理</a>
             </div>
             <div class="rightside">
                 <div class="topline">
                     <div class="rmbxh bottomon">人民币充值</div>
-                    <div class="rmbtx">人民币提现</div>
+                    <div class="rmbtx">人民币转出</div>
                     <span><b>
                         <a href="cnydepositswithdrawal.html" class="moreCheck">< 返回</a>
                     </b></span>
@@ -75,7 +75,7 @@
                             <tr>
                                 <td>时间</td>
                                 <td>银行</td>
-                                <td>提现金额(¥)</td>
+                                <td>转出金额(¥)</td>
                                 <td>手续费(¥)</td>
                                 <td>进程</td>
                             </tr>
@@ -109,7 +109,7 @@
         </div>
         <!-- 弹出框内容 -->
         <div class="mydiv" style="display:none;">
-            <ul class="mydiv-ul-1">
+            <!-- <ul class="mydiv-ul-1">
                 <li>您的汇款单</li>
                 <li>汇款单号：<span class="remittance-id">1234567891234567</span></li>
                 <li>银行账号</li>
@@ -126,29 +126,92 @@
             <span class="spanText1">(为确保您及时到账，请务必在汇款时填写此汇款编号)</span>
             <p style="margin-left:80px;">请使用<span class="bankName">招商银行网银</span>对上述账户进行转账（或前往柜台进行汇款）</p>
             <div>
-               <!--  <span class="span-btn">前往招商银行网银进行汇款</span> -->
+               <span class="span-btn">前往招商银行网银进行汇款</span>
                 <span class="span-btn span-text">我知道了</span>
+            </div> -->
+            <div id="headertipwrapper">
+                <div class="tip1">您的汇款单</div>
+                <div class="tip2">汇款单号：<span class="remittance-id" style="margin-right: -55px;">用户账号</span></div>
             </div>
+            <table id="customers">
+                <tr class="gdh">
+                    <td>收款银行账号</td>
+                    <td style="padding-right:10px;" class="bank-card-new">4367420019835644153465132</td>
+                </tr>
+                <tr class="gdh alt">
+                    <td>收款方</td>
+                    <td style="padding-right:10px;" class="bank-name-new">北京果汇信息技术有限公司</td>
+                </tr>
+                <tr class="gdh">
+                    <td>收款银行</td>
+                    <td style="padding-right:10px;" class="account-name-new">兴业银行北京东外支行</td>
+                </tr>
+                <tr class="gdh">
+                    <td>本次充值金额</td>
+                    <td style="padding-right:10px;font-weight: 600;" class="money-new">
+                        <!-- ¥500.07 -->
+                    </td>
+                </tr>
+                <tr class="gdh">
+                    <td class="leftnone bottomnone">转账附言</td>
+                    <td class="rightnone bottomnone remittance-note-numbe-newr" style="padding-right:10px;color: #ff6600;
+    font-weight: 600;">
+                        <!-- 11408 -->
+                    </td>
+                </tr>
+                <tr class="gdh">
+                    <td class="leftnone topnone" colspan="2" style="line-height: 16px;">*为确保您及时到账，请注意在汇款时填写转账附言</td>
+                    <td class="rightnone topnone"></td>
+                </tr>
+            </table>
+            <div class="tipsfooter">
+                <b class="sthours">充值单72小时内有效，</b>请在有效时间内使用<b class="zsyhwy">招商银行网银</b>向以上银行账户进行转账 果仁市场在收到您的汇款后会在30分钟内为您到账。
+            </div>
+            <div><a href="javascript:void(0);" class="iknow">我知道了</a></div>
         </div>
         <div class="mydiv1" style="display:none;">
             <ul class="mydiv1-ul-1">
-                <li>人民币提现申请</li>
-                <li></li>
-                <li>提现账号</li>
-                <li class="WithdrawalsCard"></li>
+                <div id="table_header" class="table_header">人民币转出申请</div>
+                <table class="gridtable">
+                    <tr>
+                        <td>转出账号</td>
+                        <td class="WithdrawalsCard"></td>
+                    </tr>
+                    <tr>
+                        <td>所属银行</td>
+                        <td class="WithdrawalsBank"></td>
+                    </tr>
+                    <tr>
+                        <td>开户姓名</td>
+                        <td class="WithdrawalsName"></td>
+                    </tr>
+                    <tr>
+                        <td>转出金额</td>
+                        <td class="WithdrawalsAmount" style="color:#565656;font-weight: 600;"></td>
+                    </tr>
+                    <tr>
+                        <td>实取金额</td>
+                        <td class="WithdrawalsRealAmount" style="color:#ff6600;font-weight: 600;"></td>
+                    </tr>
+                </table>
+                <!--
+                <li>人民币转出申请</li>
+                <li style="width: 50%;height: 43px;"></li>
+                <li>转出账号</li>
+                <li class="WithdrawalsCard">xxxxxxxxxxxxxxxxx</li>
                 <li>所属银行</li>
-                <li class="WithdrawalsBank"></li>
+                <li class="WithdrawalsBank">xxxxxxxxxxxx</li>
                 <li>开户姓名</li>
-                <li class="WithdrawalsName"></li>
-                <li>提现金额</li>
-                <li class="WithdrawalsAmount"></li>
+                <li class="WithdrawalsName">xxxxxxx</li>
+                <li>转出金额</li>
+                <li class="WithdrawalsAmount">xxxxxxxxxx</li>
                 <li>实取金额</li>
-                <li class="WithdrawalsRealAmount"></li>
+                <li class="WithdrawalsRealAmount">xxxxxxxxxx</li>
+                -->
             </ul>
-            <p></p>
-            <div>
-                <span class="span-btn1">确认提交</span>
-                <span class="span-text1">返回</span>
+            <div class="surebtn">
+                <span class="span-btn1">确&nbsp;&nbsp;认</span>
+                <!-- <span class="span-text1 textBtn1">返回</span> -->
             </div>
         </div>
         <!-- 遮罩全屏的背景层 -->

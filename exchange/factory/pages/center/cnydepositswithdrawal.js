@@ -37,6 +37,21 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             }
         });
 
+        api_mkt.userbasic(function(data){
+            if(data.data && data.data.list){
+                console.log(data.data.list.uid);
+                // $('#money_rmb').text(data.data.list.uid);
+                api_mkt.availableRMB({
+                    'uid':data.data.list.uid
+                },function(data){
+                    // alert(data);
+                    console.log(data.data.cnyBalance);
+                    $('#money_rmb').html(data.data.cnyBalance);       
+                });
+            }
+        });
+
+
         //接口 人民币充值历史（查询最近5条）
         api_mkt.rmbRechargeHistory({
             'pageNo':1,
@@ -78,14 +93,19 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                         $(".span-text").click(function(){
                             $(".mydiv").css("display","none");
                             $(".bg1").css("display","none");
-                        });  
+                        });
+
+                        $(".iknow").click(function(){
+                            $(".mydiv").css("display","none");
+                            $(".bg1").css("display","none");
+                        });
                     });
                 }
             }else{
                // console.log('财务中心-人民币充值历史表格，加载失败。');
             }
         });
-        //人民提现 前5条
+        //人民转出 前5条
         var rmbWithdrawalsHistory = function(data){
             var html = [];
             var num = data.data.list.length < 5?data.data.list.length:5;
@@ -101,10 +121,11 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                 $(".cnyOutput").append(html.join(""));
 
                 //过滤内容显示不同颜色
-                $(".status").filter(":contains('WAIT')").text('进行中').css("color","orange");
+                $(".status").filter(":contains('WAIT')").text('等待').css("color","orange");
                 $(".status").filter(":contains('PROCESSING')").text('进行中').css("color","orange");
-                $(".status").filter(":contains('SUCCESS')").text('提现成功').css("color","#ccc");  
-                $(".status").filter(":contains('CANCEL')").text('已关闭').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('已关闭');                  
+                $(".status").filter(":contains('SUCCESS')").text('转出成功').css("color","#ccc");
+                $(".status").filter(":contains('FAILURE')").text('已退款').css("color","#ccc");
+                $(".status").filter(":contains('CANCEL')").text('已撤销').css("color","#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('已关闭');                  
             }
         };
 
@@ -117,7 +138,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             }
         });     
 
-        //人民币提现表单校验
+        //人民币转出表单校验
         var flag1 = false;
         $("#WithdrawalsAmount").keyup(function(){
         	$(this).val($(this).val().replace(/[^\d.]/g, ""));
@@ -129,11 +150,11 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
         $('#WithdrawalsAmount').blur(function(){
             var WithdrawalsAmount = $(this).val();
             if(!WithdrawalsAmount || isNaN(WithdrawalsAmount) || WithdrawalsAmount <10){
-                $('.msg-WithdrawalsAmount').text('单笔最低提现金额为10元');
+                $('.msg-WithdrawalsAmount').text('单笔最低转出金额为10元');
                 $('.WithdrawalsFee').text('0.00 CNY');
                 flag1 = false;
             }else if(WithdrawalsAmount > 50000){
-                $('.msg-WithdrawalsAmount').text('单笔最大提现金额不能超过5万元');
+                $('.msg-WithdrawalsAmount').text('单笔最大转出金额不能超过5万元');
                 flag1 = false;
             }else{
                 flag1 = true;
@@ -175,7 +196,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             }
         });
 
-        //获取验证码-人民币提现
+        //获取验证码-人民币转出
         $('#VerificationCodeBtn').click(function(){
             /*if(flag3 == true){
                $('.msg-VerificationCode').text('请输入正确的短信验证码');
@@ -227,7 +248,10 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                         $('.bankIdCard').filter(":contains('交通银行')").addClass('BC').text('');
                         $('.bankIdCard').filter(":contains('招商银行')").addClass('CMB').text('');
                         $('.bankIdCard').filter(":contains('中国邮政储蓄银行')").addClass('PSBC').text('');
-                        $('.bankIdCard').filter(":contains('中国农业银行')").addClass('ABC').text(''); 
+                        $('.bankIdCard').filter(":contains('中国农业银行')").addClass('ABC').text('');
+
+                        $('.bankIdCard').filter(":contains('中国银行')").addClass('chinabank').text('');
+                        $('.bankIdCard').filter(":contains('上海浦东发展银行')").addClass('pfyh').text('');
                         //radio 获取值
                         if($('.checkBankCard').length == 1){
                             //console.log('asdfas');
@@ -255,18 +279,18 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                 $(this).val($(this).val().replace(/[^0-9$]/g,''));
             });
             
-            //人民币提现申请 弹出层        
+            //人民币转出申请 弹出层        
             $(".Withdrawalsbtn").click(function(){
             	if(global.payLocked){
             		window.location.href="./cnydepositswithdrawal.html?formindex=1";
             		return false;
             	}
                 if($('#WithdrawalsAmount').val()< 10){
-                    $('.msg-WithdrawalsAmount').text('单笔最低提现金额为10元');
+                    $('.msg-WithdrawalsAmount').text('单笔最低转出金额为10元');
                 }else if($('#WithdrawalsAmount').val() >50000){
-                    $('.msg-WithdrawalsAmount').text('单笔最大提现金额不能超过5万元');
+                    $('.msg-WithdrawalsAmount').text('单笔最大转出金额不能超过5万元');
                 }else if(flag1 == false){
-                   $('.msg-WithdrawalsAmount').text('提现金额为10元至50000元之间');
+                   $('.msg-WithdrawalsAmount').text('转出金额为10元至50000元之间');
                 }else if(flag2 == false){
                    $('.msg-WithdrawalsPayPwd').text('请输入正确的支付密码');
                 }else if(flag3 == false){
@@ -284,7 +308,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                     $(".WithdrawalsAmount").text('¥'+amount);
                     $(".WithdrawalsRealAmount").text('¥'+decimal.floatSubtract(amount , Fee));
                     $('.msg-WithdrawalsPayPwd').text("");
-                    //接口：人民币提现
+                    //接口：人民币转出
                     api_mkt.rmbWithdrawals({          
                         'bankId':$.cookie('bankNum'),
                         'money':amount,
@@ -304,8 +328,8 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                             $('.msg-WithdrawalsAmount').text('账户余额不足');
                         }else if(data.msg == '支付密码错误'){
                             $('.msg-WithdrawalsPayPwd').text('支付密码错误');
-                        }else if(data.msg == '每日提现金额不能超过50万'){
-                            $('.msg-WithdrawalsAmount').text('每日提现金额不能超过50万');
+                        }else if(data.msg == '每日转出金额不能超过50万'){
+                            $('.msg-WithdrawalsAmount').text('每日转出金额不能超过50万');
                         }else if(data.data && data.data.num){
                             var num=data.data?data.data.num:data.date.num;
                             if(3-num > 0 ){
@@ -330,7 +354,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
 //                    $("#WithdrawalsPayPwd").val("");
 //                    $("#VerificationCode").val("");
 //                    $(".WithdrawalsFee").text("0 CNY"); 
-//                    //再次调提现接口
+//                    //再次调转出接口
 //                    api_mkt.rmbWithdrawalsHistory({
 //                        'pageNo':1,
 //                        'pageSize':5
@@ -382,7 +406,17 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             if(String(bankmoney).substring(0,1) == 0){
                 bankmoney = 0;
             }
+        }).blur(function(){
+            if($(this).val()>20000){
+                $(this).val("20000");
+                $(".msg-more-tips").show();
+                setTimeout(function(){
+                    $(".msg-more-tips").hide();
+                },1000);
+            }
         });
+
+
         //银行账号校验
         var btnConfirm2 = false;
         $("#bank-idcard").blur(function(){
@@ -499,7 +533,12 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                     $(".bg").css("display","none");
                     window.location.reload();
                     $("#phonePos").attr('checked',false);
-                });      
+                });
+
+                $(".iknow").click(function(){
+                    $(".mydiv").css("display","none");
+                    $(".bg1").css("display","none");
+                });  
             }
         });
         //hover 效果

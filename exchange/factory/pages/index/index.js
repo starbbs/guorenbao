@@ -1,5 +1,5 @@
-require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_mkt, mkt_info,decimal, mkt_trade) {
-    
+require(['api_mkt', 'mkt_info', 'decimal', 'mkt_trade', 'cookie'], function(api_mkt, mkt_info, decimal, mkt_trade) {
+
     function isIE() {
         if (window.navigator.userAgent.indexOf("MSIE") >= 1) {
             return true;
@@ -8,10 +8,10 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_m
         }
     }
     if (isIE()) {
-        window.location.href="./low.html";
+        window.location.href = "./low.html";
         showWarnWin("如您是IE10及以下版本，请换到IE11或其它浏览器浏览本网站。", 100000);
     } else {
-        
+
     }
 
     //mkt_info.get();
@@ -42,9 +42,9 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_m
                 //console.log($('#thelatestprice').html());
                 // var totalvalue = totalNuts * $('#thelatestprice').html() + totalAssets;
 
-                var totalAssets = decimal.getTwoPs(decimal.floatAdd(data.data.cnyBalance , data.data.cnyLock));
-                var totalNuts = decimal.getTwoPs(decimal.floatAdd(data.data.gopBalance , data.data.gopLock));
-                var totalvalue = decimal.getTwoPs(decimal.floatAdd(decimal.floatMulti(totalNuts,$('#thelatestprice').html()),totalAssets));
+                var totalAssets = decimal.getTwoPs(decimal.floatAdd(data.data.cnyBalance, data.data.cnyLock));
+                var totalNuts = decimal.getTwoPs(decimal.floatAdd(data.data.gopBalance, data.data.gopLock));
+                var totalvalue = decimal.getTwoPs(decimal.floatAdd(decimal.floatMulti(totalNuts, $('#thelatestprice').html()), totalAssets));
 
                 $('.lf_asset_center').html(decimal.getTwoPs(totalvalue)); //总资产
                 $('.rg_asset_center').html(decimal.getTwoPs(totalNuts)); //总果仁
@@ -205,17 +205,64 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_m
     var thirtym;
     var sixtym;
     var oned;
-    var klineapply = function(data) {
-        onem = JSON.parse(data['1m']);
-        fivem = JSON.parse(data['5m']);
-        fifteenm = JSON.parse(data['15m']);
-        thirtym = JSON.parse(data['30m']);
-        sixtym = JSON.parse(data['60m']);
-        if (data['1d']) {
-            oned = JSON.parse(data['1d']);
-        }
-        //oned = JSON.parse(data['1d']);
 
+    function cyc(name,inter){
+        var a=JSON.parse(name);
+        if (a&&a[0]){
+            var cur=new Date(a[0][0]);
+            var end=new Date(a[a.length-1][0])
+            var obj={};
+            for(var i=0;i<a.length;i++){
+                obj[a[i][0]]=a[i]
+            }
+            while((cur.getTime())<=(end.getTime())){
+                    // 没有数据，用上一天的收盘价填充  
+                if(!obj[cur.getTime()]){
+                    var arr=[
+                        cur.getTime(),
+                        0
+                    ];
+                    var prevTime = new Date(cur);
+                    prevTime.setMinutes( (cur.getMinutes()-inter));
+                    prevTime = prevTime.getTime();
+                    var curNum = obj[ prevTime ][5];
+                    arr[2]=arr[3]=arr[4]=arr[5]=curNum;
+
+                    //arr.push(cur.toString())
+
+                    a.push(arr);
+                    obj[arr[0]] = arr; 
+                }
+                cur.setMinutes(cur.getMinutes()+inter)
+            }
+        };
+        
+        a.sort(function(leftVal, rightVal){
+            return leftVal[0] > rightVal[0] ? 1 : -1;
+        });
+        return a;
+    }
+    var klineapply = function(data) {
+        // console.log(data);
+        /*onem = cyc(data['1m'],1);
+        fivem = cyc(data['5m'],5);
+        fifteenm = cyc(data['15m'],15);
+        thirtym = cyc(data['30m'],30);*/
+
+        // console.log(data['5m']);
+        onem = cyc(data['1m'],1);
+       // onem=[];
+        fivem = cyc(data['5m'],5);
+        fifteenm = cyc(data['15m'],15);
+        thirtym = cyc(data['30m'],30);
+
+        sixtym = cyc(data['60m'],60);
+        if (data['1d']) {
+            oned = cyc(data['1d'],1440);
+        }
+        //if (data['1d']) {
+        //    oned = cyc(data['1d'],1440);
+       // }
         if (!on_page_load) {
             $(".fivteenminute").click();
             on_page_load = true;
@@ -256,24 +303,24 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_m
             credits: { enabled: false }
         });
 
-        if(whichday=="one"){
+        if (whichday == "one") {
             Highcharts.setOptions({
                 rangeSelector: { buttons: [{ type: 'minute', count: 60, text: '1h' }, { type: 'minute', count: 120, text: '2h' }, { type: 'minute', count: 360, text: '6h' }, { type: 'minute', count: 720, text: '12h' }, { type: 'day', count: 1, text: '1d' }, { type: 'week', count: 1, text: '1w' }, { type: 'all', text: '所有' }], selected: 2, inputEnabled: false },
             });
 
-        } else if(whichday=="five"){
+        } else if (whichday == "five") {
             Highcharts.setOptions({
                 rangeSelector: { buttons: [{ type: 'minute', count: 60, text: '1h' }, { type: 'minute', count: 120, text: '2h' }, { type: 'minute', count: 360, text: '6h' }, { type: 'minute', count: 720, text: '12h' }, { type: 'day', count: 1, text: '1d' }, { type: 'week', count: 1, text: '1w' }, { type: 'all', text: '所有' }], selected: 2, inputEnabled: false },
             });
-        } else if(whichday=="fivteen"){
+        } else if (whichday == "fivteen") {
             Highcharts.setOptions({
                 rangeSelector: { buttons: [{ type: 'minute', count: 60, text: '1h' }, { type: 'minute', count: 120, text: '2h' }, { type: 'minute', count: 360, text: '6h' }, { type: 'minute', count: 720, text: '12h' }, { type: 'day', count: 1, text: '1d' }, { type: 'week', count: 1, text: '1w' }, { type: 'all', text: '所有' }], selected: 2, inputEnabled: false },
             });
-        } else if(whichday=="thirty"){
-           Highcharts.setOptions({
+        } else if (whichday == "thirty") {
+            Highcharts.setOptions({
                 rangeSelector: { buttons: [{ type: 'minute', count: 60, text: '1h' }, { type: 'minute', count: 120, text: '2h' }, { type: 'minute', count: 360, text: '6h' }, { type: 'minute', count: 720, text: '12h' }, { type: 'day', count: 1, text: '1d' }, { type: 'week', count: 1, text: '1w' }, { type: 'all', text: '所有' }], selected: 2, inputEnabled: false },
-            }); 
-        } else if(whichday=="sixty"){
+            });
+        } else if (whichday == "sixty") {
             Highcharts.setOptions({
                 rangeSelector: { buttons: [{ type: 'minute', count: 60, text: '1h' }, { type: 'minute', count: 120, text: '2h' }, { type: 'minute', count: 360, text: '6h' }, { type: 'minute', count: 720, text: '12h' }, { type: 'day', count: 1, text: '1d' }, { type: 'week', count: 1, text: '1w' }, { type: 'all', text: '所有' }], selected: 2, inputEnabled: false },
             });
@@ -285,15 +332,15 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_m
         ohlc = [];
         volume = [];
         if (whichday == "one") {
-            for (var i = 0; i < onem.length; i++){
+            for (var i = 0; i < onem.length; i++) {
                 ohlc.push([onem[i][0], onem[i][2], onem[i][3], onem[i][4], onem[i][5]]);
                 volume.push([onem[i][0], onem[i][1]]);
                 if (i < onem.length - 1) {
-                    var j=onem[i][0]+60000;
+                    var j = onem[i][0] + 60000;
                     while (j < onem[i + 1][0]) {
                         ohlc.push([j, 0, 0, 0, 0]);
                         volume.push([j, 0]);
-                        j+=60000;
+                        j += 60000;
                     }
                 }
             }
@@ -302,11 +349,11 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_m
                 ohlc.push([fivem[i][0], fivem[i][2], fivem[i][3], fivem[i][4], fivem[i][5]]);
                 volume.push([fivem[i][0], fivem[i][1]]);
                 if (i < fivem.length - 1) {
-                    var j=fivem[i][0]+5*60000;
+                    var j = fivem[i][0] + 5 * 60000;
                     while (j < fivem[i + 1][0]) {
                         ohlc.push([j, 0, 0, 0, 0]);
                         volume.push([j, 0]);
-                        j+=5*60000;
+                        j += 5 * 60000;
                     }
                 }
             }
@@ -315,11 +362,11 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_m
                 ohlc.push([fifteenm[i][0], fifteenm[i][2], fifteenm[i][3], fifteenm[i][4], fifteenm[i][5]]);
                 volume.push([fifteenm[i][0], fifteenm[i][1]]);
                 if (i < fifteenm.length - 1) {
-                    var j=fifteenm[i][0]+15*60000;
+                    var j = fifteenm[i][0] + 15 * 60000;
                     while (j < fifteenm[i + 1][0]) {
                         ohlc.push([j, 0, 0, 0, 0]);
                         volume.push([j, 0]);
-                        j+=15*60000;
+                        j += 15 * 60000;
                     }
                 }
             }
@@ -328,11 +375,11 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_m
                 ohlc.push([thirtym[i][0], thirtym[i][2], thirtym[i][3], thirtym[i][4], thirtym[i][5]]);
                 volume.push([thirtym[i][0], thirtym[i][1]]);
                 if (i < thirtym.length - 1) {
-                    var j=thirtym[i][0]+30*60000;
+                    var j = thirtym[i][0] + 30 * 60000;
                     while (j < thirtym[i + 1][0]) {
                         ohlc.push([j, 0, 0, 0, 0]);
                         volume.push([j, 0]);
-                        j+=30*60000;
+                        j += 30 * 60000;
                     }
                 }
             }
@@ -341,11 +388,11 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_m
                 ohlc.push([sixtym[i][0], sixtym[i][2], sixtym[i][3], sixtym[i][4], sixtym[i][5]]);
                 volume.push([sixtym[i][0], sixtym[i][1]]);
                 if (i < sixtym.length - 1) {
-                    var j=sixtym[i][0]+60*60000;
+                    var j = sixtym[i][0] + 60 * 60000;
                     while (j < sixtym[i + 1][0]) {
                         ohlc.push([j, 0, 0, 0, 0]);
                         volume.push([j, 0]);
-                        j+=60*60000;
+                        j += 60 * 60000;
                     }
                 }
             }
@@ -358,11 +405,11 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_m
                 ohlc.push([oned[i][0], oned[i][2], oned[i][3], oned[i][4], oned[i][5]]);
                 volume.push([oned[i][0], oned[i][1]]);
                 if (i < oned.length - 1) {
-                    var j=oned[i][0]+(60*24*60000);
+                    var j = oned[i][0] + (60 * 24 * 60000);
                     while (j < oned[i + 1][0]) {
                         ohlc.push([j, 0, 0, 0, 0]);
                         volume.push([j, 0]);
-                        j+=(60*24*60000);
+                        j += (60 * 24 * 60000);
                     }
                 }
             }
@@ -512,6 +559,7 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_m
         }
     });
 
+    var needVerCode = 0;
     /**
      * 手机号输入框校验
      */
@@ -520,7 +568,39 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_m
         if ((keycode != 8 && keycode != 9 && keycode != 16 && keycode != 20 && keycode < 48) || (keycode > 57 && keycode < 96) || keycode > 105) {
             return false;
         }
+    }).on("blur", function(e) {
+        if ($(".phone_loginarea").val() == "") {
+            $(".error_tips_one").html("手机号不能为空").show();
+        } else {
+            $(".error_tips_one").hide();
+            api_mkt.needVerCode({
+                "phone": $(".phone_loginarea").val()
+            }, function(data) {
+                if (data.status == 200) {
+                    if (data.data.needVerCode == 0) {
+                        $("#authcode_page").hide();
+                        needVerCode = 0;
+                        $(".indexpage_loginarea_btn").css("top", "190px");
+                        $(".index_bottom_btna").css("top", "230px");
+                        $(".loginarea").css("height","280px");
+                        // alert("0");
+                    } else if (data.data.needVerCode == 1) {
+                        $("#authcode_page").show();
+                        $(".indexpage_loginarea_btn").css("top", "244px");
+                        $(".index_bottom_btna").css("top", "280px");
+                        $(".loginarea").css("height","326px");
+                        $(".loginarea_maxwidth").css("margin-top","20px");
+                        needVerCode = 1;
+                        // alert("1");
+                    }
+                } else if (data.status == 305 && data.msg == "传入的字段缺失或异常") {
+                    alert("查询是否需要验证码接口出错.");
+                }
+            });
+        }
     });
+
+
 
     var verify = function(inputData, dataType) {
         var reg = "";
@@ -554,17 +634,13 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_m
 
     var login_area_times = 0;
     $(".indexpage_loginarea_btn").on("click", function() {
-
-        var phone = $(".phone_loginarea").val();
         var password = $(".password_loginarea").val();
-        var flag = verify(phone, "tel");
-        var authcode_index = $(".authcode_index").val();
-        if (flag == "请输入正确的手机号码") {
-            $(".error_tips_one").show().html("请输入正确的手机号码");
+        
+        if ($(".phone_loginarea").val() == "") {
+            $(".error_tips_one").html("手机号不能为空").show();
             return;
-        } else {
-            $(".error_tips_one").hide().html("");
         }
+
         if (password == "") {
             $(".error_tips_index").show().html("请输入密码");
             return;
@@ -572,20 +648,13 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_m
             $(".error_tips_index").show().html("请输入6~20位密码");
             return;
         }
-        if (authcode_index == "") {
-            $(".autocode_tips").show().html("请输入验证码");
-            return;
-        }
-        if (flag == true) {
-            $(".error_tips_index").hide();
-            $(".autocode_tips").hide();
-            api_mkt.login({
-                phone: phone,
-                password: password,
-                code: authcode_index
+        if (needVerCode == 0) {
+            api_mkt.quickLogin({
+                "phone": $(".phone_loginarea").val(),
+                password: $(".password_loginarea").val()
             }, function(data) {
-                $(".loc_img").click();
                 if (data.status == 200) {
+                    // console.log("mima" + data);
                     $.cookie("loginfromwhichpage", "");
                     // $.cookie('exchangeToken', 'logined',{"expires":"h0.5"},"guorenmarket");
                     $.cookie('exchangeToken', 'logined');
@@ -627,9 +696,9 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_m
                             var totalvalue = totalNuts * $('#thelatestprice').html() + totalAssets;
                             //$('.lf_asset_center').html(totalvalue.toFixed(2)); //总资产
                             //$('.rg_asset_center').html(totalNuts.toFixed(2)); //总果仁
-                            var totalAssets = decimal.getTwoPs(decimal.floatAdd(data.data.cnyBalance , data.data.cnyLock));
-                            var totalNuts = decimal.getTwoPs(decimal.floatAdd(data.data.gopBalance , data.data.gopLock));
-                            var totalvalue = decimal.getTwoPs(decimal.floatAdd(decimal.floatMulti(totalNuts,$('#thelatestprice').html()),totalAssets));
+                            var totalAssets = decimal.getTwoPs(decimal.floatAdd(data.data.cnyBalance, data.data.cnyLock));
+                            var totalNuts = decimal.getTwoPs(decimal.floatAdd(data.data.gopBalance, data.data.gopLock));
+                            var totalvalue = decimal.getTwoPs(decimal.floatAdd(decimal.floatMulti(totalNuts, $('#thelatestprice').html()), totalAssets));
 
                             $('.lf_asset_center').html(decimal.getTwoPs(totalvalue)); //总资产
                             $('.rg_asset_center').html(decimal.getTwoPs(totalNuts)); //总果仁
@@ -644,7 +713,6 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_m
                     });
                     api_mkt.realAuth({}, function(data) {
                         if (data.status == 200) {
-                            console.log("xxx")
                             if (data.data.list.name != "") {
                                 $("#logined_username").html(data.data.list.name);
                             } else {
@@ -680,46 +748,192 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_m
                         $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
                     }
                     $(".loginarea").hide();
-                    $(".afterlogin").show();
-                } else if (data.status == 305) {
-                    showWarnWin(data.msg, 1e3)
-                    login_area_times++;
+                    $(".afterlogin").show().css("height","326px");
                 } else if (data.status == 400) {
-                    if (data.msg == "登录密码错误") {
-                        $(".error_tips_index").show().html("用户名或密码错误，请重新登录");
-                    } else if (data.msg == "手机号未注册") {
-                        $(".error_tips_one").show().html("用户名或密码错误，请重新登录");
-                    } else if (data.data && data.data.num && data.data.num <= 10) {
-                        if (data.data.num >= 5) {
-                            if (data.data.num == 10) {
-                                $(".error_tips_index").show().html("帐号已经锁定，请找回您的登录密码");
-                            } else {
-                                $(".error_tips_index").show().html("还有" + (10 - data.data.num) + "次输入机会");
-                            }
-                        } else if (data.data.num < 5 && data.data.msg == "登录密码错误") {
-                            $(".error_tips_index").show().html("用户名或密码错误，请重新登录");
-                        }
-                    } else if (data.msg == "error" && data.data.msg == "登录密码错误") {
-                        $(".error_tips").show().html("用户名或密码错误，请重新登录");
-                    } else if (data.msg == "密码长度错误") {
-                        $(".error_tips").show().html("用户名或密码错误，请重新登录");
+                    $(".error_tips_index").show().html("手机号或者密码错误");
+                    if(data.data.needVerCode==1){
+                        $("#authcode_page").show();
+                        $(".indexpage_loginarea_btn").css("top", "244px");
+                        $(".index_bottom_btna").css("top", "280px");
+                        $(".loginarea").css("height","326px");
+                        $(".loginarea_maxwidth").css("margin-top","20px");
+                        needVerCode = 1;
                     } else {
-                        $(".autocode_tips").show().html(data.msg);
+                        $("#authcode_page").hide();
+                        $(".indexpage_loginarea_btn").css("top", "190px");
+                        $(".index_bottom_btna").css("top", "230px");
+                        $(".loginarea").css("height","280px");
+                        needVerCode = 0;
                     }
-                } else {
-                    login_area_times++;
-                    $(".error_tips_index").show().html(data.msg);
                 }
             });
+        } else if (needVerCode == 1) {
+            var phone = $(".phone_loginarea").val();
+            var password = $(".password_loginarea").val();
+            var flag = verify(phone, "tel");
+            var authcode_index = $(".authcode_index").val();
+            if (flag == "请输入正确的手机号码") {
+                $(".error_tips_one").show().html("请输入正确的手机号码");
+                return;
+            } else {
+                $(".error_tips_one").hide().html("");
+            }
+            if (password == "") {
+                $(".error_tips_index").show().html("请输入密码");
+                return;
+            } else if (password.length > 20 || password.length < 6) {
+                $(".error_tips_index").show().html("请输入6~20位密码");
+                return;
+            }
+            if (authcode_index == "") {
+                $(".autocode_tips").show().html("请输入验证码");
+                return;
+            }
+            if (flag == true) {
+                $(".error_tips_index").hide();
+                $(".autocode_tips").hide();
+                api_mkt.login({
+                    phone: phone,
+                    password: password,
+                    code: authcode_index
+                }, function(data) {
+                    $(".loc_img").click();
+                    if (data.status == 200) {
+                        $.cookie("loginfromwhichpage", "");
+                        // $.cookie('exchangeToken', 'logined',{"expires":"h0.5"},"guorenmarket");
+                        $.cookie('exchangeToken', 'logined');
+                        $(".login_regist").hide();
+                        $(".login_header").show();
+                        $(".popDiv").hide();
+                        $(".bg").hide();
+
+                        $("#msg_num_top").text(0);
+                        global_loginuserphone = data.data.phone;
+                        global_loginusername = data.data.name ? data.data.name : "";
+                        global_loginuseruid = data.data.uid;
+                        // $.cookie("global_loginuserphone",global_loginuserphone,{"expires":"h0.5"},"guorenmarket");
+                        // $.cookie("global_loginusername",global_loginusername,{"expires":"h0.5"},"guorenmarket");
+                        // $.cookie("global_loginuseruid",global_loginuseruid,{"expires":"h0.5"},"guorenmarket");
+                        $.cookie("global_loginuserphone", global_loginuserphone);
+                        $.cookie("global_loginusername", global_loginusername);
+                        $.cookie("global_loginuseruid", global_loginuseruid);
+                        synchronous();
+                        setInterval(synchronous, 60000);
+
+                        $(".top_em").html(data.data.phone.substr(0, 3) + '****' + data.data.phone.substr(7, 4));
+                        $("#uidval").html(global_loginuseruid); //首页uid赋值
+                        var whichpage = $.cookie("loginfromwhichpage");
+                        if (whichpage == "one") {
+                            location.href = "./index.html";
+                        } else if (whichpage == "two") {
+                            location.href = "./tradingfloor.html";
+                        } else if (whichpage == "three") {
+                            location.href = "./conditionofassets.html";
+                        } else if (whichpage == "four") {
+                            location.href = "./basicinfo.html";
+                        }
+                        api_mkt.totalAssets({}, function(data) {
+                            if (data.status == 200) {
+                                var totalAssets = data.data.cnyBalance + data.data.cnyLock;
+                                var totalNuts = data.data.gopBalance + data.data.gopLock;
+                                //$('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
+                                var totalvalue = totalNuts * $('#thelatestprice').html() + totalAssets;
+                                //$('.lf_asset_center').html(totalvalue.toFixed(2)); //总资产
+                                //$('.rg_asset_center').html(totalNuts.toFixed(2)); //总果仁
+                                var totalAssets = decimal.getTwoPs(decimal.floatAdd(data.data.cnyBalance, data.data.cnyLock));
+                                var totalNuts = decimal.getTwoPs(decimal.floatAdd(data.data.gopBalance, data.data.gopLock));
+                                var totalvalue = decimal.getTwoPs(decimal.floatAdd(decimal.floatMulti(totalNuts, $('#thelatestprice').html()), totalAssets));
+
+                                $('.lf_asset_center').html(decimal.getTwoPs(totalvalue)); //总资产
+                                $('.rg_asset_center').html(decimal.getTwoPs(totalNuts)); //总果仁
+
+                            } else if (data.status == 305) {
+
+                            } else if (data.status == 400) {
+
+                            } else {
+
+                            }
+                        });
+                        api_mkt.realAuth({}, function(data) {
+                            if (data.status == 200) {
+                                console.log("xxx")
+                                if (data.data.list.name != "") {
+                                    $("#logined_username").html(data.data.list.name);
+                                } else {
+                                    $("#logined_username").html(global_loginuserphone.substr(0, 3) + '****' + global_loginuserphone.substr(7, 4));
+                                }
+                            } else if (data.status == 305) {} else if (data.status == 400) {
+                                $("#logined_username").html(global_loginuserphone.substr(0, 3) + '****' + global_loginuserphone.substr(7, 4));
+                            } else {}
+                        });
+                        if (global_loginusername) {
+                            $("#goone").on("click", function() {
+                                $.cookie("loginfromwhichpage", "three");
+                                location.href = "./cnydepositswithdrawal.html";
+                            });
+                            $("#gotwo").on("click", function() {
+                                $.cookie("loginfromwhichpage", "three");
+                                location.href = "./cnydepositswithdrawal.html?formindex='index'";
+                            });
+                            $("#whether_auth").html(global_loginusername);
+                            $(".bottom_em_i")[0].style.background = "url(./images/index_already_authentication.png)";
+                        } else {
+
+                            $("#goone").on("click", function() {
+                                $.cookie("loginfromwhichpage", "three");
+                                location.href = "./conditionofassets.html";
+                            });
+                            $("#gotwo").on("click", function() {
+                                $.cookie("loginfromwhichpage", "three");
+                                location.href = "./conditionofassets.html";
+                            });
+                            // console.log("haha")
+                            $("#whether_auth").html("未认证");
+                            $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)";
+                        }
+                        $(".loginarea").hide();
+                        $(".afterlogin").show().css("height","326px");
+                    } else if (data.status == 305) {
+                        showWarnWin(data.msg, 1e3)
+                        login_area_times++;
+                    } else if (data.status == 400) {
+                        if (data.msg == "登录密码错误") {
+                            $(".error_tips_index").show().html("用户名或密码错误，请重新登录");
+                        } else if (data.msg == "手机号未注册") {
+                            $(".error_tips_one").show().html("用户名或密码错误，请重新登录");
+                        } else if (data.data && data.data.num && data.data.num <= 10) {
+                            if (data.data.num >= 5) {
+                                if (data.data.num == 10) {
+                                    $(".error_tips_index").show().html("帐号已经锁定，请找回您的登录密码");
+                                } else {
+                                    $(".error_tips_index").show().html("还有" + (10 - data.data.num) + "次输入机会");
+                                }
+                            } else if (data.data.num < 5 && data.data.msg == "登录密码错误") {
+                                $(".error_tips_index").show().html("用户名或密码错误，请重新登录");
+                            }
+                        } else if (data.msg == "error" && data.data.msg == "登录密码错误") {
+                            $(".error_tips").show().html("用户名或密码错误，请重新登录");
+                        } else if (data.msg == "密码长度错误") {
+                            $(".error_tips").show().html("用户名或密码错误，请重新登录");
+                        } else {
+                            $(".autocode_tips").show().html(data.msg);
+                        }
+                    } else {
+                        login_area_times++;
+                        $(".error_tips_index").show().html(data.msg);
+                    }
+                });
+            }
+            // if (login_area_times > 3) {
+            //     $("#authcode_page").show();
+            //     $(".indexpage_loginarea_btn").css("top", "244px");
+            //     $(".index_bottom_btna").css("top", "280px");
+            // } else {
+            //     $(".indexpage_loginarea_btn").css("top", "180px");
+            //     $(".index_bottom_btna").css("top", "216px");
+            // }
         }
-        // if (login_area_times > 3) {
-        //     $("#authcode_page").show();
-        //     $(".indexpage_loginarea_btn").css("top", "244px");
-        //     $(".index_bottom_btna").css("top", "280px");
-        // } else {
-        //     $(".indexpage_loginarea_btn").css("top", "180px");
-        //     $(".index_bottom_btna").css("top", "216px");
-        // }
     });
     // $("#goone").on("click", function() {
     //     location.href = "./cnydepositswithdrawal.html";
@@ -796,7 +1010,7 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_trade', 'cookie'], function(api_m
 });
 
 
-window.addEventListener("keyup",function(){
+window.addEventListener("keyup", function() {
     if (event.keyCode == 13) {
         event.returnValue = false;
         event.cancel = true;

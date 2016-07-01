@@ -136,7 +136,7 @@ require(['api_mkt', 'mkt_info','decimal', 'mkt_pagehead', 'cookie'], function(ap
     }
     
     /**
-     * 果仁提现分页查询
+     * 果仁转出分页查询
      */
     var transferOutHistory=function(pageNo,pageSize){
         api_mkt.transferOutHistory({

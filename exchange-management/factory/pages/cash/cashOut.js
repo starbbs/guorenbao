@@ -111,7 +111,7 @@ require(['api_mkt_management'], function(api_mkt_management) {
                     $(currentClass).siblings(".bb").removeClass("icon-undo");
                     $(currentClass).siblings(".bb").addClass("icon-checkmark").attr("title", "确定");
                     $(currentClass).parent().parent("tr").css("background-color", "yellow");
-                    $(currentClass).parent().siblings(".status").html("进行中"); //icon-tk
+                    $(currentClass).parent().siblings(".status").html("进行中").parent().css("background-color", "yellow"); //icon-tk
                     $(currentClass).siblings(".cc").attr("title", "退款").removeClass("cjdf").removeClass("icon-cjdf").addClass("tk").addClass("icon-tk");
                     $(currentClass).siblings(".dd").hide();
                     //window.location.reload();
@@ -173,6 +173,7 @@ require(['api_mkt_management'], function(api_mkt_management) {
         $(".bg").css("display", "block");
         $(".js-password").val("");
         datathis = $(this).parent().parent().find('.stt');
+        cjdfdfsibling = $(this).parent().parent().find(".status");
         $(".btnTrue").attr("data-id", $(this).parent().parent().find('.idNum').text());
         if ($(this).hasClass("tk")) {
             $(".js-msg").html("您确定要退款?");
@@ -183,11 +184,13 @@ require(['api_mkt_management'], function(api_mkt_management) {
         }
     });
      var qdbdfthis = null;
+     var qdbdfsibling = null;
      $("#tobody-json").on("click", ".dd", function() {
         $(".mydiv").css("display", "block");
         $(".bg").css("display", "block");
         $(".js-password").val("");
         qdbdfthis = $(this).parent().parent().find(".stt");
+        qdbdfsibling = $(this).parent().parent().find(".status");
         $(".btnTrue").attr("data-id", $(this).parent().parent().find('.idNum').text());
         if ($(this).hasClass("qdbdf")) {
             $(".js-msg").html("确认进行钱袋宝代付?");
@@ -253,6 +256,8 @@ require(['api_mkt_management'], function(api_mkt_management) {
                     console.log(data);
                     console.log(datathis);
                     datathis.html("超级代付");
+                    cjdfdfsibling.text("进行中").css("color","orange");
+                    cjdfdfsibling.parent().css("background-color","yellow");
                     $(".mydiv").css("display", "none");
                     $(".bg").css("display", "none");
                     datathis.siblings(".firstBtn").html("");
@@ -268,8 +273,9 @@ require(['api_mkt_management'], function(api_mkt_management) {
                 'ip': ''
             }, function(data) {
                 if (data.status == 200) {
-                    console.log(data);
                     qdbdfthis.html("钱袋宝代付");
+                    qdbdfsibling.text("进行中").css("color","orange");
+                    qdbdfsibling.parent().css("background-color","yellow");
                     $(".mydiv").css("display", "none");
                     $(".bg").css("display", "none");
                     qdbdfthis.siblings(".firstBtn").html("");
@@ -357,7 +363,7 @@ require(['api_mkt_management'], function(api_mkt_management) {
         $(".aside-table-tbody").html(html.join(""));
         //过滤内容显示不同颜色
         $(".status").filter(":contains('WAIT')").text('等待').css("color", "orange");
-        $(".status").filter(":contains('PROCESSING')").text('进行中').css("color", "orange");
+        $(".status").filter(":contains('PROCESSING')").text('进行中').css("color", "orange").parent().css("background-color", "yellow");
         $(".status").filter(":contains('CANCEL')").text('已撤销').css("color", "#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('');
         $(".status").filter(":contains('SUCCESS')").text('提现成功').css("color", "#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('');
         $(".status").filter(":contains('FAILURE')").text('已退款').css("color", "#ccc").parent().find('.checkDeal').removeClass('checkDeal').text('');

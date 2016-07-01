@@ -481,12 +481,12 @@
     margin-right:8px;
 }
 
-/*人民币提现管理 果仁提现管理*/
+/*人民币转出管理 果仁转出管理*/
 .bankIdCard{
-    margin-top:20px;
-    width:288px;
-    height:160px;
-    border:1px solid #ccc;
+        margin-top: 20px;
+    width: 232px;
+    height: 140px;
+    border: 1px solid #ccc;
     border-radius: 6px;
     position: relative;
     float: left;
@@ -496,10 +496,10 @@
     margin-right:0px;
 }
 .bankIdCard-bankLogoName{
-    height:60px;
-    width:140px;
+        height: 48px;
+    width: 140px;
     line-height: 20px;
-    padding-left:5px;
+    padding-left: 5px;
 }
 .bankIdCard-Code{
     position: absolute;
@@ -508,7 +508,7 @@
 }
 .bankIdCard-CardAndBg{
     position: absolute;
-    left:213px;
+    left:164px;
     top:16px;
     width:56px;
     height:20px;
@@ -518,27 +518,27 @@
     color:#fff;
 }
 .bankIdCard-hr{
-    width:275px;
+    width:224px;
     position: absolute;
-    top:47px;
+    top:0px;
     left:6px;
     border:1px dashed #ccc;
 }
 .bankIdCard-Name{
     position: absolute;
-    left:18px;
-    top:74px;
-    width:156px;
-    height:20px;
-    color:#999;
+    left: 18px;
+    top: 14px;
+    width: 116px;
+    height: 20px;
+    color: #999;
 }
 .bankIdCard-del{
     position: absolute;
-    left:246px;
-    top:74px;
-    width:156px;
-    height:20px;
-    color:#0BBEEE;
+    left: 194px;
+    top: 114px;
+    width: 36px;
+    height: 20px;
+    color: #0BBEEE;
     cursor: pointer;
 }
 .bankIdCard-address{
@@ -552,13 +552,13 @@
 .bankIdCard-add{
     text-align: center;
     line-height: 50px;
-    margin-top:21px;
-    font-size:1.5rem;
+    margin-top: 21px;
+    font-size: 1.5rem;
     cursor: pointer;
-    width:280px;
-    float:left;
-    height: 160px;
-    border:1px dashed #ccc;    
+    width: 230px;
+    float: left;
+    height: 138px;
+    border: 1px dashed #ccc;
     border-radius: 6px;
 }
 .bankIdCard-add-1{
@@ -584,7 +584,7 @@
     float:right;
     cursor: pointer;
 }
-/*果仁提现管理*/
+/*果仁转出管理*/
 .nutOutputManager{
     width:100%;
     height:80px;
@@ -654,6 +654,14 @@
     background: url(../images/center_PSBC.png) no-repeat 10px 15px;
 }
 
+.chinabank{
+    background: url(../images/center_chinabank.png) no-repeat 10px 15px;
+}
+
+.pfyh{
+    background: url(../images/center_pfyh.png) no-repeat 10px 15px;
+}
+
 /*果仁地址修改*/
 .nutOutputManager .input{
     outline:none;
@@ -675,4 +683,18 @@
 }
 .msg-sendCodeByLoginAfter, .msg-pay-pwd{
     width:400px;
+}
+
+.bgColor{
+    position: relative;
+    top: 52px;
+    height: 38px;
+    width: 100%;
+    background-color: #f8f8f8;
+}
+.banknumid{
+        position: absolute;
+    top: 60px;
+    left: 20px;
+    font-weight: 600;
 }

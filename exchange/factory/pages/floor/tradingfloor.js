@@ -106,16 +106,59 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
     var thirtym;
     var sixtym;
     var oned;
+    function cyc(name,inter){
+        var a=JSON.parse(name);
+        if (a&&a[0]){
+            var cur=new Date(a[0][0]);
+            var end=new Date(a[a.length-1][0])
+            var obj={};
+            for(var i=0;i<a.length;i++){
+                obj[a[i][0]]=a[i]
+            }
+            while((cur.getTime())<=(end.getTime())){
+                    // 没有数据，用上一天的收盘价填充  
+                if(!obj[cur.getTime()]){
+                    var arr=[
+                        cur.getTime(),
+                        0
+                    ];
+                    var prevTime = new Date(cur);
+                    prevTime.setMinutes( (cur.getMinutes()-inter));
+                    prevTime = prevTime.getTime();
+                    var curNum = obj[ prevTime ][5];
+                    arr[2]=arr[3]=arr[4]=arr[5]=curNum;
+
+                    //arr.push(cur.toString())
+
+                    a.push(arr);
+                    obj[arr[0]] = arr; 
+                }
+                cur.setMinutes(cur.getMinutes()+inter)
+            }
+        };
+        a.sort(function(leftVal, rightVal){
+            return leftVal[0] > rightVal[0] ? 1 : -1;
+        });
+        return a;
+    }
     var klineapply = function(data) {
-        dataLength = data.length;
-        onem = JSON.parse(data['1m']);
-        fivem = JSON.parse(data['5m']);
-        fifteenm = JSON.parse(data['15m']);
-        thirtym = JSON.parse(data['30m']);
-        sixtym = JSON.parse(data['60m']);
+        /*onem = cyc(data['1m'],1);
+        fivem = cyc(data['5m'],5);
+        fifteenm = cyc(data['15m'],15);
+        thirtym = cyc(data['30m'],30);*/
+        onem = cyc(data['1m'],1);
+       // onem=[];
+        fivem = cyc(data['5m'],5);
+        fifteenm = cyc(data['15m'],15);
+        thirtym = cyc(data['30m'],30);
+
+        sixtym = cyc(data['60m'],60);
         if (data['1d']) {
-            oned = JSON.parse(data['1d']);
+            oned = cyc(data['1d'],1440);
         }
+        //if (data['1d']) {
+        //    oned = cyc(data['1d'],1440);
+       // }
         if (!on_page_load) {
             $(".fivteenminute").click();
             on_page_load = true;
@@ -158,10 +201,31 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
                         var series1 = this.series[1];
                         setInterval(function() {
                             api_mkt.depthchart(function(data) {
-                                obj1 = data[0].sort(function(t, a) {
-                                    return t[0] > a[0] ? 1 : t[0] < a[0] ? -1 : 0
-                                });
-                                obj2 = data[1];
+                                console.log(data);
+                                if(data&&data[0].length){
+                                    var range=3.00;
+                                    var max=data[0][data[0].length-1][0]-range;
+                                    var arr0=[];
+                                    for (i=0;i<data[0].length;i++){
+                                        if (data[0][i][0]>max)
+                                        {arr0.push(data[0][i])}
+                                    }
+                                    data[0]=arr0;
+                                    console.log(data[0])
+                                    var min=data[1][0][0]+range;
+                                    var arr1=[];
+                                    for (i=0;i<data[1].length;i++){
+                                        if (data[1][i][0]<min)
+                                        {arr1.push(data[1][i])}
+                                    }
+                                    data[1]=arr1;
+                                    console.log(data[1])
+                                    
+                                    obj1 = data[0].sort(function(t, a) {
+                                        return t[0] > a[0] ? 1 : t[0] < a[0] ? -1 : 0
+                                    });
+                                    obj2 = data[1];
+                                }
                                 series0.setData(obj1);
                                 series1.setData(obj2);
                             });

@@ -1,7 +1,7 @@
 define('api_mkt', ['cookie'], function() {
-    // var basePath = 'http://localhost/';                 //本地环境
+    var basePath = 'http://localhost/';                 //本地环境
     // var basePath = 'https://www.goopal.net.cn/'; //旧的正式环境
-    var basePath = './';  //测试环境和正式环境都用这个
+    // var basePath = './';  //测试环境和正式环境都用这个
     var api = {};
     // api.basePath2 = 'https://endpoint.goopal.com.cn/common/checkBankCard';  //线上环境
     api.basePath2 = 'http://goopal.xiaojian.me/common/checkBankCard'; //测试环境
@@ -190,37 +190,37 @@ define('api_mkt', ['cookie'], function() {
     add('billListPage', 'exchangeApi/bill/billList');
     //接口 人民币充值
     add('rmbRecharge', 'exchangeApi/wealth/rmbRecharge');
-    //接口 人民币提现
+    //接口 人民币转出
     add('rmbWithdrawals', 'exchangeApi/wealth/rmbWithdrawals');
     //接口 人民币充值历史（查询最近5条）
     add('rmbRechargeHistory', 'exchangeApi/wealth/rmbRechargeHistory');
-    //接口 人民币提现历史（查询最近5条）
+    //接口 人民币转出历史（查询最近5条）
     add('rmbWithdrawalsHistory', 'exchangeApi/wealth/rmbWithdrawalsHistory');
     //接口 银行卡识别
     add('checkBankCard', 'exchangeApi/common/checkBankCard');
-    // 接口 人民币提现管理添加 添加银行卡
+    // 接口 人民币转出管理添加 添加银行卡
     add('rmbWithdrawalsManageAdd', 'exchangeApi/wealth/rmbWithdrawalsManageAdd');
-    // 接口 人民币提现管理删除
+    // 接口 人民币转出管理删除
     add('rmbWithdrawalsManageDel', 'exchangeApi/wealth/rmbWithdrawalsManageDel');
     // 接口 发送手机号验证码(登录后不需要手机号参数)
     add('sendCodeByLoginAfter', 'exchangeApi/common/sendCodeByLoginAfter');
-    // 接口 果仁提现地址管理添加
+    // 接口 果仁转出地址管理添加
     add('gopAddressManAdd', 'exchangeApi/wealth/gopAddressManAdd');
-    // 接口 果仁提现地址管理删除
+    // 接口 果仁转出地址管理删除
     add('gopAddressManDel', 'exchangeApi/wealth/gopAddressManDel');
-    // 接口 果仁提现地址管理
+    // 接口 果仁转出地址管理
     add('gopAddressMan', 'exchangeApi/wealth/gopAddressMan');
-    // 接口 果仁提现地址修改
+    // 接口 果仁转出地址修改
     add('gopAddressManUpdate', 'exchangeApi/wealth/gopAddressManUpdate');
-    // 接口 人民币提现管理【判断是否添加银行卡】
+    // 接口 人民币转出管理【判断是否添加银行卡】
     add('bankList', 'exchangeApi/wealth/bankList');
-    // 接口 果仁(提现)转出记录_只查询成功记录
+    // 接口 果仁(转出)转出记录_只查询成功记录
     add('transferOutHistory', 'exchangeApi/wealth/transferOutHistory');
     // 接口 果仁(充值)转出记录_只查询成功记录
     add('transferInHistory', 'exchangeApi/wealth/transferInHistory');
     // 接口 果仁充值
     add('gopRecharge', 'exchangeApi/wealth/gopRecharge');
-    // 接口 果仁提现
+    // 接口 果仁转出
     add('gopWithdrawals', 'exchangeApi/wealth/gopWithdrawals');
     //撤单
     add('tradeGopCancelByid', 'exchangeApi/wealth/tradeGopCancelByid');
@@ -264,6 +264,12 @@ define('api_mkt', ['cookie'], function() {
     add('unReadMessage', 'exchangeApi/user/unReadMessage');
 
     add('message','exchangeApi/user/message');
+
+    add('availableRMB','exchangeApi/wealth/getAvailableRmb');
+
+    add('needVerCode','exchangeApi/login/needVerCode');
+
+    add('quickLogin','exchangeApi/login/quickLogin')
 
     return api;
 });

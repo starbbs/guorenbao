@@ -201,7 +201,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         $(".login_regist").hide();
         $(".login_header").show();
         $(".loginarea").hide();
-        $(".afterlogin").show();
+        $(".afterlogin").show().css("height","326px");
         var global_loginuserphone = $.cookie("global_loginuserphone");
         var global_loginusername = $.cookie("global_loginusername");
         // console.log("-------------"+global_loginuserphone);
@@ -226,7 +226,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         }
     });
 
-
+    var needVerCode_common = 0;
     /**
      * 手机号输入框校验
      */
@@ -234,6 +234,31 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         var keycode = e.which;
         if ((keycode != 8 && keycode != 9 && keycode != 16 && keycode != 20 && keycode < 48) || (keycode > 57 && keycode < 96) || keycode > 105) {
             return false;
+        }
+    }).on("blur", function(e) {
+        if ($(".phone").val() == "") {
+            $(".err_tips_one").html("手机号不能为空").show();
+        } else {
+            $(".err_tips_one").hide();
+            api_mkt.needVerCode({
+                "phone": $(".phone").val()
+            }, function(data) {
+                if (data.status == 200) {
+                    if (data.data.needVerCode == 0) {
+                        $("#authcode").hide();
+                        needVerCode_common = 0;
+                        $(".popup_login_btn").css("top", "190px");
+                        $(".bottom_div").css("top", "230px");
+                    } else if (data.data.needVerCode == 1) {
+                        $("#authcode").show();
+                        $(".popup_login_btn").css("top", "247px");
+                        $(".bottom_div").css("top", "290px");
+                        needVerCode_common = 1;
+                    }
+                } else if (data.status == 305 && data.msg == "传入的字段缺失或异常") {
+                    alert("查询是否需要验证码接口出错.");
+                }
+            });
         }
     });
 
@@ -245,17 +270,10 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
 
     //右上角登录按钮点击之后出发的事件
     $(".popup_login_btn").on("click", function() {
-
-        popup_login_times++;
-        var phone = $(".phone").val();
         var password = $(".password").val();
-        var authcode_common = $(".authcode_common").val();
-        var flag = verify(phone, "tel");
-        if (flag == "请输入正确的手机号码") {
-            $(".err_tips_one").show().html("请输入正确的手机号码");
+        if ($(".phone").val() == "") {
+            $(".err_tips_one").html("手机号不能为空").show();
             return;
-        } else {
-            $(".err_tips_one").hide().html("");
         }
         if (password == "") {
             $(".error_tips").show().html("请输入密码");
@@ -263,150 +281,252 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         } else if (password.length > 20 || password.length < 6) {
             $(".error_tips").show().html("请输入6~20位密码");
             return;
-        } else {
-            $(".error_tips").hide().html("");
         }
-        if (authcode_common == "") {
-            $(".autocode_tips").show().html("请输入验证码");
-            return;
-        }
-        if (flag == true && password != "" && password.length >= 6 && password.length <= 20 && authcode_common != "") {
-            $(".error_tips").hide();
-            $(".autocode_tips").hide();
-            api_mkt.login({
-                phone: phone,
-                password: password,
-                code: authcode_common
+
+        if (needVerCode_common == 0) {
+            api_mkt.quickLogin({
+                "phone": $(".phone").val(),
+                password: $(".password").val()
             }, function(data) {
-                $(".loc_img_topbar").click();
                 if (data.status == 200) {
                     //$.cookie('exchangeToken', 'logined',{"expires":"h0.5"},"guorenmarket");
-                    $.cookie('exchangeToken', 'logined');
-                    $("#msg_num_top").text(0);
-                    $(".login_regist").hide();
-                    $(".login_header").show();
-                    $(".popDiv").hide();
-                    $(".bg").hide();
-                    $(".loginarea").hide();
-                    $(".afterlogin").show();
-                    global_loginuserphone = data.data.phone;
-                    global_loginusername = data.data.name ? data.data.name : "";
-                    global_loginuseruid = data.data.uid;
-                    $.cookie("global_loginuserphone", global_loginuserphone);
-                    $.cookie("global_loginusername", global_loginusername);
-                    $.cookie("global_loginuseruid", global_loginuseruid);
-                    synchronous();
-                    setInterval(synchronous, 60000);
-                    if (global_loginusername != "") {
-                        $("#logined_username").html(global_loginusername);
-                        whether_auth = true;
-                    } else {
-                        whether_auth = false;
-                        $("#logined_username").html(global_loginuserphone.substr(0, 3) + '****' + global_loginuserphone.substr(7, 4));
-                    }
-                    $("#uidval").html(global_loginuseruid);
-                    $(".top_em").html(global_loginuserphone.substr(0, 3) + '****' + global_loginuserphone.substr(7, 4));
-                    var whether_auth_val = "";
-                    if (whether_auth) {
-                        $("#goone").on("click", function() {
-                            $.cookie("loginfromwhichpage", "three");
-                            location.href = "./cnydepositswithdrawal.html";
-                        });
-                        $("#gotwo").on("click", function() {
-                            $.cookie("loginfromwhichpage", "three");
-                            location.href = "./cnydepositswithdrawal.html?formindex='index'";
-                        });
-
-                        whether_auth_val = global_loginusername;
-                        $(".bottom_em_i")[0] ? $(".bottom_em_i")[0].style.background = "url(./images/index_already_authentication.png)" : "";
-                    } else {
-                        $("#goone").on("click", function() {
-                            $.cookie("loginfromwhichpage", "three");
-                            location.href = "./conditionofassets.html";
-                        });
-                        $("#gotwo").on("click", function() {
-                            $.cookie("loginfromwhichpage", "three");
-                            location.href = "./conditionofassets.html";
-                        });
-
-                        whether_auth_val = '未认证';
-                        $(".bottom_em_i")[0] ? $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)" : "";
-                    }
-                    $("#whether_auth").html(whether_auth_val); //是否实名认证的标识
-                    var whichpage = $.cookie("loginfromwhichpage");
-                    if (whichpage == "one") {
-                        location.href = "./index.html";
-                    } else if (whichpage == "two") {
-                        location.href = "./tradingfloor.html";
-                    } else if (whichpage == "three") {
-                        location.href = "./conditionofassets.html";
-                    } else if (whichpage == "four") {
-                        location.href = "./basicinfo.html";
-                    }
-                    api_mkt.totalAssets({}, function(data) {
-                        if (data.status == 200) {
-                            var totalAssets = data.data.cnyBalance + data.data.cnyLock;
-                            var totalNuts = data.data.gopBalance + data.data.gopLock;
-                            //$('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
-                            var totalvalue = totalNuts * $('#thelatestprice').html() + totalAssets;
-                            $('.lf_asset_center').html(totalvalue.toFixed(2)); //总资产
-                            $('.rg_asset_center').html(totalNuts.toFixed(2)); //总果仁
-
-                            var cnyBalance = data.data.cnyBalance;
-                            $.cookie('allCNY', cnyBalance);
-                            $('.w_b_l_one').html("<em>账户余额：" + data.data.cnyBalance + " CNY</em>");
-                            $('.w_b_l_two').html("<em>果仁余额：" + data.data.gopBalance + " GOP</em>");
-                        } else if (data.status == 305) {} else if (data.status == 400) {} else {}
-                    });
-                } else if (data.status == 305) {
-                    // alert(data.msg);
-                    showWarnWin(data.msg, 1e3);
-                } else if (data.status == 400) {
-                    if (data.msg == "验证码错误") {
-                        $(".autocode_tips").show().html(data.msg);
-                    } else if (data.msg == "手机号未注册") {
-                        $(".err_tips_one").show().html("用户名或密码错误，请重新登录");
-                    } else if (data.msg == "登录密码错误") {
-                        $(".error_tips").show().html("用户名或密码错误，请重新登录");
-                    } else if (data.data && data.data.num && data.data.num <= 10) {
-                        if (data.data.num >= 5) {
-                            if (data.data.num == 10) {
-                                $(".error_tips").show().html("帐号已经锁定，请找回您的登录密码");
-                            } else {
-                                $(".error_tips").show().html("还有" + (10 - data.data.num) + "次输入机会");
-                            }
-                        } else if (data.data.num < 5 && data.data.msg == "登录密码错误") {
-                            $(".error_tips").show().html("用户名或密码错误，请重新登录");
+                        $.cookie('exchangeToken', 'logined');
+                        $("#msg_num_top").text(0);
+                        $(".login_regist").hide();
+                        $(".login_header").show();
+                        $(".popDiv").hide();
+                        $(".bg").hide();
+                        $(".loginarea").hide();
+                        $(".afterlogin").show().css("height","326px");
+                        global_loginuserphone = data.data.phone;
+                        global_loginusername = data.data.name ? data.data.name : "";
+                        global_loginuseruid = data.data.uid;
+                        $.cookie("global_loginuserphone", global_loginuserphone);
+                        $.cookie("global_loginusername", global_loginusername);
+                        $.cookie("global_loginuseruid", global_loginuseruid);
+                        synchronous();
+                        setInterval(synchronous, 60000);
+                        if (global_loginusername != "") {
+                            $("#logined_username").html(global_loginusername);
+                            whether_auth = true;
+                        } else {
+                            whether_auth = false;
+                            $("#logined_username").html(global_loginuserphone.substr(0, 3) + '****' + global_loginuserphone.substr(7, 4));
                         }
-                    } else if (data.msg == "error" && data.data.msg == "登录密码错误") {
-                        $(".error_tips").show().html("用户名或密码错误，请重新登录");
-                    } else if (data.msg == "密码长度错误") {
-                        $(".error_tips").show().html("用户名或密码错误，请重新登录");
+                        $("#uidval").html(global_loginuseruid);
+                        $(".top_em").html(global_loginuserphone.substr(0, 3) + '****' + global_loginuserphone.substr(7, 4));
+                        var whether_auth_val = "";
+                        if (whether_auth) {
+                            $("#goone").on("click", function() {
+                                $.cookie("loginfromwhichpage", "three");
+                                location.href = "./cnydepositswithdrawal.html";
+                            });
+                            $("#gotwo").on("click", function() {
+                                $.cookie("loginfromwhichpage", "three");
+                                location.href = "./cnydepositswithdrawal.html?formindex='index'";
+                            });
+
+                            whether_auth_val = global_loginusername;
+                            $(".bottom_em_i")[0] ? $(".bottom_em_i")[0].style.background = "url(./images/index_already_authentication.png)" : "";
+                        } else {
+                            $("#goone").on("click", function() {
+                                $.cookie("loginfromwhichpage", "three");
+                                location.href = "./conditionofassets.html";
+                            });
+                            $("#gotwo").on("click", function() {
+                                $.cookie("loginfromwhichpage", "three");
+                                location.href = "./conditionofassets.html";
+                            });
+
+                            whether_auth_val = '未认证';
+                            $(".bottom_em_i")[0] ? $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)" : "";
+                        }
+                        $("#whether_auth").html(whether_auth_val); //是否实名认证的标识
+                        var whichpage = $.cookie("loginfromwhichpage");
+                        if (whichpage == "one") {
+                            location.href = "./index.html";
+                        } else if (whichpage == "two") {
+                            location.href = "./tradingfloor.html";
+                        } else if (whichpage == "three") {
+                            location.href = "./conditionofassets.html";
+                        } else if (whichpage == "four") {
+                            location.href = "./basicinfo.html";
+                        }
+                        api_mkt.totalAssets({}, function(data) {
+                            if (data.status == 200) {
+                                var totalAssets = data.data.cnyBalance + data.data.cnyLock;
+                                var totalNuts = data.data.gopBalance + data.data.gopLock;
+                                //$('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
+                                var totalvalue = totalNuts * $('#thelatestprice').html() + totalAssets;
+                                $('.lf_asset_center').html(totalvalue.toFixed(2)); //总资产
+                                $('.rg_asset_center').html(totalNuts.toFixed(2)); //总果仁
+
+                                var cnyBalance = data.data.cnyBalance;
+                                $.cookie('allCNY', cnyBalance);
+                                $('.w_b_l_one').html("<em>账户余额：" + data.data.cnyBalance + " CNY</em>");
+                                $('.w_b_l_two').html("<em>果仁余额：" + data.data.gopBalance + " GOP</em>");
+                            } else if (data.status == 305) {} else if (data.status == 400) {} else {}
+                        });
+                } else if(data.status==400){
+                    $(".error_tips").show().html("手机号或者密码错误");
+                    if(data.data.needVerCode==1){
+                        $("#authcode").show();
+                        $(".popup_login_btn").css("top", "247px");
+                        $(".bottom_div").css("top", "290px");
+                        needVerCode_common = 1;
+                    } else {
+                        $("#authcode").hide();
+                        needVerCode_common = 0;
+                        $(".popup_login_btn").css("top", "190px");
+                        $(".bottom_div").css("top", "230px");
+                    }
+                }
+            });
+        } else if (needVerCode_common == 1) {
+            popup_login_times++;
+            var phone = $(".phone").val();
+            var password = $(".password").val();
+            var authcode_common = $(".authcode_common").val();
+            var flag = verify(phone, "tel");
+            if (flag == "请输入正确的手机号码") {
+                $(".err_tips_one").show().html("请输入正确的手机号码");
+                return;
+            } else {
+                $(".err_tips_one").hide().html("");
+            }
+            if (password == "") {
+                $(".error_tips").show().html("请输入密码");
+                return;
+            } else if (password.length > 20 || password.length < 6) {
+                $(".error_tips").show().html("请输入6~20位密码");
+                return;
+            } else {
+                $(".error_tips").hide().html("");
+            }
+            if (authcode_common == "") {
+                $(".autocode_tips").show().html("请输入验证码");
+                return;
+            }
+            if (flag == true && password != "" && password.length >= 6 && password.length <= 20 && authcode_common != "") {
+                $(".error_tips").hide();
+                $(".autocode_tips").hide();
+                api_mkt.login({
+                    phone: phone,
+                    password: password,
+                    code: authcode_common
+                }, function(data) {
+                    $(".loc_img_topbar").click();
+                    if (data.status == 200) {
+                        //$.cookie('exchangeToken', 'logined',{"expires":"h0.5"},"guorenmarket");
+                        $.cookie('exchangeToken', 'logined');
+                        $("#msg_num_top").text(0);
+                        $(".login_regist").hide();
+                        $(".login_header").show();
+                        $(".popDiv").hide();
+                        $(".bg").hide();
+                        $(".loginarea").hide();
+                        $(".afterlogin").show().css("height","326px");
+                        global_loginuserphone = data.data.phone;
+                        global_loginusername = data.data.name ? data.data.name : "";
+                        global_loginuseruid = data.data.uid;
+                        $.cookie("global_loginuserphone", global_loginuserphone);
+                        $.cookie("global_loginusername", global_loginusername);
+                        $.cookie("global_loginuseruid", global_loginuseruid);
+                        synchronous();
+                        setInterval(synchronous, 60000);
+                        if (global_loginusername != "") {
+                            $("#logined_username").html(global_loginusername);
+                            whether_auth = true;
+                        } else {
+                            whether_auth = false;
+                            $("#logined_username").html(global_loginuserphone.substr(0, 3) + '****' + global_loginuserphone.substr(7, 4));
+                        }
+                        $("#uidval").html(global_loginuseruid);
+                        $(".top_em").html(global_loginuserphone.substr(0, 3) + '****' + global_loginuserphone.substr(7, 4));
+                        var whether_auth_val = "";
+                        if (whether_auth) {
+                            $("#goone").on("click", function() {
+                                $.cookie("loginfromwhichpage", "three");
+                                location.href = "./cnydepositswithdrawal.html";
+                            });
+                            $("#gotwo").on("click", function() {
+                                $.cookie("loginfromwhichpage", "three");
+                                location.href = "./cnydepositswithdrawal.html?formindex='index'";
+                            });
+
+                            whether_auth_val = global_loginusername;
+                            $(".bottom_em_i")[0] ? $(".bottom_em_i")[0].style.background = "url(./images/index_already_authentication.png)" : "";
+                        } else {
+                            $("#goone").on("click", function() {
+                                $.cookie("loginfromwhichpage", "three");
+                                location.href = "./conditionofassets.html";
+                            });
+                            $("#gotwo").on("click", function() {
+                                $.cookie("loginfromwhichpage", "three");
+                                location.href = "./conditionofassets.html";
+                            });
+
+                            whether_auth_val = '未认证';
+                            $(".bottom_em_i")[0] ? $(".bottom_em_i")[0].style.background = "url(./images/index_no_auth.png)" : "";
+                        }
+                        $("#whether_auth").html(whether_auth_val); //是否实名认证的标识
+                        var whichpage = $.cookie("loginfromwhichpage");
+                        if (whichpage == "one") {
+                            location.href = "./index.html";
+                        } else if (whichpage == "two") {
+                            location.href = "./tradingfloor.html";
+                        } else if (whichpage == "three") {
+                            location.href = "./conditionofassets.html";
+                        } else if (whichpage == "four") {
+                            location.href = "./basicinfo.html";
+                        }
+                        api_mkt.totalAssets({}, function(data) {
+                            if (data.status == 200) {
+                                var totalAssets = data.data.cnyBalance + data.data.cnyLock;
+                                var totalNuts = data.data.gopBalance + data.data.gopLock;
+                                //$('#thelatestprice').html(thelatestprice); //页面顶部 最新成交价
+                                var totalvalue = totalNuts * $('#thelatestprice').html() + totalAssets;
+                                $('.lf_asset_center').html(totalvalue.toFixed(2)); //总资产
+                                $('.rg_asset_center').html(totalNuts.toFixed(2)); //总果仁
+
+                                var cnyBalance = data.data.cnyBalance;
+                                $.cookie('allCNY', cnyBalance);
+                                $('.w_b_l_one').html("<em>账户余额：" + data.data.cnyBalance + " CNY</em>");
+                                $('.w_b_l_two').html("<em>果仁余额：" + data.data.gopBalance + " GOP</em>");
+                            } else if (data.status == 305) {} else if (data.status == 400) {} else {}
+                        });
+                    } else if (data.status == 305) {
+                        showWarnWin(data.msg, 1e3);
+                    } else if (data.status == 400) {
+                        if (data.msg == "验证码错误") {
+                            $(".autocode_tips").show().html(data.msg);
+                        } else if (data.msg == "手机号未注册") {
+                            $(".err_tips_one").show().html("用户名或密码错误，请重新登录");
+                        } else if (data.msg == "登录密码错误") {
+                            $(".error_tips").show().html("用户名或密码错误，请重新登录");
+                        } else if (data.data && data.data.num && data.data.num <= 10) {
+                            if (data.data.num >= 5) {
+                                if (data.data.num == 10) {
+                                    $(".error_tips").show().html("帐号已经锁定，请找回您的登录密码");
+                                } else {
+                                    $(".error_tips").show().html("还有" + (10 - data.data.num) + "次输入机会");
+                                }
+                            } else if (data.data.num < 5 && data.data.msg == "登录密码错误") {
+                                $(".error_tips").show().html("用户名或密码错误，请重新登录");
+                            }
+                        } else if (data.msg == "error" && data.data.msg == "登录密码错误") {
+                            $(".error_tips").show().html("用户名或密码错误，请重新登录");
+                        } else if (data.msg == "密码长度错误") {
+                            $(".error_tips").show().html("用户名或密码错误，请重新登录");
+                        } else {
+                            $(".autocode_tips").show().html(data.msg);
+                        }
                     } else {
                         $(".autocode_tips").show().html(data.msg);
                     }
-                } else {
-                    $(".autocode_tips").show().html(data.msg);
-                }
-                // if(data.msg=="登录密码错误"){
-                //     $(".error_tips_index").show().html(data.msg);
-                // } else if(data.msg=="手机号未注册"){
-                //     $(".error_tips_one").show().html(data.msg);
-                // } else {
-                //     $(".autocode_tips").show().html(data.msg);
-                // }
-
-                //err_tips_one
-            });
+                });
+            }
         }
-        // if (popup_login_times > 3) {
-        //     $("#authcode").show();
-        //     $(".popup_login_btn").css("top", "250px");
-        //     $(".bottom_div").css("top", "284px");
-        // } else {
-        //     $(".popup_login_btn").css("top", "190px");
-        //     $(".bottom_div").css("top", "226px");
-        // }
     });
     $(".global_loginbtn").on('click', function() {
         $(".popDiv").show();
@@ -573,7 +693,7 @@ var showWarnWin = function(mes, time) {
 };
 
 
-window.addEventListener("keyup",function(){
+window.addEventListener("keyup", function() {
     if (event.keyCode == 13) {
         event.returnValue = false;
         event.cancel = true;

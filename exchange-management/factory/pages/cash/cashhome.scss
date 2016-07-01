@@ -176,14 +176,14 @@ $fontSize:16px;
     display: inline;
     width: 400px;
     height: auto;
-    margin-left: 150px;
+    margin-left: 30px;
 }
 .d1{
-    width: 150px;
+    width: 90px;
     display: inline-block;    
 }
 .d2{
-    width: 150px;
+    width: 90px;
     display: inline-block;
 }
 .d1 img,.d2 img{
@@ -192,4 +192,39 @@ $fontSize:16px;
     top: -1px;
     width: 14px;
     height: 14px;
+}
+
+.d3 img {
+        top: 9px;
+    position: relative;
+}
+
+.d3,.d4{
+    width: 90px;
+    display: inline-block;
+}
+
+.d4 img {
+        top: 9px;
+    position: relative;
+}
+
+.d5,.d6,.d7{
+    width: 90px;
+    display: inline-block;
+}
+
+.d5 img {
+    top: 9px;
+    position: relative;
+}
+.d6 img {
+    top: 9px;
+    position: relative;
+}
+.d7 img {
+    top: 12px;
+    position: relative;
+    width: 10px;
+    height: 10px;
 }

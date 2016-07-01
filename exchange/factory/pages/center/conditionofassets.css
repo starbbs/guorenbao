@@ -278,13 +278,13 @@
     display: inline;
     top: 28px;
     position: absolute;
-    left: 100px;
+    left: 77px;
 }
 .usable_cny div:nth-child(3){
     display: inline;
     top: 28px;
     position: absolute;
-    left: 300px;
+    left: 340px;
 }
 .btnA{
     display: inline-block;
@@ -308,7 +308,7 @@
     display: inline;
     top: 22px;
     position: absolute;
-    right: 230px;
+    right: 140px;
 }
 .bigsize{
     font-size:1.8rem;

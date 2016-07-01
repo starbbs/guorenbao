@@ -56,6 +56,8 @@ require(['api_mkt','cookie'], function(api_mkt) {
                         } else {
                         }
                     });
+                    // console.log(data.data.list);
+                    $("#account_address").val(data.data.list.address);
                     $("#account_name").html(data.data.list.mobile.substr(0,3)+'****'+data.data.list.mobile.substr(7,4));
                     $("#account_uid").html(data.data.list.uid);
                 }
@@ -65,7 +67,11 @@ require(['api_mkt','cookie'], function(api_mkt) {
 
 
 
-    
+    $('.copy_address').click(function(){
+        $('#account_address').select();  
+        document.execCommand("Copy");
+        showWarnWin('已复制，可以贴粘。',1e3); 
+    });
 
     $(".close_btn").on("click",function(){
         $(".popDiv").hide();

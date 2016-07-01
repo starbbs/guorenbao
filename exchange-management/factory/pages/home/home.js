@@ -26,9 +26,11 @@ require(['api_mkt_management'], function(api_mkt_management) {
     });
     $(function(){
         if($.cookie('key')==''){
-            location.href = "login.html";
+            //location.href = "login.html";
+            // alert("ccc")
         }
         if($('.div-2-name').text() == ''){
+            // alert("ddd")
             window.location.href="login.html";
         }
     });
