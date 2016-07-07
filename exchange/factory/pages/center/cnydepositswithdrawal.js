@@ -1,5 +1,22 @@
-require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,decimal) {
+function trimRight(s){
+            if(s == null) return "";
+            var whitespace = new String(" \t\n\r");
+            var str = new String(s);
+            if (whitespace.indexOf(str.charAt(str.length-1)) != -1){
+                var i = str.length - 1;
+                while (i >= 0 && whitespace.indexOf(str.charAt(i)) != -1){
+                    i--;
+                }
+                str = str.substring(0, i+1);
+            }
+            return str;
+        }
 
+
+        
+
+require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,decimal) {
+        $.cookie("whetherreload","0");
         $('.rmbxh').on('click',function(){
             $(this).addClass('bottomon');
             $('.rmbtx').removeClass('bottomon');
@@ -12,6 +29,8 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             $('.recharge').hide();
             $('.withdraw_deposit').show();
         });        
+
+        
 
         var flag = false;
         $('.messagenum_area').on("click",function(){
@@ -29,6 +48,15 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                 $(".msg_num").css("color","#cccccc");
             }
         });
+
+        function Trim(str, is_global) {
+            var result;
+            result = str.replace(/(^\s+)|(\s+$)/g, "");
+            if (is_global.toLowerCase() == "g") {
+                result = result.replace(/\s/g, "");
+            }
+            return result;
+        }
 
         //开户人姓名 
         api_mkt.basic(function(data) {
@@ -89,6 +117,8 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                         $(".money-new").text('¥'+$(this).parent().find('.money').text());                
                         $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
                         $('.bankName').text($(this).parent().find('.bank').text() +'网银');
+
+                        $(".zsyhwy").text($(this).parent().find('.bank').text());
                         //关闭弹出层 -生成汇款单
                         $(".span-text").click(function(){
                             $(".mydiv").css("display","none");
@@ -196,6 +226,15 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             }
         });
 
+        function Trim(str, is_global) {
+            var result;
+            result = str.replace(/(^\s+)|(\s+$)/g, "");
+            if (is_global.toLowerCase() == "g") {
+                result = result.replace(/\s/g, "");
+            }
+            return result;
+        }
+
         //获取验证码-人民币转出
         $('#VerificationCodeBtn').click(function(){
             /*if(flag3 == true){
@@ -278,6 +317,18 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             $("#bank-idcard").keyup(function(){
                 $(this).val($(this).val().replace(/[^0-9$]/g,''));
             });
+
+            var change = function(){
+                var card = $.cookie('bankNum');
+                card = card.replace(/\D/g,'')
+                var ncard='';
+                for(var n=0;n<card.length;n=n+4){
+                    ncard += card.substring(n,n+4)+" ";
+                }
+                return ncard.replace(/(\s*$)/g,"");
+                // console.log(ncard.replace(/(\s*$)/g,""));
+                // $('#cardNo').val(ncard.replace(/(\s*$)/g,""));
+            }
             
             //人民币转出申请 弹出层        
             $(".Withdrawalsbtn").click(function(){
@@ -299,14 +350,14 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                    $('.addBankCard').html('<a href="withdraw.html" style="color:#0bbeee;">+ 添加银行卡</a><span style="color:red;margin-left:25px;"> 请点击添加银行卡</span>');
                 }else{ 
                     //弹出层理面的内容
-                    
-                    $(".WithdrawalsCard").text($.cookie('bankNum'));
+                    //console.log(/\S{5}/.test($.cookie('bankNum')) && $.cookie('bankNum').val($.cookie('bankNum').replace(/\s/g,'').replace(/(.{4})/g, "$1 ")));
+                    $(".WithdrawalsCard").text(change());
                     $(".WithdrawalsBank").text($.cookie('bankName'));
                     $(".WithdrawalsName").text($.cookie('bankUserName'));
                     var amount = decimal.getTwoPs($("#WithdrawalsAmount").val());
                     var Fee = decimal.getTwoPs($('.WithdrawalsFee').text());
                     $(".WithdrawalsAmount").text('¥'+amount);
-                    $(".WithdrawalsRealAmount").text('¥'+decimal.floatSubtract(amount , Fee));
+                    $(".WithdrawalsRealAmount").text('¥'+decimal.getTwoPs(decimal.floatSubtract(amount , Fee)));
                     $('.msg-WithdrawalsPayPwd').text("");
                     //接口：人民币转出
                     api_mkt.rmbWithdrawals({          
@@ -410,18 +461,21 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             if($(this).val()>20000){
                 $(this).val("20000");
                 $(".msg-more-tips").show();
-                setTimeout(function(){
-                    $(".msg-more-tips").hide();
-                },1000);
+                // setTimeout(function(){
+                    // $(".msg-more-tips").hide();
+                // },3000);
             }
         });
 
+        $(".regist_rg_input").on("focus",function(){
+            $(".msg-more-tips").hide();
+        });
 
         //银行账号校验
         var btnConfirm2 = false;
         $("#bank-idcard").blur(function(){
             //console.log(api_mkt.basePath2);
-            var bankIdcard = $("#bank-idcard").val();
+            var bankIdcard = Trim($("#bank-idcard").val(),"G");
             var reg = /^(\d{16}|\d{19})$/;
             if(!bankIdcard || !reg.exec(bankIdcard)){
                 btnConfirm2 = false;
@@ -435,7 +489,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                     dataType: "json",
                     url: api_mkt.basePath2,
                     data: JSON.stringify({
-                        'bankCard':$("#bank-idcard").val()
+                        'bankCard':Trim($("#bank-idcard").val(),"G")
                     }),
                     cache: false,
                     success: function(data) {
@@ -499,16 +553,17 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             }else if(btnConfirm2 == false){
                 $('.msg-bank-idcard').show().text('请输入正确的银行账号');
             }else if(btnConfirm3 == false){
-                $('.msg-phone').show().text('请输入手机正确手机号码');
+                $('.msg-phone').show().text('请输入正确的手机号码');
             }else{
                 //打开弹出层-生成汇款单 
                 $(".mydiv").css("display","block");
-                $(".bg1").css("display","block"); 
+                $(".bg1").css("display","block");
+                $(".zsyhwy").html($("#bank").val());
                 $(".money-new").text('¥'+decimal.getTwoPs($('#bank-money').val())); 
                 $('.bankName').text($("#bank").val()+'网银');
                 //接口：人民币充值
                 api_mkt.rmbRecharge({          
-                    'bankId':$('#bank-idcard').val(),
+                    'bankId':Trim($('#bank-idcard').val(),"G"),
                     'rechargeMoney':$('#bank-money').val(),
                     'phone':$('#phone').val().indexOf("*")>0?$('#phone').attr("data-phone"):$('#phone').val(),
                     "bankName":$("#bank").val()     
@@ -555,6 +610,26 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                 $(this).css('backgroundColor','#fff');
             }
         });
+
+        $(function(){
+            // alert("mylove1");
+
+            $("#bank-money").bigGlass(2);
+            $("#bank-idcard").bigGlass2(1);
+
+            $('#bank-idcard').on('blur',function(){
+                trimRight($(this).val());
+            });
+            $('#bank-idcard').on('keypress',function(){
+                var $this = $(this),v = trimRight($this.val());
+                /\S{5}/.test(v) && $this.val(v.replace(/\s/g,'').replace(/(.{4})/g, "$1 "));
+            });
+            $('#bank-idcard').on('keyup',function(){
+                var $this = $(this),v = trimRight($this.val());
+                /\S{5}/.test(v) && $this.val(v.replace(/\s/g,'').replace(/(.{4})/g, "$1 "));
+            });
+        });
+
         //接受跳转参数
         $(function() {
             function getQueryString(name) {
@@ -599,6 +674,16 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                 $('.recharge').hide();
                 $('.withdraw_deposit').show();
             }
+            var d = getQueryString("rel");
+            if(d){
+                // alert("a");
+                if($.cookie("whetherreload")){
+                    // alert("b");
+                } else {
+                    // alert("c");
+                    $.cookie("whetherreload","1");
+                    window.location.reload();
+                }
+            }
         });
-        
 });
