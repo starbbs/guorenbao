@@ -1,4 +1,42 @@
+function trimRight(s){
+            if(s == null) return "";
+            var whitespace = new String(" \t\n\r");
+            var str = new String(s);
+            if (whitespace.indexOf(str.charAt(str.length-1)) != -1){
+                var i = str.length - 1;
+                while (i >= 0 && whitespace.indexOf(str.charAt(i)) != -1){
+                    i--;
+                }
+                str = str.substring(0, i+1);
+            }
+            return str;
+        }
+        
+
 require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
+
+    $.cookie("whetherreload","0");
+    $(function(){
+            // alert("mylove2");
+            // $('#bank-idcard').on('keyup',function(){
+            //     var $this = $(this),
+            //         v = $this.val();
+            //     /\S{5}/.test(v) && $this.val(v.replace(/\s/g,'').replace(/(.{4})/g, "$1 "));
+            // });
+            $("#bank-idcard").bigGlass2(1);
+
+            $('#bank-idcard').on('blur',function(){
+                trimRight($(this).val());
+            });
+            $('#bank-idcard').on('keypress',function(){
+                var $this = $(this),v = trimRight($this.val());
+                /\S{5}/.test(v) && $this.val(v.replace(/\s/g,'').replace(/(.{4})/g, "$1 "));
+            });
+            $('#bank-idcard').on('keyup',function(){
+                var $this = $(this),v = trimRight($this.val());
+                /\S{5}/.test(v) && $this.val(v.replace(/\s/g,'').replace(/(.{4})/g, "$1 "));
+            });
+        });
 
     $('.rmbxh').on('click', function() {
         $(this).addClass('bottomon');
@@ -139,8 +177,16 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
     var paypwdConfirm=false;//支付密码校验
     var codeConfirm=false;//短息验证码校验
     //银行账号校验-人民币转出管理
+    function Trim(str, is_global) {
+        var result;
+        result = str.replace(/(^\s+)|(\s+$)/g, "");
+        if (is_global.toLowerCase() == "g") {
+            result = result.replace(/\s/g, "");
+        }
+        return result;
+    }
     $("#bank-idcard").blur(function() {
-        var bankIdcard = $("#bank-idcard").val();
+        var bankIdcard = Trim($("#bank-idcard").val(),"G");
         var reg = /^(\d{16}|\d{19})$/;
         if (!bankIdcard || !reg.exec(bankIdcard)) {
         	cardConfirm = false;
@@ -154,7 +200,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                 dataType: "json",
                 url: api_mkt.basePath2,
                 data: JSON.stringify({
-                    'bankCard': $("#bank-idcard").val()
+                    'bankCard': Trim($("#bank-idcard").val(),"G")
                 }),
                 cache: false,
                 success: function(data) {
@@ -283,7 +329,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
             api_mkt.rmbWithdrawalsManageAdd({
                 'name': auth_name,
                 'bank': $('#bank').val(),
-                'bankId': $('#bank-idcard').val(),
+                'bankId': Trim($('#bank-idcard').val(),"G"),
                 // 'bankProvince': $('.select-area').find('option:selected').text(),
                 // 'bankCity': $('.select-city').find('option:selected').text(),
                 // 'subbank': $('#subbank').val(),
@@ -596,6 +642,16 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                 $('.recharge').hide();
                 $('.withdraw_deposit').show();
                 $('.nut-two').hide();
+            }
+
+            var d = getQueryString("rel");
+            if(d){
+                console.log($.cookie("whetherreload"));
+                if($.cookie("whetherreload")){
+                } else {
+                    $.cookie("whetherreload","1");
+                    window.location.reload();
+                }
             }
         });
 

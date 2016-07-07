@@ -524,6 +524,10 @@ position: relative; */
 .aside-table-tbody tr:hover {
     background: #FAFAFA; 
 }
+
+.aside-table tr td:nth-child(1){
+    padding:0 12px;
+}
 .gpal_address{
     width:80%;
     border:none;
@@ -544,6 +548,9 @@ position: relative; */
     bottom: 50%;
     z-index: 2;
 }
+.gdhdown{
+    height:30px;
+}
 #floor_bg {
     background-color: #333333;
     width: 100%;
@@ -554,7 +561,11 @@ position: relative; */
     position: fixed !important;  
     position: absolute;
 }
-
+div#tipsfooter{
+    margin-left: 74px;
+    width: 452px;
+    text-align: left;
+}
 .note_div {
     width: 320px;
     height: 230px;
@@ -740,3 +751,9 @@ position: relative; */
     background: url(../images/center_bgNut.png) no-repeat 41px 17px;
 }
 
+.i1{
+    width:150%;
+}
+.i2{
+    width:120%;
+}

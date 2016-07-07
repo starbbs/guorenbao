@@ -424,3 +424,7 @@
 .msg_span{
     margin-right:35px;
 }
+
+.first_link a:visited{
+    color:red;
+}

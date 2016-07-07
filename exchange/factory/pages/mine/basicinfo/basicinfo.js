@@ -56,20 +56,22 @@ require(['api_mkt','cookie'], function(api_mkt) {
                                     location.href = "./modifyloginpassword.html";
                                 });
                                 $(".jumptwo").on("click",function(){
-                                    if(global.payLocked){
-                                        window.location.reload();
-                                        $(window).scrollTop(0);
-                                        return false;
-                                    }
-                                    location.href = "./modifypaymentcode.html";
+                                    // if(global.payLocked){
+                                    //     window.location.reload();
+                                    //     $(window).scrollTop(0);
+                                    //     return false;
+                                    // }
+                                    // location.href = "./modifypaymentcode.html";
                                 });
+                                
                                 $(".jumpthree").css("color","#cccccc");
+                                $(".jumptwo").css("color","#cccccc");
                             }
                         } else {
                         }
                     });
                     // console.log(data.data.list);
-                    $("#account_address").val(data.data.list.address);
+                    $("#account_address").val(data.data.list.gOPAddress);
                     $("#account_name").html(data.data.list.mobile.substr(0,3)+'****'+data.data.list.mobile.substr(7,4));
                     $("#account_uid").html(data.data.list.uid);
                 }

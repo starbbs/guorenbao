@@ -86,8 +86,9 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             $(".mydiv").css("display","block");
             $(".bg").css("display","block");               
             $(".remittance-id").text($(this).parent().find('.txid').text());
-            $(".money-new").text($(this).parent().find('.money').text());                
+            $(".money-new").text('¥'+$(this).parent().find('.money').text());                
             $(".remittance-note-numbe-newr").text($(this).parent().find('.uid').text());
+            $(".zsyhwy").text($(this).parent().find(".bank").text());
             //关闭弹出层 -生成汇款单
             $(".span-text").click(function(){
                 $(".mydiv").css("display","none");

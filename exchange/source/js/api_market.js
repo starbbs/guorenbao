@@ -1,7 +1,7 @@
 define('api_mkt', ['cookie'], function() {
-    var basePath = 'http://localhost/';                 //本地环境
+    // var basePath = 'http://localhost/';                 //本地环境
     // var basePath = 'https://www.goopal.net.cn/'; //旧的正式环境
-    // var basePath = './';  //测试环境和正式环境都用这个
+    var basePath = './';  //测试环境和正式环境都用这个
     var api = {};
     // api.basePath2 = 'https://endpoint.goopal.com.cn/common/checkBankCard';  //线上环境
     api.basePath2 = 'http://goopal.xiaojian.me/common/checkBankCard'; //测试环境
@@ -88,12 +88,14 @@ define('api_mkt', ['cookie'], function() {
                             goIndex(true);
                         }
                         if(data.msg=="用户未实名认证"){
+                            if(location.href.indexOf('/footer.html') != -1){
+                                $(".popuptips").remove();    
+                            }
                         	$(".popuptips").attr("data-authed","false");
                             var loginfromwhichpage = $.cookie("loginfromwhichpage");
                             $(".quoted_price_top").css("margin-top","0px");
                             $(".center_content").css("margin-top","0px");
                             if(loginfromwhichpage=="one"){
-                                // $(".popuptips").slideUp();
                                 $(".popuptips").hide();
                             } else if(loginfromwhichpage=="two"){
                                 $(".popuptips").slideDown();
@@ -103,6 +105,8 @@ define('api_mkt', ['cookie'], function() {
                                 } else {
                                     if(location.href.indexOf('./index.html') != -1){
 
+                                    } else if(location.href.indexOf('./conditionofassets.html')){
+                                        
                                     } else {
                                         location.href="./conditionofassets.html";
                                         $(".popuptips").slideDown();
@@ -115,9 +119,12 @@ define('api_mkt', ['cookie'], function() {
                                         location.href="./basicinfo.html";
                                     }
                                 } else {
+                                    // alert("x")
+                                    // $(".popuptips").hide();
                                     $(".popuptips").slideDown();
                                 }
                             }
+                            $(".popuptips").hide();
                         }
                     } else if(data.status==444){
                         clearcookie();

@@ -380,13 +380,13 @@ span#cnzz_stat_icon_1259059869{
 }
 
 .links div:nth-of-type(1) {
-    position: absolute;
-    top: 82px;
+        position: absolute;
+    top: 72px;
 }
 
 .links div:last-child {
     position: absolute;
-    bottom: 18px;
+    bottom: 22px;
 }
 
 .bottom h3 {}
@@ -401,7 +401,7 @@ span#cnzz_stat_icon_1259059869{
 .bottom_down .bottom_down_up div {
     width: 200px;
     float: left;
-    margin-top: 24px;
+    margin-top: 18px;
     color: #999;
 }
 
@@ -762,10 +762,12 @@ input:-ms-input-placeholder {
     text-decoration:underline;
 }
 .bottomimg{
-    position: relative;
-    top: 3px;
-    left: 0px;
-    margin-right: 4px;
+        position: relative;
+    top: 2px;
+    left: 2px;
+    margin-right: 5px;
+    width: 14px;
+    height: 14px;
 }
 .moreCheck{
     color:#0bbeee;
@@ -832,4 +834,19 @@ a {
 
 .hzhbimg:hover{
     background:url('../images/footer_hzhb_hover.png') no-repeat 0 0;
+}
+
+.autocode_tipss{
+    top: 40px;
+    height: 20px;
+    left: 0px;
+    line-height: 20px;
+    display: none;
+    float: left;
+    width: 120px;
+    color: #ff6600;
+    position: absolute;
+    left: 0px;
+    top: 38px;
+    float: left;
 }

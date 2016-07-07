@@ -12,6 +12,11 @@
     <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="./js/require.js"></script>
     <!-- <script type="text/javascript" src="js/withdraw-city.js"></script> -->
+    <script type="text/javascript" src="./js/bigGlass2.js"></script>
+
+    <script type="text/javascript">
+        
+    </script>
 </head>
 <body>
     <div class="wrapper">
@@ -20,9 +25,9 @@
         <div class="center_content">
             <div class="leftside">
                 <a class="ls_tab" href="conditionofassets.html">资产状况</a>
-                <a class="ls_tab" href="cnydepositswithdrawal.html">人民币充值/转出</a>
+                <a class="ls_tab" href="cnydepositswithdrawal.html?rel=1">人民币充值/转出</a>
                 <a class="ls_tab" href="nutstopupwithdrawal.html">果仁充值/转出</a>
-                <a class="ls_tab ls_tab_on" href="withdraw.html">转出管理</a>
+                <a class="ls_tab ls_tab_on" href="withdraw.html?rel=1">转出管理</a>
             </div>
             <div class="rightside">
                 <div class="topline">
@@ -67,11 +72,11 @@
                         </div>
                         <div class="rg_rg_input">
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入银行账号" id="bank-idcard"/>
+                                <input class="regist_rg_input" type="text" placeholder="请输入银行账号" id="bank-idcard" maxlength="24" />
                                 <span class="msg-bank-idcard"></span>
                             </div>
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="根据卡号返回所属银行" id="bank" style="border:none;" readonly="true"/>
+                                <input class="regist_rg_input" type="text" placeholder="" id="bank" style="border:none;" readonly="true"/>
                                 <span class="msg-bank"></span>
                             </div>
                             <!-- <div class="regist_input_div">
@@ -238,6 +243,10 @@
         // $(function(){
         //     $("span[id^='cnzz_stat_icon_1259059869']").hide();
         // })
+        
+
+        
+        
     </script>
 </body>
 </html>

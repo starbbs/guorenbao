@@ -191,7 +191,7 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
         // depthchart_painting(obj1,obj2);
     }
 
-    var depthchart_painting = function(ojb1, obj2) {
+    var depthchart_painting = function(obj1, obj2) {
         $('#deepmap_container').highcharts({
             chart: {
                 type: 'area',
@@ -201,34 +201,39 @@ require(['api_mkt', 'mkt_info', 'mkt_trade', 'decimal', 'cookie'], function(api_
                         var series1 = this.series[1];
                         setInterval(function() {
                             api_mkt.depthchart(function(data) {
-                                console.log(data);
+                                // console.log("aaaaaaaaa")
+                                // console.log(data);
+                                //  console.log("bbbbbbbbbb")
+                                 var range=3.00;
                                 if(data&&data[0].length){
-                                    var range=3.00;
+                                    //var range=3.00;
                                     var max=data[0][data[0].length-1][0]-range;
                                     var arr0=[];
                                     for (i=0;i<data[0].length;i++){
-                                        if (data[0][i][0]>max)
+                                        if (data[0][i][0]>max||data[0][i][0]==max)
                                         {arr0.push(data[0][i])}
                                     }
                                     data[0]=arr0;
                                     console.log(data[0])
+                                }
+                                if(data&&data[1].length){
                                     var min=data[1][0][0]+range;
                                     var arr1=[];
                                     for (i=0;i<data[1].length;i++){
-                                        if (data[1][i][0]<min)
+                                        if (data[1][i][0]<min||data[0][i][0]==min)
                                         {arr1.push(data[1][i])}
                                     }
                                     data[1]=arr1;
                                     console.log(data[1])
+                                }
                                     
                                     obj1 = data[0].sort(function(t, a) {
                                         return t[0] > a[0] ? 1 : t[0] < a[0] ? -1 : 0
                                     });
                                     obj2 = data[1];
-                                }
+                                });
                                 series0.setData(obj1);
                                 series1.setData(obj2);
-                            });
                         }, 1000);
                     }
                 }

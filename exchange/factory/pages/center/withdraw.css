@@ -698,3 +698,33 @@
     left: 20px;
     font-weight: 600;
 }
+
+#bigGlass2 {
+    height: 30px;
+    position: absolute;
+    background-color: #fffdbc;
+    display: none;
+    line-height: 30px;
+    font-size: 16px;
+    width: 102%;
+    font-weight: bold;
+    padding: 0 5px;
+    border: 1px solid #fcd090;
+    top: -30px;
+    border-bottom: none;
+}
+
+#bigGlass2 span {
+    margin-left: 8px;
+}
+
+#bigGlass2 span:first-child {
+    margin-left: 0;
+}
+
+#bigGlass2 span {
+    position: relative;
+    top: 0px;
+    margin-top: 0px;
+    font-size: 16px;
+}

@@ -3,37 +3,31 @@ $.fn.bigGlass = function(type){
 	var gId = $(this).attr("id");
 	var glassStr = '<div id="bigGlass"><nobr><span></span><span></span><span></span><span></span></nobr></div>';
 	$(this).after($(glassStr));
-	//var glassStr = '<div id="bigGlass"><nobr><span></span><span></span><span></span><span></span></nobr></div>';
-	//$(this).after($(glassStr));
-	//
 	$(this).focus(function(){
 		$("#bigGlass2").hide();
 		showBigGlass();
 	});
-	$(this).keyup(function(){
+	$(this).keyup(function(event){
 		console.log(gId);
-		showBigGlass();
+		if((event.keyCode<48||event.keyCode>57)&&event.keyCode!=8&&(event.keyCode<96||event.keyCode>105)){
+			return false;
+		} else {
+			showBigGlass();
+		}
 	});
 	//生成放大镜
 	function showBigGlass(){
 		var inputVal;
-		// if(gId==""){
-		// 	inputVal = $("#"+gId).val();
-		// } else {
-
+		// if($("#"+gId).val()==""){
+		// 	alert("hi")
 		// }
 		inputVal = $("#"+gId).val(), l = inputVal.length;
-		// $("#bigGlass").css({"top":(glassT-46)+"px","left":glassL-1+"px"});
-		 // style="top:'+(glassT-46)+'px;left:'+glassL-1+'px;"
-		
 		if(!inputVal){
 			$("#bigGlass").show();
 			$("#bigGlass").html("充值金额");
 			return false;
 		} else {
-			// $("#bigGlass").hide();
-			// return false;
-			//console.log("asdfJKL")
+			
 		}
 		//身份证号码与电话号码展示逻辑不同，做区分
 		$("#bigGlass").html('<nobr><span></span><span></span><span></span><span></span><span></span></nobr>');
@@ -63,16 +57,6 @@ $.fn.bigGlass = function(type){
 			if(l <= 12){
 				$("#bigGlass").find("span").eq(0).text(inputVal);
 			}
-			// if(l <= 3){
-			// 	$("#bigGlass").find("span").eq(0).text(inputVal);
-			// }else if(l <= 7){
-			// 	$("#bigGlass").find("span").eq(0).text(inputVal.substring(0,3));
-			// 	$("#bigGlass").find("span").eq(1).text(inputVal.substring(3,l));
-			// }else{
-			// 	$("#bigGlass").find("span").eq(0).text(inputVal.substring(0,3));
-			// 	$("#bigGlass").find("span").eq(1).text(inputVal.substring(3,7));
-			// 	$("#bigGlass").find("span").eq(2).text(inputVal.substring(7,l));
-			// }
 		}
 		$("#bigGlass").show();
 	}

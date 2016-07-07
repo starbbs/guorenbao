@@ -81,6 +81,22 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         location.href = "./index.html";
     });
 
+    var myfunc = function(data){
+        var up_data = $(".phone_loginarea").val();
+        if(up_data&&up_data!=''){
+            if($("#whetherneedVerCode").val()=="1"){
+                $("#authcode").show();
+                $(".popup_login_btn").css("top", "247px");
+                $(".bottom_div").css("top", "290px");
+                needVerCode_common = 1;
+            } else if($("#whetherneedVerCode").val()=="0"){
+                $("#authcode").hide();
+                needVerCode_common = 0;
+                $(".popup_login_btn").css("top", "190px");
+                $(".bottom_div").css("top", "230px");
+            }
+        }
+    }
 
     $(".pageone,.pagetwo,.pagethree,.pagefour").on("click", function() {
         var exchangeToken = $.cookie('exchangeToken');
@@ -92,7 +108,9 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                 if (ff == "首页") {
                     location.href = "./index.html";
                 } else {
+                    // myfunc();
                     $(".popDiv").show();
+                    $(".loc_img_topbar").click();
                     $(".bg").show();
                 }
             }
@@ -100,15 +118,21 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                 $.cookie("loginfromwhichpage", "one");
             } else if (ff == "交易大厅") {
                 $.cookie("loginfromwhichpage", "two");
+                //myfunc();
                 $(".popDiv").show();
+                $(".loc_img_topbar").click();
                 $(".bg").show();
             } else if (ff == "财务中心") {
                 $.cookie("loginfromwhichpage", "three");
+                //myfunc();
                 $(".popDiv").show();
+                $(".loc_img_topbar").click();
                 $(".bg").show();
             } else if (ff == "我的账户") {
                 $.cookie("loginfromwhichpage", "four");
+                //myfunc();
                 $(".popDiv").show();
+                $(".loc_img_topbar").click();
                 $(".bg").show();
             }
         } else {
@@ -175,6 +199,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
             $(".bg").show();
             $(".login_regist").show();
             $(".popDiv").show();
+            $(".loc_img_topbar").click();
             $(".afterlogin").hide();
             // return;
             if ($(this).text() == "基本信息") {
@@ -270,6 +295,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
 
     //右上角登录按钮点击之后出发的事件
     $(".popup_login_btn").on("click", function() {
+        $(".loc_img_topbar").click();
         var password = $(".password").val();
         if ($(".phone").val() == "") {
             $(".err_tips_one").html("手机号不能为空").show();
@@ -404,12 +430,12 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                 $(".error_tips").hide().html("");
             }
             if (authcode_common == "") {
-                $(".autocode_tips").show().html("请输入验证码");
+                $(".autocode_tipss").show().html("请输入验证码");
                 return;
             }
             if (flag == true && password != "" && password.length >= 6 && password.length <= 20 && authcode_common != "") {
                 $(".error_tips").hide();
-                $(".autocode_tips").hide();
+                $(".autocode_tipss").hide();
                 api_mkt.login({
                     phone: phone,
                     password: password,
@@ -499,7 +525,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                         showWarnWin(data.msg, 1e3);
                     } else if (data.status == 400) {
                         if (data.msg == "验证码错误") {
-                            $(".autocode_tips").show().html(data.msg);
+                            $(".autocode_tipss").show().html(data.msg);
                         } else if (data.msg == "手机号未注册") {
                             $(".err_tips_one").show().html("用户名或密码错误，请重新登录");
                         } else if (data.msg == "登录密码错误") {
@@ -519,18 +545,20 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                         } else if (data.msg == "密码长度错误") {
                             $(".error_tips").show().html("用户名或密码错误，请重新登录");
                         } else {
-                            $(".autocode_tips").show().html(data.msg);
+                            $(".autocode_tipss").show().html(data.msg);
                         }
                     } else {
-                        $(".autocode_tips").show().html(data.msg);
+                        $(".autocode_tipss").show().html(data.msg);
                     }
                 });
             }
         }
     });
     $(".global_loginbtn").on('click', function() {
+        $(".loc_img_topbar").click();
         $(".popDiv").show();
         $(".bg").show();
+        myfunc();
     });
     $(".close_btn").on("click", function() {
         $(".popDiv").hide();

@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="./css/jquery-ui.theme.min.css">
     <link rel="stylesheet" type="text/css" href="./css/jquery-ui.min.css">
     <link rel="stylesheet" type="text/css" href="./css/cnydepositswithdrawal.css">
+
     <script type="text/javascript" src="./js/jquery-1.12.1.min.js"></script>
     <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="./js/bigGlass.js"></script>
@@ -22,9 +23,9 @@
         <div class="center_content">
             <div class="leftside">
                 <a class="ls_tab" href="conditionofassets.html">资产状况</a>
-                <a class="ls_tab ls_tab_on" href="cnydepositswithdrawal.html">人民币充值/转出</a>
+                <a class="ls_tab ls_tab_on" href="cnydepositswithdrawal.html?rel=1">人民币充值/转出</a>
                 <a class="ls_tab" href="nutstopupwithdrawal.html">果仁充值/转出</a>
-                <a class="ls_tab" href="withdraw.html">转出管理</a>
+                <a class="ls_tab" href="withdraw.html?rel=1">转出管理</a>
             </div>
             <div class="rightside">
                 <div class="topline">
@@ -78,11 +79,11 @@
                                 <span class="msg-bank-money"></span>
                             </div>
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="请输入银行账号" id="bank-idcard" maxlength="20" />
+                                <input class="regist_rg_input" type="text" placeholder="请输入银行账号" id="bank-idcard" maxlength="24" />
                                 <span class="msg-bank-idcard"></span>
                             </div>
                             <div class="regist_input_div">
-                                <input class="regist_rg_input" type="text" placeholder="根据卡号返回所属银行" id="bank" readonly="readonly" style="border:none;" />
+                                <input class="regist_rg_input" type="text" placeholder="" id="bank" readonly="readonly" style="border:none;" />
                                 <span class="msg-bank"></span>
                             </div>
                             <div class="regist_input_div">
@@ -139,9 +140,9 @@
                             <em>转出须知：</em>果仁市场人民币转出金额不得超过<em>5万元</em>，不得低于<em>10元</em>，
                             <br> 转出费率0.5%，最低手续费为
                             <em>2元</em>。
-                            <br> 人民币转出时间为
+                            <br> 人民币转账处理时间为
                             <em>工作日9:00~16:00</em>。
-                            <br/> 转出申请成功提交后
+                            <br/> 转账申请成功提交后
                             <em>24小时</em>内到账。转出银行卡必须与果仁市场实名认证信息保持一致，若信息无法匹配，您的申请可能会被驳回，转出金额返还至人民币账户。
                             <br/> 客服热线：
                             <em>010-59725386</em>
@@ -286,8 +287,8 @@
             </div>
             <table id="customers">
                 <tr class="gdh">
-                    <td>收款银行账号</td>
-                    <td style="padding-right:10px;" class="bank-card-new">4367420019835644153465132</td>
+                    <td>收款银行账户</td>
+                    <td style="padding-right:10px;" class="bank-card-new">3210 8010 0100 2974 43</td>
                 </tr>
                 <tr class="gdh alt">
                     <td>收款方</td>
@@ -310,13 +311,13 @@
                         <!-- 11408 -->
                     </td>
                 </tr>
-                <tr class="gdh">
+                <tr class="gdh gdhdown">
                     <td class="leftnone topnone" colspan="2" style="line-height: 16px;">*为确保您及时到账，请注意在汇款时填写转账附言</td>
                     <td class="rightnone topnone"></td>
                 </tr>
             </table>
-            <div class="tipsfooter">
-                <b class="sthours">充值单72小时内有效，</b>请在有效时间内使用<b class="zsyhwy">招商银行网银</b>向以上银行账户进行转账 果仁市场在收到您的汇款后会在30分钟内为您到账。
+            <div class="tipsfooter" id="tipsfooter">
+                <b class="sthours">充值单72小时内有效，</b>请在有效时间内使用<b class="zsyhwy">招商银行网银</b>网银向以上银行账户进行转账，果仁市场在收到您的汇款后会在30分钟内为您到账。
             </div>
             <div><a href="javascript:void(0);" class="iknow">我知道了</a></div>
         </div>
@@ -385,10 +386,8 @@
     //     $("span[id^='cnzz_stat_icon_1259059869']").hide();
     // })
     // 
-    $(function() {
-        $("#bank-money").bigGlass(2);
-        $("#bank-idcard").bigGlass2(1);
-    });
+
+    
     </script>
 </body>
 

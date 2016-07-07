@@ -1045,8 +1045,15 @@ div.tip2{
     text-align: left;
     line-height: 20px;
     color: #999999;
+    margin-left: 74px;
+    width: 452px;
+    text-align: left;
 }
-
+#tipsfooter{
+    margin-left: 74px;
+    width: 452px;
+    text-align: left;
+}
 
 .iknow{
     width: 100px;
@@ -1133,3 +1140,4 @@ table.gridtable tr td:nth-child(2){
 .pfyh{
     background: url(../images/center_pfyh.png) no-repeat 10px 15px;
 }
+
