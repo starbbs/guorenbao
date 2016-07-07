@@ -617,17 +617,17 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
             $("#bank-money").bigGlass(2);
             $("#bank-idcard").bigGlass2(1);
 
-            $('#bank-idcard').on('blur',function(){
-                trimRight($(this).val());
-            });
-            $('#bank-idcard').on('keypress',function(){
-                var $this = $(this),v = trimRight($this.val());
-                /\S{5}/.test(v) && $this.val(v.replace(/\s/g,'').replace(/(.{4})/g, "$1 "));
-            });
-            $('#bank-idcard').on('keyup',function(){
-                var $this = $(this),v = trimRight($this.val());
-                /\S{5}/.test(v) && $this.val(v.replace(/\s/g,'').replace(/(.{4})/g, "$1 "));
-            });
+            // $('#bank-idcard').on('blur',function(){
+            //     trimRight($(this).val());
+            // });
+            // $('#bank-idcard').on('keypress',function(){
+            //     var $this = $(this),v = trimRight($this.val());
+            //     /\S{5}/.test(v) && $this.val(v.replace(/\s/g,'').replace(/(.{4})/g, "$1 "));
+            // });
+            // $('#bank-idcard').on('keyup',function(){
+            //     var $this = $(this),v = trimRight($this.val());
+            //     /\S{5}/.test(v) && $this.val(v.replace(/\s/g,'').replace(/(.{4})/g, "$1 "));
+            // });
         });
 
         //接受跳转参数
@@ -674,7 +674,7 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                 $('.recharge').hide();
                 $('.withdraw_deposit').show();
             }
-            var d = getQueryString("rel");
+            /*var d = getQueryString("rel");
             if(d){
                 // alert("a");
                 if($.cookie("whetherreload")){
@@ -684,6 +684,6 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                     $.cookie("whetherreload","1");
                     window.location.reload();
                 }
-            }
+            }*/
         });
 });

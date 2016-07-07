@@ -256,13 +256,17 @@
     color: #666666;
 }
 
+.bottom {
+    height:338px;
+}
+
 .bottom_down_up {
     height: 100px;
     border-bottom: 1px solid #333;
 }
 
 .bottom_down_down {
-    height: 123px;
+    height: 0px;
     position: relative;
 }
 

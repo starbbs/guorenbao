@@ -25,17 +25,17 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
             // });
             $("#bank-idcard").bigGlass2(1);
 
-            $('#bank-idcard').on('blur',function(){
-                trimRight($(this).val());
-            });
-            $('#bank-idcard').on('keypress',function(){
-                var $this = $(this),v = trimRight($this.val());
-                /\S{5}/.test(v) && $this.val(v.replace(/\s/g,'').replace(/(.{4})/g, "$1 "));
-            });
-            $('#bank-idcard').on('keyup',function(){
-                var $this = $(this),v = trimRight($this.val());
-                /\S{5}/.test(v) && $this.val(v.replace(/\s/g,'').replace(/(.{4})/g, "$1 "));
-            });
+            // $('#bank-idcard').on('blur',function(){
+            //     trimRight($(this).val());
+            // });
+            // $('#bank-idcard').on('keypress',function(){
+            //     var $this = $(this),v = trimRight($this.val());
+            //     /\S{5}/.test(v) && $this.val(v.replace(/\s/g,'').replace(/(.{4})/g, "$1 "));
+            // });
+            // $('#bank-idcard').on('keyup',function(){
+            //     var $this = $(this),v = trimRight($this.val());
+            //     /\S{5}/.test(v) && $this.val(v.replace(/\s/g,'').replace(/(.{4})/g, "$1 "));
+            // });
         });
 
     $('.rmbxh').on('click', function() {
@@ -644,15 +644,15 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                 $('.nut-two').hide();
             }
 
-            var d = getQueryString("rel");
-            if(d){
-                console.log($.cookie("whetherreload"));
-                if($.cookie("whetherreload")){
-                } else {
-                    $.cookie("whetherreload","1");
-                    window.location.reload();
-                }
-            }
+            // var d = getQueryString("rel");
+            // if(d){
+            //     console.log($.cookie("whetherreload"));
+            //     if($.cookie("whetherreload")){
+            //     } else {
+            //         $.cookie("whetherreload","1");
+            //         window.location.reload();
+            //     }
+            // }
         });
 
     //判断是否有银行卡
