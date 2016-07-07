@@ -636,6 +636,11 @@ require(['api_mkt', 'mkt_info', 'decimal', 'mkt_trade', 'cookie'], function(api_
 
     $(".popuptips").hide();
 
+
+    $(".imgbanner").on("click",function(){
+        location.href = "./footer.html"
+    });
+
     var login_area_times = 0;
     $(".indexpage_loginarea_btn").on("click", function() {
         var password = $(".password_loginarea").val();
@@ -753,6 +758,7 @@ require(['api_mkt', 'mkt_info', 'decimal', 'mkt_trade', 'cookie'], function(api_
                     }
                     $(".loginarea").hide();
                     $(".afterlogin").show().css("height","326px");
+                    $(".loginarea_maxwidth").css("margin-top","20px");
                 } else if (data.status == 400) {
                     $(".error_tips_index").show().html("手机号或者密码错误");
                     if(data.data.needVerCode==1){
@@ -900,6 +906,7 @@ require(['api_mkt', 'mkt_info', 'decimal', 'mkt_trade', 'cookie'], function(api_
                         }
                         $(".loginarea").hide();
                         $(".afterlogin").show().css("height","326px");
+                        $(".loginarea_maxwidth").css("margin-top","20px");
                     } else if (data.status == 305) {
                         showWarnWin(data.msg, 1e3)
                         login_area_times++;
@@ -947,9 +954,9 @@ require(['api_mkt', 'mkt_info', 'decimal', 'mkt_trade', 'cookie'], function(api_
     // $("#gotwo").on("click", function() {
     //     location.href = "./cnydepositswithdrawal.html?formindex='index'";
     // });
-    $(".imgOne").on("click", function() {
-        location.href = "./footer.html";
-    });
+    // $(".imgOne").on("click", function() {
+    //     location.href = "./footer.html";
+    // });
     var fflat = true;
     $(".eye_i").on("click", function() {
         if (fflat) {

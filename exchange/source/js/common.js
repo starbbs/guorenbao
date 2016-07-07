@@ -88,12 +88,14 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                 $("#authcode").show();
                 $(".popup_login_btn").css("top", "247px");
                 $(".bottom_div").css("top", "290px");
+                $(".popup_loginarea").css("height","326px");
                 needVerCode_common = 1;
             } else if($("#whetherneedVerCode").val()=="0"){
                 $("#authcode").hide();
                 needVerCode_common = 0;
                 $(".popup_login_btn").css("top", "190px");
                 $(".bottom_div").css("top", "230px");
+                $(".popup_loginarea").css("height","280px");
             }
         }
     }
@@ -227,6 +229,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
         $(".login_header").show();
         $(".loginarea").hide();
         $(".afterlogin").show().css("height","326px");
+        $(".loginarea_maxwidth").css("margin-top","20px");
         var global_loginuserphone = $.cookie("global_loginuserphone");
         var global_loginusername = $.cookie("global_loginusername");
         // console.log("-------------"+global_loginuserphone);
@@ -274,10 +277,12 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                         needVerCode_common = 0;
                         $(".popup_login_btn").css("top", "190px");
                         $(".bottom_div").css("top", "230px");
+                        $(".popup_loginarea").css("height","280px");
                     } else if (data.data.needVerCode == 1) {
                         $("#authcode").show();
                         $(".popup_login_btn").css("top", "247px");
                         $(".bottom_div").css("top", "290px");
+                        $(".popup_loginarea").css("height","326px");
                         needVerCode_common = 1;
                     }
                 } else if (data.status == 305 && data.msg == "传入的字段缺失或异常") {
@@ -324,6 +329,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                         $(".bg").hide();
                         $(".loginarea").hide();
                         $(".afterlogin").show().css("height","326px");
+                        $(".loginarea_maxwidth").css("margin-top","20px");
                         global_loginuserphone = data.data.phone;
                         global_loginusername = data.data.name ? data.data.name : "";
                         global_loginuseruid = data.data.uid;
@@ -399,12 +405,14 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                         $("#authcode").show();
                         $(".popup_login_btn").css("top", "247px");
                         $(".bottom_div").css("top", "290px");
+                        $(".popup_loginarea").css("height","326px");
                         needVerCode_common = 1;
                     } else {
                         $("#authcode").hide();
                         needVerCode_common = 0;
                         $(".popup_login_btn").css("top", "190px");
                         $(".bottom_div").css("top", "230px");
+                        $(".popup_loginarea").css("height","280px");
                     }
                 }
             });
@@ -452,6 +460,7 @@ require(['api_mkt', 'mkt_info', 'cookie'], function(api_mkt, mkt_info) {
                         $(".bg").hide();
                         $(".loginarea").hide();
                         $(".afterlogin").show().css("height","326px");
+                        $(".loginarea_maxwidth").css("margin-top","20px");
                         global_loginuserphone = data.data.phone;
                         global_loginusername = data.data.name ? data.data.name : "";
                         global_loginuseruid = data.data.uid;

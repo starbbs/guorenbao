@@ -590,7 +590,8 @@ span#cnzz_stat_icon_1259059869{
 
 .popup_loginarea {
     width: 322px;
-    height: 336px;
+    /* height: 326px; */
+    height:280px;
     margin-left: -161px;
     margin-top: -168px;
     background-color: #ffffff;

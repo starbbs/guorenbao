@@ -943,7 +943,7 @@ progress{
 .imgOne{
     width:100%;
     height: 440px;
-    cursor: pointer;
+    /* cursor: pointer; */
     background: url('../images/index_index_banner.png') no-repeat center center;
 
     /* background-color: #2b303b; */
@@ -1031,4 +1031,5 @@ canvas{
     top: -336px;
     max-width: 1200px;
     margin: 0 auto;
+    cursor:pointer;
 }
