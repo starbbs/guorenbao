@@ -101,13 +101,18 @@ define('api_mkt', ['cookie'], function() {
                                 $(".popuptips").slideDown();
                             } else if(loginfromwhichpage=="three"){
                                 $(".popuptips").slideDown();
+
+                                // alert("jkll")
+
+
                                 if(location.href.indexOf('/conditionofassets.html') != -1){
                                 } else {
                                     if(location.href.indexOf('./index.html') != -1){
 
-                                    } else if(location.href.indexOf('./conditionofassets.html')){
+                                    } else if(location.href.indexOf('./conditionofassets.html')!=-1){
                                         
                                     } else {
+                                        // alert("asdfjkl..")
                                         location.href="./conditionofassets.html";
                                         $(".popuptips").slideDown();
                                     }

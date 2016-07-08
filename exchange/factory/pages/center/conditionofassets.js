@@ -52,9 +52,6 @@ require(['api_mkt', 'mkt_info','decimal','cookie'], function(api_mkt, mkt_info,d
             //console.log('财务中心-资产状况-账户明细表格，加载失败。');
         }
     });
-        
-    
-
 
     //总资产
     api_mkt.getTotalAssets(function(data) {        
@@ -95,6 +92,20 @@ require(['api_mkt', 'mkt_info','decimal','cookie'], function(api_mkt, mkt_info,d
         }
     });
 
+
+    // api_mkt.realAuth({}, function(data) {
+    //     if (data.status == 200) {
+    //     } else if (data.status == 305) {
+    //     } else if(data.status == 400){
+    //         if(data.msg=="用户未实名认证"){
+    //             $(".noauth").each(function(){
+    //                 $(this)[0].disabled = true;
+    //                 $(this)[0].removeAttribute('href');
+    //             });
+    //         }
+    //     } else {
+    //     }
+    // });
 });
 
     
