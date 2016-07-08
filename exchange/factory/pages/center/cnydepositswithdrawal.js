@@ -590,9 +590,11 @@ require(['api_mkt','mkt_info','decimal','cookie'], function(api_mkt,mkt_info,dec
                     $("#phonePos").attr('checked',false);
                 });
 
-                $(".iknow").click(function(){
+                $(".iknow,.span-text").click(function(){
                     $(".mydiv").css("display","none");
                     $(".bg1").css("display","none");
+                    $(".bg").css("display","none");
+                    window.location.reload();
                 });  
             }
         });

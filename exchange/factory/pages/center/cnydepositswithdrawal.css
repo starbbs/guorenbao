@@ -1135,10 +1135,10 @@ table.gridtable tr td:nth-child(2){
 }
 
 .chinabank{
-    background: url(../images/center_chinabank.png) no-repeat 10px 15px;
+    background: url(../images/center_chinabank.png) no-repeat 16px center;
 }
 
 .pfyh{
-    background: url(../images/center_pfyh.png) no-repeat 10px 15px;
+    background: url(../images/center_pfyh.png) no-repeat 16px center;
 }
 
